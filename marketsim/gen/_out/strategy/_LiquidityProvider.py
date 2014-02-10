@@ -11,13 +11,13 @@ class LiquidityProvider_IEventSideFloatIOrderGeneratorFloatFloat(ISingleAssetStr
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, initialValue = None, priceDistr = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit as _order__curried_sideprice_Limit
-        from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
         from marketsim import _
         from marketsim import rtti
+        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_IFunctionFloat as _order__curried_sideprice_Limit
+        from marketsim.gen._out.math.random._lognormvariate import lognormvariate_FloatFloat as _math_random_lognormvariate
         from marketsim import event
-        from marketsim.gen._out.event._every import Every as _event_Every
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit()
         self.initialValue = initialValue if initialValue is not None else 100.0
@@ -54,10 +54,10 @@ class LiquidityProvider_IEventSideFloatIOrderGeneratorFloatFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._array import Array as _strategy_Array
-        from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide as _strategy_LiquidityProviderSide
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
-        from marketsim.gen._out.side._buy import Buy as _side_Buy
+        from marketsim.gen._out.strategy._array import Array_ListISingleAssetStrategy as _strategy_Array
+        from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat as _strategy_LiquidityProviderSide
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
         return _strategy_Array([_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Sell(),self.initialValue,self.priceDistr),_strategy_LiquidityProviderSide(self.eventGen,self.orderFactory,_side_Buy(),self.initialValue,self.priceDistr)])
     
     def _send(self, order, source):

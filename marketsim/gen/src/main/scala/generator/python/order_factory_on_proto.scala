@@ -41,6 +41,7 @@ object order_factory_on_proto
                               x      : Typed.Function)
             extends FactoryBase
             with    order_factory_curried.Call
+            with    order_factory_curried.DecoratedNameInX
     {
         override type Parameter = FactoryParameter
 

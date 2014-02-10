@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "StopLoss"])
-class StopLoss_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
+class side_StopLoss_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -12,8 +12,8 @@ class StopLoss_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._side_limit import side_Limit as _order__curried_side_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit
         from marketsim import rtti
         self.maxloss = maxloss if maxloss is not None else _constant(0.1)
         self.proto = proto if proto is not None else _order__curried_side_Limit()
@@ -31,7 +31,7 @@ class StopLoss_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim.gen._out.order._stoploss import StopLoss
         side = side if side is not None else _side_Sell()
         maxloss = self.maxloss
@@ -46,5 +46,5 @@ def side_StopLoss(maxloss = None,proto = None):
     from marketsim import Side
     if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
-            return StopLoss_IFunctionFloatIOrderGenerator(maxloss,proto)
+            return side_StopLoss_IFunctionFloatSideIOrderGenerator(maxloss,proto)
     raise Exception("Cannot find suitable overload")

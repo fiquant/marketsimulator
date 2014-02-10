@@ -9,10 +9,10 @@ class CandleSticks_IObservableFloatFloat(Observable[CandleStick],CandleSticks_Im
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim import types
         from marketsim import CandleStick
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         from marketsim import event
         Observable[CandleStick].__init__(self)

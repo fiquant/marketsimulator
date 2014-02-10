@@ -8,9 +8,9 @@ class Div_IObservableFloatIObservableFloat(Observable[float],_Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         from marketsim import event
         from marketsim import float
@@ -49,7 +49,7 @@ class Div_IFunctionFloatIFunctionFloat(Observable[float],_Div_Impl):
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant(1.0)

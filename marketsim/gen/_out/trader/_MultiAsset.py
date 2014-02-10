@@ -12,7 +12,7 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
       At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
     """ 
     def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):
-        from marketsim.gen._out.strategy._arbitrage import Arbitrage as _strategy_Arbitrage
+        from marketsim.gen._out.strategy._arbitrage import Arbitrage_ as _strategy_Arbitrage
         from marketsim import rtti
         self.traders = traders if traders is not None else []
         self.strategy = strategy if strategy is not None else _strategy_Arbitrage()

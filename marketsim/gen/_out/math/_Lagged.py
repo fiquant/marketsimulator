@@ -8,9 +8,9 @@ class Lagged_IObservableFloatFloat(Observable[float],Lagged_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         from marketsim import event
         from marketsim import float

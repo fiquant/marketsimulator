@@ -10,7 +10,7 @@ class volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(_VolumeLevels_
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
-        from marketsim.gen._out.veusz._graph import Graph as _veusz_Graph
+        from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph
         from marketsim import rtti
         self.source = source
         self.graph = graph if graph is not None else _veusz_Graph()

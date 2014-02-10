@@ -10,7 +10,7 @@ class OnEveryDt_FloatIFunctionFloat(Observable[float],_OnEveryDt_Impl):
     def __init__(self, dt = None, x = None):
         from marketsim import float
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
         Observable[float].__init__(self)
         self.dt = dt if dt is not None else 1.0

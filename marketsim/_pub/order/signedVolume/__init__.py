@@ -1,4 +1,4 @@
-from marketsim.gen._out.order._curried._signedvolume_limitsigned import signedVolume_LimitSigned as LimitSigned
+from marketsim.gen._out.order.signedVolume._limitsigned import LimitSigned
 
-from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned as MarketSigned
+from marketsim.gen._out.order.signedVolume._marketsigned import MarketSigned
 

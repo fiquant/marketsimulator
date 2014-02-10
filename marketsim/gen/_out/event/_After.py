@@ -7,7 +7,7 @@ class After_IFunctionFloat(_After_Impl):
     """ 
     """ 
     def __init__(self, delay = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
         self.delay = delay if delay is not None else _constant(10.0)
         rtti.check_fields(self)

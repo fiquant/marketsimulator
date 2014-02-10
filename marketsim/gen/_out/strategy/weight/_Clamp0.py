@@ -1,6 +1,7 @@
 def clamp0(): 
+    from marketsim.gen._out.strategy.weight.f._f_clamp0 import f_Clamp0_ as _strategy_weight_f_f_Clamp0
     from marketsim import rtti
-    return f_Clamp0_()
+    return _strategy_weight_f_f_Clamp0()
     raise Exception("Cannot find suitable overload")
 from marketsim import IFunction
 from marketsim import registry
@@ -12,7 +13,7 @@ class Clamp0_IFunctionFloat(Function[float]):
     """ 
     """ 
     def __init__(self, f = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
         self.f = f if f is not None else _constant()
         rtti.check_fields(self)
@@ -41,9 +42,9 @@ class Clamp0_IFunctionFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._add import Add as _ops_Add
-        from marketsim.gen._out.math._max import Max as _math_Max
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out.ops._add import Add_IFunctionFloatIFunctionFloat as _ops_Add
+        from marketsim.gen._out.math._max import Max_IFunctionFloatIFunctionFloat as _math_Max
+        from marketsim.gen._out._constant import constant_Float as _constant
         return _ops_Add(_math_Max(_constant(0),self.f),_constant(1))
     
 def Clamp0(f = None): 

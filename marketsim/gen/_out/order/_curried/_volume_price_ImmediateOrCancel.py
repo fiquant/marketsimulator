@@ -3,7 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "price_ImmediateOrCancel"])
-class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+class volume_price_ImmediateOrCancel_FloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -13,7 +13,7 @@ class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGen
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_price_limit import volume_price_Limit as _order__curried_volume_price_Limit
+        from marketsim.gen._out.order._curried._volume_price_limit import volume_price_Limit_Side as _order__curried_volume_price_Limit
         from marketsim import rtti
         self.proto = proto if proto is not None else _order__curried_volume_price_Limit()
         rtti.check_fields(self)
@@ -29,7 +29,7 @@ class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGen
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim.gen._out.order._curried._price_immediateorcancel import price_ImmediateOrCancel
         volume = volume if volume is not None else _constant(1.0)
         proto = self.proto
@@ -41,5 +41,5 @@ def volume_price_ImmediateOrCancel(proto = None):
     from marketsim import IFunction
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
-        return price_ImmediateOrCancel_FloatIOrderGenerator(proto)
+        return volume_price_ImmediateOrCancel_FloatFloatIOrderGenerator(proto)
     raise Exception("Cannot find suitable overload")

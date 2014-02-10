@@ -22,11 +22,11 @@ class trader_EfficiencyTrend_Float(IFunction[IFunction[float], IAccount]):
         return "trader_EfficiencyTrend(%(alpha)s)" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
-        from marketsim.gen._out.strategy.weight._efficiencytrend import EfficiencyTrend
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.strategy.weight._efficiencytrend import EfficiencyTrend_IAccountFloat as _strategy_weight_EfficiencyTrend
         trader = trader if trader is not None else _trader_SingleProxy()
         alpha = self.alpha
-        return EfficiencyTrend(trader,alpha)
+        return _strategy_weight_EfficiencyTrend(trader,alpha)
     
 def trader_EfficiencyTrend(alpha = None): 
     from marketsim import float

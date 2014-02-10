@@ -5,7 +5,8 @@ def FloatingPrice(floatingPrice = None,proto = None):
     from marketsim import float
     from marketsim import IOrderGenerator
     from marketsim import Side
+    from marketsim.gen._out.order._curried._side_floatingprice import side_FloatingPrice_IObservableFloatSideFloatIOrderGenerator as _order__curried_side_FloatingPrice
     if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-            return FloatingPrice_IObservableFloatFloatIOrderGenerator(floatingPrice,proto)
+            return _order__curried_side_FloatingPrice(floatingPrice,proto)
     raise Exception("Cannot find suitable overload")

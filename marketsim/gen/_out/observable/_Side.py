@@ -12,7 +12,7 @@ class Side_IFunctionSide(Observable[Side],_ObservableSide_Impl):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim import event
         Observable[Side].__init__(self)
         self.x = x if x is not None else _side_Sell()

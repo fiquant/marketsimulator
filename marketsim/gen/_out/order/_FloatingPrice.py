@@ -12,12 +12,12 @@ class FloatingPrice_IObservableFloatFloatIOrderGenerator(Factory_Impl,IOrderGene
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit
         from marketsim import event
-        from marketsim.gen._out.order._curried._price_limit import price_Limit as _order__curried_price_Limit
         from marketsim import Order
         Observable[Order].__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)

@@ -24,11 +24,11 @@ class trader_Score_(IFunction[IFunction[float], IAccount]):
         return "trader_Score" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
-        from marketsim.gen._out.strategy.weight._score import Score
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.strategy.weight._score import Score_IAccount as _strategy_weight_Score
         trader = trader if trader is not None else _trader_SingleProxy()
         
-        return Score(trader)
+        return _strategy_weight_Score(trader)
     
 def trader_Score(): 
     from marketsim import rtti

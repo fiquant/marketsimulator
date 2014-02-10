@@ -9,13 +9,13 @@ class RandomWalk_FloatFloatFloatString(Observable[float],_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.math.random._normalvariate import normalvariate as _math_random_normalvariate
         from marketsim import event
+        from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate
         from marketsim import float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
         Observable[float].__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         if isinstance(initialValue, types.IEvent):

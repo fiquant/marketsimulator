@@ -14,12 +14,12 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
      All other strategies are suspended
     """ 
     def __init__(self, strategies = None, account = None, weight = None, normalizer = None, corrector = None):
-        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket as _strategy_account_inner_inner_VirtualMarket
-        from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow as _strategy_weight_f_f_AtanPow
-        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend as _strategy_weight_trader_trader_EfficiencyTrend
+        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket
         from marketsim import rtti
-        from marketsim.gen._out.strategy._noise import Noise as _strategy_Noise
-        from marketsim.gen._out.strategy.weight.array._array_identityl import array_IdentityL as _strategy_weight_array_array_IdentityL
+        from marketsim.gen._out.strategy.weight.array._array_identityl import array_IdentityL_ as _strategy_weight_array_array_IdentityL
+        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend_Float as _strategy_weight_trader_trader_EfficiencyTrend
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
+        from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow_Float as _strategy_weight_f_f_AtanPow
         self.strategies = strategies if strategies is not None else [_strategy_Noise()]
         self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket()
         self.weight = weight if weight is not None else _strategy_weight_trader_trader_EfficiencyTrend()

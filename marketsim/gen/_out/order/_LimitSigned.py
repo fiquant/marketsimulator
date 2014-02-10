@@ -16,7 +16,7 @@ class LimitSigned_FloatIFunctionFloat(Observable[Order],IOrderGenerator):
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import Order
         Observable[Order].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant(1.0)

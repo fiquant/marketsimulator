@@ -15,9 +15,9 @@ class Iceberg_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.order._limit import Limit as _order_Limit
+        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import Order
         Observable[Order].__init__(self)
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)

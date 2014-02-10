@@ -8,7 +8,7 @@ class Signal_IObservableFloatFloatFloatFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
@@ -45,9 +45,9 @@ class Signal_IObservableFloatFloatFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.observable._oneverydt import OnEveryDt as _observable_OnEveryDt
-        from marketsim.gen._out.math.macd._macd import MACD as _math_macd_MACD
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
+        from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
+        from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD
         return _math_EW_Avg(_observable_OnEveryDt(self.step,_math_macd_MACD(self.x,self.slow,self.fast)),(2/((self.timeframe+1))))
     
 def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 

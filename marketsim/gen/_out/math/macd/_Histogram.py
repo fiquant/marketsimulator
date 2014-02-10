@@ -8,7 +8,7 @@ class Histogram_IObservableFloatFloatFloatFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
         self.slow = slow if slow is not None else 26.0
@@ -45,9 +45,9 @@ class Histogram_IObservableFloatFloatFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.macd._macd import MACD as _math_macd_MACD
-        from marketsim.gen._out.math.macd._signal import Signal as _math_macd_Signal
+        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD
+        from marketsim.gen._out.math.macd._signal import Signal_IObservableFloatFloatFloatFloatFloat as _math_macd_Signal
         return _ops_Sub(_math_macd_MACD(self.x,self.slow,self.fast),_math_macd_Signal(self.x,self.slow,self.fast,self.timeframe,self.step))
     
 def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None): 

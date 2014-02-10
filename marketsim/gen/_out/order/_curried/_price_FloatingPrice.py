@@ -4,15 +4,15 @@ from marketsim import IOrderGenerator
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "FloatingPrice"])
-class FloatingPrice_IObservableFloatFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
+class price_FloatingPrice_IObservableFloatFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
       a new order with new price is created and sent to the order book.
     """ 
     def __init__(self, floatingPrice = None, proto = None):
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.order._curried._price_limit import price_Limit as _order__curried_price_Limit
+        from marketsim.gen._out._const import const_Float as _const
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit
         from marketsim import rtti
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const(10.0)
         self.proto = proto if proto is not None else _order__curried_price_Limit()
@@ -30,7 +30,7 @@ class FloatingPrice_IObservableFloatFloatIOrderGenerator(IFunction[IOrderGenerat
         return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__
     
     def __call__(self, price = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim.gen._out.order._floatingprice import FloatingPrice
         price = price if price is not None else _constant(100.0)
         floatingPrice = self.floatingPrice
@@ -45,5 +45,5 @@ def price_FloatingPrice(floatingPrice = None,proto = None):
     from marketsim import IOrderGenerator
     if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
-            return FloatingPrice_IObservableFloatFloatIOrderGenerator(floatingPrice,proto)
+            return price_FloatingPrice_IObservableFloatFloatIOrderGenerator(floatingPrice,proto)
     raise Exception("Cannot find suitable overload")

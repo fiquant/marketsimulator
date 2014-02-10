@@ -8,8 +8,8 @@ class TimeSerie_IObservableAnyIGraphIntInt(_ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.veusz._graph import Graph as _veusz_Graph
+        from marketsim.gen._out._const import const_Float as _const
+        from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph
         from marketsim import rtti
         self.source = source if source is not None else _const(0.0)
         self.graph = graph if graph is not None else _veusz_Graph()

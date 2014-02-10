@@ -1,8 +1,9 @@
 def atanpow(base = None): 
     from marketsim import float
+    from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow_Float as _strategy_weight_f_f_AtanPow
     from marketsim import rtti
     if base is None or rtti.can_be_casted(base, float):
-        return f_AtanPow_Float(base)
+        return _strategy_weight_f_f_AtanPow(base)
     raise Exception("Cannot find suitable overload")
 from marketsim import IFunction
 from marketsim import registry
@@ -14,7 +15,7 @@ class AtanPow_IFunctionFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, f = None, base = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
         self.f = f if f is not None else _constant()
         self.base = base if base is not None else 1.002
@@ -45,9 +46,9 @@ class AtanPow_IFunctionFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._atan import Atan as _math_Atan
-        from marketsim.gen._out.math._pow import Pow as _math_Pow
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out.math._atan import Atan_IFunctionFloat as _math_Atan
+        from marketsim.gen._out.math._pow import Pow_IFunctionFloatIFunctionFloat as _math_Pow
+        from marketsim.gen._out._constant import constant_Float as _constant
         return _math_Atan(_math_Pow(_constant(self.base),self.f))
     
 def AtanPow(f = None,base = None): 

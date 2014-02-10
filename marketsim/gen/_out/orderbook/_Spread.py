@@ -9,8 +9,8 @@ class Spread_IOrderBook(Observable[Price]):
     """ 
     def __init__(self, book = None):
         from marketsim import Price
-        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim.ops._all import Observable
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
@@ -43,10 +43,10 @@ class Spread_IOrderBook(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._price import Price as _observable_Price
-        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
-        from marketsim.gen._out.orderbook.ask._price import Price as _orderbook_ask_Price
-        from marketsim.gen._out.orderbook.bid._price import Price as _orderbook_bid_Price
+        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price
+        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price
+        from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price
         return _observable_Price(_ops_Sub(_orderbook_ask_Price(self.book),_orderbook_bid_Price(self.book)))
     
 def Spread(book = None): 

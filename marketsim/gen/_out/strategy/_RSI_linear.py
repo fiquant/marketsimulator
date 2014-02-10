@@ -10,10 +10,10 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
         from marketsim import _
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned
         from marketsim import event
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
         self.alpha = alpha if alpha is not None else (1.0/14)
@@ -50,8 +50,8 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear as _strategy_position_RSI_linear
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
+        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear
         return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
     
     def _send(self, order, source):

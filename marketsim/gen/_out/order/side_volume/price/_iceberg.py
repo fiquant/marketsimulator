@@ -4,8 +4,9 @@ def Iceberg(lotSize = None,proto = None):
     from marketsim import float
     from marketsim import IOrderGenerator
     from marketsim import Side
+    from marketsim.gen._out.order._curried._sidevolume_price_iceberg import sidevolume_price_Iceberg_IFunctionFloatSideFloatFloatIOrderGenerator as _order__curried_sidevolume_price_Iceberg
     if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
         ,IFunction[float]]):
-            return price_Iceberg_IFunctionFloatFloatIOrderGenerator(lotSize,proto)
+            return _order__curried_sidevolume_price_Iceberg(lotSize,proto)
     raise Exception("Cannot find suitable overload")

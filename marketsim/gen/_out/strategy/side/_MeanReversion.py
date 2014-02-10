@@ -9,7 +9,7 @@ class MeanReversion_FloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, book = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.015
         self.book = book if book is not None else _orderbook_OfTrader()
@@ -40,9 +40,9 @@ class MeanReversion_FloatIOrderBook(Function[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue as _strategy_side_FundamentalValue
-        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.orderbook._midprice import MidPrice as _orderbook_MidPrice
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IFunctionFloatIOrderBook as _strategy_side_FundamentalValue
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice
         return _strategy_side_FundamentalValue(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha),self.book)
     
 def MeanReversion(alpha = None,book = None): 

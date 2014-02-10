@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_ImmediateOrCancel"])
-class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -14,7 +14,7 @@ class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGen
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit as _order__curried_side_price_Limit
+        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit
         from marketsim import rtti
         self.proto = proto if proto is not None else _order__curried_side_price_Limit()
         rtti.check_fields(self)
@@ -30,7 +30,7 @@ class price_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IFunction[IOrderGen
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim.gen._out.order._curried._price_immediateorcancel import price_ImmediateOrCancel
         side = side if side is not None else _side_Sell()
         proto = self.proto
@@ -43,5 +43,5 @@ def side_price_ImmediateOrCancel(proto = None):
     from marketsim import IOrderGenerator
     from marketsim import Side
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-        return price_ImmediateOrCancel_FloatIOrderGenerator(proto)
+        return side_price_ImmediateOrCancel_SideFloatIOrderGenerator(proto)
     raise Exception("Cannot find suitable overload")

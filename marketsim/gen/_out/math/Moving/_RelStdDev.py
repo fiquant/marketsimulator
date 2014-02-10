@@ -8,7 +8,7 @@ class RelStdDev_IObservableFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 100.0
@@ -39,10 +39,10 @@ class RelStdDev_IObservableFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div as _ops_Div
-        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
-        from marketsim.gen._out.math.Moving._avg import Avg as _math_Moving_Avg
-        from marketsim.gen._out.math.Moving._stddev import StdDev as _math_Moving_StdDev
+        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
+        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out.math.Moving._avg import Avg_IObservableFloatFloat as _math_Moving_Avg
+        from marketsim.gen._out.math.Moving._stddev import StdDev_IObservableFloatFloat as _math_Moving_StdDev
         return _ops_Div(_ops_Sub(self.source,_math_Moving_Avg(self.source,self.timeframe)),_math_Moving_StdDev(self.source,self.timeframe))
     
 def RelStdDev(source = None,timeframe = None): 

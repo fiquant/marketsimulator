@@ -35,7 +35,7 @@ class constant_Float(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         return _const(self.x)
     
 def constant(x = None): 

@@ -8,7 +8,7 @@ class Canceller_Float(_Canceller_Impl):
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
     def __init__(self, cancellationIntervalDistr = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
         from marketsim import rtti
         self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else _math_random_expovariate(1.0)
         rtti.check_fields(self)

@@ -159,8 +159,11 @@ object Printer {
 
     trait FunctionRef extends Expr with Priority_0 {
         self: Typed.FunctionRef =>
-        def asCode = fullImportName(f.qualifiedName) ||| (importsOf(f) as fullImportName(f.qualifiedName))
+        def asCode = qualifiedCall(f)
     }
+
+    def qualifiedCall(f : Typed.Function) =
+        fullImportName(f.qualifiedName) ||| (importsOf(f) as fullImportName(f.qualifiedName))
 
     def decoratedName(f : Typed.Function) =
         f.name + "_" +
@@ -169,7 +172,7 @@ object Printer {
                 } mkString "")
 
 
-    def moduleName(target : Typed.Function) = {
+    def moduleName(target : Typed.FunctionDecl) = {
         val name = target.parent.qualifiedName.toString
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
     }
@@ -178,6 +181,9 @@ object Printer {
         n.names mkString "_"
 
     def importsOf(target : Typed.Function) =
+        predef.ImportFrom(decoratedName(target), moduleName(target))
+
+    def pubImportsOf(target : Typed.FunctionDecl) =
         predef.ImportFrom(target.name, moduleName(target))
 
     trait FunCall extends Expr with Priority_0 {

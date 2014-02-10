@@ -6,7 +6,7 @@ from marketsim.gen._out.orderbook.ask._price import Price
 
 from marketsim.gen._out.orderbook.ask._lastprice import LastPrice
 
-from marketsim.gen._out.orderbook._asks import Asks as _queue
+from marketsim.gen._out.orderbook.ask.__queue import _queue
 
 from marketsim.gen._out.orderbook.ask._lasttradeprice import LastTradePrice
 

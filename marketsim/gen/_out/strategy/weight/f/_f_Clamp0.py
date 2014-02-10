@@ -21,11 +21,11 @@ class f_Clamp0_(IFunction[IFunction[float], IFunction[float]]):
         return "f_Clamp0" % self.__dict__
     
     def __call__(self, f = None):
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.strategy.weight._clamp0 import Clamp0
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.strategy.weight._clamp0 import Clamp0_IFunctionFloat as _strategy_weight_Clamp0
         f = f if f is not None else _constant()
         
-        return Clamp0(f)
+        return _strategy_weight_Clamp0(f)
     
 def f_Clamp0(): 
     from marketsim import rtti

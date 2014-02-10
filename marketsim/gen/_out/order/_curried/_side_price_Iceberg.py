@@ -4,15 +4,15 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "price_Iceberg"])
-class price_Iceberg_IFunctionFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit as _order__curried_side_price_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit
         from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_side_price_Limit()
@@ -30,7 +30,7 @@ class price_Iceberg_IFunctionFloatFloatIOrderGenerator(IFunction[IFunction[IOrde
         return "price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim.gen._out.order._curried._price_iceberg import price_Iceberg
         side = side if side is not None else _side_Sell()
         lotSize = self.lotSize
@@ -45,5 +45,5 @@ def side_price_Iceberg(lotSize = None,proto = None):
     from marketsim import Side
     if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-            return price_Iceberg_IFunctionFloatFloatIOrderGenerator(lotSize,proto)
+            return side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(lotSize,proto)
     raise Exception("Cannot find suitable overload")

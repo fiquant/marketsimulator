@@ -59,7 +59,7 @@ package object gen
                                 for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                                     out.println(g.code)
                                 }
-                                idx_out.println(base.withImports(Printer.importsOf(f)))
+                                idx_out.println(base.withImports(Printer.pubImportsOf(f)))
                                 g.name
                             } getOrElse f.name
                         } catch {
@@ -72,7 +72,7 @@ package object gen
                         }
                     case f : Typed.FunctionAlias =>
                         generationUnit(f.targets.head) map { g =>
-                            idx_out.println(base.withImports(Printer.importsOf(f.targets.head).as(f.name)))
+                            idx_out.println(base.withImports(Printer.pubImportsOf(f)))
                         }
                         f.name
                 }
@@ -80,13 +80,13 @@ package object gen
                 import predef._
 
                 def call(definition : Typed.FunctionDecl) : Code = {
-                    def tryOverload(f : Typed.Function) : Code =
+                    def tryOverload(local : Boolean)(f : Typed.Function) : Code =
                         generationUnit(f) map { g =>
                             val args_to_pass = f.parameters map { _.name } mkString ","
 
                             def typecheck(args : List[Typed.Parameter]) : Code = args match {
                                 case Nil =>
-                                    s"return ${g.name}($args_to_pass)"
+                                    s"return "||| (if (local) toLazy(g.name) else Printer.qualifiedCall(f)) |||s"($args_to_pass)"
                                 case x :: tl =>
                                     (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
                                         |> typecheck(tl))
@@ -95,9 +95,9 @@ package object gen
                         } getOrElse ""
 
                     definition match {
-                        case f : Typed.Function => tryOverload(f)
+                        case f : Typed.Function => tryOverload(local = true)(f)
                         case a : Typed.FunctionAlias =>
-                            a.targets map { tryOverload } reduce { _ | _ }
+                            a.targets map { tryOverload(local = false) } reduce { _ | _ }
                     }
                 }
 

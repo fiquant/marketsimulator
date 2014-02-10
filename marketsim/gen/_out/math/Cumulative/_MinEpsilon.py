@@ -13,7 +13,7 @@ class MinEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MinEpsilon_Impl)
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
         self.source = source if source is not None else _constant()

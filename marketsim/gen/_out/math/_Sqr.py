@@ -12,7 +12,7 @@ class Sqr_IFunctionFloat(Observable[float]):
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant()
@@ -43,7 +43,7 @@ class Sqr_IFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
+        from marketsim.gen._out.ops._mul import Mul_IFunctionFloatIFunctionFloat as _ops_Mul
         return _ops_Mul(self.x,self.x)
     
 def Sqr(x = None): 

@@ -8,9 +8,9 @@ class Float_IFunctionFloat(Observable[float],_Observable_Impl):
     """  Needed since generic functions aren't implemented yet
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim import types
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         from marketsim import event
         from marketsim import float

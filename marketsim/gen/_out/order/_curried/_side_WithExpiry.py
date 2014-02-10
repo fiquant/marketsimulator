@@ -4,14 +4,14 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "WithExpiry"])
-class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
+class side_WithExpiry_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._side_limit import side_Limit as _order__curried_side_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit
         from marketsim import rtti
         self.expiry = expiry if expiry is not None else _constant(10.0)
         self.proto = proto if proto is not None else _order__curried_side_Limit()
@@ -29,7 +29,7 @@ class WithExpiry_IFunctionFloatIOrderGenerator(IFunction[IOrderGenerator,IFuncti
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim.gen._out.order._withexpiry import WithExpiry
         side = side if side is not None else _side_Sell()
         expiry = self.expiry
@@ -44,5 +44,5 @@ def side_WithExpiry(expiry = None,proto = None):
     from marketsim import Side
     if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
-            return WithExpiry_IFunctionFloatIOrderGenerator(expiry,proto)
+            return side_WithExpiry_IFunctionFloatSideIOrderGenerator(expiry,proto)
     raise Exception("Cannot find suitable overload")

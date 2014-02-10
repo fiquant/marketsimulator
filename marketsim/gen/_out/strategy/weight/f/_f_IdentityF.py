@@ -21,11 +21,11 @@ class f_IdentityF_(IFunction[IFunction[float], IFunction[float]]):
         return "f_IdentityF" % self.__dict__
     
     def __call__(self, f = None):
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.strategy.weight._identityf import IdentityF
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.strategy.weight._identityf import IdentityF_IFunctionFloat as _strategy_weight_IdentityF
         f = f if f is not None else _constant()
         
-        return IdentityF(f)
+        return _strategy_weight_IdentityF(f)
     
 def f_IdentityF(): 
     from marketsim import rtti

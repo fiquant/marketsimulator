@@ -9,8 +9,8 @@ class Price_IOrderBook(Observable[Price]):
     """ 
     def __init__(self, book = None):
         from marketsim import Price
-        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
         from marketsim.ops._all import Observable
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
@@ -43,8 +43,8 @@ class Price_IOrderBook(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._bestprice import BestPrice as _orderbook_BestPrice
-        from marketsim.gen._out.orderbook._asks import Asks as _orderbook_Asks
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks
         return _orderbook_BestPrice(_orderbook_Asks(self.book))
     
 def Price(book = None): 

@@ -22,11 +22,11 @@ class trader_Unit_(IFunction[IFunction[float], IAccount]):
         return "trader_Unit" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
-        from marketsim.gen._out.strategy.weight._unit import Unit
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.strategy.weight._unit import Unit_IAccount as _strategy_weight_Unit
         trader = trader if trader is not None else _trader_SingleProxy()
         
-        return Unit(trader)
+        return _strategy_weight_Unit(trader)
     
 def trader_Unit(): 
     from marketsim import rtti

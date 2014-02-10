@@ -12,7 +12,7 @@ class Min_IFunctionFloatIFunctionFloat(Observable[float]):
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant()
@@ -45,8 +45,8 @@ class Min_IFunctionFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition_float import Condition_Float as _ops_Condition_Float
-        from marketsim.gen._out.ops._less import Less as _ops_Less
+        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
         return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
     
 def Min(x = None,y = None): 

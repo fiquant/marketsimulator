@@ -8,7 +8,7 @@ class LogReturns_IObservableFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, x = None, timeframe = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.x = x if x is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -39,9 +39,9 @@ class LogReturns_IObservableFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._log import Log as _math_Log
-        from marketsim.gen._out.ops._div import Div as _ops_Div
-        from marketsim.gen._out.math._lagged import Lagged as _math_Lagged
+        from marketsim.gen._out.math._log import Log_IFunctionFloat as _math_Log
+        from marketsim.gen._out.ops._div import Div_IObservableFloatIObservableFloat as _ops_Div
+        from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged
         return _math_Log(_ops_Div(self.x,_math_Lagged(self.x,self.timeframe)))
     
 def LogReturns(x = None,timeframe = None): 

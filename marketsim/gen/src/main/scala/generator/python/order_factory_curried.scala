@@ -71,12 +71,19 @@ object order_factory_curried
         override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
     }
 
+    trait DecoratedNameInX extends base.Printer
+    {
+        def x : Typed.Function
+
+        override def name = Printer.decoratedName(x)
+    }
+
     case class PartialFactory(args   : List[String],
                               x      : Typed.Function)
             extends FactoryBase
             with    Call
+            with    DecoratedNameInX
     {
-
         override type Parameter = FactoryParameter
         def mkParam(p : Typed.Parameter) = FactoryParameter(p)
         override val curried = f.parameters filter { p => !(x.parameters contains p) }

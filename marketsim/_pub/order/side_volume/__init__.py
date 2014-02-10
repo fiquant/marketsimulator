@@ -1,17 +1,17 @@
-from marketsim.gen._out.order._curried._sidevolume_limit import sidevolume_Limit as Limit
+from marketsim.gen._out.order.side_volume._limit import Limit
 
-from marketsim.gen._out.order._curried._sidevolume_immediateorcancel import sidevolume_ImmediateOrCancel as ImmediateOrCancel
+from marketsim.gen._out.order.side_volume._immediateorcancel import ImmediateOrCancel
 
-from marketsim.gen._out.order._curried._sidevolume_market import sidevolume_Market as Market
+from marketsim.gen._out.order.side_volume._market import Market
 
-from marketsim.gen._out.order._curried._sidevolume_stoploss import sidevolume_StopLoss as StopLoss
+from marketsim.gen._out.order.side_volume._stoploss import StopLoss
 
-from marketsim.gen._out.order._curried._sidevolume_withexpiry import sidevolume_WithExpiry as WithExpiry
+from marketsim.gen._out.order.side_volume._withexpiry import WithExpiry
 
-from marketsim.gen._out.order._curried._sidevolume_floatingprice import sidevolume_FloatingPrice as FloatingPrice
+from marketsim.gen._out.order.side_volume._floatingprice import FloatingPrice
 
-from marketsim.gen._out.order._curried._sidevolume_iceberg import sidevolume_Iceberg as Iceberg
+from marketsim.gen._out.order.side_volume._iceberg import Iceberg
 
-from marketsim.gen._out.order._curried._sidevolume_peg import sidevolume_Peg as Peg
+from marketsim.gen._out.order.side_volume._peg import Peg
 
 import price

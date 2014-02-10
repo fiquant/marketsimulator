@@ -10,10 +10,10 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
-        from marketsim.gen._out._const import const as _const
-        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned as _order__curried_signedVolume_MarketSigned
         from marketsim import _
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned
         from marketsim import event
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
         self.alpha = alpha if alpha is not None else 0.15
@@ -48,8 +48,8 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear as _strategy_position_Bollinger_linear
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
+        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear
         return _strategy_Generic(self.orderFactory(_strategy_position_Bollinger_linear(self.alpha,self.k)))
     
     def _send(self, order, source):

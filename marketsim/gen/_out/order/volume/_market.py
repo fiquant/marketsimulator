@@ -1,7 +1,8 @@
 def Market(side = None): 
     from marketsim import Side
     from marketsim import IFunction
+    from marketsim.gen._out.order._curried._volume_market import volume_Market_Side as _order__curried_volume_Market
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunction[Side]):
-        return Market_SideIFunctionFloat(side)
+        return _order__curried_volume_Market(side)
     raise Exception("Cannot find suitable overload")

@@ -44,8 +44,7 @@ object curried
 
             override def call_body = call_body_assign_args |
                     call_body_assignments |
-                    s"""return ${original.name}(${original.parameters map { _.name} mkString ","})""" |||
-                    Printer.importsOf(original)
+                    s"""return """||| Printer.qualifiedCall(original) |||s"""(${original.parameters map { _.name} mkString ","})"""
 
             override def call_args = join_fields({ _.call_arg }, ",", curried_parameters)
 

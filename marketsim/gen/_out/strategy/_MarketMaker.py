@@ -41,24 +41,24 @@ class MarketMaker_FloatFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice as _orderbook_SafeSidePrice
-        from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges as _observable_BreaksAtChanges
-        from marketsim.gen._out.ops._div import Div as _ops_Div
-        from marketsim.gen._out.order._floatingprice import FloatingPrice as _order_FloatingPrice
-        from marketsim.gen._out.trader._position import Position as _trader_Position
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
-        from marketsim.gen._out.side._buy import Buy as _side_Buy
-        from marketsim.gen._out.math._atan import Atan as _math_Atan
-        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy._combine import Combine as _strategy_Combine
-        from marketsim.gen._out.orderbook._asks import Asks as _orderbook_Asks
-        from marketsim.gen._out.event._after import After as _event_After
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.order._curried._price_limit import price_Limit as _order__curried_price_Limit
-        from marketsim.gen._out.orderbook._bids import Bids as _orderbook_Bids
-        from marketsim.gen._out.observable._oneverydt import OnEveryDt as _observable_OnEveryDt
-        from marketsim.gen._out.order._iceberg import Iceberg as _order_Iceberg
-        from marketsim.gen._out.math._exp import Exp as _math_Exp
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
+        from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueIFunctionFloat as _orderbook_SafeSidePrice
+        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids
+        from marketsim.gen._out.math._exp import Exp_IFunctionFloat as _math_Exp
+        from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
+        from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges_IFunctionFloat as _observable_BreaksAtChanges
+        from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position
+        from marketsim.gen._out.event._after import After_IFunctionFloat as _event_After
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit
+        from marketsim.gen._out.math._atan import Atan_IFunctionFloat as _math_Atan
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
+        from marketsim.gen._out.order._floatingprice import FloatingPrice_IObservableFloatFloatIOrderGenerator as _order_FloatingPrice
+        from marketsim.gen._out.order._iceberg import Iceberg_IFunctionFloatIOrderGenerator as _order_Iceberg
         return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_ops_Div(_orderbook_SafeSidePrice(_orderbook_Asks(),_constant((100+self.delta))),_math_Exp(_ops_Div(_math_Atan(_trader_Position()),_constant(1000)))))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_observable_OnEveryDt(0.9,_ops_Div(_orderbook_SafeSidePrice(_orderbook_Bids(),_constant((100-self.delta))),_math_Exp(_ops_Div(_math_Atan(_trader_Position()),_constant(1000)))))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
     
     def _send(self, order, source):

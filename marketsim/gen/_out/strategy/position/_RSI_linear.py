@@ -10,13 +10,13 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]
     """ 
     """ 
     def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
-        from marketsim.gen._out._const import const as _const
         from marketsim.ops._all import Observable
         from marketsim import _
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         from marketsim import Volume
         from marketsim import event
-        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
         Observable[Volume].__init__(self)
         self.alpha = alpha if alpha is not None else (1.0/14.0)
         self.k = k if k is not None else _const(-0.04)
@@ -52,13 +52,13 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._sub import Sub as _ops_Sub
-        from marketsim.gen._out.orderbook._oftrader import OfTrader as _orderbook_OfTrader
-        from marketsim.gen._out.math._rsi import RSI as _math_RSI
-        from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition as _strategy_position_DesiredPosition
-        from marketsim.gen._out.ops._mul import Mul as _ops_Mul
-        from marketsim.gen._out._constant import constant as _constant
-        from marketsim.gen._out.observable._oneverydt import OnEveryDt as _observable_OnEveryDt
+        from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
+        from marketsim.gen._out.math._rsi import RSI_IOrderBookFloatFloat as _math_RSI
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
+        from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition
+        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
+        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.ops._mul import Mul_IFunctionFloatIFunctionFloat as _ops_Mul
         return _strategy_position_DesiredPosition(_observable_OnEveryDt(1.0,_ops_Mul(_ops_Sub(_constant(50.0),_math_RSI(_orderbook_OfTrader(self.trader),self.timeframe,self.alpha)),self.k)),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 

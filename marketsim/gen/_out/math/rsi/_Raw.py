@@ -8,7 +8,7 @@ class Raw_IObservableFloatFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None, alpha = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -41,10 +41,10 @@ class Raw_IObservableFloatFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div as _ops_Div
-        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.math._upmovements import UpMovements as _math_UpMovements
-        from marketsim.gen._out.math._downmovements import DownMovements as _math_DownMovements
+        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
+        from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements
+        from marketsim.gen._out.math._downmovements import DownMovements_IObservableFloatFloat as _math_DownMovements
         return _ops_Div(_math_EW_Avg(_math_UpMovements(self.source,self.timeframe),self.alpha),_math_EW_Avg(_math_DownMovements(self.source,self.timeframe),self.alpha))
     
 def Raw(source = None,timeframe = None,alpha = None): 

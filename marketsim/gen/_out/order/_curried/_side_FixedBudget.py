@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
-class FixedBudget_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]):
+class side_FixedBudget_IFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.
@@ -14,7 +14,7 @@ class FixedBudget_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]
       cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, budget = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import rtti
         self.budget = budget if budget is not None else _constant(1000.0)
         rtti.check_fields(self)
@@ -30,7 +30,7 @@ class FixedBudget_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]
         return "FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
         from marketsim.gen._out.order._fixedbudget import FixedBudget
         side = side if side is not None else _side_Sell()
         budget = self.budget
@@ -41,5 +41,5 @@ def side_FixedBudget(budget = None):
     from marketsim import float
     from marketsim import rtti
     if budget is None or rtti.can_be_casted(budget, IFunction[float]):
-        return FixedBudget_SideIFunctionFloat(budget)
+        return side_FixedBudget_IFunctionFloat(budget)
     raise Exception("Cannot find suitable overload")

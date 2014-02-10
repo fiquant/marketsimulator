@@ -3,7 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "MarketSigned"])
-class MarketSigned_Float(IFunction[IOrderGenerator, IFunction[float]]):
+class signedVolume_MarketSigned_(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
@@ -23,7 +23,7 @@ class MarketSigned_Float(IFunction[IOrderGenerator, IFunction[float]]):
         return "MarketSigned" % self.__dict__
     
     def __call__(self, signedVolume = None):
-        from marketsim.gen._out._constant import constant as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim.gen._out.order._marketsigned import MarketSigned
         signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
         
@@ -31,5 +31,5 @@ class MarketSigned_Float(IFunction[IOrderGenerator, IFunction[float]]):
     
 def signedVolume_MarketSigned(): 
     from marketsim import rtti
-    return MarketSigned_Float()
+    return signedVolume_MarketSigned_()
     raise Exception("Cannot find suitable overload")

@@ -1,8 +1,9 @@
 def efficiencyTrend(alpha = None): 
     from marketsim import float
+    from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend_Float as _strategy_weight_trader_trader_EfficiencyTrend
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
-        return trader_EfficiencyTrend_Float(alpha)
+        return _strategy_weight_trader_trader_EfficiencyTrend(alpha)
     raise Exception("Cannot find suitable overload")
 from marketsim import IAccount
 from marketsim import registry
@@ -14,7 +15,7 @@ class EfficiencyTrend_IAccountFloat(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None, alpha = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
         from marketsim import rtti
         self.trader = trader if trader is not None else _trader_SingleProxy()
         self.alpha = alpha if alpha is not None else 0.15
@@ -45,9 +46,9 @@ class EfficiencyTrend_IAccountFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._derivative import Derivative as _math_Derivative
-        from marketsim.gen._out.math.EW._avg import Avg as _math_EW_Avg
-        from marketsim.gen._out.trader._efficiency import Efficiency as _trader_Efficiency
+        from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
+        from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency
         return _math_Derivative(_math_EW_Avg(_trader_Efficiency(self.trader),self.alpha))
     
 def EfficiencyTrend(trader = None,alpha = None): 

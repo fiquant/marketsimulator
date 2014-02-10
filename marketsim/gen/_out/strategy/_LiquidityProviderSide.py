@@ -11,14 +11,14 @@ class LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(ISingle
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, side = None, initialValue = None, priceDistr = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate as _math_random_expovariate
-        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit as _order__curried_sideprice_Limit
-        from marketsim.gen._out.math.random._lognormvariate import lognormvariate as _math_random_lognormvariate
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.side._sell import Sell as _side_Sell
+        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_IFunctionFloat as _order__curried_sideprice_Limit
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.math.random._lognormvariate import lognormvariate_FloatFloat as _math_random_lognormvariate
         from marketsim import event
-        from marketsim.gen._out.event._every import Every as _event_Every
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
         self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
         self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit()
         self.side = side if side is not None else _side_Sell()
@@ -57,8 +57,8 @@ class LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(ISingle
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic as _strategy_Generic
-        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider as _strategy_price_LiquidityProvider
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_SideFloatFloatIOrderBook as _strategy_price_LiquidityProvider
         return _strategy_Generic(self.orderFactory(self.side,_strategy_price_LiquidityProvider(self.side,self.initialValue,self.priceDistr)),self.eventGen)
     
     def _send(self, order, source):

@@ -16,7 +16,7 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.order._limit import Limit as _order_Limit
+        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit
         from marketsim import event
         from marketsim import Order
         Observable[Order].__init__(self)

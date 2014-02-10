@@ -8,7 +8,7 @@ class Avg_IObservableFloatFloat(Function[float],EWMA_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
-        from marketsim.gen._out._const import const as _const
+        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
         self.source = source if source is not None else _const()
         self.alpha = alpha if alpha is not None else 0.015
