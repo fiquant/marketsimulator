@@ -99,7 +99,26 @@ package object gen
                         a.targets map { (_, false) }
                 }
 
-                def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
+                type Overload = (Typed.Function, Boolean)
+
+                def reorder(overloads : List[Overload]) : List[Overload] = overloads match {
+                    // in fact it is a naive ad-hoc implementation of topological sort
+                    case Nil => Nil
+                    case _ =>
+                        val (nonTerm, term) =
+                            overloads partition { y =>
+                                overloads exists  { x =>
+                                    x != y &&
+                                    (x._1.ty.args zip y._1.ty.args forall { case (a,b) => a canCastTo b })
+                                }
+                            }
+                        if (overloads.nonEmpty && term.isEmpty)
+                            throw new Exception(s"there is no weakest overload between: " + (overloads map { _._1 } mkString predef.crlf))
+
+                        term ++ reorder(nonTerm)
+                }
+
+                def calls = reorder(overloads) map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
 
                 val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
 
