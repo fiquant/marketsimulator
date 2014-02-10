@@ -79,29 +79,27 @@ package object gen
 
                 import predef._
 
-                def call(definition : Typed.FunctionDecl) : Code = {
-                    def tryOverload(local : Boolean)(f : Typed.Function) : Code =
-                        generationUnit(f) map { g =>
-                            val args_to_pass = f.parameters map { _.name } mkString ","
+                def tryOverload(f : Typed.Function, local : Boolean) : Code =
+                    generationUnit(f) map { g =>
+                        val args_to_pass = f.parameters map { _.name } mkString ","
 
-                            def typecheck(args : List[Typed.Parameter]) : Code = args match {
-                                case Nil =>
-                                    s"return "||| (if (local) toLazy(g.name) else Printer.qualifiedCall(f)) |||s"($args_to_pass)"
-                                case x :: tl =>
-                                    (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
-                                        |> typecheck(tl))
-                            }
-                            typecheck(f.parameters)
-                        } getOrElse ""
+                        def typecheck(args : List[Typed.Parameter]) : Code = args match {
+                            case Nil =>
+                                s"return "||| (if (local) toLazy(g.name) else Printer.qualifiedCall(f)) |||s"($args_to_pass)"
+                            case x :: tl =>
+                                (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
+                                    |> typecheck(tl))
+                        }
+                        typecheck(f.parameters)
+                    } getOrElse ""
 
-                    definition match {
-                        case f : Typed.Function => tryOverload(local = true)(f)
-                        case a : Typed.FunctionAlias =>
-                            a.targets map { tryOverload(local = false) } reduce { _ | _ }
-                    }
+                val overloads = fs flatMap {
+                    case f : Typed.Function => (f, true) :: Nil
+                    case a : Typed.FunctionAlias =>
+                        a.targets map { (_, false) }
                 }
 
-                def calls = fs map { call } reduce { _ | _ }
+                def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
 
                 val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
 
