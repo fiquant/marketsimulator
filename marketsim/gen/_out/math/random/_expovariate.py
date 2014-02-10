@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "expovariate"])
-class expovariate(Function[float]):
+class expovariate_Float(Function[float]):
     """ 
       Returned values range from 0 to positive infinity
     """ 
@@ -23,8 +23,14 @@ class expovariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.expovariate(self.Lambda)
+        return random.expovariate_Float(self.Lambda)
     
     def _casts_to(self, dst):
-        return expovariate._types[0]._casts_to(dst)
+        return expovariate_Float._types[0]._casts_to(dst)
     
+def expovariate(Lambda = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Lambda is None or rtti.can_be_casted(Lambda, float):
+        return expovariate_Float(Lambda)
+    raise Exception("Cannot find suitable overload")

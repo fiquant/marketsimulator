@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "gammavariate"])
-class gammavariate(Function[float]):
+class gammavariate_FloatFloat(Function[float]):
     """ 
       Conditions on the parameters are |alpha| > 0 and |beta| > 0.
     
@@ -31,8 +31,15 @@ class gammavariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.gammavariate(self.Alpha, self.Beta)
+        return random.gammavariate_FloatFloat(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
-        return gammavariate._types[0]._casts_to(dst)
+        return gammavariate_FloatFloat._types[0]._casts_to(dst)
     
+def gammavariate(Alpha = None,Beta = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Alpha is None or rtti.can_be_casted(Alpha, float):
+        if Beta is None or rtti.can_be_casted(Beta, float):
+            return gammavariate_FloatFloat(Alpha,Beta)
+    raise Exception("Cannot find suitable overload")

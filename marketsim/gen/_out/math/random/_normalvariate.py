@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "normalvariate"])
-class normalvariate(Function[float]):
+class normalvariate_FloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, Mu = None, Sigma = None):
@@ -24,8 +24,15 @@ class normalvariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.normalvariate(self.Mu, self.Sigma)
+        return random.normalvariate_FloatFloat(self.Mu, self.Sigma)
     
     def _casts_to(self, dst):
-        return normalvariate._types[0]._casts_to(dst)
+        return normalvariate_FloatFloat._types[0]._casts_to(dst)
     
+def normalvariate(Mu = None,Sigma = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Mu is None or rtti.can_be_casted(Mu, float):
+        if Sigma is None or rtti.can_be_casted(Sigma, float):
+            return normalvariate_FloatFloat(Mu,Sigma)
+    raise Exception("Cannot find suitable overload")

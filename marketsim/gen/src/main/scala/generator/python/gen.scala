@@ -77,41 +77,41 @@ package object gen
                         f.name
                 }
 
-                if (names.length > 1 || names.head != fs.head.name)
+                import predef._
+
+                def call(definition : Typed.FunctionDecl) : Code = {
+                    def tryOverload(f : Typed.Function) : Code =
+                        generationUnit(f) map { g =>
+                            val args_to_pass = f.parameters map { _.name } mkString ","
+
+                            def typecheck(args : List[Typed.Parameter]) : Code = args match {
+                                case Nil =>
+                                    s"return ${g.name}($args_to_pass)"
+                                case x :: tl =>
+                                    (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
+                                        |> typecheck(tl))
+                            }
+                            typecheck(f.parameters)
+                        } getOrElse ""
+
+                    definition match {
+                        case f : Typed.Function => tryOverload(f)
+                        case a : Typed.FunctionAlias =>
+                            a.targets map { tryOverload } reduce { _ | _ }; ""
+                    }
+                }
+
+                def calls = fs map { call } reduce { _ | _ }
+
+                val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
+
+                fs foreach { f =>
+                    if (f.parameter_names != fs.head.parameter_names)
+                        throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
+                }
+
+                if (calls.toString != "")
                 {
-                    import predef._
-
-                    def call(definition : Typed.FunctionDecl) : Code = {
-                        def tryOverload(f : Typed.Function) : Code =
-                            generationUnit(f) map { g =>
-                                val args_to_pass = f.parameters map { _.name } mkString ","
-
-                                def typecheck(args : List[Typed.Parameter]) : Code = args match {
-                                    case Nil =>
-                                        s"return ${g.name}($args_to_pass)"
-                                    case x :: tl =>
-                                        (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
-                                            |> typecheck(tl))
-                                }
-                                typecheck(f.parameters)
-                            } getOrElse ""
-
-                        definition match {
-                            case f : Typed.Function => tryOverload(f)
-                            case a : Typed.FunctionAlias =>
-                                a.targets map { tryOverload } reduce { _ | _ }; ""
-                        }
-                    }
-
-                    def calls = fs map { call } reduce { _ | _ }
-
-                    val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
-
-                    fs foreach { f =>
-                        if (f.parameter_names != fs.head.parameter_names)
-                            throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
-                    }
-
                     val resolver =
                         s"def $base_name($input_args): " |> base.withImports(
                                 calls |||

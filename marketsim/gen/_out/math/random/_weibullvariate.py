@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "weibullvariate"])
-class weibullvariate(Function[float]):
+class weibullvariate_FloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, Alpha = None, Beta = None):
@@ -24,8 +24,15 @@ class weibullvariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.weibullvariate(self.Alpha, self.Beta)
+        return random.weibullvariate_FloatFloat(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
-        return weibullvariate._types[0]._casts_to(dst)
+        return weibullvariate_FloatFloat._types[0]._casts_to(dst)
     
+def weibullvariate(Alpha = None,Beta = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Alpha is None or rtti.can_be_casted(Alpha, float):
+        if Beta is None or rtti.can_be_casted(Beta, float):
+            return weibullvariate_FloatFloat(Alpha,Beta)
+    raise Exception("Cannot find suitable overload")

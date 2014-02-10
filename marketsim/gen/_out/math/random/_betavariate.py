@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "betavariate"])
-class betavariate(Function[float]):
+class betavariate_FloatFloat(Function[float]):
     """ 
      Conditions on the parameters are |alpha| > 0 and |beta| > 0.
      Returned values range between 0 and 1.
@@ -26,8 +26,15 @@ class betavariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.betavariate(self.Alpha, self.Beta)
+        return random.betavariate_FloatFloat(self.Alpha, self.Beta)
     
     def _casts_to(self, dst):
-        return betavariate._types[0]._casts_to(dst)
+        return betavariate_FloatFloat._types[0]._casts_to(dst)
     
+def betavariate(Alpha = None,Beta = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Alpha is None or rtti.can_be_casted(Alpha, float):
+        if Beta is None or rtti.can_be_casted(Beta, float):
+            return betavariate_FloatFloat(Alpha,Beta)
+    raise Exception("Cannot find suitable overload")

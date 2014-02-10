@@ -12,8 +12,8 @@ object random extends gen.PythonGenerator
             with    base.DocString
             with    base.Alias
             with    base.BaseClass_Function
+            with    base.DecoratedName
     {
-        val name = f.name
         val rv_type = "float"
         val args = Nil
 

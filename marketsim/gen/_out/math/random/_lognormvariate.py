@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import float
 from marketsim.ops._function import Function
 @registry.expose(["Random", "lognormvariate"])
-class lognormvariate(Function[float]):
+class lognormvariate_FloatFloat(Function[float]):
     """ 
      If you take the natural logarithm of this distribution,
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
@@ -27,8 +27,15 @@ class lognormvariate(Function[float]):
     
     def __call__(self, *args, **kwargs):
         import random
-        return random.lognormvariate(self.Mu, self.Sigma)
+        return random.lognormvariate_FloatFloat(self.Mu, self.Sigma)
     
     def _casts_to(self, dst):
-        return lognormvariate._types[0]._casts_to(dst)
+        return lognormvariate_FloatFloat._types[0]._casts_to(dst)
     
+def lognormvariate(Mu = None,Sigma = None): 
+    from marketsim import float
+    from marketsim import rtti
+    if Mu is None or rtti.can_be_casted(Mu, float):
+        if Sigma is None or rtti.can_be_casted(Sigma, float):
+            return lognormvariate_FloatFloat(Mu,Sigma)
+    raise Exception("Cannot find suitable overload")
