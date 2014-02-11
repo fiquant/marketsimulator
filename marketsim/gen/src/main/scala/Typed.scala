@@ -139,8 +139,8 @@ package object Typed
     {
         val parent : Package
         val name   : String
-        val targets: List[Function]
-        def parameter_names : List[String]
+        val target : Function
+        def parameter_names : List[String] = target.parameters map { _.name }
     }
 
     case class FunctionAlias(parent : Package,
@@ -150,24 +150,9 @@ package object Typed
             with    ScPrintable
             with    FunctionDecl
     {
-        val targets = target :: Nil
-
         override def equals(o : Any) = o match {
-            case other : FunctionAlias =>
-                (targets.length == other.targets.length) &&
-                (targets zip other.targets forall { case (x,y) =>  x.qualifiedName == y.qualifiedName })
+            case other : FunctionAlias => other.target == target
             case _ => false
-        }
-
-        def parameter_names = {
-            val ps = targets.head.parameters map { _.name }
-            targets foreach { f =>
-                val fps = f.parameters map { _.name }
-                if (ps != fps)
-                    throw new Exception(s"Overload ${f.qualifiedName} has parameters names different than ${targets.head.qualifiedName}:"
-                            + predef.crlf + ps + predef.crlf + fps)
-            }
-            ps
         }
     }
 
@@ -205,9 +190,7 @@ package object Typed
             with    AST.Positional
             with    FunctionDecl
     {
-        val targets = this :: Nil
-
-        def parameter_names = parameters map { _.name }
+        val target = this
 
         def decorators = attributes :: annotations
 
@@ -326,7 +309,7 @@ package object Typed
         }
 
         protected def getFunctionImpl(name : String) =
-            (functions getOrElse (name, Nil)) flatMap { _.targets }
+            (functions getOrElse (name, Nil)) map { _.target }
 
         def getFunction(name : String) = getFunctionImpl(name)
 

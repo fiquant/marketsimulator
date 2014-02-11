@@ -106,7 +106,7 @@ package object Typer
                     (grouped flatMap {
                         case (scope, definitions) =>
                             Processor(scope) getTyped definitions
-                    } flatMap { _.targets }).toList
+                    } map { _.target }).toList
                 }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =

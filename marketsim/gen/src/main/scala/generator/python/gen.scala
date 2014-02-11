@@ -86,10 +86,9 @@ package object gen
                         typecheck(f.parameters)
                     } getOrElse ""
 
-                val overloads = fs flatMap {
-                    case f : Typed.Function => (f, true) :: Nil
-                    case a : Typed.FunctionAlias =>
-                        a.targets map { (_, false) }
+                val overloads = fs map {
+                    case f : Typed.Function      => (f, true)
+                    case a : Typed.FunctionAlias => (a.target, false)
                 }
 
                 type Overload = (Typed.Function, Boolean)

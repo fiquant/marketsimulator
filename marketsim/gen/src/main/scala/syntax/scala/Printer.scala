@@ -432,7 +432,7 @@ package object Printer
 
         trait FunctionAlias extends Printable {
             self : Typed.FunctionAlias =>
-            protected def toScala = crlf + (targets map { s"def $name = " + _.qualifiedName } mkString crlf)
+            protected def toScala = crlf + (s"def $name = " + target.qualifiedName)
         }
 
         type StringLit = base.StringLit
