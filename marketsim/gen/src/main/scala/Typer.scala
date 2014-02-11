@@ -79,10 +79,35 @@ package object Typer
             if (!(typed.functions contains name))
                 typed insert
                         visited.enter(source qualifyName name) {
-                            definitions flatMap {
+                            val fs = definitions flatMap {
                                 case f : AST.FunAlias => toTyped(f)
                                 case f : AST.FunDef => toTyped(f) :: Nil
-                            } }
+                            }
+                            fs foreach { f =>
+                                if (f.parameter_names != fs.head.parameter_names)
+                                    throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
+                            }
+
+                            assert(fs forall { _.name == fs.head.name })
+
+                            def reorder(overloads : List[Typed.FunctionDecl]) : List[Typed.FunctionDecl] = overloads match {
+                                // in fact it is a naive ad-hoc implementation of topological sort
+                                case Nil => Nil
+                                case _ =>
+                                    overloads partition { y =>
+                                        overloads exists  { x =>
+                                            x != y && (x.target.ty betterThan y.target.ty) }
+                                    } match {
+                                        case (_, Nil) =>
+                                            throw new Exception(s"there is no weakest overload between: "
+                                                    + (overloads map { predef.crlf + _ } mkString ""))
+                                        case (nonTerm, term) =>
+                                            term ++ reorder(nonTerm)
+                                    }
+                            }
+
+                            reorder(fs)
+                        }
             typed.functions(name)
         }
 

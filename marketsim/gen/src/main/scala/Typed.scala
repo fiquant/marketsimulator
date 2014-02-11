@@ -283,31 +283,10 @@ package object Typed
 
         def insert(fs : List[FunctionDecl]) = {
 
-            def reorder(overloads : List[FunctionDecl]) : List[FunctionDecl] = overloads match {
-                // in fact it is a naive ad-hoc implementation of topological sort
-                case Nil => Nil
-                case _ =>
-                    overloads partition { y =>
-                        overloads exists  { x =>
-                            x != y && (x.target.ty betterThan y.target.ty) }
-                    } match {
-                        case (_, Nil) =>
-                            throw new Exception(s"there is no weakest overload between: " + (overloads mkString predef.crlf))
-                        case (nonTerm, term) =>
-                            term ++ reorder(nonTerm)
-                    }
-            }
-
-            fs foreach { f =>
-                if (f.parameter_names != fs.head.parameter_names)
-                    throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
-            }
-
-            assert(fs forall { _.name == fs.head.name })
             if (functions contains fs.head.name)
                 assert(fs == functions(fs.head.name))
             else
-                functions = functions updated (fs.head.name, reorder(fs))
+                functions = functions updated (fs.head.name, fs)
         }
 
         def insert(t : TypeDeclaration) = {
