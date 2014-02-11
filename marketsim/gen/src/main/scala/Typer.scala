@@ -341,7 +341,8 @@ package object Typer
                             throw new Exception("there is no the most concrete overload among: " +
                                     (lst mkString (predef.crlf, predef.crlf, predef.crlf)))
 
-                        case (_, makeExpr) :: Nil =>
+                        case (found, makeExpr) :: Nil =>
+                            assert(found == lst.head._1)
                             Typed.FunctionCall(makeExpr(), typed_args)
 
                         case xs =>

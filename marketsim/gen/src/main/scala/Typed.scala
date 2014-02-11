@@ -298,6 +298,11 @@ package object Typed
                     }
             }
 
+            fs foreach { f =>
+                if (f.parameter_names != fs.head.parameter_names)
+                    throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
+            }
+
             assert(fs forall { _.name == fs.head.name })
             if (functions contains fs.head.name)
                 assert(fs == functions(fs.head.name))

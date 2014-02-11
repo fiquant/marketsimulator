@@ -97,11 +97,6 @@ package object gen
 
                 val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
 
-                fs foreach { f =>
-                    if (f.parameter_names != fs.head.parameter_names)
-                        throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
-                }
-
                 if (calls.toString != "")
                 {
                     idx_out.println(base.withImports(Printer.pubImportsOf(fs.head)))
