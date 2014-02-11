@@ -9,4 +9,4 @@ def StopLoss(maxloss = None,proto = None):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
         ,IFunction[float]]):
             return _order__curried_sidevolume_price_StopLoss(maxloss,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for StopLoss('+str(maxloss)+','+str(proto)+')')

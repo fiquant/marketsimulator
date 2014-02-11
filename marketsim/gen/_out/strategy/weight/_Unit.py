@@ -2,7 +2,7 @@ def unit():
     from marketsim.gen._out.strategy.weight.trader._trader_unit import trader_Unit_ as _strategy_weight_trader_trader_Unit
     from marketsim import rtti
     return _strategy_weight_trader_trader_Unit()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for unit('++')')
 from marketsim import IAccount
 from marketsim import registry
 from marketsim.ops._function import Function
@@ -50,4 +50,4 @@ def Unit(trader = None):
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Unit_IAccount(trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Unit('+str(trader)+')')

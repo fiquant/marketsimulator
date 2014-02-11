@@ -62,4 +62,4 @@ def SafeSidePrice(queue = None,defaultValue = None):
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         if defaultValue is None or rtti.can_be_casted(defaultValue, IFunction[float]):
             return SafeSidePrice_IOrderQueueIFunctionFloat(queue,defaultValue)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for SafeSidePrice('+str(queue)+','+str(defaultValue)+')')

@@ -41,4 +41,4 @@ def sidevolume_Limit(price = None):
     from marketsim import rtti
     if price is None or rtti.can_be_casted(price, IFunction[float]):
         return sidevolume_Limit_IFunctionFloat(price)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_Limit('+str(price)+')')

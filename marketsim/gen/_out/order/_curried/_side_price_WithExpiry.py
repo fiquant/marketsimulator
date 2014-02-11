@@ -45,4 +45,4 @@ def side_price_WithExpiry(expiry = None,proto = None):
     if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
             return side_price_WithExpiry_IFunctionFloatSideFloatIOrderGenerator(expiry,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_price_WithExpiry('+str(expiry)+','+str(proto)+')')

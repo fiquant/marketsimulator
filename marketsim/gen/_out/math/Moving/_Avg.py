@@ -33,4 +33,4 @@ def Avg(source = None,timeframe = None):
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return Avg_IObservableFloatFloat(source,timeframe)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Avg('+str(source)+','+str(timeframe)+')')

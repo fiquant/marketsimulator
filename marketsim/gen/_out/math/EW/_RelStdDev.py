@@ -58,4 +58,4 @@ def RelStdDev(source = None,alpha = None):
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return RelStdDev_IObservableFloatFloat(source,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RelStdDev('+str(source)+','+str(alpha)+')')

@@ -38,4 +38,4 @@ def Price(x = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         return Price_IFunctionFloat(x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Price('+str(x)+')')

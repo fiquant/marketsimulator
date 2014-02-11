@@ -30,4 +30,4 @@ def Avg(source = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         return Avg_IObservableFloat(source)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Avg('+str(source)+')')

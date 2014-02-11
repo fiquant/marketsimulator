@@ -9,4 +9,4 @@ def FloatingPrice(floatingPrice = None,proto = None):
     if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
             return _order__curried_side_FloatingPrice(floatingPrice,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for FloatingPrice('+str(floatingPrice)+','+str(proto)+')')

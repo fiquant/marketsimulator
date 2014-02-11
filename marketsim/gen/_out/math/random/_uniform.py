@@ -39,4 +39,4 @@ def uniform(Low = None,High = None):
     if Low is None or rtti.can_be_casted(Low, float):
         if High is None or rtti.can_be_casted(High, float):
             return uniform_FloatFloat(Low,High)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for uniform('+str(Low)+','+str(High)+')')

@@ -81,4 +81,4 @@ def MarketData(ticker = None,start = None,end = None,delta = None,volume = None)
                 if delta is None or rtti.can_be_casted(delta, float):
                     if volume is None or rtti.can_be_casted(volume, float):
                         return MarketData_StringStringStringFloatFloat(ticker,start,end,delta,volume)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MarketData('+str(ticker)+','+str(start)+','+str(end)+','+str(delta)+','+str(volume)+')')

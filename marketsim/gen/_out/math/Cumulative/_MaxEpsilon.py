@@ -43,4 +43,4 @@ def MaxEpsilon(source = None,epsilon = None):
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
             return MaxEpsilon_IFunctionFloatIFunctionFloat(source,epsilon)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MaxEpsilon('+str(source)+','+str(epsilon)+')')

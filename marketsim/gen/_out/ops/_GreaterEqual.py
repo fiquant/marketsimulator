@@ -43,4 +43,4 @@ def GreaterEqual(x = None,y = None):
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
             return GreaterEqual_IFunctionFloatIFunctionFloat(x,y)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for GreaterEqual('+str(x)+','+str(y)+')')

@@ -35,4 +35,4 @@ def weibullvariate(Alpha = None,Beta = None):
     if Alpha is None or rtti.can_be_casted(Alpha, float):
         if Beta is None or rtti.can_be_casted(Beta, float):
             return weibullvariate_FloatFloat(Alpha,Beta)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for weibullvariate('+str(Alpha)+','+str(Beta)+')')

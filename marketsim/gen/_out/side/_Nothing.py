@@ -25,4 +25,4 @@ class Nothing_(Function[Side],_None_Impl):
 def Nothing(): 
     from marketsim import rtti
     return Nothing_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Nothing('++')')

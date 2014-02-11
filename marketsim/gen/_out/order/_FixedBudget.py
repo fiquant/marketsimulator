@@ -61,4 +61,4 @@ def FixedBudget(side = None,budget = None):
     if side is None or rtti.can_be_casted(side, IFunction[Side]):
         if budget is None or rtti.can_be_casted(budget, IFunction[float]):
             return FixedBudget_SideIFunctionFloat(side,budget)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for FixedBudget('+str(side)+','+str(budget)+')')

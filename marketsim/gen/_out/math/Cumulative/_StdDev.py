@@ -47,4 +47,4 @@ def StdDev(source = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         return StdDev_IObservableFloat(source)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for StdDev('+str(source)+')')

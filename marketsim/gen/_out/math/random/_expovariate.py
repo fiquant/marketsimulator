@@ -33,4 +33,4 @@ def expovariate(Lambda = None):
     from marketsim import rtti
     if Lambda is None or rtti.can_be_casted(Lambda, float):
         return expovariate_Float(Lambda)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for expovariate('+str(Lambda)+')')

@@ -57,4 +57,4 @@ def RSI(book = None,timeframe = None,alpha = None):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             if alpha is None or rtti.can_be_casted(alpha, float):
                 return RSI_IOrderBookFloatFloat(book,timeframe,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RSI('+str(book)+','+str(timeframe)+','+str(alpha)+')')

@@ -47,4 +47,4 @@ def side_StopLoss(maxloss = None,proto = None):
     if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
             return side_StopLoss_IFunctionFloatSideIOrderGenerator(maxloss,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_StopLoss('+str(maxloss)+','+str(proto)+')')

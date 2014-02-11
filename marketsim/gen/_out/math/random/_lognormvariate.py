@@ -38,4 +38,4 @@ def lognormvariate(Mu = None,Sigma = None):
     if Mu is None or rtti.can_be_casted(Mu, float):
         if Sigma is None or rtti.can_be_casted(Sigma, float):
             return lognormvariate_FloatFloat(Mu,Sigma)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for lognormvariate('+str(Mu)+','+str(Sigma)+')')

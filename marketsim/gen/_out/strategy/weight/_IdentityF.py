@@ -45,4 +45,4 @@ def IdentityF(f = None):
     from marketsim import rtti
     if f is None or rtti.can_be_casted(f, IFunction[float]):
         return IdentityF_IFunctionFloat(f)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for IdentityF('+str(f)+')')

@@ -33,4 +33,4 @@ class trader_Score_(IFunction[IFunction[float], IAccount]):
 def trader_Score(): 
     from marketsim import rtti
     return trader_Score_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for trader_Score('++')')

@@ -8,21 +8,21 @@ from marketsim._pub import math, strategy, order, constant
 @expose("Arbitrage", __name__)
 def Arbitrage(ctx):
 
-    liqVol = math.random.expovariate(.1) * 2
+    liqVol = math.random.expovariate(.1) * 2.
     
     ctx.volumeStep = 70
     
     return [
         ctx.makeTrader_A(
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(constant(50),
+                        orderFactory = order.side_price.WithExpiry(constant(50.),
                             order.side_price.Limit(volume=liqVol)),
                         initialValue= 50.),
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(constant(50),
+                        orderFactory = order.side_price.WithExpiry(constant(50.),
                             order.side_price.Limit(volume=liqVol)),
                         initialValue = 150.),
             "LiquidityProvider_B"),

@@ -29,4 +29,4 @@ def Every(intervalFunc = None):
     from marketsim import rtti
     if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunction[float]):
         return Every_Float(intervalFunc)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Every('+str(intervalFunc)+')')

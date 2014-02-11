@@ -49,4 +49,4 @@ def sidevolume_price_WithExpiry(expiry = None,proto = None):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
         ,IFunction[float]]):
             return sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(expiry,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_price_WithExpiry('+str(expiry)+','+str(proto)+')')

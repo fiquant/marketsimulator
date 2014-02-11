@@ -32,4 +32,4 @@ def paretovariate(Alpha = None):
     from marketsim import rtti
     if Alpha is None or rtti.can_be_casted(Alpha, float):
         return paretovariate_Float(Alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for paretovariate('+str(Alpha)+')')

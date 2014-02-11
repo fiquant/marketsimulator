@@ -29,4 +29,4 @@ def Array(strategies = None):
     from marketsim import rtti
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
         return Array_ListISingleAssetStrategy(strategies)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Array('+str(strategies)+')')

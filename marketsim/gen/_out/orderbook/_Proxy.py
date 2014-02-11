@@ -22,4 +22,4 @@ class Proxy_(_Proxy_Impl):
 def Proxy(): 
     from marketsim import rtti
     return Proxy_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Proxy('++')')

@@ -29,4 +29,4 @@ def Derivative(x = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IDifferentiable):
         return Derivative_IDifferentiable(x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Derivative('+str(x)+')')

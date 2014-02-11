@@ -51,4 +51,4 @@ def CumulativePrice(book = None,depth = None):
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if depth is None or rtti.can_be_casted(depth, IFunction[float]):
             return CumulativePrice_IOrderBookIFunctionFloat(book,depth)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for CumulativePrice('+str(book)+','+str(depth)+')')

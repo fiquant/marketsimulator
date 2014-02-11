@@ -32,4 +32,4 @@ class signedVolume_MarketSigned_(IFunction[IOrderGenerator, IFunction[float]]):
 def signedVolume_MarketSigned(): 
     from marketsim import rtti
     return signedVolume_MarketSigned_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for signedVolume_MarketSigned('++')')

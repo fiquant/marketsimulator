@@ -2327,6 +2327,8 @@ package trash
         
         def h() = f(12)
         
+        def hh() = f(12.2)
+        
     }
     
     def A(x = in1.in2.A()) : () => types.R

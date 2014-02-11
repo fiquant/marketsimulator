@@ -36,4 +36,4 @@ def Balance(trader = None):
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Balance_IAccount(trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Balance('+str(trader)+')')

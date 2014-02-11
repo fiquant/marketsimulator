@@ -75,4 +75,4 @@ def TrendFollower(eventGen = None,orderFactory = None,ewma_alpha = None,threshol
             if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
                 if threshold is None or rtti.can_be_casted(threshold, float):
                     return TrendFollower_IEventSideIOrderGeneratorFloatFloat(eventGen,orderFactory,ewma_alpha,threshold)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for TrendFollower('+str(eventGen)+','+str(orderFactory)+','+str(ewma_alpha)+','+str(threshold)+')')

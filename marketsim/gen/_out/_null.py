@@ -25,4 +25,4 @@ class null_(Function[float],_Null_Impl):
 def null(): 
     from marketsim import rtti
     return null_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for null('++')')

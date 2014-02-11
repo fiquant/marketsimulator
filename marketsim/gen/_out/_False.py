@@ -25,4 +25,4 @@ class false_(Function[bool],_False_Impl):
 def false(): 
     from marketsim import rtti
     return false_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for false('++')')

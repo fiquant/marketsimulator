@@ -28,6 +28,7 @@ package overloading {
     def g(x : IFunction[Volume]) = f(x)
 
     def h() = f(12)
+    def hh() = f(12.2)
 
 }
 

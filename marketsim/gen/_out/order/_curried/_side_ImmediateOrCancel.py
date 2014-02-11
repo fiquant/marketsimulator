@@ -42,4 +42,4 @@ def side_ImmediateOrCancel(proto = None):
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
         return side_ImmediateOrCancel_SideIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_ImmediateOrCancel('+str(proto)+')')

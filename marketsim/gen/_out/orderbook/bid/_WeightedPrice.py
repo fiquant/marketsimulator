@@ -50,4 +50,4 @@ def WeightedPrice(book = None,alpha = None):
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return WeightedPrice_IOrderBookFloat(book,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for WeightedPrice('+str(book)+','+str(alpha)+')')

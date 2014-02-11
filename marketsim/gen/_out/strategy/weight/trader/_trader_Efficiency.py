@@ -31,4 +31,4 @@ class trader_Efficiency_(IFunction[IFunction[float], IAccount]):
 def trader_Efficiency(): 
     from marketsim import rtti
     return trader_Efficiency_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for trader_Efficiency('++')')

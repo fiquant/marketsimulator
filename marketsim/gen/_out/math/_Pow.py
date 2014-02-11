@@ -53,4 +53,4 @@ def Pow(base = None,power = None):
     if base is None or rtti.can_be_casted(base, IFunction[float]):
         if power is None or rtti.can_be_casted(power, IFunction[float]):
             return Pow_IFunctionFloatIFunctionFloat(base,power)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Pow('+str(base)+','+str(power)+')')

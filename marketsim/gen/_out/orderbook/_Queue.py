@@ -35,4 +35,4 @@ def Queue(book = None,side = None):
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if side is None or rtti.can_be_casted(side, IFunction[Side]):
             return Queue_IOrderBookSide(book,side)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Queue('+str(book)+','+str(side)+')')

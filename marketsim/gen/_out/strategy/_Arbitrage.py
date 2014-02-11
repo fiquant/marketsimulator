@@ -25,4 +25,4 @@ class Arbitrage_(_Arbitrage_Impl):
 def Arbitrage(): 
     from marketsim import rtti
     return Arbitrage_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Arbitrage('++')')

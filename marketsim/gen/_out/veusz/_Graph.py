@@ -26,4 +26,4 @@ def Graph(name = None):
     from marketsim import rtti
     if name is None or rtti.can_be_casted(name, str):
         return Graph_String(name)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Graph('+str(name)+')')

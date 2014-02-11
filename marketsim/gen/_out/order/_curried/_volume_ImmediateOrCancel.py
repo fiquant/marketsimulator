@@ -42,4 +42,4 @@ def volume_ImmediateOrCancel(proto = None):
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
         return volume_ImmediateOrCancel_FloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volume_ImmediateOrCancel('+str(proto)+')')

@@ -67,4 +67,4 @@ def Bollinger_linear(alpha = None,k = None,trader = None):
         if k is None or rtti.can_be_casted(k, IObservable[float]):
             if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
                 return Bollinger_linear_FloatIObservableFloatISingleAssetTrader(alpha,k,trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(alpha)+','+str(k)+','+str(trader)+')')

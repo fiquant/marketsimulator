@@ -51,4 +51,4 @@ def Condition_Side(cond = None,ifpart = None,elsepart = None):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
                 return Condition_Side_IFunctionBooleanSideSide(cond,ifpart,elsepart)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Condition_Side('+str(cond)+','+str(ifpart)+','+str(elsepart)+')')

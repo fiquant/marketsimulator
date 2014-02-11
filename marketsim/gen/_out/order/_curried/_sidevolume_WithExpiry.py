@@ -49,4 +49,4 @@ def sidevolume_WithExpiry(expiry = None,proto = None):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]
         ,IFunction[float]]):
             return sidevolume_WithExpiry_IFunctionFloatSideFloatIOrderGenerator(expiry,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_WithExpiry('+str(expiry)+','+str(proto)+')')

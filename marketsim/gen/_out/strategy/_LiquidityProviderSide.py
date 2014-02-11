@@ -78,4 +78,4 @@ def LiquidityProviderSide(eventGen = None,orderFactory = None,side = None,initia
                 if initialValue is None or rtti.can_be_casted(initialValue, float):
                     if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
                         return LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(eventGen,orderFactory,side,initialValue,priceDistr)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LiquidityProviderSide('+str(eventGen)+','+str(orderFactory)+','+str(side)+','+str(initialValue)+','+str(priceDistr)+')')

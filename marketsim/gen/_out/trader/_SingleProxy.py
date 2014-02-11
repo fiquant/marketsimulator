@@ -21,4 +21,4 @@ class SingleProxy_(_Single_Impl):
 def SingleProxy(): 
     from marketsim import rtti
     return SingleProxy_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for SingleProxy('++')')

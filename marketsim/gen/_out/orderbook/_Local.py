@@ -43,4 +43,4 @@ def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
                     return Local_StringFloatIntListITimeSerie(name,tickSize,_digitsToShow,timeseries)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Local('+str(name)+','+str(tickSize)+','+str(_digitsToShow)+','+str(timeseries)+')')

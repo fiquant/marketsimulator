@@ -30,4 +30,4 @@ class f_Clamp0_(IFunction[IFunction[float], IFunction[float]]):
 def f_Clamp0(): 
     from marketsim import rtti
     return f_Clamp0_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for f_Clamp0('++')')

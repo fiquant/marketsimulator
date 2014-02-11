@@ -31,4 +31,4 @@ class trader_Unit_(IFunction[IFunction[float], IAccount]):
 def trader_Unit(): 
     from marketsim import rtti
     return trader_Unit_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for trader_Unit('++')')

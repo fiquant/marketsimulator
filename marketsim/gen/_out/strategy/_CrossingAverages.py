@@ -76,4 +76,4 @@ def CrossingAverages(eventGen = None,orderFactory = None,ewma_alpha_1 = None,ewm
                 if ewma_alpha_2 is None or rtti.can_be_casted(ewma_alpha_2, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):
                         return CrossingAverages_IEventSideIOrderGeneratorFloatFloatFloat(eventGen,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for CrossingAverages('+str(eventGen)+','+str(orderFactory)+','+str(ewma_alpha_1)+','+str(ewma_alpha_2)+','+str(threshold)+')')

@@ -45,4 +45,4 @@ def volume_price_StopLoss(maxloss = None,proto = None):
     if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
             return volume_price_StopLoss_IFunctionFloatFloatFloatIOrderGenerator(maxloss,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volume_price_StopLoss('+str(maxloss)+','+str(proto)+')')

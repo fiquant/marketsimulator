@@ -36,4 +36,4 @@ def LastTradeVolume(queue = None):
     from marketsim import rtti
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         return LastTradeVolume_IOrderQueue(queue)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LastTradeVolume('+str(queue)+')')

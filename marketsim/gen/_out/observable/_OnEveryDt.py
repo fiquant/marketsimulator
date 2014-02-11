@@ -38,4 +38,4 @@ def OnEveryDt(dt = None,x = None):
     if dt is None or rtti.can_be_casted(dt, float):
         if x is None or rtti.can_be_casted(x, IFunction[float]):
             return OnEveryDt_FloatIFunctionFloat(dt,x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for OnEveryDt('+str(dt)+','+str(x)+')')

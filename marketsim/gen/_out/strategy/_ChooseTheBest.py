@@ -46,4 +46,4 @@ def ChooseTheBest(strategies = None,account = None,performance = None):
         if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
             if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
                 return ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(strategies,account,performance)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for ChooseTheBest('+str(strategies)+','+str(account)+','+str(performance)+')')

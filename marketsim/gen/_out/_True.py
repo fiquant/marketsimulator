@@ -25,4 +25,4 @@ class true_(Function[bool],_True_Impl):
 def true(): 
     from marketsim import rtti
     return true_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for true('++')')

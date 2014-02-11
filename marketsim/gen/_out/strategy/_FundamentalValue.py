@@ -70,4 +70,4 @@ def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunction[float]):
                 return FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(eventGen,orderFactory,fundamentalValue)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for FundamentalValue('+str(eventGen)+','+str(orderFactory)+','+str(fundamentalValue)+')')

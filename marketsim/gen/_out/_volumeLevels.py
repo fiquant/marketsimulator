@@ -51,4 +51,4 @@ def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,
                     if _volumes is None or rtti.can_be_casted(_volumes, listOf(float)):
                         if _isBuy is None or rtti.can_be_casted(_isBuy, int):
                             return volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volumeLevels('+str(source)+','+str(graph)+','+str(_digitsToShow)+','+str(_smooth)+','+str(_volumes)+','+str(_isBuy)+')')

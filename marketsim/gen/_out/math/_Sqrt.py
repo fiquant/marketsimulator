@@ -41,4 +41,4 @@ def Sqrt(x = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         return Sqrt_IFunctionFloat(x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Sqrt('+str(x)+')')

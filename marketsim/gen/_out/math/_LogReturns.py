@@ -51,4 +51,4 @@ def LogReturns(x = None,timeframe = None):
     if x is None or rtti.can_be_casted(x, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return LogReturns_IObservableFloatFloat(x,timeframe)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LogReturns('+str(x)+','+str(timeframe)+')')

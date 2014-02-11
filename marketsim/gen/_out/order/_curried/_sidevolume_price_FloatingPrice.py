@@ -52,4 +52,4 @@ def sidevolume_price_FloatingPrice(floatingPrice = None,proto = None):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
         ,IFunction[float]]):
             return sidevolume_price_FloatingPrice_IObservableFloatSideFloatFloatIOrderGenerator(floatingPrice,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_price_FloatingPrice('+str(floatingPrice)+','+str(proto)+')')

@@ -63,4 +63,4 @@ def Noise(eventGen = None,orderFactory = None):
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             return Noise_IEventSideIOrderGenerator(eventGen,orderFactory)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Noise('+str(eventGen)+','+str(orderFactory)+')')

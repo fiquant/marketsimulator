@@ -33,4 +33,4 @@ class inner_VirtualMarket_(IFunction[IAccount, ISingleAssetStrategy]):
 def inner_VirtualMarket(): 
     from marketsim import rtti
     return inner_VirtualMarket_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for inner_VirtualMarket('++')')

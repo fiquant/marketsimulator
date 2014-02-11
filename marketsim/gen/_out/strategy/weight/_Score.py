@@ -2,7 +2,7 @@ def score():
     from marketsim.gen._out.strategy.weight.trader._trader_score import trader_Score_ as _strategy_weight_trader_trader_Score
     from marketsim import rtti
     return _strategy_weight_trader_trader_Score()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for score('++')')
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
 from marketsim import registry
@@ -36,4 +36,4 @@ def Score(trader = None):
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Score_IAccount(trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Score('+str(trader)+')')

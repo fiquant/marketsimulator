@@ -33,4 +33,4 @@ def Generic(orderFactory = None,eventGen = None):
     if orderFactory is None or rtti.can_be_casted(orderFactory, IOrderGenerator):
         if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
             return Generic_IOrderGeneratorIEvent(orderFactory,eventGen)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Generic('+str(orderFactory)+','+str(eventGen)+')')

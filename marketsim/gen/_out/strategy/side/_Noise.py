@@ -51,4 +51,4 @@ def Noise(side_distribution = None):
     from marketsim import rtti
     if side_distribution is None or rtti.can_be_casted(side_distribution, IFunction[float]):
         return Noise_Float(side_distribution)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Noise('+str(side_distribution)+')')

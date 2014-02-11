@@ -57,4 +57,4 @@ def Iceberg(lotSize = None,proto = None):
     if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
             return Iceberg_IFunctionFloatIOrderGenerator(lotSize,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Iceberg('+str(lotSize)+','+str(proto)+')')

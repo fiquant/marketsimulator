@@ -59,4 +59,4 @@ def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None)
             if threshold is None or rtti.can_be_casted(threshold, float):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
                     return CrossingAverages_FloatFloatFloatIOrderBook(alpha_1,alpha_2,threshold,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for CrossingAverages('+str(alpha_1)+','+str(alpha_2)+','+str(threshold)+','+str(book)+')')

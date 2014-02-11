@@ -46,4 +46,4 @@ def side_price_Iceberg(lotSize = None,proto = None):
     if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
             return side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(lotSize,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_price_Iceberg('+str(lotSize)+','+str(proto)+')')

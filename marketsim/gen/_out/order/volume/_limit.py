@@ -7,4 +7,4 @@ def Limit(side = None,price = None):
     if side is None or rtti.can_be_casted(side, IFunction[Side]):
         if price is None or rtti.can_be_casted(price, IFunction[float]):
             return _order__curried_volume_Limit(side,price)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Limit('+str(side)+','+str(price)+')')

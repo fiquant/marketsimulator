@@ -60,4 +60,4 @@ def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     if step is None or rtti.can_be_casted(step, float):
                         return Histogram_IObservableFloatFloatFloatFloatFloat(x,slow,fast,timeframe,step)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Histogram('+str(x)+','+str(slow)+','+str(fast)+','+str(timeframe)+','+str(step)+')')

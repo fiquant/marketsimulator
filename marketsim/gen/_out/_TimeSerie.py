@@ -41,4 +41,4 @@ def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if _smooth is None or rtti.can_be_casted(_smooth, int):
                     return TimeSerie_IObservableAnyIGraphIntInt(source,graph,_digitsToShow,_smooth)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for TimeSerie('+str(source)+','+str(graph)+','+str(_digitsToShow)+','+str(_smooth)+')')

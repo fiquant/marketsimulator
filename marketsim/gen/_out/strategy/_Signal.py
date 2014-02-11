@@ -73,4 +73,4 @@ def Signal(eventGen = None,orderFactory = None,signal = None,threshold = None):
             if signal is None or rtti.can_be_casted(signal, IFunction[float]):
                 if threshold is None or rtti.can_be_casted(threshold, float):
                     return Signal_IEventSideIOrderGeneratorIFunctionFloatFloat(eventGen,orderFactory,signal,threshold)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Signal('+str(eventGen)+','+str(orderFactory)+','+str(signal)+','+str(threshold)+')')

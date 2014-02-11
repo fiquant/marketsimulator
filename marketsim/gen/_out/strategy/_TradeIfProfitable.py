@@ -50,7 +50,7 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     def getImpl(self):
         from marketsim.gen._out.strategy._suspendable import Suspendable_ISingleAssetStrategyIFunctionBoolean as _strategy_Suspendable
         from marketsim.gen._out.ops._greaterequal import GreaterEqual_IFunctionFloatIFunctionFloat as _ops_GreaterEqual
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out._constant import constant_Int as _constant
         return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_constant(0)))
     
     def _send(self, order, source):
@@ -66,4 +66,4 @@ def TradeIfProfitable(inner = None,account = None,performance = None):
         if account is None or rtti.can_be_casted(account, IFunction[IAccount,ISingleAssetStrategy]):
             if performance is None or rtti.can_be_casted(performance, IFunction[IFunction[float],IAccount]):
                 return TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloat(inner,account,performance)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for TradeIfProfitable('+str(inner)+','+str(account)+','+str(performance)+')')

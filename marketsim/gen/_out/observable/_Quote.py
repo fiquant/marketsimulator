@@ -45,4 +45,4 @@ def Quote(ticker = None,start = None,end = None):
         if start is None or rtti.can_be_casted(start, str):
             if end is None or rtti.can_be_casted(end, str):
                 return Quote_StringStringString(ticker,start,end)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Quote('+str(ticker)+','+str(start)+','+str(end)+')')

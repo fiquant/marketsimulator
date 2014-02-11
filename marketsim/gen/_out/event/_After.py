@@ -29,4 +29,4 @@ def After(delay = None):
     from marketsim import rtti
     if delay is None or rtti.can_be_casted(delay, IFunction[float]):
         return After_IFunctionFloat(delay)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for After('+str(delay)+')')

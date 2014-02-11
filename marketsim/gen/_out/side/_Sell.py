@@ -25,4 +25,4 @@ class Sell_(Function[Side],_Sell_Impl):
 def Sell(): 
     from marketsim import rtti
     return Sell_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Sell('++')')

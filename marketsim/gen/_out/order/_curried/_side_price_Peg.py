@@ -42,4 +42,4 @@ def side_price_Peg(proto = None):
     from marketsim import Side
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
         return side_price_Peg_SideFloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_price_Peg('+str(proto)+')')

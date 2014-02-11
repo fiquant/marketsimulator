@@ -38,4 +38,4 @@ def signedVolume_LimitSigned(price = None):
     from marketsim import rtti
     if price is None or rtti.can_be_casted(price, IFunction[float]):
         return signedVolume_LimitSigned_IFunctionFloat(price)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for signedVolume_LimitSigned('+str(price)+')')

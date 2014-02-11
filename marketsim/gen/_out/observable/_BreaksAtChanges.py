@@ -37,4 +37,4 @@ def BreaksAtChanges(source = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         return BreaksAtChanges_IFunctionFloat(source)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for BreaksAtChanges('+str(source)+')')

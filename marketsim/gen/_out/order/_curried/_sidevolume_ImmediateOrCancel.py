@@ -48,4 +48,4 @@ def sidevolume_ImmediateOrCancel(proto = None):
     if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]
     ,IFunction[float]]):
         return sidevolume_ImmediateOrCancel_SideFloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_ImmediateOrCancel('+str(proto)+')')

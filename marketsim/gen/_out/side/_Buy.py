@@ -25,4 +25,4 @@ class Buy_(Function[Side],_Buy_Impl):
 def Buy(): 
     from marketsim import rtti
     return Buy_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Buy('++')')

@@ -56,4 +56,4 @@ def RoughPnL(trader = None):
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return RoughPnL_IAccount(trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RoughPnL('+str(trader)+')')

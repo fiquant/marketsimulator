@@ -41,4 +41,4 @@ def Log(x = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         return Log_IFunctionFloat(x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Log('+str(x)+')')

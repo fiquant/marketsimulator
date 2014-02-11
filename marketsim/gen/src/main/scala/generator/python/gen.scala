@@ -93,24 +93,7 @@ package object gen
 
                 type Overload = (Typed.Function, Boolean)
 
-                def reorder(overloads : List[Overload]) : List[Overload] = overloads match {
-                    // in fact it is a naive ad-hoc implementation of topological sort
-                    case Nil => Nil
-                    case _ =>
-                        overloads partition { y =>
-                            overloads exists  { x =>
-                                x != y &&
-                                (x._1.ty.args zip y._1.ty.args forall { case (a,b) => a canCastTo b })
-                            }
-                        } match {
-                            case (_, Nil) =>
-                                throw new Exception(s"there is no weakest overload between: " + (overloads map { _._1 } mkString predef.crlf))
-                            case (nonTerm, term) =>
-                                term ++ reorder(nonTerm)
-                        }
-                }
-
-                def calls = reorder(overloads) map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
+                def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
 
                 val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
 
@@ -127,7 +110,9 @@ package object gen
                         s"def $base_name($input_args): " |> base.withImports(
                                 calls |||
                                 ImportFrom("rtti", "marketsim") |
-                                """raise Exception("Cannot find suitable overload")""")
+                                s"raise Exception('Cannot find suitable overload for $base_name('+"+
+                                        (fs.head.parameter_names map { "str(" + _ + ")" } mkString "+','+")+
+                                        "+')')")
 
                     for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                         out.println(resolver)

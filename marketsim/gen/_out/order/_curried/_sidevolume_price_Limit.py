@@ -37,4 +37,4 @@ class sidevolume_price_Limit_(IFunction[IFunction[IOrderGenerator, IFunction[flo
 def sidevolume_price_Limit(): 
     from marketsim import rtti
     return sidevolume_price_Limit_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_price_Limit('++')')

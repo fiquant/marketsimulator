@@ -43,4 +43,4 @@ def Greater(x = None,y = None):
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if y is None or rtti.can_be_casted(y, IFunction[float]):
             return Greater_IFunctionFloatIFunctionFloat(x,y)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Greater('+str(x)+','+str(y)+')')

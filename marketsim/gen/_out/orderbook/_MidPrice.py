@@ -56,4 +56,4 @@ def MidPrice(book = None):
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return MidPrice_IOrderBook(book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MidPrice('+str(book)+')')

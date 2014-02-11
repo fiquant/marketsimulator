@@ -56,4 +56,4 @@ def TrendFollower(alpha = None,threshold = None,book = None):
         if threshold is None or rtti.can_be_casted(threshold, float):
             if book is None or rtti.can_be_casted(book, IOrderBook):
                 return TrendFollower_FloatFloatIOrderBook(alpha,threshold,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for TrendFollower('+str(alpha)+','+str(threshold)+','+str(book)+')')

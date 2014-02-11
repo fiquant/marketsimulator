@@ -55,4 +55,4 @@ def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name =
             if intervalDistr is None or rtti.can_be_casted(intervalDistr, IFunction[float]):
                 if name is None or rtti.can_be_casted(name, str):
                     return RandomWalk_FloatFloatFloatString(initialValue,deltaDistr,intervalDistr,name)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RandomWalk('+str(initialValue)+','+str(deltaDistr)+','+str(intervalDistr)+','+str(name)+')')

@@ -66,4 +66,4 @@ def FundamentalValue(fv = None,book = None):
     if fv is None or rtti.can_be_casted(fv, IFunction[float]):
         if book is None or rtti.can_be_casted(book, IOrderBook):
             return FundamentalValue_IFunctionFloatIOrderBook(fv,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for FundamentalValue('+str(fv)+','+str(book)+')')

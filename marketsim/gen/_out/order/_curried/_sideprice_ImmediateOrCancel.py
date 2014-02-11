@@ -48,4 +48,4 @@ def sideprice_ImmediateOrCancel(proto = None):
     if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]
     ,IFunction[float]]):
         return sideprice_ImmediateOrCancel_SideFloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sideprice_ImmediateOrCancel('+str(proto)+')')

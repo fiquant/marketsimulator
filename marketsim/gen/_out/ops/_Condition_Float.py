@@ -50,4 +50,4 @@ def Condition_Float(cond = None,ifpart = None,elsepart = None):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
                 return Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(cond,ifpart,elsepart)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Condition_Float('+str(cond)+','+str(ifpart)+','+str(elsepart)+')')

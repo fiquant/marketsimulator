@@ -78,4 +78,4 @@ def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor
             if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
                 if factor is None or rtti.can_be_casted(factor, float):
                     return PairTrading_IEventSideIOrderGeneratorIOrderBookFloat(eventGen,orderFactory,bookToDependOn,factor)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for PairTrading('+str(eventGen)+','+str(orderFactory)+','+str(bookToDependOn)+','+str(factor)+')')

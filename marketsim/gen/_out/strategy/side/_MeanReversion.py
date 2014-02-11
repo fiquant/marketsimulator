@@ -52,4 +52,4 @@ def MeanReversion(alpha = None,book = None):
     if alpha is None or rtti.can_be_casted(alpha, float):
         if book is None or rtti.can_be_casted(book, IOrderBook):
             return MeanReversion_FloatIOrderBook(alpha,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MeanReversion('+str(alpha)+','+str(book)+')')

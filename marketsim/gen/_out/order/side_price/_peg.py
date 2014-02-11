@@ -7,4 +7,4 @@ def Peg(proto = None):
     from marketsim import Side
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
         return _order__curried_sideprice_Peg(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Peg('+str(proto)+')')

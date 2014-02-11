@@ -5,4 +5,4 @@ def Market(side = None):
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunction[Side]):
         return _order__curried_volume_Market(side)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Market('+str(side)+')')

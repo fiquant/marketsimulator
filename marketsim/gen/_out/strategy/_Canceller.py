@@ -30,4 +30,4 @@ def Canceller(cancellationIntervalDistr = None):
     from marketsim import rtti
     if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunction[float]):
         return Canceller_Float(cancellationIntervalDistr)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Canceller('+str(cancellationIntervalDistr)+')')

@@ -52,4 +52,4 @@ def Sqr(x = None):
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         return Sqr_IFunctionFloat(x)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Sqr('+str(x)+')')

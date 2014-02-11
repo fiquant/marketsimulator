@@ -43,4 +43,4 @@ def volume_WithExpiry(expiry = None,proto = None):
     if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
             return volume_WithExpiry_IFunctionFloatFloatIOrderGenerator(expiry,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volume_WithExpiry('+str(expiry)+','+str(proto)+')')

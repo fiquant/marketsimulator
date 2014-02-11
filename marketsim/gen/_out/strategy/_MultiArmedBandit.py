@@ -55,4 +55,4 @@ def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer =
                 if normalizer is None or rtti.can_be_casted(normalizer, IFunction[IFunction[float],IFunction[float]]):
                     if corrector is None or rtti.can_be_casted(corrector, IFunction[listOf(float),listOf(float)]):
                         return MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountIFunctionFloatIFunctionFloatIFunctionFloatListFloatListFloat(strategies,account,weight,normalizer,corrector)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MultiArmedBandit('+str(strategies)+','+str(account)+','+str(weight)+','+str(normalizer)+','+str(corrector)+')')

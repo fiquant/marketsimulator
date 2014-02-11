@@ -50,4 +50,4 @@ def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None):
         if volumeDelta is None or rtti.can_be_casted(volumeDelta, float):
             if volumeCount is None or rtti.can_be_casted(volumeCount, int):
                 return VolumeLevels_IOrderQueueFloatInt(queue,volumeDelta,volumeCount)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for VolumeLevels('+str(queue)+','+str(volumeDelta)+','+str(volumeCount)+')')

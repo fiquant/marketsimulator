@@ -42,4 +42,4 @@ def Lagged(source = None,timeframe = None):
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return Lagged_IObservableFloatFloat(source,timeframe)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Lagged('+str(source)+','+str(timeframe)+')')

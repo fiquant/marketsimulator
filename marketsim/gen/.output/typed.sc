@@ -52,12 +52,19 @@ package ops {
     @label = "-%(x)s"
     
     @python.intrinsic.observable("ops._Negate_Impl")
-    def Negate(x : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+    def Negate(x : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "-%(x)s"
     
     @python.intrinsic.observable("ops._Negate_Impl")
-    def Negate(x : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    def Negate(x : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "+"
+    
+    @python.intrinsic.observable("ops._Add_Impl")
+    def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
@@ -71,13 +78,6 @@ package ops {
     
     @python.intrinsic.observable("ops._Add_Impl")
     def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @symbol = "+"
-    
-    @python.intrinsic.observable("ops._Add_Impl")
-    def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
@@ -99,13 +99,6 @@ package ops {
     
     @python.intrinsic.observable("ops._Mul_Impl")
     def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @symbol = "*"
-    
-    @python.intrinsic.observable("ops._Mul_Impl")
-    def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
@@ -113,6 +106,13 @@ package ops {
     
     @python.intrinsic.observable("ops._Mul_Impl")
     def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "*"
+    
+    @python.intrinsic.observable("ops._Mul_Impl")
+    def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
@@ -155,13 +155,6 @@ package ops {
     
     @python.intrinsic.observable("ops._Sub_Impl")
     def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    
-    @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @symbol = "-"
-    
-    @python.intrinsic.observable("ops._Sub_Impl")
-    def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
@@ -169,6 +162,13 @@ package ops {
     
     @python.intrinsic.observable("ops._Sub_Impl")
     def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "-"
+    
+    @python.intrinsic.observable("ops._Sub_Impl")
+    def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
@@ -176,12 +176,6 @@ package ops {
     
     @python.intrinsic.observable("ops._Sub_Impl")
     def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
-    
-    @label = "\\frac{%(x)s}{%(y)s}"
-    
-    @python.intrinsic.observable("ops._Div_Impl")
-    def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
     @label = "\\frac{%(x)s}{%(y)s}"
@@ -201,6 +195,12 @@ package ops {
     @python.intrinsic.observable("ops._Div_Impl")
     def Div(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "\\frac{%(x)s}{%(y)s}"
+    
+    @python.intrinsic.observable("ops._Div_Impl")
+    def Div(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
@@ -2615,8 +2615,12 @@ package trash {
             	 = .trash.overloading.f(x)
         
         
-        def h() : .IFunction[.Price]
+        def h() : .IFunction[.Volume]
             	 = .trash.overloading.f(.constant(12))
+        
+        
+        def hh() : .IFunction[.Price]
+            	 = .trash.overloading.f(.constant(12.2))
     }
     
     
@@ -2656,16 +2660,16 @@ type String
 @category = "Basic"
 @label = "C=%(x)s"
 
-def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
-    	 = .const(x) : .IFunction[.Float]
+def constant(x : Optional[.Int] = 1) : .IFunction[.Int]
+    	 = .const(x) : .IFunction[.Int]
 
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 
-def constant(x : Optional[.Int] = 1) : .IFunction[.Int]
-    	 = .const(x) : .IFunction[.Int]
+def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
+    	 = .const(x) : .IFunction[.Float]
 
 /** Trivial observable always returning *False*
  */
@@ -2700,7 +2704,7 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 @label = "C=%(x)s"
 
 @python.intrinsic.function("_constant._Constant_Impl")
-def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
+def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 
 /** Trivial observable always returning *x*
  */
@@ -2708,7 +2712,7 @@ def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 @label = "C=%(x)s"
 
 @python.intrinsic.function("_constant._Constant_Impl")
-def const(x : Optional[.Int] = 1) : .IObservable[.Int]
+def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation

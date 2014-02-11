@@ -63,4 +63,4 @@ def PairTrading(bookToDependOn = None,factor = None,book = None):
         if factor is None or rtti.can_be_casted(factor, float):
             if book is None or rtti.can_be_casted(book, IOrderBook):
                 return PairTrading_IOrderBookFloatIOrderBook(bookToDependOn,factor,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for PairTrading('+str(bookToDependOn)+','+str(factor)+','+str(book)+')')

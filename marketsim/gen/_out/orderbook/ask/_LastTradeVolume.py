@@ -52,4 +52,4 @@ def LastTradeVolume(book = None):
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return LastTradeVolume_IOrderBook(book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LastTradeVolume('+str(book)+')')

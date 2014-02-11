@@ -57,4 +57,4 @@ def IfDefined(x = None,elsePart = None):
     if x is None or rtti.can_be_casted(x, IFunction[float]):
         if elsePart is None or rtti.can_be_casted(elsePart, IFunction[float]):
             return IfDefined_IFunctionFloatIFunctionFloat(x,elsePart)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for IfDefined('+str(x)+','+str(elsePart)+')')

@@ -46,4 +46,4 @@ def sidevolume_Peg(proto = None):
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
     ,IFunction[float]]):
         return sidevolume_Peg_SideFloatFloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_Peg('+str(proto)+')')

@@ -32,4 +32,4 @@ def TwoWayLink(up = None,down = None):
     if up is None or rtti.can_be_casted(up, ILink):
         if down is None or rtti.can_be_casted(down, ILink):
             return TwoWayLink_ILinkILink(up,down)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for TwoWayLink('+str(up)+','+str(down)+')')

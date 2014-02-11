@@ -35,4 +35,4 @@ def vonmisesvariate(Mu = None,Kappa = None):
     if Mu is None or rtti.can_be_casted(Mu, float):
         if Kappa is None or rtti.can_be_casted(Kappa, float):
             return vonmisesvariate_FloatFloat(Mu,Kappa)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for vonmisesvariate('+str(Mu)+','+str(Kappa)+')')

@@ -33,4 +33,4 @@ def Var(source = None,alpha = None):
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return Var_IObservableFloatFloat(source,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Var('+str(source)+','+str(alpha)+')')

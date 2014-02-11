@@ -43,4 +43,4 @@ def MinEpsilon(source = None,epsilon = None):
     if source is None or rtti.can_be_casted(source, IFunction[float]):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
             return MinEpsilon_IFunctionFloatIFunctionFloat(source,epsilon)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MinEpsilon('+str(source)+','+str(epsilon)+')')

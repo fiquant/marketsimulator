@@ -28,9 +28,9 @@ def ChooseTheBest(array = None):
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
         return ChooseTheBest_ListFloat(array)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for ChooseTheBest('+str(array)+')')
 def chooseTheBest(): 
     from marketsim.gen._out.strategy.weight.array._array_choosethebest import array_ChooseTheBest_ as _strategy_weight_array_array_ChooseTheBest
     from marketsim import rtti
     return _strategy_weight_array_array_ChooseTheBest()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for chooseTheBest('++')')

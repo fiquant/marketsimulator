@@ -44,6 +44,7 @@ class MarketMaker_FloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy
         from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueIFunctionFloat as _orderbook_SafeSidePrice
         from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
+        from marketsim.gen._out._constant import constant_Int as _constant
         from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids
         from marketsim.gen._out.math._exp import Exp_IFunctionFloat as _math_Exp
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt
@@ -71,4 +72,4 @@ def MarketMaker(delta = None,volume = None):
     if delta is None or rtti.can_be_casted(delta, float):
         if volume is None or rtti.can_be_casted(volume, float):
             return MarketMaker_FloatFloat(delta,volume)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MarketMaker('+str(delta)+','+str(volume)+')')

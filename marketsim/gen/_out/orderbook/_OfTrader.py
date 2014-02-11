@@ -26,4 +26,4 @@ def OfTrader(Trader = None):
     from marketsim import rtti
     if Trader is None or rtti.can_be_casted(Trader, IAccount):
         return OfTrader_IAccount(Trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for OfTrader('+str(Trader)+')')

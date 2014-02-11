@@ -30,4 +30,4 @@ def Link(latency = None):
     from marketsim import rtti
     if latency is None or rtti.can_be_casted(latency, IObservable[float]):
         return Link_IObservableFloat(latency)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Link('+str(latency)+')')

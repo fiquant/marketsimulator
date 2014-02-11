@@ -40,4 +40,4 @@ def Remote(orderbook = None,link = None,timeseries = None):
         if link is None or rtti.can_be_casted(link, ITwoWayLink):
             if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
                 return Remote_IOrderBookITwoWayLinkListITimeSerie(orderbook,link,timeseries)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Remote('+str(orderbook)+','+str(link)+','+str(timeseries)+')')

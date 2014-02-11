@@ -70,4 +70,4 @@ def MeanReversion(eventGen = None,orderFactory = None,ewma_alpha = None):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
             if ewma_alpha is None or rtti.can_be_casted(ewma_alpha, float):
                 return MeanReversion_IEventSideIOrderGeneratorFloat(eventGen,orderFactory,ewma_alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MeanReversion('+str(eventGen)+','+str(orderFactory)+','+str(ewma_alpha)+')')

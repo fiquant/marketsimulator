@@ -65,4 +65,4 @@ def Bollinger_linear(orderFactory = None,alpha = None,k = None):
         if alpha is None or rtti.can_be_casted(alpha, float):
             if k is None or rtti.can_be_casted(k, IObservable[float]):
                 return Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(orderFactory,alpha,k)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(orderFactory)+','+str(alpha)+','+str(k)+')')

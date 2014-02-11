@@ -43,4 +43,4 @@ def triangular(Low = None,High = None,Mode = None):
         if High is None or rtti.can_be_casted(High, float):
             if Mode is None or rtti.can_be_casted(Mode, float):
                 return triangular_FloatFloatFloat(Low,High,Mode)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for triangular('+str(Low)+','+str(High)+','+str(Mode)+')')

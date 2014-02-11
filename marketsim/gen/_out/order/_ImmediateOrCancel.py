@@ -47,4 +47,4 @@ def ImmediateOrCancel(proto = None):
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
         return ImmediateOrCancel_IOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for ImmediateOrCancel('+str(proto)+')')

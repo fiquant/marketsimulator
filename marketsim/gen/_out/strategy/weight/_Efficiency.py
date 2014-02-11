@@ -2,7 +2,7 @@ def efficiency():
     from marketsim.gen._out.strategy.weight.trader._trader_efficiency import trader_Efficiency_ as _strategy_weight_trader_trader_Efficiency
     from marketsim import rtti
     return _strategy_weight_trader_trader_Efficiency()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for efficiency('++')')
 from marketsim import IAccount
 from marketsim import registry
 from marketsim.ops._function import Function
@@ -50,4 +50,4 @@ def Efficiency(trader = None):
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Efficiency_IAccount(trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Efficiency('+str(trader)+')')

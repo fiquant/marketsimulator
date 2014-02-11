@@ -33,4 +33,4 @@ def trader_EfficiencyTrend(alpha = None):
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
         return trader_EfficiencyTrend_Float(alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for trader_EfficiencyTrend('+str(alpha)+')')

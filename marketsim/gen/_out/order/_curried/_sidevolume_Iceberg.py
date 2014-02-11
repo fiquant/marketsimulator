@@ -50,4 +50,4 @@ def sidevolume_Iceberg(lotSize = None,proto = None):
         if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]
         ,IFunction[float]]):
             return sidevolume_Iceberg_IFunctionFloatSideFloatIOrderGenerator(lotSize,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_Iceberg('+str(lotSize)+','+str(proto)+')')

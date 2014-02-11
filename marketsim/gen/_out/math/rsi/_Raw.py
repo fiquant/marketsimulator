@@ -55,4 +55,4 @@ def Raw(source = None,timeframe = None,alpha = None):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             if alpha is None or rtti.can_be_casted(alpha, float):
                 return Raw_IObservableFloatFloatFloat(source,timeframe,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Raw('+str(source)+','+str(timeframe)+','+str(alpha)+')')

@@ -30,4 +30,4 @@ def Combine(A = None,B = None):
     if A is None or rtti.can_be_casted(A, ISingleAssetStrategy):
         if B is None or rtti.can_be_casted(B, ISingleAssetStrategy):
             return Combine_ISingleAssetStrategyISingleAssetStrategy(A,B)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Combine('+str(A)+','+str(B)+')')

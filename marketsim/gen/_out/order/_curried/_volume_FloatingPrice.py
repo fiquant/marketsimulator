@@ -46,4 +46,4 @@ def volume_FloatingPrice(floatingPrice = None,proto = None):
     if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
         if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
             return volume_FloatingPrice_IObservableFloatFloatFloatIOrderGenerator(floatingPrice,proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volume_FloatingPrice('+str(floatingPrice)+','+str(proto)+')')

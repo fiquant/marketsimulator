@@ -35,4 +35,4 @@ class sidevolume_Market_(IFunction[IOrderGenerator, IFunction[Side],IFunction[fl
 def sidevolume_Market(): 
     from marketsim import rtti
     return sidevolume_Market_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for sidevolume_Market('++')')

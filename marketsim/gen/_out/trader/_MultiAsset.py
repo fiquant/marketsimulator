@@ -50,4 +50,4 @@ def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries 
                 if PnL is None or rtti.can_be_casted(PnL, float):
                     if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
                         return MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(traders,strategy,name,PnL,timeseries)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MultiAsset('+str(traders)+','+str(strategy)+','+str(name)+','+str(PnL)+','+str(timeseries)+')')

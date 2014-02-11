@@ -70,4 +70,4 @@ def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = N
             if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
                     return LiquidityProvider_SideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LiquidityProvider('+str(side)+','+str(initialValue)+','+str(priceDistr)+','+str(book)+')')

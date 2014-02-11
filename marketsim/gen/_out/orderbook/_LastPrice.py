@@ -36,4 +36,4 @@ def LastPrice(queue = None):
     from marketsim import rtti
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         return LastPrice_IOrderQueue(queue)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LastPrice('+str(queue)+')')

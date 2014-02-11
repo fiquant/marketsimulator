@@ -83,6 +83,8 @@ class SideBudget(object):
 
 IFunction = Factory('IFunction', """(object):
     _types = [function((%(R)s), %(T)s)]
+
+    if %(T)s is int: _types.append(IFunction[float], %(R)s)
 """)
 
 IFunction[Side]

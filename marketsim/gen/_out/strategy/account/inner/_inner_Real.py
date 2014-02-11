@@ -31,4 +31,4 @@ class inner_Real_(IFunction[IAccount, ISingleAssetStrategy]):
 def inner_Real(): 
     from marketsim import rtti
     return inner_Real_()
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for inner_Real('++')')

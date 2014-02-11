@@ -6,4 +6,4 @@ def Limit(signedVolume = None,price = None):
     if signedVolume is None or rtti.can_be_casted(signedVolume, IFunction[float]):
         if price is None or rtti.can_be_casted(price, IFunction[float]):
             return _order_LimitSigned(signedVolume,price)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Limit('+str(signedVolume)+','+str(price)+')')

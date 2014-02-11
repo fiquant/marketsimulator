@@ -35,4 +35,4 @@ def Suspendable(inner = None,predicate = None):
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         if predicate is None or rtti.can_be_casted(predicate, IFunction[bool]):
             return Suspendable_ISingleAssetStrategyIFunctionBoolean(inner,predicate)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Suspendable('+str(inner)+','+str(predicate)+')')

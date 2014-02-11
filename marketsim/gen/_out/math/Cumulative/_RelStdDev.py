@@ -55,4 +55,4 @@ def RelStdDev(source = None):
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservable[float]):
         return RelStdDev_IObservableFloat(source)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RelStdDev('+str(source)+')')

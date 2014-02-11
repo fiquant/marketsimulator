@@ -62,4 +62,4 @@ def Signal(signal = None,threshold = None):
     if signal is None or rtti.can_be_casted(signal, IFunction[float]):
         if threshold is None or rtti.can_be_casted(threshold, float):
             return Signal_IFunctionFloatFloat(signal,threshold)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for Signal('+str(signal)+','+str(threshold)+')')

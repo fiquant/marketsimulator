@@ -62,4 +62,4 @@ def DesiredPosition(desiredPosition = None,trader = None):
     if desiredPosition is None or rtti.can_be_casted(desiredPosition, IObservable[float]):
         if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
             return DesiredPosition_IObservableFloatISingleAssetTrader(desiredPosition,trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for DesiredPosition('+str(desiredPosition)+','+str(trader)+')')

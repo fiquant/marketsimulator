@@ -40,4 +40,4 @@ def volume_price_Peg(proto = None):
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
         return volume_price_Peg_FloatFloatIOrderGenerator(proto)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for volume_price_Peg('+str(proto)+')')

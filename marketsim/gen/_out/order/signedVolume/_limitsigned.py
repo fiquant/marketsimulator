@@ -5,4 +5,4 @@ def LimitSigned(price = None):
     from marketsim import rtti
     if price is None or rtti.can_be_casted(price, IFunction[float]):
         return _order__curried_signedVolume_LimitSigned(price)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for LimitSigned('+str(price)+')')

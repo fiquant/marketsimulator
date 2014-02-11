@@ -79,4 +79,4 @@ def RSIbis(eventGen = None,orderFactory = None,alpha = None,timeframe = None,thr
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):
                         return RSIbis_IEventSideIOrderGeneratorFloatFloatFloat(eventGen,orderFactory,alpha,timeframe,threshold)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RSIbis('+str(eventGen)+','+str(orderFactory)+','+str(alpha)+','+str(timeframe)+','+str(threshold)+')')

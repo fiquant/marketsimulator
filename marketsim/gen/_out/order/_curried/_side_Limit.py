@@ -43,4 +43,4 @@ def side_Limit(price = None,volume = None):
     if price is None or rtti.can_be_casted(price, IFunction[float]):
         if volume is None or rtti.can_be_casted(volume, IFunction[float]):
             return side_Limit_IFunctionFloatIFunctionFloat(price,volume)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for side_Limit('+str(price)+','+str(volume)+')')

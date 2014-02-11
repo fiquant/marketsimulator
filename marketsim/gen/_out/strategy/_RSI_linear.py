@@ -68,4 +68,4 @@ def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None):
             if k is None or rtti.can_be_casted(k, IObservable[float]):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     return RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(orderFactory,alpha,k,timeframe)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RSI_linear('+str(orderFactory)+','+str(alpha)+','+str(k)+','+str(timeframe)+')')

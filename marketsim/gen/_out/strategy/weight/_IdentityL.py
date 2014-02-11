@@ -28,4 +28,4 @@ def IdentityL(array = None):
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
         return IdentityL_ListFloat(array)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for IdentityL('+str(array)+')')

@@ -37,4 +37,4 @@ def betavariate(Alpha = None,Beta = None):
     if Alpha is None or rtti.can_be_casted(Alpha, float):
         if Beta is None or rtti.can_be_casted(Beta, float):
             return betavariate_FloatFloat(Alpha,Beta)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for betavariate('+str(Alpha)+','+str(Beta)+')')

@@ -54,4 +54,4 @@ def WeightedPrice(queue = None,alpha = None):
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return WeightedPrice_IOrderQueueFloat(queue,alpha)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for WeightedPrice('+str(queue)+','+str(alpha)+')')

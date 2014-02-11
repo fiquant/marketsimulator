@@ -53,4 +53,4 @@ def MACD(x = None,slow = None,fast = None):
         if slow is None or rtti.can_be_casted(slow, float):
             if fast is None or rtti.can_be_casted(fast, float):
                 return MACD_IObservableFloatFloatFloat(x,slow,fast)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for MACD('+str(x)+','+str(slow)+','+str(fast)+')')

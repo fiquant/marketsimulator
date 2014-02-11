@@ -71,4 +71,4 @@ def RSI_linear(alpha = None,k = None,timeframe = None,trader = None):
             if timeframe is None or rtti.can_be_casted(timeframe, float):
                 if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
                     return RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(alpha,k,timeframe,trader)
-    raise Exception("Cannot find suitable overload")
+    raise Exception('Cannot find suitable overload for RSI_linear('+str(alpha)+','+str(k)+','+str(timeframe)+','+str(trader)+')')
