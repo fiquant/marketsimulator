@@ -145,11 +145,13 @@ package object Typed
 
     case class FunctionAlias(parent : Package,
                              name   : String,
-                             targets: List[Function])
+                             target : Function)
             extends sc.FunctionAlias
             with    ScPrintable
             with    FunctionDecl
     {
+        val targets = target :: Nil
+
         override def equals(o : Any) = o match {
             case other : FunctionAlias =>
                 (targets.length == other.targets.length) &&

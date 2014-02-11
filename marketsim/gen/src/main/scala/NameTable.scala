@@ -352,7 +352,6 @@ package object NameTable {
     }
 
 
-
     def create(p : List[AST.Definitions]) : Option[Scope] =
     {
         val impl : Scope = new Scope

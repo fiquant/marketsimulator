@@ -79,9 +79,9 @@ package object Typer
             if (!(typed.functions contains name))
                 typed insert
                         visited.enter(source qualifyName name) {
-                            definitions map {
+                            definitions flatMap {
                                 case f : AST.FunAlias => toTyped(f)
-                                case f : AST.FunDef => toTyped(f)
+                                case f : AST.FunDef => toTyped(f) :: Nil
                             } }
             typed.functions(name)
         }
@@ -231,8 +231,8 @@ package object Typer
                 definition.docstring, annotationsOf(definition), attributesOf(definition)).copyPositionFrom(definition)
         }
 
-        private def toTyped(f : AST.FunAlias) : Typed.FunctionAlias =
-            Typed.FunctionAlias(typed, f.name, lookupFunction(f.target))
+        private def toTyped(f : AST.FunAlias) : List[Typed.FunctionAlias] =
+            lookupFunction(f.target) map { t => Typed.FunctionAlias(typed, f.name, t) }
 
 
         private def toTyped(p: AST.Parameter, inferType : AST.Expr => Typed.Expr) : Typed.Parameter = {
