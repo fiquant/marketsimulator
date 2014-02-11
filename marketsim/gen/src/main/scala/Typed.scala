@@ -289,9 +289,7 @@ package object Typed
                 case _ =>
                     overloads partition { y =>
                         overloads exists  { x =>
-                            x != y &&
-                            (x.target.ty.args zip y.target.ty.args forall { case (a,b) => a canCastTo b })
-                        }
+                            x != y && (x.target.ty betterThan y.target.ty) }
                     } match {
                         case (_, Nil) =>
                             throw new Exception(s"there is no weakest overload between: " + (overloads mkString predef.crlf))

@@ -80,14 +80,14 @@ package object TypesBound
         override def canCastToImpl(other : Base) = {
             other match {
                 case f: Function =>
-                    (f.args.length == args.length) &&
-                    (ret canCastTo f.ret) &&
-                    (args zip f.args).forall({
-                        case (mine, others) => others canCastTo mine
-                    })
+                    (f betterThan this) && (ret canCastTo f.ret)
                 case _ => false
             }
         }
+
+        def betterThan(other : Function) =
+            (args.length == other.args.length) &&
+            (args zip other.args forall { case (mine, others) => mine canCastTo others })
 
         override def returnTypeIfFunction = Some(ret)
         override def paramTypesIfFunction = Some(args)
