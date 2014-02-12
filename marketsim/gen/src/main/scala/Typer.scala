@@ -143,6 +143,16 @@ package object Typer
                                                             candidates(prefix, corrected("const" :: Nil, d) :: xs)
 
                                                         case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "true" =>
+
+                                                            candidates(prefix, corrected("observableTrue" :: Nil, d) :: xs)
+
+                                                        case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "false" =>
+
+                                                            candidates(prefix, corrected("observableFalse" :: Nil, d) :: xs)
+
+                                                        case Some(AST.FunCall(c, d))
                                                             if c.names.last == "Sell" =>
 
                                                             candidates(prefix, corrected("side" :: "observableSell" :: Nil, d) :: xs)

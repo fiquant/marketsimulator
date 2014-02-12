@@ -2343,7 +2343,7 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
-                    /** predicate to evaluate */ predicate : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean]) : .ISingleAssetStrategy
+                    /** predicate to evaluate */ predicate : Optional[.IFunction[.Boolean]] = .true()) : .ISingleAssetStrategy
     
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.

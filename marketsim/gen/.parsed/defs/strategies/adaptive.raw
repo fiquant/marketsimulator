@@ -26,22 +26,11 @@ Definitions:
 | | | | | | | - predicate
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - true
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | | | | | - true
+| | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  predicate to evaluate 
 | | | | | - None

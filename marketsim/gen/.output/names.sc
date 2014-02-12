@@ -2022,7 +2022,7 @@ package strategy
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = Noise(),
-                    /** predicate to evaluate */ predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
+                    /** predicate to evaluate */ predicate = true()) : ISingleAssetStrategy
     
     /** Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.

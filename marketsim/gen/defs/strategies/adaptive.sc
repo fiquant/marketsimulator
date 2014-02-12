@@ -8,7 +8,7 @@ package strategy
         /** wrapped strategy */
         inner       = Noise(),
         /** predicate to evaluate */
-        predicate   = true() : IFunction[Boolean]) : ISingleAssetStrategy
+        predicate   = true()) : ISingleAssetStrategy
 
     /**
      *  Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders

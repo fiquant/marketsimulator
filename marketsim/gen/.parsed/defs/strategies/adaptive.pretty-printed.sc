@@ -5,7 +5,7 @@ package strategy {
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = Noise(),
-                    /** predicate to evaluate */ predicate = true() : IFunction[Boolean]) : ISingleAssetStrategy
+                    /** predicate to evaluate */ predicate = true()) : ISingleAssetStrategy
     
     // defined at defs\strategies\adaptive.sc: 13.5
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
