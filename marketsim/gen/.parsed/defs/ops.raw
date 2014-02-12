@@ -938,7 +938,7 @@ Definitions:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
-| | | | | | | | - Condition_Float
+| | | | | | | | - Condition
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - cond
@@ -1008,7 +1008,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ops._Condition_Impl
 | | | | | | | - FunDef:
-| | | | | | | | - Condition_Float
+| | | | | | | | - Condition
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - cond
@@ -1078,7 +1078,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ops._Condition_Impl
 | | | | | | | - FunDef:
-| | | | | | | | - Condition_Float
+| | | | | | | | - Condition
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - cond
@@ -1148,7 +1148,7 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ops._Condition_Impl
 | | | | | | | - FunDef:
-| | | | | | | | - Condition_Float
+| | | | | | | | - Condition
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - cond
@@ -1224,7 +1224,7 @@ Definitions:
 | | | | | - List:
 | | | | | - false
 | | | | - FunDef:
-| | | | | - Condition_Side
+| | | | | - Condition
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - cond

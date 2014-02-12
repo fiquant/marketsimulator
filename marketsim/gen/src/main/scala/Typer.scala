@@ -475,12 +475,7 @@ package object Typer
             case AST.IfThenElse(cond, x, y) =>
                 val px = asArith(x)
                 val py = asArith(y)
-                if (isFloatFunc(px) || isFloatFunc(py))
-                    typeFunction(AST.QualifiedName("ops" :: "Condition_Float" :: Nil), asArith(cond) :: px :: py :: Nil)
-                else if (isSideFunc(px) || isSideFunc(py))
-                    typeFunction(AST.QualifiedName("ops" :: "Condition_Side" :: Nil), asArith(cond) :: px :: py :: Nil)
-                else
-                    Typed.IfThenElse(asArith(cond), asArith(x), asArith(y))
+                typeFunction(AST.QualifiedName("ops" :: "Condition" :: Nil), asArith(cond) :: px :: py :: Nil)
 
             case AST.FloatLit(d) => Typed.FloatLit(d)
             case AST.StringLit(x) => Typed.StringLit(x)

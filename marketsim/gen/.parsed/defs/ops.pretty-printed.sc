@@ -111,35 +111,35 @@ package ops {@label = "-%(x)s"
     package  {
         // defined at defs\ops.sc: 79.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition_Float(cond = true() : IFunction[Boolean],
-                            ifpart = constant(1.0),
-                            elsepart = constant(1.0)) : IFunction[Float]
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = constant(1.0),
+                      elsepart = constant(1.0)) : IFunction[Float]
         
         // defined at defs\ops.sc: 84.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition_Float(cond = true() : IFunction[Boolean],
-                            ifpart = const(1.0),
-                            elsepart = constant(1.0)) : IObservable[Float]
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = const(1.0),
+                      elsepart = constant(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 89.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition_Float(cond = true() : IFunction[Boolean],
-                            ifpart = constant(1.0),
-                            elsepart = const(1.0)) : IObservable[Float]
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = constant(1.0),
+                      elsepart = const(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 94.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition_Float(cond = true() : IFunction[Boolean],
-                            ifpart = const(1.0),
-                            elsepart = const(1.0)) : IObservable[Float]
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = const(1.0),
+                      elsepart = const(1.0)) : IObservable[Float]
     }
     
     // defined at defs\ops.sc: 101.5
     @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition_Side(cond = true() : IFunction[Boolean],
-                       ifpart = side.Sell(),
-                       elsepart = side.Buy()) : IFunction[Side]
+    def Condition(cond = true() : IFunction[Boolean],
+                  ifpart = side.Sell(),
+                  elsepart = side.Buy()) : IFunction[Side]
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
     package  {

@@ -87,6 +87,41 @@ package ops {
     def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
@@ -122,47 +157,12 @@ package ops {
     def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                        ifpart : Optional[.IObservable[.Float]] = .const(1.0),
-                        elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                        ifpart : Optional[.IObservable[.Float]] = .const(1.0),
-                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                        ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                        elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                        ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
-    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
     @python.intrinsic.observable("ops._NotEqual_Impl")
     def NotEqual(x : Optional[.IFunction[.Float]] = .constant(1.0),
                  y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Boolean]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition_Side(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                       ifpart : Optional[() => .Side] = .side.Sell(),
-                       elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
@@ -549,7 +549,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+        	 = .ops.Condition(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -559,7 +559,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+        	 = .ops.Condition(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -569,7 +569,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+        	 = .ops.Condition(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -579,7 +579,7 @@ package math {
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
-        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+        	 = .ops.Condition(.ops.Less(x,y),x,y)
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
@@ -613,7 +613,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+        	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -623,7 +623,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+        	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -633,7 +633,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+        	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -643,7 +643,7 @@ package math {
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
-        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+        	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -1733,7 +1733,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def Signal(/** signal to be listened to */ signal : Optional[.IObservable[.Float]] = .const(0.0),
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IFunction[.Side]
-            	 = .ops.Condition_Side(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition_Side(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
         
         /** Side function for signal strategy
          */
@@ -1741,7 +1741,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def Signal(/** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IFunction[.Side]
-            	 = .ops.Condition_Side(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition_Side(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
         
         /** Side function for crossing averages strategy
          */
@@ -1766,7 +1766,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def FundamentalValue(/** observable fundamental value */ fv : Optional[.IObservable[.Float]] = .const(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
-            	 = .ops.Condition_Side(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition_Side(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for fundamental value strategy
          */
@@ -1774,7 +1774,7 @@ package strategy {@category = "Side function"
         @python.observable()
         def FundamentalValue(/** observable fundamental value */ fv : Optional[.IFunction[.Float]] = .constant(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
-            	 = .ops.Condition_Side(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition_Side(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for mean reversion strategy
          */
@@ -1787,7 +1787,7 @@ package strategy {@category = "Side function"
          */
         
         def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : .IFunction[.Side]
-            	 = .ops.Condition_Side(.ops.Greater(side_distribution,.constant(0.5)),.side.Sell(),.side.Buy())
+            	 = .ops.Condition(.ops.Greater(side_distribution,.constant(0.5)),.side.Sell(),.side.Buy())
     }
     
     
@@ -2595,7 +2595,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
+        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
     
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
@@ -2606,7 +2606,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
+        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2684,7 +2684,7 @@ package trash {
             
             
             def A(x : Optional[.IFunction[.Int]] = .constant(),
-                  y : Optional[.IFunction[.Float]] = .ops.Condition_Float(.ops.Greater(.constant(3),.ops.Add(x,.constant(2))),x,.ops.Mul(x,.constant(2)))) : () => .trash.types.T
+                  y : Optional[.IFunction[.Float]] = .ops.Condition(.ops.Greater(.constant(3),.ops.Add(x,.constant(2))),x,.ops.Mul(x,.constant(2)))) : () => .trash.types.T
             
             
             def IntObs() : .IObservable[.Int]
@@ -2863,7 +2863,7 @@ def true() : .IObservable[.Boolean]
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+    	 = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
  */
@@ -2873,7 +2873,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+    	 = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
  */
@@ -2883,7 +2883,7 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+    	 = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
  */
@@ -2893,7 +2893,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
-    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+    	 = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V

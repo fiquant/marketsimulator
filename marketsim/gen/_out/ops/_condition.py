@@ -5,8 +5,8 @@ from marketsim import IObservable
 from marketsim import registry
 from marketsim import bool
 from marketsim import float
-@registry.expose(["Ops", "Condition_Float"])
-class Condition_Float_IFunctionBooleanIObservableFloatIObservableFloat(Observable[float],_Condition_Impl):
+@registry.expose(["Ops", "Condition"])
+class Condition_IFunctionBooleanIObservableFloatIObservableFloat(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -45,12 +45,56 @@ class Condition_Float_IFunctionBooleanIObservableFloatIObservableFloat(Observabl
 from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.ops._all import Observable
 from marketsim import IFunction
+from marketsim import Side
+from marketsim import registry
+from marketsim import bool
+@registry.expose(["Ops", "Condition"])
+class Condition_IFunctionBooleanSideSide(Observable[Side],_Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import types
+        from marketsim import Side
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.ops._all import Observable
+        from marketsim import rtti
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim import event
+        Observable[Side].__init__(self)
+        self.cond = cond if cond is not None else _true_()
+        if isinstance(cond, types.IEvent):
+            event.subscribe(self.cond, self.fire, self)
+        self.ifpart = ifpart if ifpart is not None else _side_Sell_()
+        if isinstance(ifpart, types.IEvent):
+            event.subscribe(self.ifpart, self.fire, self)
+        self.elsepart = elsepart if elsepart is not None else _side_Buy_()
+        if isinstance(elsepart, types.IEvent):
+            event.subscribe(self.elsepart, self.fire, self)
+        rtti.check_fields(self)
+        _Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IFunction[bool],
+        'ifpart' : IFunction[Side],
+        'elsepart' : IFunction[Side]
+    }
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
+    
+from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.ops._all import Observable
+from marketsim import IFunction
 from marketsim import IObservable
 from marketsim import registry
 from marketsim import bool
 from marketsim import float
-@registry.expose(["Ops", "Condition_Float"])
-class Condition_Float_IFunctionBooleanIObservableFloatIFunctionFloat(Observable[float],_Condition_Impl):
+@registry.expose(["Ops", "Condition"])
+class Condition_IFunctionBooleanIObservableFloatIFunctionFloat(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -94,8 +138,8 @@ from marketsim import IObservable
 from marketsim import registry
 from marketsim import bool
 from marketsim import float
-@registry.expose(["Ops", "Condition_Float"])
-class Condition_Float_IFunctionBooleanIFunctionFloatIObservableFloat(Observable[float],_Condition_Impl):
+@registry.expose(["Ops", "Condition"])
+class Condition_IFunctionBooleanIFunctionFloatIObservableFloat(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -138,8 +182,8 @@ from marketsim import IFunction
 from marketsim import registry
 from marketsim import bool
 from marketsim import float
-@registry.expose(["Ops", "Condition_Float"])
-class Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(Observable[float],_Condition_Impl):
+@registry.expose(["Ops", "Condition"])
+class Condition_IFunctionBooleanIFunctionFloatIFunctionFloat(Observable[float],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -175,26 +219,31 @@ class Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(Observable[fl
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-def Condition_Float(cond = None,ifpart = None,elsepart = None): 
+def Condition(cond = None,ifpart = None,elsepart = None): 
     from marketsim import bool
     from marketsim import IFunction
     from marketsim import rtti
     from marketsim import IObservable
     from marketsim import float
+    from marketsim import Side
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservable[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservable[float]):
-                return Condition_Float_IFunctionBooleanIObservableFloatIObservableFloat(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIObservableFloatIObservableFloat(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
+                return Condition_IFunctionBooleanSideSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservable[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
-                return Condition_Float_IFunctionBooleanIObservableFloatIFunctionFloat(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIObservableFloatIFunctionFloat(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservable[float]):
-                return Condition_Float_IFunctionBooleanIFunctionFloatIObservableFloat(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIFunctionFloatIObservableFloat(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
-                return Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(cond,ifpart,elsepart)
-    raise Exception('Cannot find suitable overload for Condition_Float('+str(cond)+','+str(ifpart)+','+str(elsepart)+')')
+                return Condition_IFunctionBooleanIFunctionFloatIFunctionFloat(cond,ifpart,elsepart)
+    raise Exception('Cannot find suitable overload for Condition('+str(cond)+','+str(ifpart)+','+str(elsepart)+')')
