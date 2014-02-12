@@ -132,48 +132,65 @@ package ops {@label = "-%(x)s"
         def Condition(cond = true() : IFunction[Boolean],
                       ifpart = const(1.0),
                       elsepart = const(1.0)) : IObservable[Float]
+        
+        // defined at defs\ops.sc: 99.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = side.Sell(),
+                      elsepart = side.Buy()) : IFunction[Side]
+        
+        // defined at defs\ops.sc: 104.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = side.observable.Sell(),
+                      elsepart = side.Buy()) : IObservable[Side]
+        
+        // defined at defs\ops.sc: 109.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = side.Sell(),
+                      elsepart = side.observable.Buy()) : IObservable[Side]
+        
+        // defined at defs\ops.sc: 114.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond = true() : IFunction[Boolean],
+                      ifpart = side.observable.Sell(),
+                      elsepart = side.observable.Buy()) : IObservable[Side]
     }
-    
-    // defined at defs\ops.sc: 101.5
-    @python.intrinsic.observable("ops._Condition_Impl")
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition(cond = true() : IFunction[Boolean],
-                  ifpart = side.Sell(),
-                  elsepart = side.Buy()) : IFunction[Side]
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
     package  {
-        // defined at defs\ops.sc: 110.9
+        // defined at defs\ops.sc: 124.9
         @python.intrinsic.observable("ops._Equal_Impl")
         @symbol = "=="
         def Equal(x = constant(1.0),
                   y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 114.9
+        // defined at defs\ops.sc: 128.9
         @python.intrinsic.observable("ops._NotEqual_Impl")
         @symbol = "<>"
         def NotEqual(x = constant(1.0),
                      y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 118.9
+        // defined at defs\ops.sc: 132.9
         @python.intrinsic.observable("ops._Less_Impl")
         @symbol = "<"
         def Less(x = constant(1.0),
                  y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 122.9
+        // defined at defs\ops.sc: 136.9
         @python.intrinsic.observable("ops._LessEqual_Impl")
         @symbol = "<="
         def LessEqual(x = constant(1.0),
                       y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 126.9
+        // defined at defs\ops.sc: 140.9
         @python.intrinsic.observable("ops._Greater_Impl")
         @symbol = ">"
         def Greater(x = constant(1.0),
                     y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 130.9
+        // defined at defs\ops.sc: 144.9
         @python.intrinsic.observable("ops._GreaterEqual_Impl")
         @symbol = ">="
         def GreaterEqual(x = constant(1.0),

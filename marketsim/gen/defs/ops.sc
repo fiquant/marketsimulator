@@ -96,13 +96,27 @@ package ops
                             ifpart   = const(1.),
                             elsepart = const(1.)) : IObservable[Float]
 
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond     = true() : IFunction[Boolean],
+                      ifpart   = side.Sell(),
+                      elsepart = side.Buy()) : IFunction[Side]
+
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond     = true() : IFunction[Boolean],
+                      ifpart   = side.observable.Sell(),
+                      elsepart = side.Buy()) : IObservable[Side]
+
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond     = true() : IFunction[Boolean],
+                      ifpart   = side.Sell(),
+                      elsepart = side.observable.Buy()) : IObservable[Side]
+
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition(cond     = true() : IFunction[Boolean],
+                      ifpart   = side.observable.Sell(),
+                      elsepart = side.observable.Buy()) : IObservable[Side]
     }
 
-    @python.intrinsic.observable("ops._Condition_Impl")
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition(cond     = true() : IFunction[Boolean],
-                  ifpart   = side.Sell(),
-                  elsepart = side.Buy()) : IFunction[Side]
 
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     package {

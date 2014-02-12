@@ -2,6 +2,25 @@
 @category = "Side"
 package side
 {
+    package observable
+    {
+        /** Observable always equal to Sell side
+         */
+        @python.intrinsic.observable("side._Sell_Impl")
+        def Sell() : IObservable[Side]
+        
+        /** Observable always equal to Buy side
+         */
+        @python.intrinsic.observable("side._Buy_Impl")
+        def Buy() : IObservable[Side]
+        
+        /** Observable always equal to None of type Side
+         */
+        @python.intrinsic.observable("side._None_Impl")
+        def Nothing() : IObservable[Side]
+        
+    }
+    
     /** Function always returning Sell side
      */
     @python.intrinsic("side._Sell_Impl")
@@ -103,11 +122,29 @@ package ops
                   ifpart = const(1.0),
                   elsepart = const(1.0)) : IObservable[Float]
     
-    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond = true() : IFunction[Boolean],
                   ifpart = side.Sell(),
                   elsepart = side.Buy()) : IFunction[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true() : IFunction[Boolean],
+                  ifpart = side.observable.Sell(),
+                  elsepart = side.Buy()) : IObservable[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true() : IFunction[Boolean],
+                  ifpart = side.Sell(),
+                  elsepart = side.observable.Buy()) : IObservable[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true() : IFunction[Boolean],
+                  ifpart = side.observable.Sell(),
+                  elsepart = side.observable.Buy()) : IObservable[Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._Less_Impl")

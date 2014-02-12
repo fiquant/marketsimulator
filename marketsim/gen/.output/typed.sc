@@ -1,6 +1,26 @@
 @category = "Side"
 
 package side {
+    package observable {
+        /** Observable always equal to Sell side
+         */
+        
+        @python.intrinsic.observable("side._Sell_Impl")
+        def Sell() : .IObservable[.Side]
+        
+        /** Observable always equal to Buy side
+         */
+        
+        @python.intrinsic.observable("side._Buy_Impl")
+        def Buy() : .IObservable[.Side]
+        
+        /** Observable always equal to None of type Side
+         */
+        
+        @python.intrinsic.observable("side._None_Impl")
+        def Nothing() : .IObservable[.Side]
+    }
+    
     /** Function always returning Sell side
      */
     
@@ -98,8 +118,8 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
-                  ifpart : Optional[() => .Side] = .side.Sell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
+                  ifpart : Optional[.IObservable[.Side]] = .side.observable.Sell(),
+                  elsepart : Optional[.IObservable[.Side]] = .side.observable.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -119,8 +139,29 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[.IObservable[.Side]] = .side.observable.Sell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  elsepart : Optional[.IObservable[.Side]] = .side.observable.Buy()) : .IObservable[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                   ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                   elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
