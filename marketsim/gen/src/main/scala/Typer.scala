@@ -130,17 +130,33 @@ package object Typer
                                                 case Nil =>
                                                     Stream(prefix)
                                                 case x :: xs =>
+                                                    def corrected(name : List[String], args : List[AST.Expr]) =
+                                                        x.copy(initializer =
+                                                                Some(
+                                                                    AST.FunCall(
+                                                                        AST.QualifiedName("" :: name), args)))
+
                                                     candidates(prefix :+ x, xs) ++ (x.initializer match {
                                                         case Some(AST.FunCall(c, d))
                                                             if c.names.last == "constant" =>
 
-                                                            val xx =
-                                                                x.copy(initializer =
-                                                                        Some(
-                                                                            AST.FunCall(
-                                                                                AST.QualifiedName("" :: "const" :: Nil), d)))
+                                                            candidates(prefix, corrected("const" :: Nil, d) :: xs)
 
-                                                            candidates(prefix, xx :: xs)
+                                                        case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "Sell" =>
+
+                                                            candidates(prefix, corrected("side" :: "observableSell" :: Nil, d) :: xs)
+
+                                                        case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "Buy" =>
+
+                                                            candidates(prefix, corrected("side" :: "observableBuy" :: Nil, d) :: xs)
+
+                                                        case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "Nothing" =>
+
+                                                            candidates(prefix, corrected("side" :: "observableNothing" :: Nil, d) :: xs)
+
                                                         case t =>
                                                             Stream.empty
                                                     })

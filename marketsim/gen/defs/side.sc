@@ -25,23 +25,21 @@ package side
     @python.intrinsic("side._None_Impl")
     def Nothing() => Side
 
-    package observable {
-        /**
-         * Observable always equal to Sell side
-         */
-        @python.intrinsic.observable("side._Sell_Impl")
-        def Sell() : IObservable[Side]
+    /**
+     * Observable always equal to Sell side
+     */
+    @python.intrinsic.observable("side._Sell_Impl")
+    def observableSell() : IObservable[Side]
 
-        /**
-         * Observable always equal to Buy side
-         */
-        @python.intrinsic.observable("side._Buy_Impl")
-        def Buy() : IObservable[Side]
+    /**
+     * Observable always equal to Buy side
+     */
+    @python.intrinsic.observable("side._Buy_Impl")
+    def observableBuy() : IObservable[Side]
 
-        /**
-         * Observable always equal to None of type Side
-         */
-        @python.intrinsic.observable("side._None_Impl")
-        def Nothing() : IObservable[Side]
-    }
+    /**
+     * Observable always equal to None of type Side
+     */
+    @python.intrinsic.observable("side._None_Impl")
+    def observableNothing() : IObservable[Side]
 }

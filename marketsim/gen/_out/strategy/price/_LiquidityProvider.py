@@ -6,7 +6,7 @@ from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Price function", "LiquidityProvider"])
-class LiquidityProvider_SideFloatFloatIOrderBook(Observable[float]):
+class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
@@ -69,5 +69,5 @@ def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = N
         if initialValue is None or rtti.can_be_casted(initialValue, float):
             if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
-                    return LiquidityProvider_SideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
+                    return LiquidityProvider_IFunctionSideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
     raise Exception('Cannot find suitable overload for LiquidityProvider('+str(side)+','+str(initialValue)+','+str(priceDistr)+','+str(book)+')')

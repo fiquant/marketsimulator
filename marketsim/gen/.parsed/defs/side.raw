@@ -85,101 +85,90 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - side._None_Impl
-| | | | - PackageDef:
+| | | | - FunDef:
+| | | | | - observableSell
+| | | | | - List:
+| | | | | - None
 | | | | | - Some:
-| | | | | | - QualifiedName:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
 | | | | | | | - List:
-| | | | | | | | - observable
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable always equal to Sell side
+| | | | | | | - List:
 | | | | | - List:
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Sell
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Side
-| | | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Observable always equal to Sell side
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side._Sell_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Buy
-| | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Side
-| | | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Observable always equal to Buy side
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side._Buy_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Nothing
-| | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IObservable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Side
-| | | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Observable always equal to None of type Side
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - side._None_Impl
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - side._Sell_Impl
+| | | | - FunDef:
+| | | | | - observableBuy
 | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable always equal to Buy side
+| | | | | | | - List:
 | | | | | - List:
-| | | | | - false
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - side._Buy_Impl
+| | | | - FunDef:
+| | | | | - observableNothing
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Side
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Observable always equal to None of type Side
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - observable
+| | | | | | | - List:
+| | | | | | | | - side._None_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

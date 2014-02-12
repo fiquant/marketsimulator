@@ -7,7 +7,7 @@ from marketsim import IEvent
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "LiquidityProviderSide"])
-class LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(ISingleAssetStrategy):
+class LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, eventGen = None, orderFactory = None, side = None, initialValue = None, priceDistr = None):
@@ -58,8 +58,8 @@ class LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(ISingle
     
     def getImpl(self):
         from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
-        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_SideFloatFloatIOrderBook as _strategy_price_LiquidityProvider_SideFloatFloatIOrderBook
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(self.side,_strategy_price_LiquidityProvider_SideFloatFloatIOrderBook(self.side,self.initialValue,self.priceDistr)),self.eventGen)
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_IFunctionSideFloatFloatIOrderBook as _strategy_price_LiquidityProvider_IFunctionSideFloatFloatIOrderBook
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(self.side,_strategy_price_LiquidityProvider_IFunctionSideFloatFloatIOrderBook(self.side,self.initialValue,self.priceDistr)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -77,5 +77,5 @@ def LiquidityProviderSide(eventGen = None,orderFactory = None,side = None,initia
             if side is None or rtti.can_be_casted(side, IFunction[Side]):
                 if initialValue is None or rtti.can_be_casted(initialValue, float):
                     if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
-                        return LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(eventGen,orderFactory,side,initialValue,priceDistr)
+                        return LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat(eventGen,orderFactory,side,initialValue,priceDistr)
     raise Exception('Cannot find suitable overload for LiquidityProviderSide('+str(eventGen)+','+str(orderFactory)+','+str(side)+','+str(initialValue)+','+str(priceDistr)+')')

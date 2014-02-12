@@ -58,18 +58,18 @@ class Condition_IFunctionBooleanIObservableSideIObservableSide(Observable[Side],
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._true import true_ as _true_
-        from marketsim.gen._out.side.observable._sell import Sell_ as _side_observable_Sell_
         from marketsim import event
-        from marketsim.gen._out.side.observable._buy import Buy_ as _side_observable_Buy_
+        from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _true_()
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
-        self.ifpart = ifpart if ifpart is not None else _side_observable_Sell_()
+        self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
-        self.elsepart = elsepart if elsepart is not None else _side_observable_Buy_()
+        self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
@@ -194,14 +194,14 @@ class Condition_IFunctionBooleanIObservableSideSide(Observable[Side],_Condition_
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._true import true_ as _true_
-        from marketsim.gen._out.side.observable._sell import Sell_ as _side_observable_Sell_
         from marketsim import event
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _true_()
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
-        self.ifpart = ifpart if ifpart is not None else _side_observable_Sell_()
+        self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_Buy_()
@@ -241,7 +241,7 @@ class Condition_IFunctionBooleanSideIObservableSide(Observable[Side],_Condition_
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._true import true_ as _true_
         from marketsim import event
-        from marketsim.gen._out.side.observable._buy import Buy_ as _side_observable_Buy_
+        from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _true_()
         if isinstance(cond, types.IEvent):
@@ -249,7 +249,7 @@ class Condition_IFunctionBooleanSideIObservableSide(Observable[Side],_Condition_
         self.ifpart = ifpart if ifpart is not None else _side_Sell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
-        self.elsepart = elsepart if elsepart is not None else _side_observable_Buy_()
+        self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)

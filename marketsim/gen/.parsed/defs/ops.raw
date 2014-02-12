@@ -1317,8 +1317,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | | | - observableSell
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1397,8 +1396,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | | - observableBuy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None
@@ -1455,8 +1453,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | | | - observableSell
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | | - Parameter:
@@ -1467,8 +1464,7 @@ Definitions:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | - observable
-| | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | | - observableBuy
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
 | | | | | | | | - None

@@ -2,8 +2,8 @@ from marketsim import registry
 from marketsim import Side
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.side import _None_Impl
-@registry.expose(["Side", "Nothing"])
-class Nothing_(Observable[Side],_None_Impl):
+@registry.expose(["Side", "observableNothing"])
+class observableNothing_(Observable[Side],_None_Impl):
     """ 
     """ 
     def __init__(self):
@@ -23,9 +23,9 @@ class Nothing_(Observable[Side],_None_Impl):
         
     }
     def __repr__(self):
-        return "Nothing" % self.__dict__
+        return "observableNothing" % self.__dict__
     
-def Nothing(): 
+def observableNothing(): 
     from marketsim import rtti
-    return Nothing_()
-    raise Exception('Cannot find suitable overload for Nothing('++')')
+    return observableNothing_()
+    raise Exception('Cannot find suitable overload for observableNothing('++')')

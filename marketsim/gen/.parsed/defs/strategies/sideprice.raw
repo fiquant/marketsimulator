@@ -49,13 +49,24 @@ Definitions:
 | | | | | | | - side
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Sell
 | | | | | | | | | | - List:
-| | | | | | | | | | | - 
-| | | | | | | | | | | - side
-| | | | | | | | | | | - Sell
-| | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  side of orders to create 
 | | | | | | - Parameter:

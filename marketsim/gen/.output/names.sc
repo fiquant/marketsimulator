@@ -2,39 +2,35 @@
 @category = "Side"
 package side
 {
-    package observable
-    {
-        /** Observable always equal to Sell side
-         */
-        @python.intrinsic.observable("side._Sell_Impl")
-        def Sell() : IObservable[Side]
-        
-        /** Observable always equal to Buy side
-         */
-        @python.intrinsic.observable("side._Buy_Impl")
-        def Buy() : IObservable[Side]
-        
-        /** Observable always equal to None of type Side
-         */
-        @python.intrinsic.observable("side._None_Impl")
-        def Nothing() : IObservable[Side]
-        
-    }
-    
-    /** Function always returning Sell side
+    /** Observable always equal to Buy side
      */
-    @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => Side
+    @python.intrinsic.observable("side._Buy_Impl")
+    def observableBuy() : IObservable[Side]
+    
+    /** Function always returning None of type Side
+     */
+    @python.intrinsic("side._None_Impl")
+    def Nothing() : () => Side
     
     /** Function always returning Buy side
      */
     @python.intrinsic("side._Buy_Impl")
     def Buy() : () => Side
     
-    /** Function always returning None of type Side
+    /** Observable always equal to None of type Side
      */
-    @python.intrinsic("side._None_Impl")
-    def Nothing() : () => Side
+    @python.intrinsic.observable("side._None_Impl")
+    def observableNothing() : IObservable[Side]
+    
+    /** Observable always equal to Sell side
+     */
+    @python.intrinsic.observable("side._Sell_Impl")
+    def observableSell() : IObservable[Side]
+    
+    /** Function always returning Sell side
+     */
+    @python.intrinsic("side._Sell_Impl")
+    def Sell() : () => Side
     
 }
 
@@ -131,20 +127,20 @@ package ops
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond = true() : IFunction[Boolean],
-                  ifpart = side.observable.Sell(),
+                  ifpart = side.observableSell(),
                   elsepart = side.Buy()) : IObservable[Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond = true() : IFunction[Boolean],
                   ifpart = side.Sell(),
-                  elsepart = side.observable.Buy()) : IObservable[Side]
+                  elsepart = side.observableBuy()) : IObservable[Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond = true() : IFunction[Boolean],
-                  ifpart = side.observable.Sell(),
-                  elsepart = side.observable.Buy()) : IObservable[Side]
+                  ifpart = side.observableSell(),
+                  elsepart = side.observableBuy()) : IObservable[Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._Less_Impl")
@@ -1728,7 +1724,7 @@ package strategy
     {
         /** Price function for a liquidity provider strategy
          */
-        def LiquidityProvider(/** side of orders to create */ side = .side.Sell(),
+        def LiquidityProvider(/** side of orders to create */ side = .side.Sell() : IFunction[Side],
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *             order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
@@ -1976,7 +1972,7 @@ package strategy
      */
     def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                               /** order factory function*/ orderFactory = order.side_price.Limit(),
-                              /** side of orders to create */ side = .side.Sell(),
+                              /** side of orders to create */ side = .side.Sell() : IFunction[Side],
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *                    order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1)) = Generic(orderFactory(side,price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)

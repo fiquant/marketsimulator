@@ -4,7 +4,7 @@ package strategy.price {
     // defined at defs\strategies\parts\price.sc: 4.5
     /** Price function for a liquidity provider strategy
      */
-    def LiquidityProvider(/** side of orders to create */ side = .side.Sell(),
+    def LiquidityProvider(/** side of orders to create */ side = .side.Sell() : IFunction[Side],
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
                             *             order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),

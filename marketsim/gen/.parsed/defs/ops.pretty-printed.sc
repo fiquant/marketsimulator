@@ -142,20 +142,20 @@ package ops {@label = "-%(x)s"
         // defined at defs\ops.sc: 104.9
         @python.intrinsic.observable("ops._Condition_Impl")
         def Condition(cond = true() : IFunction[Boolean],
-                      ifpart = side.observable.Sell(),
+                      ifpart = side.observableSell(),
                       elsepart = side.Buy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 109.9
         @python.intrinsic.observable("ops._Condition_Impl")
         def Condition(cond = true() : IFunction[Boolean],
                       ifpart = side.Sell(),
-                      elsepart = side.observable.Buy()) : IObservable[Side]
+                      elsepart = side.observableBuy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 114.9
         @python.intrinsic.observable("ops._Condition_Impl")
         def Condition(cond = true() : IFunction[Boolean],
-                      ifpart = side.observable.Sell(),
-                      elsepart = side.observable.Buy()) : IObservable[Side]
+                      ifpart = side.observableSell(),
+                      elsepart = side.observableBuy()) : IObservable[Side]
     }
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     

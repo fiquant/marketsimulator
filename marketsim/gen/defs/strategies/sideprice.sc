@@ -9,7 +9,7 @@ package strategy
                 /** order factory function*/
                 orderFactory = order.side_price.Limit(),
                 /** side of orders to create */
-                side         = .side.Sell(),
+                side         = .side.Sell() : IFunction[Side],
                 /** initial price which is taken if orderBook is empty */
                 initialValue = 100.0,
                 /** defines multipliers for current asset price when price of

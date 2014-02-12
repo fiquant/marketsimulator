@@ -55,10 +55,10 @@ class LiquidityProvider_IEventSideFloatIOrderGeneratorFloatFloat(ISingleAssetStr
     
     def getImpl(self):
         from marketsim.gen._out.strategy._array import Array_ListISingleAssetStrategy as _strategy_Array_ListISingleAssetStrategy
-        from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat as _strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat
+        from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat as _strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        return _strategy_Array_ListISingleAssetStrategy([_strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(self.eventGen,self.orderFactory,_side_Sell_(),self.initialValue,self.priceDistr),_strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorSideFloatFloat(self.eventGen,self.orderFactory,_side_Buy_(),self.initialValue,self.priceDistr)])
+        return _strategy_Array_ListISingleAssetStrategy([_strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat(self.eventGen,self.orderFactory,_side_Sell_(),self.initialValue,self.priceDistr),_strategy_LiquidityProviderSide_IEventSideFloatIOrderGeneratorIFunctionSideFloatFloat(self.eventGen,self.orderFactory,_side_Buy_(),self.initialValue,self.priceDistr)])
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
