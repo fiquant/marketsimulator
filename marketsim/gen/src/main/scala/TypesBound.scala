@@ -55,6 +55,11 @@ package object TypesBound
         }
     }
 
+    def unOptionalize(t : Base) : Base =  t match {
+        case Optional(x) => unOptionalize(x)
+        case x => x
+    }
+
     case class List_(x : Base)
             extends Base
             with    sc.List_

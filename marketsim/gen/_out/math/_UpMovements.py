@@ -45,11 +45,11 @@ class UpMovements_IObservableFloatFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._max import Max_IFunctionFloatIFunctionFloat as _math_Max
         from marketsim.gen._out.observable._float import Float_IFunctionFloat as _observable_Float
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub
         from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged
+        from marketsim.gen._out.math._max import Max_IFunctionFloatIObservableFloat as _math_Max
         return _observable_Float(_math_Max(_constant(0.0),_ops_Sub(self.source,_math_Lagged(self.source,self.timeframe))))
     
 def UpMovements(source = None,timeframe = None): 

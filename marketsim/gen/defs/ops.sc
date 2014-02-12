@@ -74,11 +74,29 @@ package ops
         }
     }
 
-    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    def Condition_Float(cond     = true() : IFunction[Boolean],
-                        ifpart   = constant(1.),
-                        elsepart = constant(1.)) : IFunction[Float]
+    package {
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition_Float(cond     = true() : IFunction[Boolean],
+                            ifpart   = constant(1.),
+                            elsepart = constant(1.)) : IFunction[Float]
+
+//        @python.intrinsic.observable("ops._Condition_Impl")
+//        def Condition_Float(cond     = true() : IFunction[Boolean],
+//                            ifpart   = const(1.),
+//                            elsepart = constant(1.)) : IObservable[Float]
+//
+//        @python.intrinsic.observable("ops._Condition_Impl")
+//        def Condition_Float(cond     = true() : IFunction[Boolean],
+//                            ifpart   = constant(1.),
+//                            elsepart = const(1.)) : IObservable[Float]
+//
+//        @python.intrinsic.observable("ops._Condition_Impl")
+//        def Condition_Float(cond     = true() : IFunction[Boolean],
+//                            ifpart   = const(1.),
+//                            elsepart = const(1.)) : IObservable[Float]
+
+    }
 
     @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"

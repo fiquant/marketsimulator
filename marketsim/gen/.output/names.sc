@@ -109,8 +109,8 @@ package ops
     def Mul(x = constant(1.0),
             y = constant(1.0)) : IFunction[Float]
     
-    @python.intrinsic.observable("ops._Condition_Impl")
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Float(cond = true() : IFunction[Boolean],
                         ifpart = constant(1.0),
                         elsepart = constant(1.0)) : IFunction[Float]
@@ -2432,14 +2432,14 @@ def TimeSerie(source = const(0.0) : IObservable[Any],
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
-@python.intrinsic.function("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant._Constant_Impl")
 @label = "C=%(x)s"
 def const(x = 1.0) : IObservable[Float]
 
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
-@python.intrinsic.function("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant._Constant_Impl")
 @label = "C=%(x)s"
 def const(x = 1) : IObservable[Int]
 

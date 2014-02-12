@@ -526,6 +526,36 @@ package math {
     @label = "min{%(x)s, %(y)s}"
     
     @python.observable()
+    def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+    
+    /** Function returning minimum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "min{%(x)s, %(y)s}"
+    
+    @python.observable()
+    def Min(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+    
+    /** Function returning minimum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "min{%(x)s, %(y)s}"
+    
+    @python.observable()
+    def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
+    
+    /** Function returning minimum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "min{%(x)s, %(y)s}"
+    
+    @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
         	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
@@ -560,6 +590,36 @@ package math {
     @label = "max{%(x)s, %(y)s}"
     
     @python.observable()
+    def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+    
+    /** Function returning maximum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "max{%(x)s, %(y)s}"
+    
+    @python.observable()
+    def Max(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+    
+    /** Function returning maximum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "max{%(x)s, %(y)s}"
+    
+    @python.observable()
+    def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+        	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
+    
+    /** Function returning maximum of two functions *x* and *y*.
+     * If *x* or/and *y* are observables, *Min* is also observable
+     */
+    @label = "max{%(x)s, %(y)s}"
+    
+    @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(1.0),
             y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
         	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
@@ -571,6 +631,15 @@ package math {
     def UpMovements(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                     /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
         	 = .observable.Float(.math.Max(.constant(0.0),.ops.Sub(source,.math.Lagged(source,timeframe))))
+    
+    /** Square of *x*
+     */
+    @category = "Log/Pow"
+    @label = "{%(x)s}^2"
+    
+    @python.observable()
+    def Sqr(x : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+        	 = .ops.Mul(x,x)
     
     /** Square of *x*
      */
@@ -1641,6 +1710,14 @@ package strategy {@category = "Side function"
          */
         
         @python.observable()
+        def Signal(/** signal to be listened to */ signal : Optional[.IObservable[.Float]] = .const(0.0),
+                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IFunction[.Side]
+            	 = .ops.Condition_Side(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition_Side(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
+        
+        /** Side function for signal strategy
+         */
+        
+        @python.observable()
         def Signal(/** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IFunction[.Side]
             	 = .ops.Condition_Side(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition_Side(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
@@ -1661,6 +1738,14 @@ package strategy {@category = "Side function"
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
             	 = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
+        
+        /** Side function for fundamental value strategy
+         */
+        
+        @python.observable()
+        def FundamentalValue(/** observable fundamental value */ fv : Optional[.IObservable[.Float]] = .const(200.0),
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IFunction[.Side]
+            	 = .ops.Condition_Side(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition_Side(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for fundamental value strategy
          */
@@ -1973,6 +2058,17 @@ package strategy {@category = "Side function"
     
     def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
                /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
+               /** signal to be listened to */ signal : Optional[.IObservable[.Float]] = .const(0.0),
+               /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
+        	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
+    
+    /** Signal strategy listens to some discrete signal
+     * and when the signal becomes more than some threshold the strategy starts to buy.
+     * When the signal gets lower than -threshold the strategy starts to sell.
+     */
+    
+    def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
                /** signal to be listened to */ signal : Optional[.IFunction[.Float]] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
@@ -2020,6 +2116,16 @@ package strategy {@category = "Side function"
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
+    
+    /** Fundamental value strategy believes that an asset should have some specific price
+     * (*fundamental value*) and if the current asset price is lower than the fundamental value
+     * it starts to buy the asset and if the price is higher it starts to sell the asset.
+     */
+    
+    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                         /** order factory function*/ orderFactory : Optional[(() => .Side) => .IOrderGenerator] = .order._curried.side_Market(),
+                         /** defines fundamental value */ fundamentalValue : Optional[.IObservable[.Float]] = .const(100.0)) : .ISingleAssetStrategy
+        	 = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -2322,6 +2428,15 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     @python.observable()
     def SafeSidePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
+                      /** price to be used if there haven't been any trades */ defaultValue : Optional[.IObservable[.Float]] = .const(100.0)) : .IObservable[.Price]
+        	 = .observable.Price(.IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue)))
+    
+    /** Returns best price if defined, otherwise last price
+     *  and *defaultValue* if there haven't been any trades
+     */
+    
+    @python.observable()
+    def SafeSidePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
                       /** price to be used if there haven't been any trades */ defaultValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .IObservable[.Price]
         	 = .observable.Price(.IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue)))
     
@@ -2449,6 +2564,17 @@ package orderbook {@queue = "Ask_{%(book)s}"
     def Remote(orderbook : Optional[.IOrderBook] = .orderbook.Local(),
                link : Optional[.ITwoWayLink] = .orderbook.TwoWayLink(),
                timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
+    
+    /** Returns naive approximation of price for best orders of total volume *depth*
+     *  by taking into account prices only for the best order
+     *
+     *  Negative *depth* correponds to will buy assets
+     *  Positive *depth* correponds to will sell assets
+     */
+    
+    def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
+                             depth : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Price]
+        	 = .observable.Price(.ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0))))
     
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
@@ -2703,7 +2829,7 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 @category = "Basic"
 @label = "C=%(x)s"
 
-@python.intrinsic.function("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 
 /** Trivial observable always returning *x*
@@ -2711,7 +2837,7 @@ def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 @category = "Basic"
 @label = "C=%(x)s"
 
-@python.intrinsic.function("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
 /** Observable returning at the end of every *timeframe*
@@ -2731,6 +2857,36 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 
 @python.intrinsic.function("_constant._True_Impl")
 def true() : .IObservable[.Boolean]
+
+/** Returns *x* if defined and *elsePart* otherwise
+ */
+@category = "Basic"
+@label = "If def(%(x)s) else %(elsePart)s"
+
+@python.observable()
+def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+
+/** Returns *x* if defined and *elsePart* otherwise
+ */
+@category = "Basic"
+@label = "If def(%(x)s) else %(elsePart)s"
+
+@python.observable()
+def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
+
+/** Returns *x* if defined and *elsePart* otherwise
+ */
+@category = "Basic"
+@label = "If def(%(x)s) else %(elsePart)s"
+
+@python.observable()
+def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+    	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
  */

@@ -43,7 +43,7 @@ class RoughPnL_IAccount(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._naivecumulativeprice import NaiveCumulativePrice_IOrderBookIFunctionFloat as _orderbook_NaiveCumulativePrice
+        from marketsim.gen._out.orderbook._naivecumulativeprice import NaiveCumulativePrice_IOrderBookIObservableFloat as _orderbook_NaiveCumulativePrice
         from marketsim.gen._out.trader._balance import Balance_IAccount as _trader_Balance
         from marketsim.gen._out.observable._float import Float_IFunctionFloat as _observable_Float
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader

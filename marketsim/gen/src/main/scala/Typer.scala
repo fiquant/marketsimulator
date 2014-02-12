@@ -76,37 +76,100 @@ package object Typer
 
         private def getTyped(definitions : List[AST.FunctionDeclaration]) = {
             val name = definitions.head.name
+            def observableConstF(x : Double) =
+                inferType(Nil)(
+                    AST.FunCall(
+                        AST.QualifiedName("" :: "const" :: Nil),
+                        AST.FloatLit(x) :: Nil))
+
             if (!(typed.functions contains name))
                 typed insert
                         visited.enter(source qualifyName name) {
-                            val fs = definitions flatMap {
-                                case f : AST.FunAlias => toTyped(f)
-                                case f : AST.FunDef => toTyped(f) :: Nil
-                            }
-                            fs foreach { f =>
-                                if (f.parameter_names != fs.head.parameter_names)
-                                    throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
+                            val fs =
+                                definitions flatMap {
+                                    case f : AST.FunAlias => toTyped(f) map { (_, Option.empty) }
+                                    case f : AST.FunDef => (toTyped(f), Some(f)) :: Nil
+                                }
+                                fs foreach { case (f, _) =>
+                                    if (f.parameter_names != fs.head._1.parameter_names)
+                                        throw new Exception(s"Overloads $f and ${fs.head} have different parameter names")
+                                }
+
+                            assert(fs forall { _._1.name == fs.head._1.name })
+
+                            def reorder(overloads   : List[(Typed.FunctionDecl, Option[AST.FunDef])])
+                                                    : List[(Typed.FunctionDecl, Option[AST.FunDef])] =
+                                overloads match {
+                                    // in fact it is a naive ad-hoc implementation of topological sort
+                                    case Nil => Nil
+                                    case _ =>
+                                        overloads partition { y =>
+                                            overloads exists  { x =>
+                                                x != y && (x._1.target.ty betterThan y._1.target.ty) }
+                                        } match {
+                                            case (_, Nil) =>
+                                                throw new Exception(s"there is no weakest overload between: "
+                                                        + (overloads map { predef.crlf + _ } mkString ""))
+                                            case (nonTerm, term) =>
+                                                term ++ reorder(nonTerm)
+                                        }
+                                }
+
+                            val reordered = reorder(fs)
+
+                            val overload_signatures = (reordered map { _._1.target.ty.args }).toSet
+
+                            val possibleOverloads = reordered flatMap {
+                                case (typedOriginal, Some(original))
+                                        if original.body.nonEmpty
+                                    =>
+                                        def candidates(prefix : List[AST.Parameter],
+                                                       suffix : List[AST.Parameter]) : Stream[List[AST.Parameter]] =
+                                        {
+                                            suffix match {
+                                                case Nil =>
+                                                    Stream(prefix)
+                                                case x :: xs =>
+                                                    candidates(prefix :+ x, xs) ++ (x.initializer match {
+                                                        case Some(AST.FunCall(c, d))
+                                                            if c.names.last == "constant" =>
+
+                                                            val xx =
+                                                                x.copy(initializer =
+                                                                        Some(
+                                                                            AST.FunCall(
+                                                                                AST.QualifiedName("" :: "const" :: Nil), d)))
+
+                                                            candidates(prefix, xx :: xs)
+                                                        case t =>
+                                                            Stream.empty
+                                                    })
+
+                                            }
+                                        }
+
+                                        // head is guaranteed to be the original overload
+                                        candidates(Nil, original.parameters).tail map { ps => original.copy(parameters = ps) }
+
+                                case _ => Nil
                             }
 
-                            assert(fs forall { _.name == fs.head.name })
+                            val typedOverloads =
+                                possibleOverloads.distinct flatMap { f =>
+                                    val f_typed = toTyped(f)
+                                    if (overload_signatures contains f_typed.ty.args)
+                                        None
+                                    else
+                                        Some(f_typed)
+                                }
 
-                            def reorder(overloads : List[Typed.FunctionDecl]) : List[Typed.FunctionDecl] = overloads match {
-                                // in fact it is a naive ad-hoc implementation of topological sort
-                                case Nil => Nil
-                                case _ =>
-                                    overloads partition { y =>
-                                        overloads exists  { x =>
-                                            x != y && (x.target.ty betterThan y.target.ty) }
-                                    } match {
-                                        case (_, Nil) =>
-                                            throw new Exception(s"there is no weakest overload between: "
-                                                    + (overloads map { predef.crlf + _ } mkString ""))
-                                        case (nonTerm, term) =>
-                                            term ++ reorder(nonTerm)
-                                    }
-                            }
+//                            if (typedOverloads.nonEmpty) {
+//                                println(typedOverloads mkString predef.crlf)
+//                            }
 
-                            reorder(fs)
+                            val withGenerated = reordered ++ (typedOverloads map { (_, None) })
+
+                            reorder(withGenerated) map { _._1 }
                         }
             typed.functions(name)
         }
@@ -185,42 +248,42 @@ package object Typer
                 toUnbound(AST.Generics(Nil))(x).bind(TypesUnbound.EmptyTypeMapper_Bound)
         }
 
+        private def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
+            val ctx = new TypingExprCtx {
+                def toTyped(t : AST.Type) = self.toBound(t)
+
+                def lookupFunction(name: AST.QualifiedName) = {
+                    lazy val nonLocal =
+                        self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o)) }
+
+                    def asFunction(t : TypesBound.Base) : TypesBound.Function = t match {
+                        case f : TypesBound.Function => f
+                        case TypesBound.Optional(x) => asFunction(x)
+                        case _ => throw new Exception(t + " is expected to be a function-like type")
+                    }
+
+                    if (name.names.length == 1) {
+                        locals find { _.name == name.names(0) } match {
+                            case Some(p) => (asFunction(p.ty), () => Typed.ParamRef(p)) :: Nil
+                            case None    => nonLocal
+                        }
+                    } else
+                        nonLocal
+                }
+
+                def lookupVar(name: String) = locals.find({
+                    _.name == name
+                }) match {
+                    case Some(p) => p
+                    case None => throw new Exception(s"Cannot lookup parameter $name")
+                }
+            }
+            TypeChecker(ctx).asArith(e)
+        }
+
         private def toTyped(definition  : AST.FunDef): Typed.Function =
         {
             val target = typed
-
-            def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
-                val ctx = new TypingExprCtx {
-                    def toTyped(t : AST.Type) = self.toBound(t)
-
-                    def lookupFunction(name: AST.QualifiedName) = {
-                        lazy val nonLocal =
-                            self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o)) }
-
-                        def asFunction(t : TypesBound.Base) : TypesBound.Function = t match {
-                            case f : TypesBound.Function => f
-                            case TypesBound.Optional(x) => asFunction(x)
-                            case _ => throw new Exception(t + " is expected to be a function-like type")
-                        }
-
-                        if (name.names.length == 1) {
-                            locals find { _.name == name.names(0) } match {
-                                case Some(p) => (asFunction(p.ty), () => Typed.ParamRef(p)) :: Nil
-                                case None    => nonLocal
-                            }
-                        } else
-                            nonLocal
-                    }
-
-                    def lookupVar(name: String) = locals.find({
-                        _.name == name
-                    }) match {
-                        case Some(p) => p
-                        case None => throw new Exception(s"Cannot lookup parameter $name")
-                    }
-                }
-                TypeChecker(ctx).asArith(e)
-            }
 
             val emptyLocals = List[Typed.Parameter]()
 
@@ -323,6 +386,11 @@ package object Typer
 
             overloads filter { o => checkOverload(o._1) } match {
                 case Nil =>
+
+//                    println("Typing: " + name)
+//                    println("Arguments: " + (typed_args map { _.ty }))
+//                    println("First overload: " + overloads.head._1)
+//                    println("Can be casted?: " + checkOverload(overloads.head._1))
 
                     def possibleCasts(prefix : List[Typed.Expr],
                                       rest   : List[Typed.Expr])

@@ -1,8 +1,8 @@
 
 def convert(other):
-    from marketsim.gen._out._constant import constant
+    from marketsim.gen._out._const import const
     if type(other) in [int, float]:
-        other = constant(other)
+        other = const(other)
     return other
 
 

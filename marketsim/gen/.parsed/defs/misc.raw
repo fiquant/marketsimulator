@@ -75,7 +75,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
+| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - _constant._Constant_Impl
 | | | | | | - Attribute:
@@ -151,7 +151,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
+| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - _constant._Constant_Impl
 | | | | | | - Attribute:

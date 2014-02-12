@@ -49,9 +49,9 @@ class PairTrading_IOrderBookFloatIOrderBook(Observable[Side]):
     
     def getImpl(self):
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIFunctionFloat as _ops_Mul
         from marketsim.gen._out.observable._side import Side_IFunctionSide as _observable_Side
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IFunctionFloatIOrderBook as _strategy_side_FundamentalValue
         from marketsim.gen._out._constant import constant_Float as _constant
         return _observable_Side(_strategy_side_FundamentalValue(_ops_Mul(_orderbook_MidPrice(self.bookToDependOn),_constant(self.factor)),self.book))
     

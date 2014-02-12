@@ -10,7 +10,7 @@ package  {
     // defined at defs\misc.sc: 9.5
     /** Trivial observable always returning *x*
      */
-    @python.intrinsic.function("_constant._Constant_Impl")
+    @python.intrinsic.observable("_constant._Constant_Impl")
     @label = "C=%(x)s"
     def const(x = 1.0) : IObservable[Float]
     
@@ -23,7 +23,7 @@ package  {
     // defined at defs\misc.sc: 22.5
     /** Trivial observable always returning *x*
      */
-    @python.intrinsic.function("_constant._Constant_Impl")
+    @python.intrinsic.observable("_constant._Constant_Impl")
     @label = "C=%(x)s"
     def const(x = 1) : IObservable[Int]
     
