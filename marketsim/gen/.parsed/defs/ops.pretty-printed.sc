@@ -114,6 +114,24 @@ package ops {@label = "-%(x)s"
         def Condition_Float(cond = true() : IFunction[Boolean],
                             ifpart = constant(1.0),
                             elsepart = constant(1.0)) : IFunction[Float]
+        
+        // defined at defs\ops.sc: 84.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition_Float(cond = true() : IFunction[Boolean],
+                            ifpart = const(1.0),
+                            elsepart = constant(1.0)) : IObservable[Float]
+        
+        // defined at defs\ops.sc: 89.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition_Float(cond = true() : IFunction[Boolean],
+                            ifpart = constant(1.0),
+                            elsepart = const(1.0)) : IObservable[Float]
+        
+        // defined at defs\ops.sc: 94.9
+        @python.intrinsic.observable("ops._Condition_Impl")
+        def Condition_Float(cond = true() : IFunction[Boolean],
+                            ifpart = const(1.0),
+                            elsepart = const(1.0)) : IObservable[Float]
     }
     
     // defined at defs\ops.sc: 101.5

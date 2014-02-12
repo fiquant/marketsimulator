@@ -1,17 +1,26 @@
+from marketsim.ops._all import Observable
 from marketsim import IObservable
 from marketsim.gen._intrinsic.moments.mv import MV_Impl
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var_IObservableFloatFloat(Function[float],MV_Impl):
+class Var_IObservableFloatFloat(Observable[float],MV_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import types
+        from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import event
+        from marketsim import float
+        Observable[float].__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
+        if isinstance(source, types.IEvent):
+            event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0
+        if isinstance(timeframe, types.IEvent):
+            event.subscribe(self.timeframe, self.fire, self)
         rtti.check_fields(self)
         MV_Impl.__init__(self)
     

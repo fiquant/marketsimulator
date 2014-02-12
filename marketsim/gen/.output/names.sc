@@ -115,6 +115,24 @@ package ops
                         ifpart = constant(1.0),
                         elsepart = constant(1.0)) : IFunction[Float]
     
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond = true() : IFunction[Boolean],
+                        ifpart = const(1.0),
+                        elsepart = constant(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond = true() : IFunction[Boolean],
+                        ifpart = constant(1.0),
+                        elsepart = const(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond = true() : IFunction[Boolean],
+                        ifpart = const(1.0),
+                        elsepart = const(1.0)) : IObservable[Float]
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @python.intrinsic.observable("ops._NotEqual_Impl")
     @symbol = "<>"

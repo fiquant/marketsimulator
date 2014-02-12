@@ -126,6 +126,27 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                        ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                        elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                        ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                        elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+                        ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                        elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition_Float(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
                         ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                         elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
@@ -492,7 +513,7 @@ package math {
         
         @python.intrinsic("moments.mv.MV_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IFunction[.Float]
+                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
             	 = .math.Max(.const(0),.ops.Sub(.math.Moving.Avg(.observable.Float(.ops.Mul(source,source)),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))))
         
         /** Running maximum of a function
@@ -527,7 +548,7 @@ package math {
     
     @python.observable()
     def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
@@ -537,7 +558,7 @@ package math {
     
     @python.observable()
     def Min(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
@@ -547,7 +568,7 @@ package math {
     
     @python.observable()
     def Min(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Less(x,y),x,y)
     
     /** Function returning minimum of two functions *x* and *y*.
@@ -591,7 +612,7 @@ package math {
     
     @python.observable()
     def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -601,7 +622,7 @@ package math {
     
     @python.observable()
     def Max(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -611,7 +632,7 @@ package math {
     
     @python.observable()
     def Max(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
         	 = .ops.Condition_Float(.ops.Greater(x,y),x,y)
     
     /** Function returning maximum of two functions *x* and *y*.
@@ -2865,7 +2886,7 @@ def true() : .IObservable[.Boolean]
 
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
-              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
@@ -2875,7 +2896,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
 
 @python.observable()
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
-              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IFunction[.Float]
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
@@ -2885,7 +2906,7 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
 
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
-              /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
+              /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     	 = .ops.Condition_Float(.ops.NotEqual(x,.null()),x,elsePart)
 
 /** Returns *x* if defined and *elsePart* otherwise
