@@ -8,9 +8,9 @@ class WeightedPrice_IOrderBookFloat(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import rtti
-        self.book = book if book is not None else _orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         self.alpha = alpha if alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -39,9 +39,9 @@ class WeightedPrice_IOrderBookFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._weightedprice import WeightedPrice_IOrderQueueFloat as _orderbook_WeightedPrice
-        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids
-        return _orderbook_WeightedPrice(_orderbook_Bids(self.book),self.alpha)
+        from marketsim.gen._out.orderbook._weightedprice import WeightedPrice_IOrderQueueFloat as _orderbook_WeightedPrice_IOrderQueueFloat
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
+        return _orderbook_WeightedPrice_IOrderQueueFloat(_orderbook_Bids_IOrderBook(self.book),self.alpha)
     
 def WeightedPrice(book = None,alpha = None): 
     from marketsim import IOrderBook

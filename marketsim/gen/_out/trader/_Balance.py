@@ -10,12 +10,12 @@ class Balance_IAccount(Observable[Price],Balance_Impl):
     def __init__(self, trader = None):
         from marketsim import Price
         from marketsim import types
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
         Observable[Price].__init__(self)
-        self.trader = trader if trader is not None else _trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy_()
         if isinstance(trader, types.IEvent):
             event.subscribe(self.trader, self.fire, self)
         rtti.check_fields(self)

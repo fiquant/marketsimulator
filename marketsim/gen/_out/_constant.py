@@ -35,8 +35,8 @@ class constant_Int(Function[int]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._const import const_Int as _const
-        return _const(self.x)
+        from marketsim.gen._out._const import const_Int as _const_Int
+        return _const_Int(self.x)
     
 from marketsim import registry
 from marketsim import float
@@ -75,8 +75,8 @@ class constant_Float(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._const import const_Float as _const
-        return _const(self.x)
+        from marketsim.gen._out._const import const_Float as _const_Float
+        return _const_Float(self.x)
     
 def constant(x = None): 
     from marketsim import int

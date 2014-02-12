@@ -14,9 +14,9 @@ class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit
+        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit_IFunctionFloat
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_price_Limit()
+        self.proto = proto if proto is not None else _order__curried_side_price_Limit_IFunctionFloat()
         rtti.check_fields(self)
     
     @property
@@ -30,9 +30,9 @@ class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.order._curried._price_immediateorcancel import price_ImmediateOrCancel
-        side = side if side is not None else _side_Sell()
+        side = side if side is not None else _side_Sell_()
         proto = self.proto
         return price_ImmediateOrCancel(proto(side))
     

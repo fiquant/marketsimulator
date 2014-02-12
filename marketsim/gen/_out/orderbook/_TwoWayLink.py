@@ -8,10 +8,10 @@ class TwoWayLink_ILinkILink(_TwoWayLink_Impl):
      Holds two one-way links in opposite directions.
     """ 
     def __init__(self, up = None, down = None):
-        from marketsim.gen._out.orderbook._link import Link_IObservableFloat as _orderbook_Link
+        from marketsim.gen._out.orderbook._link import Link_IObservableFloat as _orderbook_Link_IObservableFloat
         from marketsim import rtti
-        self.up = up if up is not None else _orderbook_Link()
-        self.down = down if down is not None else _orderbook_Link()
+        self.up = up if up is not None else _orderbook_Link_IObservableFloat()
+        self.down = down if down is not None else _orderbook_Link_IObservableFloat()
         rtti.check_fields(self)
         _TwoWayLink_Impl.__init__(self)
     

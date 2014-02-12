@@ -10,15 +10,15 @@ class Add_IObservableFloatIObservableFloat(Observable[float],_Add_Impl):
     def __init__(self, x = None, y = None):
         from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _const(1.0)
+        self.x = x if x is not None else _const_Float(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
-        self.y = y if y is not None else _const(1.0)
+        self.y = y if y is not None else _const_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
@@ -48,16 +48,16 @@ class Add_IObservableFloatIFunctionFloat(Observable[float],_Add_Impl):
     def __init__(self, x = None, y = None):
         from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _const(1.0)
+        self.x = x if x is not None else _const_Float(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
-        self.y = y if y is not None else _constant(1.0)
+        self.y = y if y is not None else _constant_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
@@ -87,16 +87,16 @@ class Add_IFunctionFloatIObservableFloat(Observable[float],_Add_Impl):
     def __init__(self, x = None, y = None):
         from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _constant(1.0)
+        self.x = x if x is not None else _constant_Float(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
-        self.y = y if y is not None else _const(1.0)
+        self.y = y if y is not None else _const_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
@@ -126,14 +126,14 @@ class Add_IFunctionFloatIFunctionFloat(Observable[float],_Add_Impl):
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _constant(1.0)
+        self.x = x if x is not None else _constant_Float(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
-        self.y = y if y is not None else _constant(1.0)
+        self.y = y if y is not None else _constant_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)

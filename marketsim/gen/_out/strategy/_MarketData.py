@@ -53,20 +53,20 @@ class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
-        from marketsim.gen._out.observable._quote import Quote_StringStringString as _observable_Quote
-        from marketsim.gen._out.ops._add import Add_IObservableFloatIFunctionFloat as _ops_Add
-        from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges_IFunctionFloat as _observable_BreaksAtChanges
-        from marketsim.gen._out.event._after import After_IFunctionFloat as _event_After
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIFunctionFloat as _ops_Sub
-        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
-        from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.order._floatingprice import FloatingPrice_IObservableFloatFloatIOrderGenerator as _order_FloatingPrice
-        from marketsim.gen._out.order._iceberg import Iceberg_IFunctionFloatIOrderGenerator as _order_Iceberg
-        return _strategy_Combine(_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Add(_observable_Quote(self.ticker,self.start,self.end),_constant(self.delta))),_order__curried_price_Limit(_side_Sell(),_constant((self.volume*1000))))),_event_After(_constant(0.0))),_strategy_Generic(_order_Iceberg(_constant(self.volume),_order_FloatingPrice(_observable_BreaksAtChanges(_ops_Sub(_observable_Quote(self.ticker,self.start,self.end),_constant(self.delta))),_order__curried_price_Limit(_side_Buy(),_constant((self.volume*1000))))),_event_After(_constant(0.0))))
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIFunctionFloat as _ops_Sub_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.observable._quote import Quote_StringStringString as _observable_Quote_StringStringString
+        from marketsim.gen._out.event._after import After_IFunctionFloat as _event_After_IFunctionFloat
+        from marketsim.gen._out.order._iceberg import Iceberg_IFunctionFloatIOrderGenerator as _order_Iceberg_IFunctionFloatIOrderGenerator
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit_SideIFunctionFloat
+        from marketsim.gen._out.order._floatingprice import FloatingPrice_IObservableFloatFloatIOrderGenerator as _order_FloatingPrice_IObservableFloatFloatIOrderGenerator
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.ops._add import Add_IObservableFloatIFunctionFloat as _ops_Add_IObservableFloatIFunctionFloat
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy
+        from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges_IFunctionFloat as _observable_BreaksAtChanges_IFunctionFloat
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        return _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(_strategy_Generic_IOrderGeneratorIEvent(_order_Iceberg_IFunctionFloatIOrderGenerator(_constant_Float(self.volume),_order_FloatingPrice_IObservableFloatFloatIOrderGenerator(_observable_BreaksAtChanges_IFunctionFloat(_ops_Add_IObservableFloatIFunctionFloat(_observable_Quote_StringStringString(self.ticker,self.start,self.end),_constant_Float(self.delta))),_order__curried_price_Limit_SideIFunctionFloat(_side_Sell_(),_constant_Float((self.volume*1000))))),_event_After_IFunctionFloat(_constant_Float(0.0))),_strategy_Generic_IOrderGeneratorIEvent(_order_Iceberg_IFunctionFloatIOrderGenerator(_constant_Float(self.volume),_order_FloatingPrice_IObservableFloatFloatIOrderGenerator(_observable_BreaksAtChanges_IFunctionFloat(_ops_Sub_IObservableFloatIFunctionFloat(_observable_Quote_StringStringString(self.ticker,self.start,self.end),_constant_Float(self.delta))),_order__curried_price_Limit_SideIFunctionFloat(_side_Buy_(),_constant_Float((self.volume*1000))))),_event_After_IFunctionFloat(_constant_Float(0.0))))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

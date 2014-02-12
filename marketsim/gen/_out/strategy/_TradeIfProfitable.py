@@ -9,15 +9,15 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     """ 
     """ 
     def __init__(self, inner = None, account = None, performance = None):
-        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket
+        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend_Float as _strategy_weight_trader_trader_EfficiencyTrend_Float
         from marketsim import _
         from marketsim import rtti
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
+        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
         from marketsim import event
-        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend_Float as _strategy_weight_trader_trader_EfficiencyTrend
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
-        self.inner = inner if inner is not None else _strategy_Noise()
-        self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket()
-        self.performance = performance if performance is not None else _strategy_weight_trader_trader_EfficiencyTrend()
+        self.inner = inner if inner is not None else _strategy_Noise_IEventSideIOrderGenerator()
+        self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket_()
+        self.performance = performance if performance is not None else _strategy_weight_trader_trader_EfficiencyTrend_Float()
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -48,10 +48,10 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._suspendable import Suspendable_ISingleAssetStrategyIFunctionBoolean as _strategy_Suspendable
-        from marketsim.gen._out.ops._greaterequal import GreaterEqual_IFunctionFloatIFunctionFloat as _ops_GreaterEqual
-        from marketsim.gen._out._constant import constant_Int as _constant
-        return _strategy_Suspendable(self.inner,_ops_GreaterEqual(self.performance(self.account(self.inner)),_constant(0)))
+        from marketsim.gen._out.strategy._suspendable import Suspendable_ISingleAssetStrategyIFunctionBoolean as _strategy_Suspendable_ISingleAssetStrategyIFunctionBoolean
+        from marketsim.gen._out.ops._greaterequal import GreaterEqual_IFunctionFloatIFunctionFloat as _ops_GreaterEqual_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out._constant import constant_Int as _constant_Int
+        return _strategy_Suspendable_ISingleAssetStrategyIFunctionBoolean(self.inner,_ops_GreaterEqual_IFunctionFloatIFunctionFloat(self.performance(self.account(self.inner)),_constant_Int(0)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

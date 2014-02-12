@@ -1,7 +1,7 @@
 def score(): 
-    from marketsim.gen._out.strategy.weight.trader._trader_score import trader_Score_ as _strategy_weight_trader_trader_Score
+    from marketsim.gen._out.strategy.weight.trader._trader_score import trader_Score_ as _strategy_weight_trader_trader_Score_
     from marketsim import rtti
-    return _strategy_weight_trader_trader_Score()
+    return _strategy_weight_trader_trader_Score_()
     raise Exception('Cannot find suitable overload for score('++')')
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim import IAccount
@@ -15,9 +15,9 @@ class Score_IAccount(Function[float],_Score_Impl):
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        self.trader = trader if trader is not None else _trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
         _Score_Impl.__init__(self)
     

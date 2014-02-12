@@ -8,14 +8,14 @@ class Efficiency_IAccount(Observable[float]):
     """ 
     """ 
     def __init__(self, trader = None):
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
         from marketsim import float
         Observable[float].__init__(self)
-        self.trader = trader if trader is not None else _trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -43,13 +43,13 @@ class Efficiency_IAccount(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.trader._balance import Balance_IAccount as _trader_Balance
-        from marketsim.gen._out.observable._float import Float_IFunctionFloat as _observable_Float
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
-        from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add
-        from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position
-        from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice_IOrderBookIFunctionFloat as _orderbook_CumulativePrice
-        return _observable_Float(_ops_Add(_trader_Balance(self.trader),_orderbook_CumulativePrice(_orderbook_OfTrader(self.trader),_trader_Position(self.trader))))
+        from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add_IObservableFloatIObservableFloat
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.observable._float import Float_IFunctionFloat as _observable_Float_IFunctionFloat
+        from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice_IOrderBookIFunctionFloat as _orderbook_CumulativePrice_IOrderBookIFunctionFloat
+        from marketsim.gen._out.trader._balance import Balance_IAccount as _trader_Balance_IAccount
+        from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
+        return _observable_Float_IFunctionFloat(_ops_Add_IObservableFloatIObservableFloat(_trader_Balance_IAccount(self.trader),_orderbook_CumulativePrice_IOrderBookIFunctionFloat(_orderbook_OfTrader_IAccount(self.trader),_trader_Position_IAccount(self.trader))))
     
 def Efficiency(trader = None): 
     from marketsim import IAccount

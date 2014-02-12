@@ -22,11 +22,11 @@ class trader_Efficiency_(IFunction[IFunction[float], IAccount]):
         return "trader_Efficiency" % self.__dict__
     
     def __call__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
-        from marketsim.gen._out.strategy.weight._efficiency import Efficiency_IAccount as _strategy_weight_Efficiency
-        trader = trader if trader is not None else _trader_SingleProxy()
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim.gen._out.strategy.weight._efficiency import Efficiency_IAccount as _strategy_weight_Efficiency_IAccount
+        trader = trader if trader is not None else _trader_SingleProxy_()
         
-        return _strategy_weight_Efficiency(trader)
+        return _strategy_weight_Efficiency_IAccount(trader)
     
 def trader_Efficiency(): 
     from marketsim import rtti

@@ -6,10 +6,10 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(_Combine_Impl):
     """   Can be considered as a particular case of Array strategy
     """ 
     def __init__(self, A = None, B = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
         from marketsim import rtti
-        self.A = A if A is not None else _strategy_Noise()
-        self.B = B if B is not None else _strategy_Noise()
+        self.A = A if A is not None else _strategy_Noise_IEventSideIOrderGenerator()
+        self.B = B if B is not None else _strategy_Noise_IEventSideIOrderGenerator()
         rtti.check_fields(self)
         _Combine_Impl.__init__(self)
     

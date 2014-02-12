@@ -8,9 +8,9 @@ class StdDev_IObservableFloat(Function[float]):
     """ 
     """ 
     def __init__(self, source = None):
-        from marketsim.gen._out._const import const_Float as _const
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import rtti
-        self.source = source if source is not None else _const(1.0)
+        self.source = source if source is not None else _const_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -37,9 +37,9 @@ class StdDev_IObservableFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._sqrt import Sqrt_IFunctionFloat as _math_Sqrt
-        from marketsim.gen._out.math.Cumulative._var import Var_IObservableFloat as _math_Cumulative_Var
-        return _math_Sqrt(_math_Cumulative_Var(self.source))
+        from marketsim.gen._out.math._sqrt import Sqrt_IFunctionFloat as _math_Sqrt_IFunctionFloat
+        from marketsim.gen._out.math.Cumulative._var import Var_IObservableFloat as _math_Cumulative_Var_IObservableFloat
+        return _math_Sqrt_IFunctionFloat(_math_Cumulative_Var_IObservableFloat(self.source))
     
 def StdDev(source = None): 
     from marketsim import IObservable

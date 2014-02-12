@@ -24,11 +24,11 @@ class inner_VirtualMarket_(IFunction[IAccount, ISingleAssetStrategy]):
         return "inner_VirtualMarket" % self.__dict__
     
     def __call__(self, inner = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
-        from marketsim.gen._out.strategy.account._virtualmarket import VirtualMarket_ISingleAssetStrategy as _strategy_account_VirtualMarket
-        inner = inner if inner is not None else _strategy_Noise()
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
+        from marketsim.gen._out.strategy.account._virtualmarket import VirtualMarket_ISingleAssetStrategy as _strategy_account_VirtualMarket_ISingleAssetStrategy
+        inner = inner if inner is not None else _strategy_Noise_IEventSideIOrderGenerator()
         
-        return _strategy_account_VirtualMarket(inner)
+        return _strategy_account_VirtualMarket_ISingleAssetStrategy(inner)
     
 def inner_VirtualMarket(): 
     from marketsim import rtti

@@ -9,11 +9,11 @@ class TrendFollower_FloatFloatIOrderBook(Function[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
-        self.book = book if book is not None else _orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -42,11 +42,11 @@ class TrendFollower_FloatFloatIOrderBook(Function[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal
-        from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative
-        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice
-        return _strategy_side_Signal(_math_Derivative(_math_EW_Avg(_orderbook_MidPrice(self.book),self.alpha)),self.threshold)
+        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal_IFunctionFloatFloat
+        from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        return _strategy_side_Signal_IFunctionFloatFloat(_math_Derivative_IDifferentiable(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha)),self.threshold)
     
 def TrendFollower(alpha = None,threshold = None,book = None): 
     from marketsim import float

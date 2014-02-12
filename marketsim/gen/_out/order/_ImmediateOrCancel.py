@@ -16,11 +16,11 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit
+        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit_SideIFunctionFloatIFunctionFloat
         from marketsim import event
         from marketsim import Order
         Observable[Order].__init__(self)
-        self.proto = proto if proto is not None else _order_Limit()
+        self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)

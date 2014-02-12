@@ -30,7 +30,7 @@ def ChooseTheBest(array = None):
         return ChooseTheBest_ListFloat(array)
     raise Exception('Cannot find suitable overload for ChooseTheBest('+str(array)+')')
 def chooseTheBest(): 
-    from marketsim.gen._out.strategy.weight.array._array_choosethebest import array_ChooseTheBest_ as _strategy_weight_array_array_ChooseTheBest
+    from marketsim.gen._out.strategy.weight.array._array_choosethebest import array_ChooseTheBest_ as _strategy_weight_array_array_ChooseTheBest_
     from marketsim import rtti
-    return _strategy_weight_array_array_ChooseTheBest()
+    return _strategy_weight_array_array_ChooseTheBest_()
     raise Exception('Cannot find suitable overload for chooseTheBest('++')')

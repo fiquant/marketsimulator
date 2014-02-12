@@ -11,12 +11,12 @@ class Volume_IFunctionFloat(Observable[Volume],_Observable_Impl):
     def __init__(self, x = None):
         from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import Volume
         from marketsim import event
         Observable[Volume].__init__(self)
-        self.x = x if x is not None else _const(1.0)
+        self.x = x if x is not None else _const_Float(1.0)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         rtti.check_fields(self)

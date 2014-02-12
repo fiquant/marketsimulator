@@ -1,7 +1,7 @@
 def efficiency(): 
-    from marketsim.gen._out.strategy.weight.trader._trader_efficiency import trader_Efficiency_ as _strategy_weight_trader_trader_Efficiency
+    from marketsim.gen._out.strategy.weight.trader._trader_efficiency import trader_Efficiency_ as _strategy_weight_trader_trader_Efficiency_
     from marketsim import rtti
-    return _strategy_weight_trader_trader_Efficiency()
+    return _strategy_weight_trader_trader_Efficiency_()
     raise Exception('Cannot find suitable overload for efficiency('++')')
 from marketsim import IAccount
 from marketsim import registry
@@ -13,9 +13,9 @@ class Efficiency_IAccount(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        self.trader = trader if trader is not None else _trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -42,8 +42,8 @@ class Efficiency_IAccount(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency
-        return _trader_Efficiency(self.trader)
+        from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency_IAccount
+        return _trader_Efficiency_IAccount(self.trader)
     
 def Efficiency(trader = None): 
     from marketsim import IAccount

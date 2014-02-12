@@ -10,11 +10,11 @@ class volume_Iceberg_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGenerato
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.order._curried._volume_limit import volume_Limit_SideIFunctionFloat as _order__curried_volume_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.order._curried._volume_limit import volume_Limit_SideIFunctionFloat as _order__curried_volume_Limit_SideIFunctionFloat
         from marketsim import rtti
-        self.lotSize = lotSize if lotSize is not None else _constant(10.0)
-        self.proto = proto if proto is not None else _order__curried_volume_Limit()
+        self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
+        self.proto = proto if proto is not None else _order__curried_volume_Limit_SideIFunctionFloat()
         rtti.check_fields(self)
     
     @property
@@ -29,9 +29,9 @@ class volume_Iceberg_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGenerato
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, volume = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.order._iceberg import Iceberg
-        volume = volume if volume is not None else _constant(1.0)
+        volume = volume if volume is not None else _constant_Float(1.0)
         lotSize = self.lotSize
         proto = self.proto
         return Iceberg(lotSize, proto(volume))

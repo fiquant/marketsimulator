@@ -7,9 +7,9 @@ class Array_ListISingleAssetStrategy(_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
         from marketsim import rtti
-        self.strategies = strategies if strategies is not None else [_strategy_Noise()]
+        self.strategies = strategies if strategies is not None else [_strategy_Noise_IEventSideIOrderGenerator()]
         rtti.check_fields(self)
         _Array_Impl.__init__(self)
     

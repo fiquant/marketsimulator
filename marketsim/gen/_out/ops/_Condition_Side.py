@@ -9,22 +9,22 @@ class Condition_Side_IFunctionBooleanSideSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
-        from marketsim.gen._out._true import true_ as _true
         from marketsim import types
         from marketsim import Side
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import event
         Observable[Side].__init__(self)
-        self.cond = cond if cond is not None else _true()
+        self.cond = cond if cond is not None else _true_()
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
-        self.ifpart = ifpart if ifpart is not None else _side_Sell()
+        self.ifpart = ifpart if ifpart is not None else _side_Sell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
-        self.elsepart = elsepart if elsepart is not None else _side_Buy()
+        self.elsepart = elsepart if elsepart is not None else _side_Buy_()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)

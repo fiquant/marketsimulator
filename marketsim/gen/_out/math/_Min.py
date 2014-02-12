@@ -10,13 +10,13 @@ class Min_IObservableFloatIObservableFloat(Observable[float]):
     def __init__(self, x = None, y = None):
         from marketsim.ops._all import Observable
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _const(1.0)
-        self.y = y if y is not None else _const(1.0)
+        self.x = x if x is not None else _const_Float(1.0)
+        self.y = y if y is not None else _const_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -45,9 +45,9 @@ class Min_IObservableFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -62,14 +62,14 @@ class Min_IFunctionFloatIObservableFloat(Observable[float]):
     def __init__(self, x = None, y = None):
         from marketsim.ops._all import Observable
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _constant(1.0)
-        self.y = y if y is not None else _const(1.0)
+        self.x = x if x is not None else _constant_Float(1.0)
+        self.y = y if y is not None else _const_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -98,9 +98,9 @@ class Min_IFunctionFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -115,14 +115,14 @@ class Min_IObservableFloatIFunctionFloat(Observable[float]):
     def __init__(self, x = None, y = None):
         from marketsim.ops._all import Observable
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _const(1.0)
-        self.y = y if y is not None else _constant(1.0)
+        self.x = x if x is not None else _const_Float(1.0)
+        self.y = y if y is not None else _constant_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -151,9 +151,9 @@ class Min_IObservableFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -168,12 +168,12 @@ class Min_IFunctionFloatIFunctionFloat(Observable[float]):
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         from marketsim import float
         Observable[float].__init__(self)
-        self.x = x if x is not None else _constant(1.0)
-        self.y = y if y is not None else _constant(1.0)
+        self.x = x if x is not None else _constant_Float(1.0)
+        self.y = y if y is not None else _constant_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -202,9 +202,9 @@ class Min_IFunctionFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        return _ops_Condition_Float(_ops_Less(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition_float import Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Float_IFunctionBooleanIFunctionFloatIFunctionFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
     
 def Min(x = None,y = None): 
     from marketsim import IObservable

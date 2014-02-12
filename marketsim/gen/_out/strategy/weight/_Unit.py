@@ -1,7 +1,7 @@
 def unit(): 
-    from marketsim.gen._out.strategy.weight.trader._trader_unit import trader_Unit_ as _strategy_weight_trader_trader_Unit
+    from marketsim.gen._out.strategy.weight.trader._trader_unit import trader_Unit_ as _strategy_weight_trader_trader_Unit_
     from marketsim import rtti
-    return _strategy_weight_trader_trader_Unit()
+    return _strategy_weight_trader_trader_Unit_()
     raise Exception('Cannot find suitable overload for unit('++')')
 from marketsim import IAccount
 from marketsim import registry
@@ -13,9 +13,9 @@ class Unit_IAccount(Function[float]):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        self.trader = trader if trader is not None else _trader_SingleProxy()
+        self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -42,8 +42,8 @@ class Unit_IAccount(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._constant import constant_Float as _constant
-        return _constant(1.0)
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        return _constant_Float(1.0)
     
 def Unit(trader = None): 
     from marketsim import IAccount

@@ -6,9 +6,9 @@ class Bids_IOrderBook(_Bids_Impl):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import rtti
-        self.book = book if book is not None else _orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         _Bids_Impl.__init__(self)
     

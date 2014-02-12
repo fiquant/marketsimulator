@@ -10,9 +10,9 @@ class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator, IFuncti
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, price = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.price = price if price is not None else _constant(100.0)
+        self.price = price if price is not None else _constant_Float(100.0)
         rtti.check_fields(self)
     
     @property
@@ -26,9 +26,9 @@ class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator, IFuncti
         return "LimitSigned(%(price)s)" % self.__dict__
     
     def __call__(self, signedVolume = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.order._limitsigned import LimitSigned
-        signedVolume = signedVolume if signedVolume is not None else _constant(1.0)
+        signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
         price = self.price
         return LimitSigned(signedVolume, price)
     

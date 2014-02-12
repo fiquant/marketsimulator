@@ -12,11 +12,11 @@ class sideprice_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IOrderG
       thus maximum lot size volume is visible at the market at any moment.
     """ 
     def __init__(self, lotSize = None, proto = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_IFunctionFloat as _order__curried_sideprice_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_IFunctionFloat as _order__curried_sideprice_Limit_IFunctionFloat
         from marketsim import rtti
-        self.lotSize = lotSize if lotSize is not None else _constant(10.0)
-        self.proto = proto if proto is not None else _order__curried_sideprice_Limit()
+        self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
+        self.proto = proto if proto is not None else _order__curried_sideprice_Limit_IFunctionFloat()
         rtti.check_fields(self)
     
     @property
@@ -31,11 +31,11 @@ class sideprice_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IOrderG
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None,price = None):
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.order._iceberg import Iceberg
-        side = side if side is not None else _side_Sell()
-        price = price if price is not None else _constant(100.0)
+        side = side if side is not None else _side_Sell_()
+        price = price if price is not None else _constant_Float(100.0)
         lotSize = self.lotSize
         proto = self.proto
         return Iceberg(lotSize, proto(side,price))

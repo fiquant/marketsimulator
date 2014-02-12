@@ -13,13 +13,13 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[Price]):
         from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         Observable[Price].__init__(self)
-        self.queue = queue if queue is not None else _orderbook_Asks()
-        self.defaultValue = defaultValue if defaultValue is not None else _const(100.0)
+        self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
+        self.defaultValue = defaultValue if defaultValue is not None else _const_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -48,12 +48,12 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIFunctionFloat as _IfDefined
-        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price
-        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice
-        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice
-        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIObservableFloat as _IfDefined
-        return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
+        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price_IFunctionFloat
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIFunctionFloat as _IfDefined_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
+        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIObservableFloat as _IfDefined_IObservableFloatIObservableFloat
+        return _observable_Price_IFunctionFloat(_IfDefined_IObservableFloatIFunctionFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIObservableFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue)))
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -71,12 +71,12 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[Price]):
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         Observable[Price].__init__(self)
-        self.queue = queue if queue is not None else _orderbook_Asks()
-        self.defaultValue = defaultValue if defaultValue is not None else _constant(100.0)
+        self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
+        self.defaultValue = defaultValue if defaultValue is not None else _constant_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -105,11 +105,11 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price
-        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIFunctionFloat as _IfDefined
-        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice
-        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice
-        return _observable_Price(_IfDefined(_orderbook_BestPrice(self.queue),_IfDefined(_orderbook_LastPrice(self.queue),self.defaultValue)))
+        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price_IFunctionFloat
+        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIFunctionFloat as _IfDefined_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
+        return _observable_Price_IFunctionFloat(_IfDefined_IObservableFloatIFunctionFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIFunctionFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue)))
     
 def SafeSidePrice(queue = None,defaultValue = None): 
     from marketsim import IFunction

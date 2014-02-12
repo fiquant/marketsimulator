@@ -10,14 +10,14 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
+        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned_()
         self.alpha = alpha if alpha is not None else (1.0/14)
-        self.k = k if k is not None else _const(-0.04)
+        self.k = k if k is not None else _const_Float(-0.04)
         self.timeframe = timeframe if timeframe is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -50,9 +50,9 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear
-        return _strategy_Generic(self.orderFactory(_strategy_position_RSI_linear(self.alpha,self.k,self.timeframe)))
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(self.alpha,self.k,self.timeframe)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

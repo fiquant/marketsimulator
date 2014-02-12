@@ -16,16 +16,16 @@ class PairTrading_IEventSideIOrderGeneratorIOrderBookFloat(ISingleAssetStrategy)
      asset *B* changes.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, bookToDependOn = None, factor = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import event
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else _orderbook_OfTrader()
+        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else _orderbook_OfTrader_IAccount()
         self.factor = factor if factor is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -58,9 +58,9 @@ class PairTrading_IEventSideIOrderGeneratorIOrderBookFloat(ISingleAssetStrategy)
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading
-        return _strategy_Generic(self.orderFactory(_strategy_side_PairTrading(self.bookToDependOn,self.factor)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading_IOrderBookFloatIOrderBook
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_PairTrading_IOrderBookFloatIOrderBook(self.bookToDependOn,self.factor)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

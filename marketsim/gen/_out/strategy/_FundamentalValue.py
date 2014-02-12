@@ -14,15 +14,15 @@ class FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(ISingleAssetStr
     """ 
     def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _const(100.0)
+        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _const_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -53,9 +53,9 @@ class FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue
-        return _strategy_Generic(self.orderFactory(_strategy_side_FundamentalValue(self.fundamentalValue)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue_IObservableFloatIOrderBook
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -76,14 +76,14 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
     def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import event
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant(100.0)
+        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -114,9 +114,9 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IFunctionFloatIOrderBook as _strategy_side_FundamentalValue
-        return _strategy_Generic(self.orderFactory(_strategy_side_FundamentalValue(self.fundamentalValue)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IFunctionFloatIOrderBook as _strategy_side_FundamentalValue_IFunctionFloatIOrderBook
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_FundamentalValue_IFunctionFloatIOrderBook(self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

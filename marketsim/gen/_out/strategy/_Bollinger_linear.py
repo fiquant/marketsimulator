@@ -10,14 +10,14 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
+        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned()
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_signedVolume_MarketSigned_()
         self.alpha = alpha if alpha is not None else 0.15
-        self.k = k if k is not None else _const(0.5)
+        self.k = k if k is not None else _const_Float(0.5)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -48,9 +48,9 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear
-        return _strategy_Generic(self.orderFactory(_strategy_position_Bollinger_linear(self.alpha,self.k)))
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader(self.alpha,self.k)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

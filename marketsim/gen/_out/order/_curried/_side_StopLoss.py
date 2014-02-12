@@ -12,11 +12,11 @@ class side_StopLoss_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,
       the meta order clears its position.
     """ 
     def __init__(self, maxloss = None, proto = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit_IFunctionFloatIFunctionFloat
         from marketsim import rtti
-        self.maxloss = maxloss if maxloss is not None else _constant(0.1)
-        self.proto = proto if proto is not None else _order__curried_side_Limit()
+        self.maxloss = maxloss if maxloss is not None else _constant_Float(0.1)
+        self.proto = proto if proto is not None else _order__curried_side_Limit_IFunctionFloatIFunctionFloat()
         rtti.check_fields(self)
     
     @property
@@ -31,9 +31,9 @@ class side_StopLoss_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,
         return "StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.order._stoploss import StopLoss
-        side = side if side is not None else _side_Sell()
+        side = side if side is not None else _side_Sell_()
         maxloss = self.maxloss
         proto = self.proto
         return StopLoss(maxloss, proto(side))

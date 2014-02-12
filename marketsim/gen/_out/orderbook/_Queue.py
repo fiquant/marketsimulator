@@ -8,11 +8,11 @@ class Queue_IOrderBookSide(_Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim import rtti
-        self.book = book if book is not None else _orderbook_OfTrader()
-        self.side = side if side is not None else _side_Sell()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
+        self.side = side if side is not None else _side_Sell_()
         rtti.check_fields(self)
         _Queue_Impl.__init__(self)
     

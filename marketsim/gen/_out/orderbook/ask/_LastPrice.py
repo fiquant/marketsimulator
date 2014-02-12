@@ -10,12 +10,12 @@ class LastPrice_IOrderBook(Observable[Price]):
     def __init__(self, book = None):
         from marketsim import Price
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
         from marketsim import _
         from marketsim import rtti
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
         Observable[Price].__init__(self)
-        self.book = book if book is not None else _orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -43,9 +43,9 @@ class LastPrice_IOrderBook(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks
-        return _orderbook_LastPrice(_orderbook_Asks(self.book))
+        from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        return _orderbook_LastPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book))
     
 def LastPrice(book = None): 
     from marketsim import IOrderBook

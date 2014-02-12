@@ -8,9 +8,9 @@ class VirtualMarket_ISingleAssetStrategy(_VirtualMarket_Impl):
       but we want evaluate in any case would it be profitable or not)
     """ 
     def __init__(self, inner = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
         from marketsim import rtti
-        self.inner = inner if inner is not None else _strategy_Noise()
+        self.inner = inner if inner is not None else _strategy_Noise_IEventSideIOrderGenerator()
         rtti.check_fields(self)
         _VirtualMarket_Impl.__init__(self)
     
@@ -31,7 +31,7 @@ def VirtualMarket(inner = None):
         return VirtualMarket_ISingleAssetStrategy(inner)
     raise Exception('Cannot find suitable overload for VirtualMarket('+str(inner)+')')
 def virtualMarket(): 
-    from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket
+    from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
     from marketsim import rtti
-    return _strategy_account_inner_inner_VirtualMarket()
+    return _strategy_account_inner_inner_VirtualMarket_()
     raise Exception('Cannot find suitable overload for virtualMarket('++')')

@@ -163,13 +163,18 @@ object Printer {
     }
 
     def qualifiedCall(f : Typed.Function) =
-        fullImportName(f.qualifiedName) ||| (importsOf(f) as fullImportName(f.qualifiedName))
+        fullImportName(f) ||| (importsOf(f) as fullImportName(f))
+
+    def parametersMangled(parameters : List[Typed.Parameter]) =
+        parameters map {
+            p =>
+                "[].()=> ,".toList.foldLeft(p.ty.toString) {
+                    case (z, s) => z.replace(s.toString, "")
+                }.replace("Optional", "")
+        } mkString ""
 
     def decoratedName(f : Typed.Function) =
-        f.name + "_" +
-                (f.parameters map { p =>
-                    "[].()=> ,".toList.foldLeft(p.ty.toString){case (z, s) => z.replace(s.toString, "")}.replace("Optional","")
-                } mkString "")
+        f.name + "_" + parametersMangled(f.parameters)
 
 
     def moduleName(target : Typed.FunctionDecl) = {
@@ -177,8 +182,8 @@ object Printer {
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
     }
 
-    def fullImportName(n : AST.QualifiedName) =
-        n.names mkString "_"
+    def fullImportName(f : Typed.Function) =
+        (f.qualifiedName.names mkString "_") + "_" + parametersMangled(f.parameters)
 
     def importsOf(target : Typed.Function) =
         predef.ImportFrom(decoratedName(target), moduleName(target))

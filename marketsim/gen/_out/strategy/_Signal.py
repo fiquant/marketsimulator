@@ -14,15 +14,15 @@ class Signal_IEventSideIOrderGeneratorIObservableFloatFloat(ISingleAssetStrategy
     """ 
     def __init__(self, eventGen = None, orderFactory = None, signal = None, threshold = None):
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
-        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.signal = signal if signal is not None else _const(0.0)
+        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.signal = signal if signal is not None else _const_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -55,9 +55,9 @@ class Signal_IEventSideIOrderGeneratorIObservableFloatFloat(ISingleAssetStrategy
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.side._signal import Signal_IObservableFloatFloat as _strategy_side_Signal
-        return _strategy_Generic(self.orderFactory(_strategy_side_Signal(self.signal,self.threshold)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.side._signal import Signal_IObservableFloatFloat as _strategy_side_Signal_IObservableFloatFloat
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_Signal_IObservableFloatFloat(self.signal,self.threshold)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -78,14 +78,14 @@ class Signal_IEventSideIOrderGeneratorIFunctionFloatFloat(ISingleAssetStrategy):
     def __init__(self, eventGen = None, orderFactory = None, signal = None, threshold = None):
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.event._every import Every_Float as _event_Every
+        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import event
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate
-        self.eventGen = eventGen if eventGen is not None else _event_Every(_math_random_expovariate(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market()
-        self.signal = signal if signal is not None else _constant(0.0)
+        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.signal = signal if signal is not None else _constant_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -118,9 +118,9 @@ class Signal_IEventSideIOrderGeneratorIFunctionFloatFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic
-        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal
-        return _strategy_Generic(self.orderFactory(_strategy_side_Signal(self.signal,self.threshold)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal_IFunctionFloatFloat
+        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_Signal_IFunctionFloatFloat(self.signal,self.threshold)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

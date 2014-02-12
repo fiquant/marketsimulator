@@ -8,9 +8,9 @@ class Derivative_IDifferentiable(Function[float],_Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg
+        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim import rtti
-        self.x = x if x is not None else _math_EW_Avg()
+        self.x = x if x is not None else _math_EW_Avg_IObservableFloatFloat()
         rtti.check_fields(self)
         _Derivative_Impl.__init__(self)
     

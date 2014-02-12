@@ -12,11 +12,11 @@ class Signal_IObservableFloatFloat(Observable[Side]):
         from marketsim import Side
         from marketsim.ops._all import Observable
         from marketsim import _
-        from marketsim.gen._out._const import const_Float as _const
         from marketsim import rtti
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observable[Side].__init__(self)
-        self.signal = signal if signal is not None else _const(0.0)
+        self.signal = signal if signal is not None else _const_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -46,14 +46,14 @@ class Signal_IObservableFloatFloat(Observable[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater
-        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        from marketsim.gen._out.ops._condition_side import Condition_Side_IFunctionBooleanSideSide as _ops_Condition_Side
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
-        from marketsim.gen._out._constant import constant_Float as _constant
-        return _ops_Condition_Side(_ops_Greater(self.signal,_constant(self.threshold)),_side_Buy(),_ops_Condition_Side(_ops_Less(self.signal,_constant((0-self.threshold))),_side_Sell(),_side_Nothing()))
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.ops._condition_side import Condition_Side_IFunctionBooleanSideSide as _ops_Condition_Side_IFunctionBooleanSideSide
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Side_IFunctionBooleanSideSide(_ops_Greater_IFunctionFloatIFunctionFloat(self.signal,_constant_Float(self.threshold)),_side_Buy_(),_ops_Condition_Side_IFunctionBooleanSideSide(_ops_Less_IFunctionFloatIFunctionFloat(self.signal,_constant_Float((0-self.threshold))),_side_Sell_(),_side_Nothing_()))
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -70,10 +70,10 @@ class Signal_IFunctionFloatFloat(Observable[Side]):
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._constant import constant_Float as _constant
         Observable[Side].__init__(self)
-        self.signal = signal if signal is not None else _constant(0.0)
+        self.signal = signal if signal is not None else _constant_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -103,14 +103,14 @@ class Signal_IFunctionFloatFloat(Observable[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater
-        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less
-        from marketsim.gen._out.ops._condition_side import Condition_Side_IFunctionBooleanSideSide as _ops_Condition_Side
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
-        from marketsim.gen._out._constant import constant_Float as _constant
-        return _ops_Condition_Side(_ops_Greater(self.signal,_constant(self.threshold)),_side_Buy(),_ops_Condition_Side(_ops_Less(self.signal,_constant((0-self.threshold))),_side_Sell(),_side_Nothing()))
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.ops._condition_side import Condition_Side_IFunctionBooleanSideSide as _ops_Condition_Side_IFunctionBooleanSideSide
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
+        return _ops_Condition_Side_IFunctionBooleanSideSide(_ops_Greater_IFunctionFloatIFunctionFloat(self.signal,_constant_Float(self.threshold)),_side_Buy_(),_ops_Condition_Side_IFunctionBooleanSideSide(_ops_Less_IFunctionFloatIFunctionFloat(self.signal,_constant_Float((0-self.threshold))),_side_Sell_(),_side_Nothing_()))
     
 def Signal(signal = None,threshold = None): 
     from marketsim import IObservable

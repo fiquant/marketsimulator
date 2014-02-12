@@ -8,9 +8,9 @@ class Link_IObservableFloat(_Link_Impl):
      Ensures that sending packets via a link preserves their order.
     """ 
     def __init__(self, latency = None):
-        from marketsim.gen._out._const import const_Float as _const
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import rtti
-        self.latency = latency if latency is not None else _const(0.001)
+        self.latency = latency if latency is not None else _const_Float(0.001)
         rtti.check_fields(self)
         _Link_Impl.__init__(self)
     

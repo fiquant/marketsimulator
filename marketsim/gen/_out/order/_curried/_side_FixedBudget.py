@@ -14,9 +14,9 @@ class side_FixedBudget_IFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]
       cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, budget = None):
-        from marketsim.gen._out._constant import constant_Float as _constant
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.budget = budget if budget is not None else _constant(1000.0)
+        self.budget = budget if budget is not None else _constant_Float(1000.0)
         rtti.check_fields(self)
     
     @property
@@ -30,9 +30,9 @@ class side_FixedBudget_IFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]
         return "FixedBudget(%(budget)s)" % self.__dict__
     
     def __call__(self, side = None):
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.order._fixedbudget import FixedBudget
-        side = side if side is not None else _side_Sell()
+        side = side if side is not None else _side_Sell_()
         budget = self.budget
         return FixedBudget(side, budget)
     

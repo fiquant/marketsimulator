@@ -9,11 +9,11 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(_Remote_Impl):
     """  to the market by means of a *link* that introduces some latency in information propagation
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
-        from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as _orderbook_Local
-        from marketsim.gen._out.orderbook._twowaylink import TwoWayLink_ILinkILink as _orderbook_TwoWayLink
+        from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as _orderbook_Local_StringFloatIntListITimeSerie
+        from marketsim.gen._out.orderbook._twowaylink import TwoWayLink_ILinkILink as _orderbook_TwoWayLink_ILinkILink
         from marketsim import rtti
-        self.orderbook = orderbook if orderbook is not None else _orderbook_Local()
-        self.link = link if link is not None else _orderbook_TwoWayLink()
+        self.orderbook = orderbook if orderbook is not None else _orderbook_Local_StringFloatIntListITimeSerie()
+        self.link = link if link is not None else _orderbook_TwoWayLink_ILinkILink()
         self.timeseries = timeseries if timeseries is not None else []
         rtti.check_fields(self)
         _Remote_Impl.__init__(self)

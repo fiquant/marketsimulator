@@ -8,9 +8,9 @@ class RSI_IOrderBookFloatFloat(Function[float]):
     """ 
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import rtti
-        self.book = book if book is not None else _orderbook_OfTrader()
+        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
@@ -41,13 +41,13 @@ class RSI_IOrderBookFloatFloat(Function[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice
-        from marketsim.gen._out.math.rsi._raw import Raw_IObservableFloatFloatFloat as _math_rsi_Raw
-        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub
-        from marketsim.gen._out._constant import constant_Float as _constant
-        from marketsim.gen._out.ops._add import Add_IFunctionFloatIFunctionFloat as _ops_Add
-        return _ops_Sub(_constant(100.0),_ops_Div(_constant(100.0),_ops_Add(_constant(1.0),_math_rsi_Raw(_orderbook_MidPrice(self.book),self.timeframe,self.alpha))))
+        from marketsim.gen._out.ops._add import Add_IFunctionFloatIFunctionFloat as _ops_Add_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        from marketsim.gen._out.math.rsi._raw import Raw_IObservableFloatFloatFloat as _math_rsi_Raw_IObservableFloatFloatFloat
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._div import Div_IFunctionFloatIFunctionFloat as _ops_Div_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub_IFunctionFloatIFunctionFloat
+        return _ops_Sub_IFunctionFloatIFunctionFloat(_constant_Float(100.0),_ops_Div_IFunctionFloatIFunctionFloat(_constant_Float(100.0),_ops_Add_IFunctionFloatIFunctionFloat(_constant_Float(1.0),_math_rsi_Raw_IObservableFloatFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.timeframe,self.alpha))))
     
 def RSI(book = None,timeframe = None,alpha = None): 
     from marketsim import IOrderBook
