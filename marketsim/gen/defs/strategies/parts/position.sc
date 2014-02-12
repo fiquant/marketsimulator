@@ -8,9 +8,7 @@ package strategy.position
              /** observable desired position */ desiredPosition = const(1.),
              /** trader in question */          trader          = trader.SingleProxy())
 
-        = observable.Volume(
-            desiredPosition - trader.Position(trader) - trader.PendingVolume(trader)
-        )
+        =   desiredPosition - trader.Position(trader) - trader.PendingVolume(trader)
 
     /**
      * Position function for Bollinger bands strategy with linear scaling

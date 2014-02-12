@@ -87,29 +87,23 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Float
+| | | | | | | | | - Max
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - Var:
+| | | | | | | | | | - source
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Lagged
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Max
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Lagged
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -147,29 +141,23 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Float
+| | | | | | | | | - Max
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Lagged
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Max
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Lagged
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - source
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | | | | | - Var:
+| | | | | | | | | | - source
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

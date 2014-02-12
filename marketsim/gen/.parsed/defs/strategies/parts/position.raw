@@ -38,34 +38,28 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  trader in question 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Volume
-| | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Sub
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - desiredPosition
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - Position
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - trader
-| | | | | | | | | | | | - PendingVolume
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - BinOp:
+| | | | | | | | - Sub
+| | | | | | | | - Var:
+| | | | | | | | | - desiredPosition
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
+| | | | | | | | | | | - trader
+| | | | | | | | | | | - Position
+| | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - trader
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - trader
+| | | | | | | | | | - PendingVolume
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

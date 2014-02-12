@@ -1,12 +1,11 @@
 from marketsim import ISingleAssetTrader
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import Volume
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Volume function", "RSI_linear"])
-class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]):
+class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[float]):
     """ 
     """ 
     def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
@@ -15,9 +14,9 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observable[Volume]
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import Volume
         from marketsim import event
-        Observable[Volume].__init__(self)
+        from marketsim import float
+        Observable[float].__init__(self)
         self.alpha = alpha if alpha is not None else (1.0/14.0)
         self.k = k if k is not None else _const_Float(-0.04)
         self.timeframe = timeframe if timeframe is not None else 1.0

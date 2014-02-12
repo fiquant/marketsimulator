@@ -45,11 +45,10 @@ class Efficiency_IAccount(Observable[float]):
     def getImpl(self):
         from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim.gen._out.observable._float import Float_IFunctionFloat as _observable_Float_IFunctionFloat
         from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice_IOrderBookIFunctionFloat as _orderbook_CumulativePrice_IOrderBookIFunctionFloat
         from marketsim.gen._out.trader._balance import Balance_IAccount as _trader_Balance_IAccount
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
-        return _observable_Float_IFunctionFloat(_ops_Add_IObservableFloatIObservableFloat(_trader_Balance_IAccount(self.trader),_orderbook_CumulativePrice_IOrderBookIFunctionFloat(_orderbook_OfTrader_IAccount(self.trader),_trader_Position_IAccount(self.trader))))
+        return _ops_Add_IObservableFloatIObservableFloat(_trader_Balance_IAccount(self.trader),_orderbook_CumulativePrice_IOrderBookIFunctionFloat(_orderbook_OfTrader_IAccount(self.trader),_trader_Position_IAccount(self.trader)))
     
 def Efficiency(trader = None): 
     from marketsim import IAccount

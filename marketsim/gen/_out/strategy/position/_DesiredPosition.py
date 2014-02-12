@@ -1,12 +1,11 @@
 from marketsim import ISingleAssetTrader
 from marketsim.ops._all import Observable
 from marketsim import IObservable
-from marketsim import Volume
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
+class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
     """ 
     """ 
     def __init__(self, desiredPosition = None, trader = None):
@@ -15,9 +14,9 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import Volume
         from marketsim import event
-        Observable[Volume].__init__(self)
+        from marketsim import float
+        Observable[float].__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else _const_Float(1.0)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
@@ -48,11 +47,10 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[Volume]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._volume import Volume_IFunctionFloat as _observable_Volume_IFunctionFloat
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
         from marketsim.gen._out.trader._pendingvolume import PendingVolume_IAccount as _trader_PendingVolume_IAccount
-        return _observable_Volume_IFunctionFloat(_ops_Sub_IObservableFloatIObservableFloat(_ops_Sub_IObservableFloatIObservableFloat(self.desiredPosition,_trader_Position_IAccount(self.trader)),_trader_PendingVolume_IAccount(self.trader)))
+        return _ops_Sub_IObservableFloatIObservableFloat(_ops_Sub_IObservableFloatIObservableFloat(self.desiredPosition,_trader_Position_IAccount(self.trader)),_trader_PendingVolume_IAccount(self.trader))
     
 def DesiredPosition(desiredPosition = None,trader = None): 
     from marketsim import IObservable

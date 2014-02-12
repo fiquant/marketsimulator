@@ -15,7 +15,7 @@ package math
     def UpMovements(/** observable data source */   source = const (1.),
                     /** lag size */                 timeframe = 10.0)
 
-        = observable.Float(Max(0.0, source - Lagged(source, timeframe)))
+        = Max(0.0, source - Lagged(source, timeframe))
 
     /**
      *  Returns negative movements of some observable *source* with lag *timeframe*
@@ -24,7 +24,7 @@ package math
     def DownMovements(  /** observable data source */   source = const (1.),
                         /** lag size */                 timeframe = 10.0)
 
-        = observable.Float(Max(0.0, Lagged(source, timeframe) - source))
+        = Max(0.0, Lagged(source, timeframe) - source)
 
     @category = "RSI"
     package rsi

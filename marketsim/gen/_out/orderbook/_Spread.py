@@ -1,20 +1,20 @@
 from marketsim.ops._all import Observable
 from marketsim import IOrderBook
 from marketsim import registry
-from marketsim import Price
 from marketsim import context
+from marketsim import float
 @registry.expose(["Asset", "Spread"])
-class Spread_IOrderBook(Observable[Price]):
+class Spread_IOrderBook(Observable[float]):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        Observable[Price].__init__(self)
+        from marketsim import float
+        Observable[float].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -43,11 +43,10 @@ class Spread_IOrderBook(Observable[Price]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.observable._price import Price_IFunctionFloat as _observable_Price_IFunctionFloat
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _observable_Price_IFunctionFloat(_ops_Sub_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book)))
+        return _ops_Sub_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book))
     
 def Spread(book = None): 
     from marketsim import IOrderBook

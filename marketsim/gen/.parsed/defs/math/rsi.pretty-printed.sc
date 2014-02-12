@@ -13,14 +13,14 @@ package math {
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = const(1.0),
-                    /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,source-Lagged(source,timeframe)))
+                    /** lag size */ timeframe = 10.0) = Max(0.0,source-Lagged(source,timeframe))
     
     // defined at defs\math\rsi.sc: 20.5
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = const(1.0),
-                      /** lag size */ timeframe = 10.0) = observable.Float(Max(0.0,Lagged(source,timeframe)-source))
+                      /** lag size */ timeframe = 10.0) = Max(0.0,Lagged(source,timeframe)-source)
     @category = "RSI"
     
     package rsi {

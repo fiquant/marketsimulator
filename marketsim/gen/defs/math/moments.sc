@@ -87,7 +87,7 @@ package math
             @label = "\\sigma^2{{suffix}}"
             def Var (/** observable data source */ source = const (1.),
                      /** sliding window size    */ timeframe = 100.0)
-                = math.Max(const(0), Avg(observable.Float(source*source), timeframe) - Sqr(Avg(source, timeframe)))
+                = math.Max(const(0), Avg(source*source, timeframe) - Sqr(Avg(source, timeframe)))
 
             /**
              *  Simple moving standard deviation

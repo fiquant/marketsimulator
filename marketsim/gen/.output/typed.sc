@@ -514,7 +514,7 @@ package math {
         @python.intrinsic("moments.mv.MV_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
-            	 = .math.Max(.const(0),.ops.Sub(.math.Moving.Avg(.observable.Float(.ops.Mul(source,source)),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))))
+            	 = .math.Max(.const(0),.ops.Sub(.math.Moving.Avg(.ops.Mul(source,source),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))))
         
         /** Running maximum of a function
          */
@@ -587,7 +587,7 @@ package math {
     
     def DownMovements(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                       /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
-        	 = .observable.Float(.math.Max(.constant(0.0),.ops.Sub(.math.Lagged(source,timeframe),source)))
+        	 = .math.Max(.constant(0.0),.ops.Sub(.math.Lagged(source,timeframe),source))
     
     /** Arc tangent of x, in radians.
      *
@@ -651,7 +651,7 @@ package math {
     
     def UpMovements(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                     /** lag size */ timeframe : Optional[.Float] = 10.0) : .IObservable[.Float]
-        	 = .observable.Float(.math.Max(.constant(0.0),.ops.Sub(source,.math.Lagged(source,timeframe))))
+        	 = .math.Max(.constant(0.0),.ops.Sub(source,.math.Lagged(source,timeframe)))
     
     /** Square of *x*
      */
@@ -1965,8 +1965,8 @@ package strategy {@category = "Side function"
          */
         
         def DesiredPosition(/** observable desired position */ desiredPosition : Optional[.IObservable[.Float]] = .const(1.0),
-                            /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
-            	 = .observable.Volume(.ops.Sub(.ops.Sub(desiredPosition,.trader.Position(trader)),.trader.PendingVolume(trader)))
+                            /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
+            	 = .ops.Sub(.ops.Sub(desiredPosition,.trader.Position(trader)),.trader.PendingVolume(trader))
         
         /** Position function for Relative Strength Index strategy with linear scaling
          */
@@ -1974,7 +1974,7 @@ package strategy {@category = "Side function"
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha : Optional[.Float] = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
-                       /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
+                       /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
             	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.ops.Mul(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha)),k)),trader)
         
         /** Position function for Bollinger bands strategy with linear scaling
@@ -1982,7 +1982,7 @@ package strategy {@category = "Side function"
         
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
-                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Volume]
+                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
             	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.ops.Mul(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha),k)),trader)
     }
     
@@ -2305,7 +2305,7 @@ package trader {
      */
     
     def RoughPnL(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
-        	 = .observable.Float(.ops.Add(.trader.Balance(trader),.orderbook.NaiveCumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader))))
+        	 = .ops.Add(.trader.Balance(trader),.orderbook.NaiveCumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
     /** Returns position of the trader
      *  It is negative if trader has sold more assets than has bought and
@@ -2319,7 +2319,7 @@ package trader {
      */
     
     def Efficiency(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
-        	 = .observable.Float(.ops.Add(.trader.Balance(trader),.orderbook.CumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader))))
+        	 = .ops.Add(.trader.Balance(trader),.orderbook.CumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader)))
     
     /** Phantom trader that is used to refer to the current trader
      *  (normally it is used to define trader properties and strategies)
@@ -2449,8 +2449,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     @python.observable()
     def SafeSidePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue : Optional[.IObservable[.Float]] = .const(100.0)) : .IObservable[.Price]
-        	 = .observable.Price(.IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue)))
+                      /** price to be used if there haven't been any trades */ defaultValue : Optional[.IObservable[.Float]] = .const(100.0)) : .IObservable[.Float]
+        	 = .IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue))
     
     /** Returns best price if defined, otherwise last price
      *  and *defaultValue* if there haven't been any trades
@@ -2458,8 +2458,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     @python.observable()
     def SafeSidePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .IObservable[.Price]
-        	 = .observable.Price(.IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue)))
+                      /** price to be used if there haven't been any trades */ defaultValue : Optional[.IFunction[.Float]] = .constant(100.0)) : .IObservable[.Float]
+        	 = .IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue))
     
     /** Returns moving average of trade prices weighted by their volumes
      */
@@ -2467,7 +2467,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def WeightedPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
                       /** parameter alpha for the moving average  */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
-        	 = .ops.Div(.math.EW.Avg(.observable.Float(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue))),alpha),.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha))
+        	 = .ops.Div(.math.EW.Avg(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue)),alpha),.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha))
     
     /** Returns tick size for the order *book*
      */
@@ -2478,8 +2478,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
     /** MidPrice of order *book*
      */
     
-    def MidPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
-        	 = .observable.Price(.ops.Div(.ops.Add(.orderbook.ask.Price(book),.orderbook.bid.Price(book)),.constant(2.0)))
+    def MidPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Add(.orderbook.ask.Price(book),.orderbook.bid.Price(book)),.constant(2.0))
     
     /** Returns sell side order queue for *book*
      */
@@ -2594,8 +2594,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
      */
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                             depth : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Price]
-        	 = .observable.Price(.ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0))))
+                             depth : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+        	 = .ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
     
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
@@ -2605,8 +2605,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
      */
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                             depth : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Price]
-        	 = .observable.Price(.ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0))))
+                             depth : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+        	 = .ops.Condition_Float(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition_Float(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2620,8 +2620,8 @@ package orderbook {@queue = "Ask_{%(book)s}"
     /** Spread of order *book*
      */
     
-    def Spread(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Price]
-        	 = .observable.Price(.ops.Sub(.orderbook.ask.Price(book),.orderbook.bid.Price(book)))
+    def Spread(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
+        	 = .ops.Sub(.orderbook.ask.Price(book),.orderbook.bid.Price(book))
     
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades
@@ -2643,14 +2643,6 @@ package observable {
     def OnEveryDt(/** time discretization step */ dt : Optional[.Float] = 1.0,
                   /** function to discretize */ x : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
-    /** Down casts function *x* to IObservable[Volume].
-     * Needed since generic functions aren't implemented yet
-     */
-    @label = "[%(x)s]"
-    
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def Volume(x : Optional[.IFunction[.Float]] = .const(1.0) : .IFunction[.Float]) : .IObservable[.Volume]
-    
     /** Down casts function *x* to IObservable[Side].
      * Needed since generic functions aren't implemented yet
      */
@@ -2658,29 +2650,6 @@ package observable {
     
     @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
     def Side(x : Optional[.IFunction[.Side]] = .side.Sell() : .IFunction[.Side]) : .IObservable[.Side]
-    
-    /** Down casts function *x* to IObservable[Price].
-     * Needed since generic functions aren't implemented yet
-     */
-    @label = "[%(x)s]"
-    
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def Price(x : Optional[.IFunction[.Float]] = .const(1.0) : .IFunction[.Float]) : .IObservable[.Price]
-    
-    /** Observable listening to *source*
-     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
-     */
-    
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    
-    /** Down casts function *x* to IObservable[Float].
-     * Needed since generic functions aren't implemented yet
-     */
-    @label = "[%(x)s]"
-    
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    def Float(x : Optional[.IFunction[.Float]] = .const(1.0) : .IFunction[.Float]) : .IObservable[.Float]
     
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
      *  and follows the price in scale 1 model unit of time = 1 real day
@@ -2691,6 +2660,13 @@ package observable {
     def Quote(/** defines quotes to download */ ticker : Optional[.String] = "^GSPC",
               /** defines first day to download in form YYYY-MM-DD */ start : Optional[.String] = "2001-1-1",
               /** defines last day to download in form YYYY-MM-DD */ end : Optional[.String] = "2010-1-1") : .IObservable[.Price]
+    
+    /** Observable listening to *source*
+     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
+     */
+    
+    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
 }
 
 @python = "no"

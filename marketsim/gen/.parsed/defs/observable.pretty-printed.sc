@@ -28,30 +28,6 @@ package observable {
     def BreaksAtChanges(source = constant(1.0)) : IObservable[Float]
     
     // defined at defs\observable.sc: 35.5
-    /** Down casts function *x* to IObservable[Float].
-     * Needed since generic functions aren't implemented yet
-     */
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def Float(x = const(1.0) : IFunction[Float]) : IObservable[Float]
-    
-    // defined at defs\observable.sc: 43.5
-    /** Down casts function *x* to IObservable[Price].
-     * Needed since generic functions aren't implemented yet
-     */
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def Price(x = const(1.0) : IFunction[Float]) : IObservable[Price]
-    
-    // defined at defs\observable.sc: 51.5
-    /** Down casts function *x* to IObservable[Volume].
-     * Needed since generic functions aren't implemented yet
-     */
-    @python.intrinsic("observable.on_every_dt._Observable_Impl")
-    @label = "[%(x)s]"
-    def Volume(x = const(1.0) : IFunction[Float]) : IObservable[Volume]
-    
-    // defined at defs\observable.sc: 59.5
     /** Down casts function *x* to IObservable[Side].
      * Needed since generic functions aren't implemented yet
      */

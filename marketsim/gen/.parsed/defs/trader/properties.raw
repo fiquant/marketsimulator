@@ -159,42 +159,36 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
+| | | | | | - BinOp:
+| | | | | | | - Add
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Balance
 | | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Float
-| | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Add
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - orderbook
+| | | | | | | | | | - CumulativePrice
+| | | | | | | | - List:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Balance
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - trader
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - CumulativePrice
+| | | | | | | | | | | | - Position
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -221,42 +215,36 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
+| | | | | | - BinOp:
+| | | | | | | - Add
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - Balance
 | | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Float
-| | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Add
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - orderbook
+| | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | - List:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Balance
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - trader
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | | | | | - Position
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Position
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
