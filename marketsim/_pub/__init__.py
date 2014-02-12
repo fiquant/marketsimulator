@@ -2,9 +2,13 @@ from marketsim.gen._out._constant import constant
 
 from marketsim.gen._out._false import false
 
+from marketsim.gen._out._observabletrue import observableTrue
+
 from marketsim.gen._out._null import null
 
 from marketsim.gen._out._timeserie import TimeSerie
+
+from marketsim.gen._out._observablefalse import observableFalse
 
 from marketsim.gen._out._const import const
 

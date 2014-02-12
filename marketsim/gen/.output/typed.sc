@@ -108,112 +108,112 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
-                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
-                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
-                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
-                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
-                  ifpart : Optional[() => .Side] = .side.Sell(),
-                  elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
+                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
+                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
+                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
+                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                   elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .true(),
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
                   elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true() : .IFunction[.Boolean],
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
     
@@ -3007,13 +3007,21 @@ def constant(x : Optional[.Int] = 1) : .IFunction[.Int]
 def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
     	 = .const(x) : .IFunction[.Float]
 
-/** Trivial observable always returning *False*
+/** Function always returning *False*
  */
 @category = "Basic"
 @label = "False"
 
 @python.intrinsic.function("_constant._False_Impl")
-def false() : .IObservable[.Boolean]
+def false() : .IFunction[.Boolean]
+
+/** Trivial observable always returning *True*
+ */
+@category = "Basic"
+@label = "True"
+
+@python.intrinsic.observable("_constant._True_Impl")
+def observableTrue() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *undefined* or *None* value
  */
@@ -3033,6 +3041,14 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
               graph : Optional[.IGraph] = .veusz.Graph(),
               _digitsToShow : Optional[.Int] = 4,
               _smooth : Optional[.Int] = 1) : .ITimeSerie
+
+/** Trivial observable always returning *False*
+ */
+@category = "Basic"
+@label = "False"
+
+@python.intrinsic.observable("_constant._False_Impl")
+def observableFalse() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *x*
  */
@@ -3060,13 +3076,13 @@ def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 def CandleSticks(/** observable data source considered as asset price */ source : Optional[.IObservable[.Float]] = .const(1.0),
                  /** size of timeframe */ timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
 
-/** Trivial observable always returning *True*
+/** Function always returning *True*
  */
 @category = "Basic"
 @label = "True"
 
 @python.intrinsic.function("_constant._True_Impl")
-def true() : .IObservable[.Boolean]
+def true() : .IFunction[.Boolean]
 
 /** Returns *x* if defined and *elsePart* otherwise
  */

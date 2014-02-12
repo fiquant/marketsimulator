@@ -165,6 +165,68 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
+| | | | | | | | | - IFunction
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning *True*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._True_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - True
+| | | | - FunDef:
+| | | | | - false
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IFunction
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Boolean
+| | | | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Function always returning *False*
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | | | - function
+| | | | | | | - List:
+| | | | | | | | - _constant._False_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - False
+| | | | - FunDef:
+| | | | | - observableTrue
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
 | | | | | | | | | - IObservable
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
@@ -182,14 +244,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
+| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - _constant._True_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - True
 | | | | - FunDef:
-| | | | | - false
+| | | | | - observableFalse
 | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -213,7 +275,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
-| | | | | | | | | - function
+| | | | | | | | | - observable
 | | | | | | | - List:
 | | | | | | | | - _constant._False_Impl
 | | | | | | - Attribute:

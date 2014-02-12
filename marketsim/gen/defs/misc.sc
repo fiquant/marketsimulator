@@ -27,18 +27,32 @@ package {
     def const(x = 1) : IObservable[Int]
 
     /**
-     *  Trivial observable always returning *True*
+     *  Function always returning *True*
      */
     @python.intrinsic.function("_constant._True_Impl")
     @label = "True"
-    def true() : IObservable[Boolean]
+    def true() : IFunction[Boolean]
+
+    /**
+     *  Function always returning *False*
+     */
+    @python.intrinsic.function("_constant._False_Impl")
+    @label = "False"
+    def false() : IFunction[Boolean]
+
+    /**
+     *  Trivial observable always returning *True*
+     */
+    @python.intrinsic.observable("_constant._True_Impl")
+    @label = "True"
+    def observableTrue() : IObservable[Boolean]
 
     /**
      *  Trivial observable always returning *False*
      */
-    @python.intrinsic.function("_constant._False_Impl")
+    @python.intrinsic.observable("_constant._False_Impl")
     @label = "False"
-    def false() : IObservable[Boolean]
+    def observableFalse() : IObservable[Boolean]
 
     /**
      *  Trivial observable always returning *undefined* or *None* value

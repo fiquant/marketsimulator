@@ -28,26 +28,40 @@ package  {
     def const(x = 1) : IObservable[Int]
     
     // defined at defs\misc.sc: 29.5
-    /** Trivial observable always returning *True*
+    /** Function always returning *True*
      */
     @python.intrinsic.function("_constant._True_Impl")
     @label = "True"
-    def true() : IObservable[Boolean]
+    def true() : IFunction[Boolean]
     
     // defined at defs\misc.sc: 36.5
-    /** Trivial observable always returning *False*
+    /** Function always returning *False*
      */
     @python.intrinsic.function("_constant._False_Impl")
     @label = "False"
-    def false() : IObservable[Boolean]
+    def false() : IFunction[Boolean]
     
     // defined at defs\misc.sc: 43.5
+    /** Trivial observable always returning *True*
+     */
+    @python.intrinsic.observable("_constant._True_Impl")
+    @label = "True"
+    def observableTrue() : IObservable[Boolean]
+    
+    // defined at defs\misc.sc: 50.5
+    /** Trivial observable always returning *False*
+     */
+    @python.intrinsic.observable("_constant._False_Impl")
+    @label = "False"
+    def observableFalse() : IObservable[Boolean]
+    
+    // defined at defs\misc.sc: 57.5
     /** Trivial observable always returning *undefined* or *None* value
      */
     @python.intrinsic("_constant._Null_Impl")
     def null() : () => Float
     
-    // defined at defs\misc.sc: 49.5
+    // defined at defs\misc.sc: 63.5
     /** Returns *x* if defined and *elsePart* otherwise
      */
     @python.observable()

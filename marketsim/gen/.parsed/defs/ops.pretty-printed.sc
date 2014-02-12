@@ -111,97 +111,97 @@ package ops {@label = "-%(x)s"
     package  {
         // defined at defs\ops.sc: 79.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = constant(1.0),
                       elsepart = constant(1.0)) : IFunction[Float]
         
         // defined at defs\ops.sc: 84.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = const(1.0),
                       elsepart = constant(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 89.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = constant(1.0),
                       elsepart = const(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 94.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = const(1.0),
                       elsepart = const(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 99.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = side.Sell(),
                       elsepart = side.Buy()) : IFunction[Side]
         
         // defined at defs\ops.sc: 104.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = side.observableSell(),
                       elsepart = side.Buy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 109.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = side.Sell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 114.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true() : IFunction[Boolean],
+        def Condition(cond = true(),
                       ifpart = side.observableSell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 119.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = constant(1.0),
                       elsepart = constant(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 124.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = const(1.0),
                       elsepart = constant(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 129.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = constant(1.0),
                       elsepart = const(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 134.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = const(1.0),
                       elsepart = const(1.0)) : IObservable[Float]
         
         // defined at defs\ops.sc: 139.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = side.Sell(),
                       elsepart = side.Buy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 144.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = side.observableSell(),
                       elsepart = side.Buy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 149.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = side.Sell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
         
         // defined at defs\ops.sc: 154.9
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond = true(),
+        def Condition(cond = observableTrue(),
                       ifpart = side.observableSell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
     }

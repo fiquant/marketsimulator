@@ -77,82 +77,82 @@ package ops
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     package {
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                             ifpart   = constant(1.),
                             elsepart = constant(1.)) : IFunction[Float]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                             ifpart   = const(1.),
                             elsepart = constant(1.)) : IObservable[Float]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                             ifpart   = constant(1.),
                             elsepart = const(1.)) : IObservable[Float]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                             ifpart   = const(1.),
                             elsepart = const(1.)) : IObservable[Float]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                       ifpart   = side.Sell(),
                       elsepart = side.Buy()) : IFunction[Side]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                       ifpart   = side.observableSell(),
                       elsepart = side.Buy()) : IObservable[Side]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                       ifpart   = side.Sell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true() : IFunction[Boolean],
+        def Condition(cond     = true(),
                       ifpart   = side.observableSell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
 
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                             ifpart   = constant(1.),
                             elsepart = constant(1.)) : IObservable[Float]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                             ifpart   = const(1.),
                             elsepart = constant(1.)) : IObservable[Float]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                             ifpart   = constant(1.),
                             elsepart = const(1.)) : IObservable[Float]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                             ifpart   = const(1.),
                             elsepart = const(1.)) : IObservable[Float]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                       ifpart   = side.Sell(),
                       elsepart = side.Buy()) : IObservable[Side]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                       ifpart   = side.observableSell(),
                       elsepart = side.Buy()) : IObservable[Side]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                       ifpart   = side.Sell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
     
         @python.intrinsic.observable("ops._Condition_Impl")
-        def Condition(cond     = true(),
+        def Condition(cond     = observableTrue(),
                       ifpart   = side.observableSell(),
                       elsepart = side.observableBuy()) : IObservable[Side]
     }
