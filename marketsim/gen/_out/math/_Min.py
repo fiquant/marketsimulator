@@ -45,9 +45,9 @@ class Min_IObservableFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIObservableFloat as _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
-        return _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
+        from marketsim.gen._out.ops._less import Less_IObservableFloatIObservableFloat as _ops_Less_IObservableFloatIObservableFloat
+        return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_Less_IObservableFloatIObservableFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -98,9 +98,9 @@ class Min_IFunctionFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIFunctionFloatIObservableFloat as _ops_Condition_IFunctionBooleanIFunctionFloatIObservableFloat
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
-        return _ops_Condition_IFunctionBooleanIFunctionFloatIObservableFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionFloatIObservableFloat as _ops_Condition_IObservableBooleanIFunctionFloatIObservableFloat
+        from marketsim.gen._out.ops._less import Less_IFunctionFloatIObservableFloat as _ops_Less_IFunctionFloatIObservableFloat
+        return _ops_Condition_IObservableBooleanIFunctionFloatIObservableFloat(_ops_Less_IFunctionFloatIObservableFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -151,9 +151,9 @@ class Min_IObservableFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIFunctionFloat as _ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
-        return _ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIFunctionFloat as _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IObservableFloatIFunctionFloat as _ops_Less_IObservableFloatIFunctionFloat
+        return _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat(_ops_Less_IObservableFloatIFunctionFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction

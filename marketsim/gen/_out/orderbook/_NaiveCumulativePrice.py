@@ -50,15 +50,15 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIFunctionFloat as _ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatIFunctionFloat as _ops_Greater_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._less import Less_IObservableFloatIFunctionFloat as _ops_Less_IObservableFloatIFunctionFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.ops._less import Less_IFunctionFloatIFunctionFloat as _ops_Less_IFunctionFloatIFunctionFloat
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIObservableFloat as _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIFunctionFloat as _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat(_ops_Less_IFunctionFloatIFunctionFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_ask_Price_IOrderBook(self.book)),_ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat(_ops_Greater_IFunctionFloatIFunctionFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(0.0)))
+        return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_Less_IObservableFloatIFunctionFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_ask_Price_IOrderBook(self.book)),_ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat(_ops_Greater_IObservableFloatIFunctionFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(0.0)))
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction

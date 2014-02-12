@@ -1489,6 +1489,470 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - observableSell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - observableBuy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Condition
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - cond
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - ifpart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - observableSell
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - elsepart
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - observableBuy
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IObservable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops._Condition_Impl
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -1500,318 +1964,1248 @@ Definitions:
 | | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Equal
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Equal
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Equal
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Equal
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Equal
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - symbol
 | | | | | | | | | | - ==
-| | | | | | | - FunDef:
-| | | | | | | | - NotEqual
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - NotEqual
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - NotEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - NotEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - NotEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - symbol
 | | | | | | | | | | - <>
-| | | | | | | - FunDef:
-| | | | | | | | - Less
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Less
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - symbol
 | | | | | | | | | | - <
-| | | | | | | - FunDef:
-| | | | | | | | - LessEqual
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Greater
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._LessEqual_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - symbol
-| | | | | | | | | | - <=
-| | | | | | | - FunDef:
-| | | | | | | | - Greater
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Greater_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Greater_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Greater_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - Greater
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._Greater_Impl
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Greater_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - symbol
 | | | | | | | | | | - >
-| | | | | | | - FunDef:
-| | | | | | | | - GreaterEqual
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - y
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Boolean
-| | | | | | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - LessEqual
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | | | - observable
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._LessEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - LessEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._LessEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - LessEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._LessEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - LessEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._LessEqual_Impl
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - symbol
+| | | | | | | | | | - <=
+| | | | | | | | - List:
+| | | | | | | | - false
+| | | | | | | - PackageDef:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | - Definitions:
+| | | | | | | | | - List:
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - GreaterEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - GreaterEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - GreaterEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | | | - FunDef:
+| | | | | | | | | | | - GreaterEqual
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - Parameter:
+| | | | | | | | | | | | | - y
+| | | | | | | | | | | | | - None
+| | | | | | | | | | | | | - Some:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - Some:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IObservable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | - None
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | | | | - observable
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - symbol
 | | | | | | | | | | - >=
+| | | | | | | | - List:
+| | | | | | | | - false
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label

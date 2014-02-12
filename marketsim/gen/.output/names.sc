@@ -142,9 +142,75 @@ package ops
                   ifpart = side.observableSell(),
                   elsepart = side.observableBuy()) : IObservable[Side]
     
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = constant(1.0),
+                  elsepart = constant(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = const(1.0),
+                  elsepart = constant(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = constant(1.0),
+                  elsepart = const(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = const(1.0),
+                  elsepart = const(1.0)) : IObservable[Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = side.Sell(),
+                  elsepart = side.Buy()) : IObservable[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = side.observableSell(),
+                  elsepart = side.Buy()) : IObservable[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = side.Sell(),
+                  elsepart = side.observableBuy()) : IObservable[Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond = true(),
+                  ifpart = side.observableSell(),
+                  elsepart = side.observableBuy()) : IObservable[Side]
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Less_Impl")
     @symbol = "<"
+    @python.intrinsic.observable("ops._Less_Impl")
+    def Less(x = const(1.0),
+             y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<"
+    @python.intrinsic.observable("ops._Less_Impl")
+    def Less(x = constant(1.0),
+             y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<"
+    @python.intrinsic.observable("ops._Less_Impl")
+    def Less(x = const(1.0),
+             y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<"
+    @python.intrinsic.observable("ops._Less_Impl")
     def Less(x = constant(1.0),
              y = constant(1.0)) : IFunction[Boolean]
     
@@ -173,14 +239,50 @@ package ops
             y = constant(1.0)) : IFunction[Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._NotEqual_Impl")
     @symbol = "<>"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    def NotEqual(x = const(1.0),
+                 y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<>"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    def NotEqual(x = constant(1.0),
+                 y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<>"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
+    def NotEqual(x = const(1.0),
+                 y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<>"
+    @python.intrinsic.observable("ops._NotEqual_Impl")
     def NotEqual(x = constant(1.0),
                  y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
     @symbol = ">="
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    def GreaterEqual(x = const(1.0),
+                     y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">="
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    def GreaterEqual(x = constant(1.0),
+                     y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">="
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    def GreaterEqual(x = const(1.0),
+                     y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">="
+    @python.intrinsic.observable("ops._GreaterEqual_Impl")
     def GreaterEqual(x = constant(1.0),
                      y = constant(1.0)) : IFunction[Boolean]
     
@@ -229,20 +331,74 @@ package ops
             y = constant(1.0)) : IObservable[Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._LessEqual_Impl")
     @symbol = "<="
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    def LessEqual(x = const(1.0),
+                  y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<="
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    def LessEqual(x = constant(1.0),
+                  y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<="
+    @python.intrinsic.observable("ops._LessEqual_Impl")
+    def LessEqual(x = const(1.0),
+                  y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "<="
+    @python.intrinsic.observable("ops._LessEqual_Impl")
     def LessEqual(x = constant(1.0),
                   y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Equal_Impl")
     @symbol = "=="
+    @python.intrinsic.observable("ops._Equal_Impl")
+    def Equal(x = const(1.0),
+              y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "=="
+    @python.intrinsic.observable("ops._Equal_Impl")
+    def Equal(x = constant(1.0),
+              y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "=="
+    @python.intrinsic.observable("ops._Equal_Impl")
+    def Equal(x = const(1.0),
+              y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "=="
+    @python.intrinsic.observable("ops._Equal_Impl")
     def Equal(x = constant(1.0),
               y = constant(1.0)) : IFunction[Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
-    @python.intrinsic.observable("ops._Greater_Impl")
     @symbol = ">"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    def Greater(x = const(1.0),
+                y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    def Greater(x = constant(1.0),
+                y = const(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">"
+    @python.intrinsic.observable("ops._Greater_Impl")
+    def Greater(x = const(1.0),
+                y = constant(1.0)) : IObservable[Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = ">"
+    @python.intrinsic.observable("ops._Greater_Impl")
     def Greater(x = constant(1.0),
                 y = constant(1.0)) : IFunction[Boolean]
     
@@ -1546,7 +1702,7 @@ package strategy
          */
         def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,
-                        /** asset in question */ book = orderbook.OfTrader()) = observable.Side(FundamentalValue(orderbook.MidPrice(bookToDependOn)*factor,book))
+                        /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(orderbook.MidPrice(bookToDependOn)*factor,book)
         
         /** Side function for signal strategy
          */
@@ -2290,13 +2446,6 @@ package observable
      */
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
     def BreaksAtChanges(source = constant(1.0)) : IObservable[Float]
-    
-    /** Down casts function *x* to IObservable[Side].
-     * Needed since generic functions aren't implemented yet
-     */
-    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
-    @label = "[%(x)s]"
-    def Side(x = side.Sell() : IFunction[Side]) : IObservable[Side]
     
 }
 

@@ -46,5 +46,5 @@ package strategy.side {
      */
     def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
                     /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,
-                    /** asset in question */ book = orderbook.OfTrader()) = observable.Side(FundamentalValue(orderbook.MidPrice(bookToDependOn)*factor,book))
+                    /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(orderbook.MidPrice(bookToDependOn)*factor,book)
 }

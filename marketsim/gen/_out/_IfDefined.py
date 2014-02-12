@@ -45,10 +45,10 @@ class IfDefined_IObservableFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIObservableFloat as _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat
-        from marketsim.gen._out.ops._notequal import NotEqual_IFunctionFloatIFunctionFloat as _ops_NotEqual_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
+        from marketsim.gen._out.ops._notequal import NotEqual_IObservableFloatIFunctionFloat as _ops_NotEqual_IObservableFloatIFunctionFloat
         from marketsim.gen._out._null import null_ as _null_
-        return _ops_Condition_IFunctionBooleanIObservableFloatIObservableFloat(_ops_NotEqual_IFunctionFloatIFunctionFloat(self.x,_null_()),self.x,self.elsePart)
+        return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_NotEqual_IObservableFloatIFunctionFloat(self.x,_null_()),self.x,self.elsePart)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -153,10 +153,10 @@ class IfDefined_IObservableFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIObservableFloatIFunctionFloat as _ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat
-        from marketsim.gen._out.ops._notequal import NotEqual_IFunctionFloatIFunctionFloat as _ops_NotEqual_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIFunctionFloat as _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._notequal import NotEqual_IObservableFloatIFunctionFloat as _ops_NotEqual_IObservableFloatIFunctionFloat
         from marketsim.gen._out._null import null_ as _null_
-        return _ops_Condition_IFunctionBooleanIObservableFloatIFunctionFloat(_ops_NotEqual_IFunctionFloatIFunctionFloat(self.x,_null_()),self.x,self.elsePart)
+        return _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat(_ops_NotEqual_IObservableFloatIFunctionFloat(self.x,_null_()),self.x,self.elsePart)
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction

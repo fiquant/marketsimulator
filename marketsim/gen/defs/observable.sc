@@ -31,12 +31,4 @@ package observable
      */
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
     def BreaksAtChanges(source = constant(1.)) : IObservable[Float]
-
-    /**
-     * Down casts function *x* to IObservable[Side].
-     * Needed since generic functions aren't implemented yet
-     */
-    @python.intrinsic("observable.on_every_dt._ObservableSide_Impl")
-    @label = "[%(x)s]"
-    def Side(x = side.Sell() : IFunction[Side]) : IObservable[Side]
 }

@@ -464,28 +464,22 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - observable
-| | | | | | | | | - Side
+| | | | | | | | | - FundamentalValue
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - MidPrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FundamentalValue
-| | | | | | | | | - List:
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Mul
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - bookToDependOn
 | | | | | | | | | | | - Var:
-| | | | | | | | | | | | - factor
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
+| | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | - Var:
+| | | | | | | | | | - factor
+| | | | | | | | - Var:
+| | | | | | | | | - book
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

@@ -157,59 +157,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - observable.breaks_at_changes._BreaksAtChanges_Impl
-| | | | - FunDef:
-| | | | | - Side
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - x
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Cast:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - side
-| | | | | | | | | | | | - Sell
-| | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
-| | | | | | | | | | - List:
-| | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Side
-| | | | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | - None
-| | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IObservable
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Side
-| | | | | | | | | - List:
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Down casts function *x* to IObservable[Side].
-| | | | | | | - List:
-| | | | | | | | -  Needed since generic functions aren't implemented yet
-| | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - observable.on_every_dt._ObservableSide_Impl
-| | | | | | - Attribute:
-| | | | | | | - label
-| | | | | | | - [%(x)s]
 | | - List:
 | | | - Attribute:
 | | | | - category

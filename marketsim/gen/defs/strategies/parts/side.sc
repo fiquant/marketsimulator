@@ -88,8 +88,7 @@ package strategy.side
         /** asset in question */
         book = orderbook.OfTrader())
 
-        = observable.Side(
-            FundamentalValue(
+        =   FundamentalValue(
                 orderbook.MidPrice(bookToDependOn) * factor,
-                book))
+                book)
 }
