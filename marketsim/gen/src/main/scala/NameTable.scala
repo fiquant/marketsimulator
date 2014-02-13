@@ -232,43 +232,6 @@ package object NameTable {
             packages.values foreach { _.injectBases() }
         }
 
-        private def lookupTypeInnerScopes(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
-        {
-            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
-            qn match {
-                case x :: Nil =>
-                    types get x map { (this, _) }
-                case x :: tl =>
-                    packages get x map { _ lookupTypeInnerScopes tl } match {
-                        case Some(y)  => y
-                        case None     => None
-                    }
-            }
-        }
-
-
-        def lookupType(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
-        {
-            //println(s"looking for $qn in $qualifiedNameAnon")
-            if (isAnonymous)
-                parent.get lookupType  qn
-            else
-                qn match {
-                    case Nil => throw new Exception("Qualified name cannot be empty")
-                    case "" :: tl =>
-                        parent match {
-                            case Some(p) => p lookupType  qn
-                            case None    => lookupType(tl)
-                        }
-                    case _ =>
-                        lookupTypeInnerScopes(qn) match {
-                            case Some(x) => Some(x)
-                            case None    =>
-                                parent flatMap { _ lookupType  qn }
-                        }
-                }
-        }
-
         def lookupInnerScopes(hasName : (Scope, String) => Boolean, qn : List[String]) : Option[Scope] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
@@ -307,6 +270,11 @@ package object NameTable {
                         }
                 }
         }
+
+        def lookupType(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
+
+            lookupScope((scope, name) => scope.types contains name, qn) map { scope => (scope, scope.types(qn.last) )}
+
 
 
         def lookupFunction(qn : List[String]) : List[(Scope, AST.FunDef)] =
