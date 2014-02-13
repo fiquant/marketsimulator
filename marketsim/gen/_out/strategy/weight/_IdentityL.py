@@ -1,3 +1,8 @@
+def identityL(): 
+    from marketsim.gen._out.strategy.weight.array._array_identityl import array_IdentityL_ as _strategy_weight_array_array_IdentityL_
+    from marketsim import rtti
+    return _strategy_weight_array_array_IdentityL_()
+    raise Exception('Cannot find suitable overload for identityL('++')')
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
 from marketsim import float

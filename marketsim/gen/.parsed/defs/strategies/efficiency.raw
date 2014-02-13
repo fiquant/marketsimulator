@@ -136,7 +136,7 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - FunAlias:
-| | | | | - atanpow
+| | | | | - atanPow
 | | | | | - QualifiedName:
 | | | | | | - List:
 | | | | | | | - f
@@ -148,7 +148,7 @@ Definitions:
 | | | | | | | - f
 | | | | | | | - f_Clamp0
 | | | | - FunAlias:
-| | | | | - identity_f
+| | | | | - identityF
 | | | | | - QualifiedName:
 | | | | | | - List:
 | | | | | | | - f
@@ -183,6 +183,12 @@ Definitions:
 | | | | | | - List:
 | | | | | | | - array
 | | | | | | | - array_ChooseTheBest
+| | | | - FunAlias:
+| | | | | - identityL
+| | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - array
+| | | | | | | - array_IdentityL
 | | | | - FunDef:
 | | | | | - AtanPow
 | | | | | - List:

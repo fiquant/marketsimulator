@@ -12,8 +12,8 @@ package strategy {
      */
     def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
-                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.inner.inner_VirtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance = weight.trader.trader_EfficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
+                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.virtualMarket(),
+                          /** given a trading account tells should it be considered as effective or not */ performance = weight.efficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
     
     // defined at defs\strategies\adaptive.sc: 27.5
     /** A composite strategy initialized with an array of strategies.
@@ -25,11 +25,11 @@ package strategy {
      */
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [Noise()],
-                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = account.inner.inner_VirtualMarket(),
-                         /** function estimating is the strategy efficient or not */ weight = weight.trader.trader_EfficiencyTrend(),
-                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = weight.f.f_AtanPow(),
+                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = account.virtualMarket(),
+                         /** function estimating is the strategy efficient or not */ weight = weight.efficiencyTrend(),
+                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = weight.atanPow(),
                          /** given array of strategy weights corrects them.
-                           * for example it may set to 0 all weights except the maximal one */ corrector = weight.array.array_IdentityL()) : ISingleAssetStrategy
+                           * for example it may set to 0 all weights except the maximal one */ corrector = weight.identityL()) : ISingleAssetStrategy
     
     // defined at defs\strategies\adaptive.sc: 49.5
     /** A composite strategy initialized with an array of strategies.
@@ -40,6 +40,6 @@ package strategy {
      */
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies = [Noise()],
-                      /** function creating phantom strategy used for efficiency estimation */ account = account.inner.inner_VirtualMarket(),
-                      /** function estimating is the strategy efficient or not */ performance = weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+                      /** function creating phantom strategy used for efficiency estimation */ account = account.virtualMarket(),
+                      /** function estimating is the strategy efficient or not */ performance = weight.efficiencyTrend()) : ISingleAssetStrategy
 }

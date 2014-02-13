@@ -30,11 +30,11 @@ package strategy.account
 package strategy.weight
 {
     // f => AtanPow(f, base)
-    def atanpow = f.f_AtanPow
+    def atanPow = f.f_AtanPow
     // f => Clamp0(f)
     def clamp0 = f.f_Clamp0
     // f => IdentityF(F)
-    def identity_f = f.f_IdentityF
+    def identityF = f.f_IdentityF
 
     // trader => Score(trader)
     def score = trader.trader_Score
@@ -47,6 +47,9 @@ package strategy.weight
 
     // array => ChooseTheBest(array)
     def chooseTheBest = array.array_ChooseTheBest
+
+    // array => IdentityL(array)
+    def identityL = array.array_IdentityL
 
     /**
      *  scaling function = atan(base^f(x))

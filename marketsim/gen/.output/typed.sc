@@ -2093,7 +2093,7 @@ package strategy {@category = "Side function"
         
         def score = .strategy.weight.trader.trader_Score
         
-        def atanpow = .strategy.weight.f.f_AtanPow
+        def identityL = .strategy.weight.array.array_IdentityL
         
         /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
          */
@@ -2123,6 +2123,8 @@ package strategy {@category = "Side function"
         def Clamp0(/** function to scale */ f : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float]
             	 = .ops.Add(.math.Max(.constant(0),f),.constant(1))
         
+        def identityF = .strategy.weight.f.f_IdentityF
+        
         /** Returns first derivative of a moving average of the trader efficiency
          */
         
@@ -2130,6 +2132,8 @@ package strategy {@category = "Side function"
         def EfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
                             /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IFunction[.Float]
             	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
+        
+        def atanPow = .strategy.weight.f.f_AtanPow
         
         def unit = .strategy.weight.trader.trader_Unit
         
@@ -2154,8 +2158,6 @@ package strategy {@category = "Side function"
         @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : List[.Float]
-        
-        def identity_f = .strategy.weight.f.f_IdentityF
         
         /** identity scaling = f(x)
          */

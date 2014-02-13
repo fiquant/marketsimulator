@@ -1,10 +1,10 @@
-def atanpow(base = None): 
+def atanPow(base = None): 
     from marketsim import float
     from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow_Float as _strategy_weight_f_f_AtanPow_Float
     from marketsim import rtti
     if base is None or rtti.can_be_casted(base, float):
         return _strategy_weight_f_f_AtanPow_Float(base)
-    raise Exception('Cannot find suitable overload for atanpow('+str(base)+')')
+    raise Exception('Cannot find suitable overload for atanPow('+str(base)+')')
 from marketsim import IFunction
 from marketsim import registry
 from marketsim.ops._function import Function

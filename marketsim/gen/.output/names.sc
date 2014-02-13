@@ -1551,7 +1551,7 @@ package strategy
         
         def score = trader.trader_Score
         
-        def atanpow = f.f_AtanPow
+        def identityL = array.array_IdentityL
         
         /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
          */
@@ -1576,11 +1576,15 @@ package strategy
         @curried("f")
         def Clamp0(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0)) : IFunction[Float] = math.Max(0,f)+1
         
+        def identityF = f.f_IdentityF
+        
         /** Returns first derivative of a moving average of the trader efficiency
          */
         @curried("trader")
         def EfficiencyTrend(/** account in question */ trader : IAccount = trader.SingleProxy(),
                             /** parameter alpha for the moving average */ alpha = 0.15) : IFunction[Float] = math.Derivative(math.EW.Avg(trader.Efficiency(trader),alpha))
+        
+        def atanPow = f.f_AtanPow
         
         def unit = trader.trader_Unit
         
@@ -1600,8 +1604,6 @@ package strategy
         @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")
         def IdentityL(array : Optional[List[Float]] = []) : List[Float]
-        
-        def identity_f = f.f_IdentityF
         
         /** identity scaling = f(x)
          */
@@ -1722,8 +1724,8 @@ package strategy
      */
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies = [Noise()],
-                      /** function creating phantom strategy used for efficiency estimation */ account = account.inner.inner_VirtualMarket(),
-                      /** function estimating is the strategy efficient or not */ performance = weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+                      /** function creating phantom strategy used for efficiency estimation */ account = account.virtualMarket(),
+                      /** function estimating is the strategy efficient or not */ performance = weight.efficiencyTrend()) : ISingleAssetStrategy
     
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
@@ -1801,8 +1803,8 @@ package strategy
      */
     def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
-                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.inner.inner_VirtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance = weight.trader.trader_EfficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
+                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.virtualMarket(),
+                          /** given a trading account tells should it be considered as effective or not */ performance = weight.efficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
     
     /** Creates a strategy combining an array of strategies
      */
@@ -1832,11 +1834,11 @@ package strategy
      */
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [Noise()],
-                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = account.inner.inner_VirtualMarket(),
-                         /** function estimating is the strategy efficient or not */ weight = weight.trader.trader_EfficiencyTrend(),
-                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = weight.f.f_AtanPow(),
+                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = account.virtualMarket(),
+                         /** function estimating is the strategy efficient or not */ weight = weight.efficiencyTrend(),
+                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = weight.atanPow(),
                          /** given array of strategy weights corrects them.
-                           * for example it may set to 0 all weights except the maximal one */ corrector = weight.array.array_IdentityL()) : ISingleAssetStrategy
+                           * for example it may set to 0 all weights except the maximal one */ corrector = weight.identityL()) : ISingleAssetStrategy
     
     /** A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

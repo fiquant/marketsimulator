@@ -18,9 +18,9 @@ package strategy
                 inner       = Noise(),
                 /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                   * used in order to estimate how the strategy would have traded if all her orders appear at market */
-                account     = account.inner.inner_VirtualMarket(),
+                account     = account.virtualMarket(),
                 /** given a trading account tells should it be considered as effective or not */
-                performance = weight.trader.trader_EfficiencyTrend())
+                performance = weight.efficiencyTrend())
 
         =   Suspendable(inner, performance(account(inner)) >= 0)
 
@@ -37,14 +37,14 @@ package strategy
             /** original strategies that can be suspended */
             strategies = [Noise()],
             /** function creating a virtual account used for estimate efficiency of the strategy itself */
-            account    = account.inner.inner_VirtualMarket(),
+            account    = account.virtualMarket(),
             /** function estimating is the strategy efficient or not */
-            weight     = weight.trader.trader_EfficiencyTrend(),
+            weight     = weight.efficiencyTrend(),
             /** function that maps trader efficiency to its weight that will be used for random choice */
-            normalizer = weight.f.f_AtanPow(),
+            normalizer = weight.atanPow(),
             /** given array of strategy weights corrects them.
               * for example it may set to 0 all weights except the maximal one */
-            corrector  = weight.array.array_IdentityL()) : ISingleAssetStrategy
+            corrector  = weight.identityL()) : ISingleAssetStrategy
 
     /**
      * A composite strategy initialized with an array of strategies.
@@ -58,8 +58,8 @@ package strategy
             /** original strategies that can be suspended */
             strategies = [Noise()],
             /** function creating phantom strategy used for efficiency estimation */
-            account    = account.inner.inner_VirtualMarket(),
+            account    = account.virtualMarket(),
             /** function estimating is the strategy efficient or not */
-            performance= weight.trader.trader_EfficiencyTrend()) : ISingleAssetStrategy
+            performance= weight.efficiencyTrend()) : ISingleAssetStrategy
 }
 

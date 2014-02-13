@@ -74,8 +74,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - inner
-| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | - virtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  defines how strategy trades are booked: actually traded amount or virtual market orders are
@@ -88,8 +87,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | | | - efficiencyTrend
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  given a trading account tells should it be considered as effective or not 
@@ -147,8 +145,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - inner
-| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | - virtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function creating a virtual account used for estimate efficiency of the strategy itself 
@@ -160,8 +157,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | | | - efficiencyTrend
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function estimating is the strategy efficient or not 
@@ -173,8 +169,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - f
-| | | | | | | | | | | - f_AtanPow
+| | | | | | | | | | | - atanPow
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function that maps trader efficiency to its weight that will be used for random choice 
@@ -186,8 +181,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - array
-| | | | | | | | | | | - array_IdentityL
+| | | | | | | | | | | - identityL
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  given array of strategy weights corrects them.
@@ -240,8 +234,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - account
-| | | | | | | | | | | - inner
-| | | | | | | | | | | - inner_VirtualMarket
+| | | | | | | | | | | - virtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function creating phantom strategy used for efficiency estimation 
@@ -253,8 +246,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - weight
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - trader_EfficiencyTrend
+| | | | | | | | | | | - efficiencyTrend
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  function estimating is the strategy efficient or not 
