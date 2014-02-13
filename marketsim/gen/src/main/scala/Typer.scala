@@ -132,32 +132,32 @@ package object Typer
 
                                         candidates(prefix :+ x, xs) ++ (x.initializer match {
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "constant" =>
+                                                if c.last == "constant" =>
 
                                                 candidates(prefix, corrected("const" :: Nil, d) :: xs)
 
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "true" =>
+                                                if c.last == "true" =>
 
                                                 candidates(prefix, corrected("observableTrue" :: Nil, d) :: xs)
 
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "false" =>
+                                                if c.last == "false" =>
 
                                                 candidates(prefix, corrected("observableFalse" :: Nil, d) :: xs)
 
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "Sell" =>
+                                                if c.last == "Sell" =>
 
                                                 candidates(prefix, corrected("side" :: "observableSell" :: Nil, d) :: xs)
 
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "Buy" =>
+                                                if c.last == "Buy" =>
 
                                                 candidates(prefix, corrected("side" :: "observableBuy" :: Nil, d) :: xs)
 
                                             case Some(AST.FunCall(c, d))
-                                                if c.names.last == "Nothing" =>
+                                                if c.last == "Nothing" =>
 
                                                 candidates(prefix, corrected("side" :: "observableNothing" :: Nil, d) :: xs)
 
@@ -176,7 +176,7 @@ package object Typer
                                         candidates(Nil, original.parameters).tail map { ps => original.copy(parameters = ps) }
 
                                 case (typedOriginal, Some(original))
-                                        if typedOriginal.target.qualifiedName.names.slice(0,2) == "" :: "ops" :: Nil
+                                        if typedOriginal.target.qualifiedName.slice(0,2) == "" :: "ops" :: Nil
                                     =>
                                         original.ty match {
                                             case Some(AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), args)) =>
@@ -224,7 +224,7 @@ package object Typer
         }
 
         private def lookupFunction(name : AST.QualifiedName) : List[Typed.Function] =
-            source lookupFunction name.names match {
+            source lookupFunction name match {
                 case Nil =>
                         throw new Exception(s"cannot find name $name")
                 case overloads =>
@@ -236,7 +236,7 @@ package object Typer
                 }
 
         private def lookupType(name : AST.QualifiedName) : Typed.TypeDeclaration =
-            source lookupType name.names match {
+            source lookupType name match {
                 case Some((scope, definition)) => Processor(scope).getTyped(definition)
                 case None => Typed.topLevel.types get name.toString match {
                     case Some(t) => t
@@ -268,8 +268,8 @@ package object Typer
         private def toUnbound(g : AST.Generics)(t : AST.Type) : TypesUnbound.Base = t match {
 
             case AST.SimpleType(name, genericArgs) =>
-                if (name.names.length == 1 && (g.elems contains name.names(0)))
-                    TypesUnbound.Parameter(name.names(0))
+                if (name.length == 1 && (g.elems contains name(0)))
+                    TypesUnbound.Parameter(name(0))
                 else
                     lookupType(name).resolveGenerics(genericArgs map { toUnbound(g) })
 
@@ -300,8 +300,8 @@ package object Typer
                         case _ => throw new Exception(t + " is expected to be a function-like type")
                     }
 
-                    if (name.names.length == 1) {
-                        locals find { _.name == name.names(0) } match {
+                    if (name.length == 1) {
+                        locals find { _.name == name(0) } match {
                             case Some(p) => (asFunction(p.ty), () => Typed.ParamRef(p)) :: Nil
                             case None    => nonLocal
                         }

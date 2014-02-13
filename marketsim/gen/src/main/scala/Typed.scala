@@ -276,7 +276,7 @@ package object Typed
         protected val attributes = Attributes(Map.empty)
 
         def qualifiedName : AST.QualifiedName
-        def qualifyName(x : String) : AST.QualifiedName = qualifiedName.names :+ x
+        def qualifyName(x : String) : AST.QualifiedName = qualifiedName :+ x
         def tryGetAttribute(name : String) : Option[String]
         def tryGetAttributeImpl(name : String) : Option[String]
         def getName : String
@@ -388,7 +388,7 @@ package object Typed
                 case f      => f
             }
 
-        override def qualifiedName = parent.qualifiedName.names :+ name
+        override def qualifiedName = parent.qualifiedName :+ name
 
         override def getName = name
 

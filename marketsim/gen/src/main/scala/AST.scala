@@ -43,14 +43,6 @@ package object AST {
         assert(elems.length > 1) // SimpleType or UnitType should be used in this case
     }
 
-    val side_t = SimpleType(QualifiedName(""::"Side"::Nil), Nil)
-    val float_t = SimpleType(QualifiedName(""::"Float"::Nil), Nil)
-
-    def functionOf(t : Type) = FunctionType(Nil, t)
-
-    val side_function_t = functionOf(side_t)
-    val float_function_t = functionOf(float_t)
-
     case class Parameter(name        : String,
                          ty          : Option[Type],
                          initializer : Option[Expr],
@@ -59,6 +51,15 @@ package object AST {
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with ScPrintable
 
     implicit def toQualifiedName(name : List[String])  = AST.QualifiedName(name)
+    implicit def fromQualifiedName(name : QualifiedName)  = name.names
+
+    val side_t = SimpleType(""::"Side"::Nil, Nil)
+    val float_t = SimpleType(""::"Float"::Nil, Nil)
+
+    def functionOf(t : Type) = FunctionType(Nil, t)
+
+    val side_function_t = functionOf(side_t)
+    val float_function_t = functionOf(float_t)
 
     abstract class Decorator extends pp.Decorator
 

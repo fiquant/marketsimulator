@@ -183,7 +183,7 @@ object Printer {
     }
 
     def fullImportName(f : Typed.Function) =
-        (f.qualifiedName.names mkString "_") + "_" + parametersMangled(f.parameters)
+        (f.qualifiedName mkString "_") + "_" + parametersMangled(f.parameters)
 
     def importsOf(target : Typed.Function) =
         predef.ImportFrom(decoratedName(target), moduleName(target))

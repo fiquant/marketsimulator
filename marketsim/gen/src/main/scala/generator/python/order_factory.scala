@@ -218,7 +218,7 @@ object order_factory
                     }
                 }
 
-                Some(call.copy(name = insertPrefix(call.name.names)))
+                Some(call.copy(name = insertPrefix(call.name)))
             }
 
             lazy val withAdjustedProto = base.parameters map {

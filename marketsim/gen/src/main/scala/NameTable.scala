@@ -58,16 +58,16 @@ package object NameTable {
             }
         }
 
-        def qualifyName(x : String) : AST.QualifiedName = qualifiedName.names :+ x
+        def qualifyName(x : String) : AST.QualifiedName = qualifiedName :+ x
 
         private def getQualifiedName(show_anonymous : Boolean = false) : AST.QualifiedName =
                 if (isRoot)
                     (if (show_anonymous) name else "") :: Nil
                 else
                     if (isAnonymous && !show_anonymous)
-                        (parent.get getQualifiedName show_anonymous).names
+                        parent.get getQualifiedName show_anonymous
                     else
-                        (parent.get getQualifiedName show_anonymous).names :+ name
+                        (parent.get getQualifiedName show_anonymous) :+ name
 
         lazy val qualifiedName     = getQualifiedName(show_anonymous = false)
         lazy val qualifiedNameAnon = getQualifiedName(show_anonymous = true)
@@ -123,7 +123,7 @@ package object NameTable {
         }
 
         def add(p : AST.PackageDef) {
-            val target = addImpl(p, if (p.name.isEmpty) Nil else p.name.get.names)
+            val target = addImpl(p, if (p.name.isEmpty) Nil else p.name.get)
             target.bases = target.bases ++ p.bases
             create(p.members, p.attributes, target)
         }
@@ -212,7 +212,7 @@ package object NameTable {
         private def injectBasesImpl()
         {
             bases foreach { base =>
-                 lookupPackage(base.names) match {
+                 lookupPackage(base) match {
                      case Some(b) =>
                          b.injectBasesImpl()
                          b.functions.values filterNot { functions contains _.head.name } foreach { _ foreach { add  } }
@@ -278,7 +278,7 @@ package object NameTable {
                         case None => Nil
                         case Some(lst) => lst flatMap {
                             case f : AST.FunDef => (this, f) :: Nil
-                            case a : AST.FunAlias => lookupFunction(a.target.names)
+                            case a : AST.FunAlias => lookupFunction(a.target)
                         }
                     }
                 case x :: tl =>
@@ -315,7 +315,7 @@ package object NameTable {
         }
 
         def fullyQualifyType(n : AST.QualifiedName) =
-            lookupType(n.names) match {
+            lookupType(n) match {
                 case Some((scope, m)) => scope qualifyName m.name
                 case None => throw new Exception(s"Cannot lookup $n from scope $name")
             }
