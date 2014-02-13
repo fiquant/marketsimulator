@@ -17,11 +17,9 @@ class LessEqual_IObservableFloatIObservableFloat(Observable[bool],_LessEqual_Imp
         from marketsim import event
         Observable[bool].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _LessEqual_Impl.__init__(self)
     
@@ -60,8 +58,7 @@ class LessEqual_IFunctionFloatIObservableFloat(Observable[bool],_LessEqual_Impl)
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _LessEqual_Impl.__init__(self)
     
@@ -97,8 +94,7 @@ class LessEqual_IObservableFloatIFunctionFloat(Observable[bool],_LessEqual_Impl)
         from marketsim import event
         Observable[bool].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _constant_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)

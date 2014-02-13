@@ -333,8 +333,11 @@ package object Typed
 
         def getName = ""
 
-        def makeScalar(name : String) =
+        def getScalar(name : String) =
             (types get name).get resolveGenerics Nil
+
+        def getScalarBound(name : String) =
+            getScalar(name) bind EmptyTypeMapper
 
         def functionOf(t : TypesUnbound.Base) =
             (types get "IFunction").get resolveGenerics  t :: Nil
@@ -345,7 +348,7 @@ package object Typed
         val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper_Bound
 
         def genType(name : String) = {
-            val scalar  = makeScalar(name)
+            val scalar  = getScalar(name)
             val func    = functionOf(scalar)
             val obs     = observableOf(scalar)
             val m = EmptyTypeMapper

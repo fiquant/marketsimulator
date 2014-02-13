@@ -21,8 +21,7 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import Order
         Observable[Order].__init__(self)
         self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
-        if isinstance(proto, types.IEvent):
-            event.subscribe(self.proto, self.fire, self)
+        event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     
     @property

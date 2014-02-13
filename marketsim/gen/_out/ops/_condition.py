@@ -18,14 +18,11 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observable[fl
         from marketsim import float
         Observable[float].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _const_Float(1.0)
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _const_Float(1.0)
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -62,14 +59,11 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(Observable[Side
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -109,11 +103,9 @@ class Condition_IFunctionBooleanIObservableFloatIObservableFloat(Observable[floa
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _const_Float(1.0)
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _const_Float(1.0)
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -154,11 +146,9 @@ class Condition_IFunctionBooleanIObservableSideIObservableSide(Observable[Side],
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -196,11 +186,9 @@ class Condition_IObservableBooleanIObservableFloatIFunctionFloat(Observable[floa
         from marketsim import float
         Observable[float].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _const_Float(1.0)
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _constant_Float(1.0)
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
@@ -241,14 +229,12 @@ class Condition_IObservableBooleanIFunctionFloatIObservableFloat(Observable[floa
         from marketsim import float
         Observable[float].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _constant_Float(1.0)
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _const_Float(1.0)
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -286,11 +272,9 @@ class Condition_IObservableBooleanIObservableSideSide(Observable[Side],_Conditio
         from marketsim import event
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_Buy_()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
@@ -331,14 +315,12 @@ class Condition_IObservableBooleanSideIObservableSide(Observable[Side],_Conditio
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_Sell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -379,8 +361,7 @@ class Condition_IFunctionBooleanIObservableFloatIFunctionFloat(Observable[float]
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _const_Float(1.0)
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _constant_Float(1.0)
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
@@ -427,8 +408,7 @@ class Condition_IFunctionBooleanIFunctionFloatIObservableFloat(Observable[float]
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _const_Float(1.0)
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -469,8 +449,7 @@ class Condition_IFunctionBooleanIObservableSideSide(Observable[Side],_Condition_
         if isinstance(cond, types.IEvent):
             event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_observableSell_()
-        if isinstance(ifpart, types.IEvent):
-            event.subscribe(self.ifpart, self.fire, self)
+        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_Buy_()
         if isinstance(elsepart, types.IEvent):
             event.subscribe(self.elsepart, self.fire, self)
@@ -517,8 +496,7 @@ class Condition_IFunctionBooleanSideIObservableSide(Observable[Side],_Condition_
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else _side_observableBuy_()
-        if isinstance(elsepart, types.IEvent):
-            event.subscribe(self.elsepart, self.fire, self)
+        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         _Condition_Impl.__init__(self)
     
@@ -555,8 +533,7 @@ class Condition_IObservableBooleanIFunctionFloatIFunctionFloat(Observable[float]
         from marketsim import float
         Observable[float].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _constant_Float(1.0)
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)
@@ -600,8 +577,7 @@ class Condition_IObservableBooleanSideSide(Observable[Side],_Condition_Impl):
         from marketsim import event
         Observable[Side].__init__(self)
         self.cond = cond if cond is not None else _observableTrue_()
-        if isinstance(cond, types.IEvent):
-            event.subscribe(self.cond, self.fire, self)
+        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else _side_Sell_()
         if isinstance(ifpart, types.IEvent):
             event.subscribe(self.ifpart, self.fire, self)

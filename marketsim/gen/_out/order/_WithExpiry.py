@@ -23,8 +23,7 @@ class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator
         if isinstance(expiry, types.IEvent):
             event.subscribe(self.expiry, self.fire, self)
         self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
-        if isinstance(proto, types.IEvent):
-            event.subscribe(self.proto, self.fire, self)
+        event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     
     @property

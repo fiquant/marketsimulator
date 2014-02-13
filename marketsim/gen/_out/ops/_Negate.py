@@ -16,8 +16,7 @@ class Negate_IObservableFloat(Observable[float],_Negate_Impl):
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         rtti.check_fields(self)
         _Negate_Impl.__init__(self)
     

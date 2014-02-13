@@ -17,11 +17,9 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observable[bool],_GreaterEqu
         from marketsim import event
         Observable[bool].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _GreaterEqual_Impl.__init__(self)
     
@@ -60,8 +58,7 @@ class GreaterEqual_IFunctionFloatIObservableFloat(Observable[bool],_GreaterEqual
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _GreaterEqual_Impl.__init__(self)
     
@@ -97,8 +94,7 @@ class GreaterEqual_IObservableFloatIFunctionFloat(Observable[bool],_GreaterEqual
         from marketsim import event
         Observable[bool].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _constant_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)

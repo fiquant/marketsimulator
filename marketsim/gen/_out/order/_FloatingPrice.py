@@ -21,8 +21,7 @@ class FloatingPrice_IObservableFloatFloatIOrderGenerator(Factory_Impl,IOrderGene
         from marketsim import Order
         Observable[Order].__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const_Float(10.0)
-        if isinstance(floatingPrice, types.IEvent):
-            event.subscribe(self.floatingPrice, self.fire, self)
+        event.subscribe(self.floatingPrice, self.fire, self)
         self.proto = proto if proto is not None else _order__curried_price_Limit_SideIFunctionFloat()
         if isinstance(proto, types.IEvent):
             event.subscribe(self.proto, self.fire, self)

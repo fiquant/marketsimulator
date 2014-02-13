@@ -219,13 +219,21 @@ package object base {
     {
         def observe_args = true
 
+        lazy val IEvent = Typed.topLevel.getScalarBound("IEvent")
+
         override def assign : Code =
             super.assign | (
             if (observe_args)
-                s"if isinstance($name, types.IEvent):" |>
+                if (p.ty canCastTo TypesBound.Optional(IEvent)) {
                     s"event.subscribe(self.$name, self.fire, self)" |||
-                ImportFrom("event", "marketsim") |||
-                ImportFrom("types", "marketsim")
+                    ImportFrom("event", "marketsim") |||
+                    ImportFrom("types", "marketsim")
+                } else {
+                    s"if isinstance($name, types.IEvent):" |>
+                        s"event.subscribe(self.$name, self.fire, self)" |||
+                    ImportFrom("event", "marketsim") |||
+                    ImportFrom("types", "marketsim")
+                }
             else "")
     }
 

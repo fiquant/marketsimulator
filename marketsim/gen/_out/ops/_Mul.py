@@ -16,11 +16,9 @@ class Mul_IObservableFloatIObservableFloat(Observable[float],_Mul_Impl):
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _Mul_Impl.__init__(self)
     
@@ -55,8 +53,7 @@ class Mul_IObservableFloatIFunctionFloat(Observable[float],_Mul_Impl):
         from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _constant_Float(1.0)
         if isinstance(y, types.IEvent):
             event.subscribe(self.y, self.fire, self)
@@ -97,8 +94,7 @@ class Mul_IFunctionFloatIObservableFloat(Observable[float],_Mul_Impl):
         if isinstance(x, types.IEvent):
             event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         _Mul_Impl.__init__(self)
     

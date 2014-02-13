@@ -16,8 +16,7 @@ class Var_IObservableFloatFloat(Observable[float],MV_Impl):
         from marketsim import float
         Observable[float].__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
-        if isinstance(source, types.IEvent):
-            event.subscribe(self.source, self.fire, self)
+        event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0
         if isinstance(timeframe, types.IEvent):
             event.subscribe(self.timeframe, self.fire, self)
