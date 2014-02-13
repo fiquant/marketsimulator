@@ -269,17 +269,14 @@ package object NameTable {
                 }
         }
 
-        private def lookupFunctionScopeInnerScopes(qn : List[String]) : Option[Scope] =
+        def lookupInnerScopes(hasName : (Scope, String) => Boolean, qn : List[String]) : Option[Scope] =
         {
             //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
             qn match {
                 case x :: Nil =>
-                    functions get x match {
-                        case None => None
-                        case Some(lst) => Some(this)
-                    }
+                    if (hasName(this, x)) Some(this) else None
                 case x :: tl =>
-                    packages get x map { _ lookupFunctionScopeInnerScopes tl } match {
+                    packages get x map { _.lookupInnerScopes(hasName, tl) } match {
                         case Some(y)  => y
                         case None     => None
                     }
@@ -287,24 +284,24 @@ package object NameTable {
         }
 
 
-        def lookupFunctionScope(qn : List[String]) : Option[Scope] =
+        def lookupScope(hasName : (Scope, String) => Boolean, qn : List[String]) : Option[Scope] =
         {
             //println(s"looking for $qn in $qualifiedNameAnon")
             if (isAnonymous)
-                parent.get lookupFunctionScope qn
+                parent.get lookupScope (hasName, qn)
             else
                 qn match {
                     case Nil => throw new Exception("Qualified name cannot be empty")
                     case "" :: tl =>
                         parent match {
-                            case Some(p) => p lookupFunctionScope qn
-                            case None    => lookupFunctionScope(tl)
+                            case Some(p) => p lookupScope (hasName, qn)
+                            case None    => lookupScope(hasName, tl)
                         }
                     case _ =>
-                        lookupFunctionScopeInnerScopes(qn) match {
+                        lookupInnerScopes(hasName, qn) match {
                             case None    => parent match {
                                 case None => None
-                                case Some(p) => p lookupFunctionScope qn
+                                case Some(p) => p lookupScope (hasName, qn)
                             }
                             case x => x
                         }
@@ -314,7 +311,7 @@ package object NameTable {
 
         def lookupFunction(qn : List[String]) : List[(Scope, AST.FunDef)] =
 
-            lookupFunctionScope(qn) match {
+            lookupScope((scope, name) => scope.functions contains name, qn) match {
                 case None => Nil
                 case Some(scope) =>
                     scope.functions(qn.last) flatMap {
