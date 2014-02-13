@@ -88,15 +88,15 @@ package ops {
     @symbol = "+"
     
     @python.intrinsic.observable("ops._Add_Impl")
-    def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
     @python.intrinsic.observable("ops._Add_Impl")
-    def Add(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
@@ -129,9 +129,9 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
-                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -143,16 +143,9 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
-                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                  elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-    
-    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    
-    @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                  elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -164,9 +157,9 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
-                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
-                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -179,8 +172,15 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
-                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                  ifpart : Optional[.IObservable[.Float]] = .const(1.0),
+                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops._Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
+                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -192,9 +192,9 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
-    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
-                  ifpart : Optional[.IFunction[.Float]] = .constant(1.0),
-                  elsepart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
+                  ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
+                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -256,15 +256,15 @@ package ops {
     @symbol = "*"
     
     @python.intrinsic.observable("ops._Mul_Impl")
-    def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
     @python.intrinsic.observable("ops._Mul_Impl")
-    def Mul(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
@@ -340,15 +340,15 @@ package ops {
     @symbol = "-"
     
     @python.intrinsic.observable("ops._Sub_Impl")
-    def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
-            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
+            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
     @python.intrinsic.observable("ops._Sub_Impl")
-    def Sub(x : Optional[.IFunction[.Float]] = .constant(1.0),
-            y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
+            y : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"

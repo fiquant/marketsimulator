@@ -119,63 +119,77 @@ package object Typer
 
                             val overload_signatures = (reordered map { _._1.target.ty.args }).toSet
 
+                            def candidates(prefix : List[AST.Parameter],
+                                           suffix : List[AST.Parameter]) : Stream[List[AST.Parameter]] =
+                            {
+                                suffix match {
+                                    case Nil =>
+                                        Stream(prefix)
+                                    case x :: xs =>
+                                        def corrected(name : List[String], args : List[AST.Expr]) =
+                                            x.copy(initializer =
+                                                    Some(
+                                                        AST.FunCall(
+                                                            AST.QualifiedName("" :: name), args)))
+
+                                        candidates(prefix :+ x, xs) ++ (x.initializer match {
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "constant" =>
+
+                                                candidates(prefix, corrected("const" :: Nil, d) :: xs)
+
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "true" =>
+
+                                                candidates(prefix, corrected("observableTrue" :: Nil, d) :: xs)
+
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "false" =>
+
+                                                candidates(prefix, corrected("observableFalse" :: Nil, d) :: xs)
+
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "Sell" =>
+
+                                                candidates(prefix, corrected("side" :: "observableSell" :: Nil, d) :: xs)
+
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "Buy" =>
+
+                                                candidates(prefix, corrected("side" :: "observableBuy" :: Nil, d) :: xs)
+
+                                            case Some(AST.FunCall(c, d))
+                                                if c.names.last == "Nothing" =>
+
+                                                candidates(prefix, corrected("side" :: "observableNothing" :: Nil, d) :: xs)
+
+                                            case t =>
+                                                Stream.empty
+                                        })
+
+                                }
+                            }
+
                             val possibleOverloads = reordered flatMap {
                                 case (typedOriginal, Some(original))
                                         if original.body.nonEmpty
                                     =>
-                                        def candidates(prefix : List[AST.Parameter],
-                                                       suffix : List[AST.Parameter]) : Stream[List[AST.Parameter]] =
-                                        {
-                                            suffix match {
-                                                case Nil =>
-                                                    Stream(prefix)
-                                                case x :: xs =>
-                                                    def corrected(name : List[String], args : List[AST.Expr]) =
-                                                        x.copy(initializer =
-                                                                Some(
-                                                                    AST.FunCall(
-                                                                        AST.QualifiedName("" :: name), args)))
-
-                                                    candidates(prefix :+ x, xs) ++ (x.initializer match {
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "constant" =>
-
-                                                            candidates(prefix, corrected("const" :: Nil, d) :: xs)
-
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "true" =>
-
-                                                            candidates(prefix, corrected("observableTrue" :: Nil, d) :: xs)
-
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "false" =>
-
-                                                            candidates(prefix, corrected("observableFalse" :: Nil, d) :: xs)
-
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "Sell" =>
-
-                                                            candidates(prefix, corrected("side" :: "observableSell" :: Nil, d) :: xs)
-
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "Buy" =>
-
-                                                            candidates(prefix, corrected("side" :: "observableBuy" :: Nil, d) :: xs)
-
-                                                        case Some(AST.FunCall(c, d))
-                                                            if c.names.last == "Nothing" =>
-
-                                                            candidates(prefix, corrected("side" :: "observableNothing" :: Nil, d) :: xs)
-
-                                                        case t =>
-                                                            Stream.empty
-                                                    })
-
-                                            }
-                                        }
-
                                         // head is guaranteed to be the original overload
                                         candidates(Nil, original.parameters).tail map { ps => original.copy(parameters = ps) }
+
+                                case (typedOriginal, Some(original))
+                                        if typedOriginal.target.qualifiedName.names.slice(0,2) == "" :: "ops" :: Nil
+                                    =>
+                                        original.ty match {
+                                            case Some(AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), args)) =>
+                                                // head is guaranteed to be the original overload
+                                                candidates(Nil, original.parameters).tail map { ps =>
+                                                    original.copy(
+                                                        parameters = ps,
+                                                        ty = Some(AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), args)))
+                                                }
+                                            case _ => Nil
+                                        }
 
                                 case _ => Nil
                             }
