@@ -172,43 +172,6 @@ package object NameTable {
                     p
             }
 
-        private def lookupPackageInnerScopes(qn : List[String]) : Option[Scope] =
-        {
-            //println(s"looking for $qn in inner scopes of $qualifiedNameAnon ")
-            qn match {
-                case x :: Nil => packages get x
-                case x :: tl =>
-                    packages get x map { _ lookupPackageInnerScopes tl } match {
-                        case Some(y)  => y
-                        case None     => None
-                    }
-            }
-        }
-
-        def lookupPackage(qn : List[String]) : Option[Scope] =
-        {
-            //println(s"looking for $qn in $qualifiedNameAnon")
-            if (isAnonymous)
-                parent.get lookupPackage qn
-            else
-                qn match {
-                    case Nil => throw new Exception("Qualified name cannot be empty")
-                    case "" :: tl =>
-                        parent match {
-                            case Some(p) => p lookupPackage qn
-                            case None    => lookupPackage(tl)
-                        }
-                    case _ =>
-                        lookupPackageInnerScopes(qn) match {
-                            case Some(x) => Some(x)
-                            case None    =>
-                                parent flatMap { _ lookupPackage  qn }
-                        }
-                }
-        }
-
-
-
         private def injectBasesImpl()
         {
             bases foreach { base =>
@@ -275,6 +238,10 @@ package object NameTable {
 
             lookupScope((scope, name) => scope.types contains name, qn) map { scope => (scope, scope.types(qn.last) )}
 
+
+        def lookupPackage(qn : List[String]) : Option[Scope] =
+
+            lookupScope((scope, name) => scope.packages contains name, qn) map { _.packages(qn.last) }
 
 
         def lookupFunction(qn : List[String]) : List[(Scope, AST.FunDef)] =
