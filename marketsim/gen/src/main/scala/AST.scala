@@ -58,6 +58,8 @@ package object AST {
 
     case class QualifiedName(names   : List[String]) extends pp.QualifiedName with ScPrintable
 
+    implicit def toQualifiedName(name : List[String])  = AST.QualifiedName(name)
+
     abstract class Decorator extends pp.Decorator
 
     case class Annotation(name       : QualifiedName,

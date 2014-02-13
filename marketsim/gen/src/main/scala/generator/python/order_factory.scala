@@ -182,7 +182,7 @@ object order_factory
                         ty = f.ty map scope.fullyQualifyType)
 
                 locate("signed" :: Nil, scope) add AST.FunAlias(
-                    f.name, AST.QualifiedName("" :: "order" :: fc.name :: Nil))
+                    f.name, "" :: "order" :: fc.name :: Nil)
 
                 scope add fc
 
@@ -217,11 +217,8 @@ object order_factory
                             u_prefix :: tl
                     }
                 }
-                val names = insertPrefix(call.name.names)
-                val fresh_name = AST.QualifiedName(names)
-                //println((curried map { _.name } mkString ("(", ",", ")")) + " -> " + call.name + " = " + fresh_name)
 
-                Some(call.copy(name = fresh_name))
+                Some(call.copy(name = insertPrefix(call.name.names)))
             }
 
             lazy val withAdjustedProto = base.parameters map {
@@ -238,8 +235,7 @@ object order_factory
                         parameters = rest,
                         decorators =
                                 AST.Annotation(
-                                    AST.QualifiedName(
-                                        order_factory_curried.name.split('.').toList),
+                                    order_factory_curried.name.split('.').toList,
                                     base.name :: Nil) :: Nil,
                         ty = ty map scope.fullyQualifyType))
                 case _ =>
@@ -249,8 +245,7 @@ object order_factory
                             parameters = withAdjustedProto,
                             decorators =
                                     AST.Annotation(
-                                        AST.QualifiedName(
-                                            order_factory_on_proto.name.split('.').toList),
+                                        order_factory_on_proto.name.split('.').toList,
                                         base.name :: Nil) :: Nil,
                             ty = ty map scope.fullyQualifyType))
                     }
@@ -258,7 +253,7 @@ object order_factory
                         None
             }) map  { fc =>
                 locate(alias, scope) add AST.FunAlias(
-                    brief_name, AST.QualifiedName("" :: "order" :: "_curried" :: prefixed :: Nil))
+                    brief_name, "" :: "order" :: "_curried" :: prefixed :: Nil)
 
                 val curried = scope getPackageOrCreate "_curried"
 

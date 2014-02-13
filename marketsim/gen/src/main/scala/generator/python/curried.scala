@@ -90,8 +90,7 @@ object curried
                         body = None,
                         decorators =
                                 AST.Annotation(
-                                    AST.QualifiedName(
-                                        after_typing.name.split('.').toList),
+                                    after_typing.name.split('.').toList,
                                     base.name :: Nil) :: Nil,
                         ty = ty map scope.fullyQualifyType))
                 case _ =>

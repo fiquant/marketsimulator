@@ -276,7 +276,7 @@ package object Typed
         protected val attributes = Attributes(Map.empty)
 
         def qualifiedName : AST.QualifiedName
-        def qualifyName(x : String) : AST.QualifiedName = AST.QualifiedName(qualifiedName.names :+ x)
+        def qualifyName(x : String) : AST.QualifiedName = qualifiedName.names :+ x
         def tryGetAttribute(name : String) : Option[String]
         def tryGetAttributeImpl(name : String) : Option[String]
         def getName : String
@@ -325,7 +325,7 @@ package object Typed
             with    sc.TopLevelPackage
             with    ScPrintable
     {
-        def qualifiedName = AST.QualifiedName("" :: Nil)
+        def qualifiedName = "" :: Nil
 
         def tryGetAttribute(name : String) : Option[String] = None
 
@@ -388,7 +388,7 @@ package object Typed
                 case f      => f
             }
 
-        override def qualifiedName = AST.QualifiedName(parent.qualifiedName.names :+ name)
+        override def qualifiedName = parent.qualifiedName.names :+ name
 
         override def getName = name
 

@@ -58,11 +58,9 @@ package object NameTable {
             }
         }
 
-        def qualifyName(x : String) : AST.QualifiedName =
-            AST.QualifiedName(qualifiedName.names :+ x)
+        def qualifyName(x : String) : AST.QualifiedName = qualifiedName.names :+ x
 
         private def getQualifiedName(show_anonymous : Boolean = false) : AST.QualifiedName =
-            AST.QualifiedName(
                 if (isRoot)
                     (if (show_anonymous) name else "") :: Nil
                 else
@@ -70,7 +68,6 @@ package object NameTable {
                         (parent.get getQualifiedName show_anonymous).names
                     else
                         (parent.get getQualifiedName show_anonymous).names :+ name
-            )
 
         lazy val qualifiedName     = getQualifiedName(show_anonymous = false)
         lazy val qualifiedNameAnon = getQualifiedName(show_anonymous = true)

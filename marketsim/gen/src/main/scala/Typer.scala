@@ -79,7 +79,7 @@ package object Typer
             def observableConstF(x : Double) =
                 inferType(Nil)(
                     AST.FunCall(
-                        AST.QualifiedName("" :: "const" :: Nil),
+                        "" :: "const" :: Nil,
                         AST.FloatLit(x) :: Nil))
 
             if (!(typed.functions contains name))
@@ -128,9 +128,7 @@ package object Typer
                                     case x :: xs =>
                                         def corrected(name : List[String], args : List[AST.Expr]) =
                                             x.copy(initializer =
-                                                    Some(
-                                                        AST.FunCall(
-                                                            AST.QualifiedName("" :: name), args)))
+                                                    Some(AST.FunCall("" :: name, args)))
 
                                         candidates(prefix :+ x, xs) ++ (x.initializer match {
                                             case Some(AST.FunCall(c, d))
@@ -186,7 +184,7 @@ package object Typer
                                                 candidates(Nil, original.parameters).tail map { ps =>
                                                     original.copy(
                                                         parameters = ps,
-                                                        ty = Some(AST.SimpleType(AST.QualifiedName("IObservable" :: Nil), args)))
+                                                        ty = Some(AST.SimpleType("IObservable" :: Nil, args)))
                                                 }
                                             case _ => Nil
                                         }
@@ -408,7 +406,7 @@ package object Typer
 
     case class TypeChecker(ctx : TypingExprCtx)
     {
-        def promote_literal(e : Typed.Expr) = typeFunction(AST.QualifiedName("" :: "constant" :: Nil), e :: Nil)
+        def promote_literal(e : Typed.Expr) = typeFunction("" :: "constant" :: Nil, e :: Nil)
 
         def isScalar(e : Typed.Expr) = e.ty canCastTo Typed.topLevel.float_
         def isFloatFunc(e : Typed.Expr) = e.ty canCastTo Typed.topLevel.floatFunc
@@ -499,14 +497,14 @@ package object Typer
                             case AST.Add => "Add"
                             case AST.Sub => "Sub"
                     }
-                    typeFunction(AST.QualifiedName("ops" :: name :: Nil), px :: py :: Nil)
+                    typeFunction("ops" :: name :: Nil, px :: py :: Nil)
                 }
 
             case AST.Neg(x) =>
 
                 asArith(x) match {
                     case e if e.ty canCastTo Typed.topLevel.floatFunc =>
-                        typeFunction(AST.QualifiedName("ops" :: "Negate" :: Nil), e :: Nil)
+                        typeFunction("ops" :: "Negate" :: Nil, e :: Nil)
                     case e => Typed.Neg(e)
                 }
 
@@ -515,7 +513,7 @@ package object Typer
             case AST.IfThenElse(cond, x, y) =>
                 val px = asArith(x)
                 val py = asArith(y)
-                typeFunction(AST.QualifiedName("ops" :: "Condition" :: Nil), asArith(cond) :: px :: py :: Nil)
+                typeFunction("ops" :: "Condition" :: Nil, asArith(cond) :: px :: py :: Nil)
 
             case AST.FloatLit(d) => Typed.FloatLit(d)
             case AST.StringLit(x) => Typed.StringLit(x)
@@ -543,7 +541,7 @@ package object Typer
                         case AST.LessEqual      => "LessEqual"
                         case AST.GreaterEqual   => "GreaterEqual"
                     }
-                    typeFunction(AST.QualifiedName("ops" :: name :: Nil), px :: py :: Nil)
+                    typeFunction("ops" :: name :: Nil, px :: py :: Nil)
                 }
 
         }
