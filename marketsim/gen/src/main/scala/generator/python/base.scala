@@ -228,12 +228,7 @@ package object base {
                     s"event.subscribe(self.$name, self.fire, self)" |||
                     ImportFrom("event", "marketsim") |||
                     ImportFrom("types", "marketsim")
-                } else {
-                    s"if isinstance($name, types.IEvent):" |>
-                        s"event.subscribe(self.$name, self.fire, self)" |||
-                    ImportFrom("event", "marketsim") |||
-                    ImportFrom("types", "marketsim")
-                }
+                } else ""
             else "")
     }
 

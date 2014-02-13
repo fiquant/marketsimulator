@@ -30,5 +30,5 @@ package observable
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source = constant(1.)) : IObservable[Float]
+    def BreaksAtChanges(source = const(1.)) : IObservable[Float]
 }

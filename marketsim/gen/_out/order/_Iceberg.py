@@ -21,8 +21,7 @@ class Iceberg_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import Order
         Observable[Order].__init__(self)
         self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
-        if isinstance(lotSize, types.IEvent):
-            event.subscribe(self.lotSize, self.fire, self)
+        
         self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)

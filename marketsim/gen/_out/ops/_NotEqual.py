@@ -55,8 +55,7 @@ class NotEqual_IFunctionFloatIObservableFloat(Observable[bool],_NotEqual_Impl):
         from marketsim import event
         Observable[bool].__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        
         self.y = y if y is not None else _const_Float(1.0)
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
@@ -96,8 +95,7 @@ class NotEqual_IObservableFloatIFunctionFloat(Observable[bool],_NotEqual_Impl):
         self.x = x if x is not None else _const_Float(1.0)
         event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _constant_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        
         rtti.check_fields(self)
         _NotEqual_Impl.__init__(self)
     
@@ -124,18 +122,14 @@ class NotEqual_IFunctionFloatIFunctionFloat(Observable[bool],_NotEqual_Impl):
     """ 
     def __init__(self, x = None, y = None):
         from marketsim import bool
-        from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import event
+        from marketsim import rtti
         Observable[bool].__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        
         self.y = y if y is not None else _constant_Float(1.0)
-        if isinstance(y, types.IEvent):
-            event.subscribe(self.y, self.fire, self)
+        
         rtti.check_fields(self)
         _NotEqual_Impl.__init__(self)
     

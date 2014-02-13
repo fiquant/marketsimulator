@@ -22,8 +22,7 @@ class StopLoss_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
         from marketsim import Order
         Observable[Order].__init__(self)
         self.maxloss = maxloss if maxloss is not None else _constant_Float(0.1)
-        if isinstance(maxloss, types.IEvent):
-            event.subscribe(self.maxloss, self.fire, self)
+        
         self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)

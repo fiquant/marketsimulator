@@ -18,8 +18,7 @@ class Var_IObservableFloatFloat(Observable[float],MV_Impl):
         self.source = source if source is not None else _const_Float(1.0)
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0
-        if isinstance(timeframe, types.IEvent):
-            event.subscribe(self.timeframe, self.fire, self)
+        
         rtti.check_fields(self)
         MV_Impl.__init__(self)
     

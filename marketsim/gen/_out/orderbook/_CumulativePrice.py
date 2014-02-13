@@ -16,19 +16,15 @@ class CumulativePrice_IOrderBookIFunctionFloat(Observable[Price],CumulativePrice
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim import Price
-        from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import event
         Observable[Price].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
-        if isinstance(book, types.IEvent):
-            event.subscribe(self.book, self.fire, self)
+        
         self.depth = depth if depth is not None else _constant_Float(1.0)
-        if isinstance(depth, types.IEvent):
-            event.subscribe(self.depth, self.fire, self)
+        
         rtti.check_fields(self)
         CumulativePrice_Impl.__init__(self)
     

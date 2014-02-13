@@ -1,10 +1,11 @@
 from marketsim.ops._all import Observable
 from marketsim import IFunction
 from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
+from marketsim import IObservable
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "MaxEpsilon"])
-class MaxEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MaxEpsilon_Impl):
+class MaxEpsilon_IObservableFloatIFunctionFloat(Observable[float],MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
@@ -13,15 +14,14 @@ class MaxEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MaxEpsilon_Impl)
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import float
         Observable[float].__init__(self)
-        self.source = source if source is not None else _constant_Float(1.0)
-        if isinstance(source, types.IEvent):
-            event.subscribe(self.source, self.fire, self)
+        self.source = source if source is not None else _const_Float(1.0)
+        event.subscribe(self.source, self.fire, self)
         self.epsilon = epsilon if epsilon is not None else _constant_Float(0.01)
-        if isinstance(epsilon, types.IEvent):
-            event.subscribe(self.epsilon, self.fire, self)
+        
         rtti.check_fields(self)
         MaxEpsilon_Impl.__init__(self)
     
@@ -30,17 +30,18 @@ class MaxEpsilon_IFunctionFloatIFunctionFloat(Observable[float],MaxEpsilon_Impl)
         return repr(self)
     
     _properties = {
-        'source' : IFunction[float],
+        'source' : IObservable[float],
         'epsilon' : IFunction[float]
     }
     def __repr__(self):
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
     
 def MaxEpsilon(source = None,epsilon = None): 
-    from marketsim import IFunction
+    from marketsim import IObservable
     from marketsim import float
+    from marketsim import IFunction
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IFunction[float]):
+    if source is None or rtti.can_be_casted(source, IObservable[float]):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunction[float]):
-            return MaxEpsilon_IFunctionFloatIFunctionFloat(source,epsilon)
+            return MaxEpsilon_IObservableFloatIFunctionFloat(source,epsilon)
     raise Exception('Cannot find suitable overload for MaxEpsilon('+str(source)+','+str(epsilon)+')')

@@ -527,7 +527,7 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
-        def MinEpsilon(/** observable data source */ source = constant(1.0),
+        def MinEpsilon(/** observable data source */ source = const(1.0),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
         
         /** Cumulative maximum of a function with positive tolerance.
@@ -536,7 +536,7 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
-        def MaxEpsilon(/** observable data source */ source = constant(1.0),
+        def MaxEpsilon(/** observable data source */ source = const(1.0),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
         
         /** Cumulative standard deviation
@@ -628,7 +628,7 @@ package math
          */
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
-        def Min(/** observable data source */ source = constant(1.0),
+        def Min(/** observable data source */ source = const(1.0),
                 /** sliding window size    */ timeframe = 100.0) : IObservable[Float]
         
         /** Simple moving relative standard deviation
@@ -648,7 +648,7 @@ package math
          */
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
-        def Max(/** observable data source */ source = constant(1.0),
+        def Max(/** observable data source */ source = const(1.0),
                 /** sliding window size    */ timeframe = 100.0) : IObservable[Float]
         
         /** Simple moving average
@@ -2445,7 +2445,7 @@ package observable
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source = constant(1.0)) : IObservable[Float]
+    def BreaksAtChanges(source = const(1.0)) : IObservable[Float]
     
 }
 

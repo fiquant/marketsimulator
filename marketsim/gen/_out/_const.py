@@ -7,15 +7,12 @@ class const_Int(Observable[int],_Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import types
+        from marketsim import int
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim import event
-        from marketsim import int
         Observable[int].__init__(self)
         self.x = x if x is not None else 1
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        
         rtti.check_fields(self)
         _Constant_Impl.__init__(self)
     
@@ -38,15 +35,12 @@ class const_Float(Observable[float],_Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import types
+        from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else 1.0
-        if isinstance(x, types.IEvent):
-            event.subscribe(self.x, self.fire, self)
+        
         rtti.check_fields(self)
         _Constant_Impl.__init__(self)
     

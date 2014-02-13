@@ -10,22 +10,17 @@ class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Im
     """   Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
-        from marketsim import types
-        from marketsim.ops._all import Observable
-        from marketsim import rtti
         from marketsim import IVolumeLevels
-        from marketsim import event
+        from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim import rtti
         Observable[IVolumeLevels].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
-        if isinstance(queue, types.IEvent):
-            event.subscribe(self.queue, self.fire, self)
+        
         self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
-        if isinstance(volumeDelta, types.IEvent):
-            event.subscribe(self.volumeDelta, self.fire, self)
+        
         self.volumeCount = volumeCount if volumeCount is not None else 10
-        if isinstance(volumeCount, types.IEvent):
-            event.subscribe(self.volumeCount, self.fire, self)
+        
         rtti.check_fields(self)
         VolumeLevels_Impl.__init__(self)
     

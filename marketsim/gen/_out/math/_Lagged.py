@@ -18,8 +18,7 @@ class Lagged_IObservableFloatFloat(Observable[float],Lagged_Impl):
         self.source = source if source is not None else _const_Float(1.0)
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0
-        if isinstance(timeframe, types.IEvent):
-            event.subscribe(self.timeframe, self.fire, self)
+        
         rtti.check_fields(self)
         Lagged_Impl.__init__(self)
     

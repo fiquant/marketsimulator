@@ -127,7 +127,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - constant
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | - 1.0

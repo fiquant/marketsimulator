@@ -10,16 +10,13 @@ class MarketSigned_Float(Observable[Order],IOrderGenerator):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
-        from marketsim import types
-        from marketsim.ops._all import Observable
-        from marketsim import rtti
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import event
         from marketsim import Order
+        from marketsim.ops._all import Observable
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import rtti
         Observable[Order].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
-        if isinstance(signedVolume, types.IEvent):
-            event.subscribe(self.signedVolume, self.fire, self)
+        
         rtti.check_fields(self)
     
     @property

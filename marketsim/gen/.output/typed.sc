@@ -602,7 +602,7 @@ package math {
         @label = "Min_{\\epsilon}(%(source)s)"
         
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
-        def MinEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(1.0),
+        def MinEpsilon(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                        /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
         
         /** Cumulative maximum of a function with positive tolerance.
@@ -612,7 +612,7 @@ package math {
         @label = "Max_{\\epsilon}(%(source)s)"
         
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
-        def MaxEpsilon(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(1.0),
+        def MaxEpsilon(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                        /** tolerance step         */ epsilon : Optional[.IFunction[.Float]] = .constant(0.01)) : .IObservable[.Float]
         
         /** Cumulative standard deviation
@@ -717,7 +717,7 @@ package math {
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
         
         @python.intrinsic("observable.minmax.Min_Impl")
-        def Min(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(1.0),
+        def Min(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
         
         /** Simple moving relative standard deviation
@@ -742,7 +742,7 @@ package math {
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
         
         @python.intrinsic("observable.minmax.Max_Impl")
-        def Max(/** observable data source */ source : Optional[.IFunction[.Float]] = .constant(1.0),
+        def Max(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
         
         /** Simple moving average
@@ -2879,7 +2879,7 @@ package observable {
      */
     
     @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float]
+    def BreaksAtChanges(source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
 }
 
 @python = "no"

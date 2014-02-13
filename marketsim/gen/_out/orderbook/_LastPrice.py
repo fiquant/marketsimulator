@@ -9,15 +9,12 @@ class LastPrice_IOrderQueue(Observable[Price],_LastPrice_Impl):
     """ 
     def __init__(self, queue = None):
         from marketsim import Price
-        from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim import rtti
-        from marketsim import event
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim import rtti
         Observable[Price].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
-        if isinstance(queue, types.IEvent):
-            event.subscribe(self.queue, self.fire, self)
+        
         rtti.check_fields(self)
         _LastPrice_Impl.__init__(self)
     
