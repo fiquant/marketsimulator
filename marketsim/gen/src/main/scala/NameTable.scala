@@ -234,19 +234,20 @@ package object NameTable {
                 }
         }
 
+        def hasFunction(name : String) = functions contains name
+        def hasPackage(name : String) = packages contains name
+        def hasType(name : String) = types contains name
+
         def lookupType(qn : List[String]) : Option[(Scope, AST.TypeDeclaration)] =
-
-            lookupScope((scope, name) => scope.types contains name, qn) map { scope => (scope, scope.types(qn.last) )}
-
+            lookupScope(_ hasType _, qn) map { scope => (scope, scope.types(qn.last) )}
 
         def lookupPackage(qn : List[String]) : Option[Scope] =
-
-            lookupScope((scope, name) => scope.packages contains name, qn) map { _.packages(qn.last) }
+            lookupScope(_ hasPackage _, qn) map { _.packages(qn.last) }
 
 
         def lookupFunction(qn : List[String]) : List[(Scope, AST.FunDef)] =
 
-            lookupScope((scope, name) => scope.functions contains name, qn) match {
+            lookupScope(_ hasFunction _, qn) match {
                 case None => Nil
                 case Some(scope) =>
                     scope.functions(qn.last) flatMap {
