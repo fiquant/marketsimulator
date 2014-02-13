@@ -339,6 +339,31 @@ package object NameTable {
             }
             qualify(_)
         }
+
+        def fullyQualified(f : AST.FunDef, context : List[(Scope, List[AST.Parameter])] = List((this, Nil))) = {
+            val packageArgs = context flatMap { _._2 }
+            def isLocal(n : String) = (packageArgs ++ f.parameters find { _.name == n }).nonEmpty
+            f.copy(
+                parameters = packageArgs ++ (f.parameters map { p =>
+                    p.copy(
+                        ty = p.ty map fullyQualifyType,
+                        initializer = p.initializer map fullyQualify(isLocal(_), context)
+                    )
+                }),
+                ty = f.ty map fullyQualifyType,
+                body = f.body map fullyQualify(isLocal(_), context)
+            )
+        }
+
+        def qualifyNames(context : List[(Scope, List[AST.Parameter])]) {
+            packages.values foreach { p => p.qualifyNames(context :+ (p, context.last._2 ++ p.parameters)) }
+
+            functions = functions mapValues { _ map {
+                case f : AST.FunDef => fullyQualified(f, context)
+                case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
+                case x => x
+            } }
+        }
     }
 
     private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
@@ -369,6 +394,9 @@ package object NameTable {
 
             println("\tapplying before typing annotations")
             Typed.BeforeTyping(impl)
+
+            println("\tqualifying names")
+            impl.qualifyNames((impl, Nil) :: Nil)
 
             Some(impl)
         } catch {

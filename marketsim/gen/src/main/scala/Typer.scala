@@ -179,7 +179,7 @@ package object Typer
                                         if typedOriginal.target.qualifiedName.slice(0,2) == "" :: "ops" :: Nil
                                     =>
                                         original.ty match {
-                                            case Some(AST.SimpleType(AST.QualifiedName("IFunction" :: Nil), args)) =>
+                                            case Some(AST.SimpleType(AST.QualifiedName("" :: "IFunction" :: Nil), args)) =>
                                                 // head is guaranteed to be the original overload
                                                 candidates(Nil, original.parameters).tail map { ps =>
                                                     original.copy(
@@ -425,11 +425,6 @@ package object Typer
             overloads filter { o => checkOverload(o._1) } match {
                 case Nil =>
 
-//                    println("Typing: " + name)
-//                    println("Arguments: " + (typed_args map { _.ty }))
-//                    println("First overload: " + overloads.head._1)
-//                    println("Can be casted?: " + checkOverload(overloads.head._1))
-
                     def possibleCasts(prefix : List[Typed.Expr],
                                       rest   : List[Typed.Expr])
                         : Stream[List[Typed.Expr]] = rest match
@@ -452,7 +447,8 @@ package object Typer
                     } match {
                         case Nil =>
                             throw new Exception(s"No suitable overload for call $name(${typed_args mkString ","}). Overloads are"
-                                    + predef.crlf + (overloads map { _._1 } mkString predef.crlf))
+                                    + predef.crlf + (overloads map { _._1 } mkString predef.crlf) + predef.crlf +
+                                    "Argument types are: " + (typed_args map { _.ty } mkString ("(",",",")") ))
 
                         case x :: Nil => x
 
