@@ -2167,6 +2167,30 @@ package strategy {@category = "Side function"
             	 = f
     }
     
+    
+    package lp {
+        /** Liquidity provider for one side
+         */
+        
+        def OneSide(/** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
+                    /** defines multipliers for current asset price when price of
+                      *                        order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1),
+                    /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                    /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit(),
+                    /** side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell() : .IFunction[.Side]) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+        
+        /** Liquidity provider for two sides
+         */
+        
+        def TwoSide(/** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
+                    /** defines multipliers for current asset price when price of
+                      *                        order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1),
+                    /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                    /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IOrderGenerator] = .order._curried.sideprice_Limit()) : .ISingleAssetStrategy
+            	 = .strategy.Array([.strategy.lp.OneSide(initialValue,priceDistr,eventGen,orderFactory,.side.Sell()),.strategy.lp.OneSide(initialValue,priceDistr,eventGen,orderFactory,.side.Buy())])
+    }
+    
     @category = "Price function"
     
     package price {

@@ -287,35 +287,23 @@ package object NameTable {
             }
 
 
-        def fullyQualify(isLocal : String => Boolean,
-                         context : List[(Scope, List[AST.Parameter])]) =
+        def fullyQualify(isLocal : String => Boolean) =
         {
             def qualify(e : AST.Expr) : AST.Expr = e match {
                 case AST.FunCall(n, params) =>
-                    val (common, qualified) =
+                    val qualified =
                         n.names match {
-                            case x :: Nil if isLocal(x) => (context.last._2, n)
+                            case x :: Nil if isLocal(x) => n
                             case _ =>
                                 lookupScope(_ hasFunction _, n) match {
                                     case Some(scope) =>
-                                        def commonPrefix(s : Scope) : List[AST.Parameter] =
-                                            context find { _._1 == s } match {
-                                                case Some(x) =>
-                                                    //println(x._2)
-                                                    x._2
-                                                case None    =>
-                                                    if (s.parent.nonEmpty)
-                                                        commonPrefix(s.parent.get)
-                                                    else Nil
-                                            }
-                                        (commonPrefix(scope), scope qualifyName n.last)
+                                        scope qualifyName n.last
                                     case None =>
                                         throw new Exception(s"Cannot lookup $n from scope $name")
                                 }
                         }
                     //println(context.last._2)
-                    val fresh = (common map { p => AST.Var(p.name)}) ++ params
-                    AST.FunCall(qualified, fresh map  qualify )
+                    AST.FunCall(qualified, params map  qualify )
 
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))
@@ -340,26 +328,34 @@ package object NameTable {
             qualify(_)
         }
 
-        def fullyQualified(f : AST.FunDef, context : List[(Scope, List[AST.Parameter])] = List((this, Nil))) = {
-            val packageArgs = context flatMap { _._2 }
-            def isLocal(n : String) = (packageArgs ++ f.parameters find { _.name == n }).nonEmpty
+        def fullyQualified(f : AST.FunDef) = {
+            def isLocal(n : String) =
+                (f.parameters find { _.name == n }).nonEmpty || getParameter(n).nonEmpty
+
             f.copy(
-                parameters = packageArgs ++ (f.parameters map { p =>
+                parameters = f.parameters map { p =>
                     p.copy(
                         ty = p.ty map fullyQualifyType,
-                        initializer = p.initializer map fullyQualify(isLocal(_), context)
+                        initializer = p.initializer map fullyQualify(isLocal(_))
                     )
-                }),
+                },
                 ty = f.ty map fullyQualifyType,
-                body = f.body map fullyQualify(isLocal(_), context)
+                body = f.body map fullyQualify(isLocal(_))
             )
         }
 
-        def qualifyNames(context : List[(Scope, List[AST.Parameter])]) {
-            packages.values foreach { p => p.qualifyNames(context :+ (p, context.last._2 ++ p.parameters)) }
+        def getParameter(name : String) : Option[AST.Parameter] =
+
+            parameters find { _.name == name } match {
+                case None => parent flatMap { _ getParameter name }
+                case x    => x
+            }
+
+        def qualifyNames() {
+            packages.values foreach { _.qualifyNames() }
 
             functions = functions mapValues { _ map {
-                case f : AST.FunDef => fullyQualified(f, context)
+                case f : AST.FunDef => fullyQualified(f)
                 case a : AST.FunAlias => a.copy(target = fullyQualifyName(a.target))
                 case x => x
             } }
@@ -396,7 +392,7 @@ package object NameTable {
             Typed.BeforeTyping(impl)
 
             println("\tqualifying names")
-            impl.qualifyNames((impl, Nil) :: Nil)
+            impl.qualifyNames()
 
             Some(impl)
         } catch {
