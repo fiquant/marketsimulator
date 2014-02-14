@@ -286,24 +286,24 @@ package object NameTable {
                 case Some(scope) => scope qualifyName n.last
             }
 
-
         def fullyQualify(isLocal : String => Boolean) =
         {
             def qualify(e : AST.Expr) : AST.Expr = e match {
                 case AST.FunCall(n, params) =>
-                    val qualified =
+                    val (qualified, extra_params) =
                         n.names match {
-                            case x :: Nil if isLocal(x) => n
+                            case x :: Nil if isLocal(x) => (n, Nil)
                             case _ =>
                                 lookupScope(_ hasFunction _, n) match {
                                     case Some(scope) =>
-                                        scope qualifyName n.last
+                                        (scope qualifyName n.last, scope.collectParameters.toList)
                                     case None =>
                                         throw new Exception(s"Cannot lookup $n from scope $name")
                                 }
                         }
+                    val extra = extra_params map { p => AST.Var(p.name) }
                     //println(context.last._2)
-                    AST.FunCall(qualified, params map  qualify )
+                    AST.FunCall(qualified, extra ++ (params map  qualify) )
 
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))

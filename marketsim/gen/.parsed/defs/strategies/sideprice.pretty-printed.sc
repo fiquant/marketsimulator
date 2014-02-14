@@ -33,7 +33,7 @@ package strategy() {
         /** Liquidity provider for two sides
          */
         def TwoSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                    /** order factory function*/ orderFactory = order.side_price.Limit()) = Array([OneSide(initialValue,priceDistr,eventGen,orderFactory,side.Sell()),OneSide(initialValue,priceDistr,eventGen,orderFactory,side.Buy())])
+                    /** order factory function*/ orderFactory = order.side_price.Limit()) = Array([OneSide(eventGen,orderFactory,side.Sell()),OneSide(eventGen,orderFactory,side.Buy())])
     }
     
     // defined at defs\strategies\sideprice.sc: 86.5

@@ -78,8 +78,8 @@ package strategy
                     orderFactory = order.side_price.Limit())
 
             =   Array([
-                    OneSide(initialValue, priceDistr, eventGen, orderFactory, side.Sell()),
-                    OneSide(initialValue, priceDistr, eventGen, orderFactory, side.Buy())
+                    OneSide(eventGen, orderFactory, side.Sell()),
+                    OneSide(eventGen, orderFactory, side.Buy())
                 ])
     }
 
