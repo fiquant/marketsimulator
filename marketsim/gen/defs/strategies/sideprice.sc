@@ -53,12 +53,7 @@ package strategy
         /**
          * Liquidity provider for one side
          */
-        def OneSide(/** initial price which is taken if orderBook is empty */
-                    initialValue = 100.0,
-                    /** defines multipliers for current asset price when price of
-                        order to create is calculated*/
-                    priceDistr   = math.random.lognormvariate(0., .1),
-                    /** Event source making the strategy to wake up*/
+        def OneSide(/** Event source making the strategy to wake up*/
                     eventGen     = event.Every(math.random.expovariate(1.)),
                     /** order factory function*/
                     orderFactory = order.side_price.Limit(),
@@ -77,12 +72,7 @@ package strategy
         /**
          * Liquidity provider for two sides
          */
-        def TwoSide(/** initial price which is taken if orderBook is empty */
-                    initialValue = 100.0,
-                    /** defines multipliers for current asset price when price of
-                        order to create is calculated*/
-                    priceDistr   = math.random.lognormvariate(0., .1),
-                    /** Event source making the strategy to wake up*/
+        def TwoSide(/** Event source making the strategy to wake up*/
                     eventGen     = event.Every(math.random.expovariate(1.)),
                     /** order factory function*/
                     orderFactory = order.side_price.Limit())

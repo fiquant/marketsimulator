@@ -25,24 +25,18 @@ package strategy() {
         // defined at defs\strategies\sideprice.sc: 53.9
         /** Liquidity provider for one side
          */
-        def OneSide(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,
-                    /** defines multipliers for current asset price when price of
-                      *                        order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
-                    /** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
+        def OneSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                     /** order factory function*/ orderFactory = order.side_price.Limit(),
                     /** side of orders to create */ side = .side.Sell() : IFunction[Side]) = Generic(orderFactory(side,price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
         
-        // defined at defs\strategies\sideprice.sc: 77.9
+        // defined at defs\strategies\sideprice.sc: 72.9
         /** Liquidity provider for two sides
          */
-        def TwoSide(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,
-                    /** defines multipliers for current asset price when price of
-                      *                        order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
-                    /** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
+        def TwoSide(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                     /** order factory function*/ orderFactory = order.side_price.Limit()) = Array([OneSide(initialValue,priceDistr,eventGen,orderFactory,side.Sell()),OneSide(initialValue,priceDistr,eventGen,orderFactory,side.Buy())])
     }
     
-    // defined at defs\strategies\sideprice.sc: 96.5
+    // defined at defs\strategies\sideprice.sc: 86.5
     /** A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.
      *
@@ -57,7 +51,7 @@ package strategy() {
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
                    /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)+delta),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.Quote(ticker,start,end)-delta),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
     
-    // defined at defs\strategies\sideprice.sc: 134.5
+    // defined at defs\strategies\sideprice.sc: 124.5
     def MarketMaker(delta = 1.0,
                     volume = 20.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),100+delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),100-delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
 }

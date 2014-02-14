@@ -333,7 +333,7 @@ package object NameTable {
                 (f.parameters find { _.name == n }).nonEmpty || getParameter(n).nonEmpty
 
             f.copy(
-                parameters = f.parameters map { p =>
+                parameters = (collectParameters.toList ++ f.parameters) map { p =>
                     p.copy(
                         ty = p.ty map fullyQualifyType,
                         initializer = p.initializer map fullyQualify(isLocal(_))
@@ -350,6 +350,12 @@ package object NameTable {
                 case None => parent flatMap { _ getParameter name }
                 case x    => x
             }
+
+        def collectParameters : Stream[AST.Parameter] =
+            (parent match {
+                case None    => Stream.empty
+                case Some(p) => p.collectParameters
+            }) ++ parameters.toStream
 
         def qualifyNames() {
             packages.values foreach { _.qualifyNames() }

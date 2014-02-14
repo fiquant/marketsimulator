@@ -281,32 +281,6 @@ Definitions:
 | | | | | | | | - OneSide
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
-| | | | | | | | | | - initialValue
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  initial price which is taken if orderBook is empty 
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - priceDistr
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | - random
-| | | | | | | | | | | | | | - lognormvariate
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.1
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  defines multipliers for current asset price when price of
-| | | | | | | | | | | -                         order to create is calculated
-| | | | | | | | | - Parameter:
 | | | | | | | | | | - eventGen
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
@@ -400,32 +374,6 @@ Definitions:
 | | | | | | | - FunDef:
 | | | | | | | | - TwoSide
 | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - initialValue
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  initial price which is taken if orderBook is empty 
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - priceDistr
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | - random
-| | | | | | | | | | | | | | - lognormvariate
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.1
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  defines multipliers for current asset price when price of
-| | | | | | | | | | | -                         order to create is calculated
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - eventGen
 | | | | | | | | | | - None
