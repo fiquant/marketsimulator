@@ -1,6 +1,6 @@
 @category = "Trader"
 
-package trader {
+package trader() {
     // defined at defs\trader\classes.sc: 4.5
     /** A trader that trades a single asset on a single market
      */

@@ -1,6 +1,6 @@
 @category = "Asset"
 
-package orderbook {
+package orderbook() {
     // defined at defs\orderbook\properties.sc: 4.5
     /** Returns order queue of order *book* for trade *side*
      */
@@ -112,7 +112,7 @@ package orderbook {
                      /** distance between two volumes */ volumeDelta = 30.0,
                      /** number of volume levels to track */ volumeCount = 10) : IObservable[IVolumeLevels]
     
-    abstract package _base_impl {
+    abstract package _base_impl() {
         // defined at defs\orderbook\properties.sc: 134.9
         @label = "{{queue}}"
         def Price(book = OfTrader()) = BestPrice(_queue(book))
@@ -136,12 +136,12 @@ package orderbook {
     }
     @queue = "Ask_{%(book)s}"
     
-    package ask extends _base_impl {
+    package ask() extends _base_impl {
         def _queue = Asks
     }
     @queue = "Bid^{%(book)s}"
     
-    package bid extends _base_impl {
+    package bid() extends _base_impl {
         def _queue = Bids
     }
 }

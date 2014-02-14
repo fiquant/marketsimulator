@@ -1,6 +1,6 @@
 @category = "Trader"
 
-package trader {
+package trader() {
     // defined at defs\trader\properties.sc: 4.5
     /** Returns position of the trader
      *  It is negative if trader has sold more assets than has bought and

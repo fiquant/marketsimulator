@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     // defined at defs\strategies\side.sc: 3.5
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */

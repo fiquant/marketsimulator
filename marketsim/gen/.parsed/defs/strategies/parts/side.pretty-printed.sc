@@ -1,6 +1,6 @@
 @category = "Side function"
 
-package strategy.side {
+package strategy.side() {
     // defined at defs\strategies\parts\side.sc: 4.5
     /** Side function for a noise trading strategy
      */

@@ -1,5 +1,5 @@
 
-package math {
+package math() {
     // defined at defs\math\process.sc: 3.5
     /** A discrete signal with user-defined increments.
      */

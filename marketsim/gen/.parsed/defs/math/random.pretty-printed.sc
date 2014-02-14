@@ -1,5 +1,5 @@
 
-package math.random {
+package math.random() {
     // defined at defs\math\random.sc: 3.1
     /** Beta distribution
      *

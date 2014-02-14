@@ -1,6 +1,6 @@
 @category = "Basic"
 
-package  {
+package () {
     // defined at defs\misc.sc: 3.5
     /** Function always returning *x*
      */

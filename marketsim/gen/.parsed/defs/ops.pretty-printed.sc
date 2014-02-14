@@ -1,6 +1,6 @@
 @category = "Ops"
 
-package ops {
+package ops() {
     // defined at defs\ops.sc: 4.5
     @label = "-%(x)s"
     @python.intrinsic.observable("ops._Negate_Impl")
@@ -13,7 +13,7 @@ package ops {
             y = constant(1.0)) : IFunction[Float]
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
-    package  {
+    package () {
         // defined at defs\ops.sc: 15.9
         @symbol = "*"
         @python.intrinsic.observable("ops._Mul_Impl")
@@ -34,7 +34,7 @@ package ops {
     }
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    package  {
+    package () {
         // defined at defs\ops.sc: 30.9
         @python.intrinsic.observable("ops._Condition_Impl")
         def Condition(cond = true(),
@@ -49,7 +49,7 @@ package ops {
     }
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
-    package  {
+    package () {
         // defined at defs\ops.sc: 46.9
         @symbol = "=="
         @python.intrinsic.observable("ops._Equal_Impl")

@@ -1,6 +1,6 @@
 @category = "Volume function"
 
-package strategy.position {
+package strategy.position() {
     // defined at defs\strategies\parts\position.sc: 4.5
     /** Position function for desired position strategy
      */

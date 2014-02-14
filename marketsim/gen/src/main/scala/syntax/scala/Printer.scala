@@ -161,18 +161,23 @@ package object Printer
         trait Package[+T <: Definition] extends Printable with Definition {
             val members : Definitions[T]
             def attributes : Iterable[Decorator]
+            def parameters : Iterable[Parameter]
             val `abstract` : Boolean
             val bases      : Iterable[Any]
 
             def getName : String
 
-            protected def toScala = (
+            protected def toScala = {
+                    val title = (if (`abstract`) "abstract " else "") + "package " + getName
                     (attributes map { _ + crlf } mkString "") +
-                    crlf + (if (`abstract`) "abstract " else "") + "package " + getName
-                    + (bases map { " extends " + _ } mkString "")
-                    + " {"
-                    + indent() { members }
-                    + crlf + "}")
+                    crlf + title +
+                    indent(title.length + 1){
+                            parameters.mkString("(", "," + crlf, ")") } +
+                    (bases map { " extends " + _ } mkString "") +
+                    " {" +
+                    indent() { members } +
+                    crlf + "}"
+            }
         }
 
         trait TypeDeclaration extends Printable with Definition

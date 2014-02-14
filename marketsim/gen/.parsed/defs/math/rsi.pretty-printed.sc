@@ -1,5 +1,5 @@
 
-package math {
+package math() {
     // defined at defs\math\rsi.sc: 3.5
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
@@ -23,7 +23,7 @@ package math {
                       /** lag size */ timeframe = 10.0) = Max(0.0,Lagged(source,timeframe)-source)
     @category = "RSI"
     
-    package rsi {
+    package rsi() {
         // defined at defs\math\rsi.sc: 32.9
         /** Absolute value for Relative Strength Index
          */

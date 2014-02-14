@@ -1,8 +1,8 @@
 @category = "Basic"
 
-package math {@category = "Log/Pow"
+package math() {@category = "Log/Pow"
     
-    package  {
+    package () {
         // defined at defs\math\basic.sc: 7.5
         /** Square of *x*
          */
@@ -49,7 +49,7 @@ package math {@category = "Log/Pow"
                 power = constant(1.0)) : () => Float
     }
     
-    package  {
+    package () {
         // defined at defs\math\basic.sc: 49.5
         /** Function returning minimum of two functions *x* and *y*.
          * If *x* or/and *y* are observables, *Min* is also observable
@@ -78,7 +78,7 @@ package math {@category = "Log/Pow"
     }
     @category = "Trigonometric"
     
-    package  {
+    package () {
         // defined at defs\math\basic.sc: 76.5
         /** Arc tangent of x, in radians.
          *

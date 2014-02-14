@@ -1,7 +1,7 @@
 
-package math {@category = "Statistics"
+package math() {@category = "Statistics"
     
-    package Moving {
+    package Moving() {
         // defined at defs\math\minmax.sc: 6.9
         /** Running minimum of a function
          */
@@ -20,7 +20,7 @@ package math {@category = "Statistics"
     }
     @category = "Statistics"
     
-    package Cumulative {
+    package Cumulative() {
         // defined at defs\math\minmax.sc: 26.9
         /** Cumulative minimum of a function with positive tolerance.
          *

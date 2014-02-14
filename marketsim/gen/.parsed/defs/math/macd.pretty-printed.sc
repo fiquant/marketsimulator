@@ -1,6 +1,6 @@
 @category = "MACD"
 
-package math.macd {
+package math.macd() {
     // defined at defs\math\macd.sc: 4.5
     /** Moving average convergence/divergence
      */

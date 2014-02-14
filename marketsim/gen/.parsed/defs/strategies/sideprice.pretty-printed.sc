@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     // defined at defs\strategies\sideprice.sc: 3.5
     /** Liquidity provider for one side
      */

@@ -1,6 +1,6 @@
 @category = "Event"
 
-package event {
+package event() {
     // defined at defs\event.sc: 4.5
     /** Event that fires every *intervalFunc* moments of time
      */

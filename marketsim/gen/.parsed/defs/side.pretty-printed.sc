@@ -2,7 +2,7 @@
 type Side
 @category = "Side"
 
-package side {
+package side() {
     // defined at defs\side.sc: 10.5
     /** Function always returning Sell side
      */

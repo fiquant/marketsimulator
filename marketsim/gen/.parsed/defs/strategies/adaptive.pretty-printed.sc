@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     // defined at defs\strategies\adaptive.sc: 3.5
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */

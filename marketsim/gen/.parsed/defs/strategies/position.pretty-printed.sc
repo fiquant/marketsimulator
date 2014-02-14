@@ -1,5 +1,5 @@
 
-package strategy {
+package strategy() {
     // defined at defs\strategies\position.sc: 3.5
     /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
      */

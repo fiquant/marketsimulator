@@ -1,5 +1,5 @@
 
-package strategy.account {
+package strategy.account() {
     // defined at defs\strategies\efficiency.sc: 3.5
     /** Associated with a strategy account that tracks
      *  how orders sent by the strategy have been actually traded
@@ -23,7 +23,7 @@ package strategy.account {
     def virtualMarket = inner.inner_VirtualMarket
 }
 
-package strategy.weight {
+package strategy.weight() {
     def atanPow = f.f_AtanPow
     
     def clamp0 = f.f_Clamp0

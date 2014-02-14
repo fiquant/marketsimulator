@@ -1,6 +1,6 @@
 @category = "Basic"
 
-package observable {
+package observable() {
     // defined at defs\observable.sc: 4.5
     /** Discretizes function *x* at even time steps *dt*
      */

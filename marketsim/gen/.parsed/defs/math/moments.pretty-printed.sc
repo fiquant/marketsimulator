@@ -1,9 +1,9 @@
 
-package math {@category = "Statistics"
+package math() {@category = "Statistics"
     
-    package  {@suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
+    package () {@suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
         
-        package EW {
+        package EW() {
             // defined at defs\math\moments.sc: 9.13
             /** Exponentially weighted moving average
              */
@@ -36,7 +36,7 @@ package math {@category = "Statistics"
         }
         @suffix = "_{cumul}(%(source)s)"
         
-        package Cumulative {
+        package Cumulative() {
             // defined at defs\math\moments.sc: 43.13
             /** Cumulative average
              */
@@ -65,7 +65,7 @@ package math {@category = "Statistics"
         }
         @suffix = "_{n=%(timeframe)s}(%(source)s)"
         
-        package Moving {
+        package Moving() {
             // defined at defs\math\moments.sc: 75.13
             /** Simple moving average
              */

@@ -1,6 +1,6 @@
 @category = "Price function"
 
-package strategy.price {
+package strategy.price() {
     // defined at defs\strategies\parts\price.sc: 4.5
     /** Price function for a liquidity provider strategy
      */

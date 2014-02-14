@@ -1,6 +1,6 @@
 @category = "Order"
 
-package order {
+package order() {
     // defined at defs\order.sc: 12.5
     /** Factory creating market orders
      *

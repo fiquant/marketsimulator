@@ -1,6 +1,6 @@
 @category = "Basic"
 
-package  {
+package () {
     // defined at defs\graph.sc: 4.5
     /** Observable returning at the end of every *timeframe*
      * open/close/min/max price, its average and standard deviation
@@ -36,7 +36,7 @@ package  {
 }
 @category = "N/A"
 
-package veusz {
+package veusz() {
     // defined at defs\graph.sc: 45.5
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */

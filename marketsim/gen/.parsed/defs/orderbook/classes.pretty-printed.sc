@@ -1,6 +1,6 @@
 @category = "Asset"
 
-package orderbook {
+package orderbook() {
     // defined at defs\orderbook\classes.sc: 4.5
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides
