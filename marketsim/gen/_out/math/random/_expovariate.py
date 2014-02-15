@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim import float
-from marketsim.ops._function import Function
+from marketsim import Function
 @registry.expose(["Random", "expovariate"])
 class expovariate_Float(Function[float]):
     """ 

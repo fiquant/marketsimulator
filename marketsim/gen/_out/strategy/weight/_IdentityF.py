@@ -4,8 +4,8 @@ def identityF():
     return _strategy_weight_f_f_IdentityF_()
     raise Exception('Cannot find suitable overload for identityF('++')')
 from marketsim import IFunction
+from marketsim import Function
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "IdentityF"])

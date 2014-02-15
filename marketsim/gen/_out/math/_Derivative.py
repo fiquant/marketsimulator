@@ -1,7 +1,7 @@
 from marketsim import IDifferentiable
+from marketsim import Function
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
-from marketsim.ops._function import Function
 from marketsim import float
 @registry.expose(["Basic", "Derivative"])
 class Derivative_IDifferentiable(Function[float],_Derivative_Impl):

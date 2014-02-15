@@ -1,6 +1,6 @@
 from marketsim import IObservable
+from marketsim import Function
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["MACD", "Signal"])

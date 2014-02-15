@@ -1,1 +1,0 @@
-from marketsim import Function

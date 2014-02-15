@@ -143,7 +143,7 @@ package object base {
 
         def functionBase =
             f.ret_type.returnTypeIfFunction map { t =>
-                s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim.ops._function")
+                s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim")
             }
 
         override def base_class_list =

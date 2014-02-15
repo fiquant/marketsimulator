@@ -4,8 +4,8 @@ def unit():
     return _strategy_weight_trader_trader_Unit_()
     raise Exception('Cannot find suitable overload for unit('++')')
 from marketsim import IAccount
+from marketsim import Function
 from marketsim import registry
-from marketsim.ops._function import Function
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "Unit"])

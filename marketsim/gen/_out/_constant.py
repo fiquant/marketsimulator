@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim import int
-from marketsim.ops._function import Function
+from marketsim import Function
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Int(Function[int]):
@@ -40,7 +40,7 @@ class constant_Int(Function[int]):
     
 from marketsim import registry
 from marketsim import float
-from marketsim.ops._function import Function
+from marketsim import Function
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Float(Function[float]):

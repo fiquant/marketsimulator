@@ -5,7 +5,7 @@ sys.setrecursionlimit(10000)
 from marketsim import (_, scheduler, veusz, registry, config,
                        context, bind, IEvent)
 
-from marketsim.ops._function import Function
+from marketsim import Function
 
 from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
 

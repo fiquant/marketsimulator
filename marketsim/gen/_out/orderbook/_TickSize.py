@@ -1,8 +1,8 @@
 from marketsim.gen._intrinsic.orderbook.props import _TickSize_Impl
 from marketsim import IOrderBook
+from marketsim import Function
 from marketsim import registry
 from marketsim import Price
-from marketsim.ops._function import Function
 @registry.expose(["Asset", "TickSize"])
 class TickSize_IOrderBook(Function[Price],_TickSize_Impl):
     """ 
