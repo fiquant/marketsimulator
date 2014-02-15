@@ -8,7 +8,7 @@ from reference import Reference
 
 from types import (IObservable, IFunction, ISingleAssetTrader,
                    IOrderQueue, IOrderBook, IDifferentiable,
-                   IFunction, IObservable,
+                   IFunction, IObservable, Function,
                    IOrderGenerator, IEvent,
                    ISingleAssetStrategy, IMultiAssetStrategy,
                    listOf,
@@ -37,6 +37,8 @@ class CandleStick(collections.namedtuple("CandleStick", [
                                      ])):
 
     pass
+
+
 
 class Alias(object):
     
