@@ -156,6 +156,8 @@ package object TypesBound
 
     case class Interface(decl : Typed.InterfaceDecl, genericArgs : List[Base]) extends UserDefined
     {
+        decl addInstance this
+
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
 
         override def canCastToImpl(other : Base) =  (bases exists { _ canCastTo other }) ||
@@ -193,6 +195,8 @@ package object TypesBound
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base]) extends UserDefined
     {
         val target = decl.target bind TypeMapper(decl, genericArgs)
+
+        decl addInstance this
 
         override def canCastToImpl(other : Base) =  (target canCastTo other) ||
                     (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})

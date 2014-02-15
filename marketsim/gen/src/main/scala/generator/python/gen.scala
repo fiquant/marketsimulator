@@ -135,9 +135,14 @@ package object gen
                             }
 
                         case alias : Typed.AliasDecl =>
-                            if (alias.generics.isEmpty)
-                                for (out <- managed(printWriter(dir, s"_${alias.name}.py")))
+                            for (out <- managed(printWriter(dir, s"_${alias.name}.py")))
+                                if (alias.generics.isEmpty)
                                     out.println(alias.name + " = " + alias.target.toString)
+                                else {
+                                    alias.instances foreach {
+                                        a => //out.println(a.asCode)
+                                    }
+                                }
                 }
             }
 

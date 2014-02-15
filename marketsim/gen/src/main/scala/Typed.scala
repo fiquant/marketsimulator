@@ -248,6 +248,13 @@ package object Typed
                 TypesUnbound.Alias(this, genericArgs)
         })
         def resolveGenerics(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
+
+        var instances = Set.empty[TypesBound.Base]
+
+        def addInstance(x : TypesBound.Base) {
+            instances = instances + x
+        }
+
     }
 
     case class InterfaceDecl(name       : String,
@@ -263,6 +270,12 @@ package object Typed
                 TypesUnbound.Interface(this, genericArgs)
         })
         def resolveGenerics(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
+
+        var instances = List.empty[TypesBound.Interface]
+
+        def addInstance(x : TypesBound.Interface) {
+            instances = x :: instances
+        }
     }
 
 

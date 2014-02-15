@@ -3,10 +3,12 @@ import math
 
 from marketsim import  _, types, ops
 
-class BestPrice(ops.Observable[float]):
+from marketsim.ops._all import Observable
+
+class BestPrice(Observable[float]):
 
     def __init__(self, queue):
-        ops.Observable[float].__init__(self)
+        Observable[float].__init__(self)
         self.queue = queue
 
     @property
@@ -21,10 +23,10 @@ class BestPrice(ops.Observable[float]):
         return None if self.queue.empty else self.queue.best.price
 
 
-class LastTrade(ops.Observable[float]):
+class LastTrade(Observable[float]):
 
     def __init__(self):
-        ops.Observable[float].__init__(self)
+        Observable[float].__init__(self)
         self._lastTrade = None
 
     def set(self, value):

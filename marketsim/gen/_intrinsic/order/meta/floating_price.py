@@ -35,7 +35,9 @@ class Order_Impl(_meta.OwnsSingleOrder):
 
 from marketsim.gen._out._constant import constant
 
-class Factory_Impl(ops.Observable[Order]):
+from marketsim.ops._all import Observable
+
+class Factory_Impl(Observable[Order]):
     
     def __call__(self):
         proto = self.proto(constant(0))()

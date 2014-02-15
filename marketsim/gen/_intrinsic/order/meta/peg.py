@@ -28,8 +28,10 @@ def Peg(order):
 
     return FloatingPrice(order, price)
 
+from marketsim.ops._all import Observable
+
 # unfortunately we cannot use _floating_price.Factory since price function depends on the order side 
-class Factory_Impl(ops.Observable[Order]):
+class Factory_Impl(Observable[Order]):
     
     def __call__(self):
         from marketsim.gen._out._constant import constant
