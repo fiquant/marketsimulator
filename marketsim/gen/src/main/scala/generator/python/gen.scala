@@ -3,6 +3,7 @@ package generator.python
 import java.io._
 import resource._
 import scala.Some
+import predef._
 
 package object gen
 {
@@ -117,20 +118,26 @@ package object gen
 
             if (p.types.nonEmpty)
             {
-                for (out <- managed(printWriter(dir, "_types.py")))
-                {
-                    p.types.values foreach {
-                        case interface : Typed.InterfaceDecl =>
-                            if (interface.generics.isEmpty) {
-                                val name = interface.name
-                                val bases = interface.bases map { "," + _.toString } mkString ""
-                                out.println(s"#class $name(object$bases): pass")
+                p.types.values foreach {
+                    case interface : Typed.InterfaceDecl =>
+                        if (interface.generics.isEmpty) {
+                            val name = interface.name
+                            for (out <- managed(printWriter(dir, s"_$name.py")))
+                            {
+                                val bases =
+                                    if (interface.bases.nonEmpty)
+                                            interface.bases map { _.asCode } reduce { _ ||| "," ||| _ }
+                                        else
+                                            toLazy("object")
+
+                                    out.println(s"class $name("||| bases |||"): pass")
+                                }
                             }
 
                         case alias : Typed.AliasDecl =>
                             if (alias.generics.isEmpty)
-                                out.println("#" + alias.name + " = " + alias.target.toString)
-                    }
+                                for (out <- managed(printWriter(dir, s"_${alias.name}.py")))
+                                    out.println(alias.name + " = " + alias.target.toString)
                 }
             }
 

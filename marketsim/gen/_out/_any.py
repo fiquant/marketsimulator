@@ -1,0 +1,1 @@
+class Any(object): pass

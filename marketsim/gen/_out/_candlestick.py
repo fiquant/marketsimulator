@@ -1,0 +1,1 @@
+class CandleStick(object): pass

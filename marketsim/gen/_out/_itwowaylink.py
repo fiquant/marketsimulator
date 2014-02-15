@@ -1,0 +1,1 @@
+class ITwoWayLink(object): pass

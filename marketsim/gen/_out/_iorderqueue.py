@@ -1,0 +1,1 @@
+class IOrderQueue(object): pass

@@ -1,0 +1,1 @@
+class IGraph(object): pass

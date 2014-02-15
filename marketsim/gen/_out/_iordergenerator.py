@@ -1,0 +1,1 @@
+IOrderGenerator = IObservable[Order]

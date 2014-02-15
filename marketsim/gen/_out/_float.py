@@ -1,0 +1,1 @@
+class Float(object): pass

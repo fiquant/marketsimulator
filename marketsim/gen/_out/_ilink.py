@@ -1,0 +1,1 @@
+class ILink(object): pass

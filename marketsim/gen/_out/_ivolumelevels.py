@@ -1,0 +1,1 @@
+class IVolumeLevels(object): pass

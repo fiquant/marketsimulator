@@ -1,0 +1,1 @@
+class ISingleAssetStrategy(object): pass

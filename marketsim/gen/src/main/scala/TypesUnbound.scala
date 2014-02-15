@@ -4,9 +4,12 @@ package object TypesUnbound
 {
     import predef.{ScPyPrintable, ScPrintable}
     import syntax.scala.Printer.{types => sc}
+    import generator.python.Printer.{types => py}
+    import predef.Code
 
     sealed abstract class Base
         extends sc.Base
+        with    py.Printable
         with    ScPrintable
     {
         def bind(m : ITypeMapper[TypesBound.Base]) : TypesBound.Base
@@ -44,12 +47,15 @@ package object TypesUnbound
     {
         protected override def toScala = name
 
+        def asCode = name
+
         def bind(m : ITypeMapper[TypesBound.Base]) = m(this)
         def substitute(m : ITypeMapper[TypesUnbound.Base]) = m(this)
     }
 
     case object Unit
             extends Base
+            with    py.Unit
             with    sc.Unit
     {
         def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Unit
@@ -58,6 +64,7 @@ package object TypesUnbound
 
     case class Tuple(elems : List[Base])
             extends Base
+            with    py.Tuple
             with    sc.Tuple
     {
         def bind(m : ITypeMapper[TypesBound.Base]) =
@@ -69,6 +76,7 @@ package object TypesUnbound
 
     case class Function(args : List[Base], ret : Base)
             extends Base
+            with    py.Function
             with    sc.Function
     {
         def bind(m : ITypeMapper[TypesBound.Base]) =
@@ -84,6 +92,7 @@ package object TypesUnbound
 
     sealed abstract class UserDefined
             extends Base
+            with    py.UsedDefined
             with    sc.UsedDefined_Unbound
     {
         val decl        : Typed.TypeDeclaration

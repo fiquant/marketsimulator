@@ -1,0 +1,1 @@
+class ITrader(object): pass

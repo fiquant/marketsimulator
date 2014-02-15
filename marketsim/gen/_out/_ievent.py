@@ -1,0 +1,1 @@
+class IEvent(object): pass

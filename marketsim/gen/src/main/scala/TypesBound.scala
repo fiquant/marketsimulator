@@ -8,7 +8,7 @@ package object TypesBound
 
     sealed abstract class Base
             extends sc.Base
-            with    py.Bound
+            with    py.Printable
             with    ScPyPrintable
     {
         final def canCastTo(other : Base) : Boolean = this == other || (other match {

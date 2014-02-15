@@ -1,0 +1,1 @@
+class Side(object): pass

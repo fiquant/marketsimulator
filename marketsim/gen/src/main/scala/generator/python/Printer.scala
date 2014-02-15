@@ -7,55 +7,56 @@ object Printer {
     import predef.{Code, Combine, ImportFrom}
 
     trait Printable
+    {
+        def asCode : Code
+    }
 
     object types {
 
-        trait Bound extends Printable
-        {
-            def asCode : Code
-        }
+        type Printable = Printer.Printable
 
-        trait Unit extends Bound {
+        trait Unit extends Printable {
             def asCode : Code =
                 throw new Exception("Unit types are not supported yet for python generation")
         }
 
-        trait Nothing extends Bound {
+        trait Nothing extends Printable {
             def asCode : Code =
                 throw new Exception("Nothing types are not supported for python generation")
         }
 
-        trait Any_ extends Bound {
+        trait Any_ extends Printable {
             def asCode : Code = "object"
         }
 
-        trait Optional extends Bound {
-            def x : Bound
+        trait Optional extends Printable {
+            def x : Printable
             def asCode = x.asCode
         }
 
-        trait List_ extends Bound {
-            def x : Bound
+        trait List_ extends Printable {
+            def x : Printable
             def asCode = s"listOf("||| x.asCode |||")" |||  ImportFrom("listOf", "marketsim")
         }
 
-        trait Tuple extends Bound {
-            val elems : List[Bound]
+        trait Tuple extends Printable {
+            val elems : List[Printable]
 
             def asCode = "(" ||| Code.from(elems map { _.asCode ||| "," }) ||| ")"
         }
 
-        trait Function extends Bound {
-            val args : List[Bound]
-            val ret : Bound
+        trait Function extends Printable {
+            val args : List[Printable]
+            val ret : Printable
 
             def asCode =
                 "IFunction[" ||| ret.asCode ||| Code.from(args map { "," ||| _.asCode  }) ||| "]" ||| ImportFrom("IFunction", "marketsim")
         }
 
-        trait UsedDefined extends st.UsedDefined with Printable with Bound
+        trait UsedDefined extends Printable
         {
-            self: TypesBound.UserDefined =>
+            def genericArgs : List[Printable]
+            def decl : Typed.TypeDeclaration
 
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",
@@ -63,7 +64,7 @@ object Printer {
                                "String" -> "str")
 
             def asCode = {
-                def impl(xs : List[Bound]) : Code = xs match {
+                def impl(xs : List[Printable]) : Code = xs match {
                     case Nil => stop
                     case x :: Nil => x.asCode
                     case x :: y => x.asCode ||| "," ||| impl(y)
