@@ -6,31 +6,37 @@ Definitions:
 | | | - List:
 | | | | - T
 | | - List:
+| | - List:
 | - Interface:
 | | - List
 | | - Generics:
 | | | - List:
 | | | | - T
 | | - List:
+| | - List:
 | - Interface:
 | | - Any
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - String
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - Boolean
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - Float
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - Int
@@ -42,6 +48,7 @@ Definitions:
 | | | | | - List:
 | | | | | | - Float
 | | | | - List:
+| | - List:
 | - Alias:
 | | - Volume
 | | - Generics:
@@ -51,6 +58,7 @@ Definitions:
 | | | | - List:
 | | | | | - Int
 | | | - List:
+| | - List:
 | - Alias:
 | | - Price
 | | - Generics:
@@ -60,6 +68,7 @@ Definitions:
 | | | | - List:
 | | | | | - Float
 | | | - List:
+| | - List:
 | - Alias:
 | | - IFunction
 | | - Generics:
@@ -72,10 +81,12 @@ Definitions:
 | | | | | - List:
 | | | | | | - T
 | | | | - List:
+| | - List:
 | - Interface:
 | | - IEvent
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - IObservable
@@ -98,25 +109,30 @@ Definitions:
 | | | | | - List:
 | | | | | | - IEvent
 | | | | - List:
+| | - List:
 | - Interface:
 | | - IOrderQueue
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - IOrderBook
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ILink
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ITwoWayLink
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Alias:
 | | - IOrderGenerator
@@ -132,15 +148,18 @@ Definitions:
 | | | | | | - List:
 | | | | | | | - Order
 | | | | | - List:
+| | - List:
 | - Interface:
 | | - ITrader
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IAccount
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - ISingleAssetTrader
@@ -157,6 +176,7 @@ Definitions:
 | | | | | - List:
 | | | | | | - ITrader
 | | | | - List:
+| | - List:
 | - Interface:
 | | - IDifferentiable
 | | - Generics:
@@ -172,38 +192,46 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Float
 | | | | | | - List:
+| | - List:
 | - Interface:
 | | - CandleStick
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - IVolumeLevels
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - Order
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - ISingleAssetStrategy
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IMultiAssetStrategy
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:
 | - Interface:
 | | - IGraph
 | | - Generics:
 | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ITimeSerie
 | | - Generics:
 | | | - List:
+| | - List:
 | | - List:

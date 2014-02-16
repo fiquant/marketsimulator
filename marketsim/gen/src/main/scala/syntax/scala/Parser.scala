@@ -165,12 +165,12 @@ abstract class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val type_bases = ":" ~> repsep(typ, ",")
 
-    lazy val type_declaration = opt(comment) ~> "type" ~> ident ~ generics ~ opt(type_bases) ^^ {
-        case (name ~ g ~ bases) => Interface(name, g, bases match { case None => Nil case Some(x) => x })
+    lazy val type_declaration = opt(comment) ~ rep(decorator) ~ ("type" ~> ident) ~ generics ~ opt(type_bases) ^^ {
+        case (c ~ decorators ~ name ~ g ~ bases) => Interface(name, g, bases match { case None => Nil case Some(x) => x }, decorators)
     }
 
-    lazy val type_alias = "type" ~> ident ~ generics ~ ("=" ~> typ) ^^ {
-        case (name ~ g ~target) => Alias(name, g, target)
+    lazy val type_alias = rep(decorator) ~ ("type" ~> ident) ~ generics ~ ("=" ~> typ) ^^ {
+        case (decorators ~ name ~ g ~target) => Alias(name, g, target, decorators)
     }
 
     lazy val package_body = ("{" ~> definitions <~ "}") | definitions

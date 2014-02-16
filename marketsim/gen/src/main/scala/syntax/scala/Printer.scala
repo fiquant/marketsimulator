@@ -182,20 +182,26 @@ package object Printer
 
         trait TypeDeclaration extends Printable with Definition
         {
+            val decorators : Iterable[Decorator]
             val name : String
             val generics : Generics
             val bases : List[Any]
 
-            protected def toScala = crlf + "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            protected def toScala = crlf +
+                    (decorators map {_ + crlf} mkString "") +
+                    "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait TypeAlias extends Printable with Definition
         {
+            val decorators : Iterable[Decorator]
             val name : String
             val generics : Generics
             val target : Any
 
-            protected def toScala = crlf + s"type $name$generics = $target"
+            protected def toScala = crlf +
+                    (decorators map {_ + crlf} mkString "") +
+                    s"type $name$generics = $target"
         }
 
         trait FunctionAlias extends Printable with Definition

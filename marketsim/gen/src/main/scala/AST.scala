@@ -121,14 +121,16 @@ package object AST {
 
     case class Interface(name       : String,
                          generics   : Generics,
-                         bases      : List[Type])
+                         bases      : List[Type],
+                         decorators : List[Decorator])
             extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable
 
     case class Alias(name       : String,
                      generics   : Generics,
-                     target     : Type)
+                     target     : Type,
+                     decorators : List[Decorator])
             extends TypeDeclaration
             with    pp.TypeAlias
             with    ScPrintable
