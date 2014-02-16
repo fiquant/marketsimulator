@@ -2287,6 +2287,9 @@ type ITrader
 
 type IGraph
 
+@impl = "_Function_Impl"
+type Function[T] : IFunction[T]
+
 type CandleStick
 
 type Volume = Int

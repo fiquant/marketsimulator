@@ -19,6 +19,9 @@ type Price = Float
 
 type IFunction[T] = () => T
 
+@impl = "_Function_Impl"
+type Function[T] : IFunction[T]
+
 type IEvent
 
 type IObservable[U] : IFunction[U], IEvent

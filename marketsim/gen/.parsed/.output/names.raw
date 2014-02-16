@@ -16713,6 +16713,26 @@ Definitions:
 | | - List:
 | | - List:
 | - Interface:
+| | - Function
+| | - Generics:
+| | | - List:
+| | | | - T
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IFunction
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - T
+| | | | | | - List:
+| | - List:
+| | | - Attribute:
+| | | | - impl
+| | | | - _Function_Impl
+| - Interface:
 | | - CandleStick
 | | - Generics:
 | | | - List:

@@ -2846,29 +2846,32 @@ package trash() {
     }
     
     package overloading() {
-        // defined at .output\typed.sc: 2968.9
+        // defined at .output\typed.sc: 2972.9
         def f(x : .IFunction[.Volume]) : .IFunction[.Volume] = x
         
-        // defined at .output\typed.sc: 2972.9
+        // defined at .output\typed.sc: 2976.9
         def f(x : .IFunction[.Price]) : .IFunction[.Price] = x
         
-        // defined at .output\typed.sc: 2976.9
+        // defined at .output\typed.sc: 2980.9
         def g(x : .IFunction[.Volume]) : .IFunction[.Volume] = .trash.overloading.f(x)
         
-        // defined at .output\typed.sc: 2980.9
+        // defined at .output\typed.sc: 2984.9
         def h() : .IFunction[.Volume] = .trash.overloading.f(.constant(12))
         
-        // defined at .output\typed.sc: 2984.9
+        // defined at .output\typed.sc: 2988.9
         def hh() : .IFunction[.Price] = .trash.overloading.f(.constant(12.2))
     }
     
-    // defined at .output\typed.sc: 2989.5
+    // defined at .output\typed.sc: 2993.5
     def A(x : Optional[() => .trash.types.T] = .trash.in1.in2.A()) : () => .trash.types.R
 }
 
 type ITrader
 
 type IGraph
+
+@impl = "_Function_Impl"
+type Function[T] : IFunction[T]
 
 type CandleStick
 
@@ -2924,21 +2927,21 @@ type IOrderGenerator = IObservable[Order]
 
 type String
 
-// defined at .output\typed.sc: 3020.1
+// defined at .output\typed.sc: 3056.1
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x : Optional[.Int] = 1) : .IFunction[.Int] = .const(x) : .IFunction[.Int]
 
-// defined at .output\typed.sc: 3028.1
+// defined at .output\typed.sc: 3064.1
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float] = .const(x) : .IFunction[.Float]
 
-// defined at .output\typed.sc: 3036.1
+// defined at .output\typed.sc: 3072.1
 /** Function always returning *False*
  */
 @category = "Basic"
@@ -2946,7 +2949,7 @@ def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float] = .const(x) : .IFu
 @python.intrinsic.function("_constant._False_Impl")
 def false() : .IFunction[.Boolean]
 
-// defined at .output\typed.sc: 3044.1
+// defined at .output\typed.sc: 3080.1
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
@@ -2954,14 +2957,14 @@ def false() : .IFunction[.Boolean]
 @python.intrinsic.observable("_constant._True_Impl")
 def observableTrue() : .IObservable[.Boolean]
 
-// defined at .output\typed.sc: 3052.1
+// defined at .output\typed.sc: 3088.1
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => .Float
 
-// defined at .output\typed.sc: 3059.1
+// defined at .output\typed.sc: 3095.1
 /** Time serie to store and render it after on a graph
  *  Used to specify what data should be collected about order books and traders
  */
@@ -2973,7 +2976,7 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
               _digitsToShow : Optional[.Int] = 4,
               _smooth : Optional[.Int] = 1) : .ITimeSerie
 
-// defined at .output\typed.sc: 3071.1
+// defined at .output\typed.sc: 3107.1
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
@@ -2981,7 +2984,7 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 @python.intrinsic.observable("_constant._False_Impl")
 def observableFalse() : .IObservable[.Boolean]
 
-// defined at .output\typed.sc: 3079.1
+// defined at .output\typed.sc: 3115.1
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2989,7 +2992,7 @@ def observableFalse() : .IObservable[.Boolean]
 @python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 
-// defined at .output\typed.sc: 3087.1
+// defined at .output\typed.sc: 3123.1
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2997,7 +3000,7 @@ def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 @python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
-// defined at .output\typed.sc: 3095.1
+// defined at .output\typed.sc: 3131.1
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
@@ -3007,7 +3010,7 @@ def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 def CandleSticks(/** observable data source considered as asset price */ source : Optional[.IObservable[.Float]] = .const(1.0),
                  /** size of timeframe */ timeframe : Optional[.Float] = 10.0) : .IObservable[.CandleStick]
 
-// defined at .output\typed.sc: 3105.1
+// defined at .output\typed.sc: 3141.1
 /** Function always returning *True*
  */
 @category = "Basic"
@@ -3015,7 +3018,7 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 @python.intrinsic.function("_constant._True_Impl")
 def true() : .IFunction[.Boolean]
 
-// defined at .output\typed.sc: 3113.1
+// defined at .output\typed.sc: 3149.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -3024,7 +3027,7 @@ def true() : .IFunction[.Boolean]
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float] = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
-// defined at .output\typed.sc: 3123.1
+// defined at .output\typed.sc: 3159.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -3033,7 +3036,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float] = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
-// defined at .output\typed.sc: 3133.1
+// defined at .output\typed.sc: 3169.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -3042,7 +3045,7 @@ def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IObservable[.Float] = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
-// defined at .output\typed.sc: 3143.1
+// defined at .output\typed.sc: 3179.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -3051,7 +3054,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
 def IfDefined(x : Optional[.IFunction[.Float]] = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart : Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float] = .ops.Condition(.ops.NotEqual(x,.null()),x,elsePart)
 
-// defined at .output\typed.sc: 3153.1
+// defined at .output\typed.sc: 3189.1
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
  */

@@ -2968,9 +2968,13 @@ package trash {
     }
     
     
-    package types {type T
+    package types {
+        type T
+        
         type R : T
+        
         type T1 = T
+        
         type U : T, R
     }
     
@@ -3000,34 +3004,66 @@ package trash {
     
     def A(x : Optional[() => .trash.types.T] = .trash.in1.in2.A()) : () => .trash.types.R
 }
+
 type ITrader
+
 type IGraph
+@impl = "_Function_Impl"
+
+type Function[T] : IFunction[T]
+
 type CandleStick
+
 type Volume = Int
+
 type Optional[T]
+
 type IAccount
+
 type Side
+
 type Boolean
+
 type Price = Float
+
 type IOrderQueue
+
 type Float
+
 type Int : Float
+
 type ILink
+
 type IOrderBook
+
 type IEvent
+
 type IMultiAssetStrategy
+
 type ITwoWayLink
+
 type IObservable[U] : IFunction[U], IEvent
+
 type IFunction[T] = () => T
+
 type ISingleAssetStrategy
+
 type ISingleAssetTrader : IAccount, ITrader
+
 type IVolumeLevels
+
 type Order
+
 type List[T]
+
 type IDifferentiable : IFunction[Float]
+
 type ITimeSerie
+
 type Any
+
 type IOrderGenerator = IObservable[Order]
+
 type String
 /** Function always returning *x*
  */

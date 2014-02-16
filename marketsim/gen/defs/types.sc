@@ -40,6 +40,9 @@ type Price = Float
 // Alias for a nullary function returning value of type T
 type IFunction[T] = () => T
 
+@impl = "_Function_Impl"
+type Function[T] : IFunction[T]
+
 
 type IEvent
 type IObservable[U] : IFunction[U], IEvent

@@ -97,6 +97,11 @@ package object AST {
             extends pp.Generics
             with    ScPrintable
 
+    trait Decorated
+    {
+        val decorators : List[Decorator]
+    }
+
     case class FunDef(name           : String,
                       parameters     : List[Parameter],
                       body           : Option[Expr],
@@ -107,6 +112,7 @@ package object AST {
             with    pp.Function
             with    ScPrintable
             with    Positional
+            with    Decorated
 
     case class FunAlias(name    : String,
                         target  : QualifiedName)
@@ -126,6 +132,7 @@ package object AST {
             extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable
+            with    Decorated
 
     case class Alias(name       : String,
                      generics   : Generics,
@@ -134,6 +141,7 @@ package object AST {
             extends TypeDeclaration
             with    pp.TypeAlias
             with    ScPrintable
+            with Decorated
 
     case class Definitions(definitions : List[Definition]) extends pp.Definitions with ScPrintable
 

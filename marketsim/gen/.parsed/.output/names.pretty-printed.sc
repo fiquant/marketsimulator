@@ -2447,6 +2447,9 @@ type ITrader
 
 type IGraph
 
+@impl = "_Function_Impl"
+type Function[T] : IFunction[T]
+
 type CandleStick
 
 type Volume = Int
@@ -2501,21 +2504,21 @@ type IOrderGenerator = IObservable[Order]
 
 type String
 
-// defined at .output\names.sc: 2333.1
+// defined at .output\names.sc: 2336.1
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x = 1.0) = .const(x) : .IFunction[.Float]
 
-// defined at .output\names.sc: 2339.1
+// defined at .output\names.sc: 2342.1
 /** Function always returning *x*
  */
 @category = "Basic"
 @label = "C=%(x)s"
 def constant(x = 1) = .const(x) : .IFunction[.Int]
 
-// defined at .output\names.sc: 2345.1
+// defined at .output\names.sc: 2348.1
 /** Function always returning *False*
  */
 @category = "Basic"
@@ -2523,7 +2526,7 @@ def constant(x = 1) = .const(x) : .IFunction[.Int]
 @label = "False"
 def false() : .IFunction[.Boolean]
 
-// defined at .output\names.sc: 2352.1
+// defined at .output\names.sc: 2355.1
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
@@ -2531,14 +2534,14 @@ def false() : .IFunction[.Boolean]
 @label = "True"
 def observableTrue() : .IObservable[.Boolean]
 
-// defined at .output\names.sc: 2359.1
+// defined at .output\names.sc: 2362.1
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
 @python.intrinsic("_constant._Null_Impl")
 def null() : () => .Float
 
-// defined at .output\names.sc: 2365.1
+// defined at .output\names.sc: 2368.1
 /** Time serie to store and render it after on a graph
  *  Used to specify what data should be collected about order books and traders
  */
@@ -2550,7 +2553,7 @@ def TimeSerie(source = .const(0.0) : .IObservable[.Any],
               _digitsToShow = 4,
               _smooth = 1) : .ITimeSerie
 
-// defined at .output\names.sc: 2376.1
+// defined at .output\names.sc: 2379.1
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
@@ -2558,7 +2561,7 @@ def TimeSerie(source = .const(0.0) : .IObservable[.Any],
 @label = "False"
 def observableFalse() : .IObservable[.Boolean]
 
-// defined at .output\names.sc: 2383.1
+// defined at .output\names.sc: 2386.1
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2566,7 +2569,7 @@ def observableFalse() : .IObservable[.Boolean]
 @label = "C=%(x)s"
 def const(x = 1.0) : .IObservable[.Float]
 
-// defined at .output\names.sc: 2390.1
+// defined at .output\names.sc: 2393.1
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
@@ -2574,7 +2577,7 @@ def const(x = 1.0) : .IObservable[.Float]
 @label = "C=%(x)s"
 def const(x = 1) : .IObservable[.Int]
 
-// defined at .output\names.sc: 2397.1
+// defined at .output\names.sc: 2400.1
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
@@ -2584,7 +2587,7 @@ def const(x = 1) : .IObservable[.Int]
 def CandleSticks(/** observable data source considered as asset price */ source = .const(1.0),
                  /** size of timeframe */ timeframe = 10.0) : .IObservable[.CandleStick]
 
-// defined at .output\names.sc: 2406.1
+// defined at .output\names.sc: 2409.1
 /** Function always returning *True*
  */
 @category = "Basic"
@@ -2592,7 +2595,7 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 @label = "True"
 def true() : .IFunction[.Boolean]
 
-// defined at .output\names.sc: 2413.1
+// defined at .output\names.sc: 2416.1
 /** Returns *x* if defined and *elsePart* otherwise
  */
 @category = "Basic"
@@ -2601,7 +2604,7 @@ def true() : .IFunction[.Boolean]
 def IfDefined(x = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart = .constant(1.0)) = if x<>.null() then x else elsePart
 
-// defined at .output\names.sc: 2421.1
+// defined at .output\names.sc: 2424.1
 /** Time serie holding volume levels of an asset
  * Level of volume V is a price at which cumulative volume of better orders is V
  */

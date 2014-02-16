@@ -253,7 +253,8 @@ package object Typer
             Typed.InterfaceDecl(definition.name,
                             typed,
                             definition.bases map { toUnbound(definition.generics) },
-                            definition.generics.elems map { TypesUnbound.Parameter })
+                            definition.generics.elems map { TypesUnbound.Parameter },
+                            annotationsOf(definition), attributesOf(definition))
         }
 
         private def toTyped(definition  : AST.Alias) : Typed.AliasDecl =
@@ -261,7 +262,8 @@ package object Typer
             Typed.AliasDecl(definition.name,
                         typed,
                         toUnbound(definition.generics)(definition.target),
-                        definition.generics.elems map { TypesUnbound.Parameter })
+                        definition.generics.elems map { TypesUnbound.Parameter },
+                        annotationsOf(definition), attributesOf(definition))
         }
 
 
@@ -392,9 +394,9 @@ package object Typer
 
     }
 
-    def annotationsOf(definition : AST.FunDef) = definition.decorators collect toTypedAnnotation
+    def annotationsOf(definition : AST.Decorated) = definition.decorators collect toTypedAnnotation
 
-    def attributesOf(definition : AST.FunDef) = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
+    def attributesOf(definition : AST.Decorated) = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
 
     private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
         case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)

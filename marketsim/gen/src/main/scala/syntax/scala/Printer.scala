@@ -390,7 +390,7 @@ package object Printer
             val genericArgs : List[TypesBound.Base]
 
             protected def toScala =
-                (decl.scope qualifyName decl.name) +
+                (decl.parent qualifyName decl.name) +
                         (if (genericArgs.isEmpty) "" else genericArgs mkString ("[", ",", "]"))
         }
     }
@@ -407,14 +407,18 @@ package object Printer
         {
             self: Typed.InterfaceDecl =>
 
-            protected def toScala = s"type $name" + printGenerics(generics) + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+            protected def toScala =
+                (decorators map {_ + crlf} mkString "") +
+                s"type $name" + printGenerics(generics) + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait AliasDecl extends Printable
         {
             self: Typed.AliasDecl =>
 
-            protected def toScala = s"type $name${printGenerics(generics)} = $target"
+            protected def toScala =
+                (decorators map {_ + crlf} mkString "") +
+                s"type $name${printGenerics(generics)} = $target"
         }
 
         trait Parameter extends base.Parameter {

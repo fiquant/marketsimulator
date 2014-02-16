@@ -183,12 +183,12 @@ package object TypesBound
     }
 
     def isObservable(t : Base) = t match {
-        case Interface(Typed.InterfaceDecl("IObservable", _, _, _), _) => true
+        case Interface(Typed.InterfaceDecl("IObservable", _, _, _,_,_), _) => true
         case _ => false
     }
 
     def isStrategy(t : Base) = t match {
-        case Interface(Typed.InterfaceDecl("ISingleAssetStrategy",_,_,_), _) => true
+        case Interface(Typed.InterfaceDecl("ISingleAssetStrategy",_,_,_,_,_), _) => true
         case _ => false
     }
 

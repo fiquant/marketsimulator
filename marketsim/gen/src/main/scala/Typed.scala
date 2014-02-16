@@ -222,27 +222,31 @@ package object Typed
     trait TypeDeclaration
     {
         val name        : String
-        val scope       : Typed.Package
+        val parent      : Package
         val generics    : List[TypesUnbound.Parameter]
 
         def resolveGenerics(genericArgs : List[TypesUnbound.Base]) : TypesUnbound.Base
 
         override def equals(o : Any) = o match {
-            case that : TypeDeclaration => name == that.name && scope.qualifiedName == that.scope.qualifiedName
+            case that : TypeDeclaration => name == that.name && parent.qualifiedName == that.parent.qualifiedName
             case _ => false
         }
 
-        def label = (scope qualifyName name) + (if (generics.isEmpty) "" else generics mkString ("[", ",", "]"))
+        def label = (parent qualifyName name) + (if (generics.isEmpty) "" else generics mkString ("[", ",", "]"))
     }
 
     case class AliasDecl(name       : String,
-                         scope      : Typed.Package,
+                         parent      : Typed.Package,
                          target     : TypesUnbound.Base,
-                         generics   : List[TypesUnbound.Parameter])
+                         generics   : List[TypesUnbound.Parameter],
+                         annotations : List[Annotation],
+                         attributes  : Attributes)
             extends TypeDeclaration
             with    sc.AliasDecl
             with    ScPrintable
     {
+        def decorators = attributes :: annotations
+
         private val unbound = predef.Memoize1({
             genericArgs : List[TypesUnbound.Base] =>
                 TypesUnbound.Alias(this, genericArgs)
@@ -258,13 +262,17 @@ package object Typed
     }
 
     case class InterfaceDecl(name       : String,
-                             scope      : Typed.Package,
+                             parent      : Typed.Package,
                              bases      : List[TypesUnbound.Base],
-                             generics   : List[TypesUnbound.Parameter])
+                             generics   : List[TypesUnbound.Parameter],
+                             annotations : List[Annotation],
+                             attributes  : Attributes)
             extends TypeDeclaration
             with    sc.InterfaceDecl
             with    ScPrintable
     {
+        def decorators = attributes :: annotations
+
         private val unbound = predef.Memoize1({
             genericArgs : List[TypesUnbound.Base] =>
                 TypesUnbound.Interface(this, genericArgs)
