@@ -13,8 +13,7 @@ object curried
         def original : Typed.Function
         def curried : List[Typed.Parameter]
 
-        def ifunction_base =  s"IFunction["||| original.ret_type.asCode |||
-                ", "||| curriedTypesAsList(curried) |||"]" ||| ImportFrom("IFunction", "marketsim")
+        def ifunction_base =  TypesBound.Function(curried map { _.ty}, original.ret_type)
         override def base_class_list = ifunction_base :: Nil
     }
 

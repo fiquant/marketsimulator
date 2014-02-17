@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim import IFunction
 from marketsim import float
 @registry.expose(["Strategy", "f_AtanPow"])
-class f_AtanPow_Float(IFunction[IFunction[float], IFunction[float]]):
+class f_AtanPow_Float(IFunction[IFunction[float],IFunction[float]]):
     """ 
     """ 
     def __init__(self, base = None):

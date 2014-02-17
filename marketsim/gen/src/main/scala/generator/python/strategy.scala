@@ -24,7 +24,7 @@ object strategy extends gen.PythonGenerator
                 ImportFrom("event", "marketsim") |||
                 ImportFrom("_", "marketsim")
 
-        def myBase = "ISingleAssetStrategy" ||| ImportFrom("ISingleAssetStrategy", "marketsim")
+        def myBase = Typed.topLevel.ISingleAssetStrategy
 
         override def base_class_list = myBase :: Nil
 

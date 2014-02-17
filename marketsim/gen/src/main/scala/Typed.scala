@@ -388,6 +388,7 @@ package object Typed
         lazy val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
 
         lazy val IOrderGenerator = getScalarBound("IOrderGenerator")
+        lazy val ISingleAssetStrategy = getScalarBound("ISingleAssetStrategy")
 
         def observableOf(t : TypesBound.Base) =
             TypesBound.Interface(IObservable, t :: Nil)

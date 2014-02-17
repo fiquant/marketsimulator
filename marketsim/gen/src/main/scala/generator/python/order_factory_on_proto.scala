@@ -64,7 +64,7 @@ object order_factory_on_proto
 
         override def interface = x.ret_type
 
-        override def base_class_list = interface.asCode :: Nil
+        override def base_class_list = interface :: Nil
     }
 
 

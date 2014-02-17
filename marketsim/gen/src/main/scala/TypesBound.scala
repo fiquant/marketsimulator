@@ -141,6 +141,7 @@ package object TypesBound
             Stream.empty
         else
             Any_ #:: (e match {
+                case x : ImplementationClass => Stream.empty
                 case x : Alias      => Stream(x.target)
                 case x : Interface  => x.bases.toStream
                 case Unit           => Stream.empty
@@ -180,6 +181,11 @@ package object TypesBound
                         throw new Exception(s"Type $this casts to different functional types: " + (x :: tl))
                     Some(x)
             }
+    }
+
+    case class ImplementationClass(name : String, module : String) extends Base with py.ImplementationClass
+    {
+        def toScala = "NA"
     }
 
     def isObservable(t : Base) = t match {

@@ -53,6 +53,14 @@ object Printer {
                 "IFunction[" ||| ret.asCode ||| Code.from(args map { "," ||| _.asCode  }) ||| "]" ||| ImportFrom("IFunction", "marketsim")
         }
 
+        trait ImplementationClass extends Printable
+        {
+            self : TypesBound.ImplementationClass =>
+
+            def asCode = name |||
+                        ImportFrom(name, s"marketsim.gen._intrinsic.$module")
+        }
+
         trait UsedDefined extends Printable
         {
             def genericArgs : List[Printable]

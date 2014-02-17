@@ -92,7 +92,7 @@ object order_factory_curried
 
         def myBase = TypesBound.Function(curried map { _.ty }, original.interface)
         override def interface = myBase
-        override def base_class_list = interface.asCode :: Nil
+        override def base_class_list = interface :: Nil
 
         override def call_fields = original.init_raw_fields
     }

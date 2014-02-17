@@ -3,7 +3,7 @@ from marketsim import IFunction
 from marketsim import float
 from marketsim import IAccount
 @registry.expose(["Strategy", "trader_Score"])
-class trader_Score_(IFunction[IFunction[float], IAccount]):
+class trader_Score_(IFunction[IFunction[float],IAccount]):
     """  Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))

@@ -75,14 +75,15 @@ object order_factory
         def mkParam(p : Typed.Parameter) = order_factory.Parameter(p)
         type Parameter = order_factory.Parameter
 
+        def impl = TypesBound.ImplementationClass(implementation_class, implementation_module)
+
         def myBase =
             if (is_factory_intrinsic)
-                implementation_class |||
-                        ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+                impl
             else
                 observableBase
 
-        override def base_class_list = interface.asCode :: myBase :: Nil
+        override def base_class_list = interface :: myBase :: Nil
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 
@@ -96,8 +97,7 @@ object order_factory
             super.call_fields
 
         override def call_body = nullable_fields |
-                s"""return $implementation_class($call_fields)""" |||
-                ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+                "return "||| impl.asCode |||s"($call_fields)"
     }
 
     def paramTypesInPython(curried: List[Typed.Parameter]) = {

@@ -21,9 +21,9 @@ package object base {
             if (base_class_list.isEmpty)
                 TypesBound.Any_.asCode
             else
-                base_class_list.reduceLeft[Code]({ case (b, acc) => acc ||| "," ||| b })
+                (base_class_list map {_.asCode}).reduceLeft[Code]({ case (b, acc) => acc ||| "," ||| b })
 
-        def base_class_list : List[Code] = Nil
+        def base_class_list : List[TypesBound.Base] = Nil
 
         def code = withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
     }
@@ -143,7 +143,7 @@ package object base {
 
         def functionBase =
             f.ret_type.returnTypeIfFunction map {
-                TypesBound.Function(Nil, _).asCode
+                TypesBound.Function(Nil, _)
             }
 
         override def base_class_list =
@@ -161,14 +161,14 @@ package object base {
 
         def observableBase =
             if (trivialObservable)
-                Typed.topLevel.observableOf(ty).asCode
+                Typed.topLevel.observableOf(ty)
             else
-                Typed.topLevel.observableImplOf(ty).asCode
+                Typed.topLevel.observableImplOf(ty)
 
         override def base_class_list = observableBase :: super.base_class_list
 
         override def init_body =
-            observableBase ||| ".__init__(self)" |
+            observableBase.asCode ||| ".__init__(self)" |
             super.init_body
     }
 

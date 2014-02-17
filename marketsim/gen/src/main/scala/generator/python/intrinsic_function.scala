@@ -26,9 +26,7 @@ object intrinsic_function extends gen.PythonGenerator
     {
         override def init_body = super.init_body | s"$implementation_class.__init__(self)"
 
-        def implementationBase =
-            implementation_class |||
-                  ImportFrom(implementation_class, s"marketsim.gen._intrinsic.$implementation_module")
+        def implementationBase = TypesBound.ImplementationClass(implementation_class, implementation_module)
 
         override def base_class_list = implementationBase :: super.base_class_list
     }
