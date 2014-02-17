@@ -161,8 +161,7 @@ package object base {
 
         def observableBase =
             if (trivialObservable)
-                s"IObservable["||| ty.asCode |||"]" |||
-                ImportFrom("IObservable", "marketsim")
+                Typed.topLevel.observableOf(ty).asCode
             else
                 s"Observable["||| ty.asCode |||"]" |||
                 ImportFrom(ty.asCode.toString, "marketsim") |||

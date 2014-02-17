@@ -360,18 +360,22 @@ package object Typed
         def getScalarBound(name : String) =
             getScalar(name) bind EmptyTypeMapper
 
-        def functionOf(t : TypesUnbound.Base) =
-            (types get "IFunction").get resolveGenerics  t :: Nil
+        lazy val IFunction = (types get "IFunction").get.asInstanceOf[AliasDecl]
 
-        def observableOf(t : TypesUnbound.Base) =
-            (types get "IObservable").get resolveGenerics  t :: Nil
+        def unboundFunctionOf(t : TypesUnbound.Base) =
+            IFunction resolveGenerics  t :: Nil
+
+        lazy val IObservable = (types get "IObservable").get.asInstanceOf[InterfaceDecl]
+
+        def unboundObservableOf(t : TypesUnbound.Base) =
+            IObservable resolveGenerics  t :: Nil
 
         val EmptyTypeMapper = TypesUnbound.EmptyTypeMapper_Bound
 
         def genType(name : String) = {
             val scalar  = getScalar(name)
-            val func    = functionOf(scalar)
-            val obs     = observableOf(scalar)
+            val func    = unboundFunctionOf(scalar)
+            val obs     = unboundObservableOf(scalar)
             val m = EmptyTypeMapper
             (scalar, scalar bind m, func bind m, obs bind m)
         }
@@ -383,6 +387,10 @@ package object Typed
         lazy val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
 
         lazy val IOrderGenerator = getScalarBound("IOrderGenerator")
+
+        def observableOf(t : TypesBound.Base) =
+            TypesBound.Interface(IObservable, t :: Nil)
+        
     }
 
     private var topLevelInstance : Option[TopLevelPackage] = None
