@@ -8,7 +8,7 @@ from reference import Reference
 
 from types import (IObservable, IFunction, ISingleAssetTrader,
                    IOrderQueue, IOrderBook, IDifferentiable,
-                   IFunction, IObservable, Function,
+                   IFunction, IObservable,
                    IOrderGenerator, IEvent,
                    ISingleAssetStrategy, IMultiAssetStrategy,
                    listOf,

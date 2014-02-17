@@ -3,9 +3,8 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (_, scheduler, veusz, registry, config,
-                       context, bind, IEvent)
+                       context, bind, IEvent, IFunction)
 
-from marketsim import Function
 
 from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
 
@@ -323,7 +322,7 @@ def run(name, constructor, only_veusz):
 def Constant(c, demo):
     return [(observable.OnEveryDt(10, constant(c)), demo)]
 
-class Interlacing(Function[float]):
+class Interlacing(IFunction[float]):
 
     def __init__(self, phase = 1, timeframe = 10):
         self.timeframe = timeframe
@@ -337,7 +336,7 @@ class Interlacing(Function[float]):
 
 from marketsim import Side as SIDE
 
-class InterlacingSide(Function[SIDE]):
+class InterlacingSide(IFunction[SIDE]):
     
     def __init__(self, phase = 1, timeframe = 10):
         self._impl = Interlacing(phase, timeframe)

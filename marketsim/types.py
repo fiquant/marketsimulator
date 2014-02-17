@@ -136,12 +136,12 @@ class Function_impl(object):
         from marketsim.gen._out.ops._notequal import NotEqual
         return NotEqual(self, convert(other))
 
-Function = Factory("Function", """(Function_impl, IFunction[%(T)s]):
+_Function = Factory("_Function", """(Function_impl, IFunction[%(T)s]):
     T = %(T)s
 """, globals())
 
-IFunction.override(float, Function[float])
-IFunction.override(int, Function[int])
+IFunction.override(float, _Function[float])
+IFunction.override(int, _Function[int])
 
 IFunction[int]._types.append(IFunction[float])
 
