@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim import IObservable
 from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
-from marketsim import Function
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "Var"])
-class Var_IObservableFloatFloat(Function[float],EWMV_Impl):
+class Var_IObservableFloatFloat(IFunction[float],EWMV_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):

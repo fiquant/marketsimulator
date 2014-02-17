@@ -3,13 +3,13 @@ def unit():
     from marketsim import rtti
     return _strategy_weight_trader_trader_Unit_()
     raise Exception('Cannot find suitable overload for unit('++')')
+from marketsim import IFunction
 from marketsim import IAccount
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "Unit"])
-class Unit_IAccount(Function[float]):
+class Unit_IAccount(IFunction[float]):
     """ 
     """ 
     def __init__(self, trader = None):

@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "betavariate"])
-class betavariate_FloatFloat(Function[float]):
+class betavariate_FloatFloat(IFunction[float]):
     """ 
      Conditions on the parameters are |alpha| > 0 and |beta| > 0.
      Returned values range between 0 and 1.

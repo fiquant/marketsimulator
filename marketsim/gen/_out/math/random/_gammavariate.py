@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "gammavariate"])
-class gammavariate_FloatFloat(Function[float]):
+class gammavariate_FloatFloat(IFunction[float]):
     """ 
       Conditions on the parameters are |alpha| > 0 and |beta| > 0.
     

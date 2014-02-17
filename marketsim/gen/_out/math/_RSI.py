@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim import IOrderBook
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Basic", "RSI"])
-class RSI_IOrderBookFloatFloat(Function[float]):
+class RSI_IOrderBookFloatFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):

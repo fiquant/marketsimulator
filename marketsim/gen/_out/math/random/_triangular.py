@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "triangular"])
-class triangular_FloatFloatFloat(Function[float]):
+class triangular_FloatFloatFloat(IFunction[float]):
     """ 
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
            with the specified *mode* between those bounds.

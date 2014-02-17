@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "uniform"])
-class uniform_FloatFloat(Function[float]):
+class uniform_FloatFloat(IFunction[float]):
     """ 
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.

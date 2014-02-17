@@ -1,18 +1,17 @@
 from marketsim import bind, meta, context, types, _
             
-
-class Event(types.IEvent):
+class Event_Impl(object):
     """ Multicast event
-    
-    Keeps a set of callable listeners 
+
+    Keeps a set of callable listeners
     """
 
     def __init__(self):
         self._listeners = None
         self.fire = bind.Method(self, '_fire_impl')
-        
+
 #    _internals = ['_listeners']
-        
+
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
         """
@@ -20,22 +19,29 @@ class Event(types.IEvent):
             self._listeners = set()
         self._listeners.add(listener)
         return self
-    
+
     def __isub__(self, listener):
         self._listeners.remove(listener)
         return self
-        
+
     def _fire_impl(self, *args):
         """ Calls all listeners passing *args to them
         """
         if self._listeners:
             for x in list(self._listeners):
                 x(*args)
-            
-class Conditional(Event):
+
+
+class Event(Event_Impl, types.IEvent):
+    """ Multicast event
+    
+    Keeps a set of callable listeners 
+    """
+
+class Conditional_Impl(Event_Impl):
     
     def __init__(self):
-        Event.__init__(self)
+        Event_Impl.__init__(self)
         from blist import sorteddict
         self._greater = sorteddict()
         self._less = sorteddict()
@@ -54,7 +60,7 @@ class Conditional(Event):
             self._less[-bound].append(listener)
             return self
         else:
-            return Event.__iadd__(self, listener)
+            return Event_Impl.__iadd__(self, listener)
             
     def __isub__(self, listener):
         if '_greaterThan' in dir(listener):
@@ -66,7 +72,7 @@ class Conditional(Event):
             self._less[-bound].remove(listener)
             return self
         else:
-            return Event.__isub__(self, listener)
+            return Event_Impl.__isub__(self, listener)
             
     def _fire_impl(self, *args):
         if len(self._less) or len(self._greater):
@@ -80,7 +86,9 @@ class Conditional(Event):
                     if -bound > current:
                         for handler in handlers:
                             handler(*args)
-        Event._fire_impl(self, *args)
+        Event_Impl._fire_impl(self, *args)
+
+class Conditional(Conditional_Impl, types.IEvent): pass
         
 class GreaterThan(object):
     

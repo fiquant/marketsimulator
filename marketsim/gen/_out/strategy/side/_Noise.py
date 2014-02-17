@@ -1,11 +1,10 @@
 from marketsim import IFunction
 from marketsim import Side
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "Noise"])
-class Noise_Float(Function[Side]):
+class Noise_Float(IFunction[Side]):
     """ 
     """ 
     def __init__(self, side_distribution = None):

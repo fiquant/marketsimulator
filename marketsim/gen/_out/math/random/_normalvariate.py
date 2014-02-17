@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "normalvariate"])
-class normalvariate_FloatFloat(Function[float]):
+class normalvariate_FloatFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, Mu = None, Sigma = None):

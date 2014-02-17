@@ -1,6 +1,6 @@
 from marketsim import meta, constraints, types
 
-class _Constant_Impl(types.IObservable[float]):
+class _Constant_Impl(object):
     """ Constant function returning **value**.
     """
 
@@ -27,18 +27,18 @@ class _Constant_Impl(types.IObservable[float]):
     def label(self):
         return str(self.x)
 
-class _True_Impl(types.IObservable[bool]):
+class _True_Impl(object):
 
     def __call__(self):
         return True
 
-class _False_Impl(types.IObservable[bool]):
+class _False_Impl(object):
 
     def __call__(self):
         return False
 
 
-class _Null_Impl(types.IObservable[float]):
+class _Null_Impl(object):
     """ Constant function returning None.
     """
 

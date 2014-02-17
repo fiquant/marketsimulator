@@ -5,13 +5,13 @@ def efficiencyTrend(alpha = None):
     if alpha is None or rtti.can_be_casted(alpha, float):
         return _strategy_weight_trader_trader_EfficiencyTrend_Float(alpha)
     raise Exception('Cannot find suitable overload for efficiencyTrend('+str(alpha)+')')
+from marketsim import IFunction
 from marketsim import IAccount
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Strategy", "EfficiencyTrend"])
-class EfficiencyTrend_IAccountFloat(Function[float]):
+class EfficiencyTrend_IAccountFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, trader = None, alpha = None):

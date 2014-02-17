@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim import IAccount
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Trader", "EfficiencyTrend"])
-class EfficiencyTrend_IAccountFloat(Function[float]):
+class EfficiencyTrend_IAccountFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, trader = None, alpha = None):

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim import Side
-from marketsim import Function
+from marketsim import IFunction
 from marketsim.gen._intrinsic.side import _Sell_Impl
 @registry.expose(["Side", "Sell"])
-class Sell_(Function[Side],_Sell_Impl):
+class Sell_(IFunction[Side],_Sell_Impl):
     """ 
     """ 
     def __init__(self):

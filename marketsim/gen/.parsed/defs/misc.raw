@@ -81,6 +81,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
+| | | | | | - Attribute:
+| | | | | | | - trivialObservable
+| | | | | | | - true
 | | | | - FunDef:
 | | | | | - constant
 | | | | | - List:
@@ -157,6 +160,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
+| | | | | | - Attribute:
+| | | | | | | - trivialObservable
+| | | | | | | - true
 | | | | - FunDef:
 | | | | | - true
 | | | | | - List:

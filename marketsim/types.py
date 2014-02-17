@@ -31,6 +31,9 @@ class Factory(object):
         assert key not in self._types
         self._types[key] = obj
         
+    def override(self, key, obj):
+        self._types[key] = obj
+
     def __getitem__(self, key):
         if key not in self._types:
             #print key
@@ -83,8 +86,6 @@ class SideBudget(object):
 
 IFunction = Factory('IFunction', """(object):
     _types = [function((%(R)s), %(T)s)]
-
-    if %(T)s is int: _types.append(IFunction[float], %(R)s)
 """)
 
 IFunction[Side]
@@ -138,6 +139,11 @@ class Function_impl(object):
 Function = Factory("Function", """(Function_impl, IFunction[%(T)s]):
     T = %(T)s
 """, globals())
+
+IFunction.override(float, Function[float])
+IFunction.override(int, Function[int])
+
+IFunction[int]._types.append(IFunction[float])
 
 
 Construct = Factory('Construct', """(bind.Construct, IFunction[%(T)s, %(R)s]):""")

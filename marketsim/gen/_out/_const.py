@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim import int
-from marketsim.ops._all import Observable
+from marketsim import IObservable
 from marketsim.gen._intrinsic._constant import _Constant_Impl
 @registry.expose(["Basic", "const"])
-class const_Int(Observable[int],_Constant_Impl):
+class const_Int(IObservable[int],_Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):
         from marketsim import int
-        from marketsim.ops._all import Observable
+        from marketsim import IObservable
         from marketsim import rtti
-        Observable[int].__init__(self)
+        IObservable[int].__init__(self)
         self.x = x if x is not None else 1
         
         rtti.check_fields(self)
@@ -28,17 +28,17 @@ class const_Int(Observable[int],_Constant_Impl):
     
 from marketsim import registry
 from marketsim import float
-from marketsim.ops._all import Observable
+from marketsim import IObservable
 from marketsim.gen._intrinsic._constant import _Constant_Impl
 @registry.expose(["Basic", "const"])
-class const_Float(Observable[float],_Constant_Impl):
+class const_Float(IObservable[float],_Constant_Impl):
     """ 
     """ 
     def __init__(self, x = None):
         from marketsim import float
-        from marketsim.ops._all import Observable
+        from marketsim import IObservable
         from marketsim import rtti
-        Observable[float].__init__(self)
+        IObservable[float].__init__(self)
         self.x = x if x is not None else 1.0
         
         rtti.check_fields(self)

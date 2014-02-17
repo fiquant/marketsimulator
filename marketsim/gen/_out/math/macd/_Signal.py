@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim import IObservable
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["MACD", "Signal"])
-class Signal_IObservableFloatFloatFloatFloatFloat(Function[float]):
+class Signal_IObservableFloatFloatFloatFloatFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):

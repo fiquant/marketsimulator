@@ -1,11 +1,11 @@
+from marketsim import IFunction
 from marketsim import IOrderBook
 from marketsim import Side
-from marketsim import Function
 from marketsim import registry
 from marketsim import context
 from marketsim import float
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower_FloatFloatIOrderBook(Function[Side]):
+class TrendFollower_FloatFloatIOrderBook(IFunction[Side]):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):

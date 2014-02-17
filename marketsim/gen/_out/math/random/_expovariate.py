@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "expovariate"])
-class expovariate_Float(Function[float]):
+class expovariate_Float(IFunction[float]):
     """ 
       Returned values range from 0 to positive infinity
     """ 

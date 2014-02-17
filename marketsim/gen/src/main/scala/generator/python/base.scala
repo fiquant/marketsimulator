@@ -143,7 +143,7 @@ package object base {
 
         def functionBase =
             f.ret_type.returnTypeIfFunction map { t =>
-                s"Function[" ||| t.asCode ||| "]" ||| ImportFrom("Function", "marketsim")
+                s"IFunction[" ||| t.asCode ||| "]" ||| ImportFrom("IFunction", "marketsim")
             }
 
         override def base_class_list =
@@ -157,9 +157,16 @@ package object base {
 
         def ty = f.ret_type.returnTypeIfFunction.get
 
-        def observableBase =  s"Observable["||| ty.asCode |||"]" |||
-                                ImportFrom(ty.asCode.toString, "marketsim") |||
-                                ImportFrom("Observable", "marketsim.ops._all")
+        def trivialObservable = false
+
+        def observableBase =
+            if (trivialObservable)
+                s"IObservable["||| ty.asCode |||"]" |||
+                ImportFrom("IObservable", "marketsim")
+            else
+                s"Observable["||| ty.asCode |||"]" |||
+                ImportFrom(ty.asCode.toString, "marketsim") |||
+                ImportFrom("Observable", "marketsim.ops._all")
 
         override def base_class_list = observableBase :: super.base_class_list
 

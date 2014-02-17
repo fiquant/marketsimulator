@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "paretovariate"])
-class paretovariate_Float(Function[float]):
+class paretovariate_Float(IFunction[float]):
     """ 
     """ 
     def __init__(self, Alpha = None):

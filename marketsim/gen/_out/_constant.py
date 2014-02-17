@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim import int
-from marketsim import Function
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Basic", "constant"])
-class constant_Int(Function[int]):
+class constant_Int(IFunction[int]):
     """ 
     """ 
     def __init__(self, x = None):
@@ -40,10 +40,10 @@ class constant_Int(Function[int]):
     
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 from marketsim import context
 @registry.expose(["Basic", "constant"])
-class constant_Float(Function[float]):
+class constant_Float(IFunction[float]):
     """ 
     """ 
     def __init__(self, x = None):

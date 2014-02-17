@@ -11,6 +11,7 @@ package {
      */
     @python.intrinsic.observable("_constant._Constant_Impl")
     @label = "C=%(x)s"
+    @trivialObservable = "true"
     def const(x = 1.0) : IObservable[Float]
 
     /**
@@ -24,6 +25,7 @@ package {
      */
     @python.intrinsic.observable("_constant._Constant_Impl")
     @label = "C=%(x)s"
+    @trivialObservable = "true"
     def const(x = 1) : IObservable[Int]
 
     /**

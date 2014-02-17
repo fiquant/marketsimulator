@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim.gen._intrinsic.moments.ma import MA_Impl
 from marketsim import IObservable
-from marketsim import Function
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Statistics", "Avg"])
-class Avg_IObservableFloatFloat(Function[float],MA_Impl):
+class Avg_IObservableFloatFloat(IFunction[float],MA_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):

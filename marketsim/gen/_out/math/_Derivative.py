@@ -1,10 +1,10 @@
+from marketsim import IFunction
 from marketsim import IDifferentiable
-from marketsim import Function
 from marketsim import registry
 from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim import float
 @registry.expose(["Basic", "Derivative"])
-class Derivative_IDifferentiable(Function[float],_Derivative_Impl):
+class Derivative_IDifferentiable(IFunction[float],_Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):

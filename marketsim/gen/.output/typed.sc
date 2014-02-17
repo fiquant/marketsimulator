@@ -3116,6 +3116,7 @@ def observableFalse() : .IObservable[.Boolean]
  */
 @category = "Basic"
 @label = "C=%(x)s"
+@trivialObservable = "true"
 
 @python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Int] = 1) : .IObservable[.Int]
@@ -3124,6 +3125,7 @@ def const(x : Optional[.Int] = 1) : .IObservable[.Int]
  */
 @category = "Basic"
 @label = "C=%(x)s"
+@trivialObservable = "true"
 
 @python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 from marketsim.gen._intrinsic._constant import _Null_Impl
 @registry.expose(["Basic", "null"])
-class null_(Function[float],_Null_Impl):
+class null_(IFunction[float],_Null_Impl):
     """ 
     """ 
     def __init__(self):

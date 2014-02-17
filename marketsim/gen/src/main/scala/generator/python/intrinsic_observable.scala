@@ -16,6 +16,7 @@ object intrinsic_observable extends gen.PythonGenerator
     {   self =>
 
         val observe_args = (f tryGetAttribute "observe_args") != Some("no")
+        override val trivialObservable =  (f tryGetAttribute "trivialObservable") == Some("true")
 
         class Parameter_(p: Typed.Parameter)
                 extends intrinsic_function.Parameter(p)

@@ -2388,6 +2388,7 @@ def observableFalse() : .IObservable[.Boolean]
 @category = "Basic"
 @python.intrinsic.observable("_constant._Constant_Impl")
 @label = "C=%(x)s"
+@trivialObservable = "true"
 def const(x = 1.0) : .IObservable[.Float]
 
 /** Trivial observable always returning *x*
@@ -2395,6 +2396,7 @@ def const(x = 1.0) : .IObservable[.Float]
 @category = "Basic"
 @python.intrinsic.observable("_constant._Constant_Impl")
 @label = "C=%(x)s"
+@trivialObservable = "true"
 def const(x = 1) : .IObservable[.Int]
 
 /** Observable returning at the end of every *timeframe*

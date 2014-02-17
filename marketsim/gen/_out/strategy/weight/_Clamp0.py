@@ -3,13 +3,12 @@ def clamp0():
     from marketsim import rtti
     return _strategy_weight_f_f_Clamp0_()
     raise Exception('Cannot find suitable overload for clamp0('++')')
-from marketsim import IFunction
-from marketsim import Function
 from marketsim import registry
-from marketsim import context
 from marketsim import float
+from marketsim import IFunction
+from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
-class Clamp0_IFunctionFloat(Function[float]):
+class Clamp0_IFunctionFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, f = None):

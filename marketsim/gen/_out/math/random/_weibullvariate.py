@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim import float
-from marketsim import Function
+from marketsim import IFunction
 @registry.expose(["Random", "weibullvariate"])
-class weibullvariate_FloatFloat(Function[float]):
+class weibullvariate_FloatFloat(IFunction[float]):
     """ 
     """ 
     def __init__(self, Alpha = None, Beta = None):
