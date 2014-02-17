@@ -3,16 +3,8 @@ import predef._
 
 object mathops extends gen.PythonGenerator
 {
-    case class Parameter(p : Typed.Parameter) extends base.Parameter
+    case class Parameter(p : Typed.Parameter) extends base.SubscribeParameter
     {
-        override def assign =
-            super.assign |
-            s"if isinstance($name, types.IEvent):" |>
-                s"event.subscribe(self.$name, self.fire, self)" |||
-            ImportFrom("event", "marketsim") |||
-            ImportFrom("types", "marketsim")
-
-
         def nullable =
             s"$name = self.$name()" |
             s"if $name is None: return None"

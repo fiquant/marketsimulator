@@ -19,7 +19,7 @@ package object base {
 
         private def base_classes : Code =
             if (base_class_list.isEmpty)
-                "object"
+                TypesBound.Any_.asCode
             else
                 base_class_list.reduceLeft[Code]({ case (b, acc) => acc ||| "," ||| b })
 
