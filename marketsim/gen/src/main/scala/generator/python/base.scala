@@ -142,8 +142,8 @@ package object base {
     trait BaseClass_Function extends Printer {
 
         def functionBase =
-            f.ret_type.returnTypeIfFunction map { t =>
-                s"IFunction[" ||| t.asCode ||| "]" ||| ImportFrom("IFunction", "marketsim")
+            f.ret_type.returnTypeIfFunction map {
+                TypesBound.Function(Nil, _).asCode
             }
 
         override def base_class_list =
