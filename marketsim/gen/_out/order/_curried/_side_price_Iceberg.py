@@ -24,7 +24,7 @@ class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunct
     
     _properties = {
         'lotSize' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
     }
     def __repr__(self):
         return "price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__

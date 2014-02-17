@@ -21,7 +21,7 @@ class volume_Peg_FloatFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[f
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__

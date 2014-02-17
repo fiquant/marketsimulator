@@ -3,7 +3,7 @@ from marketsim import IOrderGenerator
 from marketsim import float
 from marketsim import IFunction
 @registry.expose(["Order", "LimitSigned"])
-class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
+class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled

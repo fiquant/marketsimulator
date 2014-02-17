@@ -23,7 +23,8 @@ class sidevolume_Peg_SideFloatFloatIOrderGenerator(IFunction[IOrderGenerator,IFu
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__

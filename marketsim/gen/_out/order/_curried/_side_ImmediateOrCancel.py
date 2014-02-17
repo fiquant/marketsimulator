@@ -23,7 +23,7 @@ class side_ImmediateOrCancel_SideIOrderGenerator(IFunction[IOrderGenerator,IFunc
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator, IFunction[Side]]
+        'proto' : IFunction[IOrderGenerator,IFunction[Side]]
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__

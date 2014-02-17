@@ -24,7 +24,8 @@ class sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(IF
     
     _properties = {
         'expiry' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__

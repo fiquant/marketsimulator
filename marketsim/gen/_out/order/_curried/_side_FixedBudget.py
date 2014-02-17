@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
-class side_FixedBudget_IFunctionFloat(IFunction[IOrderGenerator, IFunction[Side]]):
+class side_FixedBudget_IFunctionFloat(IFunction[IOrderGenerator,IFunction[Side]]):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.

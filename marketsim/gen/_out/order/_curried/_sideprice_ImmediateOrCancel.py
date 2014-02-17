@@ -25,7 +25,8 @@ class sideprice_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IOrderGener
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator, IFunction[Side],IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__

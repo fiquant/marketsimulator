@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Limit"])
-class price_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
+class price_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled

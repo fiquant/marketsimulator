@@ -90,9 +90,9 @@ object order_factory_curried
 
         override def factoryName = (curried map { _.name } mkString "") + "_" + original.factoryName
 
-        def myBase = s"IFunction["||| original.interface |||", "||| curriedTypesAsList(curried) |||"]"
+        def myBase = TypesBound.Function(curried map { _.ty }, original.interface)
         override def interface = myBase
-        override def base_class_list = interface :: Nil
+        override def base_class_list = interface.asCode :: Nil
 
         override def call_fields = original.init_raw_fields
     }

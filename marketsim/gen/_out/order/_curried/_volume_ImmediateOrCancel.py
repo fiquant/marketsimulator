@@ -23,7 +23,7 @@ class volume_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IOrderGenerator,IF
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[float]]
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__

@@ -22,7 +22,7 @@ class side_price_Peg_SideFloatIOrderGenerator(IFunction[IFunction[IOrderGenerato
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
     }
     def __repr__(self):
         return "price_Peg(%(proto)s)" % self.__dict__

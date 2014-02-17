@@ -48,7 +48,7 @@ object order_factory
 
         def prefix = ""
 
-        def interface = "IOrderGenerator" ||| ImportFrom("IOrderGenerator", "marketsim")
+        def interface = Typed.topLevel.IOrderGenerator
 
         override def body = super.body | call
     }
@@ -82,7 +82,7 @@ object order_factory
             else
                 observableBase
 
-        override def base_class_list = interface :: myBase :: Nil
+        override def base_class_list = interface.asCode :: myBase :: Nil
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 

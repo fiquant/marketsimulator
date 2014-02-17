@@ -26,7 +26,8 @@ class sidevolume_price_FloatingPrice_IObservableFloatSideFloatFloatIOrderGenerat
     
     _properties = {
         'floatingPrice' : IObservable[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side],IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
+        ,IFunction[float]]
     }
     def __repr__(self):
         return "price_FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__

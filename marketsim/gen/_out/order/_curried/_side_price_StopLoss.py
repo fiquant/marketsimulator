@@ -25,7 +25,7 @@ class side_price_StopLoss_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunc
     
     _properties = {
         'maxloss' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
     }
     def __repr__(self):
         return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__

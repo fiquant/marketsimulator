@@ -24,7 +24,7 @@ class price_FloatingPrice_IObservableFloatFloatIOrderGenerator(IFunction[IOrderG
     
     _properties = {
         'floatingPrice' : IObservable[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[float]]
     }
     def __repr__(self):
         return "FloatingPrice(%(floatingPrice)s, %(proto)s)" % self.__dict__

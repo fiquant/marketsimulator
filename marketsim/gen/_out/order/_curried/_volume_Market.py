@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Market"])
-class volume_Market_IFunctionSide(IFunction[IOrderGenerator, IFunction[float]]):
+class volume_Market_IFunctionSide(IFunction[IOrderGenerator,IFunction[float]]):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 

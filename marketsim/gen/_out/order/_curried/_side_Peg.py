@@ -22,7 +22,7 @@ class side_Peg_SideFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[Side]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__

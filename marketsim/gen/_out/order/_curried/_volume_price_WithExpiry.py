@@ -22,7 +22,7 @@ class volume_price_WithExpiry_IFunctionFloatFloatFloatIOrderGenerator(IFunction[
     
     _properties = {
         'expiry' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator, IFunction[float]], IFunction[float]]
+        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]
     }
     def __repr__(self):
         return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__

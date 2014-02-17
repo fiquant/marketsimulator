@@ -22,7 +22,7 @@ class volume_WithExpiry_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGener
     
     _properties = {
         'expiry' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator, IFunction[float]]
+        'proto' : IFunction[IOrderGenerator,IFunction[float]]
     }
     def __repr__(self):
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__

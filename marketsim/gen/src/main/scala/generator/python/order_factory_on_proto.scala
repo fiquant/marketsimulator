@@ -34,7 +34,7 @@ object order_factory_on_proto
         def interface = fac_cur.interface
 
         override def property = s"\'$name\' : " |||
-                (if (isProto) interface else ty)
+                (if (isProto) interface.asCode else ty)
     }
 
     case class PartialFactory(args   : List[String],
@@ -62,9 +62,9 @@ object order_factory_on_proto
         override val prefix = curried map { _.name } mkString ""
         override def factoryName = x.name
 
-        override def interface = x.ret_type.asCode
+        override def interface = x.ret_type
 
-        override def base_class_list = interface :: Nil
+        override def base_class_list = interface.asCode :: Nil
     }
 
 
