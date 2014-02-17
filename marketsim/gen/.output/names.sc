@@ -2273,7 +2273,6 @@ type ITrader
 
 type IGraph
 
-@impl = "_Function_Impl"
 type Function[T] : IFunction[T]
 
 type CandleStick
@@ -2319,6 +2318,8 @@ type IVolumeLevels
 type Order
 
 type List[T]
+
+type Observable[U] : IObservable[U]
 
 type IDifferentiable : IFunction[Float]
 

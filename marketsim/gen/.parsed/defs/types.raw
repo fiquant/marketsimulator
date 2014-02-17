@@ -99,9 +99,6 @@ Definitions:
 | | | | | | | | - T
 | | | | | | - List:
 | | - List:
-| | | - Attribute:
-| | | | - impl
-| | | | - _Function_Impl
 | - Interface:
 | | - IEvent
 | | - Generics:
@@ -129,6 +126,23 @@ Definitions:
 | | | | | - List:
 | | | | | | - IEvent
 | | | | - List:
+| | - List:
+| - Interface:
+| | - Observable
+| | - Generics:
+| | | - List:
+| | | | - U
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IObservable
+| | | | - List:
+| | | | | - SimpleType:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - U
+| | | | | | - List:
 | | - List:
 | - Interface:
 | | - IOrderQueue

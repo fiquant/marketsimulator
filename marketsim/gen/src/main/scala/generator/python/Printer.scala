@@ -64,14 +64,25 @@ object Printer {
                                "String" -> "str")
 
             def asCode = {
-                def impl(xs : List[Printable]) : Code = xs match {
-                    case Nil => stop
-                    case x :: Nil => x.asCode
-                    case x :: y => x.asCode ||| "," ||| impl(y)
+
+                if (decl.name == "Observable") {
+                    val ty = genericArgs(0)
+                    s"Observable["||| ty.asCode |||"]" |||
+                    ImportFrom(ty.asCode.toString, "marketsim") |||
+                    ImportFrom("Observable", "marketsim.ops._all")
                 }
-                val name = builtins.getOrElse(decl.name, decl.name)
-                name ||| ImportFrom(name, "marketsim") |||
-                (if (genericArgs.isEmpty) stop else "[" ||| impl(genericArgs) ||| "]")
+                else
+                {
+                    def impl(xs : List[Printable]) : Code = xs match {
+                        case Nil => stop
+                        case x :: Nil => x.asCode
+                        case x :: y => x.asCode ||| "," ||| impl(y)
+                    }
+                    val name = builtins.getOrElse(decl.name, decl.name)
+                    name ||| ImportFrom(name, "marketsim") |||
+                    (if (genericArgs.isEmpty) stop else "[" ||| impl(genericArgs) ||| "]")
+
+                }
             }
         }
     }

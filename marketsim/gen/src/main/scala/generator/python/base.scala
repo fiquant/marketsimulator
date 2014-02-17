@@ -163,9 +163,7 @@ package object base {
             if (trivialObservable)
                 Typed.topLevel.observableOf(ty).asCode
             else
-                s"Observable["||| ty.asCode |||"]" |||
-                ImportFrom(ty.asCode.toString, "marketsim") |||
-                ImportFrom("Observable", "marketsim.ops._all")
+                Typed.topLevel.observableImplOf(ty).asCode
 
         override def base_class_list = observableBase :: super.base_class_list
 

@@ -366,6 +366,7 @@ package object Typed
             IFunction resolveGenerics  t :: Nil
 
         lazy val IObservable = (types get "IObservable").get.asInstanceOf[InterfaceDecl]
+        lazy val Observable = (types get "Observable").get.asInstanceOf[InterfaceDecl]
 
         def unboundObservableOf(t : TypesUnbound.Base) =
             IObservable resolveGenerics  t :: Nil
@@ -390,6 +391,10 @@ package object Typed
 
         def observableOf(t : TypesBound.Base) =
             TypesBound.Interface(IObservable, t :: Nil)
+
+        def observableImplOf(t : TypesBound.Base) =
+            TypesBound.Interface(Observable, t :: Nil)
+
         
     }
 
