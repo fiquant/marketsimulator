@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim import Side
 from marketsim import IFunction
-from marketsim.gen._intrinsic.side import _Buy_Impl
+from marketsim import context
 @registry.expose(["Side", "Buy"])
-class Buy_(IFunction[Side],_Buy_Impl):
+class Buy_(IFunction[Side]):
     """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        _Buy_Impl.__init__(self)
+        self.impl = self.getImpl()
     
     @property
     def label(self):
@@ -21,6 +21,22 @@ class Buy_(IFunction[Side],_Buy_Impl):
     }
     def __repr__(self):
         return "Buy" % self.__dict__
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
+    _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
+    def getImpl(self):
+        from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
+        return _side_observableBuy_()
     
 def Buy(): 
     from marketsim import rtti

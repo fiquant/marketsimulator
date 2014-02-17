@@ -6,34 +6,31 @@ package side() {
     // defined at defs\side.sc: 10.5
     /** Function always returning Sell side
      */
-    @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => Side
+    def Sell() = observableSell() : IFunction[Side]
     
-    // defined at defs\side.sc: 16.5
+    // defined at defs\side.sc: 15.5
     /** Function always returning Buy side
      */
-    @python.intrinsic("side._Buy_Impl")
-    def Buy() : () => Side
+    def Buy() = observableBuy() : IFunction[Side]
     
-    // defined at defs\side.sc: 22.5
+    // defined at defs\side.sc: 20.5
     /** Function always returning None of type Side
      */
-    @python.intrinsic("side._None_Impl")
-    def Nothing() : () => Side
+    def Nothing() = observableNothing() : IFunction[Side]
     
-    // defined at defs\side.sc: 28.5
+    // defined at defs\side.sc: 25.5
     /** Observable always equal to Sell side
      */
     @python.intrinsic.observable("side._Sell_Impl")
     def observableSell() : IObservable[Side]
     
-    // defined at defs\side.sc: 34.5
+    // defined at defs\side.sc: 31.5
     /** Observable always equal to Buy side
      */
     @python.intrinsic.observable("side._Buy_Impl")
     def observableBuy() : IObservable[Side]
     
-    // defined at defs\side.sc: 40.5
+    // defined at defs\side.sc: 37.5
     /** Observable always equal to None of type Side
      */
     @python.intrinsic.observable("side._None_Impl")

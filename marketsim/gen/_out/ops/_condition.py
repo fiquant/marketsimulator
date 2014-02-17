@@ -254,7 +254,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanSideIObservableSide(Observable[Side],_Condition_Impl):
+class Condition_IObservableBooleanIFunctionSideIObservableSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -296,7 +296,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanIObservableSideSide(Observable[Side],_Condition_Impl):
+class Condition_IObservableBooleanIObservableSideIFunctionSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -463,7 +463,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IFunctionBooleanSideIObservableSide(Observable[Side],_Condition_Impl):
+class Condition_IFunctionBooleanIFunctionSideIObservableSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -505,7 +505,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IFunctionBooleanIObservableSideSide(Observable[Side],_Condition_Impl):
+class Condition_IFunctionBooleanIObservableSideIFunctionSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -547,7 +547,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanSideSide(Observable[Side],_Condition_Impl):
+class Condition_IObservableBooleanIFunctionSideIFunctionSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -626,7 +626,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import bool
 @registry.expose(["Ops", "Condition"])
-class Condition_IFunctionBooleanSideSide(Observable[Side],_Condition_Impl):
+class Condition_IFunctionBooleanIFunctionSideIFunctionSide(Observable[Side],_Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -692,11 +692,11 @@ def Condition(cond = None,ifpart = None,elsepart = None):
     if cond is None or rtti.can_be_casted(cond, IObservable[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservable[Side]):
-                return Condition_IObservableBooleanSideIObservableSide(cond,ifpart,elsepart)
+                return Condition_IObservableBooleanIFunctionSideIObservableSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IObservable[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservable[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
-                return Condition_IObservableBooleanIObservableSideSide(cond,ifpart,elsepart)
+                return Condition_IObservableBooleanIObservableSideIFunctionSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservable[float]):
@@ -712,15 +712,15 @@ def Condition(cond = None,ifpart = None,elsepart = None):
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservable[Side]):
-                return Condition_IFunctionBooleanSideIObservableSide(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIFunctionSideIObservableSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservable[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
-                return Condition_IFunctionBooleanIObservableSideSide(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIObservableSideIFunctionSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IObservable[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
-                return Condition_IObservableBooleanSideSide(cond,ifpart,elsepart)
+                return Condition_IObservableBooleanIFunctionSideIFunctionSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[float]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[float]):
@@ -728,5 +728,5 @@ def Condition(cond = None,ifpart = None,elsepart = None):
     if cond is None or rtti.can_be_casted(cond, IFunction[bool]):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunction[Side]):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunction[Side]):
-                return Condition_IFunctionBooleanSideSide(cond,ifpart,elsepart)
+                return Condition_IFunctionBooleanIFunctionSideIFunctionSide(cond,ifpart,elsepart)
     raise Exception('Cannot find suitable overload for Condition('+str(cond)+','+str(ifpart)+','+str(elsepart)+')')

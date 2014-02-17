@@ -17,75 +17,81 @@ Definitions:
 | | | | - FunDef:
 | | | | | - Sell
 | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - observableSell
+| | | | | | | | - List:
 | | | | | | | - SimpleType:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - Side
+| | | | | | | | | | - IFunction
 | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Side
+| | | | | | | | | | - List:
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function always returning Sell side
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - side._Sell_Impl
 | | | | - FunDef:
 | | | | | - Buy
 | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - observableBuy
+| | | | | | | | - List:
 | | | | | | | - SimpleType:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - Side
+| | | | | | | | | | - IFunction
 | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Side
+| | | | | | | | | | - List:
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function always returning Buy side
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - side._Buy_Impl
 | | | | - FunDef:
 | | | | | - Nothing
 | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - FunctionType:
-| | | | | | | - List:
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - observableNothing
+| | | | | | | | - List:
 | | | | | | | - SimpleType:
 | | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - Side
+| | | | | | | | | | - IFunction
 | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Side
+| | | | | | | | | | - List:
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function always returning None of type Side
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | - List:
-| | | | | | | | - side._None_Impl
 | | | | - FunDef:
 | | | | | - observableSell
 | | | | | - List:

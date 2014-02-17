@@ -15,14 +15,14 @@ class FloatingPrice_IObservableFloatFloatIOrderGenerator(Factory_Impl,IOrderGene
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit_SideIFunctionFloat
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_IFunctionSideIFunctionFloat as _order__curried_price_Limit_IFunctionSideIFunctionFloat
         from marketsim import event
         from marketsim import Order
         Observable[Order].__init__(self)
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const_Float(10.0)
         event.subscribe(self.floatingPrice, self.fire, self)
-        self.proto = proto if proto is not None else _order__curried_price_Limit_SideIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_price_Limit_IFunctionSideIFunctionFloat()
         
         rtti.check_fields(self)
     

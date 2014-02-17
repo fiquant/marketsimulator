@@ -12,10 +12,10 @@ class price_FloatingPrice_IObservableFloatFloatIOrderGenerator(IFunction[IOrderG
     """ 
     def __init__(self, floatingPrice = None, proto = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit_SideIFunctionFloat
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_IFunctionSideIFunctionFloat as _order__curried_price_Limit_IFunctionSideIFunctionFloat
         from marketsim import rtti
         self.floatingPrice = floatingPrice if floatingPrice is not None else _const_Float(10.0)
-        self.proto = proto if proto is not None else _order__curried_price_Limit_SideIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_price_Limit_IFunctionSideIFunctionFloat()
         rtti.check_fields(self)
     
     @property

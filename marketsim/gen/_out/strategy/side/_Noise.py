@@ -41,8 +41,8 @@ class Noise_Float(IFunction[Side]):
         from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanSideSide as _ops_Condition_IFunctionBooleanSideSide
-        return _ops_Condition_IFunctionBooleanSideSide(_ops_Greater_IFunctionFloatIFunctionFloat(self.side_distribution,_constant_Float(0.5)),_side_Sell_(),_side_Buy_())
+        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIFunctionSideIFunctionSide as _ops_Condition_IFunctionBooleanIFunctionSideIFunctionSide
+        return _ops_Condition_IFunctionBooleanIFunctionSideIFunctionSide(_ops_Greater_IFunctionFloatIFunctionFloat(self.side_distribution,_constant_Float(0.5)),_side_Sell_(),_side_Buy_())
     
 def Noise(side_distribution = None): 
     from marketsim import float

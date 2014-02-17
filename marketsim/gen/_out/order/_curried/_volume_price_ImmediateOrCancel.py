@@ -13,9 +13,9 @@ class volume_price_ImmediateOrCancel_FloatFloatIOrderGenerator(IFunction[IFuncti
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_price_limit import volume_price_Limit_Side as _order__curried_volume_price_Limit_Side
+        from marketsim.gen._out.order._curried._volume_price_limit import volume_price_Limit_IFunctionSide as _order__curried_volume_price_Limit_IFunctionSide
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_volume_price_Limit_Side()
+        self.proto = proto if proto is not None else _order__curried_volume_price_Limit_IFunctionSide()
         rtti.check_fields(self)
     
     @property

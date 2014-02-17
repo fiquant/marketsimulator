@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
 @registry.expose(["Asset", "Queue"])
-class Queue_IOrderBookSide(_Queue_Impl):
+class Queue_IOrderBookIFunctionSide(_Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
@@ -29,10 +29,10 @@ class Queue_IOrderBookSide(_Queue_Impl):
     
 def Queue(book = None,side = None): 
     from marketsim import IOrderBook
-    from marketsim import Side
     from marketsim import IFunction
+    from marketsim import Side
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if side is None or rtti.can_be_casted(side, IFunction[Side]):
-            return Queue_IOrderBookSide(book,side)
+            return Queue_IOrderBookIFunctionSide(book,side)
     raise Exception('Cannot find suitable overload for Queue('+str(book)+','+str(side)+')')

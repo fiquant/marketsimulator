@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim import bool
 from marketsim import IFunction
-from marketsim.gen._intrinsic._constant import _True_Impl
+from marketsim import context
 @registry.expose(["Basic", "true"])
-class true_(IFunction[bool],_True_Impl):
+class true_(IFunction[bool]):
     """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        _True_Impl.__init__(self)
+        self.impl = self.getImpl()
     
     @property
     def label(self):
@@ -21,6 +21,22 @@ class true_(IFunction[bool],_True_Impl):
     }
     def __repr__(self):
         return "True" % self.__dict__
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
+    _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
+    def getImpl(self):
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        return _observableTrue_()
     
 def true(): 
     from marketsim import rtti

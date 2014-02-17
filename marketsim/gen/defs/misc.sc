@@ -31,16 +31,14 @@ package {
     /**
      *  Function always returning *True*
      */
-    @python.intrinsic.function("_constant._True_Impl")
     @label = "True"
-    def true() : IFunction[Boolean]
+    def true() = observableTrue() : IFunction[Boolean]
 
     /**
      *  Function always returning *False*
      */
-    @python.intrinsic.function("_constant._False_Impl")
     @label = "False"
-    def false() : IFunction[Boolean]
+    def false() = observableFalse() : IFunction[Boolean]
 
     /**
      *  Trivial observable always returning *True*

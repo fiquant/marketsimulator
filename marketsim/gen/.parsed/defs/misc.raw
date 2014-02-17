@@ -166,62 +166,58 @@ Definitions:
 | | | | - FunDef:
 | | | | | - true
 | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Boolean
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
+| | | | | | | | | | - observableTrue
+| | | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - IFunction
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Boolean
+| | | | | | | | | | - List:
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function always returning *True*
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | | | - function
-| | | | | | | - List:
-| | | | | | | | - _constant._True_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - True
 | | | | - FunDef:
 | | | | | - false
 | | | | | - List:
-| | | | | - None
 | | | | | - Some:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - IFunction
-| | | | | | | - List:
-| | | | | | | | - SimpleType:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Boolean
+| | | | | | - Cast:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
+| | | | | | | | | | - observableFalse
+| | | | | | | | - List:
+| | | | | | | - SimpleType:
+| | | | | | | | - QualifiedName:
+| | | | | | | | | - List:
+| | | | | | | | | | - IFunction
+| | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Boolean
+| | | | | | | | | | - List:
+| | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function always returning *False*
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - intrinsic
-| | | | | | | | | - function
-| | | | | | | - List:
-| | | | | | | | - _constant._False_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - False

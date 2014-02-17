@@ -55,9 +55,9 @@ class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
     def getImpl(self):
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIFunctionFloat as _ops_Mul_IObservableFloatIFunctionFloat
         from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueIFunctionFloat as _orderbook_SafeSidePrice_IOrderQueueIFunctionFloat
-        from marketsim.gen._out.orderbook._queue import Queue_IOrderBookSide as _orderbook_Queue_IOrderBookSide
+        from marketsim.gen._out.orderbook._queue import Queue_IOrderBookIFunctionSide as _orderbook_Queue_IOrderBookIFunctionSide
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return _ops_Mul_IObservableFloatIFunctionFloat(_orderbook_SafeSidePrice_IOrderQueueIFunctionFloat(_orderbook_Queue_IOrderBookSide(self.book,self.side),_constant_Float(self.initialValue)),self.priceDistr)
+        return _ops_Mul_IObservableFloatIFunctionFloat(_orderbook_SafeSidePrice_IOrderQueueIFunctionFloat(_orderbook_Queue_IOrderBookIFunctionSide(self.book,self.side),_constant_Float(self.initialValue)),self.priceDistr)
     
 def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = None): 
     from marketsim import IFunction

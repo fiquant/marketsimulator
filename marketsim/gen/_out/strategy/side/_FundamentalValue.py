@@ -49,15 +49,15 @@ class FundamentalValue_IObservableFloatIOrderBook(Observable[Side]):
     
     def getImpl(self):
         from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionSideIObservableSide as _ops_Condition_IObservableBooleanIFunctionSideIObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.ops._less import Less_IObservableFloatIObservableFloat as _ops_Less_IObservableFloatIObservableFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatIObservableFloat as _ops_Greater_IObservableFloatIObservableFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionSideIFunctionSide as _ops_Condition_IObservableBooleanIFunctionSideIFunctionSide
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatIObservableFloat(_orderbook_bid_Price_IOrderBook(self.book),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),self.fv),_side_Buy_(),_side_Nothing_()))
+        return _ops_Condition_IObservableBooleanIFunctionSideIObservableSide(_ops_Greater_IObservableFloatIObservableFloat(_orderbook_bid_Price_IOrderBook(self.book),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanIFunctionSideIFunctionSide(_ops_Less_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),self.fv),_side_Buy_(),_side_Nothing_()))
     
 from marketsim.ops._all import Observable
 from marketsim import IFunction
@@ -111,14 +111,14 @@ class FundamentalValue_IFunctionFloatIOrderBook(Observable[Side]):
     def getImpl(self):
         from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatIFunctionFloat as _ops_Greater_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionSideIObservableSide as _ops_Condition_IObservableBooleanIFunctionSideIObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.ops._less import Less_IObservableFloatIFunctionFloat as _ops_Less_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionSideIFunctionSide as _ops_Condition_IObservableBooleanIFunctionSideIFunctionSide
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatIFunctionFloat(_orderbook_bid_Price_IOrderBook(self.book),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatIFunctionFloat(_orderbook_ask_Price_IOrderBook(self.book),self.fv),_side_Buy_(),_side_Nothing_()))
+        return _ops_Condition_IObservableBooleanIFunctionSideIObservableSide(_ops_Greater_IObservableFloatIFunctionFloat(_orderbook_bid_Price_IOrderBook(self.book),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanIFunctionSideIFunctionSide(_ops_Less_IObservableFloatIFunctionFloat(_orderbook_ask_Price_IOrderBook(self.book),self.fv),_side_Buy_(),_side_Nothing_()))
     
 def FundamentalValue(fv = None,book = None): 
     from marketsim import IFunction

@@ -10,14 +10,14 @@ package side {
     /** Function always returning None of type Side
      */
     
-    @python.intrinsic("side._None_Impl")
-    def Nothing() : () => .Side
+    def Nothing() : .IFunction[.Side]
+        	 = .side.observableNothing() : .IFunction[.Side]
     
     /** Function always returning Buy side
      */
     
-    @python.intrinsic("side._Buy_Impl")
-    def Buy() : () => .Side
+    def Buy() : .IFunction[.Side]
+        	 = .side.observableBuy() : .IFunction[.Side]
     
     /** Observable always equal to None of type Side
      */
@@ -34,8 +34,8 @@ package side {
     /** Function always returning Sell side
      */
     
-    @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => .Side
+    def Sell() : .IFunction[.Side]
+        	 = .side.observableSell() : .IFunction[.Side]
 }
 
 @category = "Event"
@@ -151,7 +151,7 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
-                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  ifpart : Optional[.IFunction[.Side]] = .side.Sell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
@@ -159,7 +159,7 @@ package ops {
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                  elsepart : Optional[.IFunction[.Side]] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -186,7 +186,7 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
-                  ifpart : Optional[() => .Side] = .side.Sell(),
+                  ifpart : Optional[.IFunction[.Side]] = .side.Sell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
@@ -194,14 +194,14 @@ package ops {
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                  elsepart : Optional[.IFunction[.Side]] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
-                  ifpart : Optional[() => .Side] = .side.Sell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+                  ifpart : Optional[.IFunction[.Side]] = .side.Sell(),
+                  elsepart : Optional[.IFunction[.Side]] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -214,8 +214,8 @@ package ops {
     
     @python.intrinsic.observable("ops._Condition_Impl")
     def Condition(cond : Optional[.IFunction[.Boolean]] = .true(),
-                  ifpart : Optional[() => .Side] = .side.Sell(),
-                  elsepart : Optional[() => .Side] = .side.Buy()) : .IFunction[.Side]
+                  ifpart : Optional[.IFunction[.Side]] = .side.Sell(),
+                  elsepart : Optional[.IFunction[.Side]] = .side.Buy()) : .IFunction[.Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
@@ -1115,7 +1115,7 @@ package order {
          */
         
         @python.order.factory.curried("price_Limit")
-        def volume_price_Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_Limit(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating iceberg orders
          *
@@ -1494,7 +1494,7 @@ package order {
          */
         
         @python.order.factory.curried("Market")
-        def volume_Market(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell()) : (() => .Float) => .IOrderGenerator
+        def volume_Market(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell()) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -1687,7 +1687,7 @@ package order {
          */
         
         @python.order.factory.curried("Limit")
-        def price_Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+        def price_Limit(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell(),
                         /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating limit orders
@@ -1773,7 +1773,7 @@ package order {
          */
         
         @python.order.factory.curried("Limit")
-        def volume_Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+        def volume_Limit(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell(),
                          /** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0)) : (() => .Float) => .IOrderGenerator
     }
     
@@ -1820,7 +1820,7 @@ package order {
      */
     
     @python.order.factory("order.limit.Order_Impl")
-    def Limit(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+    def Limit(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell(),
               /** function defining price of orders to create */ price : Optional[.IFunction[.Float]] = .constant(100.0),
               /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : .IOrderGenerator
     
@@ -1851,7 +1851,7 @@ package order {
      */
     
     @python.order.factory("order.market.Order_Impl")
-    def Market(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+    def Market(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell(),
                /** function defining volume of orders to create */ volume : Optional[.IFunction[.Float]] = .constant(1.0)) : .IOrderGenerator
     
     /** Factory creating StopLoss orders
@@ -1909,7 +1909,7 @@ package order {
      */
     
     @python.order.factory("order.meta.fixed_budget.Order_Impl")
-    def FixedBudget(/** function defining side of orders to create */ side : Optional[() => .Side] = .side.Sell(),
+    def FixedBudget(/** function defining side of orders to create */ side : Optional[.IFunction[.Side]] = .side.Sell(),
                     /** function defining budget on which it may send orders at one time */ budget : Optional[.IFunction[.Float]] = .constant(1000.0)) : .IOrderGenerator
     
     /** Factory creating limit orders
@@ -2771,7 +2771,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     @python.intrinsic("orderbook.proxy._Queue_Impl")
     def Queue(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-              side : Optional[() => .Side] = .side.Sell()) : .IOrderQueue
+              side : Optional[.IFunction[.Side]] = .side.Sell()) : .IOrderQueue
     
     /** Phantom orderbook used to refer to the order book associated with a single asset trader
      *
@@ -3074,8 +3074,8 @@ def constant(x : Optional[.Float] = 1.0) : .IFunction[.Float]
 @category = "Basic"
 @label = "False"
 
-@python.intrinsic.function("_constant._False_Impl")
 def false() : .IFunction[.Boolean]
+    	 = .observableFalse() : .IFunction[.Boolean]
 
 /** Trivial observable always returning *True*
  */
@@ -3145,8 +3145,8 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 @category = "Basic"
 @label = "True"
 
-@python.intrinsic.function("_constant._True_Impl")
 def true() : .IFunction[.Boolean]
+    	 = .observableTrue() : .IFunction[.Boolean]
 
 /** Returns *x* if defined and *elsePart* otherwise
  */

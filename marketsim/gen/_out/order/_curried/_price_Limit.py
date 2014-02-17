@@ -4,7 +4,7 @@ from marketsim import Side
 from marketsim import registry
 from marketsim import float
 @registry.expose(["Order", "Limit"])
-class price_Limit_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
+class price_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]]):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -38,11 +38,11 @@ class price_Limit_SideIFunctionFloat(IFunction[IOrderGenerator, IFunction[float]
         return Limit(side, price, volume)
     
 def price_Limit(side = None,volume = None): 
-    from marketsim import Side
     from marketsim import IFunction
+    from marketsim import Side
     from marketsim import float
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunction[Side]):
         if volume is None or rtti.can_be_casted(volume, IFunction[float]):
-            return price_Limit_SideIFunctionFloat(side,volume)
+            return price_Limit_IFunctionSideIFunctionFloat(side,volume)
     raise Exception('Cannot find suitable overload for price_Limit('+str(side)+','+str(volume)+')')

@@ -7,10 +7,10 @@ class Generic_IOrderGeneratorIEvent(_Generic_Impl):
     """   creates an order via *orderFactory* and sends the order to the market using its trader
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
-        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit_SideIFunctionFloatIFunctionFloat
+        from marketsim.gen._out.order._limit import Limit_IFunctionSideIFunctionFloatIFunctionFloat as _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim import rtti
-        self.orderFactory = orderFactory if orderFactory is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
+        self.orderFactory = orderFactory if orderFactory is not None else _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat()
         self.eventGen = eventGen if eventGen is not None else _event_Every_Float()
         rtti.check_fields(self)
         _Generic_Impl.__init__(self)

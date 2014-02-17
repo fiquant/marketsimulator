@@ -14,14 +14,14 @@ class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator
         from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        from marketsim.gen._out.order._limit import Limit_SideIFunctionFloatIFunctionFloat as _order_Limit_SideIFunctionFloatIFunctionFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
+        from marketsim.gen._out.order._limit import Limit_IFunctionSideIFunctionFloatIFunctionFloat as _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat
         from marketsim import Order
         Observable[Order].__init__(self)
         self.expiry = expiry if expiry is not None else _constant_Float(10.0)
         
-        self.proto = proto if proto is not None else _order_Limit_SideIFunctionFloatIFunctionFloat()
+        self.proto = proto if proto is not None else _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     

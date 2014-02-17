@@ -14,10 +14,10 @@ class Peg_FloatIOrderGenerator(Factory_Impl,IOrderGenerator):
     def __init__(self, proto = None):
         from marketsim import Order
         from marketsim.ops._all import Observable
-        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideIFunctionFloat as _order__curried_price_Limit_SideIFunctionFloat
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_IFunctionSideIFunctionFloat as _order__curried_price_Limit_IFunctionSideIFunctionFloat
         from marketsim import rtti
         Observable[Order].__init__(self)
-        self.proto = proto if proto is not None else _order__curried_price_Limit_SideIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_price_Limit_IFunctionSideIFunctionFloat()
         
         rtti.check_fields(self)
     

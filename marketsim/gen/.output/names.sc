@@ -9,13 +9,11 @@ package side
     
     /** Function always returning None of type Side
      */
-    @python.intrinsic("side._None_Impl")
-    def Nothing() : () => .Side
+    def Nothing() = .side.observableNothing() : .IFunction[.Side]
     
     /** Function always returning Buy side
      */
-    @python.intrinsic("side._Buy_Impl")
-    def Buy() : () => .Side
+    def Buy() = .side.observableBuy() : .IFunction[.Side]
     
     /** Observable always equal to None of type Side
      */
@@ -29,8 +27,7 @@ package side
     
     /** Function always returning Sell side
      */
-    @python.intrinsic("side._Sell_Impl")
-    def Sell() : () => .Side
+    def Sell() = .side.observableSell() : .IFunction[.Side]
     
 }
 
@@ -2348,9 +2345,8 @@ def constant(x = 1) = .const(x) : .IFunction[.Int]
 /** Function always returning *False*
  */
 @category = "Basic"
-@python.intrinsic.function("_constant._False_Impl")
 @label = "False"
-def false() : .IFunction[.Boolean]
+def false() = .observableFalse() : .IFunction[.Boolean]
 
 /** Trivial observable always returning *True*
  */
@@ -2411,9 +2407,8 @@ def CandleSticks(/** observable data source considered as asset price */ source 
 /** Function always returning *True*
  */
 @category = "Basic"
-@python.intrinsic.function("_constant._True_Impl")
 @label = "True"
-def true() : .IFunction[.Boolean]
+def true() = .observableTrue() : .IFunction[.Boolean]
 
 /** Returns *x* if defined and *elsePart* otherwise
  */
