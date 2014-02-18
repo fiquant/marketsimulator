@@ -1,8 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._itwowaylink import ITwoWayLink
 from marketsim.gen._intrinsic.orderbook.link import _TwoWayLink_Impl
-from marketsim import ILink
+from marketsim.gen._out._ilink import ILink
 @registry.expose(["Asset", "TwoWayLink"])
-class TwoWayLink_ILinkILink(_TwoWayLink_Impl):
+class TwoWayLink_ILinkILink(ITwoWayLink,_TwoWayLink_Impl):
     """  (normally between a trader and a market).
      Ensures that sending packets via links preserves their order.
      Holds two one-way links in opposite directions.
@@ -27,9 +28,9 @@ class TwoWayLink_ILinkILink(_TwoWayLink_Impl):
         return "TwoWayLink(%(up)s, %(down)s)" % self.__dict__
     
 def TwoWayLink(up = None,down = None): 
-    from marketsim import ILink
+    from marketsim.gen._out._ilink import ILink
     from marketsim import rtti
     if up is None or rtti.can_be_casted(up, ILink):
         if down is None or rtti.can_be_casted(down, ILink):
             return TwoWayLink_ILinkILink(up,down)
-    raise Exception('Cannot find suitable overload for TwoWayLink('+str(up)+','+str(down)+')')
+    raise Exception('Cannot find suitable overload for TwoWayLink('+str(up) +':'+ str(type(up))+','+str(down) +':'+ str(type(down))+')')

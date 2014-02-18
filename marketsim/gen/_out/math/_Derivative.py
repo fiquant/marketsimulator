@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IDifferentiable
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
-from marketsim import float
+from marketsim.gen._out._idifferentiable import IDifferentiable
 @registry.expose(["Basic", "Derivative"])
-class Derivative_IDifferentiable(IFunction[float],_Derivative_Impl):
+class Derivative_IDifferentiable(IFunctionfloat,_Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
@@ -25,8 +24,8 @@ class Derivative_IDifferentiable(IFunction[float],_Derivative_Impl):
         return "\\frac{d%(x)s}{dt}" % self.__dict__
     
 def Derivative(x = None): 
-    from marketsim import IDifferentiable
+    from marketsim.gen._out._idifferentiable import IDifferentiable
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IDifferentiable):
         return Derivative_IDifferentiable(x)
-    raise Exception('Cannot find suitable overload for Derivative('+str(x)+')')
+    raise Exception('Cannot find suitable overload for Derivative('+str(x) +':'+ str(type(x))+')')

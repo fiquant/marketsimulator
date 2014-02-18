@@ -1,6 +1,6 @@
 from marketsim import types, _
 
-class Cancel(types.IRequest):
+class Cancel(object):
     """ Cancels another order that can be for example a limit or an iceberg order
     """
     def __init__(self, orderToBeCancelled, callback = None):

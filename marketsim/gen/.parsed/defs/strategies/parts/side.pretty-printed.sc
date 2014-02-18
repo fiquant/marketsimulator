@@ -31,17 +31,16 @@ package strategy.side() {
     // defined at defs\strategies\parts\side.sc: 55.5
     /** Side function for fundamental value strategy
      */
-    @python.observable()
     def FundamentalValue(/** observable fundamental value */ fv = constant(200.0),
                          /** asset in question */ book = orderbook.OfTrader()) = if orderbook.bid.Price(book)>fv then side.Sell() else if orderbook.ask.Price(book)<fv then side.Buy() else side.Nothing()
     
-    // defined at defs\strategies\parts\side.sc: 69.5
+    // defined at defs\strategies\parts\side.sc: 68.5
     /** Side function for mean reversion strategy
      */
     def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,
                       /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(math.EW.Avg(orderbook.MidPrice(book),alpha),book)
     
-    // defined at defs\strategies\parts\side.sc: 82.5
+    // defined at defs\strategies\parts\side.sc: 81.5
     /** Side function for pair trading strategy
      */
     def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),

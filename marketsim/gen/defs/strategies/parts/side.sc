@@ -55,7 +55,6 @@ package strategy.side
     /**
      * Side function for fundamental value strategy
      */
-    @python.observable
     def FundamentalValue(
         /** observable fundamental value */
         fv      = constant(200.),

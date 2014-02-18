@@ -1,11 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "price_StopLoss"])
-class sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-,IFunction[float]]):
+class sidevolume_price_StopLoss_FloatSideFloatFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -25,9 +22,8 @@ class sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator(IFun
         return repr(self)
     
     _properties = {
-        'maxloss' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]
+        'maxloss' : IFunctionfloat,
+        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     }
     def __repr__(self):
         return "price_StopLoss(%(maxloss)s, %(proto)s)" % self.__dict__
@@ -43,13 +39,10 @@ class sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator(IFun
         return price_StopLoss(maxloss, proto(side,volume))
     
 def sidevolume_price_StopLoss(maxloss = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]):
-            return sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator(maxloss,proto)
-    raise Exception('Cannot find suitable overload for sidevolume_price_StopLoss('+str(maxloss)+','+str(proto)+')')
+    if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+            return sidevolume_price_StopLoss_FloatSideFloatFloatIObservableIOrder(maxloss,proto)
+    raise Exception('Cannot find suitable overload for sidevolume_price_StopLoss('+str(maxloss) +':'+ str(type(maxloss))+','+str(proto) +':'+ str(type(proto))+')')

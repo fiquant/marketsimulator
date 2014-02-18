@@ -77,13 +77,13 @@ object order_factory
 
         def impl = TypesBound.ImplementationClass(implementation_class, implementation_module)
 
-        def myBase =
+        override def observableBase =
             if (is_factory_intrinsic)
                 impl
             else
-                observableBase
+                super.observableBase
 
-        override def base_class_list = interface :: myBase :: Nil
+        override def base_class_list = interface :: super.base_class_list
 
         def nullable_fields = join_fields({ _.nullable}, crlf)
 

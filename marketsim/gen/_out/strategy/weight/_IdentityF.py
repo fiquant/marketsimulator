@@ -4,11 +4,10 @@ def identityF():
     return _strategy_weight_f_f_IdentityF_()
     raise Exception('Cannot find suitable overload for identityF('++')')
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "IdentityF"])
-class IdentityF_IFunctionFloat(IFunction[float]):
+class IdentityF_Float(IFunctionfloat):
     """ 
     """ 
     def __init__(self, f = None):
@@ -23,7 +22,7 @@ class IdentityF_IFunctionFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'f' : IFunction[float]
+        'f' : IFunctionfloat
     }
     def __repr__(self):
         return "IdentityF(%(f)s)" % self.__dict__
@@ -44,9 +43,8 @@ class IdentityF_IFunctionFloat(IFunction[float]):
         return self.f
     
 def IdentityF(f = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if f is None or rtti.can_be_casted(f, IFunction[float]):
-        return IdentityF_IFunctionFloat(f)
-    raise Exception('Cannot find suitable overload for IdentityF('+str(f)+')')
+    if f is None or rtti.can_be_casted(f, IFunctionfloat):
+        return IdentityF_Float(f)
+    raise Exception('Cannot find suitable overload for IdentityF('+str(f) +':'+ str(type(f))+')')

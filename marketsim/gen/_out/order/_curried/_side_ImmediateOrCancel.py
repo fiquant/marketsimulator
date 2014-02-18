@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import Side
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
 @registry.expose(["Order", "ImmediateOrCancel"])
-class side_ImmediateOrCancel_SideIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
+class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -13,9 +11,9 @@ class side_ImmediateOrCancel_SideIOrderGenerator(IFunction[IOrderGenerator,IFunc
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.order._curried._side_limit import side_Limit_FloatFloat as _order__curried_side_Limit_FloatFloat
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_Limit_IFunctionFloatIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_side_Limit_FloatFloat()
         rtti.check_fields(self)
     
     @property
@@ -23,7 +21,7 @@ class side_ImmediateOrCancel_SideIOrderGenerator(IFunction[IOrderGenerator,IFunc
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator,IFunction[Side]]
+        'proto' : IFunctionIObservableIOrderIFunctionSide
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -36,10 +34,8 @@ class side_ImmediateOrCancel_SideIOrderGenerator(IFunction[IOrderGenerator,IFunc
         return ImmediateOrCancel(proto(side))
     
 def side_ImmediateOrCancel(proto = None): 
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
-        return side_ImmediateOrCancel_SideIOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for side_ImmediateOrCancel('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+        return side_ImmediateOrCancel_SideIObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for side_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

@@ -1,1 +1,0 @@
-class Order(object): pass

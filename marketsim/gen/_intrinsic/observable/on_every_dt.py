@@ -55,8 +55,6 @@ class _Observable_Impl(object):
         """
         return self._dataSource()
 
-from marketsim import Side
-
 class _ObservableSide_Impl(object):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates

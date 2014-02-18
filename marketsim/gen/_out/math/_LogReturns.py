@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "LogReturns"])
-class LogReturns_IObservableFloatFloat(IFunction[float]):
+class LogReturns_IObservableFloatFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None, timeframe = None):
@@ -20,7 +19,7 @@ class LogReturns_IObservableFloatFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
+        'x' : IObservablefloat,
         'timeframe' : float
     }
     def __repr__(self):
@@ -39,16 +38,15 @@ class LogReturns_IObservableFloatFloat(IFunction[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._log import Log_IFunctionFloat as _math_Log_IFunctionFloat
+        from marketsim.gen._out.math._log import Log_Float as _math_Log_Float
         from marketsim.gen._out.ops._div import Div_IObservableFloatIObservableFloat as _ops_Div_IObservableFloatIObservableFloat
         from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged_IObservableFloatFloat
-        return _math_Log_IFunctionFloat(_ops_Div_IObservableFloatIObservableFloat(self.x,_math_Lagged_IObservableFloatFloat(self.x,self.timeframe)))
+        return _math_Log_Float(_ops_Div_IObservableFloatIObservableFloat(self.x,_math_Lagged_IObservableFloatFloat(self.x,self.timeframe)))
     
 def LogReturns(x = None,timeframe = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return LogReturns_IObservableFloatFloat(x,timeframe)
-    raise Exception('Cannot find suitable overload for LogReturns('+str(x)+','+str(timeframe)+')')
+    raise Exception('Cannot find suitable overload for LogReturns('+str(x) +':'+ str(type(x))+','+str(timeframe) +':'+ str(type(timeframe))+')')

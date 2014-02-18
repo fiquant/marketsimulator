@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim.gen._intrinsic.orderbook.props import _TickSize_Impl
-from marketsim import IOrderBook
 from marketsim import registry
-from marketsim import Price
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._intrinsic.orderbook.props import _TickSize_Impl
+from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "TickSize"])
-class TickSize_IOrderBook(IFunction[Price],_TickSize_Impl):
+class TickSize_IOrderBook(IFunctionfloat,_TickSize_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -25,8 +24,8 @@ class TickSize_IOrderBook(IFunction[Price],_TickSize_Impl):
         return "TickSize(%(book)s)" % self.__dict__
     
 def TickSize(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return TickSize_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for TickSize('+str(book)+')')
+    raise Exception('Cannot find suitable overload for TickSize('+str(book) +':'+ str(type(book))+')')

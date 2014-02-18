@@ -41,7 +41,7 @@ class LastTrade(Observable[float]):
     def __call__(self):
         return self._lastTrade
 
-class Queue(types.IOrderQueue):
+class Queue(object):
     """ Queue of limit orders at one side (Sell or Buy).
     It is implemented over a heap so has following comlexity for operations:
     - pushing order: O(logN)

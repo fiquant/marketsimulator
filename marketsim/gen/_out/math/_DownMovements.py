@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "DownMovements"])
 class DownMovements_IObservableFloatFloat(Observable[float]):
     """ 
@@ -13,7 +12,6 @@ class DownMovements_IObservableFloatFloat(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -26,7 +24,7 @@ class DownMovements_IObservableFloatFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float],
+        'source' : IObservablefloat,
         'timeframe' : float
     }
     def __repr__(self):
@@ -45,17 +43,16 @@ class DownMovements_IObservableFloatFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._max import Max_IFunctionFloatIObservableFloat as _math_Max_IFunctionFloatIObservableFloat
+        from marketsim.gen._out.math._max import Max_FloatIObservableFloat as _math_Max_FloatIObservableFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged_IObservableFloatFloat
-        return _math_Max_IFunctionFloatIObservableFloat(_constant_Float(0.0),_ops_Sub_IObservableFloatIObservableFloat(_math_Lagged_IObservableFloatFloat(self.source,self.timeframe),self.source))
+        return _math_Max_FloatIObservableFloat(_constant_Float(0.0),_ops_Sub_IObservableFloatIObservableFloat(_math_Lagged_IObservableFloatFloat(self.source,self.timeframe),self.source))
     
 def DownMovements(source = None,timeframe = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return DownMovements_IObservableFloatFloat(source,timeframe)
-    raise Exception('Cannot find suitable overload for DownMovements('+str(source)+','+str(timeframe)+')')
+    raise Exception('Cannot find suitable overload for DownMovements('+str(source) +':'+ str(type(source))+','+str(timeframe) +':'+ str(type(timeframe))+')')

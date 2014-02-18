@@ -1,10 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "price_Iceberg"])
-class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_Iceberg_FloatSideFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
@@ -12,10 +10,10 @@ class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunct
     """ 
     def __init__(self, lotSize = None, proto = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit_IFunctionFloat
+        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float
         from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
-        self.proto = proto if proto is not None else _order__curried_side_price_Limit_IFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_side_price_Limit_Float()
         rtti.check_fields(self)
     
     @property
@@ -23,8 +21,8 @@ class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunct
         return repr(self)
     
     _properties = {
-        'lotSize' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
+        'lotSize' : IFunctionfloat,
+        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     }
     def __repr__(self):
         return "price_Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -38,12 +36,10 @@ class side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(IFunction[IFunct
         return price_Iceberg(lotSize, proto(side))
     
 def side_price_Iceberg(lotSize = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-            return side_price_Iceberg_IFunctionFloatSideFloatIOrderGenerator(lotSize,proto)
-    raise Exception('Cannot find suitable overload for side_price_Iceberg('+str(lotSize)+','+str(proto)+')')
+    if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+            return side_price_Iceberg_FloatSideFloatIObservableIOrder(lotSize,proto)
+    raise Exception('Cannot find suitable overload for side_price_Iceberg('+str(lotSize) +':'+ str(type(lotSize))+','+str(proto) +':'+ str(type(proto))+')')

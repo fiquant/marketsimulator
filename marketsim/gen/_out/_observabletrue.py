@@ -1,5 +1,4 @@
 from marketsim import registry
-from marketsim import bool
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic._constant import _True_Impl
 @registry.expose(["Basic", "observableTrue"])
@@ -7,7 +6,6 @@ class observableTrue_(Observable[bool],_True_Impl):
     """ 
     """ 
     def __init__(self):
-        from marketsim import bool
         from marketsim.ops._all import Observable
         from marketsim import rtti
         Observable[bool].__init__(self)

@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (order, strategy, trader, orderbook, event, observable, math, constant)
+from marketsim._pub import (order, strategy, trader, orderbook, event, observable, math, constant, const)
 
 from common import expose
 
@@ -17,7 +17,7 @@ def MultiarmedBandit(ctx):
         return  strategy.FundamentalValue(
                     event.Every(constant(1.)),
                     order.side.Market(volume = constant(1.)),
-                    fundamentalValue = constant(x))
+                    fundamentalValue = const(x))
                                         
     xs = range(100, 300, 50) + range(160, 190, 10)
     def strategies():
@@ -35,7 +35,7 @@ def MultiarmedBandit(ctx):
                 strategy.FundamentalValue(
                     event.Every(constant(1.)),
                     order.side.Market(volume = constant(12.)),
-                    fundamentalValue = constant(200)),
+                    fundamentalValue = const(200)),
                 'fv 12-200'), 
 
         ctx.makeTrader_A(strategy.MultiArmedBandit(

@@ -1,10 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionSide
 @registry.expose(["Order", "Market"])
-class volume_Market_IFunctionSide(IFunction[IOrderGenerator,IFunction[float]]):
+class volume_Market_Side(IFunctionIObservableIOrderIFunctionfloat):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
@@ -19,7 +17,7 @@ class volume_Market_IFunctionSide(IFunction[IOrderGenerator,IFunction[float]]):
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side]
+        'side' : IFunctionSide
     }
     def __repr__(self):
         return "Market(%(side)s)" % self.__dict__
@@ -32,9 +30,8 @@ class volume_Market_IFunctionSide(IFunction[IOrderGenerator,IFunction[float]]):
         return Market(side, volume)
     
 def volume_Market(side = None): 
-    from marketsim import IFunction
-    from marketsim import Side
+    from marketsim.gen._out._ifunction import IFunctionSide
     from marketsim import rtti
-    if side is None or rtti.can_be_casted(side, IFunction[Side]):
-        return volume_Market_IFunctionSide(side)
-    raise Exception('Cannot find suitable overload for volume_Market('+str(side)+')')
+    if side is None or rtti.can_be_casted(side, IFunctionSide):
+        return volume_Market_Side(side)
+    raise Exception('Cannot find suitable overload for volume_Market('+str(side) +':'+ str(type(side))+')')

@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Statistics", "StdDev"])
-class StdDev_IObservableFloat(IFunction[float]):
+class StdDev_IObservableFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, source = None):
@@ -19,7 +18,7 @@ class StdDev_IObservableFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float]
+        'source' : IObservablefloat
     }
     def __repr__(self):
         return "\\sqrt{\\sigma^2_{cumul}(%(source)s)}" % self.__dict__
@@ -37,14 +36,13 @@ class StdDev_IObservableFloat(IFunction[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._sqrt import Sqrt_IFunctionFloat as _math_Sqrt_IFunctionFloat
+        from marketsim.gen._out.math._sqrt import Sqrt_Float as _math_Sqrt_Float
         from marketsim.gen._out.math.Cumulative._var import Var_IObservableFloat as _math_Cumulative_Var_IObservableFloat
-        return _math_Sqrt_IFunctionFloat(_math_Cumulative_Var_IObservableFloat(self.source))
+        return _math_Sqrt_Float(_math_Cumulative_Var_IObservableFloat(self.source))
     
 def StdDev(source = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         return StdDev_IObservableFloat(source)
-    raise Exception('Cannot find suitable overload for StdDev('+str(source)+')')
+    raise Exception('Cannot find suitable overload for StdDev('+str(source) +':'+ str(type(source))+')')

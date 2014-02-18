@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_IObservableFloat(Observable[float]):
     """ 
@@ -13,7 +12,6 @@ class RelStdDev_IObservableFloat(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         rtti.check_fields(self)
@@ -25,7 +23,7 @@ class RelStdDev_IObservableFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float]
+        'source' : IObservablefloat
     }
     def __repr__(self):
         return "RSD_{cumul}(%(source)s)" % self.__dict__
@@ -43,16 +41,15 @@ class RelStdDev_IObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div_IObservableFloatIFunctionFloat as _ops_Div_IObservableFloatIFunctionFloat
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIFunctionFloat as _ops_Sub_IObservableFloatIFunctionFloat
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math.Cumulative._avg import Avg_IObservableFloat as _math_Cumulative_Avg_IObservableFloat
         from marketsim.gen._out.math.Cumulative._stddev import StdDev_IObservableFloat as _math_Cumulative_StdDev_IObservableFloat
-        return _ops_Div_IObservableFloatIFunctionFloat(_ops_Sub_IObservableFloatIFunctionFloat(self.source,_math_Cumulative_Avg_IObservableFloat(self.source)),_math_Cumulative_StdDev_IObservableFloat(self.source))
+        return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_Cumulative_Avg_IObservableFloat(self.source)),_math_Cumulative_StdDev_IObservableFloat(self.source))
     
 def RelStdDev(source = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         return RelStdDev_IObservableFloat(source)
-    raise Exception('Cannot find suitable overload for RelStdDev('+str(source)+')')
+    raise Exception('Cannot find suitable overload for RelStdDev('+str(source) +':'+ str(type(source))+')')

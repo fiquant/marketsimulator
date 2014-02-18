@@ -1,7 +1,8 @@
 from marketsim import types, ops, event, _
 from marketsim.gen._intrinsic.observable import fold
+from marketsim.gen._out._idifferentiable import IDifferentiable
 
-class CMA_Impl(fold.Last, types.IDifferentiable):
+class CMA_Impl(fold.Last):
 
     def __init__(self):
         self.reset()

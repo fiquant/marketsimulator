@@ -1,0 +1,1 @@
+class IOrder(object): pass

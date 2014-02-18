@@ -1,7 +1,7 @@
 from marketsim import types, ops, event, _
 from marketsim.gen._intrinsic.observable import fold
 
-class MA_Impl(fold.Last, types.IDifferentiable):
+class MA_Impl(fold.Last):
 
     def __init__(self):
         self.reset()

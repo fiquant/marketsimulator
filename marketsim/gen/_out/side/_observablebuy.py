@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim import Side
+from marketsim.gen._out._side import Side
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.side import _Buy_Impl
 @registry.expose(["Side", "observableBuy"])
@@ -7,7 +7,7 @@ class observableBuy_(Observable[Side],_Buy_Impl):
     """ 
     """ 
     def __init__(self):
-        from marketsim import Side
+        from marketsim.gen._out._side import Side
         from marketsim.ops._all import Observable
         from marketsim import rtti
         Observable[Side].__init__(self)

@@ -1,7 +1,7 @@
 import random
-from marketsim import scheduler, meta, ops, ILink, ITwoWayLink
+from marketsim import scheduler
 
-class _Link_Impl(ILink):
+class _Link_Impl(object):
     """ Represents latency in information propagation from one agent to another one
         (normally between a trader and a market).
         Ensures that sending packets via a link preserves their order.
@@ -34,7 +34,7 @@ class _Link_Impl(ILink):
         self._lastT = t
         self._scheduler.schedule(t, func)
 
-class _TwoWayLink_Impl(ITwoWayLink):
+class _TwoWayLink_Impl(object):
     """ Represents latency in information propagation between two agents
         (normally between a trader and a market).
         Ensures that sending packets via links preserves their order.

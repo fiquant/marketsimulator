@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IOrderBook
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
-from marketsim import float
 @registry.expose(["Asset", "WeightedPrice"])
-class WeightedPrice_IOrderBookFloat(IFunction[float]):
+class WeightedPrice_IOrderBookFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, book = None, alpha = None):
@@ -44,10 +43,9 @@ class WeightedPrice_IOrderBookFloat(IFunction[float]):
         return _orderbook_WeightedPrice_IOrderQueueFloat(_orderbook_Asks_IOrderBook(self.book),self.alpha)
     
 def WeightedPrice(book = None,alpha = None): 
-    from marketsim import IOrderBook
-    from marketsim import float
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return WeightedPrice_IOrderBookFloat(book,alpha)
-    raise Exception('Cannot find suitable overload for WeightedPrice('+str(book)+','+str(alpha)+')')
+    raise Exception('Cannot find suitable overload for WeightedPrice('+str(book) +':'+ str(type(book))+','+str(alpha) +':'+ str(type(alpha))+')')

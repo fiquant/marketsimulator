@@ -1,6 +1,6 @@
 from queue import Queue
 from base import BookBase
-from marketsim import Side
+from marketsim.gen._out._side import Side
 
 class Bids(Queue):
     """ Queue of limit orders buy

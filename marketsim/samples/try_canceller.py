@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (strategy, constant)
+from marketsim._pub import (strategy, const)
 
 from common import expose
 
@@ -17,6 +17,6 @@ def Canceller(ctx):
         ctx.makeTrader_A(strategy.Canceller(), "canceller"),
          
         ctx.makeTrader_A(   strategy.FundamentalValue(
-                                fundamentalValue = constant(1000)),
+                                fundamentalValue = const(1000)),
                             "fv_1000")
         ]

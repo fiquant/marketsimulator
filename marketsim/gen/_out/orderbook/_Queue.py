@@ -1,10 +1,10 @@
-from marketsim import IFunction
-from marketsim import IOrderBook
-from marketsim import Side
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._iorderqueue import IOrderQueue
+from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
 @registry.expose(["Asset", "Queue"])
-class Queue_IOrderBookIFunctionSide(_Queue_Impl):
+class Queue_IOrderBookSide(IOrderQueue,_Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
@@ -22,17 +22,16 @@ class Queue_IOrderBookIFunctionSide(_Queue_Impl):
     
     _properties = {
         'book' : IOrderBook,
-        'side' : IFunction[Side]
+        'side' : IFunctionSide
     }
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % self.__dict__
     
 def Queue(book = None,side = None): 
-    from marketsim import IOrderBook
-    from marketsim import IFunction
-    from marketsim import Side
+    from marketsim.gen._out._iorderbook import IOrderBook
+    from marketsim.gen._out._ifunction import IFunctionSide
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
-        if side is None or rtti.can_be_casted(side, IFunction[Side]):
-            return Queue_IOrderBookIFunctionSide(book,side)
-    raise Exception('Cannot find suitable overload for Queue('+str(book)+','+str(side)+')')
+        if side is None or rtti.can_be_casted(side, IFunctionSide):
+            return Queue_IOrderBookSide(book,side)
+    raise Exception('Cannot find suitable overload for Queue('+str(book) +':'+ str(type(book))+','+str(side) +':'+ str(type(side))+')')

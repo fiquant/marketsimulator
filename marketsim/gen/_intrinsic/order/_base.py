@@ -2,143 +2,145 @@ from marketsim import types
 
 class HasVolumeBase(object):
 
-	def __str__(self):
-		return "[%d/%d]" % (self.volumeUnmatched, self.volumeTotal)
+    def __str__(self):
+        return "[%d/%d]" % (self.volumeUnmatched, self.volumeTotal)
 
-	@property
-	def volumeTotal(self):
-		return self.volumeFilled + self.volumeUnmatched
+    @property
+    def volumeTotal(self):
+        return self.volumeFilled + self.volumeUnmatched
 
-	@property
-	def signedVolumeUnmatched(self):
-		return self.side.makeVolumeSigned(self.volumeUnmatched)
+    @property
+    def signedVolumeUnmatched(self):
+        return self.side.makeVolumeSigned(self.volumeUnmatched)
 
-	@property
-	def empty(self):
-		""" Volume is empty iff its volume is 0
-		"""
-		return self.volumeUnmatched == 0
+    @property
+    def empty(self):
+        """ Volume is empty iff its volume is 0
+        """
+        return self.volumeUnmatched == 0
 
-	def onMatchedWith(self, price, volume):
-		""" Called when the order is matched with another order
-		price - price at which the match was done
-		volume - volume of the match.
-		In this method we correct order volume and P&L
-		and notify order listener about the match
-		"""
-		self.owner.onOrderMatched(self, price, volume)
-		if self.empty:
-			self.cancel()
+    def onMatchedWith(self, price, volume):
+        """ Called when the order is matched with another order
+        price - price at which the match was done
+        volume - volume of the match.
+        In this method we correct order volume and P&L
+        and notify order listener about the match
+        """
+        self.owner.onOrderMatched(self, price, volume)
+        if self.empty:
+            self.cancel()
 
 
 class HasVolume(HasVolumeBase):
 
-	def __init__(self, volume, volumeFilled = 0):
-		self._volumeUnmatched = volume
-		self._volumeFilled = 0
+    def __init__(self, volume, volumeFilled = 0):
+        self._volumeUnmatched = volume
+        self._volumeFilled = 0
 
-	def copyTo(self, dst):
-		dst._volumeUnmatched = self._volumeUnmatched
-		dst._volumeFilled = self._volumeFilled
+    def copyTo(self, dst):
+        dst._volumeUnmatched = self._volumeUnmatched
+        dst._volumeFilled = self._volumeFilled
 
-	@property
-	def volumeFilled(self):
-		return self._volumeFilled
+    @property
+    def volumeFilled(self):
+        return self._volumeFilled
 
-	@property
-	def volumeUnmatched(self):
-		""" Volume to trade
-		"""
-		return self._volumeUnmatched
+    @property
+    def volumeUnmatched(self):
+        """ Volume to trade
+        """
+        return self._volumeUnmatched
 
-	def onMatchedWith(self, price, volume):
-		""" Called when the order is matched with another order
-		price - price at which the match was done
-		volume - volume of the match.
-		In this method we correct order volume and P&L
-		and notify order listener about the match
-		"""
-		self._volumeUnmatched -= volume
-		self._volumeFilled += volume
-		HasVolumeBase.onMatchedWith(self, price, volume)
+    def onMatchedWith(self, price, volume):
+        """ Called when the order is matched with another order
+        price - price at which the match was done
+        volume - volume of the match.
+        In this method we correct order volume and P&L
+        and notify order listener about the match
+        """
+        self._volumeUnmatched -= volume
+        self._volumeFilled += volume
+        HasVolumeBase.onMatchedWith(self, price, volume)
 
 class HasPrice(object):
 
-	def __init__(self, price):
-		self._price = price
+    def __init__(self, price):
+        self._price = price
 
-	def copyTo(self, dst):
-		dst._price = self._price
+    def copyTo(self, dst):
+        dst._price = self._price
 
-	@property
-	def signedPrice(self):
-		""" Returns "signed" price of the order:
-		positive if the order is on sell side
-		negative if the order is on buy side
-		"""
-		return self.side.makePriceSigned(self._price)
+    @property
+    def signedPrice(self):
+        """ Returns "signed" price of the order:
+        positive if the order is on sell side
+        negative if the order is on buy side
+        """
+        return self.side.makePriceSigned(self._price)
 
-	@property
-	def price(self):
-		""" Limit price of the order
-		"""
-		return self._price
+    @property
+    def price(self):
+        """ Limit price of the order
+        """
+        return self._price
 
-	def __str__(self):
-		return str(self._price)
+    def __str__(self):
+        return str(self._price)
 
-	@price.setter
-	def price(self, value):
-		""" When an order is put into an oredr book,
-		its price might be corrected with respect to order tick size
-		this function is used to notify the order about the new corrected price
-		"""
-		self._price = value
+    @price.setter
+    def price(self, value):
+        """ When an order is put into an oredr book,
+        its price might be corrected with respect to order tick size
+        this function is used to notify the order about the new corrected price
+        """
+        self._price = value
 
 
 
 class HasSide(object):
 
-	def __init__(self, side):
-		self._side = side
+    def __init__(self, side):
+        self._side = side
 
-	@property
-	def side(self):
-		return self._side
+    @property
+    def side(self):
+        return self._side
 
-	def copyTo(self, dst):
-		dst._side = self._side
+    def copyTo(self, dst):
+        dst._side = self._side
 
-	def __str__(self):
-		return str(self._side)
+    def __str__(self):
+        return str(self._side)
 
 class Cancellable(object):
 
-	def __init__(self):
-		self._cancelled = False
+    def __init__(self):
+        self._cancelled = False
 
-	@property
-	def cancelled(self):
-		""" Is order cancelled
-		"""
-		return self._cancelled
+    @property
+    def cancelled(self):
+        """ Is order cancelled
+        """
+        return self._cancelled
 
 
-	def cancel(self):
-		""" Marks order as cancelled.
-		"""
-		if not self._cancelled:
-			self._cancelled = True
-			self.owner.onOrderDisposed(self)
+    def cancel(self):
+        """ Marks order as cancelled.
+        """
+        if not self._cancelled:
+            self._cancelled = True
+            self.owner.onOrderDisposed(self)
 
-	def copyTo(self, dst):
-		dst._cancelled = self._cancelled
+    def copyTo(self, dst):
+        dst._cancelled = self._cancelled
 
-class Default(types.IOrder):
+from marketsim.gen._out._iorder import IOrder
+
+class Default(IOrder):
 
     def __init__(self, owner = None):
-    	if not hasattr(self, 'owner'):
-        	self._owner = owner
+        if not hasattr(self, 'owner'):
+            self._owner = owner
 
     @property
     def owner(self):
@@ -172,7 +174,7 @@ class Base(Default, HasVolume, Cancellable):
         Default.__init__(self, owner)
 
     def copyTo(self, dst):
-    	HasVolume.copyTo(self, dst)
+        HasVolume.copyTo(self, dst)
         Cancellable.copyTo(self, dst)
 
     def __str__(self):

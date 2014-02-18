@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
 @registry.expose(["Order", "MarketSigned"])
-class signedVolume_MarketSigned_(IFunction[IOrderGenerator,IFunction[float]]):
+class signedVolume_MarketSigned_(IFunctionIObservableIOrderIFunctionfloat):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 

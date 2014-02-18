@@ -1,10 +1,9 @@
-from marketsim.ops._all import Observable
-from marketsim import Volume
-from marketsim import IOrderBook
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume_IOrderBook(Observable[Volume]):
+class LastTradeVolume_IOrderBook(Observable[int]):
     """ 
     """ 
     def __init__(self, book = None):
@@ -12,9 +11,8 @@ class LastTradeVolume_IOrderBook(Observable[Volume]):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim import Volume
         from marketsim import event
-        Observable[Volume].__init__(self)
+        Observable[int].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -48,8 +46,8 @@ class LastTradeVolume_IOrderBook(Observable[Volume]):
         return _orderbook_LastTradeVolume_IOrderQueue(_orderbook_Asks_IOrderBook(self.book))
     
 def LastTradeVolume(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return LastTradeVolume_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for LastTradeVolume('+str(book)+')')
+    raise Exception('Cannot find suitable overload for LastTradeVolume('+str(book) +':'+ str(type(book))+')')

@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Random", "paretovariate"])
-class paretovariate_Float(IFunction[float]):
+class paretovariate_Float(IFunctionfloat):
     """ 
     """ 
     def __init__(self, Alpha = None):
@@ -28,8 +27,7 @@ class paretovariate_Float(IFunction[float]):
         return paretovariate_Float._types[0]._casts_to(dst)
     
 def paretovariate(Alpha = None): 
-    from marketsim import float
     from marketsim import rtti
     if Alpha is None or rtti.can_be_casted(Alpha, float):
         return paretovariate_Float(Alpha)
-    raise Exception('Cannot find suitable overload for paretovariate('+str(Alpha)+')')
+    raise Exception('Cannot find suitable overload for paretovariate('+str(Alpha) +':'+ str(type(Alpha))+')')

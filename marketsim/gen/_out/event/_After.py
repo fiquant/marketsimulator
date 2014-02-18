@@ -1,9 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._intrinsic.event import _After_Impl
-from marketsim import IFunction
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Event", "After"])
-class After_IFunctionFloat(_After_Impl):
+class After_Float(IEvent,_After_Impl):
     """ 
     """ 
     def __init__(self, delay = None):
@@ -18,15 +18,14 @@ class After_IFunctionFloat(_After_Impl):
         return repr(self)
     
     _properties = {
-        'delay' : IFunction[float]
+        'delay' : IFunctionfloat
     }
     def __repr__(self):
         return "After(%(delay)s)" % self.__dict__
     
 def After(delay = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if delay is None or rtti.can_be_casted(delay, IFunction[float]):
-        return After_IFunctionFloat(delay)
-    raise Exception('Cannot find suitable overload for After('+str(delay)+')')
+    if delay is None or rtti.can_be_casted(delay, IFunctionfloat):
+        return After_Float(delay)
+    raise Exception('Cannot find suitable overload for After('+str(delay) +':'+ str(type(delay))+')')

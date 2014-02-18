@@ -3,19 +3,9 @@ import gen, collections
 from gen import cached_property
 
 from bind import Method
-from side_ import Tag as Side
 from reference import Reference
 
-from types import (IObservable, IFunction, ISingleAssetTrader,
-                   IOrderQueue, IOrderBook, IDifferentiable,
-                   IFunction, IObservable,
-                   IOrderGenerator, IEvent,
-                   ISingleAssetStrategy, IMultiAssetStrategy,
-                   listOf,
-                   IAccount, ITrader,
-                   IGraph, ITimeSerie,
-                   IVolumeLevels,
-                   IOrder as Order)
+from meta import listOf, function
 
 float = float
 
@@ -25,18 +15,6 @@ bool = bool
 str = str
 int = int
 
-
-
-class ILink(object):pass
-class ITwoWayLink(object):pass
-
-class CandleStick(collections.namedtuple("CandleStick", [
-                                                     "open", "close",
-                                                     "min", "max",
-                                                     "mean", "stddev"
-                                     ])):
-
-    pass
 
 
 

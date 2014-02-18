@@ -22,6 +22,7 @@ from marketsim.gen._out._volumelevels import volumeLevels
 
 import side
 import event
+import _test
 import veusz
 import ops
 import math
@@ -30,4 +31,3 @@ import strategy
 import trader
 import orderbook
 import observable
-import trash

@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim import int
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionint
 from marketsim import context
 @registry.expose(["Basic", "constant"])
-class constant_Int(IFunction[int]):
+class constant_Int(IFunctionint):
     """ 
     """ 
     def __init__(self, x = None):
@@ -39,11 +38,10 @@ class constant_Int(IFunction[int]):
         return _const_Int(self.x)
     
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "constant"])
-class constant_Float(IFunction[float]):
+class constant_Float(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -79,11 +77,9 @@ class constant_Float(IFunction[float]):
         return _const_Float(self.x)
     
 def constant(x = None): 
-    from marketsim import int
-    from marketsim import float
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, int):
         return constant_Int(x)
     if x is None or rtti.can_be_casted(x, float):
         return constant_Float(x)
-    raise Exception('Cannot find suitable overload for constant('+str(x)+')')
+    raise Exception('Cannot find suitable overload for constant('+str(x) +':'+ str(type(x))+')')

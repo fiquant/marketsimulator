@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "Max"])
 class Max_IObservableFloatIObservableFloat(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
@@ -13,7 +12,6 @@ class Max_IObservableFloatIObservableFloat(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         self.y = y if y is not None else _const_Float(1.0)
@@ -26,8 +24,8 @@ class Max_IObservableFloatIObservableFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
-        'y' : IObservable[float]
+        'x' : IObservablefloat,
+        'y' : IObservablefloat
     }
     def __repr__(self):
         return "max{%(x)s, %(y)s}" % self.__dict__
@@ -50,13 +48,12 @@ class Max_IObservableFloatIObservableFloat(Observable[float]):
         return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_Greater_IObservableFloatIObservableFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IObservable
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "Max"])
-class Max_IFunctionFloatIObservableFloat(Observable[float]):
+class Max_FloatIObservableFloat(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -66,7 +63,6 @@ class Max_IFunctionFloatIObservableFloat(Observable[float]):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         self.y = y if y is not None else _const_Float(1.0)
@@ -79,8 +75,8 @@ class Max_IFunctionFloatIObservableFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction[float],
-        'y' : IObservable[float]
+        'x' : IFunctionfloat,
+        'y' : IObservablefloat
     }
     def __repr__(self):
         return "max{%(x)s, %(y)s}" % self.__dict__
@@ -98,18 +94,17 @@ class Max_IFunctionFloatIObservableFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIFunctionFloatIObservableFloat as _ops_Condition_IObservableBooleanIFunctionFloatIObservableFloat
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIObservableFloat as _ops_Greater_IFunctionFloatIObservableFloat
-        return _ops_Condition_IObservableBooleanIFunctionFloatIObservableFloat(_ops_Greater_IFunctionFloatIObservableFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanFloatIObservableFloat as _ops_Condition_IObservableBooleanFloatIObservableFloat
+        from marketsim.gen._out.ops._greater import Greater_FloatIObservableFloat as _ops_Greater_FloatIObservableFloat
+        return _ops_Condition_IObservableBooleanFloatIObservableFloat(_ops_Greater_FloatIObservableFloat(self.x,self.y),self.x,self.y)
     
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IObservable
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "Max"])
-class Max_IObservableFloatIFunctionFloat(Observable[float]):
+class Max_IObservableFloatFloat(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -119,7 +114,6 @@ class Max_IObservableFloatIFunctionFloat(Observable[float]):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         self.y = y if y is not None else _constant_Float(1.0)
@@ -132,8 +126,8 @@ class Max_IObservableFloatIFunctionFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
-        'y' : IFunction[float]
+        'x' : IObservablefloat,
+        'y' : IFunctionfloat
     }
     def __repr__(self):
         return "max{%(x)s, %(y)s}" % self.__dict__
@@ -151,17 +145,16 @@ class Max_IObservableFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIFunctionFloat as _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat
-        from marketsim.gen._out.ops._greater import Greater_IObservableFloatIFunctionFloat as _ops_Greater_IObservableFloatIFunctionFloat
-        return _ops_Condition_IObservableBooleanIObservableFloatIFunctionFloat(_ops_Greater_IObservableFloatIFunctionFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatFloat as _ops_Condition_IObservableBooleanIObservableFloatFloat
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
+        return _ops_Condition_IObservableBooleanIObservableFloatFloat(_ops_Greater_IObservableFloatFloat(self.x,self.y),self.x,self.y)
     
-from marketsim.ops._all import Observable
-from marketsim import IFunction
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Basic", "Max"])
-class Max_IFunctionFloatIFunctionFloat(Observable[float]):
+class Max_FloatFloat(Observable[float]):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
@@ -170,7 +163,6 @@ class Max_IFunctionFloatIFunctionFloat(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         self.y = y if y is not None else _constant_Float(1.0)
@@ -183,8 +175,8 @@ class Max_IFunctionFloatIFunctionFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction[float],
-        'y' : IFunction[float]
+        'x' : IFunctionfloat,
+        'y' : IFunctionfloat
     }
     def __repr__(self):
         return "max{%(x)s, %(y)s}" % self.__dict__
@@ -202,25 +194,24 @@ class Max_IFunctionFloatIFunctionFloat(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIFunctionFloatIFunctionFloat as _ops_Condition_IFunctionBooleanIFunctionFloatIFunctionFloat
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
-        return _ops_Condition_IFunctionBooleanIFunctionFloatIFunctionFloat(_ops_Greater_IFunctionFloatIFunctionFloat(self.x,self.y),self.x,self.y)
+        from marketsim.gen._out.ops._condition import Condition_BooleanFloatFloat as _ops_Condition_BooleanFloatFloat
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
+        return _ops_Condition_BooleanFloatFloat(_ops_Greater_FloatFloat(self.x,self.y),self.x,self.y)
     
 def Max(x = None,y = None): 
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
-        if y is None or rtti.can_be_casted(y, IObservable[float]):
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
+        if y is None or rtti.can_be_casted(y, IObservablefloat):
             return Max_IObservableFloatIObservableFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IFunction[float]):
-        if y is None or rtti.can_be_casted(y, IObservable[float]):
-            return Max_IFunctionFloatIObservableFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
-        if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Max_IObservableFloatIFunctionFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IFunction[float]):
-        if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Max_IFunctionFloatIFunctionFloat(x,y)
-    raise Exception('Cannot find suitable overload for Max('+str(x)+','+str(y)+')')
+    if x is None or rtti.can_be_casted(x, IFunctionfloat):
+        if y is None or rtti.can_be_casted(y, IObservablefloat):
+            return Max_FloatIObservableFloat(x,y)
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
+        if y is None or rtti.can_be_casted(y, IFunctionfloat):
+            return Max_IObservableFloatFloat(x,y)
+    if x is None or rtti.can_be_casted(x, IFunctionfloat):
+        if y is None or rtti.can_be_casted(y, IFunctionfloat):
+            return Max_FloatFloat(x,y)
+    raise Exception('Cannot find suitable overload for Max('+str(x) +':'+ str(type(x))+','+str(y) +':'+ str(type(y))+')')

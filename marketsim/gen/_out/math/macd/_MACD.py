@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["MACD", "MACD"])
-class MACD_IObservableFloatFloatFloat(IFunction[float]):
+class MACD_IObservableFloatFloatFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None, slow = None, fast = None):
@@ -21,7 +20,7 @@ class MACD_IObservableFloatFloatFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
+        'x' : IObservablefloat,
         'slow' : float,
         'fast' : float
     }
@@ -41,16 +40,15 @@ class MACD_IObservableFloatFloatFloat(IFunction[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
-        return _ops_Sub_IFunctionFloatIFunctionFloat(_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.fast+1)))),_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))
+        return _ops_Sub_FloatFloat(_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.fast+1)))),_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))
     
 def MACD(x = None,slow = None,fast = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
         if slow is None or rtti.can_be_casted(slow, float):
             if fast is None or rtti.can_be_casted(fast, float):
                 return MACD_IObservableFloatFloatFloat(x,slow,fast)
-    raise Exception('Cannot find suitable overload for MACD('+str(x)+','+str(slow)+','+str(fast)+')')
+    raise Exception('Cannot find suitable overload for MACD('+str(x) +':'+ str(type(x))+','+str(slow) +':'+ str(type(slow))+','+str(fast) +':'+ str(type(fast))+')')

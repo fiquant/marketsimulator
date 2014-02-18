@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IOrderBook
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
-from marketsim import float
 @registry.expose(["Asset", "MidPrice"])
 class MidPrice_IOrderBook(Observable[float]):
     """ 
@@ -13,7 +12,6 @@ class MidPrice_IOrderBook(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
@@ -43,16 +41,16 @@ class MidPrice_IOrderBook(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add_IObservableFloatIObservableFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
-        from marketsim.gen._out.ops._div import Div_IObservableFloatIFunctionFloat as _ops_Div_IObservableFloatIFunctionFloat
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _ops_Div_IObservableFloatIFunctionFloat(_ops_Add_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(2.0))
+        return _ops_Div_IObservableFloatFloat(_ops_Add_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(2.0))
     
 def MidPrice(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return MidPrice_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for MidPrice('+str(book)+')')
+    raise Exception('Cannot find suitable overload for MidPrice('+str(book) +':'+ str(type(book))+')')

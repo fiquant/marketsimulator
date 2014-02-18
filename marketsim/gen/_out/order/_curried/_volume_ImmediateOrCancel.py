@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
 @registry.expose(["Order", "ImmediateOrCancel"])
-class volume_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
+class volume_ImmediateOrCancel_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -13,9 +11,9 @@ class volume_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IOrderGenerator,IF
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_limit import volume_Limit_IFunctionSideIFunctionFloat as _order__curried_volume_Limit_IFunctionSideIFunctionFloat
+        from marketsim.gen._out.order._curried._volume_limit import volume_Limit_SideFloat as _order__curried_volume_Limit_SideFloat
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_volume_Limit_IFunctionSideIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_volume_Limit_SideFloat()
         rtti.check_fields(self)
     
     @property
@@ -23,7 +21,7 @@ class volume_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IOrderGenerator,IF
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IOrderGenerator,IFunction[float]]
+        'proto' : IFunctionIObservableIOrderIFunctionfloat
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -36,10 +34,8 @@ class volume_ImmediateOrCancel_FloatIOrderGenerator(IFunction[IOrderGenerator,IF
         return ImmediateOrCancel(proto(volume))
     
 def volume_ImmediateOrCancel(proto = None): 
-    from marketsim import IOrderGenerator
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
-        return volume_ImmediateOrCancel_FloatIOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for volume_ImmediateOrCancel('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+        return volume_ImmediateOrCancel_FloatIObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for volume_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

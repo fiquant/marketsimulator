@@ -40,7 +40,7 @@ class Base(object):
 
     _properties = {}
 
-class SingleProxyBase(Base, types.ISingleAssetTrader):
+class SingleProxyBase(Base):
 
     def __init__(self):
         Base.__init__(self)

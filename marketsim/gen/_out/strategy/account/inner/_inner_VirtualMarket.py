@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IAccount
-from marketsim import ISingleAssetStrategy
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
 @registry.expose(["Strategy", "inner_VirtualMarket"])
-class inner_VirtualMarket_(IFunction[IAccount,ISingleAssetStrategy]):
+class inner_VirtualMarket_(IFunctionIAccountISingleAssetStrategy):
     """   how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
@@ -24,9 +22,9 @@ class inner_VirtualMarket_(IFunction[IAccount,ISingleAssetStrategy]):
         return "inner_VirtualMarket" % self.__dict__
     
     def __call__(self, inner = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
         from marketsim.gen._out.strategy.account._virtualmarket import VirtualMarket_ISingleAssetStrategy as _strategy_account_VirtualMarket_ISingleAssetStrategy
-        inner = inner if inner is not None else _strategy_Noise_IEventSideIOrderGenerator()
+        inner = inner if inner is not None else _strategy_Noise_IEventSideIObservableIOrder()
         
         return _strategy_account_VirtualMarket_ISingleAssetStrategy(inner)
     

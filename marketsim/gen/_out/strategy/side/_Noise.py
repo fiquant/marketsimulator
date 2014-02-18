@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import Side
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Side function", "Noise"])
-class Noise_Float(IFunction[Side]):
+class Noise_Float(IFunctionSide):
     """ 
     """ 
     def __init__(self, side_distribution = None):
@@ -19,7 +18,7 @@ class Noise_Float(IFunction[Side]):
         return repr(self)
     
     _properties = {
-        'side_distribution' : IFunction[float]
+        'side_distribution' : IFunctionfloat
     }
     def __repr__(self):
         return "Noise(%(side_distribution)s)" % self.__dict__
@@ -37,17 +36,16 @@ class Noise_Float(IFunction[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        from marketsim.gen._out.ops._greater import Greater_IFunctionFloatIFunctionFloat as _ops_Greater_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.ops._condition import Condition_IFunctionBooleanIFunctionSideIFunctionSide as _ops_Condition_IFunctionBooleanIFunctionSideIFunctionSide
-        return _ops_Condition_IFunctionBooleanIFunctionSideIFunctionSide(_ops_Greater_IFunctionFloatIFunctionFloat(self.side_distribution,_constant_Float(0.5)),_side_Sell_(),_side_Buy_())
+        return _ops_Condition_BooleanSideSide(_ops_Greater_FloatFloat(self.side_distribution,_constant_Float(0.5)),_side_Sell_(),_side_Buy_())
     
 def Noise(side_distribution = None): 
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if side_distribution is None or rtti.can_be_casted(side_distribution, IFunction[float]):
+    if side_distribution is None or rtti.can_be_casted(side_distribution, IFunctionfloat):
         return Noise_Float(side_distribution)
-    raise Exception('Cannot find suitable overload for Noise('+str(side_distribution)+')')
+    raise Exception('Cannot find suitable overload for Noise('+str(side_distribution) +':'+ str(type(side_distribution))+')')

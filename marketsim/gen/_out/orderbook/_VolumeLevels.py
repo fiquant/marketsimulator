@@ -1,16 +1,14 @@
 from marketsim.gen._intrinsic.orderbook.volume_levels import VolumeLevels_Impl
 from marketsim.ops._all import Observable
-from marketsim import int
-from marketsim import IOrderQueue
-from marketsim import IVolumeLevels
+from marketsim.gen._out._iorderqueue import IOrderQueue
+from marketsim.gen._out._ivolumelevels import IVolumeLevels
 from marketsim import registry
-from marketsim import float
 @registry.expose(["Asset", "VolumeLevels"])
 class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Impl):
     """   Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
-        from marketsim import IVolumeLevels
+        from marketsim.gen._out._ivolumelevels import IVolumeLevels
         from marketsim.ops._all import Observable
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import rtti
@@ -37,12 +35,10 @@ class VolumeLevels_IOrderQueueFloatInt(Observable[IVolumeLevels],VolumeLevels_Im
         return "VolumeLevels(%(queue)s)" % self.__dict__
     
 def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
-    from marketsim import IOrderQueue
-    from marketsim import float
-    from marketsim import int
+    from marketsim.gen._out._iorderqueue import IOrderQueue
     from marketsim import rtti
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         if volumeDelta is None or rtti.can_be_casted(volumeDelta, float):
             if volumeCount is None or rtti.can_be_casted(volumeCount, int):
                 return VolumeLevels_IOrderQueueFloatInt(queue,volumeDelta,volumeCount)
-    raise Exception('Cannot find suitable overload for VolumeLevels('+str(queue)+','+str(volumeDelta)+','+str(volumeCount)+')')
+    raise Exception('Cannot find suitable overload for VolumeLevels('+str(queue) +':'+ str(type(queue))+','+str(volumeDelta) +':'+ str(type(volumeDelta))+','+str(volumeCount) +':'+ str(type(volumeCount))+')')

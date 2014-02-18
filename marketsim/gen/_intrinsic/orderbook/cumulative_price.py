@@ -1,4 +1,5 @@
-from marketsim import ops, event, request, Side, _, types
+from marketsim import event, request, _
+from marketsim.gen._out._side import Side
 
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0

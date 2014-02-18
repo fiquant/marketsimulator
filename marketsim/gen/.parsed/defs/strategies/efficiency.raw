@@ -648,13 +648,18 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - List
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - List
 | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Identity function for an array of floats
@@ -703,13 +708,18 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - List
+| | | | | | | | | - IFunction
 | | | | | | | - List:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Float
+| | | | | | | | | | | - List
 | | | | | | | | | - List:
+| | | | | | | | | | - SimpleType:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Float
+| | | | | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - DocString:
 | | | | | | | - Function returning an array of length *len(array)*

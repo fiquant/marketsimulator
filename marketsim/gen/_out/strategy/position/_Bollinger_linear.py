@@ -1,9 +1,8 @@
-from marketsim import ISingleAssetTrader
 from marketsim.ops._all import Observable
-from marketsim import IObservable
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Volume function", "Bollinger_linear"])
 class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[float]):
     """ 
@@ -15,7 +14,6 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[float]
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.alpha = alpha if alpha is not None else 0.15
         self.k = k if k is not None else _const_Float(0.5)
@@ -30,7 +28,7 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[float]
     
     _properties = {
         'alpha' : float,
-        'k' : IObservable[float],
+        'k' : IObservablefloat,
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
@@ -52,18 +50,17 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observable[float]
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatIFunctionFloat as _observable_OnEveryDt_FloatIFunctionFloat
         from marketsim.gen._out.math.EW._relstddev import RelStdDev_IObservableFloatFloat as _math_EW_RelStdDev_IObservableFloatFloat
+        from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_observable_OnEveryDt_FloatIFunctionFloat(1.0,_ops_Mul_IObservableFloatIObservableFloat(_math_EW_RelStdDev_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(_orderbook_OfTrader_IAccount(self.trader)),self.alpha),self.k)),self.trader)
+        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_observable_OnEveryDt_FloatFloat(1.0,_ops_Mul_IObservableFloatIObservableFloat(_math_EW_RelStdDev_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(_orderbook_OfTrader_IAccount(self.trader)),self.alpha),self.k)),self.trader)
     
 def Bollinger_linear(alpha = None,k = None,trader = None): 
-    from marketsim import float
-    from marketsim import IObservable
-    from marketsim import ISingleAssetTrader
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
-        if k is None or rtti.can_be_casted(k, IObservable[float]):
+        if k is None or rtti.can_be_casted(k, IObservablefloat):
             if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
                 return Bollinger_linear_FloatIObservableFloatISingleAssetTrader(alpha,k,trader)
-    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(alpha)+','+str(k)+','+str(trader)+')')
+    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(alpha) +':'+ str(type(alpha))+','+str(k) +':'+ str(type(k))+','+str(trader) +':'+ str(type(trader))+')')

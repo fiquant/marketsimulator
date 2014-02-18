@@ -1,17 +1,14 @@
-from marketsim.ops._all import Observable
-from marketsim import str
 from marketsim import registry
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
-from marketsim import Price
 @registry.expose(["Basic", "Quote"])
-class Quote_StringStringString(Observable[Price],Quote_Impl):
+class Quote_StringStringString(Observable[float],Quote_Impl):
     """   and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
-        from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim import rtti
-        Observable[Price].__init__(self)
+        Observable[float].__init__(self)
         self.ticker = ticker if ticker is not None else "^GSPC"
         
         self.start = start if start is not None else "2001-1-1"
@@ -34,10 +31,9 @@ class Quote_StringStringString(Observable[Price],Quote_Impl):
         return "%(ticker)s" % self.__dict__
     
 def Quote(ticker = None,start = None,end = None): 
-    from marketsim import str
     from marketsim import rtti
     if ticker is None or rtti.can_be_casted(ticker, str):
         if start is None or rtti.can_be_casted(start, str):
             if end is None or rtti.can_be_casted(end, str):
                 return Quote_StringStringString(ticker,start,end)
-    raise Exception('Cannot find suitable overload for Quote('+str(ticker)+','+str(start)+','+str(end)+')')
+    raise Exception('Cannot find suitable overload for Quote('+str(ticker) +':'+ str(type(ticker))+','+str(start) +':'+ str(type(start))+','+str(end) +':'+ str(type(end))+')')

@@ -3,13 +3,12 @@ def score():
     from marketsim import rtti
     return _strategy_weight_trader_trader_Score_()
     raise Exception('Cannot find suitable overload for score('++')')
-from marketsim import IFunction
-from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
-from marketsim import IAccount
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
+from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Strategy", "Score"])
-class Score_IAccount(IFunction[float],_Score_Impl):
+class Score_IAccount(IFunctionfloat,_Score_Impl):
     """  Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
@@ -32,8 +31,8 @@ class Score_IAccount(IFunction[float],_Score_Impl):
         return "Score(%(trader)s)" % self.__dict__
     
 def Score(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Score_IAccount(trader)
-    raise Exception('Cannot find suitable overload for Score('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for Score('+str(trader) +':'+ str(type(trader))+')')

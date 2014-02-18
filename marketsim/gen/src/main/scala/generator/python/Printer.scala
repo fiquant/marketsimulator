@@ -42,15 +42,21 @@ object Printer {
         trait Tuple extends Printable {
             val elems : List[Printable]
 
-            def asCode = "(" ||| Code.from(elems map { _.asCode ||| "," }) ||| ")"
+            def asCode = "(" ||| Code.from(elems map { _.asCode ||| "," }, "") ||| ")"
         }
 
         trait Function extends Printable {
             val args : List[Printable]
             val ret : Printable
 
-            def asCode =
-                "IFunction[" ||| ret.asCode ||| Code.from(args map { "," ||| _.asCode  }) ||| "]" ||| ImportFrom("IFunction", "marketsim")
+            def asCode = {
+                val x = "IFunction" ||| ret.asCode ||| Code.from(args map { _.asCode  })
+
+                val m = mangle(x.toString)
+
+                m ||| ImportFrom(m.toString, "marketsim.gen._out._ifunction")
+            }
+
         }
 
         trait ImplementationClass extends Printable
@@ -76,20 +82,25 @@ object Printer {
                 if (decl.name == "Observable") {
                     val ty = genericArgs(0)
                     s"Observable["||| ty.asCode |||"]" |||
-                    ImportFrom(ty.asCode.toString, "marketsim") |||
                     ImportFrom("Observable", "marketsim.ops._all")
                 }
                 else
                 {
-                    def impl(xs : List[Printable]) : Code = xs match {
-                        case Nil => stop
-                        case x :: Nil => x.asCode
-                        case x :: y => x.asCode ||| "," ||| impl(y)
-                    }
-                    val name = builtins.getOrElse(decl.name, decl.name)
-                    name ||| ImportFrom(name, "marketsim") |||
-                    (if (genericArgs.isEmpty) stop else "[" ||| impl(genericArgs) ||| "]")
+                    builtins get decl.name match {
+                        case Some(x) => x
+                        case None =>
+                            def impl(xs : List[Printable]) : Code = xs match {
+                                case Nil => stop
+                                case x :: Nil => x.asCode
+                                case x :: y => x.asCode ||| impl(y)
+                            }
+                            val x = decl.name |||
+                                    (if (genericArgs.isEmpty) stop else impl(genericArgs))
 
+                            val m = mangle(x.toString) ||| Code.from(x.imports.toList)
+
+                            m ||| ImportFrom(m.toString, moduleName(decl))
+                    }
                 }
             }
         }
@@ -186,18 +197,24 @@ object Printer {
         fullImportName(f) ||| (importsOf(f) as fullImportName(f))
 
     def parametersMangled(parameters : List[Typed.Parameter]) =
-        parameters map {
-            p =>
-                "[].()=> ,".toList.foldLeft(p.ty.toString) {
-                    case (z, s) => z.replace(s.toString, "")
-                }.replace("Optional", "")
-        } mkString ""
+        typesMangled(parameters map { _.ty })
+
+    def mangle(p : String) =
+        "[].()=> ,".toList.foldLeft(p) { case (z, s) => z.replace(s.toString, "") }.replace("Optional", "").replace("\n","").replace("\r","")
+
+    def typesMangled(ts : List[Any]) =
+        ts map { a => mangle(a.toString) }  mkString ""
 
     def decoratedName(f : Typed.Function) =
         f.name + "_" + parametersMangled(f.parameters)
 
 
     def moduleName(target : Typed.FunctionDecl) = {
+        val name = target.parent.qualifiedName.toString
+        "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
+    }
+
+    def moduleName(target : Typed.TypeDeclaration) = {
         val name = target.parent.qualifiedName.toString
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
     }

@@ -3,13 +3,12 @@ def efficiency():
     from marketsim import rtti
     return _strategy_weight_trader_trader_Efficiency_()
     raise Exception('Cannot find suitable overload for efficiency('++')')
-from marketsim import IFunction
-from marketsim import IAccount
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "Efficiency"])
-class Efficiency_IAccount(IFunction[float]):
+class Efficiency_IAccount(IFunctionfloat):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -46,8 +45,8 @@ class Efficiency_IAccount(IFunction[float]):
         return _trader_Efficiency_IAccount(self.trader)
     
 def Efficiency(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Efficiency_IAccount(trader)
-    raise Exception('Cannot find suitable overload for Efficiency('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for Efficiency('+str(trader) +':'+ str(type(trader))+')')

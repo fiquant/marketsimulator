@@ -365,12 +365,6 @@ Definitions:
 | | | | | | | - Side function for fundamental value strategy
 | | | | | | | - List:
 | | | | | - List:
-| | | | | | - Annotation:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - python
-| | | | | | | | | - observable
-| | | | | | | - List:
 | | | | - FunDef:
 | | | | | - MeanReversion
 | | | | | - List:

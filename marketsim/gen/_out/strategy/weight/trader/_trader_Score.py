@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IAccount
+from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "trader_Score"])
-class trader_Score_(IFunction[IFunction[float],IAccount]):
+class trader_Score_(IFunctionIFunctionfloatIAccount):
     """  Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))

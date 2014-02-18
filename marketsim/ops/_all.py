@@ -1,7 +1,21 @@
-from marketsim import meta, constraints, Side, types, registry, getLabel, event, _
+from marketsim import types, event
 import marketsim
-import math, inspect
+from marketsim.gen._out._iobservable import IObservable
 
-Observable = types.Factory('Observable', '''(types.IObservable[%(T)s], event.Conditional_Impl):''', globals())
+Observable = types.Factory('Observable', '''(IObservable[%(T)s], event.Conditional_Impl):''', globals())
 
-Observable[int]._types.append(Observable[float])
+Observable[int]._types.append(IObservable[float])
+Observable[int]._types.append(IObservable[object])
+Observable[float]._types.append(IObservable[object])
+
+import collections
+
+from marketsim.gen._out._icandlestick import ICandleStick
+
+class CandleStick(collections.namedtuple("CandleStick", [
+                                                     "open", "close",
+                                                     "min", "max",
+                                                     "mean", "stddev"
+                                     ]), ICandleStick):
+
+    pass

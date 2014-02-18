@@ -1,12 +1,10 @@
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import ISingleAssetStrategy
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "Bollinger_linear"])
-class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStrategy):
+class Bollinger_linear_FloatIObservableIOrderFloatIObservableFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None):
@@ -28,9 +26,9 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
         return repr(self)
     
     _properties = {
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[float]],
+        'orderFactory' : IFunctionIObservableIOrderIFunctionfloat,
         'alpha' : float,
-        'k' : IObservable[float]
+        'k' : IObservablefloat
     }
     def __repr__(self):
         return "Bollinger_linear(%(orderFactory)s, %(alpha)s, %(k)s)" % self.__dict__
@@ -48,21 +46,19 @@ class Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader(self.alpha,self.k)))
+        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader(self.alpha,self.k)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
 def Bollinger_linear(orderFactory = None,alpha = None,k = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[float]]):
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionfloat):
         if alpha is None or rtti.can_be_casted(alpha, float):
-            if k is None or rtti.can_be_casted(k, IObservable[float]):
-                return Bollinger_linear_FloatIOrderGeneratorFloatIObservableFloat(orderFactory,alpha,k)
-    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(orderFactory)+','+str(alpha)+','+str(k)+')')
+            if k is None or rtti.can_be_casted(k, IObservablefloat):
+                return Bollinger_linear_FloatIObservableIOrderFloatIObservableFloat(orderFactory,alpha,k)
+    raise Exception('Cannot find suitable overload for Bollinger_linear('+str(orderFactory) +':'+ str(type(orderFactory))+','+str(alpha) +':'+ str(type(alpha))+','+str(k) +':'+ str(type(k))+')')

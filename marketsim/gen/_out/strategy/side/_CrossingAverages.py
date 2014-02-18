@@ -1,11 +1,9 @@
-from marketsim import IFunction
-from marketsim import IOrderBook
-from marketsim import Side
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
-from marketsim import float
 @registry.expose(["Side function", "CrossingAverages"])
-class CrossingAverages_FloatFloatFloatIOrderBook(IFunction[Side]):
+class CrossingAverages_FloatFloatFloatIOrderBook(IFunctionSide):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
@@ -44,19 +42,18 @@ class CrossingAverages_FloatFloatFloatIOrderBook(IFunction[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal_IFunctionFloatFloat
-        from marketsim.gen._out.ops._sub import Sub_IFunctionFloatIFunctionFloat as _ops_Sub_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
+        from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        return _strategy_side_Signal_IFunctionFloatFloat(_ops_Sub_IFunctionFloatIFunctionFloat(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha_1),_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha_2)),self.threshold)
+        return _strategy_side_Signal_FloatFloat(_ops_Sub_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha_1),_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha_2)),self.threshold)
     
 def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None): 
-    from marketsim import float
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if alpha_1 is None or rtti.can_be_casted(alpha_1, float):
         if alpha_2 is None or rtti.can_be_casted(alpha_2, float):
             if threshold is None or rtti.can_be_casted(threshold, float):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
                     return CrossingAverages_FloatFloatFloatIOrderBook(alpha_1,alpha_2,threshold,book)
-    raise Exception('Cannot find suitable overload for CrossingAverages('+str(alpha_1)+','+str(alpha_2)+','+str(threshold)+','+str(book)+')')
+    raise Exception('Cannot find suitable overload for CrossingAverages('+str(alpha_1) +':'+ str(type(alpha_1))+','+str(alpha_2) +':'+ str(type(alpha_2))+','+str(threshold) +':'+ str(type(threshold))+','+str(book) +':'+ str(type(book))+')')

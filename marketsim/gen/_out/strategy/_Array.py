@@ -1,15 +1,15 @@
 from marketsim import registry
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.combine import _Array_Impl
-from marketsim import ISingleAssetStrategy
 from marketsim import listOf
 @registry.expose(["Strategy", "Array"])
-class Array_ListISingleAssetStrategy(_Array_Impl):
+class Array_ListISingleAssetStrategy(ISingleAssetStrategy,_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIOrderGenerator as _strategy_Noise_IEventSideIOrderGenerator
+        from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
         from marketsim import rtti
-        self.strategies = strategies if strategies is not None else [_strategy_Noise_IEventSideIOrderGenerator()]
+        self.strategies = strategies if strategies is not None else [_strategy_Noise_IEventSideIObservableIOrder()]
         rtti.check_fields(self)
         _Array_Impl.__init__(self)
     
@@ -24,9 +24,9 @@ class Array_ListISingleAssetStrategy(_Array_Impl):
         return "Array(%(strategies)s)" % self.__dict__
     
 def Array(strategies = None): 
-    from marketsim import ISingleAssetStrategy
+    from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim import listOf
     from marketsim import rtti
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
         return Array_ListISingleAssetStrategy(strategies)
-    raise Exception('Cannot find suitable overload for Array('+str(strategies)+')')
+    raise Exception('Cannot find suitable overload for Array('+str(strategies) +':'+ str(type(strategies))+')')

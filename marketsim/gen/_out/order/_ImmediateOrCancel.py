@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim import Order
+from marketsim.gen._out._iorder import IOrder
 from marketsim.ops._all import Observable
-from marketsim import IOrderGenerator
+from marketsim.gen._out._iobservable import IObservableIOrder
 @registry.expose(["Order", "ImmediateOrCancel"])
-class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
+class ImmediateOrCancel_IObservableIOrder(Observable[IOrder],IObservableIOrder):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -13,14 +13,13 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim import types
+        from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out.order._limit import Limit_IFunctionSideIFunctionFloatIFunctionFloat as _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat
-        from marketsim import Order
-        Observable[Order].__init__(self)
-        self.proto = proto if proto is not None else _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat()
+        Observable[IOrder].__init__(self)
+        self.proto = proto if proto is not None else _order_Limit_SideFloatFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     
@@ -29,7 +28,7 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
         return repr(self)
     
     _properties = {
-        'proto' : IOrderGenerator
+        'proto' : IObservableIOrder
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -42,8 +41,9 @@ class ImmediateOrCancel_IOrderGenerator(Observable[Order],IOrderGenerator):
         return Order_Impl(proto)
     
 def ImmediateOrCancel(proto = None): 
-    from marketsim import IOrderGenerator
+    from marketsim.gen._out._iorder import IOrder
+    from marketsim.gen._out._iobservable import IObservableIOrder
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
-        return ImmediateOrCancel_IOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for ImmediateOrCancel('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IObservableIOrder):
+        return ImmediateOrCancel_IObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

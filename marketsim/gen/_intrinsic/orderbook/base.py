@@ -6,7 +6,7 @@ from queue import LastTrade
 
 from ..trader.classes import _Holder_Impl
 
-class BookBase(types.IOrderBook, _Holder_Impl):
+class BookBase(_Holder_Impl):
 
     def __init__(self, bids, asks):
         """ Initializes empty order book with given tick size
@@ -62,7 +62,8 @@ class BookBase(types.IOrderBook, _Holder_Impl):
     def process(self, order):
         """ Processes an order by calling its processIn method
         """
-        if isinstance(order, types.IOrder):
+        from marketsim.gen._out._iorder import IOrder
+        if isinstance(order, IOrder):
             assert order.owner is not None
         if self._orderBeingProcessed is None:
             self._orderBeingProcessed = order

@@ -1,10 +1,7 @@
 def Peg(proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+    from marketsim.gen._out.order._curried._sideprice_peg import sideprice_Peg_SideFloatIObservableIOrder as _order__curried_sideprice_Peg_SideFloatIObservableIOrder
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim.gen._out.order._curried._sideprice_peg import sideprice_Peg_SideFloatIOrderGenerator as _order__curried_sideprice_Peg_SideFloatIOrderGenerator
-    from marketsim import Side
-    if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-        return _order__curried_sideprice_Peg_SideFloatIOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for Peg('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+        return _order__curried_sideprice_Peg_SideFloatIObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for Peg('+str(proto) +':'+ str(type(proto))+')')

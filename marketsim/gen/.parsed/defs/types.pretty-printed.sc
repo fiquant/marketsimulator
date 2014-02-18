@@ -35,7 +35,9 @@ type ILink
 
 type ITwoWayLink
 
-type IOrderGenerator = IObservable[Order]
+type IOrder
+
+type IOrderGenerator = IObservable[IOrder]
 
 type ITrader
 
@@ -45,11 +47,9 @@ type ISingleAssetTrader : IAccount, ITrader
 
 type IDifferentiable : IFunction[Float]
 
-type CandleStick
+type ICandleStick
 
 type IVolumeLevels
-
-type Order
 
 type ISingleAssetStrategy
 

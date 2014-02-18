@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "LimitSigned"])
-class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator,IFunction[float]]):
+class signedVolume_LimitSigned_Float(IFunctionIObservableIOrderIFunctionfloat):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -20,7 +19,7 @@ class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator,IFunctio
         return repr(self)
     
     _properties = {
-        'price' : IFunction[float]
+        'price' : IFunctionfloat
     }
     def __repr__(self):
         return "LimitSigned(%(price)s)" % self.__dict__
@@ -33,9 +32,8 @@ class signedVolume_LimitSigned_IFunctionFloat(IFunction[IOrderGenerator,IFunctio
         return LimitSigned(signedVolume, price)
     
 def signedVolume_LimitSigned(price = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if price is None or rtti.can_be_casted(price, IFunction[float]):
-        return signedVolume_LimitSigned_IFunctionFloat(price)
-    raise Exception('Cannot find suitable overload for signedVolume_LimitSigned('+str(price)+')')
+    if price is None or rtti.can_be_casted(price, IFunctionfloat):
+        return signedVolume_LimitSigned_Float(price)
+    raise Exception('Cannot find suitable overload for signedVolume_LimitSigned('+str(price) +':'+ str(type(price))+')')

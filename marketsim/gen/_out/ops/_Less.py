@@ -1,20 +1,16 @@
-from marketsim.ops._all import Observable
-from marketsim import IObservable
-from marketsim.gen._intrinsic.ops import _Less_Impl
 from marketsim import registry
-from marketsim import bool
-from marketsim import float
+from marketsim.ops._all import Observable
+from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Ops", "Less"])
 class Less_IObservableFloatIObservableFloat(Observable[bool],_Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import bool
-        from marketsim import types
         from marketsim.ops._all import Observable
-        from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
+        from marketsim import rtti
         Observable[bool].__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         event.subscribe(self.x, self.fire, self)
@@ -28,26 +24,22 @@ class Less_IObservableFloatIObservableFloat(Observable[bool],_Less_Impl):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
-        'y' : IObservable[float]
+        'x' : IObservablefloat,
+        'y' : IObservablefloat
     }
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % self.__dict__
     
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IObservable
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
-from marketsim import bool
-from marketsim import float
 @registry.expose(["Ops", "Less"])
-class Less_IFunctionFloatIObservableFloat(Observable[bool],_Less_Impl):
+class Less_FloatIObservableFloat(Observable[bool],_Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import bool
-        from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -66,26 +58,22 @@ class Less_IFunctionFloatIObservableFloat(Observable[bool],_Less_Impl):
         return repr(self)
     
     _properties = {
-        'x' : IFunction[float],
-        'y' : IObservable[float]
+        'x' : IFunctionfloat,
+        'y' : IObservablefloat
     }
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % self.__dict__
     
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IObservable
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
-from marketsim import bool
-from marketsim import float
 @registry.expose(["Ops", "Less"])
-class Less_IObservableFloatIFunctionFloat(Observable[bool],_Less_Impl):
+class Less_IObservableFloatFloat(Observable[bool],_Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import bool
-        from marketsim import types
         from marketsim.ops._all import Observable
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -104,24 +92,21 @@ class Less_IObservableFloatIFunctionFloat(Observable[bool],_Less_Impl):
         return repr(self)
     
     _properties = {
-        'x' : IObservable[float],
-        'y' : IFunction[float]
+        'x' : IObservablefloat,
+        'y' : IFunctionfloat
     }
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % self.__dict__
     
-from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim.gen._intrinsic.ops import _Less_Impl
 from marketsim import registry
-from marketsim import bool
-from marketsim import float
+from marketsim.ops._all import Observable
+from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Ops", "Less"])
-class Less_IFunctionFloatIFunctionFloat(Observable[bool],_Less_Impl):
+class Less_FloatFloat(Observable[bool],_Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import bool
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
@@ -138,27 +123,26 @@ class Less_IFunctionFloatIFunctionFloat(Observable[bool],_Less_Impl):
         return repr(self)
     
     _properties = {
-        'x' : IFunction[float],
-        'y' : IFunction[float]
+        'x' : IFunctionfloat,
+        'y' : IFunctionfloat
     }
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % self.__dict__
     
 def Less(x = None,y = None): 
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
-        if y is None or rtti.can_be_casted(y, IObservable[float]):
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
+        if y is None or rtti.can_be_casted(y, IObservablefloat):
             return Less_IObservableFloatIObservableFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IFunction[float]):
-        if y is None or rtti.can_be_casted(y, IObservable[float]):
-            return Less_IFunctionFloatIObservableFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IObservable[float]):
-        if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Less_IObservableFloatIFunctionFloat(x,y)
-    if x is None or rtti.can_be_casted(x, IFunction[float]):
-        if y is None or rtti.can_be_casted(y, IFunction[float]):
-            return Less_IFunctionFloatIFunctionFloat(x,y)
-    raise Exception('Cannot find suitable overload for Less('+str(x)+','+str(y)+')')
+    if x is None or rtti.can_be_casted(x, IFunctionfloat):
+        if y is None or rtti.can_be_casted(y, IObservablefloat):
+            return Less_FloatIObservableFloat(x,y)
+    if x is None or rtti.can_be_casted(x, IObservablefloat):
+        if y is None or rtti.can_be_casted(y, IFunctionfloat):
+            return Less_IObservableFloatFloat(x,y)
+    if x is None or rtti.can_be_casted(x, IFunctionfloat):
+        if y is None or rtti.can_be_casted(y, IFunctionfloat):
+            return Less_FloatFloat(x,y)
+    raise Exception('Cannot find suitable overload for Less('+str(x) +':'+ str(type(x))+','+str(y) +':'+ str(type(y))+')')

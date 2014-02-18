@@ -1,4 +1,5 @@
-from marketsim import bind, types, CandleStick
+from marketsim import bind, types
+from marketsim.ops._all import CandleStick
 from colorsys import hsv_to_rgb
 import subprocess 
 import random
@@ -193,9 +194,7 @@ class VolumeLevelProxy(object):
         return self._source.label + '{' + str(self._source.source.dataSource.volumes[self._idx]) + '}' 
         
     
-    
-        
-class _Graph_Impl(types.IGraph):
+class _Graph_Impl(object):
     """ Represents a single Veusz graph
     """
     

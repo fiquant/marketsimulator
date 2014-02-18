@@ -1,10 +1,10 @@
+from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._intrinsic.timeserie import _ToRecord_Impl
-from marketsim import int
-from marketsim import IObservable
-from marketsim import IGraph
+from marketsim.gen._out._iobservable import IObservableobject
+from marketsim.gen._out._igraph import IGraph
 from marketsim import registry
 @registry.expose(["Basic", "TimeSerie"])
-class TimeSerie_IObservableAnyIGraphIntInt(_ToRecord_Impl):
+class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,_ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
@@ -23,7 +23,7 @@ class TimeSerie_IObservableAnyIGraphIntInt(_ToRecord_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[object],
+        'source' : IObservableobject,
         'graph' : IGraph,
         '_digitsToShow' : int,
         '_smooth' : int
@@ -32,13 +32,12 @@ class TimeSerie_IObservableAnyIGraphIntInt(_ToRecord_Impl):
         return "%(source)s" % self.__dict__
     
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
-    from marketsim import IObservable
-    from marketsim import IGraph
-    from marketsim import int
+    from marketsim.gen._out._iobservable import IObservableobject
+    from marketsim.gen._out._igraph import IGraph
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[object]):
+    if source is None or rtti.can_be_casted(source, IObservableobject):
         if graph is None or rtti.can_be_casted(graph, IGraph):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if _smooth is None or rtti.can_be_casted(_smooth, int):
                     return TimeSerie_IObservableAnyIGraphIntInt(source,graph,_digitsToShow,_smooth)
-    raise Exception('Cannot find suitable overload for TimeSerie('+str(source)+','+str(graph)+','+str(_digitsToShow)+','+str(_smooth)+')')
+    raise Exception('Cannot find suitable overload for TimeSerie('+str(source) +':'+ str(type(source))+','+str(graph) +':'+ str(type(graph))+','+str(_digitsToShow) +':'+ str(type(_digitsToShow))+','+str(_smooth) +':'+ str(type(_smooth))+')')

@@ -1,5 +1,6 @@
 from marketsim.gen._out._timeserie import TimeSerie
-from marketsim import event, _, Side, types, context
+from marketsim import event, _, types, context
+from marketsim.gen._out._side import Side
 
 class _Holder_Impl(object):
 
@@ -68,14 +69,15 @@ class _Base_Impl(_Holder_Impl):
         """ Sends 'order' to 'book'
         After having the order sent notifies listeners about it
         """
+        from marketsim.gen._out._iorder import IOrder
         context.bind(order, self._ctx)
-        if isinstance(order, types.IOrder):
+        if isinstance(order, IOrder):
             order = self._makeSubscribedTo(order)
         book.process(order)
-        if isinstance(order, types.IOrder):
+        if isinstance(order, IOrder):
             self.on_order_sent.fire(order)
 
-class _SingleAsset_Impl(_Base_Impl, types.ISingleAssetTrader):
+class _SingleAsset_Impl(_Base_Impl):
     """ A trader that trades a single asset on a single market.
 
         Parameters:
@@ -124,7 +126,7 @@ class _SingleAsset_Impl(_Base_Impl, types.ISingleAssetTrader):
     def send(self, order, unused = None):
         _Base_Impl.send(self, self.orderBook, order)
 
-class _MultiAsset_Impl(_Base_Impl, types.ITrader):
+class _MultiAsset_Impl(_Base_Impl):
 
     def __init__(self):
         _Base_Impl.__init__(self)

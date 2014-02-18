@@ -1,6 +1,6 @@
 from marketsim import types, _
 
-class EvalVolumesForBudget(types.IRequest):
+class EvalVolumesForBudget(object):
     
     def __init__(self, side, budget, callback):
         self.side = side

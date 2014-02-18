@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
-from marketsim import float
 @registry.expose(["Statistics", "StdDev"])
-class StdDev_IObservableFloatFloat(IFunction[float]):
+class StdDev_IObservableFloatFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
@@ -20,7 +19,7 @@ class StdDev_IObservableFloatFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float],
+        'source' : IObservablefloat,
         'timeframe' : float
     }
     def __repr__(self):
@@ -39,15 +38,14 @@ class StdDev_IObservableFloatFloat(IFunction[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._sqrt import Sqrt_IFunctionFloat as _math_Sqrt_IFunctionFloat
+        from marketsim.gen._out.math._sqrt import Sqrt_Float as _math_Sqrt_Float
         from marketsim.gen._out.math.Moving._var import Var_IObservableFloatFloat as _math_Moving_Var_IObservableFloatFloat
-        return _math_Sqrt_IFunctionFloat(_math_Moving_Var_IObservableFloatFloat(self.source))
+        return _math_Sqrt_Float(_math_Moving_Var_IObservableFloatFloat(self.source))
     
 def StdDev(source = None,timeframe = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):
             return StdDev_IObservableFloatFloat(source,timeframe)
-    raise Exception('Cannot find suitable overload for StdDev('+str(source)+','+str(timeframe)+')')
+    raise Exception('Cannot find suitable overload for StdDev('+str(source) +':'+ str(type(source))+','+str(timeframe) +':'+ str(type(timeframe))+')')

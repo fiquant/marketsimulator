@@ -1,19 +1,16 @@
+from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.observable.randomwalk import _RandomWalk_Impl
-from marketsim import IFunction
-from marketsim import str
-from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Basic", "RandomWalk"])
 class RandomWalk_FloatFloatFloatString(Observable[float],_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
         from marketsim.ops._all import Observable
-        from marketsim import rtti
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
-        from marketsim import float
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import rtti
         Observable[float].__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         
@@ -32,21 +29,19 @@ class RandomWalk_FloatFloatFloatString(Observable[float],_RandomWalk_Impl):
     
     _properties = {
         'initialValue' : float,
-        'deltaDistr' : IFunction[float],
-        'intervalDistr' : IFunction[float],
+        'deltaDistr' : IFunctionfloat,
+        'intervalDistr' : IFunctionfloat,
         'name' : str
     }
     def __repr__(self):
         return "%(name)s" % self.__dict__
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
-    from marketsim import float
-    from marketsim import IFunction
-    from marketsim import str
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
     if initialValue is None or rtti.can_be_casted(initialValue, float):
-        if deltaDistr is None or rtti.can_be_casted(deltaDistr, IFunction[float]):
-            if intervalDistr is None or rtti.can_be_casted(intervalDistr, IFunction[float]):
+        if deltaDistr is None or rtti.can_be_casted(deltaDistr, IFunctionfloat):
+            if intervalDistr is None or rtti.can_be_casted(intervalDistr, IFunctionfloat):
                 if name is None or rtti.can_be_casted(name, str):
                     return RandomWalk_FloatFloatFloatString(initialValue,deltaDistr,intervalDistr,name)
-    raise Exception('Cannot find suitable overload for RandomWalk('+str(initialValue)+','+str(deltaDistr)+','+str(intervalDistr)+','+str(name)+')')
+    raise Exception('Cannot find suitable overload for RandomWalk('+str(initialValue) +':'+ str(type(initialValue))+','+str(deltaDistr) +':'+ str(type(deltaDistr))+','+str(intervalDistr) +':'+ str(type(intervalDistr))+','+str(name) +':'+ str(type(name))+')')

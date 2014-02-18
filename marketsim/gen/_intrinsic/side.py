@@ -1,4 +1,4 @@
-from marketsim import Side
+from marketsim.gen._out._side import Side
 
 class _Sell_Impl(object):
 

@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
+from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Statistics", "Var"])
-class Var_IObservableFloatFloat(IFunction[float],EWMV_Impl):
+class Var_IObservableFloatFloat(IFunctionfloat,EWMV_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
@@ -20,17 +19,16 @@ class Var_IObservableFloatFloat(IFunction[float],EWMV_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float],
+        'source' : IObservablefloat,
         'alpha' : float
     }
     def __repr__(self):
         return "\\sigma^2_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
 def Var(source = None,alpha = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return Var_IObservableFloatFloat(source,alpha)
-    raise Exception('Cannot find suitable overload for Var('+str(source)+','+str(alpha)+')')
+    raise Exception('Cannot find suitable overload for Var('+str(source) +':'+ str(type(source))+','+str(alpha) +':'+ str(type(alpha))+')')

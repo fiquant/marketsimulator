@@ -18,7 +18,7 @@ def generate_if_needed():
         from marketsim import config
         sources = " ".join(config.sources)
         #subprocess.call("sbt clean", shell=True)
-        subprocess.call("""sbt "run %s " """ % sources, shell=True)
+        subprocess.call("""sbt "run --skip_errors %s " """ % sources, shell=True)
 
         print "done."
 

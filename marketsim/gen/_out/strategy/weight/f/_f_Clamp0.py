@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIFunctionfloat
 @registry.expose(["Strategy", "f_Clamp0"])
-class f_Clamp0_(IFunction[IFunction[float],IFunction[float]]):
+class f_Clamp0_(IFunctionIFunctionfloatIFunctionfloat):
     """ 
     """ 
     def __init__(self):
@@ -22,10 +21,10 @@ class f_Clamp0_(IFunction[IFunction[float],IFunction[float]]):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.strategy.weight._clamp0 import Clamp0_IFunctionFloat as _strategy_weight_Clamp0_IFunctionFloat
+        from marketsim.gen._out.strategy.weight._clamp0 import Clamp0_Float as _strategy_weight_Clamp0_Float
         f = f if f is not None else _constant_Float(1.0)
         
-        return _strategy_weight_Clamp0_IFunctionFloat(f)
+        return _strategy_weight_Clamp0_Float(f)
     
 def f_Clamp0(): 
     from marketsim import rtti

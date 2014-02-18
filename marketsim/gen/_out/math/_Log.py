@@ -1,13 +1,11 @@
 from marketsim import registry
-from marketsim import float
 from marketsim.ops._all import Observable
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Log/Pow", "Log"])
-class Log_IFunctionFloat(Observable[float]):
+class Log_Float(Observable[float]):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import float
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
@@ -21,7 +19,7 @@ class Log_IFunctionFloat(Observable[float]):
         return repr(self)
     
     _properties = {
-        'x' : IFunction[float]
+        'x' : IFunctionfloat
     }
     def __repr__(self):
         return "log(%(x)s)" % self.__dict__
@@ -33,9 +31,8 @@ class Log_IFunctionFloat(Observable[float]):
         return math.log(x)
     
 def Log(x = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IFunction[float]):
-        return Log_IFunctionFloat(x)
-    raise Exception('Cannot find suitable overload for Log('+str(x)+')')
+    if x is None or rtti.can_be_casted(x, IFunctionfloat):
+        return Log_Float(x)
+    raise Exception('Cannot find suitable overload for Log('+str(x) +':'+ str(type(x))+')')

@@ -1,1 +1,1 @@
-Price = Float
+Price = float

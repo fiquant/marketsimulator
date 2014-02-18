@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim import bool
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionbool
 from marketsim import context
 @registry.expose(["Basic", "false"])
-class false_(IFunction[bool]):
+class false_(IFunctionbool):
     """ 
     """ 
     def __init__(self):

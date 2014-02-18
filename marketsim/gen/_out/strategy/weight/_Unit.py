@@ -3,13 +3,12 @@ def unit():
     from marketsim import rtti
     return _strategy_weight_trader_trader_Unit_()
     raise Exception('Cannot find suitable overload for unit('++')')
-from marketsim import IFunction
-from marketsim import IAccount
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "Unit"])
-class Unit_IAccount(IFunction[float]):
+class Unit_IAccount(IFunctionfloat):
     """ 
     """ 
     def __init__(self, trader = None):
@@ -46,8 +45,8 @@ class Unit_IAccount(IFunction[float]):
         return _constant_Float(1.0)
     
 def Unit(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Unit_IAccount(trader)
-    raise Exception('Cannot find suitable overload for Unit('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for Unit('+str(trader) +':'+ str(type(trader))+')')

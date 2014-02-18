@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIFunctionfloat
 @registry.expose(["Strategy", "f_AtanPow"])
-class f_AtanPow_Float(IFunction[IFunction[float],IFunction[float]]):
+class f_AtanPow_Float(IFunctionIFunctionfloatIFunctionfloat):
     """ 
     """ 
     def __init__(self, base = None):
@@ -22,14 +21,13 @@ class f_AtanPow_Float(IFunction[IFunction[float],IFunction[float]]):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.strategy.weight._atanpow import AtanPow_IFunctionFloatFloat as _strategy_weight_AtanPow_IFunctionFloatFloat
+        from marketsim.gen._out.strategy.weight._atanpow import AtanPow_FloatFloat as _strategy_weight_AtanPow_FloatFloat
         f = f if f is not None else _constant_Float(1.0)
         base = self.base
-        return _strategy_weight_AtanPow_IFunctionFloatFloat(f,base)
+        return _strategy_weight_AtanPow_FloatFloat(f,base)
     
 def f_AtanPow(base = None): 
-    from marketsim import float
     from marketsim import rtti
     if base is None or rtti.can_be_casted(base, float):
         return f_AtanPow_Float(base)
-    raise Exception('Cannot find suitable overload for f_AtanPow('+str(base)+')')
+    raise Exception('Cannot find suitable overload for f_AtanPow('+str(base) +':'+ str(type(base))+')')

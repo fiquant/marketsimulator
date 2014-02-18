@@ -4,11 +4,11 @@ def identityL():
     return _strategy_weight_array_array_IdentityL_()
     raise Exception('Cannot find suitable overload for identityL('++')')
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionlistOffloat
 from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
-from marketsim import float
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
-class IdentityL_ListFloat(_Identity_Impl):
+class IdentityL_ListFloat(IFunctionlistOffloat,_Identity_Impl):
     """ 
     """ 
     def __init__(self, array = None):
@@ -28,9 +28,8 @@ class IdentityL_ListFloat(_Identity_Impl):
         return "IdentityL(%(array)s)" % self.__dict__
     
 def IdentityL(array = None): 
-    from marketsim import float
     from marketsim import listOf
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
         return IdentityL_ListFloat(array)
-    raise Exception('Cannot find suitable overload for IdentityL('+str(array)+')')
+    raise Exception('Cannot find suitable overload for IdentityL('+str(array) +':'+ str(type(array))+')')

@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Random", "expovariate"])
-class expovariate_Float(IFunction[float]):
+class expovariate_Float(IFunctionfloat):
     """ 
       Returned values range from 0 to positive infinity
     """ 
@@ -29,8 +28,7 @@ class expovariate_Float(IFunction[float]):
         return expovariate_Float._types[0]._casts_to(dst)
     
 def expovariate(Lambda = None): 
-    from marketsim import float
     from marketsim import rtti
     if Lambda is None or rtti.can_be_casted(Lambda, float):
         return expovariate_Float(Lambda)
-    raise Exception('Cannot find suitable overload for expovariate('+str(Lambda)+')')
+    raise Exception('Cannot find suitable overload for expovariate('+str(Lambda) +':'+ str(type(Lambda))+')')

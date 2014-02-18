@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Random", "vonmisesvariate"])
-class vonmisesvariate_FloatFloat(IFunction[float]):
+class vonmisesvariate_FloatFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, Mu = None, Kappa = None):
@@ -30,9 +29,8 @@ class vonmisesvariate_FloatFloat(IFunction[float]):
         return vonmisesvariate_FloatFloat._types[0]._casts_to(dst)
     
 def vonmisesvariate(Mu = None,Kappa = None): 
-    from marketsim import float
     from marketsim import rtti
     if Mu is None or rtti.can_be_casted(Mu, float):
         if Kappa is None or rtti.can_be_casted(Kappa, float):
             return vonmisesvariate_FloatFloat(Mu,Kappa)
-    raise Exception('Cannot find suitable overload for vonmisesvariate('+str(Mu)+','+str(Kappa)+')')
+    raise Exception('Cannot find suitable overload for vonmisesvariate('+str(Mu) +':'+ str(type(Mu))+','+str(Kappa) +':'+ str(type(Kappa))+')')

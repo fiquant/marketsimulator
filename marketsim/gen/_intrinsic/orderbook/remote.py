@@ -2,7 +2,7 @@ from marketsim import types, bind, _
 from base import BookBase
 from queue import BestPrice, LastTrade
 
-class Queue(types.IOrderQueue):
+class Queue(object):
     
     def __init__(self, queue, book, link):
         self._queue = queue
@@ -97,7 +97,8 @@ class _Remote_Impl(BookBase):
         return remote       
     
     def process(self, order):
-        if isinstance(order, types.IOrder):
+        from marketsim.gen._out._iorder import IOrder
+        if isinstance(order, IOrder):
             BookBase.process(self, order)
         else:
             #if 'callback' in dir(order):

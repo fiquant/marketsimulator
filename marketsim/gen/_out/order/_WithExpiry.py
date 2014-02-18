@@ -1,27 +1,25 @@
-from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IOrderGenerator
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
-from marketsim import float
 @registry.expose(["Order", "WithExpiry"])
-class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator):
+class WithExpiry_FloatIObservableIOrder(Observable[IOrder],IObservableIOrder):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
-        from marketsim import types
+        from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out.order._limit import Limit_IFunctionSideIFunctionFloatIFunctionFloat as _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat
-        from marketsim import Order
-        Observable[Order].__init__(self)
+        Observable[IOrder].__init__(self)
         self.expiry = expiry if expiry is not None else _constant_Float(10.0)
         
-        self.proto = proto if proto is not None else _order_Limit_IFunctionSideIFunctionFloatIFunctionFloat()
+        self.proto = proto if proto is not None else _order_Limit_SideFloatFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     
@@ -30,8 +28,8 @@ class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator
         return repr(self)
     
     _properties = {
-        'expiry' : IFunction[float],
-        'proto' : IOrderGenerator
+        'expiry' : IFunctionfloat,
+        'proto' : IObservableIOrder
     }
     def __repr__(self):
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -47,11 +45,11 @@ class WithExpiry_IFunctionFloatIOrderGenerator(Observable[Order],IOrderGenerator
         return Order_Impl(expiry, proto)
     
 def WithExpiry(expiry = None,proto = None): 
-    from marketsim import IFunction
-    from marketsim import float
-    from marketsim import IOrderGenerator
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iorder import IOrder
+    from marketsim.gen._out._iobservable import IObservableIOrder
     from marketsim import rtti
-    if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IOrderGenerator):
-            return WithExpiry_IFunctionFloatIOrderGenerator(expiry,proto)
-    raise Exception('Cannot find suitable overload for WithExpiry('+str(expiry)+','+str(proto)+')')
+    if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IObservableIOrder):
+            return WithExpiry_FloatIObservableIOrder(expiry,proto)
+    raise Exception('Cannot find suitable overload for WithExpiry('+str(expiry) +':'+ str(type(expiry))+','+str(proto) +':'+ str(type(proto))+')')

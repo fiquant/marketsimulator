@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IAccount
+from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "trader_EfficiencyTrend"])
-class trader_EfficiencyTrend_Float(IFunction[IFunction[float],IAccount]):
+class trader_EfficiencyTrend_Float(IFunctionIFunctionfloatIAccount):
     """ 
     """ 
     def __init__(self, alpha = None):
@@ -29,8 +27,7 @@ class trader_EfficiencyTrend_Float(IFunction[IFunction[float],IAccount]):
         return _strategy_weight_EfficiencyTrend_IAccountFloat(trader,alpha)
     
 def trader_EfficiencyTrend(alpha = None): 
-    from marketsim import float
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
         return trader_EfficiencyTrend_Float(alpha)
-    raise Exception('Cannot find suitable overload for trader_EfficiencyTrend('+str(alpha)+')')
+    raise Exception('Cannot find suitable overload for trader_EfficiencyTrend('+str(alpha) +':'+ str(type(alpha))+')')

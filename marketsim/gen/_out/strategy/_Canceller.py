@@ -1,9 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Strategy", "Canceller"])
-class Canceller_Float(_Canceller_Impl):
+class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
     """   and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
@@ -19,15 +19,14 @@ class Canceller_Float(_Canceller_Impl):
         return repr(self)
     
     _properties = {
-        'cancellationIntervalDistr' : IFunction[float]
+        'cancellationIntervalDistr' : IFunctionfloat
     }
     def __repr__(self):
         return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
     
 def Canceller(cancellationIntervalDistr = None): 
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunction[float]):
+    if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunctionfloat):
         return Canceller_Float(cancellationIntervalDistr)
-    raise Exception('Cannot find suitable overload for Canceller('+str(cancellationIntervalDistr)+')')
+    raise Exception('Cannot find suitable overload for Canceller('+str(cancellationIntervalDistr) +':'+ str(type(cancellationIntervalDistr))+')')

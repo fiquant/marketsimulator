@@ -1,9 +1,9 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (strategy, order, event, constant)
+from marketsim._pub import (strategy, order, event, const)
 
-const = constant
+constant = const
 
 from common import expose
 

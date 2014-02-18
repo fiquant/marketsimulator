@@ -1,6 +1,7 @@
-from marketsim import types, Side, getLabel
+from marketsim import getLabel
+from marketsim.gen._out._side import Side
 
-class Base(types.IOrderBook):
+class Base(object):
 
     _properties = {}
 
@@ -16,7 +17,7 @@ class Base(types.IOrderBook):
     def __repr__(self):
         return self.__str__()
 
-class Queue(types.IOrderQueue):
+class Queue(object):
 
     def __init__(self, side):
         self._side = side

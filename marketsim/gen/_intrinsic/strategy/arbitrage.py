@@ -1,4 +1,5 @@
-from marketsim import Side, event, _
+from marketsim import event, _
+from marketsim.gen._out._side import Side
 
 from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
 from marketsim.gen._out.order._limit import Limit

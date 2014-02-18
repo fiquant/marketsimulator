@@ -1,18 +1,16 @@
-from marketsim.ops._all import Observable
-from marketsim import Volume
-from marketsim import IAccount
 from marketsim import registry
+from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
+from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "PendingVolume"])
-class PendingVolume_IAccount(Observable[Volume],PendingVolume_Impl):
+class PendingVolume_IAccount(Observable[int],PendingVolume_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim import Volume
         from marketsim.ops._all import Observable
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        Observable[Volume].__init__(self)
+        Observable[int].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         
         rtti.check_fields(self)
@@ -29,8 +27,8 @@ class PendingVolume_IAccount(Observable[Volume],PendingVolume_Impl):
         return "PendingVolume(%(trader)s)" % self.__dict__
     
 def PendingVolume(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return PendingVolume_IAccount(trader)
-    raise Exception('Cannot find suitable overload for PendingVolume('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for PendingVolume('+str(trader) +':'+ str(type(trader))+')')

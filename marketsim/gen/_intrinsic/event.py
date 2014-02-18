@@ -31,8 +31,8 @@ class Event_Impl(object):
             for x in list(self._listeners):
                 x(*args)
 
-
-class Event(Event_Impl, types.IEvent):
+from marketsim.gen._out._ievent import IEvent
+class Event(Event_Impl, IEvent):
     """ Multicast event
     
     Keeps a set of callable listeners 
@@ -88,7 +88,7 @@ class Conditional_Impl(Event_Impl):
                             handler(*args)
         Event_Impl._fire_impl(self, *args)
 
-class Conditional(Conditional_Impl, types.IEvent): pass
+class Conditional(Conditional_Impl, IEvent): pass
         
 class GreaterThan(object):
     
@@ -210,10 +210,10 @@ def subscribe(event, listener, target = None, ctx = None):
     return subscription
 
 def subscribe_if_observable(source, target):
-    if isinstance(source, types.IEvent):
+    if isinstance(source, IEvent):
         subscribe(source, _(target).fire, target)
 
-class _Every_Impl(Event):
+class _Every_Impl(Event_Impl):
     """ Represents a repeating action. 
     
         Parameters:
@@ -223,7 +223,7 @@ class _Every_Impl(Event):
     """
 
     def __init__(self):
-        Event.__init__(self)
+        Event_Impl.__init__(self)
         self._cancelled = False
         
     def bind(self, context):
@@ -244,10 +244,10 @@ class _Every_Impl(Event):
     def cancel(self):
         self._cancelled = True
  
-class _After_Impl(Event):
+class _After_Impl(Event_Impl):
 
     def __init__(self):
-        Event.__init__(self)
+        Event_Impl.__init__(self)
         self._cancelled = False
         
     def bind(self, context):

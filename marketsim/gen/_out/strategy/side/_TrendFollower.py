@@ -1,11 +1,9 @@
-from marketsim import IFunction
-from marketsim import IOrderBook
-from marketsim import Side
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
-from marketsim import float
 @registry.expose(["Side function", "TrendFollower"])
-class TrendFollower_FloatFloatIOrderBook(IFunction[Side]):
+class TrendFollower_FloatFloatIOrderBook(IFunctionSide):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
@@ -42,18 +40,17 @@ class TrendFollower_FloatFloatIOrderBook(IFunction[Side]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._signal import Signal_IFunctionFloatFloat as _strategy_side_Signal_IFunctionFloatFloat
+        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
         from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
         from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        return _strategy_side_Signal_IFunctionFloatFloat(_math_Derivative_IDifferentiable(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha)),self.threshold)
+        return _strategy_side_Signal_FloatFloat(_math_Derivative_IDifferentiable(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha)),self.threshold)
     
 def TrendFollower(alpha = None,threshold = None,book = None): 
-    from marketsim import float
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
         if threshold is None or rtti.can_be_casted(threshold, float):
             if book is None or rtti.can_be_casted(book, IOrderBook):
                 return TrendFollower_FloatFloatIOrderBook(alpha,threshold,book)
-    raise Exception('Cannot find suitable overload for TrendFollower('+str(alpha)+','+str(threshold)+','+str(book)+')')
+    raise Exception('Cannot find suitable overload for TrendFollower('+str(alpha) +':'+ str(type(alpha))+','+str(threshold) +':'+ str(type(threshold))+','+str(book) +':'+ str(type(book))+')')

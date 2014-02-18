@@ -46,6 +46,71 @@ package event
     
 }
 
+@category = "internal tests"
+package _test
+{
+    package in1
+    {
+        package in2
+        {
+            def S1(y = "abc") = y
+            
+            def F(x = ._test.in1.in2.IntFunc() : .IFunction[.Float]) = x
+            
+            def A(x = .constant(),
+                  y = if 3>x+2 then x else x*2) : () => ._test.types.T
+            
+            def IntObs() : .IObservable[.Int] = .const(0)
+            
+            def IntFunc() : .IFunction[.Int] = .const(0)
+            
+            def C(x : .IFunction[.ICandleStick],
+                  p = 12) = p
+            
+            def S2() : .Optional[.String] = ._test.in1.in2.S1()
+            
+            def O(x = ._test.in1.in2.IntObs() : .IObservable[.Float]) = x
+            
+        }
+        
+        def A(x : () => ._test.types.T1 = ._test.A()) : () => ._test.types.U
+        
+        def toInject1() : () => .Int
+        
+        def toInject2() : () => .Int
+        
+    }
+    
+    package types
+    {
+        type T1 = T
+        
+        type T
+        
+        type R : T
+        
+        type U : R
+        
+    }
+    
+    package overloading
+    {
+        def f(x : .IFunction[.Volume]) = x
+        
+        def f(x : .IFunction[.Price]) = x
+        
+        def g(x : .IFunction[.Volume]) = ._test.overloading.f(x)
+        
+        def h() = ._test.overloading.f(12)
+        
+        def hh() = ._test.overloading.f(12.2)
+        
+    }
+    
+    def A(x = ._test.in1.in2.A()) : () => ._test.types.R
+    
+}
+
 @category = "N/A"
 package veusz
 {
@@ -251,7 +316,7 @@ package math
          */
         @python.intrinsic("moments.cma.CMA_Impl")
         @label = "Avg{{suffix}}"
-        def Avg(/** observable data source */ source = .const(1.0)) : () => .Float
+        def Avg(/** observable data source */ source = .const(1.0)) : .IDifferentiable
         
         /** Cumulative minimum of a function with positive tolerance.
          *
@@ -388,7 +453,7 @@ package math
         @python.intrinsic("moments.ma.MA_Impl")
         @label = "Avg{{suffix}}"
         def Avg(/** observable data source */ source = .const(1.0),
-                /** sliding window size    */ timeframe = 100.0) : () => .Float
+                /** sliding window size    */ timeframe = 100.0) : .IDifferentiable
         
         /** Simple moving standard deviation
          */
@@ -1457,7 +1522,6 @@ package strategy
         
         /** Side function for fundamental value strategy
          */
-        @python.observable()
         def FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),
                              /** asset in question */ book = .orderbook.OfTrader()) = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
         
@@ -1480,12 +1544,12 @@ package strategy
              *  having 1 at the index of the maximal element and 0 are at the rest
              */
             @python.curried("ChooseTheBest")
-            def array_ChooseTheBest() : .Optional[.List[.Float]] => .List[.Float]
+            def array_ChooseTheBest() : .Optional[.List[.Float]] => .IFunction[.List[.Float]]
             
             /** Identity function for an array of floats
              */
             @python.curried("IdentityL")
-            def array_IdentityL() : .Optional[.List[.Float]] => .List[.Float]
+            def array_IdentityL() : .Optional[.List[.Float]] => .IFunction[.List[.Float]]
             
         }
         
@@ -1542,7 +1606,7 @@ package strategy
          */
         @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
         @curried("array")
-        def ChooseTheBest(array : .Optional[.List[.Float]] = []) : .List[.Float]
+        def ChooseTheBest(array : .Optional[.List[.Float]] = []) : .IFunction[.List[.Float]]
         
         def chooseTheBest = .strategy.weight.array.array_ChooseTheBest
         
@@ -1600,7 +1664,7 @@ package strategy
          */
         @python.intrinsic("strategy.weight._Identity_Impl")
         @curried("array")
-        def IdentityL(array : .Optional[.List[.Float]] = []) : .List[.Float]
+        def IdentityL(array : .Optional[.List[.Float]] = []) : .IFunction[.List[.Float]]
         
         /** identity scaling = f(x)
          */
@@ -2204,84 +2268,19 @@ package observable
     
 }
 
-@python = "no"
-package trash
-{
-    package in1
-    {
-        package in2
-        {
-            def S1(y = "abc") = y
-            
-            def F(x = .trash.in1.in2.IntFunc() : .IFunction[.Float]) = x
-            
-            def A(x = .constant(),
-                  y = if 3>x+2 then x else x*2) : () => .trash.types.T
-            
-            def IntObs() : .IObservable[.Int]
-            
-            def IntFunc() : .IFunction[.Int]
-            
-            def C(x : .IFunction[.CandleStick],
-                  p = [12,23.2,0]) = p
-            
-            def S2() : .Optional[.String] = .trash.in1.in2.S1()
-            
-            def O(x = .trash.in1.in2.IntObs() : .IObservable[.Float]) = x
-            
-        }
-        
-        def A(x : () => .trash.types.T1 = .trash.A()) : () => .trash.types.U
-        
-        def toInject1() : () => .Int
-        
-        def toInject2() : () => .Int
-        
-    }
-    
-    package types
-    {
-        type T1 = T
-        
-        type T
-        
-        type R : T
-        
-        type U : T, R
-        
-    }
-    
-    package overloading
-    {
-        def f(x : .IFunction[.Volume]) = x
-        
-        def f(x : .IFunction[.Price]) = x
-        
-        def g(x : .IFunction[.Volume]) = .trash.overloading.f(x)
-        
-        def h() = .trash.overloading.f(12)
-        
-        def hh() = .trash.overloading.f(12.2)
-        
-    }
-    
-    def A(x = .trash.in1.in2.A()) : () => .trash.types.R
-    
-}
-
 type ITrader
 
 type IGraph
 
 type Function[T] : IFunction[T]
 
-type CandleStick
-
 type Volume = Int
 
 type Optional[T]
 
 type IAccount
+
+type IOrder
 
 type Side
 
@@ -2315,8 +2314,6 @@ type ISingleAssetTrader : IAccount, ITrader
 
 type IVolumeLevels
 
-type Order
-
 type List[T]
 
 type Observable[U] : IObservable[U]
@@ -2327,7 +2324,9 @@ type ITimeSerie
 
 type Any
 
-type IOrderGenerator = IObservable[Order]
+type ICandleStick
+
+type IOrderGenerator = IObservable[IOrder]
 
 type String
 
@@ -2403,7 +2402,7 @@ def const(x = 1) : .IObservable[.Int]
 @python.intrinsic("observable.candlestick.CandleSticks_Impl")
 @label = "Candles_{%(source)s}"
 def CandleSticks(/** observable data source considered as asset price */ source = .const(1.0),
-                 /** size of timeframe */ timeframe = 10.0) : .IObservable[.CandleStick]
+                 /** size of timeframe */ timeframe = 10.0) : .IObservable[.ICandleStick]
 
 /** Function always returning *True*
  */

@@ -1,11 +1,11 @@
+from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim.gen._out._itwowaylink import ITwoWayLink
 from marketsim.gen._intrinsic.orderbook.remote import _Remote_Impl
-from marketsim import ITimeSerie
-from marketsim import ITwoWayLink
-from marketsim import IOrderBook
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import listOf
 from marketsim import registry
 @registry.expose(["Asset", "Remote"])
-class Remote_IOrderBookITwoWayLinkListITimeSerie(_Remote_Impl):
+class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,_Remote_Impl):
     """  to the market by means of a *link* that introduces some latency in information propagation
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
@@ -31,13 +31,13 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(_Remote_Impl):
         return "%(orderbook)s.name^remote" % self.__dict__
     
 def Remote(orderbook = None,link = None,timeseries = None): 
+    from marketsim.gen._out._itimeserie import ITimeSerie
     from marketsim import rtti
-    from marketsim import IOrderBook
+    from marketsim.gen._out._itwowaylink import ITwoWayLink
     from marketsim import listOf
-    from marketsim import ITimeSerie
-    from marketsim import ITwoWayLink
+    from marketsim.gen._out._iorderbook import IOrderBook
     if orderbook is None or rtti.can_be_casted(orderbook, IOrderBook):
         if link is None or rtti.can_be_casted(link, ITwoWayLink):
             if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
                 return Remote_IOrderBookITwoWayLinkListITimeSerie(orderbook,link,timeseries)
-    raise Exception('Cannot find suitable overload for Remote('+str(orderbook)+','+str(link)+','+str(timeseries)+')')
+    raise Exception('Cannot find suitable overload for Remote('+str(orderbook) +':'+ str(type(orderbook))+','+str(link) +':'+ str(type(link))+','+str(timeseries) +':'+ str(type(timeseries))+')')

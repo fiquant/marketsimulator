@@ -1,9 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionlistOffloat
 from marketsim.gen._intrinsic.strategy.weight import _ChooseTheBest_Impl
-from marketsim import float
 from marketsim import listOf
 @registry.expose(["Strategy", "ChooseTheBest"])
-class ChooseTheBest_ListFloat(_ChooseTheBest_Impl):
+class ChooseTheBest_ListFloat(IFunctionlistOffloat,_ChooseTheBest_Impl):
     """   having 1 at the index of the maximal element and 0 are at the rest
     """ 
     def __init__(self, array = None):
@@ -23,12 +23,11 @@ class ChooseTheBest_ListFloat(_ChooseTheBest_Impl):
         return "ChooseTheBest(%(array)s)" % self.__dict__
     
 def ChooseTheBest(array = None): 
-    from marketsim import float
     from marketsim import listOf
     from marketsim import rtti
     if array is None or rtti.can_be_casted(array, listOf(float)):
         return ChooseTheBest_ListFloat(array)
-    raise Exception('Cannot find suitable overload for ChooseTheBest('+str(array)+')')
+    raise Exception('Cannot find suitable overload for ChooseTheBest('+str(array) +':'+ str(type(array))+')')
 def chooseTheBest(): 
     from marketsim.gen._out.strategy.weight.array._array_choosethebest import array_ChooseTheBest_ as _strategy_weight_array_array_ChooseTheBest_
     from marketsim import rtti

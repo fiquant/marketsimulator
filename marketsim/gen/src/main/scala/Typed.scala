@@ -256,7 +256,7 @@ package object Typed
         var instances = Set.empty[TypesBound.Base]
 
         def addInstance(x : TypesBound.Base) {
-            instances = instances + x
+            instances = instances + x.aliasesRemoved
         }
 
     }
@@ -279,10 +279,10 @@ package object Typed
         })
         def resolveGenerics(genericArgs : List[TypesUnbound.Base]) = unbound(genericArgs)
 
-        var instances = List.empty[TypesBound.Interface]
+        var instances = Set.empty[TypesBound.Interface]
 
         def addInstance(x : TypesBound.Interface) {
-            instances = x :: instances
+            instances = instances + x.aliasesRemoved
         }
     }
 

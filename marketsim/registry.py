@@ -5,8 +5,10 @@ import marketsim
 
 from functools import reduce
 
-from marketsim import (constraints, config, exception, rtti, Side, 
+from marketsim import (constraints, config, exception, rtti,
                        meta, types, js, utils, context)
+
+from marketsim.gen._out._side import Side
 
 startup = []
 
@@ -563,6 +565,10 @@ def expose(alias, constructor=None, args = None):
         return f
     return inner
 
+from marketsim.gen._out._itrader import ITrader
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._igraph import IGraph
+
 class Simulation(object):
     
     def __init__(self, traders = [], orderbooks = [], graphs = []):
@@ -570,9 +576,9 @@ class Simulation(object):
         self.orderbooks = orderbooks
         self.graphs = graphs
     
-    _properties = { 'traders'    : meta.listOf(types.ITrader),
-                    'orderbooks' : meta.listOf(types.IOrderBook),
-                    'graphs'     : meta.listOf(types.IGraph) }
+    _properties = { 'traders'    : meta.listOf(ITrader),
+                    'orderbooks' : meta.listOf(IOrderBook),
+                    'graphs'     : meta.listOf(IGraph) }
     
     @property
     def traders(self):

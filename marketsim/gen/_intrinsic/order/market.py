@@ -1,4 +1,4 @@
-from marketsim import Side
+from marketsim.gen._out._side import Side
 from _base import *
 
 class Order_Impl(Default, HasSide, HasVolume, Cancellable):

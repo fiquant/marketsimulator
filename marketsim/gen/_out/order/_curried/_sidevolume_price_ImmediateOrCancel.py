@@ -1,11 +1,7 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
 @registry.expose(["Order", "price_ImmediateOrCancel"])
-class sidevolume_price_ImmediateOrCancel_SideFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-,IFunction[float]]):
+class sidevolume_price_ImmediateOrCancel_SideFloatFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -25,8 +21,7 @@ class sidevolume_price_ImmediateOrCancel_SideFloatFloatIOrderGenerator(IFunction
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]
+        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     }
     def __repr__(self):
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -41,12 +36,8 @@ class sidevolume_price_ImmediateOrCancel_SideFloatFloatIOrderGenerator(IFunction
         return price_ImmediateOrCancel(proto(side,volume))
     
 def sidevolume_price_ImmediateOrCancel(proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-    ,IFunction[float]]):
-        return sidevolume_price_ImmediateOrCancel_SideFloatFloatIOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for sidevolume_price_ImmediateOrCancel('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+        return sidevolume_price_ImmediateOrCancel_SideFloatFloatIObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for sidevolume_price_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

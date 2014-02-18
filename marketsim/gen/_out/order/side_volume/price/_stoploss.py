@@ -1,12 +1,9 @@
 def StopLoss(maxloss = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+    from marketsim.gen._out.order._curried._sidevolume_price_stoploss import sidevolume_price_StopLoss_FloatSideFloatFloatIObservableIOrder as _order__curried_sidevolume_price_StopLoss_FloatSideFloatFloatIObservableIOrder
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    from marketsim.gen._out.order._curried._sidevolume_price_stoploss import sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator as _order__curried_sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator
-    if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]):
-            return _order__curried_sidevolume_price_StopLoss_IFunctionFloatSideFloatFloatIOrderGenerator(maxloss,proto)
-    raise Exception('Cannot find suitable overload for StopLoss('+str(maxloss)+','+str(proto)+')')
+    if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+            return _order__curried_sidevolume_price_StopLoss_FloatSideFloatFloatIObservableIOrder(maxloss,proto)
+    raise Exception('Cannot find suitable overload for StopLoss('+str(maxloss) +':'+ str(type(maxloss))+','+str(proto) +':'+ str(type(proto))+')')

@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
+from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.cma import CMA_Impl
-from marketsim import float
+from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Statistics", "Avg"])
-class Avg_IObservableFloat(IFunction[float],CMA_Impl):
+class Avg_IObservableFloat(IDifferentiable,CMA_Impl):
     """ 
     """ 
     def __init__(self, source = None):
@@ -19,15 +18,14 @@ class Avg_IObservableFloat(IFunction[float],CMA_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float]
+        'source' : IObservablefloat
     }
     def __repr__(self):
         return "Avg_{cumul}(%(source)s)" % self.__dict__
     
 def Avg(source = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         return Avg_IObservableFloat(source)
-    raise Exception('Cannot find suitable overload for Avg('+str(source)+')')
+    raise Exception('Cannot find suitable overload for Avg('+str(source) +':'+ str(type(source))+')')

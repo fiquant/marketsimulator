@@ -1,10 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "Iceberg"])
-class side_Iceberg_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,IFunction[Side]]):
+class side_Iceberg_FloatSideIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
@@ -12,10 +10,10 @@ class side_Iceberg_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,I
     """ 
     def __init__(self, lotSize = None, proto = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.order._curried._side_limit import side_Limit_IFunctionFloatIFunctionFloat as _order__curried_side_Limit_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.order._curried._side_limit import side_Limit_FloatFloat as _order__curried_side_Limit_FloatFloat
         from marketsim import rtti
         self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
-        self.proto = proto if proto is not None else _order__curried_side_Limit_IFunctionFloatIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_side_Limit_FloatFloat()
         rtti.check_fields(self)
     
     @property
@@ -23,8 +21,8 @@ class side_Iceberg_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,I
         return repr(self)
     
     _properties = {
-        'lotSize' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator,IFunction[Side]]
+        'lotSize' : IFunctionfloat,
+        'proto' : IFunctionIObservableIOrderIFunctionSide
     }
     def __repr__(self):
         return "Iceberg(%(lotSize)s, %(proto)s)" % self.__dict__
@@ -38,12 +36,10 @@ class side_Iceberg_IFunctionFloatSideIOrderGenerator(IFunction[IOrderGenerator,I
         return Iceberg(lotSize, proto(side))
     
 def side_Iceberg(lotSize = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
-            return side_Iceberg_IFunctionFloatSideIOrderGenerator(lotSize,proto)
-    raise Exception('Cannot find suitable overload for side_Iceberg('+str(lotSize)+','+str(proto)+')')
+    if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+            return side_Iceberg_FloatSideIObservableIOrder(lotSize,proto)
+    raise Exception('Cannot find suitable overload for side_Iceberg('+str(lotSize) +':'+ str(type(lotSize))+','+str(proto) +':'+ str(type(proto))+')')

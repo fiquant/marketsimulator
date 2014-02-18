@@ -1,13 +1,12 @@
 from marketsim.gen._intrinsic.trader.classes import _MultiAsset_Impl
-from marketsim import ISingleAssetTrader
-from marketsim import IMultiAssetStrategy
-from marketsim import str
-from marketsim import ITimeSerie
+from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim.gen._out._imultiassetstrategy import IMultiAssetStrategy
+from marketsim.gen._out._itrader import ITrader
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
 from marketsim import listOf
 from marketsim import registry
-from marketsim import float
 @registry.expose(["Trader", "MultiAsset"])
-class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(_MultiAsset_Impl):
+class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(ITrader,_MultiAsset_Impl):
     """   It can be considered as a composition of single asset traders and multi asset strategies
       At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
     """ 
@@ -37,17 +36,15 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
         return "%(name)s" % self.__dict__
     
 def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries = None): 
+    from marketsim.gen._out._itimeserie import ITimeSerie
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IMultiAssetStrategy
-    from marketsim import str
+    from marketsim.gen._out._imultiassetstrategy import IMultiAssetStrategy
+    from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
     from marketsim import listOf
-    from marketsim import ITimeSerie
-    from marketsim import ISingleAssetTrader
     if traders is None or rtti.can_be_casted(traders, listOf(ISingleAssetTrader)):
         if strategy is None or rtti.can_be_casted(strategy, IMultiAssetStrategy):
             if name is None or rtti.can_be_casted(name, str):
                 if PnL is None or rtti.can_be_casted(PnL, float):
                     if timeseries is None or rtti.can_be_casted(timeseries, listOf(ITimeSerie)):
                         return MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie(traders,strategy,name,PnL,timeseries)
-    raise Exception('Cannot find suitable overload for MultiAsset('+str(traders)+','+str(strategy)+','+str(name)+','+str(PnL)+','+str(timeseries)+')')
+    raise Exception('Cannot find suitable overload for MultiAsset('+str(traders) +':'+ str(type(traders))+','+str(strategy) +':'+ str(type(strategy))+','+str(name) +':'+ str(type(name))+','+str(PnL) +':'+ str(type(PnL))+','+str(timeseries) +':'+ str(type(timeseries))+')')

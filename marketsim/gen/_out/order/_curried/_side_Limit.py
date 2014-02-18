@@ -1,10 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "Limit"])
-class side_Limit_IFunctionFloatIFunctionFloat(IFunction[IOrderGenerator,IFunction[Side]]):
+class side_Limit_FloatFloat(IFunctionIObservableIOrderIFunctionSide):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -22,8 +20,8 @@ class side_Limit_IFunctionFloatIFunctionFloat(IFunction[IOrderGenerator,IFunctio
         return repr(self)
     
     _properties = {
-        'price' : IFunction[float],
-        'volume' : IFunction[float]
+        'price' : IFunctionfloat,
+        'volume' : IFunctionfloat
     }
     def __repr__(self):
         return "Limit(%(price)s, %(volume)s)" % self.__dict__
@@ -37,10 +35,9 @@ class side_Limit_IFunctionFloatIFunctionFloat(IFunction[IOrderGenerator,IFunctio
         return Limit(side, price, volume)
     
 def side_Limit(price = None,volume = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if price is None or rtti.can_be_casted(price, IFunction[float]):
-        if volume is None or rtti.can_be_casted(volume, IFunction[float]):
-            return side_Limit_IFunctionFloatIFunctionFloat(price,volume)
-    raise Exception('Cannot find suitable overload for side_Limit('+str(price)+','+str(volume)+')')
+    if price is None or rtti.can_be_casted(price, IFunctionfloat):
+        if volume is None or rtti.can_be_casted(volume, IFunctionfloat):
+            return side_Limit_FloatFloat(price,volume)
+    raise Exception('Cannot find suitable overload for side_Limit('+str(price) +':'+ str(type(price))+','+str(volume) +':'+ str(type(volume))+')')

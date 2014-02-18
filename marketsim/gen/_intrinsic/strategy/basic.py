@@ -10,7 +10,7 @@ class Base(object):
     def trader(self):
         return self._trader
 
-class Strategy(Base, types.ISingleAssetStrategy):
+class Strategy(Base):
     
     def __init__(self):
         Base.__init__(self)
@@ -25,7 +25,7 @@ class Strategy(Base, types.ISingleAssetStrategy):
         
         
 
-class MultiAssetStrategy(Base, types.IMultiAssetStrategy):
+class MultiAssetStrategy(Base):
     
     def __init__(self):
         Base.__init__(self)

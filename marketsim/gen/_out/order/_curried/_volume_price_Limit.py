@@ -1,10 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionSide
 @registry.expose(["Order", "price_Limit"])
-class volume_price_Limit_IFunctionSide(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
+class volume_price_Limit_Side(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -21,7 +19,7 @@ class volume_price_Limit_IFunctionSide(IFunction[IFunction[IOrderGenerator,IFunc
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side]
+        'side' : IFunctionSide
     }
     def __repr__(self):
         return "price_Limit(%(side)s)" % self.__dict__
@@ -34,9 +32,8 @@ class volume_price_Limit_IFunctionSide(IFunction[IFunction[IOrderGenerator,IFunc
         return price_Limit(side, volume)
     
 def volume_price_Limit(side = None): 
-    from marketsim import IFunction
-    from marketsim import Side
+    from marketsim.gen._out._ifunction import IFunctionSide
     from marketsim import rtti
-    if side is None or rtti.can_be_casted(side, IFunction[Side]):
-        return volume_price_Limit_IFunctionSide(side)
-    raise Exception('Cannot find suitable overload for volume_price_Limit('+str(side)+')')
+    if side is None or rtti.can_be_casted(side, IFunctionSide):
+        return volume_price_Limit_Side(side)
+    raise Exception('Cannot find suitable overload for volume_price_Limit('+str(side) +':'+ str(type(side))+')')

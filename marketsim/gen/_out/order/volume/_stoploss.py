@@ -1,10 +1,9 @@
 def StopLoss(maxloss = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out.order._curried._volume_stoploss import volume_StopLoss_FloatFloatIObservableIOrder as _order__curried_volume_StopLoss_FloatFloatIObservableIOrder
     from marketsim import rtti
-    from marketsim.gen._out.order._curried._volume_stoploss import volume_StopLoss_IFunctionFloatFloatIOrderGenerator as _order__curried_volume_StopLoss_IFunctionFloatFloatIOrderGenerator
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    if maxloss is None or rtti.can_be_casted(maxloss, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
-            return _order__curried_volume_StopLoss_IFunctionFloatFloatIOrderGenerator(maxloss,proto)
-    raise Exception('Cannot find suitable overload for StopLoss('+str(maxloss)+','+str(proto)+')')
+    if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+            return _order__curried_volume_StopLoss_FloatFloatIObservableIOrder(maxloss,proto)
+    raise Exception('Cannot find suitable overload for StopLoss('+str(maxloss) +':'+ str(type(maxloss))+','+str(proto) +':'+ str(type(proto))+')')

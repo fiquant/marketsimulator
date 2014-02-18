@@ -4,11 +4,10 @@ def clamp0():
     return _strategy_weight_f_f_Clamp0_()
     raise Exception('Cannot find suitable overload for clamp0('++')')
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
-class Clamp0_IFunctionFloat(IFunction[float]):
+class Clamp0_Float(IFunctionfloat):
     """ 
     """ 
     def __init__(self, f = None):
@@ -23,7 +22,7 @@ class Clamp0_IFunctionFloat(IFunction[float]):
         return repr(self)
     
     _properties = {
-        'f' : IFunction[float]
+        'f' : IFunctionfloat
     }
     def __repr__(self):
         return "Clamp0(%(f)s)" % self.__dict__
@@ -41,15 +40,14 @@ class Clamp0_IFunctionFloat(IFunction[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._add import Add_IFunctionFloatIFunctionFloat as _ops_Add_IFunctionFloatIFunctionFloat
-        from marketsim.gen._out.math._max import Max_IFunctionFloatIFunctionFloat as _math_Max_IFunctionFloatIFunctionFloat
+        from marketsim.gen._out.ops._add import Add_FloatFloat as _ops_Add_FloatFloat
+        from marketsim.gen._out.math._max import Max_FloatFloat as _math_Max_FloatFloat
         from marketsim.gen._out._constant import constant_Int as _constant_Int
-        return _ops_Add_IFunctionFloatIFunctionFloat(_math_Max_IFunctionFloatIFunctionFloat(_constant_Int(0),self.f),_constant_Int(1))
+        return _ops_Add_FloatFloat(_math_Max_FloatFloat(_constant_Int(0),self.f),_constant_Int(1))
     
 def Clamp0(f = None): 
-    from marketsim import IFunction
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if f is None or rtti.can_be_casted(f, IFunction[float]):
-        return Clamp0_IFunctionFloat(f)
-    raise Exception('Cannot find suitable overload for Clamp0('+str(f)+')')
+    if f is None or rtti.can_be_casted(f, IFunctionfloat):
+        return Clamp0_Float(f)
+    raise Exception('Cannot find suitable overload for Clamp0('+str(f) +':'+ str(type(f))+')')

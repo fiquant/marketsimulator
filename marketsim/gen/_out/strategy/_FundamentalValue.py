@@ -1,27 +1,24 @@
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import ISingleAssetStrategy
-from marketsim import Side
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
-from marketsim import IEvent
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "FundamentalValue"])
-class FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(ISingleAssetStrategy):
+class FundamentalValue_IEventSideIObservableIOrderIObservableFloat(ISingleAssetStrategy):
     """  (*fundamental value*) and if the current asset price is lower than the fundamental value
      it starts to buy the asset and if the price is higher it starts to sell the asset.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_Float()
         self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _const_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -34,8 +31,8 @@ class FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(ISingleAssetStr
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]],
-        'fundamentalValue' : IObservable[float]
+        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'fundamentalValue' : IObservablefloat
     }
     def __repr__(self):
         return "FundamentalValue(%(eventGen)s, %(orderFactory)s, %(fundamentalValue)s)" % self.__dict__
@@ -53,36 +50,34 @@ class FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(ISingleAssetStr
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue_IObservableFloatIOrderBook
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(self.fundamentalValue)),self.eventGen)
+        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import ISingleAssetStrategy
-from marketsim import Side
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
-from marketsim import IEvent
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "FundamentalValue"])
-class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrategy):
+class FundamentalValue_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
     """  (*fundamental value*) and if the current asset price is lower than the fundamental value
      it starts to buy the asset and if the price is higher it starts to sell the asset.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, fundamentalValue = None):
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.order._curried._side_market import side_Market_IFunctionFloat as _order__curried_side_Market_IFunctionFloat
+        from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import event
         self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_IFunctionFloat()
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_Float()
         self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant_Float(100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -95,8 +90,8 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]],
-        'fundamentalValue' : IFunction[float]
+        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'fundamentalValue' : IFunctionfloat
     }
     def __repr__(self):
         return "FundamentalValue(%(eventGen)s, %(orderFactory)s, %(fundamentalValue)s)" % self.__dict__
@@ -114,27 +109,25 @@ class FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(ISingleAssetStrat
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IFunctionFloatIOrderBook as _strategy_side_FundamentalValue_IFunctionFloatIOrderBook
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_side_FundamentalValue_IFunctionFloatIOrderBook(self.fundamentalValue)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
+        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_side_FundamentalValue_FloatIOrderBook(self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
 def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import IEvent
-    from marketsim import IOrderGenerator
-    from marketsim import Side
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ievent import IEvent
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
-            if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IObservable[float]):
-                return FundamentalValue_IEventSideIOrderGeneratorIObservableFloat(eventGen,orderFactory,fundamentalValue)
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+            if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IObservablefloat):
+                return FundamentalValue_IEventSideIObservableIOrderIObservableFloat(eventGen,orderFactory,fundamentalValue)
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]]):
-            if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunction[float]):
-                return FundamentalValue_IEventSideIOrderGeneratorIFunctionFloat(eventGen,orderFactory,fundamentalValue)
-    raise Exception('Cannot find suitable overload for FundamentalValue('+str(eventGen)+','+str(orderFactory)+','+str(fundamentalValue)+')')
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+            if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunctionfloat):
+                return FundamentalValue_IEventSideIObservableIOrderFloat(eventGen,orderFactory,fundamentalValue)
+    raise Exception('Cannot find suitable overload for FundamentalValue('+str(eventGen) +':'+ str(type(eventGen))+','+str(orderFactory) +':'+ str(type(orderFactory))+','+str(fundamentalValue) +':'+ str(type(fundamentalValue))+')')

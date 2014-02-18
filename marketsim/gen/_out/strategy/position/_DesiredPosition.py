@@ -1,9 +1,8 @@
-from marketsim import ISingleAssetTrader
 from marketsim.ops._all import Observable
-from marketsim import IObservable
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Volume function", "DesiredPosition"])
 class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
     """ 
@@ -15,7 +14,6 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else _const_Float(1.0)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
@@ -28,7 +26,7 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
         return repr(self)
     
     _properties = {
-        'desiredPosition' : IObservable[float],
+        'desiredPosition' : IObservablefloat,
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
@@ -53,11 +51,10 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
         return _ops_Sub_IObservableFloatIObservableFloat(_ops_Sub_IObservableFloatIObservableFloat(self.desiredPosition,_trader_Position_IAccount(self.trader)),_trader_PendingVolume_IAccount(self.trader))
     
 def DesiredPosition(desiredPosition = None,trader = None): 
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import ISingleAssetTrader
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
     from marketsim import rtti
-    if desiredPosition is None or rtti.can_be_casted(desiredPosition, IObservable[float]):
+    if desiredPosition is None or rtti.can_be_casted(desiredPosition, IObservablefloat):
         if trader is None or rtti.can_be_casted(trader, ISingleAssetTrader):
             return DesiredPosition_IObservableFloatISingleAssetTrader(desiredPosition,trader)
-    raise Exception('Cannot find suitable overload for DesiredPosition('+str(desiredPosition)+','+str(trader)+')')
+    raise Exception('Cannot find suitable overload for DesiredPosition('+str(desiredPosition) +':'+ str(type(desiredPosition))+','+str(trader) +':'+ str(type(trader))+')')

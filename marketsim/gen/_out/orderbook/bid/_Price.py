@@ -1,20 +1,18 @@
-from marketsim.ops._all import Observable
-from marketsim import IOrderBook
 from marketsim import registry
-from marketsim import Price
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "Price"])
-class Price_IOrderBook(Observable[Price]):
+class Price_IOrderBook(Observable[float]):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        Observable[Price].__init__(self)
+        Observable[float].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -48,8 +46,8 @@ class Price_IOrderBook(Observable[Price]):
         return _orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book))
     
 def Price(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return Price_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for Price('+str(book)+')')
+    raise Exception('Cannot find suitable overload for Price('+str(book) +':'+ str(type(book))+')')

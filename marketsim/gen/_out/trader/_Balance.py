@@ -1,18 +1,16 @@
+from marketsim import registry
 from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.trader.props import Balance_Impl
-from marketsim import IAccount
-from marketsim import registry
-from marketsim import Price
+from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "Balance"])
-class Balance_IAccount(Observable[Price],Balance_Impl):
+class Balance_IAccount(Observable[float],Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim import Price
         from marketsim.ops._all import Observable
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        Observable[Price].__init__(self)
+        Observable[float].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         
         rtti.check_fields(self)
@@ -29,8 +27,8 @@ class Balance_IAccount(Observable[Price],Balance_Impl):
         return "Balance(%(trader)s)" % self.__dict__
     
 def Balance(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return Balance_IAccount(trader)
-    raise Exception('Cannot find suitable overload for Balance('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for Balance('+str(trader) +':'+ str(type(trader))+')')

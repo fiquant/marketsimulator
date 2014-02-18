@@ -1,13 +1,12 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import ISingleAssetStrategy
-from marketsim import Side
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
-from marketsim import IEvent
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "OneSide"])
-class OneSide_FloatFloatIEventSideFloatIOrderGeneratorIFunctionSide(ISingleAssetStrategy):
+class OneSide_FloatFloatIEventSideFloatIObservableIOrderSide(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, initialValue = None, priceDistr = None, eventGen = None, orderFactory = None, side = None):
@@ -17,12 +16,12 @@ class OneSide_FloatFloatIEventSideFloatIOrderGeneratorIFunctionSide(ISingleAsset
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_IFunctionFloat as _order__curried_sideprice_Limit_IFunctionFloat
+        from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float
         from marketsim import event
         self.initialValue = initialValue if initialValue is not None else 100.0
         self.priceDistr = priceDistr if priceDistr is not None else _math_random_lognormvariate_FloatFloat(0.0,0.1)
         self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit_IFunctionFloat()
+        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_sideprice_Limit_Float()
         self.side = side if side is not None else _side_Sell_()
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -35,11 +34,10 @@ class OneSide_FloatFloatIEventSideFloatIOrderGeneratorIFunctionSide(ISingleAsset
     
     _properties = {
         'initialValue' : float,
-        'priceDistr' : IFunction[float],
+        'priceDistr' : IFunctionfloat,
         'eventGen' : IEvent,
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[Side]
-        ,IFunction[float]],
-        'side' : IFunction[Side]
+        'orderFactory' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'side' : IFunctionSide
     }
     def __repr__(self):
         return "OneSide(%(initialValue)s, %(priceDistr)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % self.__dict__
@@ -57,25 +55,23 @@ class OneSide_FloatFloatIEventSideFloatIOrderGeneratorIFunctionSide(ISingleAsset
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
-        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_IFunctionSideFloatFloatIOrderBook as _strategy_price_LiquidityProvider_IFunctionSideFloatFloatIOrderBook
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(self.side,_strategy_price_LiquidityProvider_IFunctionSideFloatFloatIOrderBook(self.side,self.initialValue,self.priceDistr)),self.eventGen)
+        from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_SideFloatFloatIOrderBook as _strategy_price_LiquidityProvider_SideFloatFloatIOrderBook
+        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(self.side,_strategy_price_LiquidityProvider_SideFloatFloatIOrderBook(self.side,self.initialValue,self.priceDistr)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
 def OneSide(initialValue = None,priceDistr = None,eventGen = None,orderFactory = None,side = None): 
-    from marketsim import IFunction
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IEvent
-    from marketsim import IOrderGenerator
-    from marketsim import Side
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ievent import IEvent
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionSide
     if initialValue is None or rtti.can_be_casted(initialValue, float):
-        if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
+        if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):
             if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-                if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[Side]
-                ,IFunction[float]]):
-                    if side is None or rtti.can_be_casted(side, IFunction[Side]):
-                        return OneSide_FloatFloatIEventSideFloatIOrderGeneratorIFunctionSide(initialValue,priceDistr,eventGen,orderFactory,side)
-    raise Exception('Cannot find suitable overload for OneSide('+str(initialValue)+','+str(priceDistr)+','+str(eventGen)+','+str(orderFactory)+','+str(side)+')')
+                if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+                    if side is None or rtti.can_be_casted(side, IFunctionSide):
+                        return OneSide_FloatFloatIEventSideFloatIObservableIOrderSide(initialValue,priceDistr,eventGen,orderFactory,side)
+    raise Exception('Cannot find suitable overload for OneSide('+str(initialValue) +':'+ str(type(initialValue))+','+str(priceDistr) +':'+ str(type(priceDistr))+','+str(eventGen) +':'+ str(type(eventGen))+','+str(orderFactory) +':'+ str(type(orderFactory))+','+str(side) +':'+ str(type(side))+')')

@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Random", "triangular"])
-class triangular_FloatFloatFloat(IFunction[float]):
+class triangular_FloatFloatFloat(IFunctionfloat):
     """ 
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
            with the specified *mode* between those bounds.
@@ -37,10 +36,9 @@ class triangular_FloatFloatFloat(IFunction[float]):
         return triangular_FloatFloatFloat._types[0]._casts_to(dst)
     
 def triangular(Low = None,High = None,Mode = None): 
-    from marketsim import float
     from marketsim import rtti
     if Low is None or rtti.can_be_casted(Low, float):
         if High is None or rtti.can_be_casted(High, float):
             if Mode is None or rtti.can_be_casted(Mode, float):
                 return triangular_FloatFloatFloat(Low,High,Mode)
-    raise Exception('Cannot find suitable overload for triangular('+str(Low)+','+str(High)+','+str(Mode)+')')
+    raise Exception('Cannot find suitable overload for triangular('+str(Low) +':'+ str(type(Low))+','+str(High) +':'+ str(type(High))+','+str(Mode) +':'+ str(type(Mode))+')')

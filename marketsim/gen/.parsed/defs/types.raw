@@ -168,6 +168,12 @@ Definitions:
 | | | - List:
 | | - List:
 | | - List:
+| - Interface:
+| | - IOrder
+| | - Generics:
+| | | - List:
+| | - List:
+| | - List:
 | - Alias:
 | | - IOrderGenerator
 | | - Generics:
@@ -180,7 +186,7 @@ Definitions:
 | | | | - SimpleType:
 | | | | | - QualifiedName:
 | | | | | | - List:
-| | | | | | | - Order
+| | | | | | | - IOrder
 | | | | | - List:
 | | - List:
 | - Interface:
@@ -228,19 +234,13 @@ Definitions:
 | | | | | | - List:
 | | - List:
 | - Interface:
-| | - CandleStick
+| | - ICandleStick
 | | - Generics:
 | | | - List:
 | | - List:
 | | - List:
 | - Interface:
 | | - IVolumeLevels
-| | - Generics:
-| | | - List:
-| | - List:
-| | - List:
-| - Interface:
-| | - Order
 | | - Generics:
 | | | - List:
 | | - List:

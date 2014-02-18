@@ -27,8 +27,9 @@ class Base(_base.Base):
         return hasattr(self, '_book') and not self.cancelled
         
     def send(self, order):
+        from marketsim.gen._out._iorder import IOrder
         if order is not None:
-            if isinstance(order, types.IOrder):
+            if isinstance(order, IOrder):
                 order.owner = self
             context.bind(order, self._ctx)
             self._book.process(order)

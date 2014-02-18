@@ -1,22 +1,21 @@
-from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IOrderGenerator
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
-from marketsim import float
 @registry.expose(["Order", "LimitSigned"])
-class LimitSigned_FloatIFunctionFloat(Observable[Order],IOrderGenerator):
+class LimitSigned_FloatFloat(Observable[IOrder],IObservableIOrder):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, signedVolume = None, price = None):
-        from marketsim import Order
+        from marketsim.gen._out._iorder import IOrder
         from marketsim.ops._all import Observable
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[Order].__init__(self)
+        Observable[IOrder].__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
         
         self.price = price if price is not None else _constant_Float(100.0)
@@ -28,8 +27,8 @@ class LimitSigned_FloatIFunctionFloat(Observable[Order],IOrderGenerator):
         return repr(self)
     
     _properties = {
-        'signedVolume' : IFunction[float],
-        'price' : IFunction[float]
+        'signedVolume' : IFunctionfloat,
+        'price' : IFunctionfloat
     }
     def __repr__(self):
         return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
@@ -49,10 +48,9 @@ class LimitSigned_FloatIFunctionFloat(Observable[Order],IOrderGenerator):
         return Order_Impl(side, price, volume)
     
 def LimitSigned(signedVolume = None,price = None): 
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if signedVolume is None or rtti.can_be_casted(signedVolume, IFunction[float]):
-        if price is None or rtti.can_be_casted(price, IFunction[float]):
-            return LimitSigned_FloatIFunctionFloat(signedVolume,price)
-    raise Exception('Cannot find suitable overload for LimitSigned('+str(signedVolume)+','+str(price)+')')
+    if signedVolume is None or rtti.can_be_casted(signedVolume, IFunctionfloat):
+        if price is None or rtti.can_be_casted(price, IFunctionfloat):
+            return LimitSigned_FloatFloat(signedVolume,price)
+    raise Exception('Cannot find suitable overload for LimitSigned('+str(signedVolume) +':'+ str(type(signedVolume))+','+str(price) +':'+ str(type(price))+')')

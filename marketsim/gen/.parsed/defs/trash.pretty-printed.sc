@@ -1,6 +1,6 @@
-@python = "no"
+@category = "internal tests"
 
-package trash() {
+package _test() {
     package types() {
         type T1 = T
         
@@ -14,7 +14,7 @@ package trash() {
         
         package () {
             package () {
-                type U : T, R
+                type U : R
             }
         }
     }
@@ -51,7 +51,7 @@ package trash() {
     
     package in1() extends _base1 extends _base2 {
         // defined at defs\trash.sc: 41.1
-        def A(x : () => .trash.types.T1 = .trash.A()) : () => types.U
+        def A(x : () => ._test.types.T1 = ._test.A()) : () => types.U
         
         package in2() {
             // defined at defs\trash.sc: 44.1
@@ -65,17 +65,17 @@ package trash() {
             def S2() : Optional[String] = S1()
             
             // defined at defs\trash.sc: 50.1
-            def C(x : IFunction[CandleStick],
-                  p = [12,23.2,0]) = p
+            def C(x : IFunction[ICandleStick],
+                  p = 12) = p
             
             // defined at defs\trash.sc: 52.1
-            def IntFunc() : IFunction[Int]
+            def IntFunc() : IFunction[Int] = const(0)
             
             // defined at defs\trash.sc: 54.1
             def F(x = IntFunc() : IFunction[Float]) = x
             
             // defined at defs\trash.sc: 56.1
-            def IntObs() : IObservable[Int]
+            def IntObs() : IObservable[Int] = const(0)
             
             // defined at defs\trash.sc: 58.1
             def O(x = IntObs() : IObservable[Float]) = x

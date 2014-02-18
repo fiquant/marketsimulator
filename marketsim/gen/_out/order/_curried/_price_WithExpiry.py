@@ -1,19 +1,18 @@
 from marketsim import registry
-from marketsim import IOrderGenerator
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
-class price_WithExpiry_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGenerator,IFunction[float]]):
+class price_WithExpiry_FloatFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 
     def __init__(self, expiry = None, proto = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.order._curried._price_limit import price_Limit_IFunctionSideIFunctionFloat as _order__curried_price_Limit_IFunctionSideIFunctionFloat
+        from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
         from marketsim import rtti
         self.expiry = expiry if expiry is not None else _constant_Float(10.0)
-        self.proto = proto if proto is not None else _order__curried_price_Limit_IFunctionSideIFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_price_Limit_SideFloat()
         rtti.check_fields(self)
     
     @property
@@ -21,8 +20,8 @@ class price_WithExpiry_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGenera
         return repr(self)
     
     _properties = {
-        'expiry' : IFunction[float],
-        'proto' : IFunction[IOrderGenerator,IFunction[float]]
+        'expiry' : IFunctionfloat,
+        'proto' : IFunctionIObservableIOrderIFunctionfloat
     }
     def __repr__(self):
         return "WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -36,11 +35,10 @@ class price_WithExpiry_IFunctionFloatFloatIOrderGenerator(IFunction[IOrderGenera
         return WithExpiry(expiry, proto(price))
     
 def price_WithExpiry(expiry = None,proto = None): 
-    from marketsim import IFunction
-    from marketsim import float
-    from marketsim import IOrderGenerator
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
     from marketsim import rtti
-    if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[float]]):
-            return price_WithExpiry_IFunctionFloatFloatIOrderGenerator(expiry,proto)
-    raise Exception('Cannot find suitable overload for price_WithExpiry('+str(expiry)+','+str(proto)+')')
+    if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+            return price_WithExpiry_FloatFloatIObservableIOrder(expiry,proto)
+    raise Exception('Cannot find suitable overload for price_WithExpiry('+str(expiry) +':'+ str(type(expiry))+','+str(proto) +':'+ str(type(proto))+')')

@@ -1,12 +1,10 @@
-from marketsim import IFunction
-from marketsim import int
-from marketsim import IVolumeLevels
-from marketsim import IGraph
+from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
+from marketsim.gen._out._ifunction import IFunctionIVolumeLevels
 from marketsim import listOf
-from marketsim import float
 
-class volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(_VolumeLevels_Impl):
+class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
@@ -26,7 +24,7 @@ class volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(_VolumeLevels_
         return repr(self)
     
     _properties = {
-        'source' : IFunction[IVolumeLevels],
+        'source' : IFunctionIVolumeLevels,
         'graph' : IGraph,
         '_digitsToShow' : int,
         '_smooth' : int,
@@ -37,18 +35,15 @@ class volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(_VolumeLevels_
         return "%(source)s" % self.__dict__
     
 def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
-    from marketsim import IFunction
-    from marketsim import rtti
-    from marketsim import float
-    from marketsim import int
+    from marketsim.gen._out._ifunction import IFunctionIVolumeLevels
+    from marketsim.gen._out._igraph import IGraph
     from marketsim import listOf
-    from marketsim import IVolumeLevels
-    from marketsim import IGraph
-    if source is None or rtti.can_be_casted(source, IFunction[IVolumeLevels]):
+    from marketsim import rtti
+    if source is None or rtti.can_be_casted(source, IFunctionIVolumeLevels):
         if graph is None or rtti.can_be_casted(graph, IGraph):
             if _digitsToShow is None or rtti.can_be_casted(_digitsToShow, int):
                 if _smooth is None or rtti.can_be_casted(_smooth, int):
                     if _volumes is None or rtti.can_be_casted(_volumes, listOf(float)):
                         if _isBuy is None or rtti.can_be_casted(_isBuy, int):
-                            return volumeLevels_IFunctionIVolumeLevelsIGraphIntIntListFloatInt(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
-    raise Exception('Cannot find suitable overload for volumeLevels('+str(source)+','+str(graph)+','+str(_digitsToShow)+','+str(_smooth)+','+str(_volumes)+','+str(_isBuy)+')')
+                            return volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(source,graph,_digitsToShow,_smooth,_volumes,_isBuy)
+    raise Exception('Cannot find suitable overload for volumeLevels('+str(source) +':'+ str(type(source))+','+str(graph) +':'+ str(type(graph))+','+str(_digitsToShow) +':'+ str(type(_digitsToShow))+','+str(_smooth) +':'+ str(type(_smooth))+','+str(_volumes) +':'+ str(type(_volumes))+','+str(_isBuy) +':'+ str(type(_isBuy))+')')

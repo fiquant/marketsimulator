@@ -1,8 +1,8 @@
 from marketsim import registry
+from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._intrinsic.veusz import _Graph_Impl
-from marketsim import str
 @registry.expose(["N/A", "Graph"])
-class Graph_String(_Graph_Impl):
+class Graph_String(IGraph,_Graph_Impl):
     """ 
     """ 
     def __init__(self, name = None):
@@ -22,8 +22,7 @@ class Graph_String(_Graph_Impl):
         return "Graph(%(name)s)" % self.__dict__
     
 def Graph(name = None): 
-    from marketsim import str
     from marketsim import rtti
     if name is None or rtti.can_be_casted(name, str):
         return Graph_String(name)
-    raise Exception('Cannot find suitable overload for Graph('+str(name)+')')
+    raise Exception('Cannot find suitable overload for Graph('+str(name) +':'+ str(type(name))+')')

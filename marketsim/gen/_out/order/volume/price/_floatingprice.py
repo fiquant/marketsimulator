@@ -1,11 +1,9 @@
 def FloatingPrice(floatingPrice = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+    from marketsim.gen._out.order._curried._volume_price_floatingprice import volume_price_FloatingPrice_IObservableFloatFloatFloatIObservableIOrder as _order__curried_volume_price_FloatingPrice_IObservableFloatFloatFloatIObservableIOrder
     from marketsim import rtti
-    from marketsim import IObservable
-    from marketsim.gen._out.order._curried._volume_price_floatingprice import volume_price_FloatingPrice_IObservableFloatFloatFloatIOrderGenerator as _order__curried_volume_price_FloatingPrice_IObservableFloatFloatFloatIOrderGenerator
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservable[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[float]]):
-            return _order__curried_volume_price_FloatingPrice_IObservableFloatFloatFloatIOrderGenerator(floatingPrice,proto)
-    raise Exception('Cannot find suitable overload for FloatingPrice('+str(floatingPrice)+','+str(proto)+')')
+    if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservablefloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
+            return _order__curried_volume_price_FloatingPrice_IObservableFloatFloatFloatIObservableIOrder(floatingPrice,proto)
+    raise Exception('Cannot find suitable overload for FloatingPrice('+str(floatingPrice) +':'+ str(type(floatingPrice))+','+str(proto) +':'+ str(type(proto))+')')

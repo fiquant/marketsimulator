@@ -5,14 +5,15 @@ from marketsim.gen._intrinsic.observable import fold
 from marketsim.gen._out.observable._oneverydt import OnEveryDt
 
 
-class EWMA_Impl(fold.Last, types.IDifferentiable):
+class EWMA_Impl(fold.Last):
     """ Exponentially weighted moving average
     """
 
     def __init__(self):
         """ Initializes EWMA with \alpha = alpha
         """
-        if not isinstance(self.source, types.IEvent):
+        from marketsim.gen._out._ievent import IEvent
+        if not isinstance(self.source, IEvent):
             self.source = OnEveryDt(1, self.source)
 
         self._event = event.subscribe(self.source, _(self)._update, self)

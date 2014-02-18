@@ -1,11 +1,9 @@
 def Iceberg(lotSize = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out.order._curried._side_iceberg import side_Iceberg_FloatSideIObservableIOrder as _order__curried_side_Iceberg_FloatSideIObservableIOrder
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    from marketsim.gen._out.order._curried._side_iceberg import side_Iceberg_IFunctionFloatSideIOrderGenerator as _order__curried_side_Iceberg_IFunctionFloatSideIOrderGenerator
-    if lotSize is None or rtti.can_be_casted(lotSize, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IOrderGenerator,IFunction[Side]]):
-            return _order__curried_side_Iceberg_IFunctionFloatSideIOrderGenerator(lotSize,proto)
-    raise Exception('Cannot find suitable overload for Iceberg('+str(lotSize)+','+str(proto)+')')
+    if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+            return _order__curried_side_Iceberg_FloatSideIObservableIOrder(lotSize,proto)
+    raise Exception('Cannot find suitable overload for Iceberg('+str(lotSize) +':'+ str(type(lotSize))+','+str(proto) +':'+ str(type(proto))+')')

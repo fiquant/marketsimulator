@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IOrderBook
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
-from marketsim import float
 @registry.expose(["Asset", "Spread"])
 class Spread_IOrderBook(Observable[float]):
     """ 
@@ -13,7 +12,6 @@ class Spread_IOrderBook(Observable[float]):
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
@@ -49,8 +47,8 @@ class Spread_IOrderBook(Observable[float]):
         return _ops_Sub_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book))
     
 def Spread(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return Spread_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for Spread('+str(book)+')')
+    raise Exception('Cannot find suitable overload for Spread('+str(book) +':'+ str(type(book))+')')

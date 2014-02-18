@@ -1,8 +1,7 @@
-from marketsim.ops._all import Observable
-from marketsim import IAccount
 from marketsim import registry
+from marketsim.ops._all import Observable
+from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
-from marketsim import float
 @registry.expose(["Trader", "RoughPnL"])
 class RoughPnL_IAccount(Observable[float]):
     """   It takes into account only the best price of the order queue
@@ -13,7 +12,6 @@ class RoughPnL_IAccount(Observable[float]):
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
@@ -51,8 +49,8 @@ class RoughPnL_IAccount(Observable[float]):
         return _ops_Add_IObservableFloatIObservableFloat(_trader_Balance_IAccount(self.trader),_orderbook_NaiveCumulativePrice_IOrderBookIObservableFloat(_orderbook_OfTrader_IAccount(self.trader),_trader_Position_IAccount(self.trader)))
     
 def RoughPnL(trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         return RoughPnL_IAccount(trader)
-    raise Exception('Cannot find suitable overload for RoughPnL('+str(trader)+')')
+    raise Exception('Cannot find suitable overload for RoughPnL('+str(trader) +':'+ str(type(trader))+')')

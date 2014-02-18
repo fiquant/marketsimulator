@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (order, strategy, trader, math, orderbook, observable, event, constant)
+from marketsim._pub import (order, strategy, trader, math, orderbook, observable, event, const, constant)
 
 from common import expose
 

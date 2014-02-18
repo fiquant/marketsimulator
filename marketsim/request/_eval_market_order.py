@@ -1,6 +1,6 @@
 from marketsim import types, _
 
-class EvalMarketOrder(types.IRequest):
+class EvalMarketOrder(object):
     
     def __init__(self, side, volume, callback):
         self.side = side

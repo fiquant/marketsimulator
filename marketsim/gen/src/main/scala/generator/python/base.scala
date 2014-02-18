@@ -141,16 +141,13 @@ package object base {
 
     trait BaseClass_Function extends Printer {
 
-        def functionBase =
-            f.ret_type.returnTypeIfFunction map {
-                TypesBound.Function(Nil, _)
-            }
+        def functionBase = {
+            // here should be a check that ret_type casts to some function
+            f.ret_type
+        }
 
         override def base_class_list =
-            if (functionBase.nonEmpty)
-                functionBase.get :: super.base_class_list
-            else
-                super.base_class_list
+                functionBase :: super.base_class_list
     }
 
     trait BaseClass_Observable extends Printer {
@@ -159,7 +156,7 @@ package object base {
 
         def trivialObservable = false
 
-        def observableBase =
+        def observableBase : TypesBound.Base =
             if (trivialObservable)
                 Typed.topLevel.observableOf(ty)
             else
@@ -230,8 +227,7 @@ package object base {
             if (observe_args)
                 if (p.ty canCastTo TypesBound.Optional(IEvent)) {
                     s"event.subscribe(self.$name, self.fire, self)" |||
-                    ImportFrom("event", "marketsim") |||
-                    ImportFrom("types", "marketsim")
+                    ImportFrom("event", "marketsim")
                 } else ""
             else "")
     }

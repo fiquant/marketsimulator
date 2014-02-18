@@ -10,7 +10,7 @@ package
     def CandleSticks(/** observable data source considered as asset price */
                      source     = const(1.),
                      /** size of timeframe */
-                     timeframe  = 10.0) : IObservable[CandleStick]
+                     timeframe  = 10.0) : IObservable[ICandleStick]
 
     /**
      *  Time serie to store and render it after on a graph

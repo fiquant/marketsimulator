@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import listOf
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionIFunctionlistOffloatlistOffloat
 @registry.expose(["Strategy", "array_IdentityL"])
-class array_IdentityL_(IFunction[listOf(float),listOf(float)]):
+class array_IdentityL_(IFunctionIFunctionlistOffloatlistOffloat):
     """ 
     """ 
     def __init__(self):

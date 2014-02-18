@@ -26,25 +26,26 @@ package object gen
             }
     }
     
-    def apply(p : Typed.Package, dst_dir : String, idx_dir : String)
+    def run(p : Typed.Package, dst_dir : String, idx_dir : String)
     {
-        apply(p, new File(dst_dir), new File(idx_dir))
+        processFunctions(p, new File(dst_dir), new File(idx_dir))
+        processTypes(p, new File(dst_dir), new File(idx_dir))
     }
 
-    def apply(p : Typed.Package, dir : File, idx_dir : File)
+    def printWriter(dst_dir : File, filename : String) =
+        new PrintWriter(
+            new BufferedWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream(
+                        new File(dst_dir, filename.toLowerCase), true))),
+        true)
+
+    def processFunctions(p : Typed.Package, dir : File, idx_dir : File)
     {
         ensure_dir(dir)
         ensure_dir(idx_dir)
 
-        p.packages.values foreach { sub => apply(sub, new File(dir, sub.name), new File(idx_dir, sub.name) ) }
-
-        def printWriter(dst_dir : File, filename : String) =
-            new PrintWriter(
-                new BufferedWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(
-                            new File(dst_dir, filename.toLowerCase), true))),
-            true)
+        p.packages.values foreach { sub => processFunctions(sub, new File(dir, sub.name), new File(idx_dir, sub.name) ) }
 
         if (config.verbose)
             println("\t" + p.qualifiedName)
@@ -106,41 +107,128 @@ package object gen
                         s"def $base_name($input_args): " |> base.withImports(
                                 calls |||
                                 ImportFrom("rtti", "marketsim") |
-                                s"raise Exception('Cannot find suitable overload for $base_name('+"+
-                                        (fs.head.parameter_names map { "str(" + _ + ")" } mkString "+','+")+
-                                        "+')')")
+                                s"raise Exception('Cannot find suitable overload for $base_name("+
+                                        (fs.head.parameter_names
+                                                map { p => "str(" + p + ") +':'+ str(type("+ p +"))"  }
+                                                mkString ("'+", "+','+", "+'"))+
+                                        ")')")
 
                     for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
                         out.println(resolver)
                     }
                 }
             }
+        }
 
+    }
+    def processTypes(p : Typed.Package, dir : File, idx_dir : File)
+    {
+        ensure_dir(dir)
+        ensure_dir(idx_dir)
+
+        p.packages.values foreach { sub => processTypes(sub, new File(dir, sub.name), new File(idx_dir, sub.name) ) }
+
+        if (config.verbose)
+            println("\t" + p.qualifiedName)
+
+        def importsWithout(code: => predef.Code, exclude : Importable => Boolean) : Code =
+            new WithoutImports((code.imports.toSet[Importable] filterNot exclude map { _.repr + crlf } mkString "") + code)
+
+        for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
+        {
             if (p.types.nonEmpty)
             {
                 p.types.values foreach {
                     case interface : Typed.InterfaceDecl =>
-                        if (interface.generics.isEmpty) {
                             val name = interface.name
                             for (out <- managed(printWriter(dir, s"_$name.py")))
                             {
-                                val bases =
-                                    if (interface.bases.nonEmpty)
-                                            interface.bases map { _.asCode } reduce { _ ||| "," ||| _ }
-                                        else
-                                            toLazy("object")
+                                if (interface.generics.isEmpty) {
 
-                                    out.println(s"class $name("||| bases |||"): pass")
+                                    val bases =
+                                        if (interface.bases.nonEmpty)
+                                                interface.bases map { _.asCode } reduce { _ ||| "," ||| _ }
+                                            else
+                                                if (name == "Side")
+                                                    "Tag" ||| ImportFrom("Tag", "marketsim.side_")
+                                                else
+                                                    toLazy("object")
+
+                                    val s = s"class $name("||| bases |||"): pass"
+
+                                    out.println(base.withImports(s).toString)
+
+                                } else {
+                                    if (interface.name == "IObservable") {
+                                        out.println("from marketsim import meta")
+                                        out.println("from marketsim.gen._out._ievent import IEvent")
+                                        out.println("IObservable = {}")
+
+                                        val fs = interface.instances
+
+                                        fs.toList sortBy { _.toString.length } foreach { f =>
+
+                                            val rt = f.genericArgs(0).aliasesRemoved
+                                            val name = Printer.mangle(f.asCode.toString)
+                                            val s =
+                                                s"class $name(IEvent, "||| TypesBound.Function(Nil, rt).asCode |||"):" |>
+                                                        "pass" | nl |
+                                                "IObservable[" ||| rt.asCode ||| "] = " ||| name | nl
+
+                                            out.println(base.withImports(s).toString)
+                                        }
+                                    }
+
                                 }
                             }
 
                         case alias : Typed.AliasDecl =>
                             for (out <- managed(printWriter(dir, s"_${alias.name}.py")))
                                 if (alias.generics.isEmpty)
-                                    out.println(alias.name + " = " + alias.target.toString)
+                                    out.println(base.withImports(alias.name + " = " ||| alias.target.asCode).toString)
                                 else {
-                                    alias.instances foreach {
-                                        a => //out.println(a.asCode)
+                                    if (alias.name == "IFunction") {
+                                        out.println("from marketsim import meta")
+                                        out.println("IFunction = {}")
+
+                                        val fs =
+                                            alias.instances map {
+                                                case f : TypesBound.Function => f
+                                                case f : TypesBound.Alias => f.target.asInstanceOf[TypesBound.Function]
+                                                case _ =>
+                                                    throw new Exception("IFunction instance may be only function or alias")
+                                            }
+
+                                        fs.toList sortBy { _.toString.length } foreach { f =>
+
+                                            val name = f.asCode
+
+                                            val args = TypesBound.Tuple(f.args).aliasesRemoved.asCode
+
+                                            val b =
+                                                if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_))
+                                                    "Function_impl" ||| ImportFrom("Function_impl", "marketsim.types")
+                                                else
+                                                    TypesBound.Any_.asCode
+
+
+                                            val s =
+                                                s"class $name("||| b |||"):" |>
+                                                        "_types = [meta.function("||| args ||| "," ||| f.ret.aliasesRemoved.asCode |||")]" | nl |
+                                                "IFunction[" ||| f.ret.aliasesRemoved.asCode |||
+                                                        (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
+
+                                            def isMine(p : Importable) = p match {
+                                                case ImportFrom(_, module) if module endsWith "._ifunction" => true
+                                                case _ => false
+                                            }
+
+                                            out.println(importsWithout(s, isMine).toString)
+                                        }
+
+                                        out.println("IFunction[int]._types.append(IFunction[float])")
+                                        out.println("IFunction[int]._types.append(IFunction[object])")
+                                        out.println("IFunction[float]._types.append(IFunction[object])")
                                     }
                                 }
                 }

@@ -1,4 +1,6 @@
-from marketsim import ops, event, IAccount, _
+from marketsim import ops, event, _
+
+from marketsim.gen._out._iaccount import IAccount
 
 from marketsim.gen._out.trader._singleproxy import SingleProxy
 

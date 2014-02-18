@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "Limit"])
-class volume_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator,IFunction[float]]):
+class volume_Limit_SideFloat(IFunctionIObservableIOrderIFunctionfloat):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -23,8 +22,8 @@ class volume_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator,IFuncti
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side],
-        'price' : IFunction[float]
+        'side' : IFunctionSide,
+        'price' : IFunctionfloat
     }
     def __repr__(self):
         return "Limit(%(side)s, %(price)s)" % self.__dict__
@@ -38,11 +37,10 @@ class volume_Limit_IFunctionSideIFunctionFloat(IFunction[IOrderGenerator,IFuncti
         return Limit(side, price, volume)
     
 def volume_Limit(side = None,price = None): 
-    from marketsim import IFunction
-    from marketsim import Side
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if side is None or rtti.can_be_casted(side, IFunction[Side]):
-        if price is None or rtti.can_be_casted(price, IFunction[float]):
-            return volume_Limit_IFunctionSideIFunctionFloat(side,price)
-    raise Exception('Cannot find suitable overload for volume_Limit('+str(side)+','+str(price)+')')
+    if side is None or rtti.can_be_casted(side, IFunctionSide):
+        if price is None or rtti.can_be_casted(price, IFunctionfloat):
+            return volume_Limit_SideFloat(side,price)
+    raise Exception('Cannot find suitable overload for volume_Limit('+str(side) +':'+ str(type(side))+','+str(price) +':'+ str(type(price))+')')

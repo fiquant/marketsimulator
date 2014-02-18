@@ -1,9 +1,7 @@
 from marketsim import registry
-from marketsim import IFunction
-from marketsim import float
-from marketsim import IAccount
+from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "trader_Unit"])
-class trader_Unit_(IFunction[IFunction[float],IAccount]):
+class trader_Unit_(IFunctionIFunctionfloatIAccount):
     """ 
     """ 
     def __init__(self):

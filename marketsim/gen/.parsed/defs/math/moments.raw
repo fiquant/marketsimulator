@@ -253,13 +253,11 @@ Definitions:
 | | | | | | | | | | | | | | -  observable data source 
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - DocString:
 | | | | | | | | | | | | | - Cumulative average
@@ -439,13 +437,11 @@ Definitions:
 | | | | | | | | | | | | | | -  sliding window size    
 | | | | | | | | | | | - None
 | | | | | | | | | | | - Some:
-| | | | | | | | | | | | - FunctionType:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - Some:
 | | | | | | | | | | | | - DocString:
 | | | | | | | | | | | | | - Simple moving average

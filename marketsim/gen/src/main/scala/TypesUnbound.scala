@@ -139,7 +139,7 @@ package object TypesUnbound
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base])
             extends UserDefined
     {
-        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Alias(decl, genericArgs map { _ bind m })
+        def bind(m : ITypeMapper[TypesBound.Base]) = TypesBound.Alias(decl, genericArgs map { _ bind m }).target
 
         def substitute(m : ITypeMapper[TypesUnbound.Base]) = TypesUnbound.Alias(decl, genericArgs map { _ substitute m })
     }

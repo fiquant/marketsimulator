@@ -1,12 +1,11 @@
-from marketsim import Order
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
-from marketsim import float
 @registry.expose(["Order", "FixedBudget"])
-class FixedBudget_IFunctionSideIFunctionFloat(Observable[Order],IOrderGenerator):
+class FixedBudget_SideFloat(Observable[IOrder],IObservableIOrder):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.
@@ -17,11 +16,11 @@ class FixedBudget_IFunctionSideIFunctionFloat(Observable[Order],IOrderGenerator)
     """ 
     def __init__(self, side = None, budget = None):
         from marketsim.ops._all import Observable
+        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import Order
-        Observable[Order].__init__(self)
+        Observable[IOrder].__init__(self)
         self.side = side if side is not None else _side_Sell_()
         
         self.budget = budget if budget is not None else _constant_Float(1000.0)
@@ -33,8 +32,8 @@ class FixedBudget_IFunctionSideIFunctionFloat(Observable[Order],IOrderGenerator)
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side],
-        'budget' : IFunction[float]
+        'side' : IFunctionSide,
+        'budget' : IFunctionfloat
     }
     def __repr__(self):
         return "FixedBudget(%(side)s, %(budget)s)" % self.__dict__
@@ -50,11 +49,10 @@ class FixedBudget_IFunctionSideIFunctionFloat(Observable[Order],IOrderGenerator)
         return Order_Impl(side, budget)
     
 def FixedBudget(side = None,budget = None): 
-    from marketsim import IFunction
-    from marketsim import Side
-    from marketsim import float
+    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if side is None or rtti.can_be_casted(side, IFunction[Side]):
-        if budget is None or rtti.can_be_casted(budget, IFunction[float]):
-            return FixedBudget_IFunctionSideIFunctionFloat(side,budget)
-    raise Exception('Cannot find suitable overload for FixedBudget('+str(side)+','+str(budget)+')')
+    if side is None or rtti.can_be_casted(side, IFunctionSide):
+        if budget is None or rtti.can_be_casted(budget, IFunctionfloat):
+            return FixedBudget_SideFloat(side,budget)
+    raise Exception('Cannot find suitable overload for FixedBudget('+str(side) +':'+ str(type(side))+','+str(budget) +':'+ str(type(budget))+')')

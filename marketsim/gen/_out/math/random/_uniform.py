@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Random", "uniform"])
-class uniform_FloatFloat(IFunction[float]):
+class uniform_FloatFloat(IFunctionfloat):
     """ 
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
@@ -34,9 +33,8 @@ class uniform_FloatFloat(IFunction[float]):
         return uniform_FloatFloat._types[0]._casts_to(dst)
     
 def uniform(Low = None,High = None): 
-    from marketsim import float
     from marketsim import rtti
     if Low is None or rtti.can_be_casted(Low, float):
         if High is None or rtti.can_be_casted(High, float):
             return uniform_FloatFloat(Low,High)
-    raise Exception('Cannot find suitable overload for uniform('+str(Low)+','+str(High)+')')
+    raise Exception('Cannot find suitable overload for uniform('+str(Low) +':'+ str(type(Low))+','+str(High) +':'+ str(type(High))+')')

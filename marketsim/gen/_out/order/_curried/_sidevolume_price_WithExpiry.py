@@ -1,11 +1,8 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Order", "price_WithExpiry"])
-class sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-,IFunction[float]]):
+class sidevolume_price_WithExpiry_FloatSideFloatFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
@@ -23,9 +20,8 @@ class sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(IF
         return repr(self)
     
     _properties = {
-        'expiry' : IFunction[float],
-        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]
+        'expiry' : IFunctionfloat,
+        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     }
     def __repr__(self):
         return "price_WithExpiry(%(expiry)s, %(proto)s)" % self.__dict__
@@ -41,13 +37,10 @@ class sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(IF
         return price_WithExpiry(expiry, proto(side,volume))
     
 def sidevolume_price_WithExpiry(expiry = None,proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if expiry is None or rtti.can_be_casted(expiry, IFunction[float]):
-        if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]
-        ,IFunction[float]]):
-            return sidevolume_price_WithExpiry_IFunctionFloatSideFloatFloatIOrderGenerator(expiry,proto)
-    raise Exception('Cannot find suitable overload for sidevolume_price_WithExpiry('+str(expiry)+','+str(proto)+')')
+    if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
+        if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+            return sidevolume_price_WithExpiry_FloatSideFloatFloatIObservableIOrder(expiry,proto)
+    raise Exception('Cannot find suitable overload for sidevolume_price_WithExpiry('+str(expiry) +':'+ str(type(expiry))+','+str(proto) +':'+ str(type(proto))+')')

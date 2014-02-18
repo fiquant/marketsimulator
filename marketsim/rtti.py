@@ -135,6 +135,7 @@ def children(obj, logger):
         yield obj._subscriptions
 
 import marketsim 
+from marketsim.gen._out._side import Side
 
 def typecheck(constraint, obj):
     """ Checks that *obj* meets *constraint* for an object field
@@ -146,8 +147,8 @@ def typecheck(constraint, obj):
     if type(obj) is marketsim.Reference:
         if obj.pointee:
             typecheck(constraint, obj.pointee)
-    elif constraint == marketsim.Side:
-         if obj not in [marketsim.Side.Sell, marketsim.Side.Buy]:
+    elif constraint == Side:
+         if obj not in [Side.Sell, Side.Buy]:
              throw()
     elif constraint == None:
              throw()

@@ -1,12 +1,11 @@
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IOrderBook
-from marketsim import Side
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Price function", "LiquidityProvider"])
-class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
+class LiquidityProvider_SideFloatFloatIOrderBook(Observable[float]):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
@@ -17,7 +16,6 @@ class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        from marketsim import float
         Observable[float].__init__(self)
         self.side = side if side is not None else _side_Sell_()
         self.initialValue = initialValue if initialValue is not None else 100.0
@@ -32,9 +30,9 @@ class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
         return repr(self)
     
     _properties = {
-        'side' : IFunction[Side],
+        'side' : IFunctionSide,
         'initialValue' : float,
-        'priceDistr' : IFunction[float],
+        'priceDistr' : IFunctionfloat,
         'book' : IOrderBook
     }
     def __repr__(self):
@@ -53,21 +51,20 @@ class LiquidityProvider_IFunctionSideFloatFloatIOrderBook(Observable[float]):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._mul import Mul_IObservableFloatIFunctionFloat as _ops_Mul_IObservableFloatIFunctionFloat
-        from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueIFunctionFloat as _orderbook_SafeSidePrice_IOrderQueueIFunctionFloat
-        from marketsim.gen._out.orderbook._queue import Queue_IOrderBookIFunctionSide as _orderbook_Queue_IOrderBookIFunctionSide
+        from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
+        from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueFloat as _orderbook_SafeSidePrice_IOrderQueueFloat
+        from marketsim.gen._out.orderbook._queue import Queue_IOrderBookSide as _orderbook_Queue_IOrderBookSide
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return _ops_Mul_IObservableFloatIFunctionFloat(_orderbook_SafeSidePrice_IOrderQueueIFunctionFloat(_orderbook_Queue_IOrderBookIFunctionSide(self.book,self.side),_constant_Float(self.initialValue)),self.priceDistr)
+        return _ops_Mul_IObservableFloatFloat(_orderbook_SafeSidePrice_IOrderQueueFloat(_orderbook_Queue_IOrderBookSide(self.book,self.side),_constant_Float(self.initialValue)),self.priceDistr)
     
 def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderBook
-    from marketsim import Side
-    if side is None or rtti.can_be_casted(side, IFunction[Side]):
+    if side is None or rtti.can_be_casted(side, IFunctionSide):
         if initialValue is None or rtti.can_be_casted(initialValue, float):
-            if priceDistr is None or rtti.can_be_casted(priceDistr, IFunction[float]):
+            if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):
                 if book is None or rtti.can_be_casted(book, IOrderBook):
-                    return LiquidityProvider_IFunctionSideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
-    raise Exception('Cannot find suitable overload for LiquidityProvider('+str(side)+','+str(initialValue)+','+str(priceDistr)+','+str(book)+')')
+                    return LiquidityProvider_SideFloatFloatIOrderBook(side,initialValue,priceDistr,book)
+    raise Exception('Cannot find suitable overload for LiquidityProvider('+str(side) +':'+ str(type(side))+','+str(initialValue) +':'+ str(type(initialValue))+','+str(priceDistr) +':'+ str(type(priceDistr))+','+str(book) +':'+ str(type(book))+')')

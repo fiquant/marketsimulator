@@ -1,10 +1,7 @@
-from marketsim import IFunction
-from marketsim import IOrderGenerator
-from marketsim import Side
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 @registry.expose(["Order", "price_ImmediateOrCancel"])
-class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
+class side_price_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -14,9 +11,9 @@ class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_IFunctionFloat as _order__curried_side_price_Limit_IFunctionFloat
+        from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_price_Limit_IFunctionFloat()
+        self.proto = proto if proto is not None else _order__curried_side_price_Limit_Float()
         rtti.check_fields(self)
     
     @property
@@ -24,7 +21,7 @@ class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[
         return repr(self)
     
     _properties = {
-        'proto' : IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]
+        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     }
     def __repr__(self):
         return "price_ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -37,11 +34,8 @@ class side_price_ImmediateOrCancel_SideFloatIOrderGenerator(IFunction[IFunction[
         return price_ImmediateOrCancel(proto(side))
     
 def side_price_ImmediateOrCancel(proto = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     from marketsim import rtti
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    from marketsim import Side
-    if proto is None or rtti.can_be_casted(proto, IFunction[IFunction[IOrderGenerator,IFunction[float]],IFunction[Side]]):
-        return side_price_ImmediateOrCancel_SideFloatIOrderGenerator(proto)
-    raise Exception('Cannot find suitable overload for side_price_ImmediateOrCancel('+str(proto)+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+        return side_price_ImmediateOrCancel_SideFloatIObservableIOrder(proto)
+    raise Exception('Cannot find suitable overload for side_price_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

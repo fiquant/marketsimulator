@@ -1,11 +1,9 @@
-from marketsim import Side, event, _
+from marketsim import  event, _
 from .. import market
 import _meta
 
 from marketsim.gen._out.orderbook.ask._price import Price as AskPrice
 from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
-
-from marketsim.types import *
 
 class Order_Impl(_meta.Base):
     
@@ -19,12 +17,14 @@ class Order_Impl(_meta.Base):
         self._stopLossOrder = None
         
     def startProcessing(self):
+        from marketsim.gen._out._side import Side
         self._obsPrice = AskPrice(self.orderBook) \
                             if self.side == Side.Buy else \
                          BidPrice(self.orderBook)
         self.send(self._proto)
         
     def onOrderMatched(self, order, price, volume):
+        from marketsim.gen._out._side import Side
         if order is not self._stopLossOrder:
             if volume > 0:
                 handler = event.GreaterThan((1+self._maxloss) * price, _(self)._onPriceChanged)\

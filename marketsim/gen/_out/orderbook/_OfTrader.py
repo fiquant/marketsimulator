@@ -1,8 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
-from marketsim import IAccount
+from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Asset", "OfTrader"])
-class OfTrader_IAccount(_OfTrader_Impl):
+class OfTrader_IAccount(IOrderBook,_OfTrader_Impl):
     """ 
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
@@ -22,8 +23,8 @@ class OfTrader_IAccount(_OfTrader_Impl):
     }
     
 def OfTrader(Trader = None): 
-    from marketsim import IAccount
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if Trader is None or rtti.can_be_casted(Trader, IAccount):
         return OfTrader_IAccount(Trader)
-    raise Exception('Cannot find suitable overload for OfTrader('+str(Trader)+')')
+    raise Exception('Cannot find suitable overload for OfTrader('+str(Trader) +':'+ str(type(Trader))+')')

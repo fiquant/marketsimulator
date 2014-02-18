@@ -1,10 +1,9 @@
-from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
-from marketsim import IFunction
-from marketsim import IObservable
 from marketsim import registry
-from marketsim import float
+from marketsim.gen._out._idifferentiable import IDifferentiable
+from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
+from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Statistics", "Avg"])
-class Avg_IObservableFloatFloat(IFunction[float],EWMA_Impl):
+class Avg_IObservableFloatFloat(IDifferentiable,EWMA_Impl):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
@@ -20,17 +19,16 @@ class Avg_IObservableFloatFloat(IFunction[float],EWMA_Impl):
         return repr(self)
     
     _properties = {
-        'source' : IObservable[float],
+        'source' : IObservablefloat,
         'alpha' : float
     }
     def __repr__(self):
         return "Avg_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
 def Avg(source = None,alpha = None): 
-    from marketsim import IObservable
-    from marketsim import float
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    if source is None or rtti.can_be_casted(source, IObservable[float]):
+    if source is None or rtti.can_be_casted(source, IObservablefloat):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return Avg_IObservableFloatFloat(source,alpha)
-    raise Exception('Cannot find suitable overload for Avg('+str(source)+','+str(alpha)+')')
+    raise Exception('Cannot find suitable overload for Avg('+str(source) +':'+ str(type(source))+','+str(alpha) +':'+ str(type(alpha))+')')

@@ -1,0 +1,1 @@
+class ICandleStick(object): pass

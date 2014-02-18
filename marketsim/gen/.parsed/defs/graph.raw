@@ -39,7 +39,7 @@ Definitions:
 | | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - CandleStick
+| | | | | | | | | | | - ICandleStick
 | | | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - DocString:

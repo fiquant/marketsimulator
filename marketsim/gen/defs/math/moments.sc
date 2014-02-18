@@ -45,7 +45,7 @@ package math
              */
             @python.intrinsic("moments.cma.CMA_Impl")
             @label = "Avg{{suffix}}"
-            def Avg (/** observable data source */ source = const (1.)) => Float
+            def Avg (/** observable data source */ source = const (1.)) : IDifferentiable
 
             /**
              *  Cumulative variance
@@ -78,7 +78,7 @@ package math
             @python.intrinsic("moments.ma.MA_Impl")
             @label = "Avg{{suffix}}"
             def Avg (/** observable data source */ source = const (1.),
-                     /** sliding window size    */ timeframe = 100.0) => Float
+                     /** sliding window size    */ timeframe = 100.0) : IDifferentiable
 
             /**
              *  Simple moving variance

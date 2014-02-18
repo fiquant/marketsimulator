@@ -1,23 +1,5 @@
 import marketsim
-from marketsim import Side, bind
-from marketsim.constraints import *
 from marketsim.meta import *
-
-Price = float #non_negative
-Volume = float #non_negative
-TimeInterval = float #non_negative
-
-class IEvent(object):
-    pass
-
-class IOrderGenerator(object):
-    # should provide method __call__(self) -> Order
-    pass 
-
-# creates orders that can be cancelled
-class IPersistentOrderGenerator(IOrderGenerator):
-    pass
-
 
 class Factory(object):
     
@@ -65,32 +47,6 @@ class Factory(object):
             self._types[key] = eval(self._name + '_' + N, self._globals)
         return self._types[key]
 
-class SidePriceVolume(object):
-    pass
-
-class SideVolume(object):
-    pass
-
-class PriceVolume(object):
-    pass
-
-class SignedVolume(object):
-    pass
-
-class SidePrice(object):
-    pass
-
-class SideBudget(object):
-    pass
-
-
-IFunction = Factory('IFunction', """(object):
-    _types = [function((%(R)s), %(T)s)]
-""")
-
-IFunction[Side]
-
-
 def convert(other):
     from marketsim.gen._out._const import const
     if type(other) in [int, float]:
@@ -136,81 +92,3 @@ class Function_impl(object):
         from marketsim.gen._out.ops._notequal import NotEqual
         return NotEqual(self, convert(other))
 
-_Function = Factory("_Function", """(Function_impl, IFunction[%(T)s]):
-    T = %(T)s
-""", globals())
-
-IFunction.override(float, _Function[float])
-IFunction.override(int, _Function[int])
-
-IFunction[int]._types.append(IFunction[float])
-
-
-Construct = Factory('Construct', """(bind.Construct, IFunction[%(T)s, %(R)s]):""")
-        
-class IOrder(object):
-    pass
-
-class IRequest(object):
-    pass
-
-class IOrderBook(object):
-    pass
-
-class IOrderQueue(object):
-    pass
-
-class IStrategy(object):
-    pass
-
-class ISingleAssetStrategy(IStrategy):
-    T = type(None) # just to please wrap.generator
-    pass
-
-class IMultiAssetStrategy(IStrategy):
-    pass
-
-class ITrader(object):
-    pass
-
-class IAccount(object):
-    # PnL
-    # amount
-    pass
-
-class ISingleAssetTrader(ITrader, IAccount):
-    pass
-
-class ICandleStick(object):
-    pass
-
-class IVolumeLevels(object):
-    pass
-
-    
-class IDifferentiable(object):
-    pass
-
-class IObservable_object(object):
-    pass
-
-IObservable = Factory('IObservable', """(IEvent, IFunction[%(T)s], IObservable_object):""")
-
-IObservable[object] = IObservable_object
-
-class IGraph(object):
-    pass
-
-class ITimeSerie(object):
-    pass
-
-class IUpdatableValue(object):    
-    """
-    Class implementing UpdatableValue concept should obey the following interface
-    @property 
-    def value(self) # Returns average value at the last update point 
-    def at(self, t) # Returns value of the average at some time point t >= last update time
-    def derivativeAt(self, t) # Returns derivative of the average at some time point t >= last update time
-    def update(self, time, value)# Adds point (time, value) to calculate the average
-    """
-    pass

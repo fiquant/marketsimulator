@@ -126,7 +126,7 @@ object Runner extends syntax.scala.Parser {
     def generatePython(typed: Typed.Package)
     {
         print("generating python code...")
-        generator.python.gen.apply(typed, "_out", "../_pub")
+        generator.python.gen.run(typed, "_out", "../_pub")
         println("done")
     }
 

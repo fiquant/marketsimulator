@@ -124,7 +124,7 @@ package strategy.weight
      */
     @python.intrinsic("strategy.weight._Identity_Impl")
     @curried("array")
-    def IdentityL(array : Optional[List[Float]] = []) : List[Float]
+    def IdentityL(array : Optional[List[Float]] = []) : IFunction[List[Float]]
 
     /**
      *  Function returning an array of length *len(array)*
@@ -132,5 +132,5 @@ package strategy.weight
      */
     @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
     @curried("array")
-    def ChooseTheBest(array : Optional[List[Float]] = []) : List[Float]
+    def ChooseTheBest(array : Optional[List[Float]] = []) : IFunction[List[Float]]
 }

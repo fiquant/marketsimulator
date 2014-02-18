@@ -1,9 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._intrinsic.event import _Every_Impl
-from marketsim import float
-from marketsim import IFunction
+from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Event", "Every"])
-class Every_Float(_Every_Impl):
+class Every_Float(IEvent,_Every_Impl):
     """ 
     """ 
     def __init__(self, intervalFunc = None):
@@ -18,15 +18,14 @@ class Every_Float(_Every_Impl):
         return repr(self)
     
     _properties = {
-        'intervalFunc' : IFunction[float]
+        'intervalFunc' : IFunctionfloat
     }
     def __repr__(self):
         return "Every(%(intervalFunc)s)" % self.__dict__
     
 def Every(intervalFunc = None): 
-    from marketsim import float
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunction[float]):
+    if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunctionfloat):
         return Every_Float(intervalFunc)
-    raise Exception('Cannot find suitable overload for Every('+str(intervalFunc)+')')
+    raise Exception('Cannot find suitable overload for Every('+str(intervalFunc) +':'+ str(type(intervalFunc))+')')

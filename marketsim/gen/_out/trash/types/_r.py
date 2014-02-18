@@ -1,1 +1,0 @@
-class R(T): pass

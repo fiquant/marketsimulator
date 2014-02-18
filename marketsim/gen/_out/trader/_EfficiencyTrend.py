@@ -1,10 +1,9 @@
-from marketsim import IFunction
-from marketsim import IAccount
 from marketsim import registry
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
-from marketsim import float
 @registry.expose(["Trader", "EfficiencyTrend"])
-class EfficiencyTrend_IAccountFloat(IFunction[float]):
+class EfficiencyTrend_IAccountFloat(IFunctionfloat):
     """ 
     """ 
     def __init__(self, trader = None, alpha = None):
@@ -45,10 +44,9 @@ class EfficiencyTrend_IAccountFloat(IFunction[float]):
         return _math_Derivative_IDifferentiable(_math_EW_Avg_IObservableFloatFloat(_trader_Efficiency_IAccount(self.trader),self.alpha))
     
 def EfficiencyTrend(trader = None,alpha = None): 
-    from marketsim import IAccount
-    from marketsim import float
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
     if trader is None or rtti.can_be_casted(trader, IAccount):
         if alpha is None or rtti.can_be_casted(alpha, float):
             return EfficiencyTrend_IAccountFloat(trader,alpha)
-    raise Exception('Cannot find suitable overload for EfficiencyTrend('+str(trader)+','+str(alpha)+')')
+    raise Exception('Cannot find suitable overload for EfficiencyTrend('+str(trader) +':'+ str(type(trader))+','+str(alpha) +':'+ str(type(alpha))+')')

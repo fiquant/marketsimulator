@@ -1,6 +1,6 @@
-from marketsim import types, meta, flags, event, _
+from marketsim import event, _
 
-class _ToRecord_Impl(types.ITimeSerie):  # TODO: should the source be split into dataSource and eventSource?
+class _ToRecord_Impl(object):  # TODO: should the source be split into dataSource and eventSource?
     
     def __init__(self):
         self.attributes = getattr(self.source, 'attributes', {})
@@ -83,7 +83,8 @@ class _VolumeLevels_Impl(_ToRecord_Impl):
 
     @property
     def _isBuy(self):
-        return 1 if self.source.dataSource.queue.side() == types.Side.Buy else 0
+        from marketsim.gen._out._side import Side
+        return 1 if self.source.dataSource.queue.side() == Side.Buy else 0
 
     @_isBuy.setter
     def _isBuy(self, o): pass

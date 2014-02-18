@@ -1,9 +1,8 @@
 from marketsim.ops._all import Observable
-from marketsim import IOrderQueue
-from marketsim import IObservable
+from marketsim.gen._out._iorderqueue import IOrderQueue
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
     """   and *defaultValue* if there haven't been any trades
@@ -15,7 +14,6 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        from marketsim import float
         Observable[float].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         self.defaultValue = defaultValue if defaultValue is not None else _const_Float(100.0)
@@ -29,7 +27,7 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
     
     _properties = {
         'queue' : IOrderQueue,
-        'defaultValue' : IObservable[float]
+        'defaultValue' : IObservablefloat
     }
     def __repr__(self):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
@@ -53,13 +51,12 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
         return _IfDefined_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIObservableFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue))
     
 from marketsim.ops._all import Observable
-from marketsim import IFunction
-from marketsim import IOrderQueue
+from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[float]):
+class SafeSidePrice_IOrderQueueFloat(Observable[float]):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
@@ -69,7 +66,6 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[float]):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        from marketsim import float
         Observable[float].__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         self.defaultValue = defaultValue if defaultValue is not None else _constant_Float(100.0)
@@ -83,7 +79,7 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[float]):
     
     _properties = {
         'queue' : IOrderQueue,
-        'defaultValue' : IFunction[float]
+        'defaultValue' : IFunctionfloat
     }
     def __repr__(self):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
@@ -103,20 +99,19 @@ class SafeSidePrice_IOrderQueueIFunctionFloat(Observable[float]):
     def getImpl(self):
         from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIObservableFloat as _IfDefined_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
-        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIFunctionFloat as _IfDefined_IObservableFloatIFunctionFloat
+        from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatFloat as _IfDefined_IObservableFloatFloat
         from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
-        return _IfDefined_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIFunctionFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue))
+        return _IfDefined_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue))
     
 def SafeSidePrice(queue = None,defaultValue = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._iorderqueue import IOrderQueue
+    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction import IFunctionfloat
     from marketsim import rtti
-    from marketsim import IOrderQueue
-    from marketsim import IObservable
-    from marketsim import float
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
-        if defaultValue is None or rtti.can_be_casted(defaultValue, IObservable[float]):
+        if defaultValue is None or rtti.can_be_casted(defaultValue, IObservablefloat):
             return SafeSidePrice_IOrderQueueIObservableFloat(queue,defaultValue)
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
-        if defaultValue is None or rtti.can_be_casted(defaultValue, IFunction[float]):
-            return SafeSidePrice_IOrderQueueIFunctionFloat(queue,defaultValue)
-    raise Exception('Cannot find suitable overload for SafeSidePrice('+str(queue)+','+str(defaultValue)+')')
+        if defaultValue is None or rtti.can_be_casted(defaultValue, IFunctionfloat):
+            return SafeSidePrice_IOrderQueueFloat(queue,defaultValue)
+    raise Exception('Cannot find suitable overload for SafeSidePrice('+str(queue) +':'+ str(type(queue))+','+str(defaultValue) +':'+ str(type(defaultValue))+')')

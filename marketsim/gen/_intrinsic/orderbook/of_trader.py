@@ -2,7 +2,7 @@ from marketsim import types
 from marketsim.gen._out.trader._singleproxy import SingleProxy
 from marketsim import getLabel
 
-class Base(types.IOrderBook):
+class Base(object):
 
     _properties = {}
 

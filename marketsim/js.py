@@ -1,6 +1,6 @@
-from marketsim import meta, types, bind, flags
+from marketsim.gen._out._igraph import IGraph
 
-class Graph(types.IGraph):
+class Graph(IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     

@@ -1,12 +1,10 @@
-from marketsim import IFunction
-from marketsim import IObservable
-from marketsim import IOrderGenerator
-from marketsim import ISingleAssetStrategy
+from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
-from marketsim import float
 @registry.expose(["Strategy", "RSI_linear"])
-class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStrategy):
+class RSI_linear_FloatIObservableIOrderFloatIObservableFloatFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, orderFactory = None, alpha = None, k = None, timeframe = None):
@@ -29,9 +27,9 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
         return repr(self)
     
     _properties = {
-        'orderFactory' : IFunction[IOrderGenerator,IFunction[float]],
+        'orderFactory' : IFunctionIObservableIOrderIFunctionfloat,
         'alpha' : float,
-        'k' : IObservable[float],
+        'k' : IObservablefloat,
         'timeframe' : float
     }
     def __repr__(self):
@@ -50,22 +48,20 @@ class RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(ISingleAssetStra
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy._generic import Generic_IOrderGeneratorIEvent as _strategy_Generic_IOrderGeneratorIEvent
+        from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
-        return _strategy_Generic_IOrderGeneratorIEvent(self.orderFactory(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(self.alpha,self.k,self.timeframe)))
+        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(self.alpha,self.k,self.timeframe)))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
 def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None): 
-    from marketsim import IFunction
+    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    from marketsim import IObservable
-    from marketsim import float
-    from marketsim import IOrderGenerator
-    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunction[IOrderGenerator,IFunction[float]]):
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionfloat):
         if alpha is None or rtti.can_be_casted(alpha, float):
-            if k is None or rtti.can_be_casted(k, IObservable[float]):
+            if k is None or rtti.can_be_casted(k, IObservablefloat):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
-                    return RSI_linear_FloatIOrderGeneratorFloatIObservableFloatFloat(orderFactory,alpha,k,timeframe)
-    raise Exception('Cannot find suitable overload for RSI_linear('+str(orderFactory)+','+str(alpha)+','+str(k)+','+str(timeframe)+')')
+                    return RSI_linear_FloatIObservableIOrderFloatIObservableFloatFloat(orderFactory,alpha,k,timeframe)
+    raise Exception('Cannot find suitable overload for RSI_linear('+str(orderFactory) +':'+ str(type(orderFactory))+','+str(alpha) +':'+ str(type(alpha))+','+str(k) +':'+ str(type(k))+','+str(timeframe) +':'+ str(type(timeframe))+')')

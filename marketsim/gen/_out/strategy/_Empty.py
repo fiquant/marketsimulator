@@ -1,7 +1,8 @@
 from marketsim import registry
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.basic import _Empty_Impl
 @registry.expose(["Strategy", "Empty"])
-class Empty_(_Empty_Impl):
+class Empty_(ISingleAssetStrategy,_Empty_Impl):
     """ 
     """ 
     def __init__(self):

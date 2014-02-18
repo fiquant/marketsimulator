@@ -1,8 +1,9 @@
 from marketsim import registry
+from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._intrinsic.orderbook.proxy import _Bids_Impl
-from marketsim import IOrderBook
+from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "Bids"])
-class Bids_IOrderBook(_Bids_Impl):
+class Bids_IOrderBook(IOrderQueue,_Bids_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -23,8 +24,8 @@ class Bids_IOrderBook(_Bids_Impl):
         return "Bids(%(book)s)" % self.__dict__
     
 def Bids(book = None): 
-    from marketsim import IOrderBook
+    from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         return Bids_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for Bids('+str(book)+')')
+    raise Exception('Cannot find suitable overload for Bids('+str(book) +':'+ str(type(book))+')')
