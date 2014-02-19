@@ -1,20 +1,20 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
+class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         self.defaultValue = defaultValue if defaultValue is not None else _const_Float(100.0)
         rtti.check_fields(self)
@@ -50,23 +50,23 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observable[float]):
         from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
         return _IfDefined_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIObservableFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue))
     
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
-class SafeSidePrice_IOrderQueueFloat(Observable[float]):
+class SafeSidePrice_IOrderQueueFloat(Observablefloat):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         self.defaultValue = defaultValue if defaultValue is not None else _constant_Float(100.0)
         rtti.check_fields(self)

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._iorder import IOrder
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 @registry.expose(["Order", "ImmediateOrCancel"])
-class ImmediateOrCancel_IObservableIOrder(Observable[IOrder],IObservableIOrder):
+class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -14,11 +14,11 @@ class ImmediateOrCancel_IObservableIOrder(Observable[IOrder],IObservableIOrder):
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
-        from marketsim.ops._all import Observable
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim import event
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else _order_Limit_SideFloatFloat()
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)

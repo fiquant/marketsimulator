@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
 @registry.expose(["internal tests", "O"])
-class O_IObservableFloat(Observable[float]):
+class O_IObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out._test.in1.in2._intobs import IntObs_ as __test_in1_in2_IntObs_
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.x = x if x is not None else __test_in1_in2_IntObs_()
         rtti.check_fields(self)
         self.impl = self.getImpl()

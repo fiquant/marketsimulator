@@ -1,20 +1,20 @@
-from marketsim.ops._all import Observable
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
-class Signal_IObservableFloatFloat(Observable[Side]):
+class Signal_IObservableFloatFloat(ObservableSide):
     """ 
     """ 
     def __init__(self, signal = None, threshold = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[Side].__init__(self)
+        from marketsim.gen._out._observable import ObservableSide
+        ObservableSide.__init__(self)
         self.signal = signal if signal is not None else _const_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
@@ -55,23 +55,23 @@ class Signal_IObservableFloatFloat(Observable[Side]):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatFloat(self.signal,_constant_Float(self.threshold)),_side_Buy_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatFloat(self.signal,_constant_Float((0-self.threshold))),_side_Sell_(),_side_Nothing_()))
     
-from marketsim.ops._all import Observable
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Side function", "Signal"])
-class Signal_FloatFloat(Observable[Side]):
+class Signal_FloatFloat(ObservableSide):
     """ 
     """ 
     def __init__(self, signal = None, threshold = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._side import Side
         from marketsim import event
-        Observable[Side].__init__(self)
+        from marketsim.gen._out._observable import ObservableSide
+        ObservableSide.__init__(self)
         self.signal = signal if signal is not None else _constant_Float(0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)

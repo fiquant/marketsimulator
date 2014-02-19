@@ -1,17 +1,17 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._intrinsic.observable.minmax import Min_Impl
 from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Statistics", "Min"])
-class Min_IObservableFloatFloat(Observable[float],Min_Impl):
+class Min_IObservableFloatFloat(Observablefloat,Min_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import rtti
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0

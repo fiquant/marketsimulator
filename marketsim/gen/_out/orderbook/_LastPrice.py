@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._intrinsic.orderbook.last_price import _LastPrice_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "LastPrice"])
-class LastPrice_IOrderQueue(Observable[float],_LastPrice_Impl):
+class LastPrice_IOrderQueue(Observablefloat,_LastPrice_Impl):
     """   Returns None is *queue* has been always empty
     """ 
     def __init__(self, queue = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import rtti
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         
         rtti.check_fields(self)

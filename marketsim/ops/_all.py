@@ -1,12 +1,5 @@
 from marketsim import types, event
-import marketsim
-from marketsim.gen._out._iobservable import IObservable
 
-Observable = types.Factory('Observable', '''(IObservable[%(T)s], event.Conditional_Impl):''', globals())
-
-Observable[int]._types.append(IObservable[float])
-Observable[int]._types.append(IObservable[object])
-Observable[float]._types.append(IObservable[object])
 
 import collections
 

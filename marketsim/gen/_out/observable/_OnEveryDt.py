@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._intrinsic.observable.on_every_dt import _OnEveryDt_Impl
 from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Basic", "OnEveryDt"])
-class OnEveryDt_FloatFloat(Observable[float],_OnEveryDt_Impl):
+class OnEveryDt_FloatFloat(Observablefloat,_OnEveryDt_Impl):
     """ 
     """ 
     def __init__(self, dt = None, x = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.dt = dt if dt is not None else 1.0
         
         self.x = x if x is not None else _constant_Float(1.0)

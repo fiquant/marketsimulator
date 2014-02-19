@@ -178,7 +178,29 @@ package object gen
                                             out.println(base.withImports(s).toString)
                                         }
                                     }
+                                    if (interface.name == "Observable") {
+                                        out.println("from marketsim.event import Conditional_Impl")
+                                        out.println("Observable = {}")
 
+                                        val fs = interface.instances
+
+                                        fs.toList sortBy { _.toString.length } foreach { f =>
+
+                                            val rt = f.genericArgs(0).aliasesRemoved
+                                            val name = Printer.mangle(f.asCode.toString)
+                                            val s =
+                                                s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
+                                                        "pass" | nl |
+                                                "Observable[" ||| rt.asCode ||| "] = " ||| name | nl
+
+                                            out.println(base.withImports(s).toString)
+                                        }
+
+                                        out.println("from marketsim.gen._out._iobservable import IObservableobject")
+                                        out.println("Observable[int]._types.append(IObservablefloat)")
+                                        out.println("Observable[int]._types.append(IObservableobject)")
+                                        out.println("Observable[float]._types.append(IObservableobject)")
+                                    }
                                 }
                             }
 

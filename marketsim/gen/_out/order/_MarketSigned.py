@@ -1,19 +1,19 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
 @registry.expose(["Order", "MarketSigned"])
-class MarketSigned_Float(Observable[IOrder],IObservableIOrder):
+class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
         from marketsim.gen._out._iorder import IOrder
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
         
         rtti.check_fields(self)

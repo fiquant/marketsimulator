@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observableint
 from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "PendingVolume"])
-class PendingVolume_IAccount(Observable[int],PendingVolume_Impl):
+class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observableint
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        Observable[int].__init__(self)
+        Observableint.__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         
         rtti.check_fields(self)

@@ -3,7 +3,7 @@ import math
 
 from marketsim import  _, types, ops
 
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observable
 
 class BestPrice(Observable[float]):
 

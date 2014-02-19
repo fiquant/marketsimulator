@@ -1,10 +1,10 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
 @registry.expose(["Order", "LimitSigned"])
-class LimitSigned_FloatFloat(Observable[IOrder],IObservableIOrder):
+class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
@@ -12,10 +12,10 @@ class LimitSigned_FloatFloat(Observable[IOrder],IObservableIOrder):
     """ 
     def __init__(self, signedVolume = None, price = None):
         from marketsim.gen._out._iorder import IOrder
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
         
         self.price = price if price is not None else _constant_Float(100.0)

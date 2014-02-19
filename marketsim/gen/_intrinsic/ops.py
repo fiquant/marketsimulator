@@ -1,5 +1,3 @@
-from marketsim.ops._all import Observable
-
 class _Negate_Impl(object):
 
     def __call__(self):

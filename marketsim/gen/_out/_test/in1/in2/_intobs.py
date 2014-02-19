@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observableint
 from marketsim import context
 @registry.expose(["internal tests", "IntObs"])
-class IntObs_(Observable[int]):
+class IntObs_(Observableint):
     """ 
     """ 
     def __init__(self):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observableint
         from marketsim import rtti
         from marketsim import _
         from marketsim import event
-        Observable[int].__init__(self)
+        Observableint.__init__(self)
         
         rtti.check_fields(self)
         self.impl = self.getImpl()

@@ -1,22 +1,22 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Price function", "LiquidityProvider"])
-class LiquidityProvider_SideFloatFloatIOrderBook(Observable[float]):
+class LiquidityProvider_SideFloatFloatIOrderBook(Observablefloat):
     """ 
     """ 
     def __init__(self, side = None, initialValue = None, priceDistr = None, book = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate_FloatFloat as _math_random_lognormvariate_FloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.side = side if side is not None else _side_Sell_()
         self.initialValue = initialValue if initialValue is not None else 100.0
         self.priceDistr = priceDistr if priceDistr is not None else _math_random_lognormvariate_FloatFloat(0.0,0.1)

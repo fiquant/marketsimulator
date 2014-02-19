@@ -1,14 +1,14 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablebool
 from marketsim.gen._intrinsic._constant import _False_Impl
 @registry.expose(["Basic", "observableFalse"])
-class observableFalse_(Observable[bool],_False_Impl):
+class observableFalse_(Observablebool,_False_Impl):
     """ 
     """ 
     def __init__(self):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablebool
         from marketsim import rtti
-        Observable[bool].__init__(self)
+        Observablebool.__init__(self)
         
         rtti.check_fields(self)
         _False_Impl.__init__(self)

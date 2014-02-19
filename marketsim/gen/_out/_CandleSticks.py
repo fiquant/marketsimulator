@@ -1,19 +1,19 @@
-from marketsim.ops._all import Observable
 from marketsim.gen._out._icandlestick import ICandleStick
 from marketsim.gen._intrinsic.observable.candlestick import CandleSticks_Impl
+from marketsim.gen._out._observable import ObservableICandleStick
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 @registry.expose(["Basic", "CandleSticks"])
-class CandleSticks_IObservableFloatFloat(Observable[ICandleStick],CandleSticks_Impl):
+class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim.ops._all import Observable
         from marketsim import rtti
+        from marketsim.gen._out._observable import ObservableICandleStick
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim.gen._out._icandlestick import ICandleStick
-        Observable[ICandleStick].__init__(self)
+        ObservableICandleStick.__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0

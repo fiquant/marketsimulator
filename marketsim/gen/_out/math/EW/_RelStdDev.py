@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev_IObservableFloatFloat(Observable[float]):
+class RelStdDev_IObservableFloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)

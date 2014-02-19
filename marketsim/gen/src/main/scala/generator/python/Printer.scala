@@ -79,28 +79,20 @@ object Printer {
 
             def asCode = {
 
-                if (decl.name == "Observable") {
-                    val ty = genericArgs(0)
-                    s"Observable["||| ty.asCode |||"]" |||
-                    ImportFrom("Observable", "marketsim.ops._all")
-                }
-                else
-                {
-                    builtins get decl.name match {
-                        case Some(x) => x
-                        case None =>
-                            def impl(xs : List[Printable]) : Code = xs match {
-                                case Nil => stop
-                                case x :: Nil => x.asCode
-                                case x :: y => x.asCode ||| impl(y)
-                            }
-                            val x = decl.name |||
-                                    (if (genericArgs.isEmpty) stop else impl(genericArgs))
+                builtins get decl.name match {
+                    case Some(x) => x
+                    case None =>
+                        def impl(xs : List[Printable]) : Code = xs match {
+                            case Nil => stop
+                            case x :: Nil => x.asCode
+                            case x :: y => x.asCode ||| impl(y)
+                        }
+                        val x = decl.name |||
+                                (if (genericArgs.isEmpty) stop else impl(genericArgs))
 
-                            val m = mangle(x.toString) ||| Code.from(x.imports.toList)
+                        val m = mangle(x.toString) ||| Code.from(x.imports.toList)
 
-                            m ||| ImportFrom(m.toString, moduleName(decl))
-                    }
+                        m ||| ImportFrom(m.toString, moduleName(decl))
                 }
             }
         }

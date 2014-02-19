@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observableint
 from marketsim.gen._intrinsic.orderbook.last_trade import _LastTradeVolume_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume_IOrderQueue(Observable[int],_LastTradeVolume_Impl):
+class LastTradeVolume_IOrderQueue(Observableint,_LastTradeVolume_Impl):
     """   Returns None if there haven't been any trades
     """ 
     def __init__(self, queue = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observableint
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import rtti
-        Observable[int].__init__(self)
+        Observableint.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
         
         rtti.check_fields(self)

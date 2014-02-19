@@ -1,20 +1,20 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Volume function", "DesiredPosition"])
-class DesiredPosition_IObservableFloatISingleAssetTrader(Observable[float]):
+class DesiredPosition_IObservableFloatISingleAssetTrader(Observablefloat):
     """ 
     """ 
     def __init__(self, desiredPosition = None, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.desiredPosition = desiredPosition if desiredPosition is not None else _const_Float(1.0)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)

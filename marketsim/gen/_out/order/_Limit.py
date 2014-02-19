@@ -1,23 +1,23 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 @registry.expose(["Order", "Limit"])
-class Limit_SideFloatFloat(Observable[IOrder],IObservableIOrder):
+class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, price = None, volume = None):
-        from marketsim.ops._all import Observable
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.side = side if side is not None else _side_Sell_()
         
         self.price = price if price is not None else _constant_Float(100.0)

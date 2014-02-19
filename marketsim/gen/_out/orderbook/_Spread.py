@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "Spread"])
-class Spread_IOrderBook(Observable[float]):
+class Spread_IOrderBook(Observablefloat):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()

@@ -1,11 +1,11 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 @registry.expose(["Order", "FixedBudget"])
-class FixedBudget_SideFloat(Observable[IOrder],IObservableIOrder):
+class FixedBudget_SideFloat(ObservableIOrder,IObservableIOrder):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.
@@ -15,12 +15,12 @@ class FixedBudget_SideFloat(Observable[IOrder],IObservableIOrder):
       cumulative price of trades to be done won't exceed the given budget.
     """ 
     def __init__(self, side = None, budget = None):
-        from marketsim.ops._all import Observable
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.side = side if side is not None else _side_Sell_()
         
         self.budget = budget if budget is not None else _constant_Float(1000.0)

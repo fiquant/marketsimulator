@@ -1,52 +1,6 @@
 import marketsim
 from marketsim.meta import *
 
-class Factory(object):
-    
-    def __init__(self, name, tmpl, g = None):
-        self._types = {}
-        self._name = name
-        self._tmpl = tmpl
-        self._globals = globals() if g is None else g
-        
-    def __setitem__(self, key, obj):
-        assert key not in self._types
-        self._types[key] = obj
-        
-    def override(self, key, obj):
-        self._types[key] = obj
-
-    def __getitem__(self, key):
-        if key not in self._types:
-            #print key
-            def correct(key):
-                if key.__name__ in self._globals:
-                    M = ""
-                else:
-                    M = key.__module__ + '.' if key.__module__ not in ['__builtin__'] else ''
-                N = key.__name__
-                return M + N, N
-            if type(key) is not tuple:
-                T,N = correct(key)
-                R = ""
-            else:
-                T,N = correct(key[0])
-                R = ""
-                for e in key[1:]:
-                    t, n = correct(e)
-                    N += '_' + n
-                    if R != "": R += ','
-                    R += t
-                if len(key) == 2:
-                    R += ","
-            tmp= "class " + self._name + '_' + N + \
-                 self._tmpl % {'T': T, 'R' : R, 'Name' : self._name} +\
-                 "pass"
-            #print tmp
-            exec tmp in self._globals
-            self._types[key] = eval(self._name + '_' + N, self._globals)
-        return self._types[key]
-
 def convert(other):
     from marketsim.gen._out._const import const
     if type(other) in [int, float]:

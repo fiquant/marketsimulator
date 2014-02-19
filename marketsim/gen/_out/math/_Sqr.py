@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
-class Sqr_IObservableFloat(Observable[float]):
+class Sqr_IObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -45,20 +45,20 @@ class Sqr_IObservableFloat(Observable[float]):
         return _ops_Mul_IObservableFloatIObservableFloat(self.x,self.x)
     
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
-class Sqr_Float(Observable[float]):
+class Sqr_Float(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()

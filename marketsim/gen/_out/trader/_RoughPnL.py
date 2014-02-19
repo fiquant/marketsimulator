@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Trader", "RoughPnL"])
-class RoughPnL_IAccount(Observable[float]):
+class RoughPnL_IAccount(Observablefloat):
     """   It takes into account only the best price of the order queue
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)
         self.impl = self.getImpl()

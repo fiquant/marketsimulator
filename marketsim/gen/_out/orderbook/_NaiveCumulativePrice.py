@@ -1,23 +1,23 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Asset", "NaiveCumulativePrice"])
-class NaiveCumulativePrice_IOrderBookIObservableFloat(Observable[float]):
+class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
     """   by taking into account prices only for the best order
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         self.depth = depth if depth is not None else _const_Float(1.0)
         rtti.check_fields(self)
@@ -58,26 +58,26 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observable[float]):
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
         return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_Less_IObservableFloatFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_ask_Price_IOrderBook(self.book)),_ops_Condition_IObservableBooleanIObservableFloatFloat(_ops_Greater_IObservableFloatFloat(self.depth,_constant_Float(0.0)),_ops_Mul_IObservableFloatIObservableFloat(self.depth,_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(0.0)))
     
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Asset", "NaiveCumulativePrice"])
-class NaiveCumulativePrice_IOrderBookFloat(Observable[float]):
+class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
     """   by taking into account prices only for the best order
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        Observable[float].__init__(self)
+        from marketsim.gen._out._observable import Observablefloat
+        Observablefloat.__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         self.depth = depth if depth is not None else _constant_Float(1.0)
         rtti.check_fields(self)

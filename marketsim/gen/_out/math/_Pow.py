@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Log/Pow", "Pow"])
-class Pow_FloatFloat(Observable[float]):
+class Pow_FloatFloat(Observablefloat):
     """ 
      Exceptional cases follow Annex F of the C99 standard as far as possible.
      In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
@@ -11,10 +11,10 @@ class Pow_FloatFloat(Observable[float]):
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.base = base if base is not None else _constant_Float(1.0)
         
         self.power = power if power is not None else _constant_Float(1.0)

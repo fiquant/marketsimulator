@@ -1,17 +1,17 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablebool
 from marketsim.gen._intrinsic.ops import _Greater_Impl
 from marketsim.gen._out._iobservable import IObservablefloat
 @registry.expose(["Ops", "Greater"])
-class Greater_IObservableFloatIObservableFloat(Observable[bool],_Greater_Impl):
+class Greater_IObservableFloatIObservableFloat(Observablebool,_Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablebool
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import rtti
-        Observable[bool].__init__(self)
+        Observablebool.__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _const_Float(1.0)
@@ -30,22 +30,22 @@ class Greater_IObservableFloatIObservableFloat(Observable[bool],_Greater_Impl):
     def __repr__(self):
         return "({%(x)s}>{%(y)s})" % self.__dict__
     
-from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.ops import _Greater_Impl
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable import Observablebool
 @registry.expose(["Ops", "Greater"])
-class Greater_FloatIObservableFloat(Observable[bool],_Greater_Impl):
+class Greater_FloatIObservableFloat(Observablebool,_Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablebool
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[bool].__init__(self)
+        Observablebool.__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         
         self.y = y if y is not None else _const_Float(1.0)
@@ -64,22 +64,22 @@ class Greater_FloatIObservableFloat(Observable[bool],_Greater_Impl):
     def __repr__(self):
         return "({%(x)s}>{%(y)s})" % self.__dict__
     
-from marketsim.ops._all import Observable
 from marketsim.gen._intrinsic.ops import _Greater_Impl
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable import Observablebool
 @registry.expose(["Ops", "Greater"])
-class Greater_IObservableFloatFloat(Observable[bool],_Greater_Impl):
+class Greater_IObservableFloatFloat(Observablebool,_Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablebool
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[bool].__init__(self)
+        Observablebool.__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else _constant_Float(1.0)
@@ -99,18 +99,18 @@ class Greater_IObservableFloatFloat(Observable[bool],_Greater_Impl):
         return "({%(x)s}>{%(y)s})" % self.__dict__
     
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablebool
 from marketsim.gen._intrinsic.ops import _Greater_Impl
 from marketsim.gen._out._ifunction import IFunctionfloat
 @registry.expose(["Ops", "Greater"])
-class Greater_FloatFloat(Observable[bool],_Greater_Impl):
+class Greater_FloatFloat(Observablebool,_Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablebool
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        Observable[bool].__init__(self)
+        Observablebool.__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         
         self.y = y if y is not None else _constant_Float(1.0)

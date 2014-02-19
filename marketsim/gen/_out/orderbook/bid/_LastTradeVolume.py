@@ -1,18 +1,18 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observableint
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "LastTradeVolume"])
-class LastTradeVolume_IOrderBook(Observable[int]):
+class LastTradeVolume_IOrderBook(Observableint):
     """ 
     """ 
     def __init__(self, book = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out._observable import Observableint
         from marketsim import event
-        Observable[int].__init__(self)
+        Observableint.__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
         self.impl = self.getImpl()

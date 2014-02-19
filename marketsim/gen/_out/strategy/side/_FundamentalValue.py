@@ -1,22 +1,22 @@
-from marketsim.ops._all import Observable
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue_IObservableFloatIOrderBook(Observable[Side]):
+class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        Observable[Side].__init__(self)
+        from marketsim.gen._out._observable import ObservableSide
+        ObservableSide.__init__(self)
         self.fv = fv if fv is not None else _const_Float(200.0)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)
@@ -58,25 +58,25 @@ class FundamentalValue_IObservableFloatIOrderBook(Observable[Side]):
         from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
         return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatIObservableFloat(_orderbook_bid_Price_IOrderBook(self.book),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),self.fv),_side_Buy_(),_side_Nothing_()))
     
-from marketsim.ops._all import Observable
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue_FloatIOrderBook(Observable[Side]):
+class FundamentalValue_FloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
-        from marketsim.ops._all import Observable
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._side import Side
         from marketsim import event
-        Observable[Side].__init__(self)
+        from marketsim.gen._out._observable import ObservableSide
+        ObservableSide.__init__(self)
         self.fv = fv if fv is not None else _constant_Float(200.0)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)

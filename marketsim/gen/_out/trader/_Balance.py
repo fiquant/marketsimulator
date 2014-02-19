@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._intrinsic.trader.props import Balance_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "Balance"])
-class Balance_IAccount(Observable[float],Balance_Impl):
+class Balance_IAccount(Observablefloat,Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.ops._all import Observable
+        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
-        Observable[float].__init__(self)
+        Observablefloat.__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         
         rtti.check_fields(self)

@@ -1,21 +1,21 @@
-from marketsim.ops._all import Observable
+from marketsim.gen._out._observable import ObservableIOrder
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._ifunction import IFunctionSide
 from marketsim import registry
 @registry.expose(["Order", "Market"])
-class Market_SideFloat(Observable[IOrder],IObservableIOrder):
+class Market_SideFloat(ObservableIOrder,IObservableIOrder):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None, volume = None):
-        from marketsim.ops._all import Observable
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        Observable[IOrder].__init__(self)
+        ObservableIOrder.__init__(self)
         self.side = side if side is not None else _side_Sell_()
         
         self.volume = volume if volume is not None else _constant_Float(1.0)
