@@ -389,6 +389,7 @@ package object Typed
 
         lazy val IOrderGenerator = getScalarBound("IOrderGenerator")
         lazy val ISingleAssetStrategy = getScalarBound("ISingleAssetStrategy")
+        lazy val Side = getScalarBound("Side")
 
         def observableOf(t : TypesBound.Base) =
             TypesBound.Interface(IObservable, t :: Nil)

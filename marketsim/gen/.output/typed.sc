@@ -107,9 +107,9 @@ package _test {
     package types {
         type T
         
-        type R : T
-        
         type T1 = T
+        
+        type R : T
         
         type U : R
     }

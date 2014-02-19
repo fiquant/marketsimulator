@@ -17,10 +17,9 @@ object order_factory
                 s"if abs($name) < 1: return None" |
                 s"$name = int($name)"
             case "signedVolume" =>
-                s"side = Side.Buy if signedVolume > 0 else Side.Sell" |
+                s"side = "||| Typed.topLevel.Side.asCode |||".Buy if signedVolume > 0 else Side.Sell" |
                 s"volume = abs(signedVolume)" |
-                check_none_aux("volume") |||
-                ImportFrom("Side", "marketsim")
+                check_none_aux("volume")
 
             case _ => ""
         }

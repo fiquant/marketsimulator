@@ -34,7 +34,7 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
     
     def __call__(self, *args, **kwargs):
-        from marketsim import Side
+        from marketsim.gen._out._side import Side
         from marketsim.gen._intrinsic.order.limit import Order_Impl
         signedVolume = self.signedVolume()
         if signedVolume is None: return None

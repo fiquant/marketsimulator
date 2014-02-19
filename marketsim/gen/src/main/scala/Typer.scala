@@ -28,7 +28,9 @@ package object Typer
     def run(source : NameTable.Scope) =
     {
         source.toTyped(Typed.topLevel)
-        Processor(source).run()
+        Processor(source).processTypes()
+        //val untypedMethods = Processor(source).collectMethods()
+        Processor(source).processFunctions()
         source.typed
     }
 
@@ -36,7 +38,42 @@ package object Typer
     {
         self =>
 
-        def run() {
+        def collectMethods() : List[(TypesBound.Base, NameTable.Scope, AST.FunDef)] = {
+            if (config.verbose)
+                println("\t" + source.qualifiedName)
+
+            try {
+
+                val r =
+                source.functions.toList flatMap { case (name, definitions) =>
+                    try {
+                        definitions flatMap {
+                            case f : AST.FunDef if f.parameters.nonEmpty && f.parameters.head.initializer.nonEmpty =>
+                                val typed = inferType(Nil)(f.parameters.head.initializer.get)
+                                Stream((typed.ty, source, f))
+                            case _ => Stream.empty
+                        }
+
+                    }
+                    catch {
+                        case ex : Exception =>
+                            throw new Exception(s"\r\nWhen typing '$name' from ${source.qualifiedName}:\r\n" + ex.getMessage, ex)
+                    }
+                }
+                val ps = source.packages.values flatMap { p => Processor(p).collectMethods() }
+
+                r ++ ps.toList
+            } catch {
+                case e : Exception =>
+                    if (config.catch_errors) {
+                        println(e.getMessage)
+                        Nil
+                    }
+                    else throw e
+            }
+        }
+        
+        def processTypes() {
             if (config.verbose)
                 println("\t" + source.qualifiedName)
 
@@ -52,6 +89,23 @@ package object Typer
 
                 }
 
+                source.packages.values foreach { Processor(_).processTypes() }
+            } catch {
+                case e : Exception =>
+                    if (config.catch_errors) {
+                        println(e.getMessage)
+                    }
+                    else throw e
+            }
+        }
+        
+
+        def processFunctions() {
+            if (config.verbose)
+                println("\t" + source.qualifiedName)
+
+            try {
+
                 source.functions foreach { case (name, definitions) =>
                     try {
                         getTyped(definitions)
@@ -62,7 +116,7 @@ package object Typer
                     }
                 }
 
-                source.packages.values foreach { Processor(_).run() }
+                source.packages.values foreach { Processor(_).processFunctions() }
             } catch {
                 case e : Exception =>
                     if (config.catch_errors) {
@@ -288,19 +342,35 @@ package object Typer
                 toUnbound(AST.Generics(Nil))(x).bind(TypesUnbound.EmptyTypeMapper_Bound)
         }
 
-        private def inferType(locals: List[Typed.Parameter])(e: AST.Expr) = {
-            val ctx = new TypingExprCtx {
-                def toTyped(t : AST.Type) = self.toBound(t)
+        class TypingCtxBase extends TypingExprCtx
+        {
+            def toTyped(t : AST.Type) = self.toBound(t)
 
-                def lookupFunction(name: AST.QualifiedName) = {
-                    lazy val nonLocal =
-                        self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o)) }
+            def asFunction(t : TypesBound.Base) : TypesBound.Function = t match {
+                case f : TypesBound.Function => f
+                case TypesBound.Optional(x) => asFunction(x)
+                case _ => throw new Exception(t + " is expected to be a function-like type")
+            }
 
-                    def asFunction(t : TypesBound.Base) : TypesBound.Function = t match {
-                        case f : TypesBound.Function => f
-                        case TypesBound.Optional(x) => asFunction(x)
-                        case _ => throw new Exception(t + " is expected to be a function-like type")
-                    }
+            def lookupFunction(name: AST.QualifiedName) = {
+                lazy val nonLocal =
+                    self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o) : Typed.Expr) }
+
+                nonLocal
+            }
+
+            def lookupVar(name: String) : Typed.Parameter
+                = throw new Exception(s"We cannot refer to a variable in the first parameter")
+        }
+
+
+        private def inferType(locals: List[Typed.Parameter])(e: AST.Expr) =
+        {
+            class TypingCtx extends TypingCtxBase
+            {
+                override def lookupFunction(name: AST.QualifiedName) =
+                {
+                    lazy val nonLocal = super.lookupFunction(name)
 
                     if (name.length == 1) {
                         locals find { _.name == name(0) } match {
@@ -311,14 +381,15 @@ package object Typer
                         nonLocal
                 }
 
-                def lookupVar(name: String) = locals.find({
+                override def lookupVar(name: String) = locals.find({
                     _.name == name
                 }) match {
                     case Some(p) => p
                     case None => throw new Exception(s"Cannot lookup parameter $name")
                 }
             }
-            TypeChecker(ctx).asArith(e)
+
+            TypeChecker(new TypingCtx).asArith(e)
         }
 
         private def toTyped(definition  : AST.FunDef): Typed.Function =
