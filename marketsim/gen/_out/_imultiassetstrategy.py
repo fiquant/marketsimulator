@@ -1,1 +1,2 @@
-class IMultiAssetStrategy(object): pass
+class IMultiAssetStrategy(object):
+    pass

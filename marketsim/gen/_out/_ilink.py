@@ -1,1 +1,3 @@
-class ILink(object): pass
+class ILink(object):
+    #TwoWayLink
+    pass

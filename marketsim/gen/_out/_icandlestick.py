@@ -1,1 +1,2 @@
-class ICandleStick(object): pass
+class ICandleStick(object):
+    pass

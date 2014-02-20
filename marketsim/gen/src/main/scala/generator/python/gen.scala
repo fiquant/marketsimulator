@@ -93,8 +93,6 @@ package object gen
                     case a : Typed.FunctionAlias => (a.target, false)
                 }
 
-                type Overload = (Typed.Function, Boolean)
-
                 def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
 
                 val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
@@ -154,7 +152,20 @@ package object gen
                                                 else
                                                     toLazy("object")
 
-                                    val s = s"class $name("||| bases |||"): pass"
+                                    val body =
+                                        if (interface.instances.size == 1)
+                                        {
+                                            val methods = Typed.topLevel getMethods interface.instances.head
+
+                                            if (methods.isEmpty)
+                                                toLazy("pass")
+                                            else
+                                                (methods map { toLazy("#") ||| _._1 } reduce { _ | _ }) | "pass"
+                                        }
+                                        else
+                                            toLazy("pass")
+
+                                    val s = s"class $name("||| bases |||"):" |> body
 
                                     out.println(base.withImports(s).toString)
 

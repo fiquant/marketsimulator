@@ -1,1 +1,2 @@
-class T(object): pass
+class T(object):
+    pass

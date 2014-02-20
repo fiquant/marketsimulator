@@ -1,1 +1,4 @@
-class Int(float): pass
+class Int(float):
+    #constant
+    #const
+    pass

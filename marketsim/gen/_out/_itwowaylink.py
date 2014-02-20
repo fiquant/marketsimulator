@@ -1,1 +1,2 @@
-class ITwoWayLink(object): pass
+class ITwoWayLink(object):
+    pass

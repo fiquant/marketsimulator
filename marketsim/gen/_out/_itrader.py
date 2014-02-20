@@ -1,1 +1,2 @@
-class ITrader(object): pass
+class ITrader(object):
+    pass

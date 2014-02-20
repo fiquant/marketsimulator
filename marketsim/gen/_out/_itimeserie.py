@@ -1,1 +1,2 @@
-class ITimeSerie(object): pass
+class ITimeSerie(object):
+    pass

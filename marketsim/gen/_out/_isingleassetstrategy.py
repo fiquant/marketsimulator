@@ -1,1 +1,7 @@
-class ISingleAssetStrategy(object): pass
+class ISingleAssetStrategy(object):
+    #Combine
+    #Real
+    #Suspendable
+    #TradeIfProfitable
+    #VirtualMarket
+    pass

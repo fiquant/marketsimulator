@@ -1,1 +1,2 @@
-class Any(object): pass
+class Any(object):
+    pass

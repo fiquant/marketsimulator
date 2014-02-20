@@ -346,14 +346,24 @@ package object Typed
             with    sc.TopLevelPackage
             with    ScPrintable
     {
-        private var methods = Map.empty[String, Map[TypesBound.Base, Set[NameTable.Scope]]]
+        private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[NameTable.Scope]]]
+        private var methods_by_type = Map.empty[TypesBound.Base, Map[String, Set[NameTable.Scope]]]
 
         def setMethods(ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
         {
-            methods =
+            methods_by_name =
                     (ms groupBy { _._3.name }
                         mapValues {
                         (_ groupBy   { _._1 }
+                           mapValues { p =>
+                                (p map { _._2 }).toSet[NameTable.Scope]
+                        })
+                    })
+
+            methods_by_type =
+                    (ms groupBy { _._1 }
+                        mapValues {
+                        (_ groupBy   { _._3.name }
                            mapValues { p =>
                                 (p map { _._2 }).toSet[NameTable.Scope]
                         })
@@ -366,10 +376,20 @@ package object Typed
 //                }
 //            }
         }
+        
+        def getMethods(t : TypesBound.Base) = {
+            (methods_by_type getOrElse  (t, Map.empty)
+                             filter     { _._2.size == 1 }
+                             mapValues  { _.head }
+                             map        { case (name, scope) =>
+                                 (name, scope.typed.get getFunction name) }
+                    )
+        }
+
 
         def argumentDependentLookup(name : String, ty : TypesBound.Base) =
 
-            methods getOrElse (name, Nil) filter { ty canCastTo _._1 } flatMap { _._2 }
+            methods_by_name getOrElse (name, Nil) filter { ty canCastTo _._1 } flatMap { _._2 }
 
         def qualifiedName = "" :: Nil
 

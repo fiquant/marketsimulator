@@ -1,1 +1,2 @@
-class IOrder(object): pass
+class IOrder(object):
+    pass

@@ -1,1 +1,2 @@
-class Boolean(object): pass
+class Boolean(object):
+    pass
