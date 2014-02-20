@@ -346,6 +346,31 @@ package object Typed
             with    sc.TopLevelPackage
             with    ScPrintable
     {
+        private var methods = Map.empty[String, Map[TypesBound.Base, Set[NameTable.Scope]]]
+
+        def setMethods(ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
+        {
+            methods =
+                    (ms groupBy { _._3.name }
+                        mapValues {
+                        (_ groupBy   { _._1 }
+                           mapValues { p =>
+                                (p map { _._2 }).toSet[NameTable.Scope]
+                        })
+                    })
+
+//            methods foreach { case (name, xs) =>
+//                println(name)
+//                xs foreach { case (ty, scopes) =>
+//                    println("\t" + ty.asScala + ":" + (scopes map { _.qualifiedName } mkString "," ))
+//                }
+//            }
+        }
+
+        def argumentDependentLookup(name : String, ty : TypesBound.Base) =
+
+            methods getOrElse (name, Nil) filter { ty canCastTo _._1 } flatMap { _._2 }
+
         def qualifiedName = "" :: Nil
 
         def tryGetAttribute(name : String) : Option[String] = None

@@ -2,7 +2,10 @@ package object Typer
 {
     trait TypingExprCtx
     {
-        def lookupFunction(name : AST.QualifiedName) : List[(TypesBound.Function, () => Typed.Expr)]
+        def lookupFunction(name : AST.QualifiedName,
+                           ty   : TypesBound.Base)
+            :   List[(TypesBound.Function, () => Typed.Expr)]
+
         def lookupVar(name : String) : Typed.Parameter
         def toTyped(t : AST.Type) : TypesBound.Base
     }
@@ -29,7 +32,7 @@ package object Typer
     {
         source.toTyped(Typed.topLevel)
         Processor(source).processTypes()
-        //val untypedMethods = Processor(source).collectMethods()
+        Typed.topLevel setMethods Processor(source).collectMethods()
         Processor(source).processFunctions()
         source.typed
     }
@@ -38,7 +41,7 @@ package object Typer
     {
         self =>
 
-        def collectMethods() : List[(TypesBound.Base, NameTable.Scope, AST.FunDef)] = {
+        def collectMethods() : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)] = {
             if (config.verbose)
                 println("\t" + source.qualifiedName)
 
@@ -62,12 +65,12 @@ package object Typer
                 }
                 val ps = source.packages.values flatMap { p => Processor(p).collectMethods() }
 
-                r ++ ps.toList
+                r.toStream ++ ps
             } catch {
                 case e : Exception =>
                     if (config.catch_errors) {
                         println(e.getMessage)
-                        Nil
+                        Stream.empty
                     }
                     else throw e
             }
@@ -130,11 +133,6 @@ package object Typer
 
         private def getTyped(definitions : List[AST.FunctionDeclaration]) = {
             val name = definitions.head.name
-            def observableConstF(x : Double) =
-                inferType(Nil)(
-                    AST.FunCall(
-                        "" :: "const" :: Nil,
-                        AST.FloatLit(x) :: Nil))
 
             if (!(typed.functions contains name))
                 typed insert
@@ -352,11 +350,17 @@ package object Typer
                 case _ => throw new Exception(t + " is expected to be a function-like type")
             }
 
-            def lookupFunction(name: AST.QualifiedName) = {
-                lazy val nonLocal =
-                    self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o) : Typed.Expr) }
+            def lookupFunction(name: AST.QualifiedName,
+                               ty   : TypesBound.Base) = {
 
-                nonLocal
+                (
+                    if (name.length == 1) {
+                        (Typed.topLevel argumentDependentLookup (name.head, ty)
+                                        flatMap { Processor(_) lookupFunction name }).toList
+                    } else {
+                        self lookupFunction name
+                    }
+                ) map { o => (asFunction(o.ty), () => Typed.FunctionRef(o) : Typed.Expr) }
             }
 
             def lookupVar(name: String) : Typed.Parameter
@@ -368,9 +372,10 @@ package object Typer
         {
             class TypingCtx extends TypingCtxBase
             {
-                override def lookupFunction(name: AST.QualifiedName) =
+                override def lookupFunction(name : AST.QualifiedName,
+                                            ty   : TypesBound.Base) =
                 {
-                    lazy val nonLocal = super.lookupFunction(name)
+                    lazy val nonLocal = super.lookupFunction(name, ty)
 
                     if (name.length == 1) {
                         locals find { _.name == name(0) } match {
@@ -493,7 +498,9 @@ package object Typer
                 })
             }
 
-            val overloads = ctx lookupFunction name
+            val first_arg_type = if (typed_args.nonEmpty) typed_args.head.ty else TypesBound.Any_
+
+            val overloads = ctx lookupFunction (name, first_arg_type)
 
             overloads filter { o => checkOverload(o._1) } match {
                 case Nil =>
