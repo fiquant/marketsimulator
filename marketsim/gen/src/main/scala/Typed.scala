@@ -382,7 +382,10 @@ package object Typed
                              filter     { _._2.size == 1 }
                              mapValues  { _.head }
                              map        { case (name, scope) =>
-                                 (name, scope.typed.get getFunction name) }
+                                 (name, (scope.typed.get.functions get name).get
+                                         filter { _.isInstanceOf[Function] }
+                                         map    { _.asInstanceOf[Function] }
+                                         ) }
                     )
         }
 

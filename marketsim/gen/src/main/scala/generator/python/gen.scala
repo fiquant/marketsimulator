@@ -53,7 +53,7 @@ package object gen
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
             p.functions foreach { case (base_name, fs) =>
-                val names = fs map {
+                fs map {
                     case f : Typed.Function =>
                         try {
                             generationUnit(f) map { g =>
@@ -159,8 +159,19 @@ package object gen
 
                                             if (methods.isEmpty)
                                                 toLazy("pass")
-                                            else
-                                                (methods map { toLazy("#") ||| _._1 } reduce { _ | _ }) | "pass"
+                                            else {
+                                                (methods map { case (name, fs) =>
+                                                    val args = fs.head.parameters.tail
+                                                    val in_args = Code.from(args map { _.name ||| " = None" }, ",")
+                                                    val pass_args = Code.from(args map { "," ||| _.name }, "")
+                                                    base.Def(name,
+                                                        in_args,
+                                                        "return " ||| name |||
+                                                                ImportFrom(name, Printer.moduleName(fs.head)) |||
+                                                                "(self" ||| pass_args ||| ")")
+                                                } reduce { _ | _ }) | "pass"
+                                            }
+
                                         }
                                         else
                                             toLazy("pass")

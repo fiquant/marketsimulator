@@ -1,4 +1,10 @@
 class Int(float):
-    #constant
-    #const
+    def constant(self):
+        from marketsim.gen._out._constant import constant
+        return constant(self)
+    
+    def const(self):
+        from marketsim.gen._out._const import const
+        return const(self)
+    
     pass
