@@ -196,9 +196,9 @@ def orderBooksToRender(ctx, traders):
                     scaled,
                     math.EW.Avg(scaled, 2./27),
                     math.EW.Avg(scaled, 2./13),
-                    math.macd.MACD(assetPrice),
-                    math.macd.Signal(assetPrice),
-                    math.macd.Histogram(assetPrice),
+                    assetPrice.MACD(),
+                    assetPrice.Signal(),
+                    assetPrice.Histogram(),
                     (observable.OnEveryDt(1, math.LogReturns(assetPrice) * 100), config.collectMoving)
                 ],
                 ctx.minmax_graph : [

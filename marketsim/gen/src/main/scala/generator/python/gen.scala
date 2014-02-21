@@ -198,9 +198,10 @@ package object gen
 
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
+                                            val methods = getMethods(f)
                                             val s =
                                                 s"class $name(IEvent, "||| TypesBound.Function(Nil, rt).asCode |||"):" |>
-                                                        "pass" | nl |
+                                                        methods | nl |
                                                 "IObservable[" ||| rt.asCode ||| "] = " ||| name | nl
 
                                             out.println(base.withImports(s).toString)
