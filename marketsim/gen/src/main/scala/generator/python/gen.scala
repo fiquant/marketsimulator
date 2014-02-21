@@ -262,10 +262,11 @@ package object gen
                                                 else
                                                     TypesBound.Any_.asCode
 
+                                            val methods = getMethods(f)
 
                                             val s =
                                                 s"class $name("||| b |||"):" |>
-                                                        "_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | nl |
+                                                        ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | methods) | nl |
                                                 "IFunction[" ||| f.ret.asCode |||
                                                         (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
 
