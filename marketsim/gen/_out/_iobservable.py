@@ -36,18 +36,10 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math.Moving._avg import Avg
         return Avg(self,timeframe)
     
-    def sideprice_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._sideprice_floatingprice import sideprice_FloatingPrice
-        return sideprice_FloatingPrice(self,proto)
-    
     @property
     def Cumulative_Var(self):
         from marketsim.gen._out.math.Cumulative._var import Var
         return Var(self)
-    
-    def DesiredPosition(self, trader = None):
-        from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition
-        return DesiredPosition(self,trader)
     
     def DownMovements(self, timeframe = None):
         from marketsim.gen._out.math._downmovements import DownMovements
@@ -96,21 +88,9 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math.Cumulative._stddev import StdDev
         return StdDev(self)
     
-    def volume_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_floatingprice import volume_FloatingPrice
-        return volume_FloatingPrice(self,proto)
-    
     def EW_RelStdDev(self, alpha = None):
         from marketsim.gen._out.math.EW._relstddev import RelStdDev
         return RelStdDev(self,alpha)
-    
-    def side_price_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._side_price_floatingprice import side_price_FloatingPrice
-        return side_price_FloatingPrice(self,proto)
-    
-    def side_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._side_floatingprice import side_FloatingPrice
-        return side_FloatingPrice(self,proto)
     
     def EW_StdDev(self, alpha = None):
         from marketsim.gen._out.math.EW._stddev import StdDev
@@ -128,21 +108,9 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math.Moving._var import Var
         return Var(self,timeframe)
     
-    def volume_price_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._volume_price_floatingprice import volume_price_FloatingPrice
-        return volume_price_FloatingPrice(self,proto)
-    
     def Moving_RelStdDev(self, timeframe = None):
         from marketsim.gen._out.math.Moving._relstddev import RelStdDev
         return RelStdDev(self,timeframe)
-    
-    def price_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._price_floatingprice import price_FloatingPrice
-        return price_FloatingPrice(self,proto)
-    
-    def sidevolume_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._sidevolume_floatingprice import sidevolume_FloatingPrice
-        return sidevolume_FloatingPrice(self,proto)
     
     def CandleSticks(self, timeframe = None):
         from marketsim.gen._out._candlesticks import CandleSticks
@@ -155,14 +123,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
     def Cumulative_MaxEpsilon(self, epsilon = None):
         from marketsim.gen._out.math.Cumulative._maxepsilon import MaxEpsilon
         return MaxEpsilon(self,epsilon)
-    
-    def FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._floatingprice import FloatingPrice
-        return FloatingPrice(self,proto)
-    
-    def sidevolume_price_FloatingPrice(self, proto = None):
-        from marketsim.gen._out.order._curried._sidevolume_price_floatingprice import sidevolume_price_FloatingPrice
-        return sidevolume_price_FloatingPrice(self,proto)
     
     def Raw(self, timeframe = None,alpha = None):
         from marketsim.gen._out.math.rsi._raw import Raw
@@ -180,11 +140,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
     def Cumulative_RelStdDev(self):
         from marketsim.gen._out.math.Cumulative._relstddev import RelStdDev
         return RelStdDev(self)
-    
-    @property
-    def O(self):
-        from marketsim.gen._out._test.in1.in2._o import O
-        return O(self)
     
     @property
     def Link(self):
@@ -208,15 +163,6 @@ IObservable[str] = IObservablestr
 from marketsim.gen._out._ifunction import IFunctionIOrder
 from marketsim.gen._out._iorder import IOrder
 class IObservableIOrder(IEvent, IFunctionIOrder):
-    @property
-    def ImmediateOrCancel(self):
-        from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
-        return ImmediateOrCancel(self)
-    
-    def Generic(self, eventGen = None):
-        from marketsim.gen._out.strategy._generic import Generic
-        return Generic(self,eventGen)
-    
     pass
 
 

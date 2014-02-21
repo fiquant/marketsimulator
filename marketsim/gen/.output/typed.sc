@@ -39,6 +39,7 @@ package side {
 }
 
 @category = "Event"
+@method = "N/A"
 
 package event {
     /** Event that fires every *intervalFunc* moments of time
@@ -55,6 +56,7 @@ package event {
 }
 
 @category = "internal tests"
+@method = "N/A"
 
 package _test {
     package in1 {
@@ -1079,6 +1081,7 @@ package math {
 }
 
 @category = "Order"
+@method = "N/A"
 
 package order {
     package side {
@@ -2043,6 +2046,7 @@ package order {
     def Peg(proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit()) : .IObservable[.IOrder]
 }
 
+@method = "N/A"
 @category = "Strategy"
 
 package strategy {@category = "Side function"

@@ -1,13 +1,14 @@
+@method = "N/A"
 
 package strategy() {
-    // defined at defs\strategies\adaptive.sc: 3.5
+    // defined at defs\strategies\adaptive.sc: 4.5
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = Noise(),
                     /** predicate to evaluate */ predicate = true()) : ISingleAssetStrategy
     
-    // defined at defs\strategies\adaptive.sc: 13.5
+    // defined at defs\strategies\adaptive.sc: 14.5
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */
     def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
@@ -15,7 +16,7 @@ package strategy() {
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.virtualMarket(),
                           /** given a trading account tells should it be considered as effective or not */ performance = weight.efficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
     
-    // defined at defs\strategies\adaptive.sc: 27.5
+    // defined at defs\strategies\adaptive.sc: 28.5
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the efficiency of the strategies is evaluated
      * These efficiencies are mapped into weights using *weight* and *normilizer*
@@ -31,7 +32,7 @@ package strategy() {
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector = weight.identityL()) : ISingleAssetStrategy
     
-    // defined at defs\strategies\adaptive.sc: 49.5
+    // defined at defs\strategies\adaptive.sc: 50.5
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
      * is chosen and made running; other strategies are suspended.

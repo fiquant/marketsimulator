@@ -1,4 +1,5 @@
 @category = "Event"
+@method = "N/A"
 package event
 {
     /**

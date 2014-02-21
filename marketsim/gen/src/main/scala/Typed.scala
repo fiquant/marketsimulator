@@ -396,6 +396,7 @@ package object Typed
                         ((scope.typed.get.functions get name).get
                                 collect { case f : Function => f }
                                 map     { f => (getMethodName(f), f) }
+                                filter  { _._1 != "N/A" }
                                 groupBy { _._1 }
                                 map     { p => (p._1, p._2 map { _._2 })}
                                 map     { checkFunctionsCompatible(_) })

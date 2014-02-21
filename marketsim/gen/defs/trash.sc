@@ -1,4 +1,5 @@
 @category = "internal tests"
+@method = "N/A"
 package _test
 
 package types {

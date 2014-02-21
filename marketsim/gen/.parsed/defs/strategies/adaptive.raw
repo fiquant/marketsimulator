@@ -274,5 +274,8 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - strategy.choose_the_best._ChooseTheBest_Impl
 | | - List:
+| | | - Attribute:
+| | | | - method
+| | | | - N/A
 | | - List:
 | | - false

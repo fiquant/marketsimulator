@@ -84,5 +84,8 @@ Definitions:
 | | | - Attribute:
 | | | | - category
 | | | | - Event
+| | | - Attribute:
+| | | | - method
+| | | | - N/A
 | | - List:
 | | - false
