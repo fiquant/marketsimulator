@@ -81,6 +81,14 @@ package object NameTable {
                 throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
         }
 
+        def getAttribute(name : String) : Option[String] =
+
+            attributes.items get name match {
+                case None    =>
+                    parent flatMap { _.getAttribute(name) }
+                case x => x
+            }
+
         def add(a : AST.Attribute) = addAttribute(a.name, a.value)
 
         def addAttribute(key : String, value : String) {

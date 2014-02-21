@@ -182,6 +182,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
+| | | | | | - Attribute:
+| | | | | | | - method
+| | | | | | | - macd_Signal
 | | | | - FunDef:
 | | | | | - Histogram
 | | | | | - List:
@@ -268,6 +271,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))
+| | | | | | - Attribute:
+| | | | | | | - method
+| | | | | | | - macd_Histogram
 | | - List:
 | | | - Attribute:
 | | | | - category

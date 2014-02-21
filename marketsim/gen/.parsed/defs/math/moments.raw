@@ -67,6 +67,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - Avg{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Avg
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - Var
 | | | | | | | | | | | - List:
@@ -115,6 +118,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sigma^2{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Var
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - StdDev
 | | | | | | | | | | | - List:
@@ -163,6 +169,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_StdDev
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | - List:
@@ -221,10 +230,16 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_RelStdDev
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{\\\\alpha=%(alpha)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - kind
+| | | | | | | | | | - EW
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -273,6 +288,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - Avg{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Avg
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - Var
 | | | | | | | | | | | - List:
@@ -313,6 +331,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sigma^2{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Var
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - StdDev
 | | | | | | | | | | | - List:
@@ -351,6 +372,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_StdDev
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | - List:
@@ -397,10 +421,16 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_RelStdDev
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{cumul}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - kind
+| | | | | | | | | | - Cumulative
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - PackageDef:
@@ -457,6 +487,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - Avg{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Avg
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - Var
 | | | | | | | | | | | - List:
@@ -540,6 +573,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sigma^2{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_Var
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - StdDev
 | | | | | | | | | | | - List:
@@ -586,6 +622,9 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - \\sqrt{\\sigma^2{{suffix}}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_StdDev
 | | | | | | | | | | - FunDef:
 | | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | - List:
@@ -644,10 +683,16 @@ Definitions:
 | | | | | | | | | | | | - Attribute:
 | | | | | | | | | | | | | - label
 | | | | | | | | | | | | | - RSD{{suffix}}
+| | | | | | | | | | | | - Attribute:
+| | | | | | | | | | | | | - method
+| | | | | | | | | | | | | - {{kind}}_RelStdDev
 | | | | | | | | - List:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - suffix
 | | | | | | | | | | - _{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - kind
+| | | | | | | | | | - Moving
 | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | - List:

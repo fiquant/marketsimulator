@@ -141,7 +141,7 @@ package object gen
             else {
                 (methods map { case (method_name, fs) =>
                     val args = fs.head.parameters.tail
-                    val target = method_name ||| ImportFrom(method_name, Printer.moduleName(fs.head))
+                    val target = fs.head.name ||| ImportFrom(fs.head.name, Printer.moduleName(fs.head))
                     if (args.isEmpty) {
                         base.Prop(method_name, "return " ||| target ||| "(self)")
                     } else {

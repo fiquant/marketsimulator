@@ -67,6 +67,9 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Min_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - method
+| | | | | | | | | | - Moving_Min
 | | | | | | | - FunDef:
 | | | | | | | | - Max
 | | | | | | | | - List:
@@ -118,6 +121,9 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - method
+| | | | | | | | | | - Moving_Max
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -190,6 +196,9 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Min_{\\epsilon}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - method
+| | | | | | | | | | - Cumulative_MinEpsilon
 | | | | | | | - FunDef:
 | | | | | | | | - MaxEpsilon
 | | | | | | | | - List:
@@ -248,6 +257,9 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Max_{\\epsilon}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - method
+| | | | | | | | | | - Cumulative_MaxEpsilon
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

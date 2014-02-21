@@ -341,6 +341,9 @@ package object Typed
             }
     }
 
+    def getMethodName(f : Function) =
+        f tryGetAttribute "method" getOrElse f.name
+
     class TopLevelPackage
             extends Package
             with    sc.TopLevelPackage
@@ -351,6 +354,7 @@ package object Typed
 
         def setMethods(ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
         {
+
             methods_by_name =
                     (ms groupBy { _._3.name }
                         mapValues {
@@ -363,7 +367,7 @@ package object Typed
             methods_by_type =
                     (ms groupBy { _._1 }
                         mapValues {
-                        (_ groupBy   { _._3.name }
+                        (_ groupBy   { _._3.name  }
                            mapValues { p =>
                                 (p map { _._2 }).toSet[NameTable.Scope]
                         })
@@ -378,15 +382,25 @@ package object Typed
         }
         
         def getMethods(t : TypesBound.Base) = {
-            (methods_by_type getOrElse  (t, Map.empty)
-                             filter     { _._2.size == 1 }
-                             mapValues  { _.head }
-                             map        { case (name, scope) =>
-                                 (name, (scope.typed.get.functions get name).get
-                                         filter { _.isInstanceOf[Function] }
-                                         map    { _.asInstanceOf[Function] }
-                                         ) }
-                    )
+
+            def checkFunctionsCompatible(p : (String, List[Function])) = {
+                if (p._2 exists { _.qualifiedName != p._2.head.qualifiedName })
+                    println("Functions from different scopes trying to bind to method name " + p._1
+                            + (p._2 map { predef.crlf + _.qualifiedName } mkString "") )
+                p
+            }
+
+            ((methods_by_type getOrElse  (t, Map.empty)).toList
+                flatMap { case (name, scopes) =>
+                    scopes flatMap { scope =>
+                        ((scope.typed.get.functions get name).get
+                                collect { case f : Function => f }
+                                map     { f => (getMethodName(f), f) }
+                                groupBy { _._1 }
+                                map     { p => (p._1, p._2 map { _._2 })}
+                                map     { checkFunctionsCompatible(_) })
+                    }
+                }).toMap
         }
 
 

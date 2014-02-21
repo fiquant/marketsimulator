@@ -185,32 +185,32 @@ def orderBooksToRender(ctx, traders):
                     thisBook.Bids.WeightedPrice()
                 ],
                 ctx.avgs_graph : [
-                    math.Cumulative.Avg(assetPrice),
-                    (math.Moving.Avg(assetPrice, 20), config.collectMoving),
-                    (math.Moving.Avg(assetPrice, 100), config.collectMoving),
-                    math.EW.Avg(assetPrice, 0.15),
-                    math.EW.Avg(assetPrice, 0.65),
-                    math.EW.Avg(assetPrice, 0.015),
+                    assetPrice.Cumulative_Avg,
+                    (assetPrice.Moving_Avg(20.), config.collectMoving),
+                    (assetPrice.Moving_Avg(100.), config.collectMoving),
+                    assetPrice.EW_Avg(0.15),
+                    assetPrice.EW_Avg(0.65),
+                    assetPrice.EW_Avg(0.015),
                 ],
                 ctx.macd_graph : [
                     scaled,
-                    math.EW.Avg(scaled, 2./27),
-                    math.EW.Avg(scaled, 2./13),
+                    scaled.EW_Avg(2./27),
+                    scaled.EW_Avg(2./13),
                     assetPrice.MACD(),
-                    assetPrice.Signal(),
-                    assetPrice.Histogram(),
-                    (observable.OnEveryDt(1, math.LogReturns(assetPrice) * 100), config.collectMoving)
+                    assetPrice.macd_Signal(),
+                    assetPrice.macd_Histogram(),
+                    (observable.OnEveryDt(1, assetPrice.LogReturns() * 100), config.collectMoving)
                 ],
                 ctx.minmax_graph : [
                     assetPrice,
-                    math.Cumulative.MaxEpsilon(assetPrice),
-                    math.Cumulative.MinEpsilon(assetPrice),
-                    (math.Moving.Max(assetPrice, 100.), config.collectMoving),
-                    (math.Moving.Min(assetPrice, 100.), config.collectMoving)
+                    assetPrice.Cumulative_MaxEpsilon(),
+                    assetPrice.Cumulative_MinEpsilon(),
+                    (assetPrice.Moving_Max(100.), config.collectMoving),
+                    (assetPrice.Moving_Min(100.), config.collectMoving)
                 ],
-                ctx.bollinger_100_graph : bollinger(math.Moving.Avg(assetPrice, 100), math.Moving.StdDev(assetPrice, 100)) if config.collectMoving else [],
-                ctx.bollinger_20_graph : bollinger(math.Moving.Avg(assetPrice, 20), math.Moving.StdDev(assetPrice, 20)) if config.collectMoving else [],
-                ctx.bollinger_a015_graph : bollinger(math.EW.Avg(assetPrice, 0.015), math.EW.StdDev(assetPrice, 0.015)),
+                ctx.bollinger_100_graph : bollinger(assetPrice.Moving_Avg(100), assetPrice.Moving_StdDev(100)) if config.collectMoving else [],
+                ctx.bollinger_20_graph : bollinger(assetPrice.Moving_Avg(20), assetPrice.Moving_StdDev(20)) if config.collectMoving else [],
+                ctx.bollinger_a015_graph : bollinger(assetPrice.EW_Avg(0.015), assetPrice.EW_StdDev(0.015)),
 
             }
 
@@ -256,9 +256,7 @@ def orderBooksToRender(ctx, traders):
                     ts.append(
                         TimeSerie(
                             observable.OnEveryDt(1,
-                                math.RSI(thisBook,
-                                               timeframe,
-                                               1./14)),
+                                thisBook.RSI(timeframe, 1./14)),
                             b.rsi_graph))
 
         return books

@@ -8,6 +8,7 @@ package math
          */
         @python.intrinsic("observable.minmax.Min_Impl")
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
+        @method = "Moving_Min"
         def Min(/** observable data source */ source    = const(1.),
                 /** sliding window size    */ timeframe = 100.) : IObservable[Float]
 
@@ -16,6 +17,7 @@ package math
          */
         @python.intrinsic("observable.minmax.Max_Impl")
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
+        @method = "Moving_Max"
         def Max(/** observable data source */ source    = const(1.),
                 /** sliding window size    */ timeframe = 100.) : IObservable[Float]
     }
@@ -30,6 +32,7 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         @label = "Min_{\\epsilon}(%(source)s)"
+        @method = "Cumulative_MinEpsilon"
         def MinEpsilon(/** observable data source */ source  = const(1.),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
 
@@ -40,6 +43,7 @@ package math
          */
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         @label = "Max_{\\epsilon}(%(source)s)"
+        @method = "Cumulative_MaxEpsilon"
         def MaxEpsilon(/** observable data source */ source  = const(1.),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
     }

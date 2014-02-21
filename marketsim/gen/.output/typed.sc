@@ -659,11 +659,13 @@ package math {
     
     @category = "Statistics"
     @suffix = "_{cumul}(%(source)s)"
+    @kind = "Cumulative"
     
     package Cumulative {
         /** Cumulative relative standard deviation
          */
         @label = "RSD{{suffix}}"
+        @method = "{{kind}}_RelStdDev"
         
         def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
             	 = .ops.Div(.ops.Sub(source,.math.Cumulative.Avg(source)),.math.Cumulative.StdDev(source))
@@ -671,6 +673,7 @@ package math {
         /** Cumulative variance
          */
         @label = "\\sigma^2{{suffix}}"
+        @method = "{{kind}}_Var"
         
         @python.intrinsic("moments.cmv.Variance_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : () => .Float
@@ -678,6 +681,7 @@ package math {
         /** Cumulative average
          */
         @label = "Avg{{suffix}}"
+        @method = "{{kind}}_Avg"
         
         @python.intrinsic("moments.cma.CMA_Impl")
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : .IDifferentiable
@@ -687,6 +691,7 @@ package math {
          *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
          */
         @label = "Min_{\\epsilon}(%(source)s)"
+        @method = "Cumulative_MinEpsilon"
         
         @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
         def MinEpsilon(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -697,6 +702,7 @@ package math {
          *  It fires updates only if *source* value becomes greater than the old value plus *epsilon*
          */
         @label = "Max_{\\epsilon}(%(source)s)"
+        @method = "Cumulative_MaxEpsilon"
         
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         def MaxEpsilon(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -705,6 +711,7 @@ package math {
         /** Cumulative standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
+        @method = "{{kind}}_StdDev"
         
         def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : () => .Float
             	 = .math.Sqrt(.math.Cumulative.Var(source))
@@ -738,6 +745,7 @@ package math {
         /** Moving average convergence/divergence signal
          */
         @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
+        @method = "macd_Signal"
         
         def Signal(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
                    /** long period */ slow : Optional[.Float] = 26.0,
@@ -749,6 +757,7 @@ package math {
         /** Moving average convergence/divergence histogram
          */
         @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
+        @method = "macd_Histogram"
         
         def Histogram(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
                       /** long period */ slow : Optional[.Float] = 26.0,
@@ -760,11 +769,13 @@ package math {
     
     @category = "Statistics"
     @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
+    @kind = "EW"
     
     package EW {
         /** Exponentially weighted moving average
          */
         @label = "Avg{{suffix}}"
+        @method = "{{kind}}_Avg"
         
         @python.intrinsic("moments.ewma.EWMA_Impl")
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -773,6 +784,7 @@ package math {
         /** Exponentially weighted moving variance
          */
         @label = "\\sigma^2{{suffix}}"
+        @method = "{{kind}}_Var"
         
         @python.intrinsic("moments.ewmv.EWMV_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -781,6 +793,7 @@ package math {
         /** Exponentially weighted moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
+        @method = "{{kind}}_StdDev"
         
         def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                    /** alpha parameter */ alpha : Optional[.Float] = 0.015) : () => .Float
@@ -789,6 +802,7 @@ package math {
         /** Exponentially weighted moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
+        @method = "{{kind}}_RelStdDev"
         
         def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                       /** alpha parameter */ alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
@@ -797,11 +811,13 @@ package math {
     
     @category = "Statistics"
     @suffix = "_{n=%(timeframe)s}(%(source)s)"
+    @kind = "Moving"
     
     package Moving {
         /** Running minimum of a function
          */
         @label = "Min_{n=%(timeframe)s}(%(source)s)"
+        @method = "Moving_Min"
         
         @python.intrinsic("observable.minmax.Min_Impl")
         def Min(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -810,6 +826,7 @@ package math {
         /** Simple moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
+        @method = "{{kind}}_RelStdDev"
         
         def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                       /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
@@ -818,6 +835,7 @@ package math {
         /** Simple moving variance
          */
         @label = "\\sigma^2{{suffix}}"
+        @method = "{{kind}}_Var"
         
         @python.intrinsic("moments.mv.MV_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -827,6 +845,7 @@ package math {
         /** Running maximum of a function
          */
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
+        @method = "Moving_Max"
         
         @python.intrinsic("observable.minmax.Max_Impl")
         def Max(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -835,6 +854,7 @@ package math {
         /** Simple moving average
          */
         @label = "Avg{{suffix}}"
+        @method = "{{kind}}_Avg"
         
         @python.intrinsic("moments.ma.MA_Impl")
         def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
@@ -843,6 +863,7 @@ package math {
         /** Simple moving standard deviation
          */
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
+        @method = "{{kind}}_StdDev"
         
         def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                    /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float

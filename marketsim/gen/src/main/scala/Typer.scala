@@ -27,6 +27,18 @@ package object Typer
         }
     }
 
+    def annotationsOf(definition : AST.Decorated) = definition.decorators collect toTypedAnnotation
+
+    def attributesOf(definition : AST.Decorated) = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
+
+    private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
+        case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
+    }
+
+    private val toTypedAttribute : PartialFunction[AST.Decorator, (String,String)] = {
+        case AST.Attribute(name, value) => (name, value)
+    }
+
     def run(source : NameTable.Scope) =
     {
         source.toTyped(Typed.topLevel)
@@ -458,18 +470,6 @@ package object Typer
             }
         }
 
-    }
-
-    def annotationsOf(definition : AST.Decorated) = definition.decorators collect toTypedAnnotation
-
-    def attributesOf(definition : AST.Decorated) = Typed.Attributes((definition.decorators collect toTypedAttribute).toMap)
-
-    private val toTypedAnnotation : PartialFunction[AST.Decorator, Typed.Annotation] = {
-        case a :  AST.Annotation => Typed.Annotation(Typed.Annotations.lookup(a.name.toString), a.parameters)
-    }
-
-    private val toTypedAttribute : PartialFunction[AST.Decorator, (String,String)] = {
-        case AST.Attribute(name, value) => (name, value)
     }
 
     case class TypeChecker(ctx : TypingExprCtx)
