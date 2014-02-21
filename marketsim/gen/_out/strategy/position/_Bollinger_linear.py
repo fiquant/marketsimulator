@@ -53,7 +53,7 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(Observablefloat):
         from marketsim.gen._out.math.EW._relstddev import RelStdDev_IObservableFloatFloat as _math_EW_RelStdDev_IObservableFloatFloat
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_observable_OnEveryDt_FloatFloat(1.0,_ops_Mul_IObservableFloatIObservableFloat(_math_EW_RelStdDev_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(_orderbook_OfTrader_IAccount(self.trader)),self.alpha),self.k)),self.trader)
+        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_observable_OnEveryDt_FloatFloat(_ops_Mul_IObservableFloatIObservableFloat(_math_EW_RelStdDev_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(_orderbook_OfTrader_IAccount(self.trader)),self.alpha),self.k),1.0),self.trader)
     
 def Bollinger_linear(alpha = None,k = None,trader = None): 
     from marketsim.gen._out._iobservable import IObservablefloat

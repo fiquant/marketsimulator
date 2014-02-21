@@ -12,14 +12,6 @@ Definitions:
 | | | | | - OnEveryDt
 | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - dt
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | | | -  time discretization step 
-| | | | | | - Parameter:
 | | | | | | | - x
 | | | | | | | - None
 | | | | | | | - Some:
@@ -32,6 +24,14 @@ Definitions:
 | | | | | | | | | | | - 1.0
 | | | | | | | - List:
 | | | | | | | | -  function to discretize 
+| | | | | | - Parameter:
+| | | | | | | - dt
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 1.0
+| | | | | | | - List:
+| | | | | | | | -  time discretization step 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

@@ -53,5 +53,5 @@ package strategy() {
     
     // defined at defs\strategies\sideprice.sc: 124.5
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Asks(),100+delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(0.9,orderbook.SafeSidePrice(orderbook.Bids(),100-delta)/math.Exp(math.Atan(trader.Position())/1000))),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
+                    volume = 20.0) = Combine(Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(orderbook.SafeSidePrice(orderbook.Asks(),100+delta)/math.Exp(math.Atan(trader.Position())/1000),0.9)),order.price.Limit(side.Sell(),volume*1000))),event.After(0.0)),Generic(order.Iceberg(volume,order.FloatingPrice(observable.BreaksAtChanges(observable.OnEveryDt(orderbook.SafeSidePrice(orderbook.Bids(),100-delta)/math.Exp(math.Atan(trader.Position())/1000),0.9)),order.price.Limit(side.Buy(),volume*1000))),event.After(0.0)))
 }

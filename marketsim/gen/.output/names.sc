@@ -382,7 +382,7 @@ package math
                    /** long period */ slow = 26.0,
                    /** short period */ fast = 12.0,
                    /** signal period */ timeframe = 9.0,
-                   /** discretization step */ step = 1.0) = .math.EW.Avg(.observable.OnEveryDt(step,.math.macd.MACD(x,slow,fast)),2/(timeframe+1))
+                   /** discretization step */ step = 1.0) = .math.EW.Avg(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1))
         
         /** Moving average convergence/divergence histogram
          */
@@ -1744,14 +1744,14 @@ package strategy
          */
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),
-                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)*k),trader)
+                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)*k,1.0),trader)
         
         /** Position function for Relative Strength Index strategy with linear scaling
          */
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe = 1.0,
-                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt(1.0,(50.0-.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha))*k),trader)
+                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt((50.0-.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha))*k,1.0),trader)
         
     }
     
@@ -1985,7 +1985,7 @@ package strategy
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.orderbook.SafeSidePrice(.orderbook.Asks(),100+delta)/.math.Exp(.math.Atan(.trader.Position())/1000))),.order.price.Limit(.side.Sell(),volume*1000))),.event.After(0.0)),.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(0.9,.orderbook.SafeSidePrice(.orderbook.Bids(),100-delta)/.math.Exp(.math.Atan(.trader.Position())/1000))),.order.price.Limit(.side.Buy(),volume*1000))),.event.After(0.0)))
+                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.orderbook.SafeSidePrice(.orderbook.Asks(),100+delta)/.math.Exp(.math.Atan(.trader.Position())/1000),0.9)),.order.price.Limit(.side.Sell(),volume*1000))),.event.After(0.0)),.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.orderbook.SafeSidePrice(.orderbook.Bids(),100-delta)/.math.Exp(.math.Atan(.trader.Position())/1000),0.9)),.order.price.Limit(.side.Buy(),volume*1000))),.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
@@ -2273,8 +2273,8 @@ package observable
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
-    def OnEveryDt(/** time discretization step */ dt = 1.0,
-                  /** function to discretize */ x = .constant(1.0)) : .IObservable[.Float]
+    def OnEveryDt(/** function to discretize */ x = .constant(1.0),
+                  /** time discretization step */ dt = 1.0) : .IObservable[.Float]
     
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
      *  and follows the price in scale 1 model unit of time = 1 real day

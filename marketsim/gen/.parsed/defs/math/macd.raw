@@ -150,8 +150,6 @@ Definitions:
 | | | | | | | | | | | - observable
 | | | | | | | | | | | - OnEveryDt
 | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - step
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
@@ -163,6 +161,8 @@ Definitions:
 | | | | | | | | | | | | | - slow
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - fast
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - step
 | | | | | | | | - BinOp:
 | | | | | | | | | - Div
 | | | | | | | | | - IntLit:

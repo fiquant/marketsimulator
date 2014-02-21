@@ -8,10 +8,6 @@ class Float(object):
         from marketsim.gen._out._constant import constant
         return constant(self)
     
-    def OnEveryDt(self, x = None):
-        from marketsim.gen._out.observable._oneverydt import OnEveryDt
-        return OnEveryDt(self,x)
-    
     def normalvariate(self, Sigma = None):
         from marketsim.gen._out.math.random._normalvariate import normalvariate
         return normalvariate(self,Sigma)

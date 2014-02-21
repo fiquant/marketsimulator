@@ -18,7 +18,7 @@ package math.macd() {
                /** long period */ slow = 26.0,
                /** short period */ fast = 12.0,
                /** signal period */ timeframe = 9.0,
-               /** discretization step */ step = 1.0) = EW.Avg(observable.OnEveryDt(step,MACD(x,slow,fast)),2/(timeframe+1))
+               /** discretization step */ step = 1.0) = EW.Avg(observable.OnEveryDt(MACD(x,slow,fast),step),2/(timeframe+1))
     
     // defined at defs\math\macd.sc: 27.5
     /** Moving average convergence/divergence histogram

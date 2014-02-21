@@ -14,7 +14,7 @@ class EWMA_Impl(fold.Last):
         """
         from marketsim.gen._out._ievent import IEvent
         if not isinstance(self.source, IEvent):
-            self.source = OnEveryDt(1, self.source)
+            self.source = OnEveryDt(self.source, 1)
 
         self._event = event.subscribe(self.source, _(self)._update, self)
 

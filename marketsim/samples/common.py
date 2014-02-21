@@ -34,7 +34,7 @@ def _print(*args):
 
 def makeTimeSerie(source, graph):
     if not isinstance(source, IEvent):
-        source = observable.OnEveryDt(1, source)
+        source = source.OnEveryDt(1)
     return TimeSerie(source, graph)
 
 
@@ -168,8 +168,8 @@ def orderBooksToRender(ctx, traders):
                 return [
                     assetPrice, 
                     avg, 
-                    observable.OnEveryDt(1, avg + stddev*2), 
-                    observable.OnEveryDt(1, avg - stddev*2)
+                    (avg + stddev*2).OnEveryDt(1),
+                    (avg - stddev*2).OnEveryDt(1)
                 ]
 
             ts = {
@@ -199,7 +199,7 @@ def orderBooksToRender(ctx, traders):
                     assetPrice.MACD(),
                     assetPrice.macd_Signal(),
                     assetPrice.macd_Histogram(),
-                    (observable.OnEveryDt(1, assetPrice.LogReturns() * 100), config.collectMoving)
+                    ((assetPrice.LogReturns() * 100).OnEveryDt(1), config.collectMoving)
                 ],
                 ctx.minmax_graph : [
                     assetPrice,
@@ -255,8 +255,7 @@ def orderBooksToRender(ctx, traders):
                                   5]:
                     ts.append(
                         TimeSerie(
-                            observable.OnEveryDt(1,
-                                thisBook.RSI(timeframe, 1./14)),
+                            thisBook.RSI(timeframe, 1./14).OnEveryDt(1),
                             b.rsi_graph))
 
         return books
@@ -317,7 +316,7 @@ def run(name, constructor, only_veusz):
             veusz.render(name, non_empty_graphs)
 
 def Constant(c, demo):
-    return [(observable.OnEveryDt(10, constant(c)), demo)]
+    return [(constant(c).OnEveryDt(10), demo)]
 
 class Interlacing(IFunction[float]):
 

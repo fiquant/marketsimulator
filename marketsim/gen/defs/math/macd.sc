@@ -22,7 +22,7 @@ package math.macd
                /** signal period */         timeframe = 9.0,
                /** discretization step */   step = 1.0)
 
-        = EW.Avg(observable.OnEveryDt(step, MACD(x, slow, fast)),  2/(timeframe+1))
+        = EW.Avg(observable.OnEveryDt(MACD(x, slow, fast), step),  2/(timeframe+1))
 
     /**
      *  Moving average convergence/divergence histogram

@@ -129,9 +129,9 @@ package strategy
                     volume,
                     order.FloatingPrice(
                         observable.BreaksAtChanges(
-                            observable.OnEveryDt(0.9,
+                            observable.OnEveryDt(
                                 orderbook.SafeSidePrice(orderbook.Asks(), 100 + delta) /
-                                    math.Exp(math.Atan(trader.Position()) / 1000)
+                                    math.Exp(math.Atan(trader.Position()) / 1000), 0.9
                             )
                         ),
                         order.price.Limit(side.Sell(), volume*1000))),
@@ -141,9 +141,9 @@ package strategy
                 volume,
                 order.FloatingPrice(
                     observable.BreaksAtChanges(
-                        observable.OnEveryDt(0.9,
+                        observable.OnEveryDt(
                             orderbook.SafeSidePrice(orderbook.Bids(), 100 - delta) /
-                                math.Exp(math.Atan(trader.Position()) / 1000)
+                                math.Exp(math.Atan(trader.Position()) / 1000), 0.9
                         )
                     ),
                     order.price.Limit(side.Buy(), volume*1000))),

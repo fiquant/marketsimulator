@@ -22,10 +22,10 @@ package strategy.position
                 trader  = trader.SingleProxy())
 
         = DesiredPosition(
-            observable.OnEveryDt(1.0,
+            observable.OnEveryDt(
                 math.EW.RelStdDev(
                     orderbook.MidPrice(orderbook.OfTrader(trader)),
-                    alpha)  * k
+                    alpha)  * k, 1.0
             ),
             trader)
 
@@ -43,8 +43,8 @@ package strategy.position
             trader = trader.SingleProxy())
 
         = DesiredPosition(
-            observable.OnEveryDt(1.0,
-                (50. - math.RSI(orderbook.OfTrader(trader), timeframe, alpha)) * k
+            observable.OnEveryDt(
+                (50. - math.RSI(orderbook.OfTrader(trader), timeframe, alpha)) * k, 1.0
             ),
             trader)
 }

@@ -20,7 +20,7 @@ def ChooseTheBest(ctx):
     
     demo = ctx.addGraph('demo')
     myVolume = lambda: [(trader.Position(), demo)]
-    myAverage = lambda alpha: [(observable.OnEveryDt(1, math.EW.Avg(orderbook.MidPrice(orderbook.OfTrader()), alpha)), demo)]
+    myAverage = lambda alpha: [(orderbook.OfTrader().MidPrice.EW_Avg(alpha).OnEveryDt(1), demo)]
     
     def cross(alpha1, alpha2):
         return strategy.CrossingAverages(

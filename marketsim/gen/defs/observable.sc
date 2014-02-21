@@ -7,10 +7,10 @@ package observable
     @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
-    def OnEveryDt( /** time discretization step */
-                   dt = 1.0,
-                   /** function to discretize */
-                   x = constant(1.)) : IObservable[Float]
+    def OnEveryDt( /** function to discretize */
+                   x = constant(1.),
+                   /** time discretization step */
+                   dt = 1.0) : IObservable[Float]
 
     /**
      *  Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*

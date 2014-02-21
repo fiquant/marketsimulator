@@ -8,7 +8,7 @@ class _Score_Impl(object):
     def __init__(self):
         self._efficiency = Efficiency(self.trader)
         event.subscribe(
-                OnEveryDt(1, self._efficiency),
+                OnEveryDt(self._efficiency, 1),
                  _(self)._update, self)
         self._score = 1
         self._last = 0

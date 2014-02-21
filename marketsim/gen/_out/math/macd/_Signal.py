@@ -47,7 +47,7 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
         from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD_IObservableFloatFloatFloat
-        return _math_EW_Avg_IObservableFloatFloat(_observable_OnEveryDt_FloatFloat(self.step,_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast)),(2/((self.timeframe+1))))
+        return _math_EW_Avg_IObservableFloatFloat(_observable_OnEveryDt_FloatFloat(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast),self.step),(2/((self.timeframe+1))))
     
 def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 
     from marketsim.gen._out._iobservable import IObservablefloat
