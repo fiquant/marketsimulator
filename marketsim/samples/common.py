@@ -108,9 +108,9 @@ class Context(object):
         def trader_ts():
             thisTrader = trader.SingleProxy()
             return [
-                TimeSerie(thisTrader.Position(),      self.amount_graph),
-                TimeSerie(thisTrader.Balance(),       self.balance_graph)
-            ] + ([TimeSerie(thisTrader.Efficiency(),    self.eff_graph)] if config.collectMoving else [])
+                TimeSerie(thisTrader.Position,      self.amount_graph),
+                TimeSerie(thisTrader.Balance,       self.balance_graph)
+            ] + ([TimeSerie(thisTrader.Efficiency,    self.eff_graph)] if config.collectMoving else [])
 
         t = trader.SingleAsset(book, strategy, name = label, timeseries = trader_ts())
                     
@@ -131,8 +131,8 @@ class Context(object):
     def makeMinorTrader(self, strategy, label):
         def trader_ts():
             thisTrader = trader.SingleProxy()
-            return [ TimeSerie(thisTrader.Efficiency(), self.minors_eff_graph),
-                     TimeSerie(thisTrader.Position(), self.minors_amount_graph) ]
+            return [ TimeSerie(thisTrader.Efficiency, self.minors_eff_graph),
+                     TimeSerie(thisTrader.Position, self.minors_amount_graph) ]
         
         return trader.SingleAsset(self.book_A, strategy, name = label, timeseries = trader_ts())
         
@@ -161,7 +161,7 @@ def orderBooksToRender(ctx, traders):
             from marketsim.gen._out.math._max import Max
 
             thisBook = orderbook.Proxy()
-            assetPrice = thisBook.MidPrice()
+            assetPrice = thisBook.MidPrice
             scaled = (assetPrice - 100) / 10
 
             def bollinger(avg, stddev):
@@ -175,14 +175,14 @@ def orderBooksToRender(ctx, traders):
             ts = {
                 ctx.price_graph : [
                     assetPrice,
-                    thisBook.Asks().BestPrice(),
-                    thisBook.Bids().BestPrice()
+                    thisBook.Asks.BestPrice,
+                    thisBook.Bids.BestPrice
                 ],
                 ctx.askbid_graph : [
-                    orderbook.ask.LastTradePrice(),
-                    orderbook.ask.WeightedPrice(),
-                    orderbook.bid.LastTradePrice(),
-                    orderbook.bid.WeightedPrice()
+                    thisBook.Asks.LastTradePrice,
+                    thisBook.Asks.WeightedPrice(),
+                    thisBook.Bids.LastTradePrice,
+                    thisBook.Bids.WeightedPrice()
                 ],
                 ctx.avgs_graph : [
                     math.Cumulative.Avg(assetPrice),
@@ -231,20 +231,16 @@ def orderBooksToRender(ctx, traders):
             ts = orderbook_ts()
             b.volumes_graph = ctx.addGraph("Volume levels " + b.label)
             ts.append(volumeLevels(
-                           orderbook.VolumeLevels(orderbook.Queue(thisBook, side.Sell()),
-                                                   30,
-                                                   10),
-                           b.volumes_graph))
+                            thisBook.Queue(side.Sell()).VolumeLevels(30, 10),
+                            b.volumes_graph))
             ts.append(volumeLevels(
-                           orderbook.VolumeLevels(orderbook.Queue(thisBook, side.Buy()),
-                                                   30,
-                                                   10),
+                           thisBook.Queue(side.Buy()).VolumeLevels(30, 10),
                            b.volumes_graph))
             b.timeseries = ts
 
             if config.collectRSI:
                 b.rsi_graph = ctx.addGraph("RSI " + b.label)
-                ts.append(TimeSerie(orderbook.MidPrice(thisBook), b.rsi_graph))
+                ts.append(TimeSerie(thisBook.MidPrice, b.rsi_graph))
                 for timeframe in [#0.,
                                   #0.001,
                                   #0.01,

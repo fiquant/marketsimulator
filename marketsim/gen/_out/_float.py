@@ -7,6 +7,7 @@ class Float(object):
         from marketsim.gen._out.math.random._gammavariate import gammavariate
         return gammavariate(self,Beta)
     
+    @property
     def constant(self):
         from marketsim.gen._out._constant import constant
         return constant(self)
@@ -27,6 +28,7 @@ class Float(object):
         from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
         return CrossingAverages(self,alpha_2,threshold,book)
     
+    @property
     def paretovariate(self):
         from marketsim.gen._out.math.random._paretovariate import paretovariate
         return paretovariate(self)
@@ -39,6 +41,7 @@ class Float(object):
         from marketsim.gen._out.strategy.lp._oneside import OneSide
         return OneSide(self,priceDistr,eventGen,orderFactory,side)
     
+    @property
     def trader_TraderEfficiencyTrend(self):
         from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend
         return trader_TraderEfficiencyTrend(self)
@@ -59,6 +62,7 @@ class Float(object):
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
         return MeanReversion(self,book)
     
+    @property
     def const(self):
         from marketsim.gen._out._const import const
         return const(self)
@@ -71,6 +75,7 @@ class Float(object):
         from marketsim.gen._out.math._randomwalk import RandomWalk
         return RandomWalk(self,deltaDistr,intervalDistr,name)
     
+    @property
     def expovariate(self):
         from marketsim.gen._out.math.random._expovariate import expovariate
         return expovariate(self)
@@ -83,6 +88,7 @@ class Float(object):
         from marketsim.gen._out.math.random._betavariate import betavariate
         return betavariate(self,Beta)
     
+    @property
     def f_AtanPow(self):
         from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow
         return f_AtanPow(self)

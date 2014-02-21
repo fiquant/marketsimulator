@@ -1,4 +1,5 @@
 class IOrderBook(object):
+    @property
     def TickSize(self):
         from marketsim.gen._out.orderbook._ticksize import TickSize
         return TickSize(self)
@@ -7,14 +8,17 @@ class IOrderBook(object):
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading
         return PairTrading(self,factor,book)
     
+    @property
     def MidPrice(self):
         from marketsim.gen._out.orderbook._midprice import MidPrice
         return MidPrice(self)
     
+    @property
     def Asks(self):
         from marketsim.gen._out.orderbook._asks import Asks
         return Asks(self)
     
+    @property
     def Bids(self):
         from marketsim.gen._out.orderbook._bids import Bids
         return Bids(self)
@@ -39,6 +43,7 @@ class IOrderBook(object):
         from marketsim.gen._out.orderbook._naivecumulativeprice import NaiveCumulativePrice
         return NaiveCumulativePrice(self,depth)
     
+    @property
     def Spread(self):
         from marketsim.gen._out.orderbook._spread import Spread
         return Spread(self)

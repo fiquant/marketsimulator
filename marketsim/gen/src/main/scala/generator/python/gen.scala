@@ -160,15 +160,19 @@ package object gen
                                             if (methods.isEmpty)
                                                 toLazy("pass")
                                             else {
-                                                (methods map { case (name, fs) =>
+                                                (methods map { case (method_name, fs) =>
                                                     val args = fs.head.parameters.tail
-                                                    val in_args = Code.from(args map { _.name ||| " = None" }, ",")
-                                                    val pass_args = Code.from(args map { "," ||| _.name }, "")
-                                                    base.Def(name,
-                                                        in_args,
-                                                        "return " ||| name |||
-                                                                ImportFrom(name, Printer.moduleName(fs.head)) |||
-                                                                "(self" ||| pass_args ||| ")")
+                                                    val target = method_name ||| ImportFrom(method_name, Printer.moduleName(fs.head))
+                                                    if (args.isEmpty) {
+                                                        base.Prop(method_name, "return " ||| target ||| "(self)")
+                                                    } else {
+                                                        val in_args = Code.from(args map { _.name ||| " = None" }, ",")
+                                                        val pass_args = Code.from(args map { "," ||| _.name }, "")
+                                                        base.Def(method_name,
+                                                            in_args,
+                                                            "return " ||| target |||
+                                                                    "(self" ||| pass_args ||| ")")
+                                                    }
                                                 } reduce { _ | _ }) | "pass"
                                             }
 

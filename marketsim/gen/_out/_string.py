@@ -1,8 +1,10 @@
 class String(object):
+    @property
     def S1(self):
         from marketsim.gen._out._test.in1.in2._s1 import S1
         return S1(self)
     
+    @property
     def Graph(self):
         from marketsim.gen._out.veusz._graph import Graph
         return Graph(self)

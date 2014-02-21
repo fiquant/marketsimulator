@@ -3,6 +3,7 @@ class ISingleAssetStrategy(object):
         from marketsim.gen._out.strategy._combine import Combine
         return Combine(self,B)
     
+    @property
     def Real(self):
         from marketsim.gen._out.strategy.account._real import Real
         return Real(self)
@@ -15,6 +16,7 @@ class ISingleAssetStrategy(object):
         from marketsim.gen._out.strategy._tradeifprofitable import TradeIfProfitable
         return TradeIfProfitable(self,account,performance)
     
+    @property
     def VirtualMarket(self):
         from marketsim.gen._out.strategy.account._virtualmarket import VirtualMarket
         return VirtualMarket(self)

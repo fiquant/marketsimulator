@@ -64,7 +64,7 @@ package object base {
 
     def Prop(name : String, body : Code) =
         "@property" |
-        s"def $name(self):" |> body | ""
+        s"def $name(self):" |> withImports(body) | ""
 
 
     abstract class Printer extends Class {
