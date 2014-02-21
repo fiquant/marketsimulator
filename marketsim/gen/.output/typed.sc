@@ -2118,14 +2118,14 @@ package strategy {@category = "Side function"
             /** Returns first derivative of a moving average of the trader efficiency
              */
             
-            @python.curried("EfficiencyTrend")
-            def trader_EfficiencyTrend(/** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IAccount => (() => .Float)
+            @python.curried("TraderEfficiencyTrend")
+            def trader_TraderEfficiencyTrend(/** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : .IAccount => (() => .Float)
             
             /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
              */
             
-            @python.curried("Efficiency")
-            def trader_Efficiency() : .IAccount => (() => .Float)
+            @python.curried("TraderEfficiency")
+            def trader_TraderEfficiency() : .IAccount => (() => .Float)
             
             /** Calculates how many times efficiency of trader went up and went down
              * Returns difference between them.
@@ -2164,7 +2164,7 @@ package strategy {@category = "Side function"
             def f_IdentityF() : Optional[() => .Float] => (() => .Float)
         }
         
-        def efficiency = .strategy.weight.trader.trader_Efficiency
+        def efficiency = .strategy.weight.trader.trader_TraderEfficiency
         
         /** Function returning an array of length *len(array)*
          *  having 1 at the index of the maximal element and 0 are at the rest
@@ -2180,14 +2180,7 @@ package strategy {@category = "Side function"
         
         def identityL = .strategy.weight.array.array_IdentityL
         
-        /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
-         */
-        
-        @curried("trader")
-        def Efficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : () => .Float
-            	 = .trader.Efficiency(trader)
-        
-        def efficiencyTrend = .strategy.weight.trader.trader_EfficiencyTrend
+        def efficiencyTrend = .strategy.weight.trader.trader_TraderEfficiencyTrend
         
         def clamp0 = .strategy.weight.f.f_Clamp0
         
@@ -2210,17 +2203,16 @@ package strategy {@category = "Side function"
         
         def identityF = .strategy.weight.f.f_IdentityF
         
-        /** Returns first derivative of a moving average of the trader efficiency
-         */
-        
-        @curried("trader")
-        def EfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
-                            /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : () => .Float
-            	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
-        
         def atanPow = .strategy.weight.f.f_AtanPow
         
         def unit = .strategy.weight.trader.trader_Unit
+        
+        /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+         */
+        
+        @curried("trader")
+        def TraderEfficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : () => .Float
+            	 = .trader.Efficiency(trader)
         
         /** Unit function. Used to simulate uniform random choice of a strategy
          */
@@ -2250,6 +2242,14 @@ package strategy {@category = "Side function"
         @curried("f")
         def IdentityF(f : Optional[() => .Float] = .constant(1.0)) : () => .Float
             	 = f
+        
+        /** Returns first derivative of a moving average of the trader efficiency
+         */
+        
+        @curried("trader")
+        def TraderEfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
+                                  /** parameter alpha for the moving average */ alpha : Optional[.Float] = 0.15) : () => .Float
+            	 = .trader.EfficiencyTrend(trader,alpha)
     }
     
     
@@ -2402,7 +2402,7 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()],
                       /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
-                      /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
+                      /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
     
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
@@ -2517,7 +2517,7 @@ package strategy {@category = "Side function"
     def TradeIfProfitable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_EfficiencyTrend()) : .ISingleAssetStrategy
+                          /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
         	 = .strategy.Suspendable(inner,.ops.GreaterEqual(performance(account(inner)),.constant(0)))
     
     /** Creates a strategy combining an array of strategies
@@ -2554,7 +2554,7 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()],
                          /** function creating a virtual account used for estimate efficiency of the strategy itself */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
-                         /** function estimating is the strategy efficient or not */ weight : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_EfficiencyTrend(),
+                         /** function estimating is the strategy efficient or not */ weight : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend(),
                          /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer : Optional[Optional[() => .Float] => (() => .Float)] = .strategy.weight.f.f_AtanPow(),
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => (() => List[.Float])] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy

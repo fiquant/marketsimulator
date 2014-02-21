@@ -170,13 +170,13 @@ Definitions:
 | | | | | - QualifiedName:
 | | | | | | - List:
 | | | | | | | - trader
-| | | | | | | - trader_Efficiency
+| | | | | | | - trader_TraderEfficiency
 | | | | - FunAlias:
 | | | | | - efficiencyTrend
 | | | | | - QualifiedName:
 | | | | | | - List:
 | | | | | | | - trader
-| | | | | | | - trader_EfficiencyTrend
+| | | | | | | - trader_TraderEfficiencyTrend
 | | | | - FunAlias:
 | | | | | - chooseTheBest
 | | | | | - QualifiedName:
@@ -494,7 +494,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - trader
 | | | | - FunDef:
-| | | | | - Efficiency
+| | | | | - TraderEfficiency
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - trader
@@ -545,7 +545,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - trader
 | | | | - FunDef:
-| | | | | - EfficiencyTrend
+| | | | | - TraderEfficiencyTrend
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - trader
@@ -576,26 +576,13 @@ Definitions:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - math
-| | | | | | | | | - Derivative
+| | | | | | | | | - trader
+| | | | | | | | | - EfficiencyTrend
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - Efficiency
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - alpha
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | | | | - Var:
+| | | | | | | | | - alpha
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:

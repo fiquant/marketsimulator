@@ -39,6 +39,10 @@ class Float(object):
         from marketsim.gen._out.strategy.lp._oneside import OneSide
         return OneSide(self,priceDistr,eventGen,orderFactory,side)
     
+    def trader_TraderEfficiencyTrend(self):
+        from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend
+        return trader_TraderEfficiencyTrend(self)
+    
     def triangular(self, High = None,Mode = None):
         from marketsim.gen._out.math.random._triangular import triangular
         return triangular(self,High,Mode)
@@ -50,10 +54,6 @@ class Float(object):
     def uniform(self, High = None):
         from marketsim.gen._out.math.random._uniform import uniform
         return uniform(self,High)
-    
-    def trader_EfficiencyTrend(self):
-        from marketsim.gen._out.strategy.weight.trader._trader_efficiencytrend import trader_EfficiencyTrend
-        return trader_EfficiencyTrend(self)
     
     def MeanReversion(self, book = None):
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion

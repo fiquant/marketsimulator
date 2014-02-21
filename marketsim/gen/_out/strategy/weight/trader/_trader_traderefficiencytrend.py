@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
-@registry.expose(["Strategy", "trader_EfficiencyTrend"])
-class trader_EfficiencyTrend_Float(IFunctionIFunctionfloatIAccount):
+@registry.expose(["Strategy", "trader_TraderEfficiencyTrend"])
+class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloatIAccount):
     """ 
     """ 
     def __init__(self, alpha = None):
@@ -17,17 +17,17 @@ class trader_EfficiencyTrend_Float(IFunctionIFunctionfloatIAccount):
         'alpha' : float
     }
     def __repr__(self):
-        return "trader_EfficiencyTrend(%(alpha)s)" % self.__dict__
+        return "trader_TraderEfficiencyTrend(%(alpha)s)" % self.__dict__
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim.gen._out.strategy.weight._efficiencytrend import EfficiencyTrend_IAccountFloat as _strategy_weight_EfficiencyTrend_IAccountFloat
+        from marketsim.gen._out.strategy.weight._traderefficiencytrend import TraderEfficiencyTrend_IAccountFloat as _strategy_weight_TraderEfficiencyTrend_IAccountFloat
         trader = trader if trader is not None else _trader_SingleProxy_()
         alpha = self.alpha
-        return _strategy_weight_EfficiencyTrend_IAccountFloat(trader,alpha)
+        return _strategy_weight_TraderEfficiencyTrend_IAccountFloat(trader,alpha)
     
-def trader_EfficiencyTrend(alpha = None): 
+def trader_TraderEfficiencyTrend(alpha = None): 
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):
-        return trader_EfficiencyTrend_Float(alpha)
-    raise Exception('Cannot find suitable overload for trader_EfficiencyTrend('+str(alpha) +':'+ str(type(alpha))+')')
+        return trader_TraderEfficiencyTrend_Float(alpha)
+    raise Exception('Cannot find suitable overload for trader_TraderEfficiencyTrend('+str(alpha) +':'+ str(type(alpha))+')')

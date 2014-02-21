@@ -108,9 +108,9 @@ class Context(object):
         def trader_ts():
             thisTrader = trader.SingleProxy()
             return [
-                TimeSerie(trader.Position(thisTrader),      self.amount_graph),
-                TimeSerie(trader.Balance(thisTrader),       self.balance_graph)
-            ] + ([TimeSerie(trader.Efficiency(thisTrader),    self.eff_graph)] if config.collectMoving else [])
+                TimeSerie(thisTrader.Position(),      self.amount_graph),
+                TimeSerie(thisTrader.Balance(),       self.balance_graph)
+            ] + ([TimeSerie(thisTrader.Efficiency(),    self.eff_graph)] if config.collectMoving else [])
 
         t = trader.SingleAsset(book, strategy, name = label, timeseries = trader_ts())
                     
@@ -131,8 +131,8 @@ class Context(object):
     def makeMinorTrader(self, strategy, label):
         def trader_ts():
             thisTrader = trader.SingleProxy()
-            return [ TimeSerie(trader.Efficiency(thisTrader), self.minors_eff_graph),
-                     TimeSerie(trader.Position(thisTrader), self.minors_amount_graph) ]
+            return [ TimeSerie(thisTrader.Efficiency(), self.minors_eff_graph),
+                     TimeSerie(thisTrader.Position(), self.minors_amount_graph) ]
         
         return trader.SingleAsset(self.book_A, strategy, name = label, timeseries = trader_ts())
         
@@ -161,7 +161,7 @@ def orderBooksToRender(ctx, traders):
             from marketsim.gen._out.math._max import Max
 
             thisBook = orderbook.Proxy()
-            assetPrice = orderbook.MidPrice(thisBook)
+            assetPrice = thisBook.MidPrice()
             scaled = (assetPrice - 100) / 10
 
             def bollinger(avg, stddev):
@@ -175,8 +175,8 @@ def orderBooksToRender(ctx, traders):
             ts = {
                 ctx.price_graph : [
                     assetPrice,
-                    orderbook.ask.Price(),
-                    orderbook.bid.Price(),
+                    thisBook.Asks().BestPrice(),
+                    thisBook.Bids().BestPrice()
                 ],
                 ctx.askbid_graph : [
                     orderbook.ask.LastTradePrice(),

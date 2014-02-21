@@ -34,9 +34,9 @@ package strategy.weight() {
     
     def unit = trader.trader_Unit
     
-    def efficiency = trader.trader_Efficiency
+    def efficiency = trader.trader_TraderEfficiency
     
-    def efficiencyTrend = trader.trader_EfficiencyTrend
+    def efficiencyTrend = trader.trader_TraderEfficiencyTrend
     
     def chooseTheBest = array.array_ChooseTheBest
     
@@ -81,23 +81,23 @@ package strategy.weight() {
     /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     @curried("trader")
-    def Efficiency(/** account in question */ trader : IAccount = trader.SingleProxy()) : IFunction[Float] = trader.Efficiency(trader)
+    def TraderEfficiency(/** account in question */ trader : IAccount = trader.SingleProxy()) : IFunction[Float] = trader.Efficiency(trader)
     
     // defined at defs\strategies\efficiency.sc: 108.5
     /** Returns first derivative of a moving average of the trader efficiency
      */
     @curried("trader")
-    def EfficiencyTrend(/** account in question */ trader : IAccount = trader.SingleProxy(),
-                        /** parameter alpha for the moving average */ alpha = 0.15) : IFunction[Float] = math.Derivative(math.EW.Avg(trader.Efficiency(trader),alpha))
+    def TraderEfficiencyTrend(/** account in question */ trader : IAccount = trader.SingleProxy(),
+                              /** parameter alpha for the moving average */ alpha = 0.15) : IFunction[Float] = trader.EfficiencyTrend(trader,alpha)
     
-    // defined at defs\strategies\efficiency.sc: 122.5
+    // defined at defs\strategies\efficiency.sc: 120.5
     /** Identity function for an array of floats
      */
     @python.intrinsic("strategy.weight._Identity_Impl")
     @curried("array")
     def IdentityL(array : Optional[List[Float]] = []) : IFunction[List[Float]]
     
-    // defined at defs\strategies\efficiency.sc: 129.5
+    // defined at defs\strategies\efficiency.sc: 127.5
     /** Function returning an array of length *len(array)*
      *  having 1 at the index of the maximal element and 0 are at the rest
      */

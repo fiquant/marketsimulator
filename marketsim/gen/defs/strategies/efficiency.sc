@@ -41,9 +41,9 @@ package strategy.weight
     // trader => Unit(score)
     def unit = trader.trader_Unit
     // trader => Efficiency(trader)
-    def efficiency = trader.trader_Efficiency
+    def efficiency = trader.trader_TraderEfficiency
     // trader => EfficiencyTrend(trader)
-    def efficiencyTrend = trader.trader_EfficiencyTrend
+    def efficiencyTrend = trader.trader_TraderEfficiencyTrend
 
     // array => ChooseTheBest(array)
     def chooseTheBest = array.array_ChooseTheBest
@@ -100,7 +100,7 @@ package strategy.weight
      *  Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     @curried("trader")
-    def Efficiency( /** account in question */
+    def TraderEfficiency( /** account in question */
                     trader : IAccount = trader.SingleProxy()) : IFunction[Float]
 
         = trader.Efficiency(trader)
@@ -109,15 +109,13 @@ package strategy.weight
      *  Returns first derivative of a moving average of the trader efficiency
      */
     @curried("trader")
-    def EfficiencyTrend(
+    def TraderEfficiencyTrend(
             /** account in question */
             trader : IAccount = trader.SingleProxy(),
             /** parameter alpha for the moving average */
             alpha = 0.15) : IFunction[Float]
 
-        = math.Derivative(
-                math.EW.Avg(trader.Efficiency(trader),
-                            alpha))
+        = trader.EfficiencyTrend(trader, alpha)
 
     /**
      *   Identity function for an array of floats

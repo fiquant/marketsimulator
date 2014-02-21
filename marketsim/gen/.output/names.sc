@@ -1555,11 +1555,6 @@ package strategy
         
         package trader
         {
-            /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
-             */
-            @python.curried("Efficiency")
-            def trader_Efficiency() : .IAccount => .IFunction[.Float]
-            
             /** Calculates how many times efficiency of trader went up and went down
              * Returns difference between them.
              *
@@ -1568,15 +1563,20 @@ package strategy
             @python.curried("Score")
             def trader_Score() : .IAccount => .IFunction[.Float]
             
-            /** Returns first derivative of a moving average of the trader efficiency
+            /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
              */
-            @python.curried("EfficiencyTrend")
-            def trader_EfficiencyTrend(/** parameter alpha for the moving average */ alpha = 0.15) : .IAccount => .IFunction[.Float]
+            @python.curried("TraderEfficiency")
+            def trader_TraderEfficiency() : .IAccount => .IFunction[.Float]
             
             /** Unit function. Used to simulate uniform random choice of a strategy
              */
             @python.curried("Unit")
             def trader_Unit() : .IAccount => .IFunction[.Float]
+            
+            /** Returns first derivative of a moving average of the trader efficiency
+             */
+            @python.curried("TraderEfficiencyTrend")
+            def trader_TraderEfficiencyTrend(/** parameter alpha for the moving average */ alpha = 0.15) : .IAccount => .IFunction[.Float]
             
         }
         
@@ -1599,7 +1599,7 @@ package strategy
             
         }
         
-        def efficiency = .strategy.weight.trader.trader_Efficiency
+        def efficiency = .strategy.weight.trader.trader_TraderEfficiency
         
         /** Function returning an array of length *len(array)*
          *  having 1 at the index of the maximal element and 0 are at the rest
@@ -1614,12 +1614,7 @@ package strategy
         
         def identityL = .strategy.weight.array.array_IdentityL
         
-        /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
-         */
-        @curried("trader")
-        def Efficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float] = .trader.Efficiency(trader)
-        
-        def efficiencyTrend = .strategy.weight.trader.trader_EfficiencyTrend
+        def efficiencyTrend = .strategy.weight.trader.trader_TraderEfficiencyTrend
         
         def clamp0 = .strategy.weight.f.f_Clamp0
         
@@ -1639,15 +1634,14 @@ package strategy
         
         def identityF = .strategy.weight.f.f_IdentityF
         
-        /** Returns first derivative of a moving average of the trader efficiency
-         */
-        @curried("trader")
-        def EfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
-                            /** parameter alpha for the moving average */ alpha = 0.15) : .IFunction[.Float] = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
-        
         def atanPow = .strategy.weight.f.f_AtanPow
         
         def unit = .strategy.weight.trader.trader_Unit
+        
+        /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+         */
+        @curried("trader")
+        def TraderEfficiency(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float] = .trader.Efficiency(trader)
         
         /** Unit function. Used to simulate uniform random choice of a strategy
          */
@@ -1670,6 +1664,12 @@ package strategy
          */
         @curried("f")
         def IdentityF(f : .Optional[.IFunction[.Float]] = .constant(1.0)) : .IFunction[.Float] = f
+        
+        /** Returns first derivative of a moving average of the trader efficiency
+         */
+        @curried("trader")
+        def TraderEfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
+                                  /** parameter alpha for the moving average */ alpha = 0.15) : .IFunction[.Float] = .trader.EfficiencyTrend(trader,alpha)
         
     }
     

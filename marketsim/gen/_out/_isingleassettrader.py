@@ -5,16 +5,16 @@ class ISingleAssetTrader(IAccount,ITrader):
         from marketsim.gen._out.strategy.weight._unit import Unit
         return Unit(self)
     
+    def TraderEfficiency(self):
+        from marketsim.gen._out.strategy.weight._traderefficiency import TraderEfficiency
+        return TraderEfficiency(self)
+    
     def Score(self):
         from marketsim.gen._out.strategy.weight._score import Score
         return Score(self)
     
-    def EfficiencyTrend(self, alpha = None):
-        from marketsim.gen._out.strategy.weight._efficiencytrend import EfficiencyTrend
-        return EfficiencyTrend(self,alpha)
-    
-    def Efficiency(self):
-        from marketsim.gen._out.strategy.weight._efficiency import Efficiency
-        return Efficiency(self)
+    def TraderEfficiencyTrend(self, alpha = None):
+        from marketsim.gen._out.strategy.weight._traderefficiencytrend import TraderEfficiencyTrend
+        return TraderEfficiencyTrend(self,alpha)
     
     pass
