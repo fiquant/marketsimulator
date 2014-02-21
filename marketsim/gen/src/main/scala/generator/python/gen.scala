@@ -132,6 +132,30 @@ package object gen
         def importsWithout(code: => predef.Code, exclude : Importable => Boolean) : Code =
             new WithoutImports((code.imports.toSet[Importable] filterNot exclude map { _.repr + crlf } mkString "") + code)
 
+        def getMethods(t : TypesBound.Base) =
+        {
+            val methods = Typed.topLevel getMethods t
+
+            if (methods.isEmpty)
+                toLazy("pass")
+            else {
+                (methods map { case (method_name, fs) =>
+                    val args = fs.head.parameters.tail
+                    val target = method_name ||| ImportFrom(method_name, Printer.moduleName(fs.head))
+                    if (args.isEmpty) {
+                        base.Prop(method_name, "return " ||| target ||| "(self)")
+                    } else {
+                        val in_args = Code.from(args map { _.name ||| " = None" }, ",")
+                        val pass_args = Code.from(args map { "," ||| _.name }, "")
+                        base.Def(method_name,
+                            in_args,
+                            "return " ||| target |||
+                                    "(self" ||| pass_args ||| ")")
+                    }
+                } reduce { _ | _ }) | "pass"
+            }
+        }
+
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
             if (p.types.nonEmpty)
@@ -154,29 +178,7 @@ package object gen
 
                                     val body =
                                         if (interface.instances.size == 1)
-                                        {
-                                            val methods = Typed.topLevel getMethods interface.instances.head
-
-                                            if (methods.isEmpty)
-                                                toLazy("pass")
-                                            else {
-                                                (methods map { case (method_name, fs) =>
-                                                    val args = fs.head.parameters.tail
-                                                    val target = method_name ||| ImportFrom(method_name, Printer.moduleName(fs.head))
-                                                    if (args.isEmpty) {
-                                                        base.Prop(method_name, "return " ||| target ||| "(self)")
-                                                    } else {
-                                                        val in_args = Code.from(args map { _.name ||| " = None" }, ",")
-                                                        val pass_args = Code.from(args map { "," ||| _.name }, "")
-                                                        base.Def(method_name,
-                                                            in_args,
-                                                            "return " ||| target |||
-                                                                    "(self" ||| pass_args ||| ")")
-                                                    }
-                                                } reduce { _ | _ }) | "pass"
-                                            }
-
-                                        }
+                                            getMethods(interface.instances.head)
                                         else
                                             toLazy("pass")
 
@@ -194,7 +196,7 @@ package object gen
 
                                         fs.toList sortBy { _.toString.length } foreach { f =>
 
-                                            val rt = f.genericArgs(0).aliasesRemoved
+                                            val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
                                             val s =
                                                 s"class $name(IEvent, "||| TypesBound.Function(Nil, rt).asCode |||"):" |>
@@ -212,7 +214,7 @@ package object gen
 
                                         fs.toList sortBy { _.toString.length } foreach { f =>
 
-                                            val rt = f.genericArgs(0).aliasesRemoved
+                                            val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
                                             val s =
                                                 s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
@@ -251,7 +253,7 @@ package object gen
 
                                             val name = f.asCode
 
-                                            val args = TypesBound.Tuple(f.args).aliasesRemoved.asCode
+                                            val args = TypesBound.Tuple(f.args).asCode
 
                                             val b =
                                                 if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_))
@@ -262,8 +264,8 @@ package object gen
 
                                             val s =
                                                 s"class $name("||| b |||"):" |>
-                                                        "_types = [meta.function("||| args ||| "," ||| f.ret.aliasesRemoved.asCode |||")]" | nl |
-                                                "IFunction[" ||| f.ret.aliasesRemoved.asCode |||
+                                                        "_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | nl |
+                                                "IFunction[" ||| f.ret.asCode |||
                                                         (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
 
                                             def isMine(p : Importable) = p match {

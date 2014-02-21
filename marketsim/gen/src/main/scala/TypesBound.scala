@@ -24,8 +24,6 @@ package object TypesBound
 
         def returnTypeIfFunction : Option[Base] = None
         def paramTypesIfFunction : Option[List[Base]] = None
-
-        def aliasesRemoved = this
     }
 
     case object Unit
@@ -55,8 +53,6 @@ package object TypesBound
             case Optional(y) => x canCastTo y
             case _           => false
         }
-
-        override def aliasesRemoved = Optional(x.aliasesRemoved)
     }
 
     def unOptionalize(t : Base) : Base =  t match {
@@ -75,16 +71,11 @@ package object TypesBound
                 case _ => false
             }
         }
-
-        override def aliasesRemoved = List_(x.aliasesRemoved)
     }
     case class Tuple(elems : List[Base])
             extends Base
             with    sc.Tuple
             with    py.Tuple
-    {
-        override def aliasesRemoved = Tuple(elems map { _.aliasesRemoved })
-    }
 
     case class Function(args : List[Base], ret : Base)
             extends Base
@@ -99,15 +90,6 @@ package object TypesBound
                     (f betterThan this) && (ret canCastTo f.ret)
                 case _ => false
             }
-        }
-
-        override def aliasesRemoved = {
-            val new_args = args map { _.aliasesRemoved}
-            val new_ret = ret.aliasesRemoved
-            if (new_args == args && ret == new_ret)
-                this
-            else
-                Function(new_args, new_ret)
         }
 
         def betterThan(other : Function) =
@@ -181,14 +163,6 @@ package object TypesBound
 
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
 
-        override def aliasesRemoved = {
-            val args = genericArgs map { _.aliasesRemoved }
-            if (args == genericArgs)
-                this
-            else
-                copy(genericArgs = args)
-        }
-
         override def canCastToImpl(other : Base) =  (bases exists { _ canCastTo other }) ||
                 (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})
 
@@ -229,8 +203,6 @@ package object TypesBound
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base]) extends UserDefined
     {
         val target = decl.target bind TypeMapper(decl, genericArgs)
-
-        override def aliasesRemoved = target.aliasesRemoved
 
         override def canCastToImpl(other : Base) =  (target canCastTo other) ||
                     (directCasts(genericArgs) map { g => copy(genericArgs = g) } exists { _ canCastTo other})

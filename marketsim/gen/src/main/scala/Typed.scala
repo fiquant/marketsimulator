@@ -256,7 +256,7 @@ package object Typed
         var instances = Set.empty[TypesBound.Base]
 
         def addInstance(x : TypesBound.Base) {
-            instances = instances + x.aliasesRemoved
+            instances = instances + x
         }
 
     }
@@ -282,7 +282,7 @@ package object Typed
         var instances = Set.empty[TypesBound.Interface]
 
         def addInstance(x : TypesBound.Interface) {
-            instances = instances + x.aliasesRemoved
+            instances = instances + x
         }
     }
 
