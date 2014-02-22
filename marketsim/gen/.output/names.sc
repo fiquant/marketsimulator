@@ -422,7 +422,7 @@ package math
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
         @method = "{{kind}}_StdDev"
         def StdDev(/** observable data source */ source = .const(1.0),
-                   /** alpha parameter */ alpha = 0.015) = .math.Sqrt(source~>Var(alpha))
+                   /** alpha parameter */ alpha = 0.015) = source~>Var(alpha)~>Sqrt
         
         /** Exponentially weighted moving relative standard deviation
          */

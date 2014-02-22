@@ -80,8 +80,11 @@ abstract class Parser() extends JavaTokenParsers with PackratParsers
         case name ~ list => FunCall(AST.QualifiedName(name :: Nil), list)
     } withFailureMessage "funcall expected"
 
-    lazy val with_member_access = term2 ~ ("~>" ~> ident) ~ opt("(" ~> repsep(expr, ",") <~ ")") ^^ {
-        case base ~ field ~ params => MemberAccess(base, field, params getOrElse Nil)
+    lazy val with_member_access = term2 ~ rep1(("~>" ~> ident) ~ opt("(" ~> repsep(expr, ",") <~ ")")) ^^ {
+        case base ~ applications =>
+            applications.foldLeft(base){
+                case (acc, (name ~ params)) => AST.MemberAccess(acc, name, params getOrElse Nil)
+            }
     }
 
     lazy val term2 : Parser[Expr] = (

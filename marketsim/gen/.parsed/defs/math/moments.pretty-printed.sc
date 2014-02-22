@@ -29,7 +29,7 @@ package math() {@category = "Statistics"
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             @method = "{{kind}}_StdDev"
             def StdDev(/** observable data source */ source = const(1.0),
-                       /** alpha parameter */ alpha = 0.015) = Sqrt(source~>Var(alpha))
+                       /** alpha parameter */ alpha = 0.015) = source~>Var(alpha)~>Sqrt
             
             // defined at defs\math\moments.sc: 35.13
             /** Exponentially weighted moving relative standard deviation
