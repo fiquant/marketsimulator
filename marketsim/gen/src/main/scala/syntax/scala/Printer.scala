@@ -324,6 +324,11 @@ package object Printer
             protected def toScala = name + (args mkString ("(", ",", ")"))
         }
 
+        trait MemberAccess extends Expr with Priority_0 {
+            self: AST.MemberAccess =>
+            protected def toScala = base + "~>" + name + (if (args.isEmpty) "" else args mkString("(", ",", ")"))
+        }
+
         type BinOp = base.BinOp[AST.Expr]
         type Neg = base.Neg[AST.Expr]
         type IfThenElse = base.IfThenElse[AST.Expr, AST.Expr]

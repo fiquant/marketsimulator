@@ -73,21 +73,26 @@ abstract class Parser() extends JavaTokenParsers with PackratParsers
 
     lazy val term =
             (funcall2
+         |  with_member_access
          |  term2)
 
     lazy val funcall2 = ident ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(AST.QualifiedName(name :: Nil), list)
     } withFailureMessage "funcall expected"
 
+    lazy val with_member_access = term2 ~ ("~>" ~> ident) ~ opt("(" ~> repsep(expr, ",") <~ ")") ^^ {
+        case base ~ field ~ params => MemberAccess(base, field, params getOrElse Nil)
+    }
+
     lazy val term2 : Parser[Expr] = (
                 float_literal
             |   funcall
             |   ident ^^ Var
             |   "(" ~> expr <~ ")"
-            |   list
+            |   lst
             |   "-" ~> term ^^ Neg) withFailureMessage "term expected"
 
-    lazy val list = "[" ~> repsep(expr, ",") <~ "]" ^^ AST.List_
+    lazy val lst = "[" ~> repsep(expr, ",") <~ "]" ^^ AST.List_
 
     lazy val funcall = qualified_name ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ {
         case name ~ list => FunCall(name, list)

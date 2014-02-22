@@ -567,9 +567,9 @@ package object Typer
             case AST.Neg(x) =>
 
                 asArith(x) match {
-                    case e if e.ty canCastTo Typed.topLevel.floatFunc =>
-                        typeFunction("ops" :: "Negate" :: Nil, e :: Nil)
-                    case e => Typed.Neg(e)
+                    case ee if ee.ty canCastTo Typed.topLevel.floatFunc =>
+                        typeFunction("ops" :: "Negate" :: Nil, ee :: Nil)
+                    case ee => Typed.Neg(ee)
                 }
 
             case AST.Cast(x, ty) => Typed.Cast(asArith(x), ctx toTyped ty)
@@ -587,6 +587,8 @@ package object Typer
             case AST.List_(xs) => Typed.List_(xs map asArith)
 
             case AST.FunCall(name, args) =>   typeFunction(name, args map asArith)
+
+            case AST.MemberAccess(base, name, args) => typeFunction(name :: Nil, (base :: args) map asArith)
 
             case AST.And(x, y) => Typed.And(asArith(x), asArith(y))
             case AST.Or(x, y) => Typed.Or(asArith(x), asArith(y))

@@ -313,6 +313,9 @@ package object NameTable {
                     //println(context.last._2)
                     AST.FunCall(qualified, extra ++ (params map  qualify) )
 
+                case AST.MemberAccess(base, n, params) =>
+                     AST.MemberAccess(qualify(base), n, params map qualify)
+
                 case AST.Cast(x, ty) =>
                     AST.Cast(qualify(x), fullyQualifyType(ty))
                 case x : AST.StringLit => x

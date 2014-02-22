@@ -422,14 +422,14 @@ package math
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
         @method = "{{kind}}_StdDev"
         def StdDev(/** observable data source */ source = .const(1.0),
-                   /** alpha parameter */ alpha = 0.015) = .math.Sqrt(.math.EW.Var(source,alpha))
+                   /** alpha parameter */ alpha = 0.015) = .math.Sqrt(source~>Var(alpha))
         
         /** Exponentially weighted moving relative standard deviation
          */
         @label = "RSD{{suffix}}"
         @method = "{{kind}}_RelStdDev"
         def RelStdDev(/** observable data source */ source = .const(1.0),
-                      /** alpha parameter */ alpha = 0.015) = (source-.math.EW.Avg(source,alpha))/.math.EW.StdDev(source,alpha)
+                      /** alpha parameter */ alpha = 0.015) = (source-source~>Avg(alpha))/source~>StdDev(alpha)
         
     }
     
