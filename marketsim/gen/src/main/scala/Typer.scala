@@ -142,7 +142,7 @@ package object Typer
 
         val typed = source.typed.get
 
-        private def getTyped(definitions : List[AST.FunctionDeclaration]) = {
+        def getTyped(definitions : List[AST.FunctionDeclaration]) = {
             val name = definitions.head.name
 
             if (!(typed.functions contains name))

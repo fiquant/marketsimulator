@@ -344,23 +344,30 @@ package object Typed
     def getMethodName(f : Function) =
         f tryGetAttribute "method" getOrElse f.name
 
+    def getMethodName(scope : NameTable.Scope, f : AST.FunDef) =
+        (f.decorators   collect     { case a : AST.Attribute => a}
+                        find        { _.name == "method" }
+                        map         { _.value }
+                        getOrElse   f.name)
+
+
     class TopLevelPackage
             extends Package
             with    sc.TopLevelPackage
             with    ScPrintable
     {
-        private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[NameTable.Scope]]]
+        private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[(String, NameTable.Scope)]]]
         private var methods_by_type = Map.empty[TypesBound.Base, Map[String, Set[NameTable.Scope]]]
 
         def setMethods(ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
         {
 
             methods_by_name =
-                    (ms groupBy { _._3.name }
+                    (ms groupBy { e => getMethodName(e._2, e._3) }
                         mapValues {
                         (_ groupBy   { _._1 }
                            mapValues { p =>
-                                (p map { _._2 }).toSet[NameTable.Scope]
+                                (p map { x => (x._3.name, x._2) }).toSet[(String, NameTable.Scope)]
                         })
                     })
 
@@ -381,6 +388,18 @@ package object Typed
 //            }
         }
         
+        def lookupMethod(name : String, ty : TypesBound.Base) =
+
+            methods_by_name get name match {
+                case None => throw new Exception("Cannot find a method with name " + name)
+                case Some(m) =>
+                    (m.toList   filter  { ty canCastTo _._1 }
+                                flatMap {
+                                    _._2.toList flatMap { p =>
+                                        Typer.Processor(p._2) getTyped p._2.functions(p._1)
+                    }})
+            }
+
         def getMethods(t : TypesBound.Base) = {
 
             def checkFunctionsCompatible(p : (String, List[Function])) = {
