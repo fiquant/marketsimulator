@@ -45,8 +45,8 @@ class AtanPow_FloatFloat(IFunctionfloat):
     def getImpl(self):
         from marketsim.gen._out.math._atan import Atan_Float as _math_Atan_Float
         from marketsim.gen._out.math._pow import Pow_FloatFloat as _math_Pow_FloatFloat
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return _math_Atan_Float(_math_Pow_FloatFloat(_constant_Float(self.base),self.f))
+        from marketsim.gen._out._const import const_Float as _const_Float
+        return _math_Atan_Float(_math_Pow_FloatFloat(_const_Float(self.base),self.f))
     
 def AtanPow(f = None,base = None): 
     from marketsim.gen._out._ifunction import IFunctionfloat

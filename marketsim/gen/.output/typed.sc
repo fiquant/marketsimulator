@@ -2253,7 +2253,7 @@ package strategy {@category = "Side function"
         @curried("f")
         def AtanPow(/** function to scale */ f : Optional[() => .Float] = .constant(1.0),
                     /** base for power function */ base : Optional[.Float] = 1.002) : () => .Float
-            	 = .math.Atan(.math.Pow(.constant(base),f))
+            	 = .math.Atan(.math.Pow(.const(base),f))
         
         /** Identity function for an array of floats
          */

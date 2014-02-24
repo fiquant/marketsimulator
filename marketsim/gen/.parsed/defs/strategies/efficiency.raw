@@ -229,22 +229,21 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  base for power function 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - math
-| | | | | | | | | - Atan
-| | | | | | | - List:
+| | | | | | - MemberAccess:
+| | | | | | | - MemberAccess:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - Pow
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - base
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - f
+| | | | | | | | - Pow
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - f
+| | | | | | | - Atan
+| | | | | | | - List:
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
@@ -514,14 +513,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  account in question 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - trader
-| | | | | | | | | - Efficiency
+| | | | | | - MemberAccess:
+| | | | | | | - Var:
+| | | | | | | | - trader
+| | | | | | | - Efficiency
 | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - trader
 | | | | | - Some:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:

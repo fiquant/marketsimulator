@@ -47,7 +47,7 @@ package strategy.weight() {
      */
     @curried("f")
     def AtanPow(/** function to scale */ f : Optional[IFunction[Float]] = constant(1.0),
-                /** base for power function */ base = 1.002) : IFunction[Float] = math.Atan(math.Pow(base,f))
+                /** base for power function */ base = 1.002) : IFunction[Float] = const(base)~>Pow(f)~>Atan
     
     // defined at defs\strategies\efficiency.sc: 66.5
     /** scaling function = max(0, f(x)) + 1
@@ -81,7 +81,7 @@ package strategy.weight() {
     /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     @curried("trader")
-    def TraderEfficiency(/** account in question */ trader : IAccount = trader.SingleProxy()) : IFunction[Float] = trader.Efficiency(trader)
+    def TraderEfficiency(/** account in question */ trader : IAccount = trader.SingleProxy()) : IFunction[Float] = trader~>Efficiency
     
     // defined at defs\strategies\efficiency.sc: 108.5
     /** Returns first derivative of a moving average of the trader efficiency

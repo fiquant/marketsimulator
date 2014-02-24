@@ -61,7 +61,7 @@ package strategy.weight
         /** base for power function */
         base = 1.002) : IFunction[Float]
 
-        = math.Atan(math.Pow(base, f))
+        = (const(base))~>Pow(f)~>Atan
 
     /**
      *  scaling function = max(0, f(x)) + 1
@@ -103,7 +103,7 @@ package strategy.weight
     def TraderEfficiency( /** account in question */
                     trader : IAccount = trader.SingleProxy()) : IFunction[Float]
 
-        = trader.Efficiency(trader)
+        = trader~>Efficiency
 
     /**
      *  Returns first derivative of a moving average of the trader efficiency

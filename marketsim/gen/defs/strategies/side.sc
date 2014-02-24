@@ -153,10 +153,7 @@ package strategy
         =   Generic(
                 orderFactory(
                     side.Signal(
-                        50.0 - math.RSI(
-                                    orderbook.OfTrader(),
-                                    timeframe,
-                                    alpha),
+                        50.0 - orderbook.OfTrader()~>RSI(timeframe, alpha),
                         50.0 - threshold)),
                 eventGen)
 }

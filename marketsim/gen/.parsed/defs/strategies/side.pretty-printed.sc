@@ -82,5 +82,5 @@ package strategy() {
                /** order factory function*/ orderFactory = order.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,
                /** lag for calculating up and down movements for RSI */ timeframe = 1.0,
-               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = Generic(orderFactory(side.Signal(50.0-math.RSI(orderbook.OfTrader(),timeframe,alpha),50.0-threshold)),eventGen)
+               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = Generic(orderFactory(side.Signal(50.0-orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold)),eventGen)
 }
