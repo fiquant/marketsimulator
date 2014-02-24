@@ -51,12 +51,12 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.math._rsi import RSI_IOrderBookFloatFloat as _math_RSI_IOrderBookFloatFloat
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader
-        from marketsim.gen._out.ops._mul import Mul_FloatIObservableFloat as _ops_Mul_FloatIObservableFloat
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_observable_OnEveryDt_FloatFloat(_ops_Mul_FloatIObservableFloat(_ops_Sub_FloatFloat(_constant_Float(50.0),_math_RSI_IOrderBookFloatFloat(_orderbook_OfTrader_IAccount(self.trader),self.timeframe,self.alpha)),self.k),1.0),self.trader)
+        from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
+        return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_ops_Mul_IObservableFloatIObservableFloat(_observable_OnEveryDt_FloatFloat(_ops_Sub_FloatFloat(_constant_Float(50.0),_math_RSI_IOrderBookFloatFloat(_orderbook_OfTrader_IAccount(self.trader),self.timeframe,self.alpha)),1.0),self.k),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
     from marketsim.gen._out._iobservable import IObservablefloat

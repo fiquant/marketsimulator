@@ -15,8 +15,5 @@ package strategy.price
             /** asset in question */
             book = orderbook.OfTrader())
 
-        = orderbook.SafeSidePrice(
-                orderbook.Queue(book, side),
-                initialValue
-            ) * priceDistr
+        = book~>Queue(side)~>SafeSidePrice(initialValue) * priceDistr
 }

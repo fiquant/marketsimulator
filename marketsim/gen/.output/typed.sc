@@ -2333,7 +2333,7 @@ package strategy {@category = "Side function"
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
                        /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(.ops.Mul(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha)),k),1.0),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha)),1.0),k),trader)
         
         /** Position function for Bollinger bands strategy with linear scaling
          */
@@ -2341,7 +2341,7 @@ package strategy {@category = "Side function"
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
                              /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.observable.OnEveryDt(.ops.Mul(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha),k),1.0),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha),1.0),k),trader)
     }
     
     

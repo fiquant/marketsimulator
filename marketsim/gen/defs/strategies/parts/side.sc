@@ -32,7 +32,7 @@ package strategy.side
             /** asset in question */
             book = orderbook.OfTrader())
 
-        = Signal(math.Derivative(math.EW.Avg(orderbook.MidPrice(book), alpha)), threshold)
+        = Signal(book~>MidPrice~>EW_Avg(alpha)~>Derivative, threshold)
 
     /**
      * Side function for crossing averages strategy
@@ -48,8 +48,8 @@ package strategy.side
             book = orderbook.OfTrader())
 
         = Signal(
-                math.EW.Avg(orderbook.MidPrice(book), alpha_1) -
-                math.EW.Avg(orderbook.MidPrice(book), alpha_2),
+                book~>MidPrice~>EW_Avg(alpha_1) -
+                book~>MidPrice~>EW_Avg(alpha_2),
             threshold)
 
     /**
@@ -75,7 +75,7 @@ package strategy.side
         book = orderbook.OfTrader())
 
         =   FundamentalValue(
-                math.EW.Avg(orderbook.MidPrice(book), alpha),
+                book~>MidPrice~>EW_Avg(alpha),
                 book)
 
     /** Side function for pair trading strategy */
@@ -88,6 +88,6 @@ package strategy.side
         book = orderbook.OfTrader())
 
         =   FundamentalValue(
-                orderbook.MidPrice(bookToDependOn) * factor,
+                bookToDependOn~>MidPrice * factor,
                 book)
 }

@@ -44,22 +44,16 @@ Definitions:
 | | | | | | | | - Sub
 | | | | | | | | - Var:
 | | | | | | | | | - desiredPosition
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - Position
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - trader
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - trader
-| | | | | | | | | | - PendingVolume
-| | | | | | | | - List:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - Var:
 | | | | | | | | | | - trader
+| | | | | | | | | - Position
+| | | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | | | | - PendingVolume
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -108,41 +102,28 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - DesiredPosition
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Mul
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | - RelStdDev
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | | - trader
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - k
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Orderbook
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - EW_RelStdDev
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - OnEveryDt
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | - Var:
+| | | | | | | | | | - k
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None
@@ -205,40 +186,31 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - DesiredPosition
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
-| | | | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Mul
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | | - RSI
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 50.0
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | - Orderbook
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - timeframe
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - k
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
+| | | | | | | | | | | | - RSI
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | - OnEveryDt
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | | - Var:
+| | | | | | | | | | - k
 | | | | | | | | - Var:
 | | | | | | | | | - trader
 | | | | | - None

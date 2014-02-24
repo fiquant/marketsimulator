@@ -8,7 +8,7 @@ package strategy.position
              /** observable desired position */ desiredPosition = const(1.),
              /** trader in question */          trader          = trader.SingleProxy())
 
-        =   desiredPosition - trader.Position(trader) - trader.PendingVolume(trader)
+        =   desiredPosition - trader~>Position - trader~>PendingVolume
 
     /**
      * Position function for Bollinger bands strategy with linear scaling
@@ -22,12 +22,8 @@ package strategy.position
                 trader  = trader.SingleProxy())
 
         = DesiredPosition(
-            observable.OnEveryDt(
-                math.EW.RelStdDev(
-                    orderbook.MidPrice(orderbook.OfTrader(trader)),
-                    alpha)  * k, 1.0
-            ),
-            trader)
+                    trader~>Orderbook~>MidPrice~>EW_RelStdDev(alpha)~>OnEveryDt(1.0) * k,
+                    trader)
 
     /**
      *  Position function for Relative Strength Index strategy with linear scaling
@@ -43,8 +39,6 @@ package strategy.position
             trader = trader.SingleProxy())
 
         = DesiredPosition(
-            observable.OnEveryDt(
-                (50. - math.RSI(orderbook.OfTrader(trader), timeframe, alpha)) * k, 1.0
-            ),
-            trader)
+                (50. - trader~>Orderbook~>RSI(timeframe, alpha))~>OnEveryDt(1.0) * k,
+                trader)
 }

@@ -164,29 +164,19 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - Signal
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - Derivative
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - math
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - Avg
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - MidPrice
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - EW_Avg
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | - Derivative
+| | | | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - threshold
 | | | | | - None
@@ -242,38 +232,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Sub
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - MidPrice
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
+| | | | | | | | | | - EW_Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - alpha_1
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - MidPrice
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - Avg
+| | | | | | | | | | - EW_Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - alpha_2
 | | | | | | | | - Var:
@@ -394,21 +370,14 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - FundamentalValue
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - book
+| | | | | | | | | | - MidPrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
+| | | | | | | | | - EW_Avg
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - alpha
 | | | | | | | | - Var:
@@ -462,14 +431,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Mul
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | - MidPrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - bookToDependOn
 | | | | | | | | | - Var:
 | | | | | | | | | | - factor
 | | | | | | | | - Var:

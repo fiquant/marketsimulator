@@ -8,5 +8,5 @@ package strategy.price() {
                           /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                           /** defines multipliers for current asset price when price of
                             *             order to create is calculated*/ priceDistr = math.random.lognormvariate(0.0,0.1),
-                          /** asset in question */ book = orderbook.OfTrader()) = orderbook.SafeSidePrice(orderbook.Queue(book,side),initialValue)*priceDistr
+                          /** asset in question */ book = orderbook.OfTrader()) = book~>Queue(side)~>SafeSidePrice(initialValue)*priceDistr
 }

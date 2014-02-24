@@ -77,22 +77,16 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Mul
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - book
+| | | | | | | | | - Queue
 | | | | | | | | | - List:
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - SafeSidePrice
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - side
+| | | | | | | | - SafeSidePrice
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - Queue
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - side
 | | | | | | | | | - Var:
 | | | | | | | | | | - initialValue
 | | | | | | | - Var:

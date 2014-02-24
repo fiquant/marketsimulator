@@ -1525,7 +1525,7 @@ package strategy
          */
         def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,
-                        /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(.orderbook.MidPrice(bookToDependOn)*factor,book)
+                        /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(bookToDependOn~>MidPrice*factor,book)
         
         /** Side function for signal strategy
          */
@@ -1538,13 +1538,13 @@ package strategy
         def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,
                              /** threshold when the trader starts to act */ threshold = 0.0,
-                             /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(.math.EW.Avg(.orderbook.MidPrice(book),alpha_1)-.math.EW.Avg(.orderbook.MidPrice(book),alpha_2),threshold)
+                             /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW_Avg(alpha_1)-book~>MidPrice~>EW_Avg(alpha_2),threshold)
         
         /** Side function for trend follower strategy
          */
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,
                           /** threshold when the trader starts to act */ threshold = 0.0,
-                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
+                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW_Avg(alpha)~>Derivative,threshold)
         
         /** Side function for fundamental value strategy
          */
@@ -1554,7 +1554,7 @@ package strategy
         /** Side function for mean reversion strategy
          */
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,
-                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(.math.EW.Avg(.orderbook.MidPrice(book),alpha),book)
+                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(book~>MidPrice~>EW_Avg(alpha),book)
         
         /** Side function for a noise trading strategy
          */
@@ -1729,7 +1729,7 @@ package strategy
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),
-                              /** asset in question */ book = .orderbook.OfTrader()) = .orderbook.SafeSidePrice(.orderbook.Queue(book,side),initialValue)*priceDistr
+                              /** asset in question */ book = .orderbook.OfTrader()) = book~>Queue(side)~>SafeSidePrice(initialValue)*priceDistr
         
     }
     
@@ -1739,20 +1739,20 @@ package strategy
         /** Position function for desired position strategy
          */
         def DesiredPosition(/** observable desired position */ desiredPosition = .const(1.0),
-                            /** trader in question */ trader = .trader.SingleProxy()) = desiredPosition-.trader.Position(trader)-.trader.PendingVolume(trader)
+                            /** trader in question */ trader = .trader.SingleProxy()) = desiredPosition-trader~>Position-trader~>PendingVolume
         
         /** Position function for Bollinger bands strategy with linear scaling
          */
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),
-                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)*k,1.0),trader)
+                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(trader~>Orderbook~>MidPrice~>EW_RelStdDev(alpha)~>OnEveryDt(1.0)*k,trader)
         
         /** Position function for Relative Strength Index strategy with linear scaling
          */
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe = 1.0,
-                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(.observable.OnEveryDt((50.0-.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha))*k,1.0),trader)
+                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(50.0-trader~>Orderbook~>RSI(timeframe,alpha)~>OnEveryDt(1.0)*k,trader)
         
     }
     
