@@ -2,7 +2,7 @@ package object Typer
 {
     trait TypingExprCtx
     {
-        def lookupFunction(name : AST.QualifiedName)
+        def lookupFunction(name : AST.QualifiedName, ty : TypesBound.Base)
             :   List[(TypesBound.Function, () => Typed.Expr)]
 
         def lookupVar(name : String) : Typed.Parameter
@@ -43,7 +43,7 @@ package object Typer
     {
         source.toTyped(Typed.topLevel)
         Processor(source).processTypes()
-        Typed.topLevel setMethods Processor(source).collectMethods()
+        Typed.topLevel setMethods (source, Processor(source).collectMethods())
         Processor(source).processFunctions()
         source.typed
     }
@@ -286,7 +286,7 @@ package object Typer
             })
         }
 
-        private def lookupFunction(name : AST.QualifiedName) : List[Typed.Function] =
+        def lookupFunction(name : AST.QualifiedName) : List[Typed.Function] =
             source lookupFunction name match {
                 case Nil =>
                         throw new Exception(s"cannot find name $name")
@@ -361,9 +361,12 @@ package object Typer
                 case _ => throw new Exception(t + " is expected to be a function-like type")
             }
 
-            def lookupFunction(name: AST.QualifiedName) = {
+            def lookupFunction(name: AST.QualifiedName, ty : TypesBound.Base) = {
 
-                self lookupFunction name map { o => (asFunction(o.ty), () => Typed.FunctionRef(o) : Typed.Expr) }
+                (if (name.length == 1)
+                    Typed.topLevel lookupMethod (name.head, ty)
+                else
+                    self lookupFunction name) map { o => (asFunction(o.ty), () => Typed.FunctionRef(o) : Typed.Expr) }
             }
 
             def lookupVar(name: String) : Typed.Parameter
@@ -375,9 +378,9 @@ package object Typer
         {
             class TypingCtx extends TypingCtxBase
             {
-                override def lookupFunction(name : AST.QualifiedName) =
+                override def lookupFunction(name : AST.QualifiedName, ty : TypesBound.Base) =
                 {
-                    lazy val nonLocal = super.lookupFunction(name)
+                    lazy val nonLocal = super.lookupFunction(name, ty)
 
                     if (name.length == 1) {
                         locals find { _.name == name(0) } match {
@@ -488,7 +491,9 @@ package object Typer
                 })
             }
 
-            val overloads = ctx lookupFunction name
+            val first_arg_type = if (typed_args.isEmpty) TypesBound.Any_ else typed_args.head.ty
+
+            val overloads = ctx lookupFunction (name, first_arg_type)
 
             overloads filter { o => checkOverload(o._1) } match {
                 case Nil =>

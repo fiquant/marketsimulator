@@ -30,7 +30,7 @@ package math
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             @method = "{{kind}}_StdDev"
             def StdDev (    /** observable data source */ source = const (1.),
-                            /** alpha parameter */        alpha = 0.015) = source~>Var(alpha)~>Sqrt
+                            /** alpha parameter */        alpha = 0.015) = source~>EW_Var(alpha)~>Sqrt
 
             /**
              *  Exponentially weighted moving relative standard deviation
@@ -39,7 +39,7 @@ package math
             @method = "{{kind}}_RelStdDev"
             def RelStdDev   (/** observable data source */ source = const (1.),
                              /** alpha parameter */        alpha = 0.015)
-                = (source - source~>Avg(alpha)) / source~>StdDev(alpha)
+                = (source - source~>EW_Avg(alpha)) / source~>EW_StdDev(alpha)
         }
 
         @suffix = "_{cumul}(%(source)s)"

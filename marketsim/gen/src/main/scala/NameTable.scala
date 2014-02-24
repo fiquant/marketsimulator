@@ -11,6 +11,7 @@ package object NameTable {
                      `abstract` : Boolean = false)
             extends pp.NamesScope
             with    ScPrintable
+            with    Typed.AttributeReplace
     {
         var packages    = Map.empty[String, Scope]
         var functions   = Map.empty[String, List[AST.FunctionDeclaration]]
@@ -23,6 +24,8 @@ package object NameTable {
         val isRoot = name == "_root_"
         val isAnonymous = name startsWith "$"
         val nonAbstract = !`abstract`
+
+        def getParent = parent
 
         override def equals(o : Any) = o match {
             case other : Scope =>
@@ -88,6 +91,19 @@ package object NameTable {
                     parent flatMap { _.getAttribute(name) }
                 case x => x
             }
+
+        def tryGetAttributeFor(f : AST.FunDef, attributeName : String) = {
+            val f_attr = (f.decorators  collect     { case a : AST.Attribute => a}
+                                        find        { _.name == attributeName }
+                                        map         { _.value })
+
+            (if (f_attr.isEmpty)
+                getAttribute(attributeName)
+            else
+                f_attr) map { substNamesInAttribute(_, attributeName) }
+        }
+
+
 
         def add(a : AST.Attribute) = addAttribute(a.name, a.value)
 

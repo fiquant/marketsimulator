@@ -29,7 +29,7 @@ package math() {@category = "Statistics"
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             @method = "{{kind}}_StdDev"
             def StdDev(/** observable data source */ source = const(1.0),
-                       /** alpha parameter */ alpha = 0.015) = source~>Var(alpha)~>Sqrt
+                       /** alpha parameter */ alpha = 0.015) = source~>EW_Var(alpha)~>Sqrt
             
             // defined at defs\math\moments.sc: 35.13
             /** Exponentially weighted moving relative standard deviation
@@ -37,7 +37,7 @@ package math() {@category = "Statistics"
             @label = "RSD{{suffix}}"
             @method = "{{kind}}_RelStdDev"
             def RelStdDev(/** observable data source */ source = const(1.0),
-                          /** alpha parameter */ alpha = 0.015) = (source-source~>Avg(alpha))/source~>StdDev(alpha)
+                          /** alpha parameter */ alpha = 0.015) = (source-source~>EW_Avg(alpha))/source~>EW_StdDev(alpha)
         }
         @suffix = "_{cumul}(%(source)s)"
         @kind = "Cumulative"

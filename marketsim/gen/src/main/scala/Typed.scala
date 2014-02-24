@@ -158,22 +158,24 @@ package object Typed
 
     trait AttributeReplace
     {
-        def parent : Package
+        def getParent : Option[AttributeReplace]
         def attributes : Attributes
 
-        def tryGetAttributeImpl(name : String) = attributes.items get name match {
+        def tryGetAttributeImpl(name : String) : Option[String] = attributes.items get name match {
             case Some(v) => Some(v)
-            case None =>    parent tryGetAttributeImpl name
+            case None =>    getParent flatMap { _ tryGetAttributeImpl name }
         }
 
+        def substNamesInAttribute(value : String, name : String) =
+            (new Regex("\\{\\{(\\w+)\\}\\}", "x") 
+                    replaceAllIn(value, m => tryGetAttribute(m group "x") match {
+                        case Some(y) => y
+                        case None    =>
+                            throw new Exception(s"Cannot find attribute named ${m group "x"} when evaluating attribute $name")
+                    }))
+
         def tryGetAttribute(name : String) : Option[String] =
-            tryGetAttributeImpl(name) map { v =>
-                new Regex("\\{\\{(\\w+)\\}\\}", "x") replaceAllIn (v, m => tryGetAttribute(m.group("x")) match {
-                    case Some(y) => y
-                    case None    =>
-                        throw new Exception(s"Cannot find attribute named ${m.group("x")} when evaluating attribute $name")
-                })
-            }
+            tryGetAttributeImpl(name) map { substNamesInAttribute(_, name) }
     }
 
     case class Function(parent      : Package,
@@ -191,6 +193,8 @@ package object Typed
             with    FunctionDecl
     {
         val target = this
+
+        def getParent = Some(parent.asInstanceOf[AttributeReplace])
 
         def decorators = attributes :: annotations
 
@@ -294,7 +298,7 @@ package object Typed
         var packages = Map[String, SubPackage]()
         var types = Map[String, TypeDeclaration]()
         var annotations = List[Annotation]()
-        protected val attributes = Attributes(Map.empty)
+        val attributes = Attributes(Map.empty)
 
         def qualifiedName : AST.QualifiedName
         def qualifyName(x : String) : AST.QualifiedName = qualifiedName :+ x
@@ -345,29 +349,32 @@ package object Typed
         f tryGetAttribute "method" getOrElse f.name
 
     def getMethodName(scope : NameTable.Scope, f : AST.FunDef) =
-        (f.decorators   collect     { case a : AST.Attribute => a}
-                        find        { _.name == "method" }
-                        map         { _.value }
-                        getOrElse   f.name)
+        scope tryGetAttributeFor (f, "method") getOrElse f.name
 
 
     class TopLevelPackage
             extends Package
             with    sc.TopLevelPackage
             with    ScPrintable
+            with    AttributeReplace
     {
-        private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[(String, NameTable.Scope)]]]
+        private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[AST.QualifiedName]]]
         private var methods_by_type = Map.empty[TypesBound.Base, Map[String, Set[NameTable.Scope]]]
+        private var untyped = Option.empty[NameTable.Scope]
 
-        def setMethods(ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
+        def getParent = None
+
+        def setMethods(source : NameTable.Scope, ms : Stream[(TypesBound.Base, NameTable.Scope, AST.FunDef)])
         {
+            untyped = Some(source)
 
             methods_by_name =
                     (ms groupBy { e => getMethodName(e._2, e._3) }
+                        filterKeys { _ != "N/A"}
                         mapValues {
                         (_ groupBy   { _._1 }
                            mapValues { p =>
-                                (p map { x => (x._3.name, x._2) }).toSet[(String, NameTable.Scope)]
+                                (p map { x => x._2 qualifyName x._3.name }).toSet[AST.QualifiedName]
                         })
                     })
 
@@ -380,10 +387,10 @@ package object Typed
                         })
                     })
 
-//            methods foreach { case (name, xs) =>
+//            methods_by_name foreach { case (name, xs) =>
 //                println(name)
-//                xs foreach { case (ty, scopes) =>
-//                    println("\t" + ty.asScala + ":" + (scopes map { _.qualifiedName } mkString "," ))
+//                xs foreach { case (ty, names) =>
+//                    println("\t" + ty.asScala + ":" + (names mkString "," ))
 //                }
 //            }
         }
@@ -391,12 +398,12 @@ package object Typed
         def lookupMethod(name : String, ty : TypesBound.Base) =
 
             methods_by_name get name match {
-                case None => throw new Exception("Cannot find a method with name " + name)
-                case Some(m) =>
+                case None       => Nil
+                case Some(m)    =>
                     (m.toList   filter  { ty canCastTo _._1 }
                                 flatMap {
                                     _._2.toList flatMap { p =>
-                                        Typer.Processor(p._2) getTyped p._2.functions(p._1)
+                                        Typer.Processor(untyped.get) lookupFunction p
                     }})
             }
 
@@ -429,10 +436,6 @@ package object Typed
             methods_by_name getOrElse (name, Nil) filter { ty canCastTo _._1 } flatMap { _._2 }
 
         def qualifiedName = "" :: Nil
-
-        def tryGetAttribute(name : String) : Option[String] = None
-
-        def tryGetAttributeImpl(name : String) = Option.empty[String]
 
         def getName = ""
 
@@ -507,6 +510,8 @@ package object Typed
                 case Nil    => parent getFunction name
                 case f      => f
             }
+
+        def getParent = Some(parent.asInstanceOf[AttributeReplace])
 
         override def qualifiedName = parent.qualifiedName :+ name
 
