@@ -315,25 +315,21 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | - IfDefined
 | | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - BestPrice
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - queue
+| | | | | | | | | - BestPrice
 | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - queue
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - IfDefined
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastPrice
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - queue
+| | | | | | | | | | | - LastPrice
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - queue
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - defaultValue
 | | | | | - None
@@ -373,45 +369,31 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Div
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - math
-| | | | | | | | | | - EW
-| | | | | | | | | | - Avg
+| | | | | | | - MemberAccess:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - queue
+| | | | | | | | | | - LastTradePrice
+| | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - queue
+| | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | - List:
+| | | | | | | | - EW_Avg
 | | | | | | | | - List:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Mul
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastTradePrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - queue
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - LastTradeVolume
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - queue
 | | | | | | | | | - Var:
 | | | | | | | | | | - alpha
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - queue
+| | | | | | | | | - LastTradeVolume
 | | | | | | | | | - List:
-| | | | | | | | | | - math
-| | | | | | | | | | - EW
-| | | | | | | | | | - Avg
+| | | | | | | | - EW_Avg
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - LastTradeVolume
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - queue
 | | | | | | | | | - Var:
 | | | | | | | | | | - alpha
 | | | | | - None
@@ -473,22 +455,22 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - ask
-| | | | | | | | | | - Price
-| | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - Var:
 | | | | | | | | | | - book
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
+| | | | | | | | | - Asks
 | | | | | | | | | - List:
-| | | | | | | | | | - bid
-| | | | | | | | | | - Price
+| | | | | | | | - BestPrice
 | | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - Var:
 | | | | | | | | | | - book
+| | | | | | | | | - Bids
+| | | | | | | | | - List:
+| | | | | | | | - BestPrice
+| | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -513,22 +495,22 @@ Definitions:
 | | | | | | | - Div
 | | | | | | | - BinOp:
 | | | | | | | | - Add
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ask
-| | | | | | | | | | | - Price
-| | | | | | | | | - List:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - book
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - Asks
 | | | | | | | | | | - List:
-| | | | | | | | | | | - bid
-| | | | | | | | | | | - Price
+| | | | | | | | | - BestPrice
 | | | | | | | | | - List:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - book
+| | | | | | | | | | - Bids
+| | | | | | | | | | - List:
+| | | | | | | | | - BestPrice
+| | | | | | | | | - List:
 | | | | | | | - FloatLit:
 | | | | | | | | - 2.0
 | | | | | - None
@@ -629,14 +611,14 @@ Definitions:
 | | | | | | | | - Mul
 | | | | | | | | - Var:
 | | | | | | | | | - depth
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - ask
-| | | | | | | | | | | - Price
-| | | | | | | | | - List:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - book
+| | | | | | | | | | - Asks
+| | | | | | | | | | - List:
+| | | | | | | | | - BestPrice
+| | | | | | | | | - List:
 | | | | | | | - IfThenElse:
 | | | | | | | | - Condition:
 | | | | | | | | | - Greater
@@ -648,14 +630,14 @@ Definitions:
 | | | | | | | | | - Mul
 | | | | | | | | | - Var:
 | | | | | | | | | | - depth
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - bid
-| | | | | | | | | | | | - Price
-| | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
+| | | | | | | | | | | - Bids
+| | | | | | | | | | | - List:
+| | | | | | | | | | - BestPrice
+| | | | | | | | | | - List:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 0.0
 | | | | | - None

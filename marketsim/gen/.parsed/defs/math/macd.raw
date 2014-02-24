@@ -44,14 +44,11 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - EW
-| | | | | | | | | | - Avg
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - EW_Avg
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - x
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
 | | | | | | | | | | - FloatLit:
@@ -62,14 +59,11 @@ Definitions:
 | | | | | | | | | | | | - fast
 | | | | | | | | | | | - IntLit:
 | | | | | | | | | | | | - 1
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - EW
-| | | | | | | | | | - Avg
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - EW_Avg
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - x
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
 | | | | | | | | | | - FloatLit:
@@ -138,31 +132,23 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  discretization step 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - EW
-| | | | | | | | | - Avg
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - observable
-| | | | | | | | | | | - OnEveryDt
+| | | | | | - MemberAccess:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - MACD
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - MACD
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - slow
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - fast
 | | | | | | | | | | - Var:
-| | | | | | | | | | | - step
+| | | | | | | | | | | - slow
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - fast
+| | | | | | | | - OnEveryDt
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - step
+| | | | | | | - EW_Avg
+| | | | | | | - List:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Div
 | | | | | | | | | - IntLit:
@@ -236,24 +222,20 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Sub
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - MACD
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - MACD
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - x
 | | | | | | | | | - Var:
 | | | | | | | | | | - slow
 | | | | | | | | | - Var:
 | | | | | | | | | | - fast
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Signal
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - x
+| | | | | | | | - macd_Signal
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - x
 | | | | | | | | | - Var:
 | | | | | | | | | | - slow
 | | | | | | | | | - Var:

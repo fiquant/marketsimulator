@@ -25,30 +25,21 @@ package trader
      *  Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     def Efficiency(trader = SingleProxy() : IAccount)
-        = Balance(trader) +
-            orderbook.CumulativePrice(
-                    orderbook.OfTrader(trader),
-                    Position(trader))
+        = trader~>Balance + trader~>Orderbook~>CumulativePrice(trader~>Position)
 
     /**
      *  Returns traders naive approximation of trader eficiency.
      *  It takes into account only the best price of the order queue
      */
     def RoughPnL(trader = SingleProxy() : IAccount)
-        = Balance(trader) +
-            orderbook.NaiveCumulativePrice(
-                    orderbook.OfTrader(trader),
-                    Position(trader))
+        = trader~>Balance + trader~>Orderbook~>NaiveCumulativePrice(trader~>Position)
 
     /**
      *  Returns first derivative of a moving average of the trader efficiency
      */
     def EfficiencyTrend(trader = SingleProxy() : IAccount, alpha = 0.15)
-        = math.Derivative(
-                math.EW.Avg(
-                        Efficiency(trader),
-                        alpha)
-        )
+
+        = trader~>Efficiency~>EW_Avg(alpha)~>Derivative
 }
 
 

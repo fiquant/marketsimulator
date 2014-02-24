@@ -358,9 +358,10 @@ package math
         /** Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+        @method = "rsi_Raw"
         def Raw(/** observable data source */ source = .const(1.0),
                 /** lag size */ timeframe = 10.0,
-                /** alpha parameter for EWMA */ alpha = 0.015) = .math.EW.Avg(.math.UpMovements(source,timeframe),alpha)/.math.EW.Avg(.math.DownMovements(source,timeframe),alpha)
+                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW_Avg(alpha)/source~>DownMovements(timeframe)~>EW_Avg(alpha)
         
     }
     
@@ -372,7 +373,7 @@ package math
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
         def MACD(/** source */ x = .const(1.0),
                  /** long period */ slow = 26.0,
-                 /** short period */ fast = 12.0) = .math.EW.Avg(x,2.0/(fast+1))-.math.EW.Avg(x,2.0/(slow+1))
+                 /** short period */ fast = 12.0) = x~>EW_Avg(2.0/(fast+1))-x~>EW_Avg(2.0/(slow+1))
         
         /** Moving average convergence/divergence signal
          */
@@ -382,7 +383,7 @@ package math
                    /** long period */ slow = 26.0,
                    /** short period */ fast = 12.0,
                    /** signal period */ timeframe = 9.0,
-                   /** discretization step */ step = 1.0) = .math.EW.Avg(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1))
+                   /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW_Avg(2/(timeframe+1))
         
         /** Moving average convergence/divergence histogram
          */
@@ -392,7 +393,7 @@ package math
                       /** long period */ slow = 26.0,
                       /** short period */ fast = 12.0,
                       /** signal period */ timeframe = 9.0,
-                      /** discretization step */ step = 1.0) = .math.macd.MACD(x,slow,fast)-.math.macd.Signal(x,slow,fast,timeframe,step)
+                      /** discretization step */ step = 1.0) = x~>MACD(slow,fast)-x~>macd_Signal(slow,fast,timeframe,step)
         
     }
     
@@ -498,7 +499,7 @@ package math
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = .const(1.0),
-                      /** lag size */ timeframe = 10.0) = .math.Max(0.0,.math.Lagged(source,timeframe)-source)
+                      /** lag size */ timeframe = 10.0) = .math.Max(0.0,source~>Lagged(timeframe)-source)
     
     /** Arc tangent of x, in radians.
      *
@@ -526,7 +527,7 @@ package math
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = .const(1.0),
-                    /** lag size */ timeframe = 10.0) = .math.Max(0.0,source-.math.Lagged(source,timeframe))
+                    /** lag size */ timeframe = 10.0) = .math.Max(0.0,source-source~>Lagged(timeframe))
     
     /** Square of *x*
      */
@@ -539,7 +540,7 @@ package math
      */
     @label = "LogReturns_{%(timeframe)s}(%(x)s)"
     def LogReturns(/** observable data source */ x = .const(1.0),
-                   /** lag size */ timeframe = 10.0) = .math.Log(x/.math.Lagged(x,timeframe))
+                   /** lag size */ timeframe = 10.0) = .math.Log(x/x~>Lagged(timeframe))
     
     /** Square root of *x*
      *
@@ -554,7 +555,7 @@ package math
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     def RSI(/** asset price in question  */ book = .orderbook.OfTrader(),
             /** lag size */ timeframe = 10.0,
-            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+.math.rsi.Raw(.orderbook.MidPrice(book),timeframe,alpha))
+            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+book~>MidPrice~>rsi_Raw(timeframe,alpha))
     
     /** Exponent of *x*
      *
@@ -2011,7 +2012,7 @@ package trader
     /** Returns traders naive approximation of trader eficiency.
      *  It takes into account only the best price of the order queue
      */
-    def RoughPnL(trader = .trader.SingleProxy() : .IAccount) = .trader.Balance(trader)+.orderbook.NaiveCumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader))
+    def RoughPnL(trader = .trader.SingleProxy() : .IAccount) = trader~>Balance+trader~>Orderbook~>NaiveCumulativePrice(trader~>Position)
     
     /** Returns position of the trader
      *  It is negative if trader has sold more assets than has bought and
@@ -2022,7 +2023,7 @@ package trader
     
     /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
-    def Efficiency(trader = .trader.SingleProxy() : .IAccount) = .trader.Balance(trader)+.orderbook.CumulativePrice(.orderbook.OfTrader(trader),.trader.Position(trader))
+    def Efficiency(trader = .trader.SingleProxy() : .IAccount) = trader~>Balance+trader~>Orderbook~>CumulativePrice(trader~>Position)
     
     /** Phantom trader that is used to refer to the current trader
      *  (normally it is used to define trader properties and strategies)
@@ -2046,7 +2047,7 @@ package trader
     /** Returns first derivative of a moving average of the trader efficiency
      */
     def EfficiencyTrend(trader = .trader.SingleProxy() : .IAccount,
-                        alpha = 0.15) = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
+                        alpha = 0.15) = trader~>Efficiency~>EW_Avg(alpha)~>Derivative
     
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
@@ -2128,13 +2129,13 @@ package orderbook
      */
     @python.observable()
     def SafeSidePrice(queue = .orderbook.Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue = .constant(100.0)) = .IfDefined(.orderbook.BestPrice(queue),.IfDefined(.orderbook.LastPrice(queue),defaultValue))
+                      /** price to be used if there haven't been any trades */ defaultValue = .constant(100.0)) = .IfDefined(queue~>BestPrice,.IfDefined(queue~>LastPrice,defaultValue))
     
     /** Returns moving average of trade prices weighted by their volumes
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = .orderbook.Asks(),
-                      /** parameter alpha for the moving average  */ alpha = 0.15) = .math.EW.Avg(.orderbook.LastTradePrice(queue)*.orderbook.LastTradeVolume(queue),alpha)/.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha)
+                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW_Avg(alpha)/queue~>LastTradeVolume~>EW_Avg(alpha)
     
     /** Returns tick size for the order *book*
      */
@@ -2143,7 +2144,7 @@ package orderbook
     
     /** MidPrice of order *book*
      */
-    def MidPrice(book = .orderbook.OfTrader()) = (.orderbook.ask.Price(book)+.orderbook.bid.Price(book))/2.0
+    def MidPrice(book = .orderbook.OfTrader()) = (book~>Asks~>BestPrice+book~>Bids~>BestPrice)/2.0
     
     /** Returns sell side order queue for *book*
      */
@@ -2188,6 +2189,7 @@ package orderbook
      */
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
+    @method = "Orderbook"
     def OfTrader(Trader = .trader.SingleProxy() : .IAccount) : .IOrderBook
     
     /** Returns price for best orders of total volume *depth*
@@ -2243,7 +2245,7 @@ package orderbook
      *  Positive *depth* correponds to will sell assets
      */
     def NaiveCumulativePrice(book = .orderbook.OfTrader(),
-                             depth = .constant(1.0)) = if depth<0.0 then depth*.orderbook.ask.Price(book) else if depth>0.0 then depth*.orderbook.bid.Price(book) else 0.0
+                             depth = .constant(1.0)) = if depth<0.0 then depth*book~>Asks~>BestPrice else if depth>0.0 then depth*book~>Bids~>BestPrice else 0.0
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2255,7 +2257,7 @@ package orderbook
     
     /** Spread of order *book*
      */
-    def Spread(book = .orderbook.OfTrader()) = .orderbook.ask.Price(book)-.orderbook.bid.Price(book)
+    def Spread(book = .orderbook.OfTrader()) = book~>Asks~>BestPrice-book~>Bids~>BestPrice
     
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades

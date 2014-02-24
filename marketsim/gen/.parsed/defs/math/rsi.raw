@@ -95,13 +95,11 @@ Definitions:
 | | | | | | | | | - Sub
 | | | | | | | | | - Var:
 | | | | | | | | | | - source
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Lagged
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - source
+| | | | | | | | | | - Lagged
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - timeframe
 | | | | | - None
@@ -147,13 +145,11 @@ Definitions:
 | | | | | | | | | - 0.0
 | | | | | | | | - BinOp:
 | | | | | | | | | - Sub
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Lagged
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - source
+| | | | | | | | | | - Lagged
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - timeframe
 | | | | | | | | | - Var:
@@ -210,38 +206,28 @@ Definitions:
 | | | | | | | | - Some:
 | | | | | | | | | - BinOp:
 | | | | | | | | | | - Div
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - UpMovements
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - EW_Avg
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - UpMovements
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - alpha
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - source
+| | | | | | | | | | | | - DownMovements
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | - EW_Avg
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - DownMovements
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - alpha
 | | | | | | | | - None
@@ -253,6 +239,9 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - method
+| | | | | | | | | | - rsi_Raw
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
@@ -303,20 +292,14 @@ Definitions:
 | | | | | | | | | - Add
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 1.0
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - MidPrice
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - rsi
-| | | | | | | | | | | | - Raw
+| | | | | | | | | | - rsi_Raw
 | | | | | | | | | | - List:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - Var:
@@ -364,13 +347,11 @@ Definitions:
 | | | | | | | | | - Div
 | | | | | | | | | - Var:
 | | | | | | | | | | - x
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Lagged
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Lagged
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - timeframe
 | | | | | - None

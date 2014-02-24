@@ -5,6 +5,11 @@ class IAccount(object):
         return Balance(self)
     
     @property
+    def Orderbook(self):
+        from marketsim.gen._out.orderbook._oftrader import OfTrader
+        return OfTrader(self)
+    
+    @property
     def RoughPnL(self):
         from marketsim.gen._out.trader._roughpnl import RoughPnL
         return RoughPnL(self)
@@ -18,11 +23,6 @@ class IAccount(object):
     def Efficiency(self):
         from marketsim.gen._out.trader._efficiency import Efficiency
         return Efficiency(self)
-    
-    @property
-    def OfTrader(self):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader
-        return OfTrader(self)
     
     def EfficiencyTrend(self, alpha = None):
         from marketsim.gen._out.trader._efficiencytrend import EfficiencyTrend

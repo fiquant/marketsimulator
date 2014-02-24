@@ -124,10 +124,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math.Cumulative._maxepsilon import MaxEpsilon
         return MaxEpsilon(self,epsilon)
     
-    def Raw(self, timeframe = None,alpha = None):
-        from marketsim.gen._out.math.rsi._raw import Raw
-        return Raw(self,timeframe,alpha)
-    
     def MACD(self, slow = None,fast = None):
         from marketsim.gen._out.math.macd._macd import MACD
         return MACD(self,slow,fast)
@@ -135,6 +131,10 @@ class IObservablefloat(IEvent, IFunctionfloat):
     def macd_Histogram(self, slow = None,fast = None,timeframe = None,step = None):
         from marketsim.gen._out.math.macd._histogram import Histogram
         return Histogram(self,slow,fast,timeframe,step)
+    
+    def rsi_Raw(self, timeframe = None,alpha = None):
+        from marketsim.gen._out.math.rsi._raw import Raw
+        return Raw(self,timeframe,alpha)
     
     @property
     def Cumulative_RelStdDev(self):

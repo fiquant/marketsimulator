@@ -15,7 +15,7 @@ package math
     def UpMovements(/** observable data source */   source = const (1.),
                     /** lag size */                 timeframe = 10.0)
 
-        = Max(0.0, source - Lagged(source, timeframe))
+        = Max(0.0, source - source~>Lagged(timeframe))
 
     /**
      *  Returns negative movements of some observable *source* with lag *timeframe*
@@ -24,7 +24,7 @@ package math
     def DownMovements(  /** observable data source */   source = const (1.),
                         /** lag size */                 timeframe = 10.0)
 
-        = Max(0.0, Lagged(source, timeframe) - source)
+        = Max(0.0, source~>Lagged(timeframe) - source)
 
     @category = "RSI"
     package rsi
@@ -33,12 +33,13 @@ package math
          *  Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+        @method = "rsi_Raw"
         def Raw(/** observable data source */   source      = const (1.),
                 /** lag size */                 timeframe   = 10.0,
                 /** alpha parameter for EWMA */ alpha       = 0.015)
 
-            =   EW.Avg(UpMovements  (source, timeframe), alpha) /
-                EW.Avg(DownMovements(source, timeframe), alpha)
+            =   source~>UpMovements  (timeframe)~>EW_Avg(alpha) /
+                source~>DownMovements(timeframe)~>EW_Avg(alpha)
     }
 
     /**
@@ -49,7 +50,7 @@ package math
                 /** lag size */                 timeframe   = 10.0,
                 /** alpha parameter for EWMA */ alpha       = 0.015)
 
-        = 100.0 - 100.0 / (1.0 + rsi.Raw(orderbook.MidPrice(book), timeframe, alpha))
+        = 100.0 - 100.0 / (1.0 + book~>MidPrice~>rsi_Raw(timeframe, alpha))
 
     /**
      *  Log returns
@@ -58,5 +59,5 @@ package math
     def LogReturns(/** observable data source */   x = const(1.),
                    /** lag size */                 timeframe   = 10.0)
 
-        =  Log(x / Lagged(x, timeframe))
+        =  Log(x / x~>Lagged(timeframe))
 }

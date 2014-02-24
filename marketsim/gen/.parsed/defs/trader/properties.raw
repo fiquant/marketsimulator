@@ -161,34 +161,24 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Add
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Balance
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | | | | - Balance
 | | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - Var:
 | | | | | | | | | | - trader
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
+| | | | | | | | | - Orderbook
 | | | | | | | | | - List:
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - CumulativePrice
+| | | | | | | | - CumulativePrice
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - trader
+| | | | | | | | | | - Position
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Position
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -217,34 +207,24 @@ Definitions:
 | | | | | - Some:
 | | | | | | - BinOp:
 | | | | | | | - Add
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
-| | | | | | | | | - List:
-| | | | | | | | | | - Balance
+| | | | | | | - MemberAccess:
+| | | | | | | | - Var:
+| | | | | | | | | - trader
+| | | | | | | | - Balance
 | | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - Var:
 | | | | | | | | | | - trader
-| | | | | | | - FunCall:
-| | | | | | | | - QualifiedName:
+| | | | | | | | | - Orderbook
 | | | | | | | | | - List:
-| | | | | | | | | | - orderbook
-| | | | | | | | | | - NaiveCumulativePrice
+| | | | | | | | - NaiveCumulativePrice
 | | | | | | | | - List:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - trader
+| | | | | | | | | | - Position
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Position
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - trader
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -279,28 +259,19 @@ Definitions:
 | | | | | | | | | - 0.15
 | | | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - math
-| | | | | | | | | - Derivative
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - Avg
+| | | | | | - MemberAccess:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | | | | | - Efficiency
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Efficiency
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - trader
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - alpha
+| | | | | | | | - EW_Avg
+| | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - alpha
+| | | | | | | - Derivative
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

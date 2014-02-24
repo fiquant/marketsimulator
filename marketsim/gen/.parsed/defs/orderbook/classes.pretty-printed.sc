@@ -48,9 +48,10 @@ package orderbook() {
      */
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
+    @method = "Orderbook"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
     
-    // defined at defs\orderbook\classes.sc: 56.5
+    // defined at defs\orderbook\classes.sc: 57.5
     /** Phantom orderbook that is used to refer to the current order book
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)

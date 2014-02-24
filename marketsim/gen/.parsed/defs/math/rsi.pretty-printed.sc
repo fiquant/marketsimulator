@@ -13,14 +13,14 @@ package math() {
      */
     @label = "Ups_{%(timeframe)s}(%(source)s)"
     def UpMovements(/** observable data source */ source = const(1.0),
-                    /** lag size */ timeframe = 10.0) = Max(0.0,source-Lagged(source,timeframe))
+                    /** lag size */ timeframe = 10.0) = Max(0.0,source-source~>Lagged(timeframe))
     
     // defined at defs\math\rsi.sc: 20.5
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
     def DownMovements(/** observable data source */ source = const(1.0),
-                      /** lag size */ timeframe = 10.0) = Max(0.0,Lagged(source,timeframe)-source)
+                      /** lag size */ timeframe = 10.0) = Max(0.0,source~>Lagged(timeframe)-source)
     @category = "RSI"
     
     package rsi() {
@@ -28,23 +28,24 @@ package math() {
         /** Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+        @method = "rsi_Raw"
         def Raw(/** observable data source */ source = const(1.0),
                 /** lag size */ timeframe = 10.0,
-                /** alpha parameter for EWMA */ alpha = 0.015) = EW.Avg(UpMovements(source,timeframe),alpha)/EW.Avg(DownMovements(source,timeframe),alpha)
+                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW_Avg(alpha)/source~>DownMovements(timeframe)~>EW_Avg(alpha)
     }
     
-    // defined at defs\math\rsi.sc: 44.5
+    // defined at defs\math\rsi.sc: 45.5
     /** Relative Strength Index
      */
     @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
     def RSI(/** asset price in question  */ book = orderbook.OfTrader(),
             /** lag size */ timeframe = 10.0,
-            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+rsi.Raw(orderbook.MidPrice(book),timeframe,alpha))
+            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+book~>MidPrice~>rsi_Raw(timeframe,alpha))
     
-    // defined at defs\math\rsi.sc: 54.5
+    // defined at defs\math\rsi.sc: 55.5
     /** Log returns
      */
     @label = "LogReturns_{%(timeframe)s}(%(x)s)"
     def LogReturns(/** observable data source */ x = const(1.0),
-                   /** lag size */ timeframe = 10.0) = Log(x/Lagged(x,timeframe))
+                   /** lag size */ timeframe = 10.0) = Log(x/x~>Lagged(timeframe))
 }

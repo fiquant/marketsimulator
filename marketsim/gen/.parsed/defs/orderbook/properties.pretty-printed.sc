@@ -54,14 +54,14 @@ package orderbook() {
      */
     @python.observable()
     def SafeSidePrice(queue = Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue = constant(100.0)) = IfDefined(BestPrice(queue),IfDefined(LastPrice(queue),defaultValue))
+                      /** price to be used if there haven't been any trades */ defaultValue = constant(100.0)) = IfDefined(queue~>BestPrice,IfDefined(queue~>LastPrice,defaultValue))
     
     // defined at defs\orderbook\properties.sc: 62.5
     /** Returns moving average of trade prices weighted by their volumes
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
-                      /** parameter alpha for the moving average  */ alpha = 0.15) = math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue),alpha)/math.EW.Avg(LastTradeVolume(queue),alpha)
+                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW_Avg(alpha)/queue~>LastTradeVolume~>EW_Avg(alpha)
     
     // defined at defs\orderbook\properties.sc: 73.5
     /** Returns tick size for the order *book*
@@ -72,12 +72,12 @@ package orderbook() {
     // defined at defs\orderbook\properties.sc: 79.5
     /** Spread of order *book*
      */
-    def Spread(book = OfTrader()) = ask.Price(book)-bid.Price(book)
+    def Spread(book = OfTrader()) = book~>Asks~>BestPrice-book~>Bids~>BestPrice
     
     // defined at defs\orderbook\properties.sc: 85.5
     /** MidPrice of order *book*
      */
-    def MidPrice(book = OfTrader()) = (ask.Price(book)+bid.Price(book))/2.0
+    def MidPrice(book = OfTrader()) = (book~>Asks~>BestPrice+book~>Bids~>BestPrice)/2.0
     
     // defined at defs\orderbook\properties.sc: 91.5
     /** Returns price for best orders of total volume *depth*
@@ -100,7 +100,7 @@ package orderbook() {
      *  Positive *depth* correponds to will sell assets
      */
     def NaiveCumulativePrice(book = OfTrader(),
-                             depth = constant(1.0)) = if depth<0.0 then depth*ask.Price(book) else if depth>0.0 then depth*bid.Price(book) else 0.0
+                             depth = constant(1.0)) = if depth<0.0 then depth*book~>Asks~>BestPrice else if depth>0.0 then depth*book~>Bids~>BestPrice else 0.0
     
     // defined at defs\orderbook\properties.sc: 118.5
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]

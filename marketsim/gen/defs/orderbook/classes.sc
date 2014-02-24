@@ -51,6 +51,7 @@ package orderbook
      */
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     @label = "N/A"
+    @method = "Orderbook"
     def OfTrader(Trader = trader.SingleProxy() : IAccount) : IOrderBook
 
     /**

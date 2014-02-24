@@ -725,6 +725,7 @@ package math {
         /** Absolute value for Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+        @method = "rsi_Raw"
         
         def Raw(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** lag size */ timeframe : Optional[.Float] = 10.0,
@@ -2836,7 +2837,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
      */
     
     def MidPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-        	 = .ops.Div(.ops.Add(.orderbook.ask.Price(book),.orderbook.bid.Price(book)),.constant(2.0))
+        	 = .ops.Div(.ops.Add(.orderbook.BestPrice(.orderbook.Asks(book)),.orderbook.BestPrice(.orderbook.Bids(book))),.constant(2.0))
     
     /** Returns sell side order queue for *book*
      */
@@ -2888,6 +2889,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
      *  May be used only in objects that are held by traders (so it is used in trader properties and strategies)
      */
     @label = "N/A"
+    @method = "Orderbook"
     
     @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
     def OfTrader(Trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IOrderBook
@@ -2952,7 +2954,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
+        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.BestPrice(.orderbook.Asks(book))),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.BestPrice(.orderbook.Bids(book))),.constant(0.0)))
     
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
@@ -2963,7 +2965,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
     
     def NaiveCumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                              depth : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
-        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.ask.Price(book)),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.bid.Price(book)),.constant(0.0)))
+        	 = .ops.Condition(.ops.Less(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.BestPrice(.orderbook.Asks(book))),.ops.Condition(.ops.Greater(depth,.constant(0.0)),.ops.Mul(depth,.orderbook.BestPrice(.orderbook.Bids(book))),.constant(0.0)))
     
     /** Represents latency in information propagation from one agent to another one
      * (normally between a trader and a market).
@@ -2978,7 +2980,7 @@ package orderbook {@queue = "Ask_{%(book)s}"
      */
     
     def Spread(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-        	 = .ops.Sub(.orderbook.ask.Price(book),.orderbook.bid.Price(book))
+        	 = .ops.Sub(.orderbook.BestPrice(.orderbook.Asks(book)),.orderbook.BestPrice(.orderbook.Bids(book)))
     
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades

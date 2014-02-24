@@ -44,9 +44,10 @@ class MidPrice_IOrderBook(Observablefloat):
         from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add_IObservableFloatIObservableFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.orderbook.ask._price import Price_IOrderBook as _orderbook_ask_Price_IOrderBook
-        from marketsim.gen._out.orderbook.bid._price import Price_IOrderBook as _orderbook_bid_Price_IOrderBook
-        return _ops_Div_IObservableFloatFloat(_ops_Add_IObservableFloatIObservableFloat(_orderbook_ask_Price_IOrderBook(self.book),_orderbook_bid_Price_IOrderBook(self.book)),_constant_Float(2.0))
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        return _ops_Div_IObservableFloatFloat(_ops_Add_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book))),_constant_Float(2.0))
     
 def MidPrice(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

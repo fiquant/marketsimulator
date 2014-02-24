@@ -55,9 +55,9 @@ package orderbook
     def SafeSidePrice(queue = Asks(),
                       /** price to be used if there haven't been any trades */
                       defaultValue = constant(100.))
-        = IfDefined(BestPrice(queue),
-                    IfDefined(LastPrice(queue),
-                            defaultValue))
+        = IfDefined(queue~>BestPrice,
+                    IfDefined(queue~>LastPrice,
+                              defaultValue))
 
     /**
      *  Returns moving average of trade prices weighted by their volumes
@@ -67,8 +67,8 @@ package orderbook
                       /** parameter alpha for the moving average  */
                       alpha = 0.15) =
 
-        math.EW.Avg(LastTradePrice(queue)*LastTradeVolume(queue), alpha) /
-                math.EW.Avg(LastTradeVolume(queue), alpha)
+        (queue~>LastTradePrice * queue~>LastTradeVolume)~>EW_Avg(alpha) /
+                queue~>LastTradeVolume~>EW_Avg(alpha)
 
     /**
      *  Returns tick size for the order *book*
@@ -80,13 +80,13 @@ package orderbook
      *  Spread of order *book*
      */
     def Spread(book = OfTrader())
-        = ask.Price(book) - bid.Price(book)
+        = book~>Asks~>BestPrice - book~>Bids~>BestPrice
 
     /**
      *  MidPrice of order *book*
      */
     def MidPrice(book = OfTrader())
-        = (ask.Price(book) + bid.Price(book)) / 2.0
+        = (book~>Asks~>BestPrice + book~>Bids~>BestPrice) / 2.0
 
     /**
      *  Returns price for best orders of total volume *depth*
@@ -111,8 +111,8 @@ package orderbook
     def NaiveCumulativePrice(book   = OfTrader(),
                              depth  = constant(1.)) =
 
-            if depth < 0.0 then depth*ask.Price(book) else
-            if depth > 0.0 then depth*bid.Price(book) else
+            if depth < 0.0 then depth * book~>Asks~>BestPrice else
+            if depth > 0.0 then depth * book~>Bids~>BestPrice else
                 0.0
 
     /**
