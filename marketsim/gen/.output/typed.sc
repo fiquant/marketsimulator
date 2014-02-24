@@ -1237,8 +1237,8 @@ package order {
          */
         
         @python.order.factory.on_proto("Iceberg")
-        def sidevolume_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                               /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sidevolume_Iceberg(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit(),
+                               /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating WithExpiry orders
          *
@@ -1270,8 +1270,8 @@ package order {
          */
         
         @python.order.factory.on_proto("Iceberg")
-        def price_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                          /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def price_Iceberg(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit(),
+                          /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating orders with floating price
          *
@@ -1350,8 +1350,8 @@ package order {
          */
         
         @python.order.factory.on_proto("Iceberg")
-        def side_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                         /** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit()) : (() => .Side) => .IObservable[.IOrder]
+        def side_Iceberg(/** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit(),
+                         /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : (() => .Side) => .IObservable[.IOrder]
         
         /** Factory creating WithExpiry orders
          *
@@ -1461,8 +1461,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_Iceberg")
-        def side_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                               /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
+        def side_price_Iceberg(/** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit(),
+                               /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1694,8 +1694,8 @@ package order {
          */
         
         @python.order.factory.on_proto("Iceberg")
-        def volume_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                           /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def volume_Iceberg(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit(),
+                           /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating orders with floating price
          *
@@ -1756,8 +1756,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_Iceberg")
-        def volume_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                                 /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
+        def volume_price_Iceberg(/** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit(),
+                                 /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating orders with floating price
          *
@@ -1820,8 +1820,8 @@ package order {
          */
         
         @python.order.factory.on_proto("Iceberg")
-        def sideprice_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                              /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sideprice_Iceberg(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                              /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating Peg orders
          *
@@ -1874,8 +1874,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_Iceberg")
-        def sidevolume_price_Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                                     /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
+        def sidevolume_price_Iceberg(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit(),
+                                     /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating limit orders
          *
@@ -2007,8 +2007,8 @@ package order {
      */
     
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(/** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0),
-                /** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit()) : .IObservable[.IOrder]
+    def Iceberg(/** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit(),
+                /** maximal size of order to send */ lotSize : Optional[() => .Float] = .constant(10.0)) : .IObservable[.IOrder]
     
     /** Factory creating fixed budget orders
      *
@@ -2599,7 +2599,7 @@ package strategy {@category = "Side function"
                    /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
                    /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.ops.Add(.observable.Quote(ticker,start,end),.constant(delta))),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.ops.Sub(.observable.Quote(ticker,start,end),.constant(delta))),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
+        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.observable.BreaksAtChanges(.ops.Add(.observable.Quote(ticker,start,end),.constant(delta))),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000))),.constant(volume)),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.observable.BreaksAtChanges(.ops.Sub(.observable.Quote(ticker,start,end),.constant(delta))),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000))),.constant(volume)),.event.After(.constant(0.0))))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -2631,7 +2631,7 @@ package strategy {@category = "Side function"
     
     def MarketMaker(delta : Optional[.Float] = 1.0,
                     volume : Optional[.Float] = 20.0) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Asks(),.constant(100+delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)))),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.constant(volume),.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Bids(),.constant(100-delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)))),.event.After(.constant(0.0))))
+        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Asks(),.constant(100+delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9)),.order._curried.price_Limit(.side.Sell(),.constant(volume*1000))),.constant(volume)),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Bids(),.constant(100-delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9)),.order._curried.price_Limit(.side.Buy(),.constant(volume*1000))),.constant(volume)),.event.After(.constant(0.0))))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */

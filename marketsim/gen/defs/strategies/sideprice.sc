@@ -107,17 +107,15 @@ package strategy
     Combine(
         Generic(
             order.Iceberg(
-                volume,
                 order.FloatingPrice(
                     (ticker~>Quote(start, end) + delta)~>BreaksAtChanges,
-                    order.price.Limit(side.Sell(), volume*1000))),
+                    order.price.Limit(side.Sell(), volume*1000)), volume),
             event.After(0.)),
         Generic(
             order.Iceberg(
-                volume,
                 order.FloatingPrice(
                     (ticker~>Quote(start, end) - delta)~>BreaksAtChanges,
-                    order.price.Limit(side.Buy(), volume*1000))),
+                    order.price.Limit(side.Buy(), volume*1000)), volume),
             event.After(0.))
     )
 
@@ -126,19 +124,17 @@ package strategy
         Combine(
             Generic(
                 order.Iceberg(
-                    volume,
                     order.FloatingPrice(
                         (orderbook.Asks()~>SafeSidePrice(100 + delta) /
                             (trader.Position()~>Atan / 1000)~>Exp)~>OnEveryDt(0.9)~>BreaksAtChanges,
-                        order.price.Limit(side.Sell(), volume*1000))),
+                        order.price.Limit(side.Sell(), volume*1000)), volume),
             event.After(0.)),
             Generic(
                 order.Iceberg(
-                    volume,
                     order.FloatingPrice(
                         (orderbook.Bids()~>SafeSidePrice(100 - delta) /
                             (trader.Position()~>Atan / 1000)~>Exp)~>OnEveryDt(0.9)~>BreaksAtChanges,
-                        order.price.Limit(side.Buy(), volume*1000))),
+                        order.price.Limit(side.Buy(), volume*1000)), volume),
                 event.After(0.)))
 
 

@@ -6,7 +6,7 @@ class Order_Impl(_meta.OwnsSingleOrder):
     once it is filled resends a new order 
     """
 
-    def __init__(self, lotSize, proto):
+    def __init__(self, proto, lotSize):
         """ Initializes iceberg order
         lotSize -- maximal volume for order that can be sent
         orderFactory -- factory to create real orders: *args -> Order
@@ -16,7 +16,7 @@ class Order_Impl(_meta.OwnsSingleOrder):
         self._lotSize = lotSize
         
     def With(self, **kwargs):
-        return Order_Impl(self._lotSize, self.proto.With(**kwargs))
+        return Order_Impl(self.proto.With(**kwargs), self._lotSize)
                 
     def onOrderDisposed(self, order):
         if not self.cancelled:

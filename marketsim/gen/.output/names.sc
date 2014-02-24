@@ -769,8 +769,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("Iceberg")
-        def sidevolume_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                               /** underlying orders to create */ proto = .order.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_Iceberg(/** underlying orders to create */ proto = .order.side_volume.Limit(),
+                               /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -799,8 +799,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("Iceberg")
-        def price_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                          /** underlying orders to create */ proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_Iceberg(/** underlying orders to create */ proto = .order.price.Limit(),
+                          /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating orders with floating price
          *
@@ -872,8 +872,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("Iceberg")
-        def side_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                         /** underlying orders to create */ proto = .order.side.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_Iceberg(/** underlying orders to create */ proto = .order.side.Limit(),
+                         /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Side) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -973,8 +973,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("price_Iceberg")
-        def side_price_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                               /** underlying orders to create */ proto = .order.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+        def side_price_Iceberg(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                               /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1185,8 +1185,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("Iceberg")
-        def volume_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                           /** underlying orders to create */ proto = .order.volume.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_Iceberg(/** underlying orders to create */ proto = .order.volume.Limit(),
+                           /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating orders with floating price
          *
@@ -1241,8 +1241,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("price_Iceberg")
-        def volume_price_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                                 /** underlying orders to create */ proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_Iceberg(/** underlying orders to create */ proto = .order.volume.price.Limit(),
+                                 /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating orders with floating price
          *
@@ -1299,8 +1299,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("Iceberg")
-        def sideprice_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                              /** underlying orders to create */ proto = .order.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_Iceberg(/** underlying orders to create */ proto = .order.side_price.Limit(),
+                              /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating Peg orders
          *
@@ -1348,8 +1348,8 @@ package order
          *  thus maximum lot size volume is visible at the market at any moment.
          */
         @python.order.factory.on_proto("price_Iceberg")
-        def sidevolume_price_Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                                     /** underlying orders to create */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_Iceberg(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
+                                     /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating limit orders
          *
@@ -1476,8 +1476,8 @@ package order
      *  thus maximum lot size volume is visible at the market at any moment.
      */
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(/** maximal size of order to send */ lotSize = .constant(10.0),
-                /** underlying orders to create */ proto = .order.Limit()) : .IOrderGenerator
+    def Iceberg(/** underlying orders to create */ proto = .order.Limit(),
+                /** maximal size of order to send */ lotSize = .constant(10.0)) : .IOrderGenerator
     
     /** Factory creating fixed budget orders
      *
@@ -1960,7 +1960,7 @@ package strategy
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000))),.event.After(0.0)),.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000))),.event.After(0.0)))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000)),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000)),volume),.event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -1986,7 +1986,7 @@ package strategy
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000))),.event.After(0.0)),.strategy.Generic(.order.Iceberg(volume,.order.FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000))),.event.After(0.0)))
+                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000)),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000)),volume),.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */

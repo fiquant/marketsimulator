@@ -80,8 +80,8 @@ package order() {
      *  thus maximum lot size volume is visible at the market at any moment.
      */
     @python.order.factory("order.meta.iceberg.Order_Impl")
-    def Iceberg(/** maximal size of order to send */ lotSize = constant(10.0),
-                /** underlying orders to create */ proto = Limit()) : IOrderGenerator
+    def Iceberg(/** underlying orders to create */ proto = Limit(),
+                /** maximal size of order to send */ lotSize = constant(10.0)) : IOrderGenerator
     
     // defined at defs\order.sc: 108.5
     /** Factory creating orders with floating price

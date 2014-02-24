@@ -30,8 +30,8 @@ def Orders(ctx):
         ctx.makeTrader_A(
                     strategy.LiquidityProvider(
                         event.Every(const(10.)),
-                        order.side_price.Iceberg(const(1),
-                            order.side_price.Limit(volume=const(5)))),
+                        order.side_price.Iceberg(
+                            order.side_price.Limit(volume=const(5)), const(1))),
                     "liquidity iceberg"),
 
         ctx.makeTrader_A(
@@ -45,8 +45,8 @@ def Orders(ctx):
                     strategy.LiquidityProvider(
                         event.Every(const(10.)),
                         order.side_price.WithExpiry(const(5),
-                            order.side_price.Iceberg(const(1),
-                                order.side_price.Limit(volume=const(15))))),
+                            order.side_price.Iceberg(
+                                order.side_price.Limit(volume=const(15)), const(1)))),
                     "liquidity iceberg expiry"),
 
         ctx.makeTrader_A(strategy.Signal(
@@ -64,8 +64,8 @@ def Orders(ctx):
 
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(const(1.)),
-                            order.side.Iceberg(const(1),
-                                order.side.Limit(const(110), const(3))),
+                            order.side.Iceberg(
+                                order.side.Limit(const(110), const(3)), const(1)),
                             linear_signal),
                          "signal iceberg"),
 
@@ -121,17 +121,16 @@ def Orders(ctx):
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(const(10.)),
                             order.side.Iceberg(
-                                const(1),
                                 order.side.Peg(
-                                    order.side.price.Limit(const(1)))),
+                                    order.side.price.Limit(const(1))), const(1)),
                             Interlacing()),
                          "iceberg peg"),
 
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(const(10.)),
                             order.side.Peg(
-                                order.side.price.Iceberg(const(1),
-                                    order.side.price.Limit(const(3)))),
+                                order.side.price.Iceberg(
+                                    order.side.price.Limit(const(3)), const(1))),
                             Interlacing()),
                          "peg iceberg"),
 
@@ -140,8 +139,8 @@ def Orders(ctx):
                             order.side.WithExpiry(
                                 constant(3.),
                                 order.side.Peg(
-                                    order.side.price.Iceberg(const(1),
-                                        order.side.price.Limit(const(3))))),
+                                    order.side.price.Iceberg(
+                                        order.side.price.Limit(const(3)), const(1)))),
                             Interlacing()),
                          "peg iceberg expiry"),
 
@@ -150,9 +149,8 @@ def Orders(ctx):
                             order.side.WithExpiry(
                                 constant(10.),
                                 order.side.Iceberg(
-                                    const(1),
                                     order.side.Peg(
-                                        order.side.price.Limit(const(1))))),
+                                        order.side.price.Limit(const(1))), const(1))),
                             Interlacing()),
                          "iceberg peg expiry"),
     ]
