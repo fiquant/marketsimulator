@@ -22,7 +22,7 @@ package strategy
                 /** given a trading account tells should it be considered as effective or not */
                 performance = weight.efficiencyTrend())
 
-        =   Suspendable(inner, performance(account(inner)) >= 0)
+        =   inner~>Suspendable(performance(account(inner)) >= 0)
 
     /**
      * A composite strategy initialized with an array of strategies.

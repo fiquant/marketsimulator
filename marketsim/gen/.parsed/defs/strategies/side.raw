@@ -129,26 +129,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  threshold when the trader starts to act 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Signal
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - signal
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - threshold
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Signal
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - signal
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -213,26 +211,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  threshold when the trader starts to act 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - TrendFollower
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - ewma_alpha
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - threshold
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - TrendFollower
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - ewma_alpha
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -308,28 +304,26 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  threshold when the trader starts to act 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - CrossingAverages
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - ewma_alpha_1
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - ewma_alpha_2
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - threshold
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - CrossingAverages
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - ewma_alpha_1
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - ewma_alpha_2
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - threshold
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -392,24 +386,22 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  defines fundamental value 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - fundamentalValue
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - fundamentalValue
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -466,24 +458,22 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - MeanReversion
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - ewma_alpha
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - MeanReversion
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - ewma_alpha
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -553,26 +543,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - PairTrading
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - bookToDependOn
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - factor
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - PairTrading
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - factor
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None
@@ -652,45 +640,43 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  strategy starts to act once RSI is out of [50-threshold, 50+threshold] 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Signal
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Signal
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - timeframe
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - threshold
+| | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - eventGen
 | | | | | - None

@@ -58,28 +58,26 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  lag for calculating up and down movements 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - position
-| | | | | | | | | | | | | - RSI_linear
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - k
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - position
+| | | | | | | | | | | | - RSI_linear
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - k
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - timeframe
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
@@ -124,26 +122,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  observable scaling function that maps relative deviation to desired position 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
+| | | | | | - MemberAccess:
+| | | | | | | - FunCall:
+| | | | | | | | - QualifiedName:
 | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - position
-| | | | | | | | | | | | | - Bollinger_linear
+| | | | | | | | | | - orderFactory
+| | | | | | | | - List:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - k
+| | | | | | | | | | | | - position
+| | | | | | | | | | | | - Bollinger_linear
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - k
+| | | | | | | - Strategy
+| | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

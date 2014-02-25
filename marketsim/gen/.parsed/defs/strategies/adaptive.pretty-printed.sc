@@ -13,7 +13,7 @@ package strategy() {
     def TradeIfProfitable(/** wrapped strategy */ inner = Noise(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = account.virtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance = weight.efficiencyTrend()) = Suspendable(inner,performance(account(inner))>=0)
+                          /** given a trading account tells should it be considered as effective or not */ performance = weight.efficiencyTrend()) = inner~>Suspendable(performance(account(inner))>=0)
     
     // defined at defs\strategies\adaptive.sc: 27.5
     /** A composite strategy initialized with an array of strategies.

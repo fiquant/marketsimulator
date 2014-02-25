@@ -92,13 +92,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  given a trading account tells should it be considered as effective or not 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Suspendable
+| | | | | | - MemberAccess:
+| | | | | | | - Var:
+| | | | | | | | - inner
+| | | | | | | - Suspendable
 | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - inner
 | | | | | | | | - Condition:
 | | | | | | | | | - GreaterEqual
 | | | | | | | | | - FunCall:

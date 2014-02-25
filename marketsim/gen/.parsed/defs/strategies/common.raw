@@ -55,6 +55,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.generic._Generic_Impl
+| | | | | | - Attribute:
+| | | | | | | - method
+| | | | | | | - Strategy
 | | | | - FunDef:
 | | | | | - Combine
 | | | | | - List:

@@ -27,10 +27,7 @@ package strategy
                /** threshold when the trader starts to act */
                threshold    = 0.7)
 
-        =   Generic(
-                orderFactory(
-                    side.Signal(signal, threshold)),
-                eventGen)
+        =   (orderFactory(side.Signal(signal, threshold)))~>Strategy(eventGen)
 
     /**
      * Trend follower can be considered as a sort of a signal strategy
@@ -49,10 +46,7 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(
-                orderFactory(
-                    side.TrendFollower(ewma_alpha, threshold)),
-                eventGen)
+        =   (orderFactory(side.TrendFollower(ewma_alpha, threshold)))~>Strategy(eventGen)
 
     /**
       * Two averages strategy compares two averages of price of the same asset but
@@ -71,10 +65,7 @@ package strategy
                         /** threshold when the trader starts to act */
                         threshold    = 0.)
 
-        =   Generic(
-                orderFactory(
-                    side.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)),
-                eventGen)
+        =   (orderFactory(side.CrossingAverages(ewma_alpha_1, ewma_alpha_2, threshold)))~>Strategy(eventGen)
 
     /**
      * Fundamental value strategy believes that an asset should have some specific price
@@ -89,10 +80,7 @@ package strategy
                /** defines fundamental value */
                fundamentalValue = constant(100.))
 
-        =   Generic(
-                orderFactory(
-                    side.FundamentalValue(fundamentalValue)),
-                eventGen)
+        =   (orderFactory(side.FundamentalValue(fundamentalValue)))~>Strategy(eventGen)
 
     /**
       * Mean reversion strategy believes that asset price should return to its average value.
@@ -107,10 +95,7 @@ package strategy
                         /** parameter |alpha| for exponentially weighted moving average */
                         ewma_alpha   = 0.15)
 
-        =   Generic(
-                orderFactory(
-                    side.MeanReversion(ewma_alpha)),
-                eventGen)
+        =   (orderFactory(side.MeanReversion(ewma_alpha)))~>Strategy(eventGen)
 
     /**
       * Dependent price strategy believes that the fair price of an asset *A*
@@ -129,10 +114,7 @@ package strategy
                         /** multiplier to obtain fair asset price from the reference asset price */
                         factor          = 1.0)
 
-        =   Generic(
-                orderFactory(
-                    side.PairTrading(bookToDependOn, factor)),
-                eventGen)
+        =   (orderFactory(side.PairTrading(bookToDependOn, factor)))~>Strategy(eventGen)
 
     /**
      *  Strategy that calculates Relative Strength Index of an asset
@@ -150,10 +132,9 @@ package strategy
                         /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */
                         threshold    = 30.)
 
-        =   Generic(
-                orderFactory(
+        =   (orderFactory(
                     side.Signal(
                         50.0 - orderbook.OfTrader()~>RSI(timeframe, alpha),
-                        50.0 - threshold)),
-                eventGen)
+                        50.0 - threshold))
+            )~>Strategy(eventGen)
 }

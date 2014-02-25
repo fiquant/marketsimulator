@@ -6,10 +6,11 @@ package strategy() {
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
     @python.intrinsic("strategy.generic._Generic_Impl")
+    @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = event.Every()) : ISingleAssetStrategy
     
-    // defined at defs\strategies\common.sc: 14.5
+    // defined at defs\strategies\common.sc: 15.5
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -17,13 +18,13 @@ package strategy() {
     def Combine(A = Noise(),
                 B = Noise()) : ISingleAssetStrategy
     
-    // defined at defs\strategies\common.sc: 22.5
+    // defined at defs\strategies\common.sc: 23.5
     /** Creates a strategy combining an array of strategies
      */
     @python.intrinsic("strategy.combine._Array_Impl")
     def Array(/** strategies to combine */ strategies = [Noise()]) : ISingleAssetStrategy
     
-    // defined at defs\strategies\common.sc: 29.5
+    // defined at defs\strategies\common.sc: 30.5
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
@@ -31,13 +32,13 @@ package strategy() {
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr = math.random.expovariate(1.0)) : ISingleAssetStrategy
     
-    // defined at defs\strategies\common.sc: 38.5
+    // defined at defs\strategies\common.sc: 39.5
     /** Empty strategy doing nothing
      */
     @python.intrinsic("strategy.basic._Empty_Impl")
     def Empty() : ISingleAssetStrategy
     
-    // defined at defs\strategies\common.sc: 44.5
+    // defined at defs\strategies\common.sc: 45.5
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues
      * Once an ask at one venue becomes lower than a bid at another venue

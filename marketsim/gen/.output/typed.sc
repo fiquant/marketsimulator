@@ -2621,6 +2621,7 @@ package strategy {@category = "Side function"
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
+    @method = "Strategy"
     
     @python.intrinsic("strategy.generic._Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : Optional[.IObservable[.IOrder]] = .order.Limit(),

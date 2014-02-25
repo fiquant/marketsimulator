@@ -12,9 +12,7 @@ package strategy
                     /** lag for calculating up and down movements */
                     timeframe    = 1.)
 
-        = Generic(
-                orderFactory(
-                        position.RSI_linear(alpha, k, timeframe)))
+        = (orderFactory(position.RSI_linear(alpha, k, timeframe)))~>Strategy
 
     /**
      *  Strategy believing that trader position should be proportional to the relative standard deviation of its price
@@ -26,7 +24,5 @@ package strategy
                             /** observable scaling function that maps relative deviation to desired position */
                             k            = const(0.5))
 
-        = Generic(
-                orderFactory(
-                        position.Bollinger_linear(alpha, k)))
+        = (orderFactory(position.Bollinger_linear(alpha, k)))~>Strategy
 }

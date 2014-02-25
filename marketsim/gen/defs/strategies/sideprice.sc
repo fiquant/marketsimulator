@@ -16,14 +16,12 @@ package strategy
                     order to create is calculated*/
                 priceDistr   = math.random.lognormvariate(0., .1))
 
-        =   Generic(
-                orderFactory(
+        =   (orderFactory(
                     side,
                     price.LiquidityProvider(
                         side,
                         initialValue,
-                        priceDistr)),
-                eventGen)
+                        priceDistr)))~>Strategy(eventGen)
 
     /**
      * Liquidity provider for two sides
@@ -105,35 +103,34 @@ package strategy
 
     =
     Combine(
-        Generic(
             order.price.Limit(side.Sell(), volume*1000)
                 ~>FloatingPrice((ticker~>Quote(start, end) + delta)~>BreaksAtChanges)
-                ~>Iceberg(volume),
-            event.After(0.)),
-        Generic(
+                ~>Iceberg(volume)
+                ~>Strategy(event.After(0.)),
+
             order.price.Limit(side.Buy(), volume*1000)
                 ~>FloatingPrice((ticker~>Quote(start, end) - delta)~>BreaksAtChanges)
-                ~>Iceberg(volume),
-            event.After(0.))
+                ~>Iceberg(volume)
+                ~>Strategy(event.After(0.))
     )
 
     def MarketMaker(delta = 1., volume = 20.) =
 
         Combine(
-            Generic(
                 order.price.Limit(side.Sell(), volume*1000)
                     ~>FloatingPrice(
                         (orderbook.Asks()~>SafeSidePrice(100 + delta) / (trader.Position()~>Atan / 1000)~>Exp)
                             ~>OnEveryDt(0.9)~>BreaksAtChanges)
-                    ~>Iceberg(volume),
-                event.After(0.)),
-            Generic(
+                    ~>Iceberg(volume)
+                    ~>Strategy(event.After(0.)),
+
                 order.price.Limit(side.Buy(), volume*1000)
                     ~>FloatingPrice(
                         (orderbook.Bids()~>SafeSidePrice(100 - delta) / (trader.Position()~>Atan / 1000)~>Exp)
                             ~>OnEveryDt(0.9)~>BreaksAtChanges)
-                    ~>Iceberg(volume),
-                event.After(0.)))
+                    ~>Iceberg(volume)
+                    ~>Strategy(event.After(0.))
+                )
 
 
 }

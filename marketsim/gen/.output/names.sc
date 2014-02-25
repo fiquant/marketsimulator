@@ -1808,7 +1808,7 @@ package strategy
     def RSI_linear(/** order factory function */ orderFactory = .order.signedVolume.MarketSigned(),
                    /** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14,
                    /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
-                   /** lag for calculating up and down movements */ timeframe = 1.0) = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
+                   /** lag for calculating up and down movements */ timeframe = 1.0) = orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe))~>Strategy
     
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
@@ -1820,7 +1820,7 @@ package strategy
     def PairTrading(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                     /** order factory function*/ orderFactory = .order.side.Market(),
                     /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),
-                    /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0) = .strategy.Generic(orderFactory(.strategy.side.PairTrading(bookToDependOn,factor)),eventGen)
+                    /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0) = orderFactory(.strategy.side.PairTrading(bookToDependOn,factor))~>Strategy(eventGen)
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
@@ -1840,7 +1840,7 @@ package strategy
     def Signal(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                /** order factory function*/ orderFactory = .order.side.Market(),
                /** signal to be listened to */ signal = .constant(0.0),
-               /** threshold when the trader starts to act */ threshold = 0.7) = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
+               /** threshold when the trader starts to act */ threshold = 0.7) = orderFactory(.strategy.side.Signal(signal,threshold))~>Strategy(eventGen)
     
     /** Liquidity provider for two sides
      */
@@ -1859,7 +1859,7 @@ package strategy
                          /** order factory function*/ orderFactory = .order.side.Market(),
                          /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
-                         /** threshold when the trader starts to act */ threshold = 0.0) = .strategy.Generic(orderFactory(.strategy.side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
+                         /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(.strategy.side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold))~>Strategy(eventGen)
     
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
@@ -1877,7 +1877,7 @@ package strategy
     def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                       /** order factory function*/ orderFactory = .order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
-                      /** threshold when the trader starts to act */ threshold = 0.0) = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
+                      /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold))~>Strategy(eventGen)
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -1885,7 +1885,7 @@ package strategy
      */
     def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                          /** order factory function*/ orderFactory = .order.side.Market(),
-                         /** defines fundamental value */ fundamentalValue = .constant(100.0)) = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
+                         /** defines fundamental value */ fundamentalValue = .constant(100.0)) = orderFactory(.strategy.side.FundamentalValue(fundamentalValue))~>Strategy(eventGen)
     
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues
@@ -1903,14 +1903,14 @@ package strategy
                /** order factory function*/ orderFactory = .order.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,
                /** lag for calculating up and down movements for RSI */ timeframe = 1.0,
-               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = .strategy.Generic(orderFactory(.strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold)),eventGen)
+               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = orderFactory(.strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold))~>Strategy(eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */
     def TradeIfProfitable(/** wrapped strategy */ inner = .strategy.Noise(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = .strategy.account.virtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance = .strategy.weight.efficiencyTrend()) = .strategy.Suspendable(inner,performance(account(inner))>=0)
+                          /** given a trading account tells should it be considered as effective or not */ performance = .strategy.weight.efficiencyTrend()) = inner~>Suspendable(performance(account(inner))>=0)
     
     /** Creates a strategy combining an array of strategies
      */
@@ -1924,7 +1924,7 @@ package strategy
      */
     def MeanReversion(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                       /** order factory function*/ orderFactory = .order.side.Market(),
-                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15) = .strategy.Generic(orderFactory(.strategy.side.MeanReversion(ewma_alpha)),eventGen)
+                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15) = orderFactory(.strategy.side.MeanReversion(ewma_alpha))~>Strategy(eventGen)
     
     /** Empty strategy doing nothing
      */
@@ -1958,7 +1958,7 @@ package strategy
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)),.strategy.Generic(.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)),.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -1974,17 +1974,18 @@ package strategy
                               /** side of orders to create */ side = .side.Sell() : .IFunction[.Side],
                               /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
                               /** defines multipliers for current asset price when price of
-                                *                    order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1)) = .strategy.Generic(orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+                                *                    order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1)) = orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr))~>Strategy(eventGen)
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
     @python.intrinsic("strategy.generic._Generic_Impl")
+    @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)),.strategy.Generic(.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)))
+                    volume = 20.0) = .strategy.Combine(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)),.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
@@ -1995,7 +1996,7 @@ package strategy
      */
     def Bollinger_linear(/** order factory function */ orderFactory = .order.signedVolume.MarketSigned(),
                          /** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
-                         /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5)) = .strategy.Generic(orderFactory(.strategy.position.Bollinger_linear(alpha,k)))
+                         /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5)) = orderFactory(.strategy.position.Bollinger_linear(alpha,k))~>Strategy
     
 }
 
