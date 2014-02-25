@@ -1259,8 +1259,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_StopLoss")
-        def side_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                                /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
+        def side_price_StopLoss(/** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit(),
+                                /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating iceberg orders
          *
@@ -1293,8 +1293,8 @@ package order {
          */
         
         @python.order.factory.on_proto("StopLoss")
-        def price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                           /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def price_StopLoss(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit(),
+                           /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1328,8 +1328,8 @@ package order {
          */
         
         @python.order.factory.on_proto("StopLoss")
-        def sideprice_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                               /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sideprice_StopLoss(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                               /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating Peg orders
          *
@@ -1496,8 +1496,8 @@ package order {
          */
         
         @python.order.factory.on_proto("StopLoss")
-        def side_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                          /** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit()) : (() => .Side) => .IObservable[.IOrder]
+        def side_StopLoss(/** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit(),
+                          /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : (() => .Side) => .IObservable[.IOrder]
         
         /** Factory creating StopLoss orders
          *
@@ -1508,8 +1508,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_StopLoss")
-        def sidevolume_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                                      /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
+        def sidevolume_price_StopLoss(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit(),
+                                      /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating Peg orders
          *
@@ -1531,8 +1531,8 @@ package order {
          */
         
         @python.order.factory.on_proto("StopLoss")
-        def volume_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                            /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def volume_StopLoss(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit(),
+                            /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating limit orders
          *
@@ -1553,8 +1553,8 @@ package order {
          */
         
         @python.order.factory.on_proto("StopLoss")
-        def sidevolume_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                                /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sidevolume_StopLoss(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit(),
+                                /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating WithExpiry orders
          *
@@ -1617,8 +1617,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_StopLoss")
-        def volume_price_StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                                  /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
+        def volume_price_StopLoss(/** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit(),
+                                  /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1975,8 +1975,8 @@ package order {
      */
     
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(/** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1),
-                 /** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit()) : .IObservable[.IOrder]
+    def StopLoss(/** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit(),
+                 /** maximal acceptable loss factor */ maxloss : Optional[() => .Float] = .constant(0.1)) : .IObservable[.IOrder]
     
     /** Factory creating WithExpiry orders
      *

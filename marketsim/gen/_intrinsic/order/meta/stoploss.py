@@ -7,7 +7,7 @@ from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
 
 class Order_Impl(_meta.Base):
     
-    def __init__(self, maxloss, proto):
+    def __init__(self, proto, maxloss):
         
         _meta.Base.__init__(self, proto.volumeUnmatched)
         

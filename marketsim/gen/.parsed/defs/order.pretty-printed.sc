@@ -59,8 +59,8 @@ package order() {
      *  the meta order clears its position.
      */
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(/** maximal acceptable loss factor */ maxloss = constant(0.1),
-                 /** underlying orders to create */ proto = Limit()) : IOrderGenerator
+    def StopLoss(/** underlying orders to create */ proto = Limit(),
+                 /** maximal acceptable loss factor */ maxloss = constant(0.1)) : IOrderGenerator
     
     // defined at defs\order.sc: 83.5
     /** Factory creating WithExpiry orders

@@ -223,6 +223,17 @@ Definitions:
 | | | | | - StopLoss
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
+| | | | | | - Parameter:
 | | | | | | | - maxloss
 | | | | | | | - None
 | | | | | | | - Some:
@@ -235,17 +246,6 @@ Definitions:
 | | | | | | | | | | | - 0.1
 | | | | | | | - List:
 | | | | | | | | -  maximal acceptable loss factor 
-| | | | | | - Parameter:
-| | | | | | | - proto
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Limit
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

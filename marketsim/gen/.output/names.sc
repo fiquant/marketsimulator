@@ -789,8 +789,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("price_StopLoss")
-        def side_price_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                                /** underlying orders to create */ proto = .order.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+        def side_price_StopLoss(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                                /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating iceberg orders
          *
@@ -820,8 +820,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("StopLoss")
-        def price_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                           /** underlying orders to create */ proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_StopLoss(/** underlying orders to create */ proto = .order.price.Limit(),
+                           /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -852,8 +852,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("StopLoss")
-        def sideprice_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                               /** underlying orders to create */ proto = .order.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_StopLoss(/** underlying orders to create */ proto = .order.side_price.Limit(),
+                               /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating Peg orders
          *
@@ -1005,8 +1005,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("StopLoss")
-        def side_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                          /** underlying orders to create */ proto = .order.side.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_StopLoss(/** underlying orders to create */ proto = .order.side.Limit(),
+                          /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Side) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -1016,8 +1016,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("price_StopLoss")
-        def sidevolume_price_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                                      /** underlying orders to create */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_StopLoss(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
+                                      /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating Peg orders
          *
@@ -1037,8 +1037,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("StopLoss")
-        def volume_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                            /** underlying orders to create */ proto = .order.volume.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_StopLoss(/** underlying orders to create */ proto = .order.volume.Limit(),
+                            /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating limit orders
          *
@@ -1057,8 +1057,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("StopLoss")
-        def sidevolume_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                                /** underlying orders to create */ proto = .order.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_StopLoss(/** underlying orders to create */ proto = .order.side_volume.Limit(),
+                                /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -1115,8 +1115,8 @@ package order
          *  the meta order clears its position.
          */
         @python.order.factory.on_proto("price_StopLoss")
-        def volume_price_StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                                  /** underlying orders to create */ proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_StopLoss(/** underlying orders to create */ proto = .order.volume.price.Limit(),
+                                  /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1447,8 +1447,8 @@ package order
      *  the meta order clears its position.
      */
     @python.order.factory("order.meta.stoploss.Order_Impl")
-    def StopLoss(/** maximal acceptable loss factor */ maxloss = .constant(0.1),
-                 /** underlying orders to create */ proto = .order.Limit()) : .IOrderGenerator
+    def StopLoss(/** underlying orders to create */ proto = .order.Limit(),
+                 /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : .IOrderGenerator
     
     /** Factory creating WithExpiry orders
      *

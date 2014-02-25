@@ -23,8 +23,9 @@ def Orders(ctx):
         ctx.makeTrader_A(
                     strategy.LiquidityProvider(
                         event.Every(const(100.)),
-                        order.side_price.StopLoss(const(0.1),
-                            order.side_price.Limit(volume=const(5)))),
+                        order.side_price.StopLoss(
+                            order.side_price.Limit(volume=const(5)),
+                            const(0.1))),
                     "liquidity stoploss"),
 
         ctx.makeTrader_A(
@@ -90,9 +91,9 @@ def Orders(ctx):
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(const(1.)),
                             order.side.StopLoss(
-                                const(0.1),
                                 order.side.Market(
-                                    volume = const(1))),
+                                    volume = const(1)),
+                                const(0.1)),
                             linear_signal),
                          "signal stoploss"),
 
