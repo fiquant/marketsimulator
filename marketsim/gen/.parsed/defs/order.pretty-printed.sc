@@ -91,8 +91,8 @@ package order() {
      *  a new order with new price is created and sent to the order book.
      */
     @python.order.factory("order.meta.floating_price.Factory_Impl")
-    def FloatingPrice(/** observable defining price of orders to create */ floatingPrice = const(10.0),
-                      /** underlying orders to create */ proto = price.Limit()) : IOrderGenerator
+    def FloatingPrice(/** underlying orders to create */ proto = price.Limit(),
+                      /** observable defining price of orders to create */ floatingPrice = const(10.0)) : IOrderGenerator
     
     // defined at defs\order.sc: 121.5
     /** Factory creating Peg orders

@@ -376,6 +376,18 @@ Definitions:
 | | | | | - FloatingPrice
 | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - proto
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - price
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | | | -  underlying orders to create 
+| | | | | | - Parameter:
 | | | | | | | - floatingPrice
 | | | | | | | - None
 | | | | | | | - Some:
@@ -388,18 +400,6 @@ Definitions:
 | | | | | | | | | | | - 10.0
 | | | | | | | - List:
 | | | | | | | | -  observable defining price of orders to create 
-| | | | | | - Parameter:
-| | | | | | | - proto
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - price
-| | | | | | | | | | | - Limit
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  underlying orders to create 
 | | | | | - None
 | | | | | - Some:
 | | | | | | - SimpleType:

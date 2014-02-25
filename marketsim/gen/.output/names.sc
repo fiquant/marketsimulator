@@ -809,8 +809,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("FloatingPrice")
-        def sideprice_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                    /** underlying orders to create */ proto = .order.side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_FloatingPrice(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                                    /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -1097,8 +1097,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("FloatingPrice")
-        def volume_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                 /** underlying orders to create */ proto = .order.volume.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_FloatingPrice(/** underlying orders to create */ proto = .order.volume.price.Limit(),
+                                 /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating market orders
          *
@@ -1147,8 +1147,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("price_FloatingPrice")
-        def side_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                     /** underlying orders to create */ proto = .order.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+        def side_price_FloatingPrice(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                                     /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating orders with floating price
          *
@@ -1157,8 +1157,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("FloatingPrice")
-        def side_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                               /** underlying orders to create */ proto = .order.side.price.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_FloatingPrice(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                               /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Side) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -1195,8 +1195,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("price_FloatingPrice")
-        def volume_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                       /** underlying orders to create */ proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_FloatingPrice(/** underlying orders to create */ proto = .order.volume.price.Limit(),
+                                       /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating market orders
          *
@@ -1212,8 +1212,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("FloatingPrice")
-        def price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                /** underlying orders to create */ proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_FloatingPrice(/** underlying orders to create */ proto = .order.price.Limit(),
+                                /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating orders with floating price
          *
@@ -1222,8 +1222,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("FloatingPrice")
-        def sidevolume_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                     /** underlying orders to create */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_FloatingPrice(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
+                                     /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -1251,8 +1251,8 @@ package order
          *  a new order with new price is created and sent to the order book.
          */
         @python.order.factory.on_proto("price_FloatingPrice")
-        def sidevolume_price_FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                                           /** underlying orders to create */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_FloatingPrice(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
+                                           /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1466,8 +1466,8 @@ package order
      *  a new order with new price is created and sent to the order book.
      */
     @python.order.factory("order.meta.floating_price.Factory_Impl")
-    def FloatingPrice(/** observable defining price of orders to create */ floatingPrice = .const(10.0),
-                      /** underlying orders to create */ proto = .order.price.Limit()) : .IOrderGenerator
+    def FloatingPrice(/** underlying orders to create */ proto = .order.price.Limit(),
+                      /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : .IOrderGenerator
     
     /** Factory creating iceberg orders
      *
@@ -1960,7 +1960,7 @@ package strategy
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000)),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000)),volume),.event.After(0.0)))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Sell(),volume*1000),ticker~>Quote(start,end)+delta~>BreaksAtChanges),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Buy(),volume*1000),ticker~>Quote(start,end)-delta~>BreaksAtChanges),volume),.event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -1986,7 +1986,7 @@ package strategy
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Sell(),volume*1000)),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges,.order.price.Limit(.side.Buy(),volume*1000)),volume),.event.After(0.0)))
+                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Sell(),volume*1000),.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Buy(),volume*1000),.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges),volume),.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */

@@ -57,8 +57,9 @@ def Orders(ctx):
 
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(const(1.)),
-                            order.side.FloatingPrice(const(100.),
-                                order.side.price.Limit(const(1))),
+                            order.side.FloatingPrice(
+                                order.side.price.Limit(const(1)),
+                                const(100.)),
                             linear_signal),
                          "signal floating"),
 

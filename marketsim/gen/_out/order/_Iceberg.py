@@ -42,7 +42,7 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         
         lotSize = self.lotSize()
         if lotSize is None: return None
-
+        
         return Order_Impl(proto, lotSize)
     
 def Iceberg(proto = None,lotSize = None): 
