@@ -546,7 +546,7 @@ package object Typer
                             Typed.FunctionCall(makeExpr(), typed_args)
 
                         case xs =>
-                            throw new Exception(s"there are several dominating overloads $xs in $overloads and it is strange")
+                            throw new Exception(s"there are several dominating overloads ${xs mkString predef.crlf} in  ${overloads mkString predef.crlf} and it is strange")
                     }
 
             }

@@ -425,7 +425,7 @@ package object Typed
                                 filter  { _._1 != "N/A" }
                                 groupBy { _._1 }
                                 map     { p => (p._1, p._2 map { _._2 })}
-                                map     { checkFunctionsCompatible(_) })
+                                map     { checkFunctionsCompatible })
                     }
                 }).toMap
         }

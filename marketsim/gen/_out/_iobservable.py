@@ -41,6 +41,10 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math.Cumulative._var import Var
         return Var(self)
     
+    def DesiredPosition(self, trader = None):
+        from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition
+        return DesiredPosition(self,trader)
+    
     def DownMovements(self, timeframe = None):
         from marketsim.gen._out.math._downmovements import DownMovements
         return DownMovements(self,timeframe)
@@ -179,6 +183,10 @@ class IObservableIOrder(IEvent, IFunctionIOrder):
     def Iceberg(self, lotSize = None):
         from marketsim.gen._out.order._iceberg import Iceberg
         return Iceberg(self,lotSize)
+    
+    def Generic(self, eventGen = None):
+        from marketsim.gen._out.strategy._generic import Generic
+        return Generic(self,eventGen)
     
     pass
 

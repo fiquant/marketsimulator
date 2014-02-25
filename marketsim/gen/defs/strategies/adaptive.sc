@@ -1,4 +1,3 @@
-@method = "N/A"
 package strategy
 {
     /**

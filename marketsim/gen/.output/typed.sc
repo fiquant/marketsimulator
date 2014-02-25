@@ -2046,7 +2046,6 @@ package order {
     def Peg(proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit()) : .IObservable[.IOrder]
 }
 
-@method = "N/A"
 @category = "Strategy"
 
 package strategy {@category = "Side function"

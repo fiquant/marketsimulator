@@ -1513,7 +1513,6 @@ package order
     
 }
 
-@method = "N/A"
 @category = "Strategy"
 package strategy
 {
