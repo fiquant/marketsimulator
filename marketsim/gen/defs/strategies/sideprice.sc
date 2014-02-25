@@ -106,17 +106,14 @@ package strategy
     =
     Combine(
         Generic(
-            order.Iceberg(
-                order.FloatingPrice(
-                    order.price.Limit(side.Sell(), volume*1000),
-                    (ticker~>Quote(start, end) + delta)~>BreaksAtChanges),
-                volume),
+            order.price.Limit(side.Sell(), volume*1000)
+                ~>FloatingPrice((ticker~>Quote(start, end) + delta)~>BreaksAtChanges)
+                ~>Iceberg(volume),
             event.After(0.)),
         Generic(
-            order.Iceberg(
-                order.FloatingPrice(
-                    order.price.Limit(side.Buy(), volume*1000),
-                    (ticker~>Quote(start, end) - delta)~>BreaksAtChanges), volume),
+            order.price.Limit(side.Buy(), volume*1000)
+                ~>FloatingPrice((ticker~>Quote(start, end) - delta)~>BreaksAtChanges)
+                ~>Iceberg(volume),
             event.After(0.))
     )
 
@@ -124,18 +121,18 @@ package strategy
 
         Combine(
             Generic(
-                order.Iceberg(
-                    order.FloatingPrice(
-                        order.price.Limit(side.Sell(), volume*1000),
-                        (orderbook.Asks()~>SafeSidePrice(100 + delta) /
-                            (trader.Position()~>Atan / 1000)~>Exp)~>OnEveryDt(0.9)~>BreaksAtChanges), volume),
-            event.After(0.)),
+                order.price.Limit(side.Sell(), volume*1000)
+                    ~>FloatingPrice(
+                        (orderbook.Asks()~>SafeSidePrice(100 + delta) / (trader.Position()~>Atan / 1000)~>Exp)
+                            ~>OnEveryDt(0.9)~>BreaksAtChanges)
+                    ~>Iceberg(volume),
+                event.After(0.)),
             Generic(
-                order.Iceberg(
-                    order.FloatingPrice(
-                        order.price.Limit(side.Buy(), volume*1000),
-                        (orderbook.Bids()~>SafeSidePrice(100 - delta) /
-                            (trader.Position()~>Atan / 1000)~>Exp)~>OnEveryDt(0.9)~>BreaksAtChanges), volume),
+                order.price.Limit(side.Buy(), volume*1000)
+                    ~>FloatingPrice(
+                        (orderbook.Bids()~>SafeSidePrice(100 - delta) / (trader.Position()~>Atan / 1000)~>Exp)
+                            ~>OnEveryDt(0.9)~>BreaksAtChanges)
+                    ~>Iceberg(volume),
                 event.After(0.)))
 
 

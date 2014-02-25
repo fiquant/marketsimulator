@@ -152,21 +152,38 @@ class IObservablefloat(IEvent, IFunctionfloat):
 IObservable[float] = IObservablefloat
 
 
-from marketsim.gen._out._ifunction import IFunctionIOrder
-from marketsim.gen._out._iorder import IOrder
-class IObservableIOrder(IEvent, IFunctionIOrder):
-    pass
-
-
-IObservable[IOrder] = IObservableIOrder
-
-
 from marketsim.gen._out._ifunction import IFunctionstr
 class IObservablestr(IEvent, IFunctionstr):
     pass
 
 
 IObservable[str] = IObservablestr
+
+
+from marketsim.gen._out._ifunction import IFunctionIOrder
+from marketsim.gen._out._iorder import IOrder
+class IObservableIOrder(IEvent, IFunctionIOrder):
+    @property
+    def ImmediateOrCancel(self):
+        from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
+        return ImmediateOrCancel(self)
+    
+    def StopLoss(self, maxloss = None):
+        from marketsim.gen._out.order._stoploss import StopLoss
+        return StopLoss(self,maxloss)
+    
+    def WithExpiry(self, expiry = None):
+        from marketsim.gen._out.order._withexpiry import WithExpiry
+        return WithExpiry(self,expiry)
+    
+    def Iceberg(self, lotSize = None):
+        from marketsim.gen._out.order._iceberg import Iceberg
+        return Iceberg(self,lotSize)
+    
+    pass
+
+
+IObservable[IOrder] = IObservableIOrder
 
 
 from marketsim.gen._out._ifunction import IFunctionbool

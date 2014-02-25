@@ -1,5 +1,4 @@
 @category = "Order"
-@method = "N/A"
 package order
 {
     // Order factory is a callable object that creates orders

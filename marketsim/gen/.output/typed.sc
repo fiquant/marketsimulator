@@ -1082,7 +1082,6 @@ package math {
 }
 
 @category = "Order"
-@method = "N/A"
 
 package order {
     package side {

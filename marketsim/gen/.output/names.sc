@@ -606,7 +606,6 @@ package math
 }
 
 @category = "Order"
-@method = "N/A"
 package order
 {
     package side
@@ -1960,7 +1959,7 @@ package strategy
                    /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Sell(),volume*1000),ticker~>Quote(start,end)+delta~>BreaksAtChanges),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Buy(),volume*1000),ticker~>Quote(start,end)-delta~>BreaksAtChanges),volume),.event.After(0.0)))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.strategy.Generic(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)),.strategy.Generic(.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -1986,7 +1985,7 @@ package strategy
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
     
     def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Sell(),volume*1000),.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges),volume),.event.After(0.0)),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order.price.Limit(.side.Buy(),volume*1000),.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges),volume),.event.After(0.0)))
+                    volume = 20.0) = .strategy.Combine(.strategy.Generic(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)),.strategy.Generic(.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume),.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
