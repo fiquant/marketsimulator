@@ -1247,8 +1247,8 @@ package order {
          */
         
         @python.order.factory.on_proto("WithExpiry")
-        def sidevolume_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                                  /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sidevolume_WithExpiry(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sidevolume_Limit(),
+                                  /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating StopLoss orders
          *
@@ -1316,8 +1316,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_WithExpiry")
-        def volume_price_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                                    /** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit()) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
+        def volume_price_WithExpiry(/** underlying orders to create */ proto : Optional[(() => .Float) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.volume_price_Limit(),
+                                    /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating StopLoss orders
          *
@@ -1360,8 +1360,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_WithExpiry")
-        def sidevolume_price_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                                        /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
+        def sidevolume_price_WithExpiry(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.sidevolume_price_Limit(),
+                                        /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating Peg orders
          *
@@ -1484,8 +1484,8 @@ package order {
          */
         
         @python.order.factory.on_proto("WithExpiry")
-        def side_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                            /** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit()) : (() => .Side) => .IObservable[.IOrder]
+        def side_WithExpiry(/** underlying orders to create */ proto : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Limit(),
+                            /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : (() => .Side) => .IObservable[.IOrder]
         
         /** Factory creating StopLoss orders
          *
@@ -1563,8 +1563,8 @@ package order {
          */
         
         @python.order.factory.on_proto("WithExpiry")
-        def volume_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                              /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def volume_WithExpiry(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.volume_Limit(),
+                              /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating WithExpiry orders
          *
@@ -1573,8 +1573,8 @@ package order {
          */
         
         @python.order.factory.on_proto("WithExpiry")
-        def sideprice_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                                 /** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit()) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
+        def sideprice_WithExpiry(/** underlying orders to create */ proto : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                                 /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IObservable[.IOrder]
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1673,8 +1673,8 @@ package order {
          */
         
         @python.order.factory.on_proto("price_WithExpiry")
-        def side_price_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                                  /** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit()) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
+        def side_price_WithExpiry(/** underlying orders to create */ proto : Optional[(() => .Side) => ((() => .Float) => .IObservable[.IOrder])] = .order._curried.side_price_Limit(),
+                                  /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : (() => .Side) => ((() => .Float) => .IObservable[.IOrder])
         
         /** Factory creating limit orders
          *
@@ -1745,8 +1745,8 @@ package order {
          */
         
         @python.order.factory.on_proto("WithExpiry")
-        def price_WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                             /** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit()) : (() => .Float) => .IObservable[.IOrder]
+        def price_WithExpiry(/** underlying orders to create */ proto : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.price_Limit(),
+                             /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : (() => .Float) => .IObservable[.IOrder]
         
         /** Factory creating iceberg orders
          *
@@ -1985,8 +1985,8 @@ package order {
      */
     
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(/** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0),
-                   /** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit()) : .IObservable[.IOrder]
+    def WithExpiry(/** underlying orders to create */ proto : Optional[.IObservable[.IOrder]] = .order.Limit(),
+                   /** expiration period for orders */ expiry : Optional[() => .Float] = .constant(10.0)) : .IObservable[.IOrder]
     
     /** Factory creating orders with floating price
      *

@@ -152,14 +152,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
 IObservable[float] = IObservablefloat
 
 
-from marketsim.gen._out._ifunction import IFunctionstr
-class IObservablestr(IEvent, IFunctionstr):
-    pass
-
-
-IObservable[str] = IObservablestr
-
-
 from marketsim.gen._out._ifunction import IFunctionIOrder
 from marketsim.gen._out._iorder import IOrder
 class IObservableIOrder(IEvent, IFunctionIOrder):
@@ -167,6 +159,14 @@ class IObservableIOrder(IEvent, IFunctionIOrder):
 
 
 IObservable[IOrder] = IObservableIOrder
+
+
+from marketsim.gen._out._ifunction import IFunctionstr
+class IObservablestr(IEvent, IFunctionstr):
+    pass
+
+
+IObservable[str] = IObservablestr
 
 
 from marketsim.gen._out._ifunction import IFunctionbool

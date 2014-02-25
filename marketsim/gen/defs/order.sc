@@ -87,10 +87,10 @@ package order
      * where cancel order is sent not immediately but after some delay
      */
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(/** expiration period for orders */
-                   expiry   = constant(10.),
-                   /** underlying orders to create */
-                   proto    = Limit()) : IOrderGenerator
+    def WithExpiry(/** underlying orders to create */
+                   proto    = Limit(),
+                   /** expiration period for orders */
+                   expiry   = constant(10.)) : IOrderGenerator
 
     /**
      *  Factory creating iceberg orders

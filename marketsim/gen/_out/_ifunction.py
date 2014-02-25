@@ -125,6 +125,14 @@ class IFunctionfloat(Function_impl):
 IFunction[float] = IFunctionfloat
 
 
+class IFunctionstr(object):
+    _types = [meta.function((),str)]
+    pass
+
+
+IFunction[str] = IFunctionstr
+
+
 from marketsim.gen._out._iorder import IOrder
 class IFunctionIOrder(object):
     _types = [meta.function((),IOrder)]
@@ -132,14 +140,6 @@ class IFunctionIOrder(object):
 
 
 IFunction[IOrder] = IFunctionIOrder
-
-
-class IFunctionstr(object):
-    _types = [meta.function((),str)]
-    pass
-
-
-IFunction[str] = IFunctionstr
 
 
 class IFunctionbool(object):
@@ -163,6 +163,15 @@ class IFunctionIOrderBook(object):
 IFunction[IOrderBook] = IFunctionIOrderBook
 
 
+from marketsim import listOf
+class IFunctionlistOffloat(object):
+    _types = [meta.function((),listOf(float))]
+    pass
+
+
+IFunction[listOf(float)] = IFunctionlistOffloat
+
+
 class IFunctionIFunctionint(object):
     _types = [meta.function((),IFunctionint)]
     pass
@@ -171,13 +180,12 @@ class IFunctionIFunctionint(object):
 IFunction[IFunctionint] = IFunctionIFunctionint
 
 
-from marketsim import listOf
-class IFunctionlistOffloat(object):
-    _types = [meta.function((),listOf(float))]
+class IFunctionIFunctionSide(object):
+    _types = [meta.function((),IFunctionSide)]
     pass
 
 
-IFunction[listOf(float)] = IFunctionlistOffloat
+IFunction[IFunctionSide] = IFunctionIFunctionSide
 
 
 from marketsim.gen._out._icandlestick import ICandleStick
@@ -189,12 +197,30 @@ class IFunctionICandleStick(object):
 IFunction[ICandleStick] = IFunctionICandleStick
 
 
-class IFunctionIFunctionSide(object):
-    _types = [meta.function((),IFunctionSide)]
+from marketsim.gen._out._ivolumelevels import IVolumeLevels
+class IFunctionIVolumeLevels(object):
+    _types = [meta.function((),IVolumeLevels)]
     pass
 
 
-IFunction[IFunctionSide] = IFunctionIFunctionSide
+IFunction[IVolumeLevels] = IFunctionIVolumeLevels
+
+
+class IFunctionIFunctionfloat(object):
+    _types = [meta.function((),IFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionfloat] = IFunctionIFunctionfloat
+
+
+from marketsim.gen._out._test.types._t import T
+class IFunctionT(object):
+    _types = [meta.function((),T)]
+    pass
+
+
+IFunction[T] = IFunctionT
 
 
 from marketsim.gen._out._test.types._u import U
@@ -213,32 +239,6 @@ class IFunctionR(object):
 
 
 IFunction[R] = IFunctionR
-
-
-from marketsim.gen._out._ivolumelevels import IVolumeLevels
-class IFunctionIVolumeLevels(object):
-    _types = [meta.function((),IVolumeLevels)]
-    pass
-
-
-IFunction[IVolumeLevels] = IFunctionIVolumeLevels
-
-
-from marketsim.gen._out._test.types._t import T
-class IFunctionT(object):
-    _types = [meta.function((),T)]
-    pass
-
-
-IFunction[T] = IFunctionT
-
-
-class IFunctionIFunctionfloat(object):
-    _types = [meta.function((),IFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionfloat] = IFunctionIFunctionfloat
 
 
 class IFunctionIFunctionbool(object):
@@ -294,15 +294,6 @@ class IFunctionIMultiAssetStrategy(object):
 IFunction[IMultiAssetStrategy] = IFunctionIMultiAssetStrategy
 
 
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-class IFunctionISingleAssetStrategy(object):
-    _types = [meta.function((),ISingleAssetStrategy)]
-    pass
-
-
-IFunction[ISingleAssetStrategy] = IFunctionISingleAssetStrategy
-
-
 from marketsim.gen._out._iaccount import IAccount
 class IFunctionIFunctionfloatIAccount(object):
     _types = [meta.function((IAccount,),IFunctionfloat)]
@@ -312,21 +303,29 @@ class IFunctionIFunctionfloatIAccount(object):
 IFunction[IFunctionfloat,(IAccount,)] = IFunctionIFunctionfloatIAccount
 
 
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+class IFunctionISingleAssetStrategy(object):
+    _types = [meta.function((),ISingleAssetStrategy)]
+    pass
+
+
+IFunction[ISingleAssetStrategy] = IFunctionISingleAssetStrategy
+
+
+class IFunctionstrstr(object):
+    _types = [meta.function((str,),str)]
+    pass
+
+
+IFunction[str,(str,)] = IFunctionstrstr
+
+
 class IFunctionIFunctionintIFunctionint(object):
     _types = [meta.function((IFunctionint,),IFunctionint)]
     pass
 
 
 IFunction[IFunctionint,(IFunctionint,)] = IFunctionIFunctionintIFunctionint
-
-
-from marketsim.gen._out._iobservable import IObservablebool
-class IFunctionIObservablebool(object):
-    _types = [meta.function((),IObservablebool)]
-    pass
-
-
-IFunction[IObservablebool] = IFunctionIObservablebool
 
 
 from marketsim.gen._out._igraph import IGraph
@@ -338,12 +337,13 @@ class IFunctionIGraphstr(object):
 IFunction[IGraph,(str,)] = IFunctionIGraphstr
 
 
-class IFunctionstrstr(object):
-    _types = [meta.function((str,),str)]
+from marketsim.gen._out._iobservable import IObservablebool
+class IFunctionIObservablebool(object):
+    _types = [meta.function((),IObservablebool)]
     pass
 
 
-IFunction[str,(str,)] = IFunctionstrstr
+IFunction[IObservablebool] = IFunctionIObservablebool
 
 
 class IFunctionIFunctionintint(object):
@@ -454,6 +454,15 @@ IFunction[IFunctionfloat,(IOrderBook,)] = IFunctionIFunctionfloatIOrderBook
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
+class IFunctionIObservablefloatfloat(object):
+    _types = [meta.function((float,),IObservablefloat)]
+    pass
+
+
+IFunction[IObservablefloat,(float,)] = IFunctionIObservablefloatfloat
+
+
+from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim.gen._out._ilink import ILink
 class IFunctionILinkIObservablefloat(object):
     _types = [meta.function((IObservablefloat,),ILink)]
@@ -471,15 +480,6 @@ class IFunctionIFunctionfloatIFunctionfloat(object):
 IFunction[IFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionfloat
 
 
-from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatfloat(object):
-    _types = [meta.function((float,),IObservablefloat)]
-    pass
-
-
-IFunction[IObservablefloat,(float,)] = IFunctionIObservablefloatfloat
-
-
 from marketsim.gen._out._iaccount import IAccount
 from marketsim.gen._out._iobservable import IObservableint
 class IFunctionIObservableintIAccount(object):
@@ -488,6 +488,16 @@ class IFunctionIObservableintIAccount(object):
 
 
 IFunction[IObservableint,(IAccount,)] = IFunctionIObservableintIAccount
+
+
+from marketsim.gen._out._iaccount import IAccount
+from marketsim.gen._out._iobservable import IObservablefloat
+class IFunctionIObservablefloatIAccount(object):
+    _types = [meta.function((IAccount,),IObservablefloat)]
+    pass
+
+
+IFunction[IObservablefloat,(IAccount,)] = IFunctionIObservablefloatIAccount
 
 
 from marketsim.gen._out._iorderbook import IOrderBook
@@ -500,14 +510,14 @@ class IFunctionIObservableintIOrderBook(object):
 IFunction[IObservableint,(IOrderBook,)] = IFunctionIObservableintIOrderBook
 
 
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._iaccount import IAccount
-from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatIAccount(object):
-    _types = [meta.function((IAccount,),IObservablefloat)]
+class IFunctionIAccountISingleAssetStrategy(object):
+    _types = [meta.function((ISingleAssetStrategy,),IAccount)]
     pass
 
 
-IFunction[IObservablefloat,(IAccount,)] = IFunctionIObservablefloatIAccount
+IFunction[IAccount,(ISingleAssetStrategy,)] = IFunctionIAccountISingleAssetStrategy
 
 
 from marketsim.gen._out._iorderqueue import IOrderQueue
@@ -527,16 +537,6 @@ class IFunctionIFunctionfloatIDifferentiable(object):
 
 
 IFunction[IFunctionfloat,(IDifferentiable,)] = IFunctionIFunctionfloatIDifferentiable
-
-
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._iaccount import IAccount
-class IFunctionIAccountISingleAssetStrategy(object):
-    _types = [meta.function((ISingleAssetStrategy,),IAccount)]
-    pass
-
-
-IFunction[IAccount,(ISingleAssetStrategy,)] = IFunctionIAccountISingleAssetStrategy
 
 
 from marketsim.gen._out._iorderbook import IOrderBook
@@ -559,13 +559,13 @@ class IFunctionIObservableIOrderIFunctionSide(object):
 IFunction[IObservableIOrder,(IFunctionSide,)] = IFunctionIObservableIOrderIFunctionSide
 
 
-from marketsim import listOf
-class IFunctionIFunctionlistOffloatlistOffloat(object):
-    _types = [meta.function((listOf(float),),IFunctionlistOffloat)]
+from marketsim.gen._out._iaccount import IAccount
+class IFunctionIFunctionfloatIAccountfloat(object):
+    _types = [meta.function((IAccount,float,),IFunctionfloat)]
     pass
 
 
-IFunction[IFunctionlistOffloat,(listOf(float),)] = IFunctionIFunctionlistOffloatlistOffloat
+IFunction[IFunctionfloat,(IAccount,float,)] = IFunctionIFunctionfloatIAccountfloat
 
 
 from marketsim.gen._out._iorderqueue import IOrderQueue
@@ -578,13 +578,13 @@ class IFunctionIObservablefloatIOrderQueue(object):
 IFunction[IObservablefloat,(IOrderQueue,)] = IFunctionIObservablefloatIOrderQueue
 
 
-from marketsim.gen._out._iaccount import IAccount
-class IFunctionIFunctionfloatIAccountfloat(object):
-    _types = [meta.function((IAccount,float,),IFunctionfloat)]
+from marketsim import listOf
+class IFunctionIFunctionlistOffloatlistOffloat(object):
+    _types = [meta.function((listOf(float),),IFunctionlistOffloat)]
     pass
 
 
-IFunction[IFunctionfloat,(IAccount,float,)] = IFunctionIFunctionfloatIAccountfloat
+IFunction[IFunctionlistOffloat,(listOf(float),)] = IFunctionIFunctionlistOffloatlistOffloat
 
 
 class IFunctionintIFunctionICandleStickint(object):
@@ -593,16 +593,6 @@ class IFunctionintIFunctionICandleStickint(object):
 
 
 IFunction[int,(IFunctionICandleStick,int,)] = IFunctionintIFunctionICandleStickint
-
-
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-class IFunctionIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
-    pass
-
-
-IFunction[IObservableIOrder,(IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloat
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionfloat(object):
@@ -622,6 +612,24 @@ class IFunctionISingleAssetStrategyIFunctionfloat(object):
 IFunction[ISingleAssetStrategy,(IFunctionfloat,)] = IFunctionISingleAssetStrategyIFunctionfloat
 
 
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+class IFunctionIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
+    pass
+
+
+IFunction[IObservableIOrder,(IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloat
+
+
+class IFunctionIFunctionIFunctionfloatIFunctionfloat(object):
+    _types = [meta.function((),IFunctionIFunctionfloatIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionfloatIFunctionfloat] = IFunctionIFunctionIFunctionfloatIFunctionfloat
+
+
 class IFunctionIFunctionUIFunctionT(object):
     _types = [meta.function((IFunctionT,),IFunctionU)]
     pass
@@ -637,14 +645,6 @@ class IFunctionIFunctionfloatIObservablefloat(object):
 
 
 IFunction[IFunctionfloat,(IObservablefloat,)] = IFunctionIFunctionfloatIObservablefloat
-
-
-class IFunctionIFunctionIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((),IFunctionIFunctionfloatIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIFunctionfloatIFunctionfloat] = IFunctionIFunctionIFunctionfloatIFunctionfloat
 
 
 class IFunctionIFunctionIFunctionfloatIAccountfloat(object):
@@ -691,14 +691,6 @@ class IFunctionIFunctionfloatfloatfloat(object):
 IFunction[IFunctionfloat,(float,float,)] = IFunctionIFunctionfloatfloatfloat
 
 
-class IFunctionIFunctionIFunctionlistOffloatlistOffloat(object):
-    _types = [meta.function((),IFunctionIFunctionlistOffloatlistOffloat)]
-    pass
-
-
-IFunction[IFunctionIFunctionlistOffloatlistOffloat] = IFunctionIFunctionIFunctionlistOffloatlistOffloat
-
-
 from marketsim.gen._out._iobservable import IObservablefloat
 class IFunctionIObservablefloatIObservablefloat(object):
     _types = [meta.function((IObservablefloat,),IObservablefloat)]
@@ -706,6 +698,14 @@ class IFunctionIObservablefloatIObservablefloat(object):
 
 
 IFunction[IObservablefloat,(IObservablefloat,)] = IFunctionIObservablefloatIObservablefloat
+
+
+class IFunctionIFunctionIFunctionlistOffloatlistOffloat(object):
+    _types = [meta.function((),IFunctionIFunctionlistOffloatlistOffloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionlistOffloatlistOffloat] = IFunctionIFunctionIFunctionlistOffloatlistOffloat
 
 
 from marketsim.gen._out._iobservable import IObservableIOrder
@@ -716,16 +716,6 @@ class IFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
 
 
 IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-
-
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-class IFunctionIObservableIOrderIObservableIOrder(object):
-    _types = [meta.function((IObservableIOrder,),IObservableIOrder)]
-    pass
-
-
-IFunction[IObservableIOrder,(IObservableIOrder,)] = IFunctionIObservableIOrderIObservableIOrder
 
 
 from marketsim.gen._out._iaccount import IAccount
@@ -745,12 +735,22 @@ class IFunctionIFunctionRIFunctionT(object):
 IFunction[IFunctionR,(IFunctionT,)] = IFunctionIFunctionRIFunctionT
 
 
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
-    _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+class IFunctionIObservableIOrderIObservableIOrder(object):
+    _types = [meta.function((IObservableIOrder,),IObservableIOrder)]
     pass
 
 
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+IFunction[IObservableIOrder,(IObservableIOrder,)] = IFunctionIObservableIOrderIObservableIOrder
+
+
+class IFunctionIFunctionSideIFunctionfloatfloat(object):
+    _types = [meta.function((IFunctionfloat,float,),IFunctionSide)]
+    pass
+
+
+IFunction[IFunctionSide,(IFunctionfloat,float,)] = IFunctionIFunctionSideIFunctionfloatfloat
 
 
 from marketsim.gen._out._iorderbook import IOrderBook
@@ -762,20 +762,12 @@ class IFunctionIFunctionfloatIOrderBookfloat(object):
 IFunction[IFunctionfloat,(IOrderBook,float,)] = IFunctionIFunctionfloatIOrderBookfloat
 
 
-class IFunctionIFunctionSideIFunctionfloatfloat(object):
-    _types = [meta.function((IFunctionfloat,float,),IFunctionSide)]
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
+    _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
 
 
-IFunction[IFunctionSide,(IFunctionfloat,float,)] = IFunctionIFunctionSideIFunctionfloatfloat
-
-
-class IFunctionIFunctionfloatIFunctionfloatfloat(object):
-    _types = [meta.function((IFunctionfloat,float,),IFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionfloat,(IFunctionfloat,float,)] = IFunctionIFunctionfloatIFunctionfloatfloat
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 
 
 from marketsim.gen._out._iorderqueue import IOrderQueue
@@ -793,6 +785,14 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
 
 
 IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+
+
+class IFunctionIFunctionfloatIFunctionfloatfloat(object):
+    _types = [meta.function((IFunctionfloat,float,),IFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionfloat,(IFunctionfloat,float,)] = IFunctionIFunctionfloatIFunctionfloatfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -814,14 +814,6 @@ class IFunctionIOrderQueueIOrderBookIFunctionSide(object):
 IFunction[IOrderQueue,(IOrderBook,IFunctionSide,)] = IFunctionIOrderQueueIOrderBookIFunctionSide
 
 
-class IFunctionIFunctionIFunctionfloatIFunctionfloatfloat(object):
-    _types = [meta.function((float,),IFunctionIFunctionfloatIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIFunctionfloatIFunctionfloat,(float,)] = IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
-
-
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import listOf
 class IFunctionISingleAssetStrategylistOfISingleAssetStrategy(object):
@@ -830,6 +822,14 @@ class IFunctionISingleAssetStrategylistOfISingleAssetStrategy(object):
 
 
 IFunction[ISingleAssetStrategy,(listOf(ISingleAssetStrategy),)] = IFunctionISingleAssetStrategylistOfISingleAssetStrategy
+
+
+class IFunctionIFunctionIFunctionfloatIFunctionfloatfloat(object):
+    _types = [meta.function((float,),IFunctionIFunctionfloatIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionfloatIFunctionfloat,(float,)] = IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
@@ -861,14 +861,6 @@ class IFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
 IFunction[IObservableIOrder,(IFunctionfloat,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
-class IFunctionIFunctionfloatIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,IFunctionfloat,),IFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionfloat,(IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionfloatIFunctionfloat
-
-
 from marketsim.gen._out._iobservable import IObservablefloat
 class IFunctionIObservablefloatIFunctionfloatfloat(object):
     _types = [meta.function((IFunctionfloat,float,),IObservablefloat)]
@@ -876,6 +868,14 @@ class IFunctionIObservablefloatIFunctionfloatfloat(object):
 
 
 IFunction[IObservablefloat,(IFunctionfloat,float,)] = IFunctionIObservablefloatIFunctionfloatfloat
+
+
+class IFunctionIFunctionfloatIFunctionfloatIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,IFunctionfloat,),IFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionfloat,(IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionfloatIFunctionfloat
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
@@ -968,6 +968,14 @@ class IFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
 IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
+class IFunctionIFunctionTIFunctionintIFunctionfloat(object):
+    _types = [meta.function((IFunctionint,IFunctionfloat,),IFunctionT)]
+    pass
+
+
+IFunction[IFunctionT,(IFunctionint,IFunctionfloat,)] = IFunctionIFunctionTIFunctionintIFunctionfloat
+
+
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._iobservable import IObservablefloat
 class IFunctionIObservablefloatIOrderQueueIFunctionfloat(object):
@@ -976,14 +984,6 @@ class IFunctionIObservablefloatIOrderQueueIFunctionfloat(object):
 
 
 IFunction[IObservablefloat,(IOrderQueue,IFunctionfloat,)] = IFunctionIObservablefloatIOrderQueueIFunctionfloat
-
-
-class IFunctionIFunctionTIFunctionintIFunctionfloat(object):
-    _types = [meta.function((IFunctionint,IFunctionfloat,),IFunctionT)]
-    pass
-
-
-IFunction[IFunctionT,(IFunctionint,IFunctionfloat,)] = IFunctionIFunctionTIFunctionintIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1006,16 +1006,6 @@ class IFunctionIObservablefloatIObservablefloatfloat(object):
 IFunction[IObservablefloat,(IObservablefloat,float,)] = IFunctionIObservablefloatIObservablefloatfloat
 
 
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-class IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,),IObservableIOrder)]
-    pass
-
-
-IFunction[IObservableIOrder,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
-
-
 from marketsim.gen._out._iorderbook import IOrderBook
 class IFunctionIFunctionSidefloatfloatIOrderBook(object):
     _types = [meta.function((float,float,IOrderBook,),IFunctionSide)]
@@ -1031,6 +1021,16 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
 
 
 IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+
+
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
+class IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,),IObservableIOrder)]
+    pass
+
+
+IFunction[IObservableIOrder,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
@@ -1103,12 +1103,12 @@ IFunction[IObservablefloat,(IOrderQueue,IObservablefloat,)] = IFunctionIObservab
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatIObservablefloatIFunctionfloat(object):
-    _types = [meta.function((IObservablefloat,IFunctionfloat,),IObservablefloat)]
+class IFunctionIObservablefloatIFunctionfloatIObservablefloat(object):
+    _types = [meta.function((IFunctionfloat,IObservablefloat,),IObservablefloat)]
     pass
 
 
-IFunction[IObservablefloat,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservablefloatIFunctionfloat
+IFunction[IObservablefloat,(IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionfloatIObservablefloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1121,12 +1121,12 @@ IFunction[IObservablefloat,(str,str,str,)] = IFunctionIObservablefloatstrstrstr
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatIFunctionfloatIObservablefloat(object):
-    _types = [meta.function((IFunctionfloat,IObservablefloat,),IObservablefloat)]
+class IFunctionIObservablefloatIObservablefloatIFunctionfloat(object):
+    _types = [meta.function((IObservablefloat,IFunctionfloat,),IObservablefloat)]
     pass
 
 
-IFunction[IObservablefloat,(IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionfloatIObservablefloat
+IFunction[IObservablefloat,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservablefloatIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1138,16 +1138,6 @@ class IFunctionIObservableICandleStickIObservablefloatfloat(object):
 
 
 IFunction[IObservableICandleStick,(IObservablefloat,float,)] = IFunctionIObservableICandleStickIObservablefloatfloat
-
-
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-class IFunctionIObservableIOrderIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IObservableIOrder,IFunctionfloat,),IObservableIOrder)]
-    pass
-
-
-IFunction[IObservableIOrder,(IObservableIOrder,IFunctionfloat,)] = IFunctionIObservableIOrderIObservableIOrderIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1172,20 +1162,22 @@ IFunction[IObservablebool,(IObservablefloat,IFunctionfloat,)] = IFunctionIObserv
 
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable import IObservableIOrder
+class IFunctionIObservableIOrderIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IObservableIOrder,IFunctionfloat,),IObservableIOrder)]
+    pass
+
+
+IFunction[IObservableIOrder,(IObservableIOrder,IFunctionfloat,)] = IFunctionIObservableIOrderIObservableIOrderIFunctionfloat
+
+
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable import IObservableIOrder
 class IFunctionIObservableIOrderIFunctionfloatIObservableIOrder(object):
     _types = [meta.function((IFunctionfloat,IObservableIOrder,),IObservableIOrder)]
     pass
 
 
 IFunction[IObservableIOrder,(IFunctionfloat,IObservableIOrder,)] = IFunctionIObservableIOrderIFunctionfloatIObservableIOrder
-
-
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -1195,6 +1187,14 @@ class IFunctionISingleAssetStrategyISingleAssetStrategyIFunctionbool(object):
 
 
 IFunction[ISingleAssetStrategy,(ISingleAssetStrategy,IFunctionbool,)] = IFunctionISingleAssetStrategyISingleAssetStrategyIFunctionbool
+
+
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
+    _types = [meta.function((),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat(object):
@@ -1225,6 +1225,14 @@ class IFunctionIObservableSideIOrderBookfloatIOrderBook(object):
 IFunction[IObservableSide,(IOrderBook,float,IOrderBook,)] = IFunctionIObservableSideIOrderBookfloatIOrderBook
 
 
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
+    pass
+
+
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+
+
 from marketsim.gen._out._iobservable import IObservablefloat
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
 class IFunctionIObservablefloatIObservablefloatISingleAssetTrader(object):
@@ -1243,12 +1251,13 @@ class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIF
 IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,(IFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionSide
 
 
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
+from marketsim.gen._out._iobservable import IObservablefloat
+class IFunctionIObservablefloatIObservablefloatIObservablefloat(object):
+    _types = [meta.function((IObservablefloat,IObservablefloat,),IObservablefloat)]
     pass
 
 
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+IFunction[IObservablefloat,(IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIObservablefloatIObservablefloat
 
 
 class IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide(object):
@@ -1257,15 +1266,6 @@ class IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide(object):
 
 
 IFunction[IFunctionSide,(IFunctionbool,IFunctionSide,IFunctionSide,)] = IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide
-
-
-from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatIObservablefloatIObservablefloat(object):
-    _types = [meta.function((IObservablefloat,IObservablefloat,),IObservablefloat)]
-    pass
-
-
-IFunction[IObservablefloat,(IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIObservablefloatIObservablefloat
 
 
 from marketsim.gen._out._iorderqueue import IOrderQueue
@@ -1318,6 +1318,14 @@ class IFunctionISingleAssetStrategyISingleAssetStrategyISingleAssetStrategy(obje
 IFunction[ISingleAssetStrategy,(ISingleAssetStrategy,ISingleAssetStrategy,)] = IFunctionISingleAssetStrategyISingleAssetStrategyISingleAssetStrategy
 
 
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
+    _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+
+
 from marketsim.gen._out._iorderbook import IOrderBook
 class IFunctionIFunctionSidefloatfloatfloatIOrderBook(object):
     _types = [meta.function((float,float,float,IOrderBook,),IFunctionSide)]
@@ -1327,28 +1335,12 @@ class IFunctionIFunctionSidefloatfloatfloatIOrderBook(object):
 IFunction[IFunctionSide,(float,float,float,IOrderBook,)] = IFunctionIFunctionSidefloatfloatfloatIOrderBook
 
 
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
-
-
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,IFunctionfloat,),IFunctionIObservableIOrderIFunctionSide)]
     pass
 
 
 IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
-
-
-class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide(object):
-    _types = [meta.function((IFunctionIObservableIOrderIFunctionSide,),IFunctionIObservableIOrderIFunctionSide)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
 
 
 from marketsim.gen._out._iobservable import IObservableobject
@@ -1362,6 +1354,14 @@ class IFunctionITimeSerieIObservableobjectIGraphintint(object):
 IFunction[ITimeSerie,(IObservableobject,IGraph,int,int,)] = IFunctionITimeSerieIObservableobjectIGraphintint
 
 
+class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide(object):
+    _types = [meta.function((IFunctionIObservableIOrderIFunctionSide,),IFunctionIObservableIOrderIFunctionSide)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
+
+
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide(object):
@@ -1370,6 +1370,14 @@ class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide
 
 
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide
+
+
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloat
 
 
 from marketsim.gen._out._itimeserie import ITimeSerie
@@ -1393,14 +1401,6 @@ class IFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat(object
 IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
 
 
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloat
-
-
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
@@ -1411,12 +1411,12 @@ IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,IFunctionfloat
 
 from marketsim.gen._out._iobservable import IObservableSide
 from marketsim.gen._out._side import Side
-class IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide(object):
-    _types = [meta.function((IFunctionbool,IObservableSide,IFunctionSide,),IObservableSide)]
+class IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide(object):
+    _types = [meta.function((IFunctionbool,IFunctionSide,IObservableSide,),IObservableSide)]
     pass
 
 
-IFunction[IObservableSide,(IFunctionbool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
+IFunction[IObservableSide,(IFunctionbool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
 
 
 from marketsim.gen._out._iobservable import IObservableSide
@@ -1432,12 +1432,12 @@ IFunction[IObservableSide,(IObservablebool,IFunctionSide,IFunctionSide,)] = IFun
 
 from marketsim.gen._out._iobservable import IObservableSide
 from marketsim.gen._out._side import Side
-class IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide(object):
-    _types = [meta.function((IFunctionbool,IFunctionSide,IObservableSide,),IObservableSide)]
+class IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide(object):
+    _types = [meta.function((IFunctionbool,IObservableSide,IFunctionSide,),IObservableSide)]
     pass
 
 
-IFunction[IObservableSide,(IFunctionbool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
+IFunction[IObservableSide,(IFunctionbool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1450,6 +1450,15 @@ class IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader(object):
 IFunction[IObservablefloat,(float,IObservablefloat,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader
 
 
+from marketsim.gen._out._iobservable import IObservablefloat
+class IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat(object):
+    _types = [meta.function((IFunctionbool,IFunctionfloat,IObservablefloat,),IObservablefloat)]
+    pass
+
+
+IFunction[IObservablefloat,(IFunctionbool,IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
+
+
 from marketsim.gen._out._iobservable import IObservablebool
 from marketsim.gen._out._iobservable import IObservablefloat
 class IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat(object):
@@ -1458,15 +1467,6 @@ class IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat(objec
 
 
 IFunction[IObservablefloat,(IObservablebool,IFunctionfloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat
-
-
-from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat(object):
-    _types = [meta.function((IFunctionbool,IFunctionfloat,IObservablefloat,),IObservablefloat)]
-    pass
-
-
-IFunction[IObservablefloat,(IFunctionbool,IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1498,17 +1498,6 @@ class IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloatIObserva
 IFunction[IObservableIOrder,(IFunctionIObservableIOrderIFunctionfloat,IObservablefloat,)] = IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloatIObservablefloat
 
 
-from marketsim.gen._out._iobservable import IObservableSide
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._iobservable import IObservablebool
-class IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide(object):
-    _types = [meta.function((IObservablebool,IObservableSide,IFunctionSide,),IObservableSide)]
-    pass
-
-
-IFunction[IObservableSide,(IObservablebool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide
-
-
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._iobservable import IObservableSide
 class IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide(object):
@@ -1527,6 +1516,17 @@ class IFunctionIObservablefloatIFunctionSidefloatIFunctionfloatIOrderBook(object
 
 
 IFunction[IObservablefloat,(IFunctionSide,float,IFunctionfloat,IOrderBook,)] = IFunctionIObservablefloatIFunctionSidefloatIFunctionfloatIOrderBook
+
+
+from marketsim.gen._out._iobservable import IObservableSide
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._iobservable import IObservablebool
+class IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide(object):
+    _types = [meta.function((IObservablebool,IObservableSide,IFunctionSide,),IObservableSide)]
+    pass
+
+
+IFunction[IObservableSide,(IObservablebool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide
 
 
 from marketsim.gen._out._iobservable import IObservableSide
@@ -1587,6 +1587,14 @@ class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIFunctionIObserva
 IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 
 
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
+    _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+
+
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class IFunctionISingleAssetStrategystrstrstrfloatfloat(object):
     _types = [meta.function((str,str,str,float,float,),ISingleAssetStrategy)]
@@ -1594,14 +1602,6 @@ class IFunctionISingleAssetStrategystrstrstrfloatfloat(object):
 
 
 IFunction[ISingleAssetStrategy,(str,str,str,float,float,)] = IFunctionISingleAssetStrategystrstrstrfloatfloat
-
-
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._ievent import IEvent
@@ -1614,6 +1614,14 @@ class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IFunctionfloat,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
+class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSide(object):
+    _types = [meta.function((IFunctionfloat,IFunctionIObservableIOrderIFunctionSide,),IFunctionIObservableIOrderIFunctionSide)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionfloat,IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSide
+
+
 from marketsim.gen._out._iobservable import IObservablebool
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._iobservable import IObservableSide
@@ -1623,14 +1631,6 @@ class IFunctionIObservableSideIObservableboolIObservableSideIObservableSide(obje
 
 
 IFunction[IObservableSide,(IObservablebool,IObservableSide,IObservableSide,)] = IFunctionIObservableSideIObservableboolIObservableSideIObservableSide
-
-
-class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSide(object):
-    _types = [meta.function((IFunctionfloat,IFunctionIObservableIOrderIFunctionSide,),IFunctionIObservableIOrderIFunctionSide)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionfloat,IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSide
 
 
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
@@ -1650,14 +1650,6 @@ class IFunctionIFunctionfloatIObservablefloatfloatfloatfloatfloat(object):
 IFunction[IFunctionfloat,(IObservablefloat,float,float,float,float,)] = IFunctionIFunctionfloatIObservablefloatfloatfloatfloatfloat
 
 
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,IFunctionIObservableIOrderIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionfloat,IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionfloat
-
-
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
     _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
@@ -1666,14 +1658,12 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrde
 IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
-from marketsim.gen._out._iobservable import IObservablefloat
-from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
-class IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader(object):
-    _types = [meta.function((float,IObservablefloat,float,ISingleAssetTrader,),IObservablefloat)]
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,IFunctionIObservableIOrderIFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
 
 
-IFunction[IObservablefloat,(float,IObservablefloat,float,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionfloat,IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablebool
@@ -1684,6 +1674,16 @@ class IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat(o
 
 
 IFunction[IObservablefloat,(IObservablebool,IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat
+
+
+from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+class IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader(object):
+    _types = [meta.function((float,IObservablefloat,float,ISingleAssetTrader,),IObservablefloat)]
+    pass
+
+
+IFunction[IObservablefloat,(float,IObservablefloat,float,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -1736,6 +1736,15 @@ class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIOb
 IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionIObservableIOrderIFunctionSideIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
+from marketsim.gen._out._iobservable import IObservablefloat
+class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIObservablefloat(object):
+    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,IObservablefloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,IObservablefloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIObservablefloat
+
+
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSidefloatfloat(object):
@@ -1746,29 +1755,12 @@ class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,float,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSidefloatfloat
 
 
-from marketsim.gen._out._iobservable import IObservablefloat
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIObservablefloat(object):
-    _types = [meta.function((IFunctionIObservableIOrderIFunctionfloat,IObservablefloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,IObservablefloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIObservablefloat
-
-
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
     _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,),IFunctionIObservableIOrderIFunctionSideIFunctionfloat)]
     pass
 
 
 IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
-
-
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
-    _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
-    pass
-
-
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 
 
 from marketsim.gen._out._ievent import IEvent
@@ -1780,6 +1772,14 @@ class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSide
 
 
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IOrderBook,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIOrderBookfloat
+
+
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
+    _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
+    pass
+
+
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 
 
 from marketsim.gen._out._ievent import IEvent
@@ -1885,22 +1885,22 @@ IFunction[ISingleAssetTrader,(IOrderBook,ISingleAssetStrategy,str,float,float,li
 
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-class IFunctionISingleAssetStrategyfloatIFunctionfloatIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((float,IFunctionfloat,IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,),ISingleAssetStrategy)]
-    pass
-
-
-IFunction[ISingleAssetStrategy,(float,IFunctionfloat,IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,)] = IFunctionISingleAssetStrategyfloatIFunctionfloatIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat
-
-
-from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloatfloatIFunctionfloat(object):
     _types = [meta.function((IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,float,IFunctionfloat,),ISingleAssetStrategy)]
     pass
 
 
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,float,IFunctionfloat,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloatfloatIFunctionfloat
+
+
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+class IFunctionISingleAssetStrategyfloatIFunctionfloatIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
+    _types = [meta.function((float,IFunctionfloat,IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,),ISingleAssetStrategy)]
+    pass
+
+
+IFunction[ISingleAssetStrategy,(float,IFunctionfloat,IEvent,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,)] = IFunctionISingleAssetStrategyfloatIFunctionfloatIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -1912,14 +1912,6 @@ class IFunctionISingleAssetStrategyISingleAssetStrategyIFunctionIAccountISingleA
 IFunction[ISingleAssetStrategy,(ISingleAssetStrategy,IFunctionIAccountISingleAssetStrategy,IFunctionIFunctionfloatIAccount,)] = IFunctionISingleAssetStrategyISingleAssetStrategyIFunctionIAccountISingleAssetStrategyIFunctionIFunctionfloatIAccount
 
 
-class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionIObservableIOrderIFunctionSideIFunctionfloat,IFunctionfloat,),IFunctionIObservableIOrderIFunctionSideIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionIObservableIOrderIFunctionSideIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
-
-
 class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,),IFunctionIObservableIOrderIFunctionSideIFunctionfloat)]
     pass
@@ -1928,12 +1920,12 @@ class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionflo
 IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionfloat,IFunctionIObservableIOrderIFunctionSideIFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
-    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
+class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat(object):
+    _types = [meta.function((IFunctionIObservableIOrderIFunctionSideIFunctionfloat,IFunctionfloat,),IFunctionIObservableIOrderIFunctionSideIFunctionfloat)]
     pass
 
 
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionIObservableIOrderIFunctionSideIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
 
 
 class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
@@ -1954,12 +1946,12 @@ class IFunctionISingleAssetStrategylistOfISingleAssetStrategyIFunctionIAccountIS
 IFunction[ISingleAssetStrategy,(listOf(ISingleAssetStrategy),IFunctionIAccountISingleAssetStrategy,IFunctionIFunctionfloatIAccount,)] = IFunctionISingleAssetStrategylistOfISingleAssetStrategyIFunctionIAccountISingleAssetStrategyIFunctionIFunctionfloatIAccount
 
 
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat)]
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
+    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide)]
     pass
 
 
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 
 
 class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloat(object):
@@ -1968,6 +1960,14 @@ class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIF
 
 
 IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloat
+
+
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat
@@ -2034,20 +2034,20 @@ class IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIFu
 IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,IObservablefloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIObservablefloat
 
 
-class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat)]
-    pass
-
-
-IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
-
-
 class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloat(object):
     _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,IFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat)]
     pass
 
 
 IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloat
+
+
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat)]
+    pass
+
+
+IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,(IFunctionfloat,IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._iobservable import IObservablefloat

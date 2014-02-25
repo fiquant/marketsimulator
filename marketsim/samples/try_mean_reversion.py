@@ -23,8 +23,8 @@ def MeanReversion(ctx):
         ctx.makeTrader_A( 
             strategy.LiquidityProvider(
                         orderFactory = order.side_price.WithExpiry(
-                            constant(10),
-                            order.side_price.Limit(volume=constant(V*20)))),
+                            order.side_price.Limit(volume=constant(V*20)),
+                            constant(10))),
                        label="liquidity"),
     
         ctx.makeTrader_A(strategy.Signal(

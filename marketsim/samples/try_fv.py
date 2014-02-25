@@ -19,8 +19,9 @@ def FundamentalValue(ctx):
     return [
         ctx.makeTrader_A( 
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(const(10),
-                            order.side_price.Limit(volume=const(6)))),
+                        orderFactory = order.side_price.WithExpiry(
+                            order.side_price.Limit(volume=const(6)),
+                            const(10))),
             "liquidity"),
     
         ctx.makeTrader_A(

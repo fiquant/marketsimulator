@@ -778,8 +778,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("WithExpiry")
-        def sidevolume_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                                  /** underlying orders to create */ proto = .order.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sidevolume_WithExpiry(/** underlying orders to create */ proto = .order.side_volume.Limit(),
+                                  /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -841,8 +841,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("price_WithExpiry")
-        def volume_price_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                                    /** underlying orders to create */ proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
+        def volume_price_WithExpiry(/** underlying orders to create */ proto = .order.volume.price.Limit(),
+                                    /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating StopLoss orders
          *
@@ -881,8 +881,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("price_WithExpiry")
-        def sidevolume_price_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                                        /** underlying orders to create */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
+        def sidevolume_price_WithExpiry(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
+                                        /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating Peg orders
          *
@@ -994,8 +994,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("WithExpiry")
-        def side_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                            /** underlying orders to create */ proto = .order.side.Limit()) : (() => .Side) => .IOrderGenerator
+        def side_WithExpiry(/** underlying orders to create */ proto = .order.side.Limit(),
+                            /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Side) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -1066,8 +1066,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("WithExpiry")
-        def volume_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                              /** underlying orders to create */ proto = .order.volume.Limit()) : (() => .Float) => .IOrderGenerator
+        def volume_WithExpiry(/** underlying orders to create */ proto = .order.volume.Limit(),
+                              /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating WithExpiry orders
          *
@@ -1075,8 +1075,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("WithExpiry")
-        def sideprice_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                                 /** underlying orders to create */ proto = .order.side_price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
+        def sideprice_WithExpiry(/** underlying orders to create */ proto = .order.side_price.Limit(),
+                                 /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating Immediate-Or-Cancel orders
          *
@@ -1166,8 +1166,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("price_WithExpiry")
-        def side_price_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                                  /** underlying orders to create */ proto = .order.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
+        def side_price_WithExpiry(/** underlying orders to create */ proto = .order.side.price.Limit(),
+                                  /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating limit orders
          *
@@ -1231,8 +1231,8 @@ package order
          * where cancel order is sent not immediately but after some delay
          */
         @python.order.factory.on_proto("WithExpiry")
-        def price_WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                             /** underlying orders to create */ proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
+        def price_WithExpiry(/** underlying orders to create */ proto = .order.price.Limit(),
+                             /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => .IOrderGenerator
         
         /** Factory creating iceberg orders
          *
@@ -1456,8 +1456,8 @@ package order
      * where cancel order is sent not immediately but after some delay
      */
     @python.order.factory("order.meta.with_expiry.Order_Impl")
-    def WithExpiry(/** expiration period for orders */ expiry = .constant(10.0),
-                   /** underlying orders to create */ proto = .order.Limit()) : .IOrderGenerator
+    def WithExpiry(/** underlying orders to create */ proto = .order.Limit(),
+                   /** expiration period for orders */ expiry = .constant(10.0)) : .IOrderGenerator
     
     /** Factory creating orders with floating price
      *

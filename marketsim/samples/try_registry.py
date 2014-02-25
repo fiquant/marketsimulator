@@ -33,9 +33,9 @@ def Complete(ctx):
             ctx.makeTrader_A( 
                     strategy.LiquidityProvider(
                                 orderFactory = order.side_price.WithExpiry(
-                                    constant(10),
                                     order.side_price.Limit(
-                                        volume=constant(170)))),
+                                        volume=constant(170)),
+                                    constant(10))),
                       "liquidity"),
             
     

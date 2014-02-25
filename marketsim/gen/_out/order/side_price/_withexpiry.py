@@ -1,9 +1,9 @@
-def WithExpiry(expiry = None,proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+def WithExpiry(proto = None,expiry = None): 
     from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-    from marketsim.gen._out.order._curried._sideprice_withexpiry import sideprice_WithExpiry_FloatSideFloatIObservableIOrder as _order__curried_sideprice_WithExpiry_FloatSideFloatIObservableIOrder
+    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out.order._curried._sideprice_withexpiry import sideprice_WithExpiry_SideFloatIObservableIOrderFloat as _order__curried_sideprice_WithExpiry_SideFloatIObservableIOrderFloat
     from marketsim import rtti
-    if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
-        if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
-            return _order__curried_sideprice_WithExpiry_FloatSideFloatIObservableIOrder(expiry,proto)
-    raise Exception('Cannot find suitable overload for WithExpiry('+str(expiry) +':'+ str(type(expiry))+','+str(proto) +':'+ str(type(proto))+')')
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+        if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
+            return _order__curried_sideprice_WithExpiry_SideFloatIObservableIOrderFloat(proto,expiry)
+    raise Exception('Cannot find suitable overload for WithExpiry('+str(proto) +':'+ str(type(proto))+','+str(expiry) +':'+ str(type(expiry))+')')

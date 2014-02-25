@@ -6,7 +6,7 @@ class Order_Impl(_meta.OwnsSingleOrder):
     """ Limit-like order which is cancelled after given *delay*
     """
     
-    def __init__(self, delay, proto):
+    def __init__(self, proto, delay):
         """ Initializes order with 'price' and 'volume'
         'limitOrderFactory' tells how to create limit orders
         """
