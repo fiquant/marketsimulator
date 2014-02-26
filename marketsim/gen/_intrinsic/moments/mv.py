@@ -1,6 +1,6 @@
 from marketsim import ops, types, event, _
 
-from marketsim.gen._out.math.Moving._avg import Avg
+from marketsim.gen._out.math.moving._avg import Avg
 from marketsim.gen._out.math._sqr import Sqr
 
 class MV_Impl(object):

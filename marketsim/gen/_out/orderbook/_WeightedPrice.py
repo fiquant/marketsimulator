@@ -41,7 +41,7 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         from marketsim.gen._out.orderbook._lasttradeprice import LastTradePrice_IOrderQueue as _orderbook_LastTradePrice_IOrderQueue
         from marketsim.gen._out.orderbook._lasttradevolume import LastTradeVolume_IOrderQueue as _orderbook_LastTradeVolume_IOrderQueue
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
-        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
         return _ops_Div_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_ops_Mul_IObservableFloatIObservableFloat(_orderbook_LastTradePrice_IOrderQueue(self.queue),_orderbook_LastTradeVolume_IOrderQueue(self.queue)),self.alpha),_math_EW_Avg_IObservableFloatFloat(_orderbook_LastTradeVolume_IOrderQueue(self.queue),self.alpha))
     

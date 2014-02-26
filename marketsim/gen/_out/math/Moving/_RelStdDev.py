@@ -45,8 +45,8 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
-        from marketsim.gen._out.math.Moving._avg import Avg_IObservableFloatFloat as _math_Moving_Avg_IObservableFloatFloat
-        from marketsim.gen._out.math.Moving._stddev import StdDev_IObservableFloatFloat as _math_Moving_StdDev_IObservableFloatFloat
+        from marketsim.gen._out.math.moving._avg import Avg_IObservableFloatFloat as _math_Moving_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math.moving._stddev import StdDev_IObservableFloatFloat as _math_Moving_StdDev_IObservableFloatFloat
         return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_Moving_Avg_IObservableFloatFloat(self.source,self.timeframe)),_math_Moving_StdDev_IObservableFloatFloat(self.source,self.timeframe))
     
 def RelStdDev(source = None,timeframe = None): 

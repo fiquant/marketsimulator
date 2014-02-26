@@ -41,7 +41,7 @@ class Raw_IObservableFloatFloatFloat(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
-        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements_IObservableFloatFloat
         from marketsim.gen._out.math._downmovements import DownMovements_IObservableFloatFloat as _math_DownMovements_IObservableFloatFloat
         return _ops_Div_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_math_UpMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha),_math_EW_Avg_IObservableFloatFloat(_math_DownMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha))

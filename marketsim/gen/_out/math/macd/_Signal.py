@@ -44,7 +44,7 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.EW._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD_IObservableFloatFloatFloat
         return _math_EW_Avg_IObservableFloatFloat(_observable_OnEveryDt_FloatFloat(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast),self.step),(2/((self.timeframe+1))))

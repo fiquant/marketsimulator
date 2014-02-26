@@ -66,13 +66,13 @@ package object predef {
     case class ImportFrom(what: String, from: String) extends Code with Importable {
         override def imports = Stream(this)
         override def toString = ""
-        def repr = s"from $from import $what"
+        def repr = s"from ${from.toLowerCase} import $what"
         def as(a : String) = ImportFromAs(what, from, a)
     }
     case class ImportFromAs(what: String, from: String, as : String) extends Code with Importable {
         override def imports = Stream(this)
         override def toString = ""
-        def repr = s"from $from import $what as $as"
+        def repr = s"from ${from.toLowerCase} import $what as $as"
     }
 
     object Code

@@ -1,7 +1,7 @@
 from marketsim import getLabel, event, _
 
 from marketsim.gen._intrinsic.observable import fold
-from marketsim.gen._out.math.EW._avg import Avg
+from marketsim.gen._out.math.ew._avg import Avg
 
 class EWMV_Impl(fold.Last):
 
