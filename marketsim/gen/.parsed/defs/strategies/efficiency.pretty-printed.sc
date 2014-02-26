@@ -88,7 +88,7 @@ package strategy.weight() {
      */
     @curried("trader")
     def TraderEfficiencyTrend(/** account in question */ trader : IAccount = trader.SingleProxy(),
-                              /** parameter alpha for the moving average */ alpha = 0.15) : IFunction[Float] = trader.EfficiencyTrend(trader,alpha)
+                              /** parameter alpha for the moving average */ alpha = 0.15) : IFunction[Float] = trader~>EfficiencyTrend(alpha)
     
     // defined at defs\strategies\efficiency.sc: 120.5
     /** Identity function for an array of floats

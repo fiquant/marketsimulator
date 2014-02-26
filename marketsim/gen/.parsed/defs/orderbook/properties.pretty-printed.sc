@@ -54,32 +54,32 @@ package orderbook() {
      */
     @python.observable()
     def SafeSidePrice(queue = Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue = constant(100.0)) = IfDefined(queue~>BestPrice,IfDefined(queue~>LastPrice,defaultValue))
+                      /** price to be used if there haven't been any trades */ defaultValue = constant(100.0)) = queue~>BestPrice~>getOrElse(queue~>LastPrice~>getOrElse(defaultValue))
     
-    // defined at defs\orderbook\properties.sc: 62.5
+    // defined at defs\orderbook\properties.sc: 63.5
     /** Returns moving average of trade prices weighted by their volumes
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
                       /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW_Avg(alpha)/queue~>LastTradeVolume~>EW_Avg(alpha)
     
-    // defined at defs\orderbook\properties.sc: 73.5
+    // defined at defs\orderbook\properties.sc: 74.5
     /** Returns tick size for the order *book*
      */
     @python.intrinsic("orderbook.props._TickSize_Impl")
     def TickSize(book = OfTrader()) : () => Price
     
-    // defined at defs\orderbook\properties.sc: 79.5
+    // defined at defs\orderbook\properties.sc: 80.5
     /** Spread of order *book*
      */
     def Spread(book = OfTrader()) = book~>Asks~>BestPrice-book~>Bids~>BestPrice
     
-    // defined at defs\orderbook\properties.sc: 85.5
+    // defined at defs\orderbook\properties.sc: 86.5
     /** MidPrice of order *book*
      */
     def MidPrice(book = OfTrader()) = (book~>Asks~>BestPrice+book~>Bids~>BestPrice)/2.0
     
-    // defined at defs\orderbook\properties.sc: 91.5
+    // defined at defs\orderbook\properties.sc: 92.5
     /** Returns price for best orders of total volume *depth*
      *
      *  In other words cumulative price corresponds to trader balance change
@@ -92,7 +92,7 @@ package orderbook() {
     def CumulativePrice(book = OfTrader(),
                         depth = constant(1.0)) : IObservable[Price]
     
-    // defined at defs\orderbook\properties.sc: 104.5
+    // defined at defs\orderbook\properties.sc: 105.5
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
      *
@@ -102,7 +102,7 @@ package orderbook() {
     def NaiveCumulativePrice(book = OfTrader(),
                              depth = constant(1.0)) = if depth<0.0 then depth*book~>Asks~>BestPrice else if depth>0.0 then depth*book~>Bids~>BestPrice else 0.0
     
-    // defined at defs\orderbook\properties.sc: 118.5
+    // defined at defs\orderbook\properties.sc: 119.5
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
      *  Level of volume V is a price at which cumulative volume of better orders is V
      */
@@ -111,37 +111,4 @@ package orderbook() {
     def VolumeLevels(queue = Asks(),
                      /** distance between two volumes */ volumeDelta = 30.0,
                      /** number of volume levels to track */ volumeCount = 10) : IObservable[IVolumeLevels]
-    
-    abstract package _base_impl() {
-        // defined at defs\orderbook\properties.sc: 134.9
-        @label = "{{queue}}"
-        def Price(book = OfTrader()) = BestPrice(_queue(book))
-        
-        // defined at defs\orderbook\properties.sc: 137.9
-        @label = "Last({{queue}})"
-        def LastPrice(book = OfTrader()) = orderbook.LastPrice(_queue(book))
-        
-        // defined at defs\orderbook\properties.sc: 140.9
-        @label = "LastTrade({{queue}})"
-        def LastTradePrice(book = OfTrader()) = orderbook.LastTradePrice(_queue(book))
-        
-        // defined at defs\orderbook\properties.sc: 143.9
-        @label = "LastTradeVolume({{queue}})"
-        def LastTradeVolume(book = OfTrader()) = orderbook.LastTradeVolume(_queue(book))
-        
-        // defined at defs\orderbook\properties.sc: 146.9
-        @label = "[{{queue}}]_{%(alpha)s}"
-        def WeightedPrice(book = OfTrader(),
-                          alpha = 0.15) = orderbook.WeightedPrice(_queue(book),alpha)
-    }
-    @queue = "Ask_{%(book)s}"
-    
-    package ask() extends _base_impl {
-        def _queue = Asks
-    }
-    @queue = "Bid^{%(book)s}"
-    
-    package bid() extends _base_impl {
-        def _queue = Bids
-    }
 }

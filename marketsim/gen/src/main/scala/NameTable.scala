@@ -306,7 +306,7 @@ package object NameTable {
 
         def fullyQualifyName(n : AST.QualifiedName) =
             lookupScope(_ hasFunction _, n) match {
-                case None => throw new Exception(s"Cannot lookup $n from scope $name")
+                case None => throw new Exception(s"Cannot lookup $n from scope $qualifiedName")
                 case Some(scope) => scope qualifyName n.last
             }
 
@@ -322,7 +322,7 @@ package object NameTable {
                                     case Some(scope) =>
                                         (scope qualifyName n.last, scope.collectParameters.toList)
                                     case None =>
-                                        throw new Exception(s"Cannot lookup $n from scope $name")
+                                        throw new Exception(s"Cannot lookup $n from scope $qualifiedName")
                                 }
                         }
                     val extra = extra_params map { p => AST.Var(p.name) }

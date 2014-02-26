@@ -115,7 +115,7 @@ package strategy.weight
             /** parameter alpha for the moving average */
             alpha = 0.15) : IFunction[Float]
 
-        = trader.EfficiencyTrend(trader, alpha)
+        = trader~>EfficiencyTrend(alpha)
 
     /**
      *   Identity function for an array of floats

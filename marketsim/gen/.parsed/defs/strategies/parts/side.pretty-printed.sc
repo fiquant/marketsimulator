@@ -32,7 +32,7 @@ package strategy.side() {
     /** Side function for fundamental value strategy
      */
     def FundamentalValue(/** observable fundamental value */ fv = constant(200.0),
-                         /** asset in question */ book = orderbook.OfTrader()) = if orderbook.bid.Price(book)>fv then side.Sell() else if orderbook.ask.Price(book)<fv then side.Buy() else side.Nothing()
+                         /** asset in question */ book = orderbook.OfTrader()) = if book~>Bids~>BestPrice>fv then side.Sell() else if book~>Asks~>BestPrice<fv then side.Buy() else side.Nothing()
     
     // defined at defs\strategies\parts\side.sc: 68.5
     /** Side function for mean reversion strategy

@@ -61,8 +61,8 @@ package strategy.side
         /** asset in question */
         book    = orderbook.OfTrader())
 
-        =   if orderbook.bid.Price(book) > fv then side.Sell() else
-            if orderbook.ask.Price(book) < fv then side.Buy()  else
+        =   if book~>Bids~>BestPrice > fv then side.Sell() else
+            if book~>Asks~>BestPrice < fv then side.Buy()  else
                                                    side.Nothing()
 
     /**

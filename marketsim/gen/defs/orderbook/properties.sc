@@ -55,9 +55,10 @@ package orderbook
     def SafeSidePrice(queue = Asks(),
                       /** price to be used if there haven't been any trades */
                       defaultValue = constant(100.))
-        = IfDefined(queue~>BestPrice,
-                    IfDefined(queue~>LastPrice,
-                              defaultValue))
+
+        =   queue~>BestPrice~>getOrElse(
+                queue~>LastPrice~>getOrElse(
+                    defaultValue))
 
     /**
      *  Returns moving average of trade prices weighted by their volumes
@@ -126,37 +127,5 @@ package orderbook
                      volumeDelta = 30.,
                      /** number of volume levels to track */
                      volumeCount = 10) : IObservable[IVolumeLevels]
-
-
-    // contains functions to instantiate at 'ask' and 'bid' subpackages
-    abstract package _base_impl
-    {
-        @label = "{{queue}}"
-        def Price(book = OfTrader()) = BestPrice(_queue(book))
-
-        @label = "Last({{queue}})"
-        def LastPrice(book = OfTrader()) = orderbook.LastPrice(_queue(book))
-
-        @label = "LastTrade({{queue}})"
-        def LastTradePrice(book = OfTrader()) = orderbook.LastTradePrice(_queue(book))
-
-        @label = "LastTradeVolume({{queue}})"
-        def LastTradeVolume(book = OfTrader()) = orderbook.LastTradeVolume(_queue(book))
-
-        @label = "[{{queue}}]_{%(alpha)s}"
-        def WeightedPrice(book = OfTrader(), alpha = 0.15) = orderbook.WeightedPrice(_queue(book), alpha)
-    }
-
-    @queue = "Ask_{%(book)s}"
-    package ask extends _base_impl
-    {
-        def _queue = Asks
-    }
-
-    @queue = "Bid^{%(book)s}"
-    package bid extends _base_impl
-    {
-        def _queue = Bids
-    }
 }
 

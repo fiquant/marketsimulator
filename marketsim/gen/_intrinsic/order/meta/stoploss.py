@@ -2,9 +2,6 @@ from marketsim import  event, _
 from .. import market
 import _meta
 
-from marketsim.gen._out.orderbook.ask._price import Price as AskPrice
-from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
-
 class Order_Impl(_meta.Base):
     
     def __init__(self, proto, maxloss):
@@ -18,9 +15,9 @@ class Order_Impl(_meta.Base):
         
     def startProcessing(self):
         from marketsim.gen._out._side import Side
-        self._obsPrice = AskPrice(self.orderBook) \
+        self._obsPrice = self.orderBook.Asks.BestPrice \
                             if self.side == Side.Buy else \
-                         BidPrice(self.orderBook)
+                         self.orderBook.Bids.BestPrice
         self.send(self._proto)
         
     def onOrderMatched(self, order, price, volume):

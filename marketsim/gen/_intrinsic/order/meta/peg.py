@@ -10,17 +10,14 @@ def Peg(order):
     with a price one tick better than the best price in the book.
     """
     from marketsim.gen._out.orderbook._oftrader import OfTrader
-    from marketsim.gen._out.orderbook._ticksize import TickSize
-    from marketsim.gen._out.orderbook.ask._price import Price as AskPrice
-    from marketsim.gen._out.orderbook.bid._price import Price as BidPrice
     from marketsim.gen._out.math.Cumulative._maxepsilon import MaxEpsilon
     from marketsim.gen._out.math.Cumulative._minepsilon import MinEpsilon
 
     side = order.side
     book = OfTrader()
-    tickSize = TickSize(book)
-    askPrice = AskPrice(book)
-    bidPrice = BidPrice(book)
+    tickSize = book.TickSize
+    askPrice = book.Asks.BestPrice
+    bidPrice = book.Bids.BestPrice
     
     price = MinEpsilon(askPrice, tickSize)\
                 if side == Side.Sell else\

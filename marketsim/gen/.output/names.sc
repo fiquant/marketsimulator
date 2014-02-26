@@ -452,7 +452,7 @@ package math
         @label = "RSD{{suffix}}"
         @method = "{{kind}}_RelStdDev"
         def RelStdDev(/** observable data source */ source = .const(1.0),
-                      /** sliding window size    */ timeframe = 100.0) = (source-.math.Moving.Avg(source,timeframe))/.math.Moving.StdDev(source,timeframe)
+                      /** sliding window size    */ timeframe = 100.0) = (source-source~>Moving_Avg(timeframe))/source~>Moving_StdDev(timeframe)
         
         /** Simple moving variance
          */
@@ -460,7 +460,7 @@ package math
         @label = "\\sigma^2{{suffix}}"
         @method = "{{kind}}_Var"
         def Var(/** observable data source */ source = .const(1.0),
-                /** sliding window size    */ timeframe = 100.0) = .math.Max(.const(0),.math.Moving.Avg(source*source,timeframe)-.math.Sqr(.math.Moving.Avg(source,timeframe)))
+                /** sliding window size    */ timeframe = 100.0) = source~>Sqr~>Moving_Avg(timeframe)-source~>Moving_Avg(timeframe)~>Sqr~>Max(0)
         
         /** Running maximum of a function
          */
@@ -483,7 +483,7 @@ package math
         @label = "\\sqrt{\\sigma^2{{suffix}}}"
         @method = "{{kind}}_StdDev"
         def StdDev(/** observable data source */ source = .const(1.0),
-                   /** sliding window size    */ timeframe = 100.0) = .math.Sqrt(.math.Moving.Var(source))
+                   /** sliding window size    */ timeframe = 100.0) = source~>Moving_Var(timeframe)~>Sqrt
         
     }
     
@@ -1547,7 +1547,7 @@ package strategy
         /** Side function for fundamental value strategy
          */
         def FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),
-                             /** asset in question */ book = .orderbook.OfTrader()) = if .orderbook.bid.Price(book)>fv then .side.Sell() else if .orderbook.ask.Price(book)<fv then .side.Buy() else .side.Nothing()
+                             /** asset in question */ book = .orderbook.OfTrader()) = if book~>Bids~>BestPrice>fv then .side.Sell() else if book~>Asks~>BestPrice<fv then .side.Buy() else .side.Nothing()
         
         /** Side function for mean reversion strategy
          */
@@ -1693,7 +1693,7 @@ package strategy
          */
         @curried("trader")
         def TraderEfficiencyTrend(/** account in question */ trader : .IAccount = .trader.SingleProxy(),
-                                  /** parameter alpha for the moving average */ alpha = 0.15) : .IFunction[.Float] = .trader.EfficiencyTrend(trader,alpha)
+                                  /** parameter alpha for the moving average */ alpha = 0.15) : .IFunction[.Float] = trader~>EfficiencyTrend(alpha)
         
     }
     
@@ -2069,52 +2069,6 @@ package trader
 @category = "Asset"
 package orderbook
 {
-    @queue = "Ask_{%(book)s}"
-    package ask
-    {
-        @label = "[{{queue}}]_{%(alpha)s}"
-        def WeightedPrice(book = .orderbook.OfTrader(),
-                          alpha = 0.15) = .orderbook.WeightedPrice(.orderbook.ask._queue(book),alpha)
-        
-        @label = "LastTradeVolume({{queue}})"
-        def LastTradeVolume(book = .orderbook.OfTrader()) = .orderbook.LastTradeVolume(.orderbook.ask._queue(book))
-        
-        @label = "{{queue}}"
-        def Price(book = .orderbook.OfTrader()) = .orderbook.BestPrice(.orderbook.ask._queue(book))
-        
-        @label = "Last({{queue}})"
-        def LastPrice(book = .orderbook.OfTrader()) = .orderbook.LastPrice(.orderbook.ask._queue(book))
-        
-        def _queue = .orderbook.Asks
-        
-        @label = "LastTrade({{queue}})"
-        def LastTradePrice(book = .orderbook.OfTrader()) = .orderbook.LastTradePrice(.orderbook.ask._queue(book))
-        
-    }
-    
-    @queue = "Bid^{%(book)s}"
-    package bid
-    {
-        @label = "[{{queue}}]_{%(alpha)s}"
-        def WeightedPrice(book = .orderbook.OfTrader(),
-                          alpha = 0.15) = .orderbook.WeightedPrice(.orderbook.bid._queue(book),alpha)
-        
-        @label = "LastTradeVolume({{queue}})"
-        def LastTradeVolume(book = .orderbook.OfTrader()) = .orderbook.LastTradeVolume(.orderbook.bid._queue(book))
-        
-        @label = "{{queue}}"
-        def Price(book = .orderbook.OfTrader()) = .orderbook.BestPrice(.orderbook.bid._queue(book))
-        
-        @label = "Last({{queue}})"
-        def LastPrice(book = .orderbook.OfTrader()) = .orderbook.LastPrice(.orderbook.bid._queue(book))
-        
-        def _queue = .orderbook.Bids
-        
-        @label = "LastTrade({{queue}})"
-        def LastTradePrice(book = .orderbook.OfTrader()) = .orderbook.LastTradePrice(.orderbook.bid._queue(book))
-        
-    }
-    
     /** Phantom orderbook that is used to refer to the current order book
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
@@ -2128,7 +2082,7 @@ package orderbook
      */
     @python.observable()
     def SafeSidePrice(queue = .orderbook.Asks(),
-                      /** price to be used if there haven't been any trades */ defaultValue = .constant(100.0)) = .IfDefined(queue~>BestPrice,.IfDefined(queue~>LastPrice,defaultValue))
+                      /** price to be used if there haven't been any trades */ defaultValue = .constant(100.0)) = queue~>BestPrice~>getOrElse(queue~>LastPrice~>getOrElse(defaultValue))
     
     /** Returns moving average of trade prices weighted by their volumes
      */
@@ -2441,6 +2395,7 @@ def true() = .observableTrue() : .IFunction[.Boolean]
 @category = "Basic"
 @python.observable()
 @label = "If def(%(x)s) else %(elsePart)s"
+@method = "getOrElse"
 def IfDefined(x = .constant(1.0),
               /** function to take values from when *x* is undefined */ elsePart = .constant(1.0)) = if x<>.null() then x else elsePart
 

@@ -93,23 +93,23 @@ package math() {@category = "Statistics"
             @label = "\\sigma^2{{suffix}}"
             @method = "{{kind}}_Var"
             def Var(/** observable data source */ source = const(1.0),
-                    /** sliding window size    */ timeframe = 100.0) = math.Max(const(0),Avg(source*source,timeframe)-Sqr(Avg(source,timeframe)))
+                    /** sliding window size    */ timeframe = 100.0) = source~>Sqr~>Moving_Avg(timeframe)-source~>Moving_Avg(timeframe)~>Sqr~>Max(0)
             
-            // defined at defs\math\moments.sc: 105.13
+            // defined at defs\math\moments.sc: 106.13
             /** Simple moving standard deviation
              */
             @label = "\\sqrt{\\sigma^2{{suffix}}}"
             @method = "{{kind}}_StdDev"
             def StdDev(/** observable data source */ source = const(1.0),
-                       /** sliding window size    */ timeframe = 100.0) = Sqrt(Var(source))
+                       /** sliding window size    */ timeframe = 100.0) = source~>Moving_Var(timeframe)~>Sqrt
             
-            // defined at defs\math\moments.sc: 113.13
+            // defined at defs\math\moments.sc: 116.13
             /** Simple moving relative standard deviation
              */
             @label = "RSD{{suffix}}"
             @method = "{{kind}}_RelStdDev"
             def RelStdDev(/** observable data source */ source = const(1.0),
-                          /** sliding window size    */ timeframe = 100.0) = (source-Avg(source,timeframe))/StdDev(source,timeframe)
+                          /** sliding window size    */ timeframe = 100.0) = (source-source~>Moving_Avg(timeframe))/source~>Moving_StdDev(timeframe)
         }
     }
 }

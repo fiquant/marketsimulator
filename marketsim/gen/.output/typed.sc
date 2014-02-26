@@ -842,8 +842,8 @@ package math {
         
         @python.intrinsic("moments.mv.MV_Impl")
         def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
-            	 = .math.Max(.const(0),.ops.Sub(.math.Moving.Avg(.ops.Mul(source,source),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))))
+                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float
+            	 = .math.Max(.ops.Sub(.math.Moving.Avg(.math.Sqr(source),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))),.constant(0))
         
         /** Running maximum of a function
          */
@@ -870,7 +870,7 @@ package math {
         
         def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                    /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float
-            	 = .math.Sqrt(.math.Moving.Var(source))
+            	 = .math.Sqrt(.math.Moving.Var(source,timeframe))
     }
     
     /** Function returning minimum of two functions *x* and *y*.
@@ -2097,14 +2097,14 @@ package strategy {@category = "Side function"
         
         def FundamentalValue(/** observable fundamental value */ fv : Optional[.IObservable[.Float]] = .const(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(book)),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(book)),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for fundamental value strategy
          */
         
         def FundamentalValue(/** observable fundamental value */ fv : Optional[() => .Float] = .constant(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(.orderbook.bid.Price(book),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.ask.Price(book),fv),.side.Buy(),.side.Nothing()))
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(book)),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(book)),fv),.side.Buy(),.side.Nothing()))
         
         /** Side function for mean reversion strategy
          */
@@ -2727,70 +2727,7 @@ package trader {
 
 @category = "Asset"
 
-package orderbook {@queue = "Ask_{%(book)s}"
-    
-    package ask {
-        @label = "[{{queue}}]_{%(alpha)s}"
-        
-        def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                          alpha : Optional[.Float] = 0.15) : () => .Float
-            	 = .orderbook.WeightedPrice(.orderbook.Asks(book),alpha)
-        
-        @label = "LastTradeVolume({{queue}})"
-        
-        def LastTradeVolume(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Int]
-            	 = .orderbook.LastTradeVolume(.orderbook.Asks(book))
-        
-        @label = "{{queue}}"
-        
-        def Price(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.BestPrice(.orderbook.Asks(book))
-        
-        @label = "Last({{queue}})"
-        
-        def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.LastPrice(.orderbook.Asks(book))
-        
-        def _queue = .orderbook.Asks
-        
-        @label = "LastTrade({{queue}})"
-        
-        def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.LastTradePrice(.orderbook.Asks(book))
-    }
-    
-    @queue = "Bid^{%(book)s}"
-    
-    package bid {
-        @label = "[{{queue}}]_{%(alpha)s}"
-        
-        def WeightedPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                          alpha : Optional[.Float] = 0.15) : () => .Float
-            	 = .orderbook.WeightedPrice(.orderbook.Bids(book),alpha)
-        
-        @label = "LastTradeVolume({{queue}})"
-        
-        def LastTradeVolume(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Int]
-            	 = .orderbook.LastTradeVolume(.orderbook.Bids(book))
-        
-        @label = "{{queue}}"
-        
-        def Price(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.BestPrice(.orderbook.Bids(book))
-        
-        @label = "Last({{queue}})"
-        
-        def LastPrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.LastPrice(.orderbook.Bids(book))
-        
-        def _queue = .orderbook.Bids
-        
-        @label = "LastTrade({{queue}})"
-        
-        def LastTradePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .orderbook.LastTradePrice(.orderbook.Bids(book))
-    }
-    
+package orderbook {
     /** Phantom orderbook that is used to refer to the current order book
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
@@ -3179,6 +3116,7 @@ def true() : () => .Boolean
  */
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
+@method = "getOrElse"
 
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
@@ -3189,6 +3127,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
  */
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
+@method = "getOrElse"
 
 @python.observable()
 def IfDefined(x : Optional[() => .Float] = .constant(1.0),
@@ -3199,6 +3138,7 @@ def IfDefined(x : Optional[() => .Float] = .constant(1.0),
  */
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
+@method = "getOrElse"
 
 @python.observable()
 def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
@@ -3209,6 +3149,7 @@ def IfDefined(x : Optional[.IObservable[.Float]] = .const(1.0),
  */
 @category = "Basic"
 @label = "If def(%(x)s) else %(elsePart)s"
+@method = "getOrElse"
 
 @python.observable()
 def IfDefined(x : Optional[() => .Float] = .constant(1.0),

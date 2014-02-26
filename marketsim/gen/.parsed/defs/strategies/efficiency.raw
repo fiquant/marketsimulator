@@ -569,14 +569,11 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | -  parameter alpha for the moving average 
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - trader
-| | | | | | | | | - EfficiencyTrend
+| | | | | | - MemberAccess:
+| | | | | | | - Var:
+| | | | | | | | - trader
+| | | | | | | - EfficiencyTrend
 | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - trader
 | | | | | | | | - Var:
 | | | | | | | | | - alpha
 | | | | | - Some:

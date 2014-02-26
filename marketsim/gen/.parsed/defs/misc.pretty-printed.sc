@@ -66,6 +66,7 @@ package () {
      */
     @python.observable()
     @label = "If def(%(x)s) else %(elsePart)s"
+    @method = "getOrElse"
     def IfDefined(x = constant(1.0),
                   /** function to take values from when *x* is undefined */ elsePart = constant(1.0)) = if x<>null() then x else elsePart
 }

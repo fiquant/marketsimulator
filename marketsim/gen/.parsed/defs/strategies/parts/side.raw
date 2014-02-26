@@ -292,15 +292,14 @@ Definitions:
 | | | | | | - IfThenElse:
 | | | | | | | - Condition:
 | | | | | | | | - Greater
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - bid
-| | | | | | | | | | | - Price
-| | | | | | | | | - List:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - book
+| | | | | | | | | | - Bids
+| | | | | | | | | | - List:
+| | | | | | | | | - BestPrice
+| | | | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - fv
 | | | | | | | - FunCall:
@@ -312,15 +311,14 @@ Definitions:
 | | | | | | | - IfThenElse:
 | | | | | | | | - Condition:
 | | | | | | | | | - Less
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - ask
-| | | | | | | | | | | | - Price
-| | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
+| | | | | | | | | | | - Asks
+| | | | | | | | | | | - List:
+| | | | | | | | | | - BestPrice
+| | | | | | | | | | - List:
 | | | | | | | | | - Var:
 | | | | | | | | | | - fv
 | | | | | | | | - FunCall:

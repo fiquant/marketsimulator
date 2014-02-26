@@ -365,6 +365,9 @@ Definitions:
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - If def(%(x)s) else %(elsePart)s
+| | | | | | - Attribute:
+| | | | | | | - method
+| | | | | | | - getOrElse
 | | - List:
 | | | - Attribute:
 | | | | - category
