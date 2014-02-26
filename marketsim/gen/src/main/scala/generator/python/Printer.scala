@@ -79,14 +79,15 @@ object Printer {
 
             def asCode = {
 
+                def impl(xs : List[Printable]) : Code = xs match {
+                    case Nil => stop
+                    case x :: Nil => x.asCode
+                    case x :: y => x.asCode ||| impl(y)
+                }
+
                 builtins get decl.name match {
                     case Some(x) => x
                     case None =>
-                        def impl(xs : List[Printable]) : Code = xs match {
-                            case Nil => stop
-                            case x :: Nil => x.asCode
-                            case x :: y => x.asCode ||| impl(y)
-                        }
                         val x = decl.name |||
                                 (if (genericArgs.isEmpty) stop else impl(genericArgs))
 

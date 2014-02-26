@@ -33,12 +33,12 @@ IObservable[Side] = IObservableSide
 from marketsim.gen._out._ifunction import IFunctionfloat
 class IObservablefloat(IEvent, IFunctionfloat):
     def Moving_Avg(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._avg import Avg
+        from marketsim.gen._out.math.moving._avg import Avg
         return Avg(self,timeframe)
     
     @property
     def Cumulative_Var(self):
-        from marketsim.gen._out.math.Cumulative._var import Var
+        from marketsim.gen._out.math.cumulative._var import Var
         return Var(self)
     
     def DesiredPosition(self, trader = None):
@@ -50,11 +50,11 @@ class IObservablefloat(IEvent, IFunctionfloat):
         return DownMovements(self,timeframe)
     
     def EW_Var(self, alpha = None):
-        from marketsim.gen._out.math.EW._var import Var
+        from marketsim.gen._out.math.ew._var import Var
         return Var(self,alpha)
     
     def Cumulative_MinEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.Cumulative._minepsilon import MinEpsilon
+        from marketsim.gen._out.math.cumulative._minepsilon import MinEpsilon
         return MinEpsilon(self,epsilon)
     
     def Lagged(self, timeframe = None):
@@ -63,7 +63,7 @@ class IObservablefloat(IEvent, IFunctionfloat):
     
     @property
     def Cumulative_Avg(self):
-        from marketsim.gen._out.math.Cumulative._avg import Avg
+        from marketsim.gen._out.math.cumulative._avg import Avg
         return Avg(self)
     
     @property
@@ -76,7 +76,7 @@ class IObservablefloat(IEvent, IFunctionfloat):
         return UpMovements(self,timeframe)
     
     def Moving_Max(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._max import Max
+        from marketsim.gen._out.math.moving._max import Max
         return Max(self,timeframe)
     
     def LogReturns(self, timeframe = None):
@@ -89,31 +89,31 @@ class IObservablefloat(IEvent, IFunctionfloat):
     
     @property
     def Cumulative_StdDev(self):
-        from marketsim.gen._out.math.Cumulative._stddev import StdDev
+        from marketsim.gen._out.math.cumulative._stddev import StdDev
         return StdDev(self)
     
     def EW_RelStdDev(self, alpha = None):
-        from marketsim.gen._out.math.EW._relstddev import RelStdDev
+        from marketsim.gen._out.math.ew._relstddev import RelStdDev
         return RelStdDev(self,alpha)
     
     def EW_StdDev(self, alpha = None):
-        from marketsim.gen._out.math.EW._stddev import StdDev
+        from marketsim.gen._out.math.ew._stddev import StdDev
         return StdDev(self,alpha)
     
     def Moving_Min(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._min import Min
+        from marketsim.gen._out.math.moving._min import Min
         return Min(self,timeframe)
     
     def Moving_StdDev(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._stddev import StdDev
+        from marketsim.gen._out.math.moving._stddev import StdDev
         return StdDev(self,timeframe)
     
     def Moving_Var(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._var import Var
+        from marketsim.gen._out.math.moving._var import Var
         return Var(self,timeframe)
     
     def Moving_RelStdDev(self, timeframe = None):
-        from marketsim.gen._out.math.Moving._relstddev import RelStdDev
+        from marketsim.gen._out.math.moving._relstddev import RelStdDev
         return RelStdDev(self,timeframe)
     
     def CandleSticks(self, timeframe = None):
@@ -121,11 +121,11 @@ class IObservablefloat(IEvent, IFunctionfloat):
         return CandleSticks(self,timeframe)
     
     def EW_Avg(self, alpha = None):
-        from marketsim.gen._out.math.EW._avg import Avg
+        from marketsim.gen._out.math.ew._avg import Avg
         return Avg(self,alpha)
     
     def Cumulative_MaxEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.Cumulative._maxepsilon import MaxEpsilon
+        from marketsim.gen._out.math.cumulative._maxepsilon import MaxEpsilon
         return MaxEpsilon(self,epsilon)
     
     def MACD(self, slow = None,fast = None):
@@ -142,7 +142,7 @@ class IObservablefloat(IEvent, IFunctionfloat):
     
     @property
     def Cumulative_RelStdDev(self):
-        from marketsim.gen._out.math.Cumulative._relstddev import RelStdDev
+        from marketsim.gen._out.math.cumulative._relstddev import RelStdDev
         return RelStdDev(self)
     
     @property
@@ -154,14 +154,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
 
 
 IObservable[float] = IObservablefloat
-
-
-from marketsim.gen._out._ifunction import IFunctionstr
-class IObservablestr(IEvent, IFunctionstr):
-    pass
-
-
-IObservable[str] = IObservablestr
 
 
 from marketsim.gen._out._ifunction import IFunctionIOrder
@@ -192,6 +184,14 @@ class IObservableIOrder(IEvent, IFunctionIOrder):
 
 
 IObservable[IOrder] = IObservableIOrder
+
+
+from marketsim.gen._out._ifunction import IFunctionstr
+class IObservablestr(IEvent, IFunctionstr):
+    pass
+
+
+IObservable[str] = IObservablestr
 
 
 from marketsim.gen._out._ifunction import IFunctionbool

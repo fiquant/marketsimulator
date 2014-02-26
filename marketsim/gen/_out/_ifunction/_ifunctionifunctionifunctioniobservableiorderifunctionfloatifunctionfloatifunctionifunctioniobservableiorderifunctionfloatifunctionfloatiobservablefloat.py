@@ -1,0 +1,9 @@
+from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim import meta
+class IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIObservablefloat(object):
+    _types = [meta.function((IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,IObservablefloat,),IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat)]
+    pass
+
+
+

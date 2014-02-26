@@ -163,7 +163,16 @@ package object gen
                 p.types.values foreach {
                     case interface : Typed.InterfaceDecl =>
                             val name = interface.name
-                            for (out <- managed(printWriter(dir, s"_$name.py")))
+
+                            val filename =
+                                if (interface.generics.isEmpty)
+                                    s"_$name.py"
+                                else {
+                                    ensure_dir(new File(s"$dir/_$name"))
+                                    s"_$name/__init__.py"
+                                }
+
+                            for (out <- managed(printWriter(dir, filename)))
                             {
                                 if (interface.generics.isEmpty) {
 
@@ -187,6 +196,8 @@ package object gen
                                     out.println(base.withImports(s).toString)
 
                                 } else {
+                                    val base_dir = new File(s"$dir/_$name")
+
                                     if (interface.name == "IObservable") {
                                         out.println("from marketsim import meta")
                                         out.println("from marketsim.gen._out._ievent import IEvent")
@@ -199,6 +210,17 @@ package object gen
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
                                             val methods = getMethods(f)
+
+                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
+                                            {
+                                                val s =
+                                                    s"class $name("||| Typed.topLevel.IEvent.asCode |||", "|||
+                                                                       TypesBound.Function(Nil, rt).asCode |||"):" |>
+                                                            methods
+
+                                                ty_out.println(base.withImports(s).toString)
+                                            }
+
                                             val s =
                                                 s"class $name(IEvent, "||| TypesBound.Function(Nil, rt).asCode |||"):" |>
                                                         methods | nl |
@@ -217,6 +239,16 @@ package object gen
 
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
+
+                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
+                                            {
+                                                val s =
+                                                    s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
+                                                            "pass" | nl | ImportFrom("Conditional_Impl", "marketsim.event")
+
+                                                ty_out.println(base.withImports(s).toString)
+                                            }
+
                                             val s =
                                                 s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
                                                         "pass" | nl |
@@ -234,10 +266,20 @@ package object gen
                             }
 
                         case alias : Typed.AliasDecl =>
-                            for (out <- managed(printWriter(dir, s"_${alias.name}.py")))
+                            val name = alias.name
+                            val filename =
+                                if (alias.generics.isEmpty)
+                                    s"_$name.py"
+                                else {
+                                    ensure_dir(new File(s"$dir/_$name"))
+                                    s"_$name/__init__.py"
+                                }
+
+                            for (out <- managed(printWriter(dir, filename)))
                                 if (alias.generics.isEmpty)
                                     out.println(base.withImports(alias.name + " = " ||| alias.target.asCode).toString)
                                 else {
+                                    val base_dir = new File(s"$dir/_$name")
                                     if (alias.name == "IFunction") {
                                         out.println("from marketsim import meta")
                                         out.println("IFunction = {}")
@@ -270,6 +312,16 @@ package object gen
                                                 "IFunction[" ||| f.ret.asCode |||
                                                         (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
 
+                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
+                                            {
+                                                val s =
+                                                    s"class $name("||| b |||"):" |>
+                                                            ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | methods) | nl |
+                                                    ImportFrom("meta", "marketsim")
+
+                                                ty_out.println(base.withImports(s).toString)
+                                            }
+
                                             def isMine(p : Importable) = p match {
                                                 case ImportFrom(_, module) if module endsWith "._ifunction" => true
                                                 case _ => false
@@ -297,7 +349,8 @@ package object gen
     }
 
 
-    def ensure_dir(dir: File) {
+    def ensure_dir(d: File) {
+        val dir = new File(d.toString.toLowerCase)
         if (!dir.exists()) {
             dir.mkdirs()
             if (!dir.exists())
