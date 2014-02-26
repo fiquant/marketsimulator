@@ -1,5 +1,5 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionobject
+from marketsim.gen._out._ifunction._ifunctionobject import IFunctionobject
 class IObservableobject(IEvent, IFunctionobject):
     def TimeSerie(self, graph = None,_digitsToShow = None,_smooth = None):
         from marketsim.gen._out._timeserie import TimeSerie

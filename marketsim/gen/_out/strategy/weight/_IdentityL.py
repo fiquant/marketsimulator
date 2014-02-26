@@ -4,7 +4,7 @@ def identityL():
     return _strategy_weight_array_array_IdentityL_()
     raise Exception('Cannot find suitable overload for identityL('++')')
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionlistOffloat
+from marketsim.gen._out._ifunction._ifunctionlistoffloat import IFunctionlistOffloat
 from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])

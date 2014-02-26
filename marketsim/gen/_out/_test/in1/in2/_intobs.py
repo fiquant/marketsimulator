@@ -1,12 +1,12 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observableint
+from marketsim.gen._out._observable._observableint import Observableint
 from marketsim import context
 @registry.expose(["internal tests", "IntObs"])
 class IntObs_(Observableint):
     """ 
     """ 
     def __init__(self):
-        from marketsim.gen._out._observable import Observableint
+        from marketsim.gen._out._observable._observableint import Observableint
         from marketsim import rtti
         from marketsim import _
         from marketsim import event

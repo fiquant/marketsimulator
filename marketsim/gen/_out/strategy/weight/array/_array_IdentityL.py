@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionlistOffloatlistOffloat
+from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
 @registry.expose(["Strategy", "array_IdentityL"])
 class array_IdentityL_(IFunctionIFunctionlistOffloatlistOffloat):
     """ 

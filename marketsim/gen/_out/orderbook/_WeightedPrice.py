@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import context
 @registry.expose(["Asset", "WeightedPrice"])

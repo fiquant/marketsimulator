@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Order", "price_Limit"])
 class volume_price_Limit_Side(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
     """ 
@@ -32,7 +32,7 @@ class volume_price_Limit_Side(IFunctionIFunctionIObservableIOrderIFunctionfloatI
         return price_Limit(side, volume)
     
 def volume_price_Limit(side = None): 
-    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunctionSide):
         return volume_price_Limit_Side(side)

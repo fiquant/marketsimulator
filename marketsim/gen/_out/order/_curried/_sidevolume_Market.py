@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 @registry.expose(["Order", "Market"])
 class sidevolume_Market_(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
     """ 

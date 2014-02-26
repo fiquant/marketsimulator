@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.cma import CMA_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Avg"])
 class Avg_IObservableFloat(IDifferentiable,CMA_Impl):
     """ 
@@ -24,7 +24,7 @@ class Avg_IObservableFloat(IDifferentiable,CMA_Impl):
         return "Avg_{cumul}(%(source)s)" % self.__dict__
     
 def Avg(source = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         return Avg_IObservableFloat(source)

@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 @registry.expose(["Order", "ImmediateOrCancel"])
 class sidevolume_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
     """ 
@@ -36,7 +36,7 @@ class sidevolume_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservab
         return ImmediateOrCancel(proto(side,volume))
     
 def sidevolume_ImmediateOrCancel(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
         return sidevolume_ImmediateOrCancel_SideFloatIObservableIOrder(proto)

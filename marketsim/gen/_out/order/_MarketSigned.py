@@ -1,8 +1,8 @@
-from marketsim.gen._out._observable import ObservableIOrder
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
+from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "MarketSigned"])
 class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     """ 
@@ -10,7 +10,7 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     """ 
     def __init__(self, signedVolume = None):
         from marketsim.gen._out._iorder import IOrder
-        from marketsim.gen._out._observable import ObservableIOrder
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
         ObservableIOrder.__init__(self)
@@ -40,7 +40,7 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
         return Order_Impl(side, volume)
     
 def MarketSigned(signedVolume = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if signedVolume is None or rtti.can_be_casted(signedVolume, IFunctionfloat):
         return MarketSigned_Float(signedVolume)

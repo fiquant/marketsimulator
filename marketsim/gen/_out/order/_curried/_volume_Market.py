@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Order", "Market"])
 class volume_Market_Side(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -30,7 +30,7 @@ class volume_Market_Side(IFunctionIObservableIOrderIFunctionfloat):
         return Market(side, volume)
     
 def volume_Market(side = None): 
-    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunctionSide):
         return volume_Market_Side(side)

@@ -1,19 +1,19 @@
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Statistics", "MaxEpsilon"])
 class MaxEpsilon_IObservableFloatFloat(Observablefloat,MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
     def __init__(self, source = None, epsilon = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         event.subscribe(self.source, self.fire, self)
@@ -34,8 +34,8 @@ class MaxEpsilon_IObservableFloatFloat(Observablefloat,MaxEpsilon_Impl):
         return "Max_{\\epsilon}(%(source)s)" % self.__dict__
     
 def MaxEpsilon(source = None,epsilon = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if epsilon is None or rtti.can_be_casted(epsilon, IFunctionfloat):

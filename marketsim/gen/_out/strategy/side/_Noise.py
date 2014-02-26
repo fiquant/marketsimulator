@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionSide
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Side function", "Noise"])
 class Noise_Float(IFunctionSide):
@@ -44,7 +44,7 @@ class Noise_Float(IFunctionSide):
         return _ops_Condition_BooleanSideSide(_ops_Greater_FloatFloat(self.side_distribution,_constant_Float(0.5)),_side_Sell_(),_side_Buy_())
     
 def Noise(side_distribution = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if side_distribution is None or rtti.can_be_casted(side_distribution, IFunctionfloat):
         return Noise_Float(side_distribution)

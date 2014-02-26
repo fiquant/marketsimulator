@@ -1,6 +1,6 @@
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "Bollinger_linear"])
@@ -54,8 +54,8 @@ class Bollinger_linear_FloatIObservableIOrderFloatIObservableFloat(ISingleAssetS
         self.on_order_created.fire(order, self)
     
 def Bollinger_linear(orderFactory = None,alpha = None,k = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionfloat):
         if alpha is None or rtti.can_be_casted(alpha, float):

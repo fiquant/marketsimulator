@@ -1,5 +1,5 @@
 def Market(signedVolume = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out.order._marketsigned import MarketSigned_Float as _order_MarketSigned_Float
     from marketsim import rtti
     if signedVolume is None or rtti.can_be_casted(signedVolume, IFunctionfloat):

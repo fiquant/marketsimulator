@@ -1,6 +1,6 @@
 def Iceberg(proto = None,lotSize = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out.order._curried._price_iceberg import price_Iceberg_FloatIObservableIOrderFloat as _order__curried_price_Iceberg_FloatIObservableIOrderFloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):

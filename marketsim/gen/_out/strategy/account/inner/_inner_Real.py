@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
 @registry.expose(["Strategy", "inner_Real"])
 class inner_Real_(IFunctionIAccountISingleAssetStrategy):
     """   how orders sent by the strategy have been actually traded

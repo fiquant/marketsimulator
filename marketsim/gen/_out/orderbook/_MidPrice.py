@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "MidPrice"])
@@ -7,11 +7,11 @@ class MidPrice_IOrderBook(Observablefloat):
     """ 
     """ 
     def __init__(self, book = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
         rtti.check_fields(self)

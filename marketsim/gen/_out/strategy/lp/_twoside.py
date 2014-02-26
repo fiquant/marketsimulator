@@ -1,6 +1,6 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -61,9 +61,9 @@ class TwoSide_FloatFloatIEventSideFloatIObservableIOrder(ISingleAssetStrategy):
         self.on_order_created.fire(order, self)
     
 def TwoSide(initialValue = None,priceDistr = None,eventGen = None,orderFactory = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
     from marketsim import rtti
     if initialValue is None or rtti.can_be_casted(initialValue, float):
         if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):

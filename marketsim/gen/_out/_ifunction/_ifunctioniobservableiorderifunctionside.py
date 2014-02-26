@@ -1,6 +1,6 @@
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim import meta
 class IFunctionIObservableIOrderIFunctionSide(object):
     _types = [meta.function((IFunctionSide,),IObservableIOrder)]
@@ -25,9 +25,9 @@ class IFunctionIObservableIOrderIFunctionSide(object):
 
 
 
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim import meta
 class IFunctionIObservableIOrderIFunctionSide(object):
     _types = [meta.function((IFunctionSide,),IObservableIOrder)]

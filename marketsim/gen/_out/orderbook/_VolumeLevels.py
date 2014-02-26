@@ -1,15 +1,15 @@
 from marketsim.gen._intrinsic.orderbook.volume_levels import VolumeLevels_Impl
-from marketsim.gen._out._observable import ObservableIVolumeLevels
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._ivolumelevels import IVolumeLevels
 from marketsim import registry
+from marketsim.gen._out._observable._observableivolumelevels import ObservableIVolumeLevels
 @registry.expose(["Asset", "VolumeLevels"])
 class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl):
     """   Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
         from marketsim.gen._out._ivolumelevels import IVolumeLevels
-        from marketsim.gen._out._observable import ObservableIVolumeLevels
+        from marketsim.gen._out._observable._observableivolumelevels import ObservableIVolumeLevels
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import rtti
         ObservableIVolumeLevels.__init__(self)

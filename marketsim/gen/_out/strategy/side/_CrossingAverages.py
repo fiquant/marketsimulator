@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Side function", "CrossingAverages"])

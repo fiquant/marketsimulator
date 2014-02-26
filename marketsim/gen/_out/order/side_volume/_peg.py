@@ -1,5 +1,5 @@
 def Peg(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
     from marketsim.gen._out.order._curried._sidevolume_peg import sidevolume_Peg_SideFloatFloatIObservableIOrder as _order__curried_sidevolume_Peg_SideFloatFloatIObservableIOrder
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):

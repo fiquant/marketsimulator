@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "LimitSigned"])
 class signedVolume_LimitSigned_Float(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -32,7 +32,7 @@ class signedVolume_LimitSigned_Float(IFunctionIObservableIOrderIFunctionfloat):
         return LimitSigned(signedVolume, price)
     
 def signedVolume_LimitSigned(price = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if price is None or rtti.can_be_casted(price, IFunctionfloat):
         return signedVolume_LimitSigned_Float(price)

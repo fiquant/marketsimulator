@@ -1,11 +1,11 @@
-from marketsim.gen._out._ifunction import IFunctionIFunctionlistOffloatlistOffloat
-from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.multiarmed_bandit import _MultiarmedBandit2_Impl
-from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
 from marketsim import listOf
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "MultiArmedBandit"])
 class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(ISingleAssetStrategy,_MultiarmedBandit2_Impl):
     """  In some moments of time the efficiency of the strategies is evaluated
@@ -44,13 +44,13 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
-    from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
     from marketsim import rtti
-    from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
+    from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
     from marketsim import listOf
-    from marketsim.gen._out._ifunction import IFunctionIFunctionlistOffloatlistOffloat
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
         if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):
             if weight is None or rtti.can_be_casted(weight, IFunctionIFunctionfloatIAccount):

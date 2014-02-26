@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
 from marketsim.gen._out._idifferentiable import IDifferentiable
 @registry.expose(["Basic", "Derivative"])

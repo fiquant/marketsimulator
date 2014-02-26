@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.observable.randomwalk import _RandomWalk_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "RandomWalk"])
 class RandomWalk_FloatFloatFloatString(Observablefloat,_RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
@@ -37,7 +37,7 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,_RandomWalk_Impl):
         return "%(name)s" % self.__dict__
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if initialValue is None or rtti.can_be_casted(initialValue, float):
         if deltaDistr is None or rtti.can_be_casted(deltaDistr, IFunctionfloat):

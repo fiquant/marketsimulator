@@ -1,8 +1,8 @@
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Asset", "CumulativePrice"])
 class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     """ 
@@ -13,7 +13,7 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
       Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
@@ -38,7 +38,7 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     
 def CumulativePrice(book = None,depth = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if book is None or rtti.can_be_casted(book, IOrderBook):
         if depth is None or rtti.can_be_casted(depth, IFunctionfloat):

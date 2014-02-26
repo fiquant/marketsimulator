@@ -1,7 +1,7 @@
 from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
 from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
-from marketsim.gen._out._ifunction import IFunctionIVolumeLevels
 from marketsim import listOf
 
 class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevels_Impl):
@@ -35,7 +35,7 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevel
         return "%(source)s" % self.__dict__
     
 def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
-    from marketsim.gen._out._ifunction import IFunctionIVolumeLevels
+    from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
     from marketsim.gen._out._igraph import IGraph
     from marketsim import listOf
     from marketsim import rtti

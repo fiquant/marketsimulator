@@ -1,5 +1,5 @@
 def A(x = None): 
-    from marketsim.gen._out._ifunction import IFunctionT
+    from marketsim.gen._out._ifunction._ifunctiont import IFunctionT
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionT):
         return A__testtypesT(x)

@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 @registry.expose(["Order", "price_ImmediateOrCancel"])
 class side_price_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
     """ 
@@ -34,7 +34,7 @@ class side_price_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIFunction
         return price_ImmediateOrCancel(proto(side))
     
 def side_price_ImmediateOrCancel(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
         return side_price_ImmediateOrCancel_SideFloatIObservableIOrder(proto)

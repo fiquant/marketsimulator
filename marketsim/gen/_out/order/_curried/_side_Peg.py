@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
 @registry.expose(["Order", "Peg"])
 class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
     """ 
@@ -33,7 +33,7 @@ class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSid
         return Peg(proto(side))
     
 def side_Peg(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
         return side_Peg_SideFloatIObservableIOrder(proto)

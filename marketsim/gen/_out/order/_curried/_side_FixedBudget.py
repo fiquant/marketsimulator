@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "FixedBudget"])
 class side_FixedBudget_Float(IFunctionIObservableIOrderIFunctionSide):
     """ 
@@ -35,7 +35,7 @@ class side_FixedBudget_Float(IFunctionIObservableIOrderIFunctionSide):
         return FixedBudget(side, budget)
     
 def side_FixedBudget(budget = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if budget is None or rtti.can_be_casted(budget, IFunctionfloat):
         return side_FixedBudget_Float(budget)

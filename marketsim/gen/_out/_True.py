@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim import context
 @registry.expose(["Basic", "true"])
 class true_(IFunctionbool):

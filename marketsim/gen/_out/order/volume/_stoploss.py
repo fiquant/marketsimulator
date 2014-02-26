@@ -1,6 +1,6 @@
 def StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out.order._curried._volume_stoploss import volume_StopLoss_FloatIObservableIOrderFloat as _order__curried_volume_StopLoss_FloatIObservableIOrderFloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):

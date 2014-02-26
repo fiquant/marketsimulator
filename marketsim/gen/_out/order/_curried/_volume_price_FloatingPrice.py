@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Order", "price_FloatingPrice"])
 class volume_price_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
     """ 
@@ -36,8 +36,8 @@ class volume_price_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFu
         return price_FloatingPrice(proto(volume), floatingPrice)
     
 def volume_price_FloatingPrice(proto = None,floatingPrice = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
         if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservablefloat):

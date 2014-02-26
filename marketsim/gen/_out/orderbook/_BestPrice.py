@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.orderbook.props import _BestPrice_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "BestPrice"])
@@ -7,7 +7,7 @@ class BestPrice_IOrderQueue(Observablefloat,_BestPrice_Impl):
     """   Returns None is *queue* is empty
     """ 
     def __init__(self, queue = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import rtti
         Observablefloat.__init__(self)

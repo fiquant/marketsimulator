@@ -1,17 +1,17 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_IObservableFloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, source = None, alpha = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.source = source if source is not None else _const_Float(1.0)
         self.alpha = alpha if alpha is not None else 0.015
@@ -50,7 +50,7 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_EW_Avg_IObservableFloatFloat(self.source,self.alpha)),_math_EW_StdDev_IObservableFloatFloat(self.source,self.alpha))
     
 def RelStdDev(source = None,alpha = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if alpha is None or rtti.can_be_casted(alpha, float):

@@ -1,21 +1,21 @@
 from marketsim.gen._out._side import Side
-from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim import context
+from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Side function", "FundamentalValue"])
 class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
+        from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import ObservableSide
         ObservableSide.__init__(self)
         self.fv = fv if fv is not None else _const_Float(200.0)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
@@ -59,24 +59,24 @@ class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book)),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),self.fv),_side_Buy_(),_side_Nothing_()))
     
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._side import Side
-from marketsim.gen._out._observable import ObservableSide
-from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
 from marketsim import context
+from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Side function", "FundamentalValue"])
 class FundamentalValue_FloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
+        from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._side import Side
         from marketsim import event
-        from marketsim.gen._out._observable import ObservableSide
         ObservableSide.__init__(self)
         self.fv = fv if fv is not None else _constant_Float(200.0)
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()
@@ -121,9 +121,9 @@ class FundamentalValue_FloatIOrderBook(ObservableSide):
         return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book)),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),self.fv),_side_Buy_(),_side_Nothing_()))
     
 def FundamentalValue(fv = None,book = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim.gen._out._iorderbook import IOrderBook
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if fv is None or rtti.can_be_casted(fv, IObservablefloat):
         if book is None or rtti.can_be_casted(book, IOrderBook):

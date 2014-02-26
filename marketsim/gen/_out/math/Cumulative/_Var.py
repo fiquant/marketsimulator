@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.moments.cmv import Variance_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Var"])
 class Var_IObservableFloat(IFunctionfloat,Variance_Impl):
     """ 
@@ -24,7 +24,7 @@ class Var_IObservableFloat(IFunctionfloat,Variance_Impl):
         return "\\sigma^2_{cumul}(%(source)s)" % self.__dict__
     
 def Var(source = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         return Var_IObservableFloat(source)

@@ -1,7 +1,7 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "Signal"])
@@ -60,8 +60,8 @@ class Signal_IEventSideIObservableIOrderIObservableFloatFloat(ISingleAssetStrate
         self.on_order_created.fire(order, self)
     
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -121,11 +121,11 @@ class Signal_IEventSideIObservableIOrderFloatFloat(ISingleAssetStrategy):
         self.on_order_created.fire(order, self)
     
 def Signal(eventGen = None,orderFactory = None,signal = None,threshold = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
     from marketsim import rtti
-    from marketsim.gen._out._ifunction import IFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
             if signal is None or rtti.can_be_casted(signal, IObservablefloat):

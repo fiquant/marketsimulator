@@ -1,8 +1,8 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "OneSide"])
@@ -64,10 +64,10 @@ class OneSide_FloatFloatIEventSideFloatIObservableIOrderSide(ISingleAssetStrateg
     
 def OneSide(initialValue = None,priceDistr = None,eventGen = None,orderFactory = None,side = None): 
     from marketsim import rtti
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
     if initialValue is None or rtti.can_be_casted(initialValue, float):
         if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):
             if eventGen is None or rtti.can_be_casted(eventGen, IEvent):

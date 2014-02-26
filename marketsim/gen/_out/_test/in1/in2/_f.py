@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["internal tests", "F"])
 class F_Float(IFunctionfloat):
@@ -38,7 +38,7 @@ class F_Float(IFunctionfloat):
         return self.x
     
 def F(x = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionfloat):
         return F_Float(x)

@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 @registry.expose(["Order", "MarketSigned"])
 class signedVolume_MarketSigned_(IFunctionIObservableIOrderIFunctionfloat):
     """ 

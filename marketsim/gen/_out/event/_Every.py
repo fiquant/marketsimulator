@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._intrinsic.event import _Every_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "Every"])
 class Every_Float(IEvent,_Every_Impl):
     """ 
@@ -24,7 +24,7 @@ class Every_Float(IEvent,_Every_Impl):
         return "Every(%(intervalFunc)s)" % self.__dict__
     
 def Every(intervalFunc = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if intervalFunc is None or rtti.can_be_casted(intervalFunc, IFunctionfloat):
         return Every_Float(intervalFunc)

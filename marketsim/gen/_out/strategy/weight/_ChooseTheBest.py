@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionlistOffloat
+from marketsim.gen._out._ifunction._ifunctionlistoffloat import IFunctionlistOffloat
 from marketsim.gen._intrinsic.strategy.weight import _ChooseTheBest_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "ChooseTheBest"])

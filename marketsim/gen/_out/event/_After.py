@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._intrinsic.event import _After_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "After"])
 class After_Float(IEvent,_After_Impl):
     """ 
@@ -24,7 +24,7 @@ class After_Float(IEvent,_After_Impl):
         return "After(%(delay)s)" % self.__dict__
     
 def After(delay = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if delay is None or rtti.can_be_casted(delay, IFunctionfloat):
         return After_Float(delay)

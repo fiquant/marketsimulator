@@ -54,7 +54,7 @@ object Printer {
 
                 val m = mangle(x.toString)
 
-                m ||| ImportFrom(m.toString, "marketsim.gen._out._ifunction")
+                m ||| ImportFrom(m.toString, "marketsim.gen._out._ifunction._" + m.toLowerCase)
             }
 
         }
@@ -93,7 +93,7 @@ object Printer {
 
                         val m = mangle(x.toString) ||| Code.from(x.imports.toList)
 
-                        m ||| ImportFrom(m.toString, moduleName(decl))
+                        m ||| ImportFrom(m.toString, moduleName(decl, m.toString))
                 }
             }
         }
@@ -207,9 +207,12 @@ object Printer {
         "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
     }
 
-    def moduleName(target : Typed.TypeDeclaration) = {
+    def moduleName(target : Typed.TypeDeclaration, nameToImport : String) = {
         val name = target.parent.qualifiedName.toString
-        "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
+        if (nameToImport == target.name)
+            "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase
+        else
+            "marketsim.gen._out" + name.splitAt(0)._2 + "._" + target.name.toLowerCase + "._" + nameToImport.toLowerCase
     }
 
     def fullImportName(f : Typed.Function) =

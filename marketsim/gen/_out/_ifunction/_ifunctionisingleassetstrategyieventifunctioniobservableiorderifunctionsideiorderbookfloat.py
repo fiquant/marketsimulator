@@ -1,6 +1,6 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim import meta
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIOrderBookfloat(object):

@@ -1,5 +1,5 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIOrder
+from marketsim.gen._out._ifunction._ifunctioniorder import IFunctionIOrder
 class IObservableIOrder(IEvent, IFunctionIOrder):
     @property
     def ImmediateOrCancel(self):

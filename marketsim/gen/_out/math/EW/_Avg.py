@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Avg"])
 class Avg_IObservableFloatFloat(IDifferentiable,EWMA_Impl):
     """ 
@@ -26,7 +26,7 @@ class Avg_IObservableFloatFloat(IDifferentiable,EWMA_Impl):
         return "Avg_{\\alpha=%(alpha)s}(%(source)s)" % self.__dict__
     
 def Avg(source = None,alpha = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if alpha is None or rtti.can_be_casted(alpha, float):

@@ -1,8 +1,8 @@
 from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import registry
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Peg"])
 class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     """ 
@@ -32,7 +32,7 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     
     
 def Peg(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
         return Peg_FloatIObservableIOrder(proto)

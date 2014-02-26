@@ -1,6 +1,6 @@
 def WithExpiry(proto = None,expiry = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out.order._curried._volume_withexpiry import volume_WithExpiry_FloatIObservableIOrderFloat as _order__curried_volume_WithExpiry_FloatIObservableIOrderFloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):

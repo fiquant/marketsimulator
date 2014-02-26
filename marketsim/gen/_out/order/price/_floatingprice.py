@@ -1,6 +1,6 @@
 def FloatingPrice(proto = None,floatingPrice = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim.gen._out.order._curried._price_floatingprice import price_FloatingPrice_FloatIObservableIOrderIObservableFloat as _order__curried_price_FloatingPrice_FloatIObservableIOrderIObservableFloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):

@@ -1,18 +1,18 @@
-from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         Observablefloat.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
@@ -50,21 +50,21 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
         return _IfDefined_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(self.queue),_IfDefined_IObservableFloatIObservableFloat(_orderbook_LastPrice_IOrderQueue(self.queue),self.defaultValue))
     
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice_IOrderQueueFloat(Observablefloat):
     """   and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         Observablefloat.__init__(self)
         self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
@@ -105,8 +105,8 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
     
 def SafeSidePrice(queue = None,defaultValue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue
-    from marketsim.gen._out._iobservable import IObservablefloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if queue is None or rtti.can_be_casted(queue, IOrderQueue):
         if defaultValue is None or rtti.can_be_casted(defaultValue, IObservablefloat):

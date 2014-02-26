@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
 class volume_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -35,8 +35,8 @@ class volume_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIF
         return WithExpiry(proto(volume), expiry)
     
 def volume_WithExpiry(proto = None,expiry = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
         if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):

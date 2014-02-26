@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Strategy", "Canceller"])
 class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
     """   and in some moments of time it randomly chooses an order and cancels it
@@ -25,7 +25,7 @@ class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
         return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
     
 def Canceller(cancellationIntervalDistr = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if cancellationIntervalDistr is None or rtti.can_be_casted(cancellationIntervalDistr, IFunctionfloat):
         return Canceller_Float(cancellationIntervalDistr)

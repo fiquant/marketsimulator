@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "trader_Unit"])
 class trader_Unit_(IFunctionIFunctionfloatIAccount):
     """ 

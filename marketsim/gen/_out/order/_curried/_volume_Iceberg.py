@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "Iceberg"])
 class volume_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -36,8 +36,8 @@ class volume_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunc
         return Iceberg(proto(volume), lotSize)
     
 def volume_Iceberg(proto = None,lotSize = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
         if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):

@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.suspendable import _Suspendable_Impl
-from marketsim.gen._out._ifunction import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 @registry.expose(["Strategy", "Suspendable"])
 class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,_Suspendable_Impl):
     """ 
@@ -28,7 +28,7 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,_Suspendable_
     
 def Suspendable(inner = None,predicate = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-    from marketsim.gen._out._ifunction import IFunctionbool
+    from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
     from marketsim import rtti
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         if predicate is None or rtti.can_be_casted(predicate, IFunctionbool):

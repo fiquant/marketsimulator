@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["MACD", "MACD"])
 class MACD_IObservableFloatFloatFloat(IFunctionfloat):
@@ -45,7 +45,7 @@ class MACD_IObservableFloatFloatFloat(IFunctionfloat):
         return _ops_Sub_FloatFloat(_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.fast+1)))),_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))
     
 def MACD(x = None,slow = None,fast = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         if slow is None or rtti.can_be_casted(slow, float):

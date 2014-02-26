@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.observable.breaks_at_changes import _BreaksAtChanges_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "BreaksAtChanges"])
 class BreaksAtChanges_IObservableFloat(Observablefloat,_BreaksAtChanges_Impl):
     """   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     """ 
     def __init__(self, source = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import rtti
@@ -28,7 +28,7 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,_BreaksAtChanges_Impl):
         return "BreaksAtChanges(%(source)s)" % self.__dict__
     
 def BreaksAtChanges(source = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         return BreaksAtChanges_IObservableFloat(source)

@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 @registry.expose(["Order", "ImmediateOrCancel"])
 class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
     """ 
@@ -34,7 +34,7 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFu
         return ImmediateOrCancel(proto(side))
     
 def side_ImmediateOrCancel(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
         return side_ImmediateOrCancel_SideIObservableIOrder(proto)

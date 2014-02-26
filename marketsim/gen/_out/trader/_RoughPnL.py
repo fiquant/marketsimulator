@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Trader", "RoughPnL"])
@@ -8,10 +8,10 @@ class RoughPnL_IAccount(Observablefloat):
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.trader = trader if trader is not None else _trader_SingleProxy_()
         rtti.check_fields(self)

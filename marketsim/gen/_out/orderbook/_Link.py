@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._ilink import ILink
 from marketsim.gen._intrinsic.orderbook.link import _Link_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Asset", "Link"])
 class Link_IObservableFloat(ILink,_Link_Impl):
     """  (normally between a trader and a market).
@@ -25,7 +25,7 @@ class Link_IObservableFloat(ILink,_Link_Impl):
         return "Link(%(latency)s)" % self.__dict__
     
 def Link(latency = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if latency is None or rtti.can_be_casted(latency, IObservablefloat):
         return Link_IObservableFloat(latency)

@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIFunctionlistOffloatlistOffloat
+from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
 @registry.expose(["Strategy", "array_ChooseTheBest"])
 class array_ChooseTheBest_(IFunctionIFunctionlistOffloatlistOffloat):
     """   having 1 at the index of the maximal element and 0 are at the rest

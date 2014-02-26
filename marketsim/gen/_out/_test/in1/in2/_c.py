@@ -1,4 +1,4 @@
-from marketsim.gen._out._ifunction import IFunctionICandleStick
+from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
 from marketsim import context
 
 class C_ICandleStickInt(int):
@@ -38,7 +38,7 @@ class C_ICandleStickInt(int):
         return self.p
     
 def C(x = None,p = None): 
-    from marketsim.gen._out._ifunction import IFunctionICandleStick
+    from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionICandleStick):
         if p is None or rtti.can_be_casted(p, int):

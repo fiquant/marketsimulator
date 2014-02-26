@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.moments.mv import MV_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Var"])
 class Var_IObservableFloatFloat(IFunctionfloat,MV_Impl):
     """ 
@@ -26,7 +26,7 @@ class Var_IObservableFloatFloat(IFunctionfloat,MV_Impl):
         return "\\sigma^2_{n=%(timeframe)s}(%(source)s)" % self.__dict__
     
 def Var(source = None,timeframe = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):

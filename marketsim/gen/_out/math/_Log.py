@@ -1,12 +1,12 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Log/Pow", "Log"])
 class Log_Float(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
         Observablefloat.__init__(self)
@@ -31,7 +31,7 @@ class Log_Float(Observablefloat):
         return math.log(x)
     
 def Log(x = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionfloat):
         return Log_Float(x)

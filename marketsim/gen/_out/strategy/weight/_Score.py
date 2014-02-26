@@ -4,7 +4,7 @@ def score():
     return _strategy_weight_trader_trader_Score_()
     raise Exception('Cannot find suitable overload for score('++')')
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Strategy", "Score"])

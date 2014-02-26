@@ -1,6 +1,6 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -64,7 +64,7 @@ class PairTrading_IEventSideIObservableIOrderIOrderBookFloat(ISingleAssetStrateg
     
 def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):

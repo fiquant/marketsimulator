@@ -1,19 +1,19 @@
 from marketsim.gen._out._side import Side
-from marketsim.gen._out._observable import ObservableSide
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
 from marketsim import context
+from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Side function", "MeanReversion"])
 class MeanReversion_FloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, alpha = None, book = None):
+        from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
         from marketsim import event
-        from marketsim.gen._out._observable import ObservableSide
         ObservableSide.__init__(self)
         self.alpha = alpha if alpha is not None else 0.015
         self.book = book if book is not None else _orderbook_OfTrader_IAccount()

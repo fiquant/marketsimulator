@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev_IObservableFloatFloat(IFunctionfloat):
@@ -43,7 +43,7 @@ class StdDev_IObservableFloatFloat(IFunctionfloat):
         return _math_Sqrt_Float(_math_EW_Var_IObservableFloatFloat(self.source,self.alpha))
     
 def StdDev(source = None,alpha = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if alpha is None or rtti.can_be_casted(alpha, float):

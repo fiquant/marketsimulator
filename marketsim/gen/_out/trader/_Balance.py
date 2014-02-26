@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.trader.props import Balance_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "Balance"])
@@ -7,7 +7,7 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
     """ 
     """ 
     def __init__(self, trader = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import rtti
         Observablefloat.__init__(self)

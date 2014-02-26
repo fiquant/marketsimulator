@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
 @registry.expose(["Strategy", "inner_VirtualMarket"])
 class inner_VirtualMarket_(IFunctionIAccountISingleAssetStrategy):
     """   how it would be traded by sending request.evalMarketOrder

@@ -1,17 +1,17 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         self.elsePart = elsePart if elsePart is not None else _const_Float(1.0)
@@ -48,22 +48,22 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         from marketsim.gen._out._null import null_ as _null_
         return _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(_ops_NotEqual_IObservableFloatFloat(self.x,_null_()),self.x,self.elsePart)
     
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatIObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         self.elsePart = elsePart if elsePart is not None else _const_Float(1.0)
@@ -100,22 +100,22 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         from marketsim.gen._out._null import null_ as _null_
         return _ops_Condition_BooleanFloatIObservableFloat(_ops_NotEqual_FloatFloat(self.x,_null_()),self.x,self.elsePart)
     
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.x = x if x is not None else _const_Float(1.0)
         self.elsePart = elsePart if elsePart is not None else _constant_Float(1.0)
@@ -153,19 +153,19 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         return _ops_Condition_IObservableBooleanIObservableFloatFloat(_ops_NotEqual_IObservableFloatFloat(self.x,_null_()),self.x,self.elsePart)
     
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.x = x if x is not None else _constant_Float(1.0)
         self.elsePart = elsePart if elsePart is not None else _constant_Float(1.0)
@@ -203,8 +203,8 @@ class IfDefined_FloatFloat(Observablefloat):
         return _ops_Condition_BooleanFloatFloat(_ops_NotEqual_FloatFloat(self.x,_null_()),self.x,self.elsePart)
     
 def IfDefined(x = None,elsePart = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         if elsePart is None or rtti.can_be_casted(elsePart, IObservablefloat):

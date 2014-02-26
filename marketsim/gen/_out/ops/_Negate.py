@@ -1,13 +1,13 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.ops import _Negate_Impl
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Negate"])
 class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         from marketsim import rtti
@@ -28,15 +28,15 @@ class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
         return "-%(x)s" % self.__dict__
     
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.ops import _Negate_Impl
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Negate"])
 class Negate_Float(Observablefloat,_Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
         Observablefloat.__init__(self)
@@ -56,8 +56,8 @@ class Negate_Float(Observablefloat,_Negate_Impl):
         return "-%(x)s" % self.__dict__
     
 def Negate(x = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         return Negate_IObservableFloat(x)

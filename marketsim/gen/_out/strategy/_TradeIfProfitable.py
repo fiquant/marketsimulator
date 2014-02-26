@@ -1,8 +1,8 @@
+from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "TradeIfProfitable"])
 class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy):
     """ 
@@ -57,8 +57,8 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     
 def TradeIfProfitable(inner = None,account = None,performance = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-    from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
-    from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
     from marketsim import rtti
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
         if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):

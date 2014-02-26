@@ -1,6 +1,6 @@
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["MACD", "Signal"])
 class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
@@ -50,7 +50,7 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
         return _math_EW_Avg_IObservableFloatFloat(_observable_OnEveryDt_FloatFloat(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast),self.step),(2/((self.timeframe+1))))
     
 def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         if slow is None or rtti.can_be_casted(slow, float):

@@ -1,9 +1,9 @@
 from marketsim.gen._intrinsic.strategy.generic import _Generic_Impl
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Strategy", "Generic"])
 class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,_Generic_Impl):
     """   creates an order via *orderFactory* and sends the order to the market using its trader
@@ -30,7 +30,7 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,_Generic_Impl):
     
 def Generic(orderFactory = None,eventGen = None): 
     from marketsim.gen._out._iorder import IOrder
-    from marketsim.gen._out._iobservable import IObservableIOrder
+    from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
     from marketsim.gen._out._ievent import IEvent
     from marketsim import rtti
     if orderFactory is None or rtti.can_be_casted(orderFactory, IObservableIOrder):

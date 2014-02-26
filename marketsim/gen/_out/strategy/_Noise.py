@@ -1,5 +1,5 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -54,7 +54,7 @@ class Noise_IEventSideIObservableIOrder(ISingleAssetStrategy):
     
 def Noise(eventGen = None,orderFactory = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
         if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):

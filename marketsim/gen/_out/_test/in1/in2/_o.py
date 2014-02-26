@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["internal tests", "O"])
 class O_IObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         from marketsim.gen._out._test.in1.in2._intobs import IntObs_ as __test_in1_in2_IntObs_
         Observablefloat.__init__(self)
         self.x = x if x is not None else __test_in1_in2_IntObs_()
@@ -44,7 +44,7 @@ class O_IObservableFloat(Observablefloat):
         return self.x
     
 def O(x = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         return O_IObservableFloat(x)

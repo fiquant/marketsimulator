@@ -1,9 +1,9 @@
+from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
 from marketsim import listOf
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
-from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "ChooseTheBest"])
 class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy,_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
@@ -35,10 +35,10 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
     
 def ChooseTheBest(strategies = None,account = None,performance = None): 
-    from marketsim.gen._out._ifunction import IFunctionIFunctionfloatIAccount
+    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
     from marketsim import rtti
-    from marketsim.gen._out._ifunction import IFunctionIAccountISingleAssetStrategy
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
     from marketsim import listOf
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
         if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):

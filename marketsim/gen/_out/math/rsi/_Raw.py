@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["RSI", "Raw"])
 class Raw_IObservableFloatFloatFloat(IFunctionfloat):
@@ -47,7 +47,7 @@ class Raw_IObservableFloatFloatFloat(IFunctionfloat):
         return _ops_Div_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_math_UpMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha),_math_EW_Avg_IObservableFloatFloat(_math_DownMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha))
     
 def Raw(source = None,timeframe = None,alpha = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):

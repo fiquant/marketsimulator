@@ -1,7 +1,7 @@
-from marketsim.gen._out._observable import Observablefloat
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
 @registry.expose(["Volume function", "RSI_linear"])
 class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
@@ -9,11 +9,11 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
     """ 
     def __init__(self, alpha = None, k = None, timeframe = None, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim.gen._out._observable import Observablefloat
         Observablefloat.__init__(self)
         self.alpha = alpha if alpha is not None else (1.0/14.0)
         self.k = k if k is not None else _const_Float(-0.04)
@@ -59,7 +59,7 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
         return _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(_ops_Mul_IObservableFloatIObservableFloat(_observable_OnEveryDt_FloatFloat(_ops_Sub_FloatFloat(_constant_Float(50.0),_math_RSI_IOrderBookFloatFloat(_orderbook_OfTrader_IAccount(self.trader),self.timeframe,self.alpha)),1.0),self.k),self.trader)
     
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
     from marketsim import rtti
     if alpha is None or rtti.can_be_casted(alpha, float):

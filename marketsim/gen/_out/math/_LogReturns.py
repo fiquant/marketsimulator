@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "LogReturns"])
 class LogReturns_IObservableFloatFloat(IFunctionfloat):
@@ -44,7 +44,7 @@ class LogReturns_IObservableFloatFloat(IFunctionfloat):
         return _math_Log_Float(_ops_Div_IObservableFloatIObservableFloat(self.x,_math_Lagged_IObservableFloatFloat(self.x,self.timeframe)))
     
 def LogReturns(x = None,timeframe = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         if timeframe is None or rtti.can_be_casted(timeframe, float):

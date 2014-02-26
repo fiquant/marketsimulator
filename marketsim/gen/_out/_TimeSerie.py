@@ -1,6 +1,6 @@
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._intrinsic.timeserie import _ToRecord_Impl
-from marketsim.gen._out._iobservable import IObservableobject
+from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 from marketsim.gen._out._igraph import IGraph
 from marketsim import registry
 @registry.expose(["Basic", "TimeSerie"])
@@ -32,7 +32,7 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,_ToRecord_Impl):
         return "%(source)s" % self.__dict__
     
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
-    from marketsim.gen._out._iobservable import IObservableobject
+    from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
     from marketsim.gen._out._igraph import IGraph
     from marketsim import rtti
     if source is None or rtti.can_be_casted(source, IObservableobject):

@@ -1,4 +1,4 @@
-from marketsim.gen._out._ifunction import IFunctionint
+from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
 from marketsim import context
 
 class f_Int(IFunctionint):
@@ -35,7 +35,7 @@ class f_Int(IFunctionint):
     def getImpl(self):
         return self.x
     
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 
 class f_Float(IFunctionfloat):
@@ -73,8 +73,8 @@ class f_Float(IFunctionfloat):
         return self.x
     
 def f(x = None): 
-    from marketsim.gen._out._ifunction import IFunctionint
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionint):
         return f_Int(x)

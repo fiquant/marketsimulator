@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionint
+from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Int(IFunctionint):
@@ -38,7 +38,7 @@ class constant_Int(IFunctionint):
         return _const_Int(self.x)
     
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Float(IFunctionfloat):

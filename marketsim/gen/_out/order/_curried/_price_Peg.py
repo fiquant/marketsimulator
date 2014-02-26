@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 @registry.expose(["Order", "Peg"])
 class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -32,7 +32,7 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat)
         return Peg(proto(price))
     
 def price_Peg(proto = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
         return price_Peg_FloatIObservableIOrder(proto)

@@ -1,8 +1,8 @@
-from marketsim.gen._out._observable import ObservableIOrder
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-from marketsim.gen._out._ifunction import IFunctionfloat
 from marketsim import registry
+from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Iceberg"])
 class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
     """ 
@@ -12,9 +12,9 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
     """ 
     def __init__(self, proto = None, lotSize = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
-        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import event
         ObservableIOrder.__init__(self)
@@ -47,8 +47,8 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
     
 def Iceberg(proto = None,lotSize = None): 
     from marketsim.gen._out._iorder import IOrder
-    from marketsim.gen._out._iobservable import IObservableIOrder
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IObservableIOrder):
         if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):

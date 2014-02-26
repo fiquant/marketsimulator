@@ -1,5 +1,5 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class IObservablefloat(IEvent, IFunctionfloat):
     def Moving_Avg(self, timeframe = None):
         from marketsim.gen._out.math.moving._avg import Avg

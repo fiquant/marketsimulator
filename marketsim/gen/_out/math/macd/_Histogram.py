@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._iobservable import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["MACD", "Histogram"])
 class Histogram_IObservableFloatFloatFloatFloatFloat(IFunctionfloat):
@@ -50,7 +50,7 @@ class Histogram_IObservableFloatFloatFloatFloatFloat(IFunctionfloat):
         return _ops_Sub_FloatFloat(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast),_math_macd_Signal_IObservableFloatFloatFloatFloatFloat(self.x,self.slow,self.fast,self.timeframe,self.step))
     
 def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None): 
-    from marketsim.gen._out._iobservable import IObservablefloat
+    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IObservablefloat):
         if slow is None or rtti.can_be_casted(slow, float):

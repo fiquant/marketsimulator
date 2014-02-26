@@ -1,4 +1,4 @@
-from marketsim.gen._out._ifunction import IFunctionint
+from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
 from marketsim import context
 
 class g_Int(IFunctionint):
@@ -37,7 +37,7 @@ class g_Int(IFunctionint):
         return __test_overloading_f_Int(self.x)
     
 def g(x = None): 
-    from marketsim.gen._out._ifunction import IFunctionint
+    from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IFunctionint):
         return g_Int(x)

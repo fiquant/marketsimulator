@@ -222,9 +222,8 @@ package object gen
                                             }
 
                                             val s =
-                                                s"class $name(IEvent, "||| TypesBound.Function(Nil, rt).asCode |||"):" |>
-                                                        methods | nl |
-                                                "IObservable[" ||| rt.asCode ||| "] = " ||| name | nl
+                                                "IObservable[" ||| rt.asCode ||| "] = " ||| name |||
+                                                            ImportFrom(name, "_" + name) | nl
 
                                             out.println(base.withImports(s).toString)
                                         }
@@ -250,14 +249,14 @@ package object gen
                                             }
 
                                             val s =
-                                                s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
-                                                        "pass" | nl |
-                                                "Observable[" ||| rt.asCode ||| "] = " ||| name | nl
+                                                "Observable[" ||| rt.asCode ||| "] = " ||| name |||
+                                                        ImportFrom(name, "_" + name) | nl
 
                                             out.println(base.withImports(s).toString)
                                         }
 
-                                        out.println("from marketsim.gen._out._iobservable import IObservableobject")
+                                        out.println("from marketsim.gen._out._iobservable._iobservableobject import IObservableobject")
+                                        out.println("from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat")
                                         out.println("Observable[int]._types.append(IObservablefloat)")
                                         out.println("Observable[int]._types.append(IObservableobject)")
                                         out.println("Observable[float]._types.append(IObservableobject)")
@@ -307,8 +306,6 @@ package object gen
                                             val methods = getMethods(f)
 
                                             val s =
-                                                s"class $name("||| b |||"):" |>
-                                                        ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | methods) | nl |
                                                 "IFunction[" ||| f.ret.asCode |||
                                                         (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
 

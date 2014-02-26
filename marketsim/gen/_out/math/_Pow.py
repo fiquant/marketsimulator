@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._observable import Observablefloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Log/Pow", "Pow"])
 class Pow_FloatFloat(Observablefloat):
     """ 
@@ -11,7 +11,7 @@ class Pow_FloatFloat(Observablefloat):
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
     """ 
     def __init__(self, base = None, power = None):
-        from marketsim.gen._out._observable import Observablefloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
         Observablefloat.__init__(self)
@@ -41,7 +41,7 @@ class Pow_FloatFloat(Observablefloat):
         return math.pow(base, power)
     
 def Pow(base = None,power = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if base is None or rtti.can_be_casted(base, IFunctionfloat):
         if power is None or rtti.can_be_casted(power, IFunctionfloat):

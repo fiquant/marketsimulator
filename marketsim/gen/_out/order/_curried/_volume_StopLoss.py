@@ -1,6 +1,6 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
 class volume_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionfloat):
     """ 
@@ -37,8 +37,8 @@ class volume_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFun
         return StopLoss(proto(volume), maxloss)
     
 def volume_StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction import IFunctionIObservableIOrderIFunctionfloat
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
         if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):

@@ -4,7 +4,7 @@ def clamp0():
     return _strategy_weight_f_f_Clamp0_()
     raise Exception('Cannot find suitable overload for clamp0('++')')
 from marketsim import registry
-from marketsim.gen._out._ifunction import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
 class Clamp0_Float(IFunctionfloat):
@@ -46,7 +46,7 @@ class Clamp0_Float(IFunctionfloat):
         return _ops_Add_FloatFloat(_math_Max_FloatFloat(_constant_Int(0),self.f),_constant_Int(1))
     
 def Clamp0(f = None): 
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if f is None or rtti.can_be_casted(f, IFunctionfloat):
         return Clamp0_Float(f)

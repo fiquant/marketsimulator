@@ -1,7 +1,7 @@
 from marketsim import registry
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._observable import ObservableIOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
+from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "ImmediateOrCancel"])
 class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
     """ 
@@ -14,9 +14,9 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
-        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim import event
         ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else _order_Limit_SideFloatFloat()
@@ -42,7 +42,7 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
     
 def ImmediateOrCancel(proto = None): 
     from marketsim.gen._out._iorder import IOrder
-    from marketsim.gen._out._iobservable import IObservableIOrder
+    from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
     from marketsim import rtti
     if proto is None or rtti.can_be_casted(proto, IObservableIOrder):
         return ImmediateOrCancel_IObservableIOrder(proto)

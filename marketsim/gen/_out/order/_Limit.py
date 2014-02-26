@@ -1,9 +1,9 @@
-from marketsim.gen._out._observable import ObservableIOrder
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable import IObservableIOrder
-from marketsim.gen._out._ifunction import IFunctionfloat
-from marketsim.gen._out._ifunction import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
+from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Limit"])
 class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
     """ 
@@ -12,9 +12,9 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, price = None, volume = None):
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
-        from marketsim.gen._out._observable import ObservableIOrder
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         ObservableIOrder.__init__(self)
@@ -53,8 +53,8 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
         return Order_Impl(side, price, volume)
     
 def Limit(side = None,price = None,volume = None): 
-    from marketsim.gen._out._ifunction import IFunctionSide
-    from marketsim.gen._out._ifunction import IFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
     if side is None or rtti.can_be_casted(side, IFunctionSide):
         if price is None or rtti.can_be_casted(price, IFunctionfloat):
