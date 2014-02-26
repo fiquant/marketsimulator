@@ -4,6 +4,16 @@ from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim import meta
 class IFunctionIObservableIOrderIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
+    pass
+
+
+
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+from marketsim import meta
+class IFunctionIObservableIOrderIFunctionfloat(object):
+    _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
     def RSI_linear(self, alpha = None,k = None,timeframe = None):
         from marketsim.gen._out.strategy._rsi_linear import RSI_linear
         return RSI_linear(self,alpha,k,timeframe)
@@ -64,16 +74,6 @@ class IFunctionIObservableIOrderIFunctionfloat(object):
         from marketsim.gen._out.strategy._bollinger_linear import Bollinger_linear
         return Bollinger_linear(self,alpha,k)
     
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-from marketsim import meta
-class IFunctionIObservableIOrderIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
     pass
 
 

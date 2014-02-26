@@ -205,7 +205,7 @@ package object gen
 
                                         val fs = interface.instances
 
-                                        fs.toList sortBy { _.toString.length } foreach { f =>
+                                        fs foreach { f =>
 
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
@@ -234,7 +234,7 @@ package object gen
 
                                         val fs = interface.instances
 
-                                        fs.toList sortBy { _.toString.length } foreach { f =>
+                                        fs foreach { f =>
 
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
@@ -291,7 +291,7 @@ package object gen
                                                     throw new Exception("IFunction instance may be only function or alias")
                                             }
 
-                                        fs.toList sortBy { _.toString.length } foreach { f =>
+                                        fs foreach { f =>
 
                                             val name = f.asCode
 
