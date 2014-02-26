@@ -6,8 +6,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunc
 #.IAccount => .IObservable[.Int]
 class IFunctionIObservableintIAccount(object):
     _types = [meta.function((IAccount,),IObservableint)]
-    _types.append(IFunctionIObservablefloatIAccount)
     _types.append(IFunctionIFunctionfloatIAccount)
+    _types.append(IFunctionIObservablefloatIAccount)
     pass
 
 

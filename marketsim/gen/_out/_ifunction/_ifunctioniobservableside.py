@@ -6,8 +6,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionside import IFunctionIFunc
 #() => .IObservable[.Side]
 class IFunctionIObservableSide(object):
     _types = [meta.function((),IObservableSide)]
-    _types.append(IFunctionIFunctionSide)
     _types.append(IFunctionobject)
+    _types.append(IFunctionIFunctionSide)
     pass
 
 

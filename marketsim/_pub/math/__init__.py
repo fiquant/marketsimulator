@@ -29,8 +29,8 @@ from marketsim.gen._out.math._derivative import Derivative
 from marketsim.gen._out.math._pow import Pow
 
 import random
-import Cumulative
+import cumulative
 import rsi
 import macd
-import EW
-import Moving
+import ew
+import moving

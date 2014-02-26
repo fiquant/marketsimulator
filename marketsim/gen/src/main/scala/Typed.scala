@@ -263,6 +263,8 @@ package object Typed
             instances = instances + x
         }
 
+        def getInstances = (instances map { _.unOptionalize }).toList sortBy { _.asScala.length }
+
     }
 
     case class InterfaceDecl(name       : String,
@@ -288,6 +290,8 @@ package object Typed
         def addInstance(x : TypesBound.Interface) {
             instances = instances + x
         }
+
+        def getInstances = instances map { _.unOptionalize }
     }
 
 

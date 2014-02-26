@@ -6,9 +6,9 @@ from marketsim import meta
 #() => ._test.types.U
 class IFunctionU(object):
     _types = [meta.function((),U)]
-    _types.append(IFunctionT)
-    _types.append(IFunctionR)
     _types.append(IFunctionobject)
+    _types.append(IFunctionR)
+    _types.append(IFunctionT)
     pass
 
 

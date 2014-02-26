@@ -6,9 +6,9 @@ from marketsim import meta
 #() => .IObservable[.Int]
 class IFunctionIObservableint(object):
     _types = [meta.function((),IObservableint)]
-    _types.append(IFunctionIFunctionfloat)
-    _types.append(IFunctionIFunctionint)
     _types.append(IFunctionobject)
+    _types.append(IFunctionIFunctionint)
+    _types.append(IFunctionIFunctionfloat)
     pass
 
 

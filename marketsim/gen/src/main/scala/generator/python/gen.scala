@@ -203,7 +203,7 @@ package object gen
                                         out.println("from marketsim.gen._out._ievent import IEvent")
                                         out.println("IObservable = {}")
 
-                                        val fs = interface.instances
+                                        val fs = interface.getInstances
 
                                         fs foreach { f =>
 
@@ -235,7 +235,7 @@ package object gen
                                         out.println("from marketsim.event import Conditional_Impl")
                                         out.println("Observable = {}")
 
-                                        val fs = interface.instances
+                                        val fs = interface.getInstances
 
                                         fs foreach { f =>
 
@@ -333,10 +333,6 @@ package object gen
 
                                             out.println(importsWithout(s, isMine).toString)
                                         }
-
-                                        out.println("IFunction[int]._types.append(IFunction[float])")
-                                        out.println("IFunction[int]._types.append(IFunction[object])")
-                                        out.println("IFunction[float]._types.append(IFunction[object])")
                                     }
                                 }
                 }

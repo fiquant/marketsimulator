@@ -24,6 +24,8 @@ package object TypesBound
 
         def returnTypeIfFunction : Option[Base] = None
         def paramTypesIfFunction : Option[List[Base]] = None
+
+        def unOptionalize = this
     }
 
     case object Unit
@@ -53,11 +55,8 @@ package object TypesBound
             case Optional(y) => x canCastTo y
             case _           => false
         }
-    }
 
-    def unOptionalize(t : Base) : Base =  t match {
-        case Optional(x) => unOptionalize(x)
-        case x => x
+        override def unOptionalize = x.unOptionalize
     }
 
     case class List_(x : Base)
@@ -71,11 +70,16 @@ package object TypesBound
                 case _ => false
             }
         }
+
+        override def unOptionalize = copy(x.unOptionalize)
     }
     case class Tuple(elems : List[Base])
             extends Base
             with    sc.Tuple
             with    py.Tuple
+    {
+        override def unOptionalize = copy(elems map { _.unOptionalize })
+    }
 
     case class Function(args : List[Base], ret : Base)
             extends Base
@@ -91,6 +95,8 @@ package object TypesBound
                 case _ => false
             }
         }
+
+        override def unOptionalize = copy(args = args map { _.unOptionalize }, ret = ret.unOptionalize)
 
         def betterThan(other : Function) =
             (args.length == other.args.length) &&
@@ -161,6 +167,8 @@ package object TypesBound
     {
         decl addInstance this
 
+        override def unOptionalize = copy(genericArgs = genericArgs map { _.unOptionalize })
+
         val bases = decl.bases map { _ bind TypeMapper(decl, genericArgs) }
 
         override def canCastToImpl(other : Base) =  (bases exists { _ canCastTo other }) ||
@@ -202,6 +210,8 @@ package object TypesBound
 
     case class Alias(decl : Typed.AliasDecl, genericArgs : List[Base]) extends UserDefined
     {
+        override def unOptionalize = copy(genericArgs = genericArgs map { _.unOptionalize })
+
         val target = decl.target bind TypeMapper(decl, genericArgs)
 
         override def canCastToImpl(other : Base) =  (target canCastTo other) ||
