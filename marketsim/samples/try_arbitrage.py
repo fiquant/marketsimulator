@@ -15,25 +15,22 @@ def Arbitrage(ctx):
     return [
         ctx.makeTrader_A(
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(
-                            order.side_price.Limit(volume=liqVol),
-                            constant(50.)),
+                        orderFactory = order.side_price.Limit(volume=liqVol)
+                                            .sideprice_WithExpiry(constant(50)),
                         initialValue= 50.),
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(
-                            order.side_price.Limit(volume=liqVol),
-                            constant(50.)),
+                        orderFactory = order.side_price.Limit(volume=liqVol)
+                                            .sideprice_WithExpiry(constant(50)),
                         initialValue = 150.),
             "LiquidityProvider_B"),
             
         ctx.makeTrader_C(
             strategy.LiquidityProvider(
-                        orderFactory = order.side_price.WithExpiry(
-                            order.side_price.Limit(volume=liqVol),
-                            constant(50.)),
+                        orderFactory = order.side_price.Limit(volume=liqVol)
+                                            .sideprice_WithExpiry(constant(50)),
                         initialValue = 100.),
             "LiquidityProvider_C"),
 
