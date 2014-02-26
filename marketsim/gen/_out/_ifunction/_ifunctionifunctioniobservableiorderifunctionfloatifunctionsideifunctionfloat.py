@@ -2,8 +2,10 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+#((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    
     def sidevolume_price_WithExpiry(self, expiry = None):
         from marketsim.gen._out.order._curried._sidevolume_price_withexpiry import sidevolume_price_WithExpiry
         return sidevolume_price_WithExpiry(self,expiry)
@@ -39,26 +41,6 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionflo
         from marketsim.gen._out.order._curried._sidevolume_price_iceberg import sidevolume_price_Iceberg
         return sidevolume_price_Iceberg(self,lotSize)
     
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
 
 

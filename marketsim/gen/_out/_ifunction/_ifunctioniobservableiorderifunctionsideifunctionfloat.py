@@ -3,8 +3,10 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim import meta
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+#((() => .Side),(() => .Float)) => .IObservable[.IOrder]
 class IFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionSide,IFunctionfloat,),IObservableIOrder)]
+    
     def sidevolume_Iceberg(self, lotSize = None):
         from marketsim.gen._out.order._curried._sidevolume_iceberg import sidevolume_Iceberg
         return sidevolume_Iceberg(self,lotSize)
@@ -39,17 +41,6 @@ class IFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
         from marketsim.gen._out.order._curried._sideprice_immediateorcancel import sideprice_ImmediateOrCancel
         return sideprice_ImmediateOrCancel(self)
     
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iorder import IOrder
-from marketsim import meta
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-class IFunctionIObservableIOrderIFunctionSideIFunctionfloat(object):
-    _types = [meta.function((IFunctionSide,IFunctionfloat,),IObservableIOrder)]
     pass
 
 

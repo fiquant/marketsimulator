@@ -1,17 +1,10 @@
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+#(() => .Side) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
     _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
-    _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
+    
     def side_price_StopLoss(self, maxloss = None):
         from marketsim.gen._out.order._curried._side_price_stoploss import side_price_StopLoss
         return side_price_StopLoss(self,maxloss)
@@ -56,15 +49,6 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
         from marketsim.gen._out.order._curried._side_price_peg import side_price_Peg
         return side_price_Peg(self)
     
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
-    _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
 
 

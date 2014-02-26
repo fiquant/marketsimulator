@@ -1,7 +1,9 @@
 from marketsim.gen._out._iobservable._iobservableint import IObservableint
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.event import Conditional_Impl
 class Observableint(Conditional_Impl, IObservableint):
-    pass
+    _types = []
+    _types.append(Observablefloat)
 
 
 

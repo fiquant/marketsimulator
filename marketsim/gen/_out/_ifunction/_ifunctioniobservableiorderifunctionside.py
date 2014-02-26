@@ -2,18 +2,10 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim import meta
+#(() => .Side) => .IObservable[.IOrder]
 class IFunctionIObservableIOrderIFunctionSide(object):
     _types = [meta.function((IFunctionSide,),IObservableIOrder)]
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-from marketsim import meta
-class IFunctionIObservableIOrderIFunctionSide(object):
-    _types = [meta.function((IFunctionSide,),IObservableIOrder)]
+    
     def side_StopLoss(self, maxloss = None):
         from marketsim.gen._out.order._curried._side_stoploss import side_StopLoss
         return side_StopLoss(self,maxloss)

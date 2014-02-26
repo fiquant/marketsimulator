@@ -1,6 +1,9 @@
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctioniorder import IFunctionIOrder
+from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 class IObservableIOrder(IEvent, IFunctionIOrder):
+    _types = []
+    _types.append(IObservableobject)
     @property
     def ImmediateOrCancel(self):
         from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel

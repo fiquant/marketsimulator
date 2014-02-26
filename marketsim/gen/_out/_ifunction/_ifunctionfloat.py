@@ -1,7 +1,10 @@
 from marketsim.types import Function_impl
+from marketsim.gen._out._ifunction._ifunctionobject import IFunctionobject
 from marketsim import meta
+#() => .Float
 class IFunctionfloat(Function_impl):
     _types = [meta.function((),float)]
+    _types.append(IFunctionobject)
     @property
     def Negate(self):
         from marketsim.gen._out.ops._negate import Negate

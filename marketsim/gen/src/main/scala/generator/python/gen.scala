@@ -210,13 +210,16 @@ package object gen
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
                                             val methods = getMethods(f)
+                                            val casts = Code.from(
+                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
+                                                predef.crlf)
 
                                             for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
                                             {
                                                 val s =
                                                     s"class $name("||| Typed.topLevel.IEvent.asCode |||", "|||
                                                                        TypesBound.Function(Nil, rt).asCode |||"):" |>
-                                                            methods
+                                                            ("_types = []" | casts | methods)
 
                                                 ty_out.println(base.withImports(s).toString)
                                             }
@@ -239,11 +242,15 @@ package object gen
                                             val rt = f.genericArgs(0)
                                             val name = Printer.mangle(f.asCode.toString)
 
+                                            val casts = Code.from(
+                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
+                                                predef.crlf)
+
                                             for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
                                             {
                                                 val s =
                                                     s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
-                                                            "pass" | nl | ImportFrom("Conditional_Impl", "marketsim.event")
+                                                            ("_types = []" | casts) | nl | ImportFrom("Conditional_Impl", "marketsim.event")
 
                                                 ty_out.println(base.withImports(s).toString)
                                             }
@@ -254,12 +261,6 @@ package object gen
 
                                             out.println(base.withImports(s).toString)
                                         }
-
-                                        out.println("from marketsim.gen._out._iobservable._iobservableobject import IObservableobject")
-                                        out.println("from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat")
-                                        out.println("Observable[int]._types.append(IObservablefloat)")
-                                        out.println("Observable[int]._types.append(IObservableobject)")
-                                        out.println("Observable[float]._types.append(IObservableobject)")
                                     }
                                 }
                             }
@@ -284,7 +285,7 @@ package object gen
                                         out.println("IFunction = {}")
 
                                         val fs =
-                                            alias.instances map {
+                                            alias.getInstances map {
                                                 case f : TypesBound.Function => f
                                                 case f : TypesBound.Alias => f.target.asInstanceOf[TypesBound.Function]
                                                 case _ =>
@@ -305,6 +306,10 @@ package object gen
 
                                             val methods = getMethods(f)
 
+                                            val casts = Code.from(
+                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
+                                                predef.crlf)
+
                                             val s =
                                                 "IFunction[" ||| f.ret.asCode |||
                                                         (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
@@ -312,8 +317,10 @@ package object gen
                                             for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
                                             {
                                                 val s =
+                                                    "#" ||| f.asScala |
                                                     s"class $name("||| b |||"):" |>
-                                                            ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]" | methods) | nl |
+                                                            ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]"
+                                                                    | casts | methods) | nl |
                                                     ImportFrom("meta", "marketsim")
 
                                                 ty_out.println(base.withImports(s).toString)
@@ -336,7 +343,7 @@ package object gen
             }
 
             p.packages.values foreach { pkg =>
-                idx_out.println(s"import " + pkg.name)
+                idx_out.println(s"import " + pkg.name.toLowerCase)
             }
 
             for (out <- managed(printWriter(dir, "__init__.py"))) {}

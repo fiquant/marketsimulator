@@ -1,6 +1,9 @@
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 class IObservablefloat(IEvent, IFunctionfloat):
+    _types = []
+    _types.append(IObservableobject)
     def Moving_Avg(self, timeframe = None):
         from marketsim.gen._out.math.moving._avg import Avg
         return Avg(self,timeframe)

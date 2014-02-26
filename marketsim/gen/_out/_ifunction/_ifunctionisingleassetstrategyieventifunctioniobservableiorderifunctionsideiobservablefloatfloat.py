@@ -3,8 +3,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside impo
 from marketsim import meta
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+#(.IEvent,((() => .Side) => .IObservable[.IOrder]),.IObservable[.Float],.Float) => .ISingleAssetStrategy
 class IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloatfloat(object):
     _types = [meta.function((IEvent,IFunctionIObservableIOrderIFunctionSide,IObservablefloat,float,),ISingleAssetStrategy)]
+    
     pass
 
 

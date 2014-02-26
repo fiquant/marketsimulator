@@ -1,7 +1,10 @@
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._ifunction._ifunctionobject import IFunctionobject
 from marketsim import meta
+#() => .Side
 class IFunctionSide(object):
     _types = [meta.function((),Side)]
+    _types.append(IFunctionobject)
     @property
     def volume_price_Limit(self):
         from marketsim.gen._out.order._curried._volume_price_limit import volume_price_Limit

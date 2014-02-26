@@ -1,8 +1,10 @@
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+#(() => .Float) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
+    
     def volume_price_WithExpiry(self, expiry = None):
         from marketsim.gen._out.order._curried._volume_price_withexpiry import volume_price_WithExpiry
         return volume_price_WithExpiry(self,expiry)
@@ -38,24 +40,6 @@ class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
         from marketsim.gen._out.order._curried._volume_price_iceberg import volume_price_Iceberg
         return volume_price_Iceberg(self,lotSize)
     
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    pass
-
-
-
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim import meta
-class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
-    _types = [meta.function((IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
     pass
 
 
