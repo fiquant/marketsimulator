@@ -4,8 +4,8 @@ class Graph(IGraph):
     """ Generic 2D graph to be rendered by means of javascript libraries
     """
     
-    def __init__(self, label=""):
-        self.label = label
+    def __init__(self, name=""):
+        self.label = name
         
     @property
     def _alias(self):

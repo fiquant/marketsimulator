@@ -48,7 +48,6 @@ from marketsim.gen._out.strategy._bollinger_linear import Bollinger_linear
 
 import side
 import weight
-import lp
 import price
 import position
 import account

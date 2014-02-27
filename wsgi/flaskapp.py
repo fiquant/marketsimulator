@@ -4,11 +4,9 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (event, js, context,
-                       scheduler,  ops, registry, translations, types, config)
+                       scheduler,  registry, translations, config)
 
 from marketsim._pub import math, strategy, trader, order
-
-from marketsim.types import Side
 
 from marketsim.samples.common import Context, orderBooksToRender, simulations
 from marketsim.gen._out._constant import constant
@@ -78,10 +76,12 @@ def createSimulation(name='All'):
                 name += '.' + str(i) 
         
         return name, root, myRegistry, world
+
+from marketsim.gen._out._itimeserie import ITimeSerie
     
 def _timeseries(myRegistry):
     return [(k, v) for (k, v) in myRegistry._id2obj.iteritems()\
-                     if isinstance(v, types.ITimeSerie) ]
+                     if isinstance(v, ITimeSerie) ]
 
 def save_state_before_changes(myRegistry):
     myRegistry.save_state_before_changes()

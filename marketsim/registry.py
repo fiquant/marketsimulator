@@ -1,17 +1,14 @@
 import weakref, inspect, sys
 
-
-import marketsim
-
-from functools import reduce
-
-from marketsim import (constraints, config, exception, rtti,
-                       meta, types, js, utils, context)
+from marketsim import (constraints, exception, rtti, scheduler,
+                       meta, utils, context)
 
 from marketsim.gen._out._side import Side
 
 startup = []
 
+def isProxy(s):
+    s.find('Proxy') != -1 or s.find("OfTrader") != -1
 
 def union(*dicts):
     return dict(sum(map(lambda dct: list(dct.items()), dicts), []))
@@ -81,6 +78,7 @@ class ListProxy(object):
             self.__dict__[s] = value
 
 
+import marketsim
 
 def _findType(ctorname):    
     qualified_name = ctorname.split('.')
@@ -125,7 +123,7 @@ class Registry(object):
     def reset(self):
         # it is a dirty hack and later we'll have to 
         # store complete object graph in the registry (not only properties)
-        marketsim.scheduler.current()._reset()
+        scheduler.current()._reset()
         for x in self._id2obj.itervalues():
             if 'reset' in dir(x):
                 x.reset()
@@ -286,7 +284,7 @@ class Registry(object):
         if typ is str:
             return "#"+value if len(value) and value[0]=="#" else value
         if typ is list:
-            elementType = constraint.elementType if type(constraint) == marketsim.meta.listOf else None
+            elementType = constraint.elementType if type(constraint) == meta.listOf else None
             return [self._dumpPropertyValue(elementType, x, parent) for x in value]
             #value = ListProxy(value, elementType)
 
@@ -298,23 +296,23 @@ class Registry(object):
         
         return "#" +  str(Id)
 
-    def ofType(self, prefix):
+    def ofType(self, baseclass):
         return [k for (k,v) in self._id2obj.iteritems()\
-                 if (getCtor(v).startswith(prefix)\
-                      and getCtor(v).find('._proxy.') == -1)]
+                 if isinstance(v, baseclass) and not isProxy(getCtor(v))]
     
-    def valuesOfType(self, prefix):
+    def valuesOfType(self, baseclass):
         return [v for v in self._id2obj.itervalues()\
-                 if getCtor(v).startswith(prefix)\
-                  and getCtor(v).find('._proxy.') == -1]
+                 if isinstance(v, baseclass) and not isProxy(getCtor(v))]
     
     @property
     def traders(self):
-        return self.ofType("marketsim.trader.")
+        from marketsim.gen._out._iaccount import IAccount
+        return self.ofType(IAccount)
     
     @property
     def books(self):
-        return self.ofType("marketsim.orderbook.")
+        from marketsim.gen._out._iorderbook import IOrderBook
+        return self.ofType(IOrderBook)
     
     @property
     def orderBooksByName(self):
@@ -327,9 +325,10 @@ class Registry(object):
         return self.ofType("marketsim.js.Graph")
         
     def _dumpPropertyConstraint(self, constraint):
-        if constraint == marketsim.Side:
-            return "marketsim.Side" # TODO: generic procedure to treat modules 
-        if constraint == None or constraint == str:
+        from marketsim.side_ import Tag as Side
+        if isinstance(constraint, Side):
+            return "marketsim.side_.Tag" # TODO: generic procedure to treat modules
+        if constraint is None or constraint == str:
             return 'identity'
         if constraint == int:
             return "_parseInt"
@@ -594,9 +593,14 @@ class Simulation(object):
 
 def createSimulation(instance):
     instance.pushAllReferences()
-    traders = instance.valuesOfType("marketsim.gen._out.trader._SingleAsset.SingleAsset")
-    orderbooks = instance.valuesOfType("marketsim.gen._out.orderbook._Local.Local")
-    graphs = instance.valuesOfType("marketsim.js.Graph")
+    from marketsim.gen._out.trader._singleasset import SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie as SingleAsset
+    traders = instance.valuesOfType(SingleAsset)
+
+    from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as Local
+    orderbooks = instance.valuesOfType(Local)
+
+    from marketsim.js import Graph
+    graphs = instance.valuesOfType(Graph)
     return Simulation(traders, orderbooks, graphs)
 
 def create():

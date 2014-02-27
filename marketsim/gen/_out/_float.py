@@ -12,10 +12,6 @@ class Float(object):
         from marketsim.gen._out._constant import constant
         return constant(self)
     
-    def TwoSide(self, priceDistr = None,eventGen = None,orderFactory = None):
-        from marketsim.gen._out.strategy.lp._twoside import TwoSide
-        return TwoSide(self,priceDistr,eventGen,orderFactory)
-    
     def normalvariate(self, Sigma = None):
         from marketsim.gen._out.math.random._normalvariate import normalvariate
         return normalvariate(self,Sigma)
@@ -32,10 +28,6 @@ class Float(object):
     def TrendFollower(self, threshold = None,book = None):
         from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
         return TrendFollower(self,threshold,book)
-    
-    def OneSide(self, priceDistr = None,eventGen = None,orderFactory = None,side = None):
-        from marketsim.gen._out.strategy.lp._oneside import OneSide
-        return OneSide(self,priceDistr,eventGen,orderFactory,side)
     
     @property
     def trader_TraderEfficiencyTrend(self):

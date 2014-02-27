@@ -42,45 +42,6 @@ package strategy
                 LiquidityProviderSide(eventGen, orderFactory, side.Buy(), initialValue, priceDistr)
             ])
 
-    package lp( /** initial price which is taken if orderBook is empty */
-                initialValue = 100.0,
-                /** defines multipliers for current asset price when price of
-                    order to create is calculated*/
-                priceDistr   = math.random.lognormvariate(0., .1))
-    {
-        /**
-         * Liquidity provider for one side
-         */
-        def OneSide(/** Event source making the strategy to wake up*/
-                    eventGen     = event.Every(math.random.expovariate(1.)),
-                    /** order factory function*/
-                    orderFactory = order.side_price.Limit(),
-                    /** side of orders to create */
-                    side         = .side.Sell() : IFunction[Side])
-
-            =   Generic(
-                    orderFactory(
-                        side,
-                        price.LiquidityProvider(
-                            side,
-                            initialValue,
-                            priceDistr)),
-                    eventGen)
-
-        /**
-         * Liquidity provider for two sides
-         */
-        def TwoSide(/** Event source making the strategy to wake up*/
-                    eventGen     = event.Every(math.random.expovariate(1.)),
-                    /** order factory function*/
-                    orderFactory = order.side_price.Limit())
-
-            =   Array([
-                    OneSide(eventGen, orderFactory, side.Sell()),
-                    OneSide(eventGen, orderFactory, side.Buy())
-                ])
-    }
-
     /**
      *  A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

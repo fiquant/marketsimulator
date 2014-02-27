@@ -267,9 +267,9 @@ function createInstance(id, src, root) {
 		})
 	}	
 	var created = new Instance(id, ctor, fields, myTypeinfo.castsTo, alias, root);
-	if (ctor.indexOf("marketsim.gen._out._TimeSerie.TimeSerie") != -1) {
+	if (ctor.indexOf("marketsim.gen._out._timeserie.TimeSerie") != -1) {
 		created = makeTimeSerie(created, root.response().ts_changes);
-	} else if (ctor.indexOf("marketsim.gen._out._volumeLevels.volumeLevels") != -1) {
+	} else if (ctor.indexOf("marketsim.gen._out._volumelevels.volumeLevels") != -1) {
 		created = makeVolumeLevels(created, root.response().ts_changes);
 	} else if (ctor.indexOf("marketsim.js.Graph") != -1) {
 		created = makeGraph(created, root);
