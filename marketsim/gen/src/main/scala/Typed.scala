@@ -362,6 +362,12 @@ package object Typed
             with    ScPrintable
             with    AttributeReplace
     {
+        private var used_types = Set.empty[TypesBound.Base]
+
+        def addTypeUsage(t : TypesBound.Base) {
+            used_types = used_types + t.unOptionalize
+        }
+
         private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[AST.QualifiedName]]]
         private var methods_by_type = Map.empty[TypesBound.Base, Map[String, Set[NameTable.Scope]]]
         private var untyped = Option.empty[NameTable.Scope]

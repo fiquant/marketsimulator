@@ -46,13 +46,14 @@ object Printer {
         }
 
         trait Function extends Printable {
-            val args : List[Printable]
-            val ret : Printable
+            self : TypesBound.Function =>
 
             def asCode = {
                 val x = "IFunction" ||| ret.asCode ||| Code.from(args map { _.asCode  })
 
                 val m = mangle(x.toString)
+
+                Typed.topLevel addTypeUsage this
 
                 m ||| ImportFrom(m.toString, "marketsim.gen._out._ifunction._" + m.toLowerCase)
             }
@@ -69,8 +70,7 @@ object Printer {
 
         trait UsedDefined extends Printable
         {
-            def genericArgs : List[Printable]
-            def decl : Typed.TypeDeclaration
+            self : TypesBound.UserDefined =>
 
             val builtins = Map("Float"  -> "float",
                                "Int"    -> "int",
@@ -90,6 +90,8 @@ object Printer {
                     case None =>
                         val x = decl.name |||
                                 (if (genericArgs.isEmpty) stop else impl(genericArgs))
+
+                        Typed.topLevel addTypeUsage this
 
                         val m = mangle(x.toString) ||| Code.from(x.imports.toList)
 

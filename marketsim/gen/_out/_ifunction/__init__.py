@@ -17,13 +17,13 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 IFunction[float] = IFunctionfloat
 
 
+from marketsim.gen._out._ifunction._ifunctionstr import IFunctionstr
+IFunction[str] = IFunctionstr
+
+
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._ifunction._ifunctioniorder import IFunctionIOrder
 IFunction[IOrder] = IFunctionIOrder
-
-
-from marketsim.gen._out._ifunction._ifunctionstr import IFunctionstr
-IFunction[str] = IFunctionstr
 
 
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
@@ -40,13 +40,13 @@ from marketsim.gen._out._ifunction._ifunctionlistoffloat import IFunctionlistOff
 IFunction[listOf(float)] = IFunctionlistOffloat
 
 
-from marketsim.gen._out._ifunction._ifunctionstrstr import IFunctionstrstr
-IFunction[str,(str,)] = IFunctionstrstr
-
-
 from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._out._ifunction._ifunctionigraphstr import IFunctionIGraphstr
 IFunction[IGraph,(str,)] = IFunctionIGraphstr
+
+
+from marketsim.gen._out._ifunction._ifunctionstrstr import IFunctionstrstr
+IFunction[str,(str,)] = IFunctionstrstr
 
 
 from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
@@ -64,19 +64,9 @@ from marketsim.gen._out._ifunction._ifunctionifunctionside import IFunctionIFunc
 IFunction[IFunctionSide] = IFunctionIFunctionSide
 
 
-from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
-from marketsim.gen._out._ifunction._ifunctionifunctionintint import IFunctionIFunctionintint
-IFunction[IFunctionint,(int,)] = IFunctionIFunctionintint
-
-
-from marketsim.gen._out._ivolumelevels import IVolumeLevels
-from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
-IFunction[IVolumeLevels] = IFunctionIVolumeLevels
-
-
-from marketsim.gen._out._test.types._r import R
-from marketsim.gen._out._ifunction._ifunctionr import IFunctionR
-IFunction[R] = IFunctionR
+from marketsim.gen._out._test.types._t import T
+from marketsim.gen._out._ifunction._ifunctiont import IFunctionT
+IFunction[T] = IFunctionT
 
 
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -84,14 +74,24 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat import IFunctionIFun
 IFunction[IFunctionfloat] = IFunctionIFunctionfloat
 
 
+from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
+from marketsim.gen._out._ifunction._ifunctionifunctionintint import IFunctionIFunctionintint
+IFunction[IFunctionint,(int,)] = IFunctionIFunctionintint
+
+
+from marketsim.gen._out._test.types._r import R
+from marketsim.gen._out._ifunction._ifunctionr import IFunctionR
+IFunction[R] = IFunctionR
+
+
+from marketsim.gen._out._ivolumelevels import IVolumeLevels
+from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
+IFunction[IVolumeLevels] = IFunctionIVolumeLevels
+
+
 from marketsim.gen._out._test.types._u import U
 from marketsim.gen._out._ifunction._ifunctionu import IFunctionU
 IFunction[U] = IFunctionU
-
-
-from marketsim.gen._out._test.types._t import T
-from marketsim.gen._out._ifunction._ifunctiont import IFunctionT
-IFunction[T] = IFunctionT
 
 
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
@@ -104,26 +104,15 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloatfloat import IFunctio
 IFunction[IFunctionfloat,(float,)] = IFunctionIFunctionfloatfloat
 
 
-from marketsim.gen._out._iobservable._iobservableint import IObservableint
-from marketsim.gen._out._ifunction._ifunctioniobservableint import IFunctionIObservableint
-IFunction[IObservableint] = IFunctionIObservableint
-
-
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._iaccount import IAccount
 from marketsim.gen._out._ifunction._ifunctioniorderbookiaccount import IFunctionIOrderBookIAccount
 IFunction[IOrderBook,(IAccount,)] = IFunctionIOrderBookIAccount
 
 
-from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionieventifunctionfloat import IFunctionIEventIFunctionfloat
-IFunction[IEvent,(IFunctionfloat,)] = IFunctionIEventIFunctionfloat
-
-
-from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
-from marketsim.gen._out._ifunction._ifunctionisingleassettrader import IFunctionISingleAssetTrader
-IFunction[ISingleAssetTrader] = IFunctionISingleAssetTrader
+from marketsim.gen._out._iobservable._iobservableint import IObservableint
+from marketsim.gen._out._ifunction._ifunctioniobservableint import IFunctionIObservableint
+IFunction[IObservableint] = IFunctionIObservableint
 
 
 from marketsim.gen._out._side import Side
@@ -132,14 +121,25 @@ from marketsim.gen._out._ifunction._ifunctioniobservableside import IFunctionIOb
 IFunction[IObservableSide] = IFunctionIObservableSide
 
 
-from marketsim.gen._out._iobservable._iobservableint import IObservableint
-from marketsim.gen._out._ifunction._ifunctioniobservableintint import IFunctionIObservableintint
-IFunction[IObservableint,(int,)] = IFunctionIObservableintint
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+from marketsim.gen._out._ifunction._ifunctionisingleassettrader import IFunctionISingleAssetTrader
+IFunction[ISingleAssetTrader] = IFunctionISingleAssetTrader
+
+
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionieventifunctionfloat import IFunctionIEventIFunctionfloat
+IFunction[IEvent,(IFunctionfloat,)] = IFunctionIEventIFunctionfloat
 
 
 from marketsim.gen._out._imultiassetstrategy import IMultiAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionimultiassetstrategy import IFunctionIMultiAssetStrategy
 IFunction[IMultiAssetStrategy] = IFunctionIMultiAssetStrategy
+
+
+from marketsim.gen._out._iobservable._iobservableint import IObservableint
+from marketsim.gen._out._ifunction._ifunctioniobservableintint import IFunctionIObservableintint
+IFunction[IObservableint,(int,)] = IFunctionIObservableintint
 
 
 from marketsim.gen._out._iorderqueue import IOrderQueue
@@ -148,15 +148,15 @@ from marketsim.gen._out._ifunction._ifunctioniorderqueueiorderbook import IFunct
 IFunction[IOrderQueue,(IOrderBook,)] = IFunctionIOrderQueueIOrderBook
 
 
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionisingleassetstrategy import IFunctionISingleAssetStrategy
+IFunction[ISingleAssetStrategy] = IFunctionISingleAssetStrategy
+
+
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iaccount import IAccount
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 IFunction[IFunctionfloat,(IAccount,)] = IFunctionIFunctionfloatIAccount
-
-
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction._ifunctionisingleassetstrategy import IFunctionISingleAssetStrategy
-IFunction[ISingleAssetStrategy] = IFunctionISingleAssetStrategy
 
 
 from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
@@ -175,15 +175,21 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloatiorderbook import IFu
 IFunction[IFunctionfloat,(IOrderBook,)] = IFunctionIFunctionfloatIOrderBook
 
 
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloat import IFunctionIObservablefloatfloat
+IFunction[IObservablefloat,(float,)] = IFunctionIObservablefloatfloat
+
+
 from marketsim.gen._out._ilink import ILink
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionilinkiobservablefloat import IFunctionILinkIObservablefloat
 IFunction[ILink,(IObservablefloat,)] = IFunctionILinkIObservablefloat
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloat import IFunctionIObservablefloatfloat
-IFunction[IObservablefloat,(float,)] = IFunctionIObservablefloatfloat
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionsideifunctionfloat import IFunctionIFunctionSideIFunctionfloat
+IFunction[IFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._itwowaylink import ITwoWayLink
@@ -198,20 +204,9 @@ from marketsim.gen._out._ifunction._ifunctioniobservableintiaccount import IFunc
 IFunction[IObservableint,(IAccount,)] = IFunctionIObservableintIAccount
 
 
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionsideifunctionfloat import IFunctionIFunctionSideIFunctionfloat
-IFunction[IFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionSideIFunctionfloat
-
-
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
 IFunction[IFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionfloat
-
-
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatfloatfloat import IFunctionIFunctionfloatfloatfloat
-IFunction[IFunctionfloat,(float,float,)] = IFunctionIFunctionfloatfloatfloat
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -221,9 +216,14 @@ IFunction[IObservablefloat,(IAccount,)] = IFunctionIObservablefloatIAccount
 
 
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._idifferentiable import IDifferentiable
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatidifferentiable import IFunctionIFunctionfloatIDifferentiable
-IFunction[IFunctionfloat,(IDifferentiable,)] = IFunctionIFunctionfloatIDifferentiable
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatfloatfloat import IFunctionIFunctionfloatfloatfloat
+IFunction[IFunctionfloat,(float,float,)] = IFunctionIFunctionfloatfloatfloat
+
+
+from marketsim.gen._out._iobservable._iobservableint import IObservableint
+from marketsim.gen._out._iorderqueue import IOrderQueue
+from marketsim.gen._out._ifunction._ifunctioniobservableintiorderqueue import IFunctionIObservableintIOrderQueue
+IFunction[IObservableint,(IOrderQueue,)] = IFunctionIObservableintIOrderQueue
 
 
 from marketsim.gen._out._iaccount import IAccount
@@ -232,10 +232,10 @@ from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import
 IFunction[IAccount,(ISingleAssetStrategy,)] = IFunctionIAccountISingleAssetStrategy
 
 
-from marketsim.gen._out._iobservable._iobservableint import IObservableint
-from marketsim.gen._out._iorderqueue import IOrderQueue
-from marketsim.gen._out._ifunction._ifunctioniobservableintiorderqueue import IFunctionIObservableintIOrderQueue
-IFunction[IObservableint,(IOrderQueue,)] = IFunctionIObservableintIOrderQueue
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._idifferentiable import IDifferentiable
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatidifferentiable import IFunctionIFunctionfloatIDifferentiable
+IFunction[IFunctionfloat,(IDifferentiable,)] = IFunctionIFunctionfloatIDifferentiable
 
 
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
@@ -249,9 +249,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderbook import I
 IFunction[IObservablefloat,(IOrderBook,)] = IFunctionIObservablefloatIOrderBook
 
 
-from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
-from marketsim.gen._out._ifunction._ifunctionintifunctionicandlestickint import IFunctionintIFunctionICandleStickint
-IFunction[int,(IFunctionICandleStick,int,)] = IFunctionintIFunctionICandleStickint
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iaccount import IAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccountfloat import IFunctionIFunctionfloatIAccountfloat
+IFunction[IFunctionfloat,(IAccount,float,)] = IFunctionIFunctionfloatIAccountfloat
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -260,16 +261,15 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderqueue import 
 IFunction[IObservablefloat,(IOrderQueue,)] = IFunctionIObservablefloatIOrderQueue
 
 
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iaccount import IAccount
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccountfloat import IFunctionIFunctionfloatIAccountfloat
-IFunction[IFunctionfloat,(IAccount,float,)] = IFunctionIFunctionfloatIAccountfloat
-
-
 from marketsim.gen._out._ifunction._ifunctionlistoffloat import IFunctionlistOffloat
 from marketsim import listOf
 from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
 IFunction[IFunctionlistOffloat,(listOf(float),)] = IFunctionIFunctionlistOffloatlistOffloat
+
+
+from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
+from marketsim.gen._out._ifunction._ifunctionintifunctionicandlestickint import IFunctionintIFunctionICandleStickint
+IFunction[int,(IFunctionICandleStick,int,)] = IFunctionintIFunctionICandleStickint
 
 
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -285,13 +285,6 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside impo
 IFunction[IObservableIOrder,(IFunctionSide,)] = IFunctionIObservableIOrderIFunctionSide
 
 
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-IFunction[IObservableIOrder,(IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloat
-
-
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyifunctionfloat import IFunctionISingleAssetStrategyIFunctionfloat
@@ -303,15 +296,22 @@ from marketsim.gen._out._ifunction._ifunctionifunctionifunctionfloatiaccountfloa
 IFunction[IFunctionIFunctionfloatIAccount,(float,)] = IFunctionIFunctionIFunctionfloatIAccountfloat
 
 
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+IFunction[IObservableIOrder,(IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloat
+
+
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatiorderqueuefloat import IFunctionIFunctionfloatIOrderQueuefloat
 IFunction[IFunctionfloat,(IOrderQueue,float,)] = IFunctionIFunctionfloatIOrderQueuefloat
 
 
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatfloatfloatfloat import IFunctionIFunctionfloatfloatfloatfloat
-IFunction[IFunctionfloat,(float,float,float,)] = IFunctionIFunctionfloatfloatfloatfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctionfloatifunctionfloat import IFunctionIFunctionIFunctionfloatIFunctionfloat
+IFunction[IFunctionIFunctionfloatIFunctionfloat] = IFunctionIFunctionIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -326,14 +326,14 @@ from marketsim.gen._out._ifunction._ifunctionidifferentiableiobservablefloat imp
 IFunction[IDifferentiable,(IObservablefloat,)] = IFunctionIDifferentiableIObservablefloat
 
 
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionifunctionfloatifunctionfloat import IFunctionIFunctionIFunctionfloatIFunctionfloat
-IFunction[IFunctionIFunctionfloatIFunctionfloat] = IFunctionIFunctionIFunctionfloatIFunctionfloat
-
-
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyfloatfloat import IFunctionISingleAssetStrategyfloatfloat
 IFunction[ISingleAssetStrategy,(float,float,)] = IFunctionISingleAssetStrategyfloatfloat
+
+
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatfloatfloatfloat import IFunctionIFunctionfloatfloatfloatfloat
+IFunction[IFunctionfloat,(float,float,float,)] = IFunctionIFunctionfloatfloatfloatfloat
 
 
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -346,13 +346,6 @@ from marketsim.gen._out._ifunction._ifunctionifunctioniaccountisingleassetstrate
 IFunction[IFunctionIAccountISingleAssetStrategy] = IFunctionIFunctionIAccountISingleAssetStrategy
 
 
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._ifunction._ifunctioniobservablesidefloatiorderbook import IFunctionIObservableSidefloatIOrderBook
-IFunction[IObservableSide,(float,IOrderBook,)] = IFunctionIObservableSidefloatIOrderBook
-
-
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -360,14 +353,11 @@ from marketsim.gen._out._ifunction._ifunctioniorderqueueiorderbookifunctionside 
 IFunction[IOrderQueue,(IOrderBook,IFunctionSide,)] = IFunctionIOrderQueueIOrderBookIFunctionSide
 
 
-from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
-from marketsim.gen._out._ifunction._ifunctionifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionIFunctionlistOffloatlistOffloat
-IFunction[IFunctionIFunctionlistOffloatlistOffloat] = IFunctionIFunctionIFunctionlistOffloatlistOffloat
-
-
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionifunctionfloatifunctionfloatfloat import IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
-IFunction[IFunctionIFunctionfloatIFunctionfloat,(float,)] = IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctioniobservablesidefloatiorderbook import IFunctionIObservableSidefloatIOrderBook
+IFunction[IObservableSide,(float,IOrderBook,)] = IFunctionIObservableSidefloatIOrderBook
 
 
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -376,9 +366,19 @@ from marketsim.gen._out._ifunction._ifunctionifunctionsidefloatfloatiorderbook i
 IFunction[IFunctionSide,(float,float,IOrderBook,)] = IFunctionIFunctionSidefloatfloatIOrderBook
 
 
+from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionIFunctionlistOffloatlistOffloat
+IFunction[IFunctionIFunctionlistOffloatlistOffloat] = IFunctionIFunctionIFunctionlistOffloatlistOffloat
+
+
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablefloat import IFunctionIObservablefloatIObservablefloat
 IFunction[IObservablefloat,(IObservablefloat,)] = IFunctionIObservablefloatIObservablefloat
+
+
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctionfloatifunctionfloatfloat import IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
+IFunction[IFunctionIFunctionfloatIFunctionfloat,(float,)] = IFunctionIFunctionIFunctionfloatIFunctionfloatfloat
 
 
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -398,16 +398,16 @@ from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunction
 IFunction[IFunctionIObservableIOrderIFunctionfloat] = IFunctionIFunctionIObservableIOrderIFunctionfloat
 
 
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiobservablefloatfloat import IFunctionIFunctionfloatIObservablefloatfloat
-IFunction[IFunctionfloat,(IObservablefloat,float,)] = IFunctionIFunctionfloatIObservablefloatfloat
-
-
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionfloatfloat import IFunctionIObservablefloatIFunctionfloatfloat
 IFunction[IObservablefloat,(IFunctionfloat,float,)] = IFunctionIObservablefloatIFunctionfloatfloat
+
+
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatiobservablefloatfloat import IFunctionIFunctionfloatIObservablefloatfloat
+IFunction[IFunctionfloat,(IObservablefloat,float,)] = IFunctionIFunctionfloatIObservablefloatfloat
 
 
 from marketsim.gen._out._ifunction._ifunctionr import IFunctionR
@@ -422,11 +422,6 @@ from marketsim.gen._out._ifunction._ifunctionifunctionuifunctiont import IFuncti
 IFunction[IFunctionU,(IFunctionT,)] = IFunctionIFunctionUIFunctionT
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatstrstrstr import IFunctionIObservablefloatstrstrstr
-IFunction[IObservablefloat,(str,str,str,)] = IFunctionIObservablefloatstrstrstr
-
-
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloatIFunctionfloat
 IFunction[IFunctionfloat,(IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionfloatIFunctionfloat
@@ -438,6 +433,11 @@ from marketsim.gen._out._ifunction._ifunctionidifferentiableiobservablefloatfloa
 IFunction[IDifferentiable,(IObservablefloat,float,)] = IFunctionIDifferentiableIObservablefloatfloat
 
 
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatstrstrstr import IFunctionIObservablefloatstrstrstr
+IFunction[IObservablefloat,(str,str,str,)] = IFunctionIObservablefloatstrstrstr
+
+
 from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionfloatiorderbook import IFunctionIObservableSideIFunctionfloatIOrderBook
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._side import Side
@@ -446,16 +446,16 @@ from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 IFunction[IObservableSide,(IFunctionfloat,IOrderBook,)] = IFunctionIObservableSideIFunctionfloatIOrderBook
 
 
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._ifunction._ifunctionifunctionsidefloatfloatfloatiorderbook import IFunctionIFunctionSidefloatfloatfloatIOrderBook
-IFunction[IFunctionSide,(float,float,float,IOrderBook,)] = IFunctionIFunctionSidefloatfloatfloatIOrderBook
-
-
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionifunctionboolifunctionfloatifunctionfloat import IFunctionIFunctionboolIFunctionfloatIFunctionfloat
 IFunction[IFunctionbool,(IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionboolIFunctionfloatIFunctionfloat
+
+
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctionifunctionsidefloatfloatfloatiorderbook import IFunctionIFunctionSidefloatfloatfloatIOrderBook
+IFunction[IFunctionSide,(float,float,float,IOrderBook,)] = IFunctionIFunctionSidefloatfloatfloatIOrderBook
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -463,6 +463,13 @@ from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderbookifunctionfloat import IFunctionIObservablefloatIOrderBookIFunctionfloat
 IFunction[IObservablefloat,(IOrderBook,IFunctionfloat,)] = IFunctionIObservablefloatIOrderBookIFunctionfloat
+
+
+from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
+from marketsim.gen._out._igraph import IGraph
+from marketsim.gen._out._ifunction._ifunctionitimeserieiobservableobjectigraphintint import IFunctionITimeSerieIObservableobjectIGraphintint
+IFunction[ITimeSerie,(IObservableobject,IGraph,int,int,)] = IFunctionITimeSerieIObservableobjectIGraphintint
 
 
 from marketsim.gen._out._side import Side
@@ -478,13 +485,6 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategylistofisingleas
 IFunction[ISingleAssetStrategy,(listOf(ISingleAssetStrategy),)] = IFunctionISingleAssetStrategylistOfISingleAssetStrategy
 
 
-from marketsim.gen._out._itimeserie import ITimeSerie
-from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
-from marketsim.gen._out._igraph import IGraph
-from marketsim.gen._out._ifunction._ifunctionitimeserieiobservableobjectigraphintint import IFunctionITimeSerieIObservableobjectIGraphintint
-IFunction[ITimeSerie,(IObservableobject,IGraph,int,int,)] = IFunctionITimeSerieIObservableobjectIGraphintint
-
-
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -497,25 +497,17 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablefloatflo
 IFunction[IObservablefloat,(IObservablefloat,float,)] = IFunctionIObservablefloatIObservablefloatfloat
 
 
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._itimeserie import ITimeSerie
-from marketsim import listOf
-from marketsim.gen._out._ifunction._ifunctioniorderbookstrfloatintlistofitimeserie import IFunctionIOrderBookstrfloatintlistOfITimeSerie
-IFunction[IOrderBook,(str,float,int,listOf(ITimeSerie),)] = IFunctionIOrderBookstrfloatintlistOfITimeSerie
-
-
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionifunctionfloatiobservablefloatfloatfloat import IFunctionIFunctionfloatIObservablefloatfloatfloat
 IFunction[IFunctionfloat,(IObservablefloat,float,float,)] = IFunctionIFunctionfloatIObservablefloatfloatfloat
 
 
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._itimeserie import ITimeSerie
+from marketsim import listOf
+from marketsim.gen._out._ifunction._ifunctioniorderbookstrfloatintlistofitimeserie import IFunctionIOrderBookstrfloatintlistOfITimeSerie
+IFunction[IOrderBook,(str,float,int,listOf(ITimeSerie),)] = IFunctionIOrderBookstrfloatintlistOfITimeSerie
 
 
 from marketsim.gen._out._side import Side
@@ -532,12 +524,12 @@ from marketsim.gen._out._ifunction._ifunctionifunctiontifunctionintifunctionfloa
 IFunction[IFunctionT,(IFunctionint,IFunctionfloat,)] = IFunctionIFunctionTIFunctionintIFunctionfloat
 
 
-from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyiobservableiorderievent import IFunctionISingleAssetStrategyIObservableIOrderIEvent
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-IFunction[ISingleAssetStrategy,(IObservableIOrder,IEvent,)] = IFunctionISingleAssetStrategyIObservableIOrderIEvent
+IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._iorder import IOrder
@@ -545,6 +537,14 @@ from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 IFunction[IObservableIOrder,(IFunctionfloat,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+
+
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyiobservableiorderievent import IFunctionISingleAssetStrategyIObservableIOrderIEvent
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+IFunction[ISingleAssetStrategy,(IObservableIOrder,IEvent,)] = IFunctionISingleAssetStrategyIObservableIOrderIEvent
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservablefloatiorderbook import IFunctionIObservableSideIObservablefloatIOrderBook
@@ -555,10 +555,10 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 IFunction[IObservableSide,(IObservablefloat,IOrderBook,)] = IFunctionIObservableSideIObservablefloatIOrderBook
 
 
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
-IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderbookiobservablefloat import IFunctionIObservablefloatIOrderBookIObservablefloat
+IFunction[IObservablefloat,(IOrderBook,IObservablefloat,)] = IFunctionIObservablefloatIOrderBookIObservablefloat
 
 
 from marketsim.gen._out._ivolumelevels import IVolumeLevels
@@ -568,10 +568,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservableivolumelevelsiorderqueue
 IFunction[IObservableIVolumeLevels,(IOrderQueue,float,int,)] = IFunctionIObservableIVolumeLevelsIOrderQueuefloatint
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderbookiobservablefloat import IFunctionIObservablefloatIOrderBookIObservablefloat
-IFunction[IObservablefloat,(IOrderBook,IObservablefloat,)] = IFunctionIObservablefloatIOrderBookIObservablefloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
+IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
@@ -586,18 +586,18 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiorderqueueiobserva
 IFunction[IObservablefloat,(IOrderQueue,IObservablefloat,)] = IFunctionIObservablefloatIOrderQueueIObservablefloat
 
 
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+
+
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._out._itwowaylink import ITwoWayLink
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import listOf
 from marketsim.gen._out._ifunction._ifunctioniorderbookiorderbookitwowaylinklistofitimeserie import IFunctionIOrderBookIOrderBookITwoWayLinklistOfITimeSerie
 IFunction[IOrderBook,(IOrderBook,ITwoWayLink,listOf(ITimeSerie),)] = IFunctionIOrderBookIOrderBookITwoWayLinklistOfITimeSerie
-
-
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._icandlestick import ICandleStick
@@ -609,19 +609,14 @@ IFunction[IObservableICandleStick,(IObservablefloat,float,)] = IFunctionIObserva
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablefloatifunctionfloat import IFunctionIObservablefloatIObservablefloatIFunctionfloat
-IFunction[IObservablefloat,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservablefloatIFunctionfloat
-
-
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionfloatiobservablefloat import IFunctionIObservablefloatIFunctionfloatIObservablefloat
 IFunction[IObservablefloat,(IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionfloatIObservablefloat
 
 
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
-IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablefloatifunctionfloat import IFunctionIObservablefloatIObservablefloatIFunctionfloat
+IFunction[IObservablefloat,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservablefloatIFunctionfloat
 
 
 from marketsim.gen._out._iorder import IOrder
@@ -631,11 +626,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorderiobservableiorderi
 IFunction[IObservableIOrder,(IObservableIOrder,IFunctionfloat,)] = IFunctionIObservableIOrderIObservableIOrderIFunctionfloat
 
 
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablebooliobservablefloatifunctionfloat import IFunctionIObservableboolIObservablefloatIFunctionfloat
-IFunction[IObservablebool,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservableboolIObservablefloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctionifunctionsideifunctionboolifunctionsideifunctionside import IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide
+IFunction[IFunctionSide,(IFunctionbool,IFunctionSide,IFunctionSide,)] = IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide
 
 
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
@@ -645,10 +639,16 @@ from marketsim.gen._out._ifunction._ifunctioniobservableboolifunctionfloatiobser
 IFunction[IObservablebool,(IFunctionfloat,IObservablefloat,)] = IFunctionIObservableboolIFunctionfloatIObservablefloat
 
 
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._ifunction._ifunctionifunctionsideifunctionboolifunctionsideifunctionside import IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide
-IFunction[IFunctionSide,(IFunctionbool,IFunctionSide,IFunctionSide,)] = IFunctionIFunctionSideIFunctionboolIFunctionSideIFunctionSide
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablebooliobservablefloatifunctionfloat import IFunctionIObservableboolIObservablefloatIFunctionfloat
+IFunction[IObservablebool,(IObservablefloat,IFunctionfloat,)] = IFunctionIObservableboolIObservablefloatIFunctionfloat
+
+
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
+IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -662,10 +662,11 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyisingleassetstr
 IFunction[ISingleAssetStrategy,(ISingleAssetStrategy,IFunctionbool,)] = IFunctionISingleAssetStrategyISingleAssetStrategyIFunctionbool
 
 
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionboolifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionboolIFunctionfloatIFunctionfloat
-IFunction[IFunctionfloat,(IFunctionbool,IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionboolIFunctionfloatIFunctionfloat
+from marketsim.gen._out._iorder import IOrder
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
+IFunction[IObservableIOrder,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -674,11 +675,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablefloatisi
 IFunction[IObservablefloat,(IObservablefloat,ISingleAssetTrader,)] = IFunctionIObservablefloatIObservablefloatISingleAssetTrader
 
 
-from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
-IFunction[IObservableIOrder,(IFunctionIObservableIOrderIFunctionfloat,)] = IFunctionIObservableIOrderIFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionboolifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionboolIFunctionfloatIFunctionfloat
+IFunction[IFunctionfloat,(IFunctionbool,IFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionfloatIFunctionboolIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -698,10 +698,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservablebooliobservablefloatiobs
 IFunction[IObservablebool,(IObservablefloat,IObservablefloat,)] = IFunctionIObservableboolIObservablefloatIObservablefloat
 
 
+from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloatifunctionfloatifunctionfloatstr import IFunctionIObservablefloatfloatIFunctionfloatIFunctionfloatstr
-IFunction[IObservablefloat,(float,IFunctionfloat,IFunctionfloat,str,)] = IFunctionIObservablefloatfloatIFunctionfloatIFunctionfloatstr
+from marketsim.gen._out._ifunction._ifunctionidifferentiableiobservablefloatfloatfloatfloatfloat import IFunctionIDifferentiableIObservablefloatfloatfloatfloatfloat
+IFunction[IDifferentiable,(IObservablefloat,float,float,float,float,)] = IFunctionIDifferentiableIObservablefloatfloatfloatfloatfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -709,10 +709,10 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyisingleassetstr
 IFunction[ISingleAssetStrategy,(ISingleAssetStrategy,ISingleAssetStrategy,)] = IFunctionISingleAssetStrategyISingleAssetStrategyISingleAssetStrategy
 
 
-from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionidifferentiableiobservablefloatfloatfloatfloatfloat import IFunctionIDifferentiableIObservablefloatfloatfloatfloatfloat
-IFunction[IDifferentiable,(IObservablefloat,float,float,float,float,)] = IFunctionIDifferentiableIObservablefloatfloatfloatfloatfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloatifunctionfloatifunctionfloatstr import IFunctionIObservablefloatfloatIFunctionfloatIFunctionfloatstr
+IFunction[IObservablefloat,(float,IFunctionfloat,IFunctionfloat,str,)] = IFunctionIObservablefloatfloatIFunctionfloatIFunctionfloatstr
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloatifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
@@ -723,12 +723,6 @@ from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 IFunction[IObservableIOrder,(IFunctionSide,IFunctionfloat,IFunctionfloat,)] = IFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloatiobservablefloatisingleassettrader import IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader
-IFunction[IObservablefloat,(float,IObservablefloat,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader
-
-
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -737,11 +731,47 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionsidefloati
 IFunction[IObservablefloat,(IFunctionSide,float,IFunctionfloat,IOrderBook,)] = IFunctionIObservablefloatIFunctionSidefloatIFunctionfloatIOrderBook
 
 
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloatiobservablefloatisingleassettrader import IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader
+IFunction[IObservablefloat,(float,IObservablefloat,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatISingleAssetTrader
+
+
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
 IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionSide,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+
+
+from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionbooliobservablesideifunctionside import IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+IFunction[IObservableSide,(IFunctionbool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
+
+
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
+IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
+
+
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservableboolifunctionsideifunctionside import IFunctionIObservableSideIObservableboolIFunctionSideIFunctionSide
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+IFunction[IObservableSide,(IObservablebool,IFunctionSide,IFunctionSide,)] = IFunctionIObservableSideIObservableboolIFunctionSideIFunctionSide
+
+
+from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionboolifunctionsideiobservableside import IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+IFunction[IObservableSide,(IFunctionbool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
@@ -765,36 +795,6 @@ from marketsim import listOf
 IFunction[ITimeSerie,(IFunctionIVolumeLevels,IGraph,int,int,listOf(float),int,)] = IFunctionITimeSerieIFunctionIVolumeLevelsIGraphintintlistOffloatint
 
 
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservableboolifunctionsideifunctionside import IFunctionIObservableSideIObservableboolIFunctionSideIFunctionSide
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-IFunction[IObservableSide,(IObservablebool,IFunctionSide,IFunctionSide,)] = IFunctionIObservableSideIObservableboolIFunctionSideIFunctionSide
-
-
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
-IFunction[IFunctionIObservableIOrderIFunctionSideIFunctionfloat,(IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionfloatIFunctionfloat
-
-
-from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionboolifunctionsideiobservableside import IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-IFunction[IObservableSide,(IFunctionbool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIFunctionSideIObservableSide
-
-
-from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionbooliobservablesideifunctionside import IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-IFunction[IObservableSide,(IFunctionbool,IObservableSide,IFunctionSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide
-
-
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -802,24 +802,10 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionbooliobser
 IFunction[IObservablefloat,(IFunctionbool,IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIFunctionboolIObservablefloatIFunctionfloat
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservableboolifunctionfloatifunctionfloat import IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat
-IFunction[IObservablefloat,(IObservablebool,IFunctionfloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat
-
-
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionifunctionifunctioniobservableiorderifunctionfloatifunctionfloatifunctionside import IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionSide
 IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,(IFunctionSide,)] = IFunctionIFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloatIFunctionSide
-
-
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionboolifunctionfloatiobservablefloat import IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
-IFunction[IObservablefloat,(IFunctionbool,IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
 
 
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
@@ -829,17 +815,30 @@ IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,(IFunct
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservableboolifunctionfloatifunctionfloat import IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat
+IFunction[IObservablefloat,(IObservablebool,IFunctionfloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservableboolIFunctionfloatIFunctionfloat
+
+
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionboolifunctionfloatiobservablefloat import IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
+IFunction[IObservablefloat,(IFunctionbool,IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionboolIFunctionfloatIObservablefloat
+
+
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatfloatiobservablefloatfloatisingleassettrader import IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader
 IFunction[IObservablefloat,(float,IObservablefloat,float,ISingleAssetTrader,)] = IFunctionIObservablefloatfloatIObservablefloatfloatISingleAssetTrader
 
 
 from marketsim.gen._out._side import Side
-from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservableboolifunctionsideiobservableside import IFunctionIObservableSideIObservableboolIFunctionSideIObservableSide
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-IFunction[IObservableSide,(IObservablebool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIObservableboolIFunctionSideIObservableSide
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionbooliobservablesideiobservableside import IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide
+IFunction[IObservableSide,(IFunctionbool,IObservableSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservablebooliobservablesideifunctionside import IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide
@@ -851,10 +850,11 @@ IFunction[IObservableSide,(IObservablebool,IObservableSide,IFunctionSide,)] = IF
 
 
 from marketsim.gen._out._side import Side
+from marketsim.gen._out._ifunction._ifunctioniobservablesideiobservableboolifunctionsideiobservableside import IFunctionIObservableSideIObservableboolIFunctionSideIObservableSide
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
-from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
-from marketsim.gen._out._ifunction._ifunctioniobservablesideifunctionbooliobservablesideiobservableside import IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide
-IFunction[IObservableSide,(IFunctionbool,IObservableSide,IObservableSide,)] = IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+IFunction[IObservableSide,(IObservablebool,IFunctionSide,IObservableSide,)] = IFunctionIObservableSideIObservableboolIFunctionSideIObservableSide
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -870,16 +870,14 @@ IFunction[IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctio
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablebooliobservablefloatifunctionfloat import IFunctionIObservablefloatIObservableboolIObservablefloatIFunctionfloat
-IFunction[IObservablefloat,(IObservablebool,IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservableboolIObservablefloatIFunctionfloat
-
-
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._ifunction._ifunctioniobservablefloatifunctionbooliobservablefloatiobservablefloat import IFunctionIObservablefloatIFunctionboolIObservablefloatIObservablefloat
 IFunction[IObservablefloat,(IFunctionbool,IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIFunctionboolIObservablefloatIObservablefloat
+
+
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctioniobservableiorderifunctionside import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
+IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
 
 
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -889,9 +887,11 @@ from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservableboolifun
 IFunction[IObservablefloat,(IObservablebool,IFunctionfloat,IObservablefloat,)] = IFunctionIObservablefloatIObservableboolIFunctionfloatIObservablefloat
 
 
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionsideifunctioniobservableiorderifunctionside import IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
-IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIObservableIOrderIFunctionSide,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablebooliobservablefloatifunctionfloat import IFunctionIObservablefloatIObservableboolIObservablefloatIFunctionfloat
+IFunction[IObservablefloat,(IObservablebool,IObservablefloat,IFunctionfloat,)] = IFunctionIObservablefloatIObservableboolIObservablefloatIFunctionfloat
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
@@ -921,18 +921,18 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunction
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,float,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSidefloatfloat
 
 
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
-from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablebooliobservablefloatiobservablefloat import IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat
-IFunction[IObservablefloat,(IObservablebool,IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat
-
-
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IFunctionfloat,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIFunctionfloat
+
+
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctioniobservablefloatiobservablebooliobservablefloatiobservablefloat import IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat
+IFunction[IObservablefloat,(IObservablebool,IObservablefloat,IObservablefloat,)] = IFunctionIObservablefloatIObservableboolIObservablefloatIObservablefloat
 
 
 from marketsim.gen._out._itimeserie import ITimeSerie
@@ -959,19 +959,19 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunction
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,float,float,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSidefloatfloatfloat
 
 
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyifunctioniobservableiorderifunctionfloatfloatiobservablefloat import IFunctionISingleAssetStrategyIFunctionIObservableIOrderIFunctionfloatfloatIObservablefloat
+IFunction[ISingleAssetStrategy,(IFunctionIObservableIOrderIFunctionfloat,float,IObservablefloat,)] = IFunctionISingleAssetStrategyIFunctionIObservableIOrderIFunctionfloatfloatIObservablefloat
+
+
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunctioniobservableiorderifunctionsideiobservablefloat import IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IObservablefloat,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloat
-
-
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyifunctioniobservableiorderifunctionfloatfloatiobservablefloat import IFunctionISingleAssetStrategyIFunctionIObservableIOrderIFunctionfloatfloatIObservablefloat
-IFunction[ISingleAssetStrategy,(IFunctionIObservableIOrderIFunctionfloat,float,IObservablefloat,)] = IFunctionISingleAssetStrategyIFunctionIObservableIOrderIFunctionfloatfloatIObservablefloat
 
 
 from marketsim.gen._out._ievent import IEvent
@@ -997,12 +997,10 @@ from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunction
 IFunction[IFunctionIObservableIOrderIFunctionSide,(IFunctionIObservableIOrderIFunctionSide,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionSideIFunctionIObservableIOrderIFunctionSideIFunctionfloat
 
 
-from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunctioniobservableiorderifunctionsideiobservablefloatfloat import IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloatfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IObservablefloat,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloatfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
 
 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -1012,10 +1010,12 @@ from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyifunctioniobser
 IFunction[ISingleAssetStrategy,(IFunctionIObservableIOrderIFunctionfloat,float,IObservablefloat,float,)] = IFunctionISingleAssetStrategyIFunctionIObservableIOrderIFunctionfloatfloatIObservablefloatfloat
 
 
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
-IFunction[IFunctionIObservableIOrderIFunctionfloat,(IFunctionIObservableIOrderIFunctionfloat,IFunctionfloat,)] = IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._out._ifunction._ifunctionisingleassetstrategyieventifunctioniobservableiorderifunctionsideiobservablefloatfloat import IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloatfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+IFunction[ISingleAssetStrategy,(IEvent,IFunctionIObservableIOrderIFunctionSide,IObservablefloat,float,)] = IFunctionISingleAssetStrategyIEventIFunctionIObservableIOrderIFunctionSideIObservablefloatfloat
 
 
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide

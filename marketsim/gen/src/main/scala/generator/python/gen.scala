@@ -178,7 +178,9 @@ package object gen
 
                                     val bases =
                                         if (interface.bases.nonEmpty)
-                                                interface.bases map { _.asCode } reduce { _ ||| "," ||| _ }
+                                                interface.bases map {
+                                                    b => (b bind TypesUnbound.EmptyTypeMapper_Bound).asCode
+                                                } reduce { _ ||| "," ||| _ }
                                             else
                                                 if (name == "Side")
                                                     "Tag" ||| ImportFrom("Tag", "marketsim.side_")
@@ -277,7 +279,9 @@ package object gen
 
                             for (out <- managed(printWriter(dir, filename)))
                                 if (alias.generics.isEmpty)
-                                    out.println(base.withImports(alias.name + " = " ||| alias.target.asCode).toString)
+                                    out.println(
+                                        base.withImports(alias.name + " = " |||
+                                                (alias.target bind TypesUnbound.EmptyTypeMapper_Bound).asCode).toString)
                                 else {
                                     val base_dir = new File(s"$dir/_$name")
                                     if (alias.name == "IFunction") {
