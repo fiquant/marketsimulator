@@ -141,11 +141,10 @@ def Orders(ctx):
 
         ctx.makeTrader_A(strategy.Signal(
                             event.Every(constant(10.)),
-                            order.side.WithExpiry(
-                                order.side.Iceberg(
-                                    order.side.Peg(
-                                        order.side.price.Limit(const(1))), const(1)),
-                                constant(10.)),
+                            order.side.price.Limit(const(1))
+                                 .side_Peg
+                                 .side_Iceberg(const(1))
+                                 .side_WithExpiry(const(10.)),
                             Interlacing()),
                          "iceberg peg expiry"),
     ]

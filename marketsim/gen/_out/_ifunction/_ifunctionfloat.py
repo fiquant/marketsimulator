@@ -140,11 +140,6 @@ class IFunctionfloat(Function_impl):
         return LimitSigned(self,price)
     
     @property
-    def sidevolume_Limit(self):
-        from marketsim.gen._out.order._curried._sidevolume_limit import sidevolume_Limit
-        return sidevolume_Limit(self)
-    
-    @property
     def Noise(self):
         from marketsim.gen._out.strategy.side._noise import Noise
         return Noise(self)

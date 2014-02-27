@@ -266,12 +266,8 @@ object order_factory
         val signedVolumeFactory = factorySigned flatMap { partialFactory(signedVolumeParam :: Nil, _) }
         val priceFactory = partialFactory(priceParam :: Nil)
         val sideFactory = partialFactory(sideParam :: Nil)
-        val volumeFactory = partialFactory(volumeParam :: Nil)
         val sidePriceFactory = partialFactory(sideParam :: priceParam :: Nil)
-        val sideVolumeFactory = partialFactory(sideParam :: volumeParam :: Nil)
         val side_priceFactory = priceFactory flatMap { partialFactory(sideParam :: Nil, _) }
-        val volume_priceFactory = priceFactory flatMap { partialFactory(volumeParam :: Nil, _) }
-        val sideVolume_priceFactory = priceFactory flatMap { partialFactory(sideParam :: volumeParam :: Nil, _) }
     }
 
     val name = "python.order.factory"

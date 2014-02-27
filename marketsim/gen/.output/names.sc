@@ -666,44 +666,6 @@ package order
         
     }
     
-    package side_volume
-    {
-        package price
-        {
-            def Limit = .order._curried.sidevolume_price_Limit
-            
-            def ImmediateOrCancel = .order._curried.sidevolume_price_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.sidevolume_price_StopLoss
-            
-            def WithExpiry = .order._curried.sidevolume_price_WithExpiry
-            
-            def FloatingPrice = .order._curried.sidevolume_price_FloatingPrice
-            
-            def Iceberg = .order._curried.sidevolume_price_Iceberg
-            
-            def Peg = .order._curried.sidevolume_price_Peg
-            
-        }
-        
-        def Limit = .order._curried.sidevolume_Limit
-        
-        def ImmediateOrCancel = .order._curried.sidevolume_ImmediateOrCancel
-        
-        def Market = .order._curried.sidevolume_Market
-        
-        def StopLoss = .order._curried.sidevolume_StopLoss
-        
-        def WithExpiry = .order._curried.sidevolume_WithExpiry
-        
-        def FloatingPrice = .order._curried.sidevolume_FloatingPrice
-        
-        def Iceberg = .order._curried.sidevolume_Iceberg
-        
-        def Peg = .order._curried.sidevolume_Peg
-        
-    }
-    
     package price
     {
         def Limit = .order._curried.price_Limit
@@ -751,34 +713,6 @@ package order
          */
         @python.order.factory.on_proto("ImmediateOrCancel")
         def side_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.side.Limit()) : (() => .Side) => .IOrderGenerator
-        
-        /** Factory creating limit orders
-         *
-         *  Limit orders ask to buy or sell some asset at price better than some limit price.
-         *  If a limit order is not competely fulfilled
-         *  it remains in an order book waiting to be matched with another order.
-         */
-        @python.order.factory.curried("price_Limit")
-        def volume_price_Limit(/** function defining side of orders to create */ side = .side.Sell()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating iceberg orders
-         *
-         *  Iceberg order is initialized by an underlying order and a lot size.
-         *  It sends consequently pieces of the underlying order of size equal or less to the lot size
-         *  thus maximum lot size volume is visible at the market at any moment.
-         */
-        @python.order.factory.on_proto("Iceberg")
-        def sidevolume_Iceberg(/** underlying orders to create */ proto = .order.side_volume.Limit(),
-                               /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
-        /** Factory creating WithExpiry orders
-         *
-         * WithExpiry orders can be viewed as ImmediateOrCancel orders
-         * where cancel order is sent not immediately but after some delay
-         */
-        @python.order.factory.on_proto("WithExpiry")
-        def sidevolume_WithExpiry(/** underlying orders to create */ proto = .order.side_volume.Limit(),
-                                  /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating StopLoss orders
          *
@@ -834,15 +768,6 @@ package order
         @python.order.factory.on_proto("ImmediateOrCancel")
         def price_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
         
-        /** Factory creating WithExpiry orders
-         *
-         * WithExpiry orders can be viewed as ImmediateOrCancel orders
-         * where cancel order is sent not immediately but after some delay
-         */
-        @python.order.factory.on_proto("price_WithExpiry")
-        def volume_price_WithExpiry(/** underlying orders to create */ proto = .order.volume.price.Limit(),
-                                    /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
         /** Factory creating StopLoss orders
          *
          *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
@@ -854,16 +779,6 @@ package order
         def sideprice_StopLoss(/** underlying orders to create */ proto = .order.side_price.Limit(),
                                /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
-        /** Factory creating Peg orders
-         *
-         *  A peg order is a particular case of the floating price order
-         *  with the price better at one tick than the best price of the order queue.
-         *  It implies that if several peg orders are sent to the same order queue
-         *  they start to race until being matched against the counterparty orders.
-         */
-        @python.order.factory.on_proto("price_Peg")
-        def volume_price_Peg(proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -873,37 +788,6 @@ package order
         @python.order.factory.on_proto("Iceberg")
         def side_Iceberg(/** underlying orders to create */ proto = .order.side.Limit(),
                          /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Side) => .IOrderGenerator
-        
-        /** Factory creating WithExpiry orders
-         *
-         * WithExpiry orders can be viewed as ImmediateOrCancel orders
-         * where cancel order is sent not immediately but after some delay
-         */
-        @python.order.factory.on_proto("price_WithExpiry")
-        def sidevolume_price_WithExpiry(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
-                                        /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating Peg orders
-         *
-         *  A peg order is a particular case of the floating price order
-         *  with the price better at one tick than the best price of the order queue.
-         *  It implies that if several peg orders are sent to the same order queue
-         *  they start to race until being matched against the counterparty orders.
-         */
-        @python.order.factory.on_proto("Peg")
-        def volume_Peg(proto = .order.volume.price.Limit()) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating Immediate-Or-Cancel orders
-         *
-         *  Immediate-Or-Cancel order sends an underlying order to the market and
-         *  immediately sends a cancel request for it.
-         *  It allows to combine market and limit order behaviour:
-         *  the order is either executed immediately
-         *  at price equal or better than given one
-         *  either it is cancelled (and consequently never stored in the order queue).
-         */
-        @python.order.factory.on_proto("ImmediateOrCancel")
-        def sidevolume_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.side_volume.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating fixed budget orders
          *
@@ -935,16 +819,6 @@ package order
          */
         @python.order.factory.on_proto("Peg")
         def sideprice_Peg(proto = .order.side.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
-        /** Factory creating Peg orders
-         *
-         *  A peg order is a particular case of the floating price order
-         *  with the price better at one tick than the best price of the order queue.
-         *  It implies that if several peg orders are sent to the same order queue
-         *  they start to race until being matched against the counterparty orders.
-         */
-        @python.order.factory.on_proto("Peg")
-        def sidevolume_Peg(proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating Peg orders
          *
@@ -1007,17 +881,6 @@ package order
         def side_StopLoss(/** underlying orders to create */ proto = .order.side.Limit(),
                           /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Side) => .IOrderGenerator
         
-        /** Factory creating StopLoss orders
-         *
-         *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
-         *  It keeps track of position and balance change induced by trades of the underlying order and
-         *  if losses from keeping the position exceed certain limit (given by maximum loss factor),
-         *  the meta order clears its position.
-         */
-        @python.order.factory.on_proto("price_StopLoss")
-        def sidevolume_price_StopLoss(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
-                                      /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
         /** Factory creating Peg orders
          *
          *  A peg order is a particular case of the floating price order
@@ -1028,46 +891,6 @@ package order
         @python.order.factory.on_proto("Peg")
         def price_Peg(proto = .order.price.Limit()) : (() => .Float) => .IOrderGenerator
         
-        /** Factory creating StopLoss orders
-         *
-         *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
-         *  It keeps track of position and balance change induced by trades of the underlying order and
-         *  if losses from keeping the position exceed certain limit (given by maximum loss factor),
-         *  the meta order clears its position.
-         */
-        @python.order.factory.on_proto("StopLoss")
-        def volume_StopLoss(/** underlying orders to create */ proto = .order.volume.Limit(),
-                            /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating limit orders
-         *
-         *  Limit orders ask to buy or sell some asset at price better than some limit price.
-         *  If a limit order is not competely fulfilled
-         *  it remains in an order book waiting to be matched with another order.
-         */
-        @python.order.factory.curried("price_Limit")
-        def sidevolume_price_Limit() : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating StopLoss orders
-         *
-         *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
-         *  It keeps track of position and balance change induced by trades of the underlying order and
-         *  if losses from keeping the position exceed certain limit (given by maximum loss factor),
-         *  the meta order clears its position.
-         */
-        @python.order.factory.on_proto("StopLoss")
-        def sidevolume_StopLoss(/** underlying orders to create */ proto = .order.side_volume.Limit(),
-                                /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
-        /** Factory creating WithExpiry orders
-         *
-         * WithExpiry orders can be viewed as ImmediateOrCancel orders
-         * where cancel order is sent not immediately but after some delay
-         */
-        @python.order.factory.on_proto("WithExpiry")
-        def volume_WithExpiry(/** underlying orders to create */ proto = .order.volume.Limit(),
-                              /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => .IOrderGenerator
-        
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1076,58 +899,6 @@ package order
         @python.order.factory.on_proto("WithExpiry")
         def sideprice_WithExpiry(/** underlying orders to create */ proto = .order.side_price.Limit(),
                                  /** expiration period for orders */ expiry = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
-        /** Factory creating Immediate-Or-Cancel orders
-         *
-         *  Immediate-Or-Cancel order sends an underlying order to the market and
-         *  immediately sends a cancel request for it.
-         *  It allows to combine market and limit order behaviour:
-         *  the order is either executed immediately
-         *  at price equal or better than given one
-         *  either it is cancelled (and consequently never stored in the order queue).
-         */
-        @python.order.factory.on_proto("ImmediateOrCancel")
-        def volume_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.volume.Limit()) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating orders with floating price
-         *
-         *  Floating price order is initialized by an order having a price and an observable that generates new prices.
-         *  When the observable value changes the order is cancelled and
-         *  a new order with new price is created and sent to the order book.
-         */
-        @python.order.factory.on_proto("FloatingPrice")
-        def volume_FloatingPrice(/** underlying orders to create */ proto = .order.volume.price.Limit(),
-                                 /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating market orders
-         *
-         *  Market order intructs buy or sell given volume immediately
-         */
-        @python.order.factory.curried("Market")
-        def volume_Market(/** function defining side of orders to create */ side = .side.Sell()) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating StopLoss orders
-         *
-         *  StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
-         *  It keeps track of position and balance change induced by trades of the underlying order and
-         *  if losses from keeping the position exceed certain limit (given by maximum loss factor),
-         *  the meta order clears its position.
-         */
-        @python.order.factory.on_proto("price_StopLoss")
-        def volume_price_StopLoss(/** underlying orders to create */ proto = .order.volume.price.Limit(),
-                                  /** maximal acceptable loss factor */ maxloss = .constant(0.1)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating Immediate-Or-Cancel orders
-         *
-         *  Immediate-Or-Cancel order sends an underlying order to the market and
-         *  immediately sends a cancel request for it.
-         *  It allows to combine market and limit order behaviour:
-         *  the order is either executed immediately
-         *  at price equal or better than given one
-         *  either it is cancelled (and consequently never stored in the order queue).
-         */
-        @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def volume_price_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.volume.price.Limit()) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating limit orders
          *
@@ -1177,26 +948,6 @@ package order
         @python.order.factory.curried("price_Limit")
         def side_price_Limit(/** function defining volume of orders to create */ volume = .constant(1.0)) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
         
-        /** Factory creating iceberg orders
-         *
-         *  Iceberg order is initialized by an underlying order and a lot size.
-         *  It sends consequently pieces of the underlying order of size equal or less to the lot size
-         *  thus maximum lot size volume is visible at the market at any moment.
-         */
-        @python.order.factory.on_proto("Iceberg")
-        def volume_Iceberg(/** underlying orders to create */ proto = .order.volume.Limit(),
-                           /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating orders with floating price
-         *
-         *  Floating price order is initialized by an order having a price and an observable that generates new prices.
-         *  When the observable value changes the order is cancelled and
-         *  a new order with new price is created and sent to the order book.
-         */
-        @python.order.factory.on_proto("price_FloatingPrice")
-        def volume_price_FloatingPrice(/** underlying orders to create */ proto = .order.volume.price.Limit(),
-                                       /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
         /** Factory creating market orders
          *
          *  Market order intructs buy or sell given volume immediately
@@ -1214,16 +965,6 @@ package order
         def price_FloatingPrice(/** underlying orders to create */ proto = .order.price.Limit(),
                                 /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : (() => .Float) => .IOrderGenerator
         
-        /** Factory creating orders with floating price
-         *
-         *  Floating price order is initialized by an order having a price and an observable that generates new prices.
-         *  When the observable value changes the order is cancelled and
-         *  a new order with new price is created and sent to the order book.
-         */
-        @python.order.factory.on_proto("FloatingPrice")
-        def sidevolume_FloatingPrice(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
-                                     /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
         /** Factory creating WithExpiry orders
          *
          * WithExpiry orders can be viewed as ImmediateOrCancel orders
@@ -1232,45 +973,6 @@ package order
         @python.order.factory.on_proto("WithExpiry")
         def price_WithExpiry(/** underlying orders to create */ proto = .order.price.Limit(),
                              /** expiration period for orders */ expiry = .constant(10.0)) : (() => .Float) => .IOrderGenerator
-        
-        /** Factory creating iceberg orders
-         *
-         *  Iceberg order is initialized by an underlying order and a lot size.
-         *  It sends consequently pieces of the underlying order of size equal or less to the lot size
-         *  thus maximum lot size volume is visible at the market at any moment.
-         */
-        @python.order.factory.on_proto("price_Iceberg")
-        def volume_price_Iceberg(/** underlying orders to create */ proto = .order.volume.price.Limit(),
-                                 /** maximal size of order to send */ lotSize = .constant(10.0)) : (() => .Float) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating orders with floating price
-         *
-         *  Floating price order is initialized by an order having a price and an observable that generates new prices.
-         *  When the observable value changes the order is cancelled and
-         *  a new order with new price is created and sent to the order book.
-         */
-        @python.order.factory.on_proto("price_FloatingPrice")
-        def sidevolume_price_FloatingPrice(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
-                                           /** observable defining price of orders to create */ floatingPrice = .const(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating Immediate-Or-Cancel orders
-         *
-         *  Immediate-Or-Cancel order sends an underlying order to the market and
-         *  immediately sends a cancel request for it.
-         *  It allows to combine market and limit order behaviour:
-         *  the order is either executed immediately
-         *  at price equal or better than given one
-         *  either it is cancelled (and consequently never stored in the order queue).
-         */
-        @python.order.factory.on_proto("price_ImmediateOrCancel")
-        def sidevolume_price_ImmediateOrCancel(/** factory for underlying orders */ proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating market orders
-         *
-         *  Market order intructs buy or sell given volume immediately
-         */
-        @python.order.factory.curried("Market")
-        def sidevolume_Market() : ((() => .Side),(() => .Float)) => .IOrderGenerator
         
         /** Factory creating limit orders
          *
@@ -1282,15 +984,6 @@ package order
         def price_Limit(/** function defining side of orders to create */ side = .side.Sell(),
                         /** function defining volume of orders to create */ volume = .constant(1.0)) : (() => .Float) => .IOrderGenerator
         
-        /** Factory creating limit orders
-         *
-         *  Limit orders ask to buy or sell some asset at price better than some limit price.
-         *  If a limit order is not competely fulfilled
-         *  it remains in an order book waiting to be matched with another order.
-         */
-        @python.order.factory.curried("Limit")
-        def sidevolume_Limit(/** function defining price of orders to create */ price = .constant(100.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
         /** Factory creating iceberg orders
          *
          *  Iceberg order is initialized by an underlying order and a lot size.
@@ -1300,16 +993,6 @@ package order
         @python.order.factory.on_proto("Iceberg")
         def sideprice_Iceberg(/** underlying orders to create */ proto = .order.side_price.Limit(),
                               /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => .IOrderGenerator
-        
-        /** Factory creating Peg orders
-         *
-         *  A peg order is a particular case of the floating price order
-         *  with the price better at one tick than the best price of the order queue.
-         *  It implies that if several peg orders are sent to the same order queue
-         *  they start to race until being matched against the counterparty orders.
-         */
-        @python.order.factory.on_proto("price_Peg")
-        def sidevolume_price_Peg(proto = .order.side_volume.price.Limit()) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
         
         /** Factory creating market orders
          *
@@ -1339,64 +1022,6 @@ package order
          */
         @python.order.factory.on_proto("price_Peg")
         def side_price_Peg(proto = .order.side.price.Limit()) : (() => .Side) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating iceberg orders
-         *
-         *  Iceberg order is initialized by an underlying order and a lot size.
-         *  It sends consequently pieces of the underlying order of size equal or less to the lot size
-         *  thus maximum lot size volume is visible at the market at any moment.
-         */
-        @python.order.factory.on_proto("price_Iceberg")
-        def sidevolume_price_Iceberg(/** underlying orders to create */ proto = .order.side_volume.price.Limit(),
-                                     /** maximal size of order to send */ lotSize = .constant(10.0)) : ((() => .Side),(() => .Float)) => ((() => .Float) => .IOrderGenerator)
-        
-        /** Factory creating limit orders
-         *
-         *  Limit orders ask to buy or sell some asset at price better than some limit price.
-         *  If a limit order is not competely fulfilled
-         *  it remains in an order book waiting to be matched with another order.
-         */
-        @python.order.factory.curried("Limit")
-        def volume_Limit(/** function defining side of orders to create */ side = .side.Sell(),
-                         /** function defining price of orders to create */ price = .constant(100.0)) : (() => .Float) => .IOrderGenerator
-        
-    }
-    
-    package volume
-    {
-        package price
-        {
-            def Limit = .order._curried.volume_price_Limit
-            
-            def ImmediateOrCancel = .order._curried.volume_price_ImmediateOrCancel
-            
-            def StopLoss = .order._curried.volume_price_StopLoss
-            
-            def WithExpiry = .order._curried.volume_price_WithExpiry
-            
-            def FloatingPrice = .order._curried.volume_price_FloatingPrice
-            
-            def Iceberg = .order._curried.volume_price_Iceberg
-            
-            def Peg = .order._curried.volume_price_Peg
-            
-        }
-        
-        def Limit = .order._curried.volume_Limit
-        
-        def ImmediateOrCancel = .order._curried.volume_ImmediateOrCancel
-        
-        def Market = .order._curried.volume_Market
-        
-        def StopLoss = .order._curried.volume_StopLoss
-        
-        def WithExpiry = .order._curried.volume_WithExpiry
-        
-        def FloatingPrice = .order._curried.volume_FloatingPrice
-        
-        def Iceberg = .order._curried.volume_Iceberg
-        
-        def Peg = .order._curried.volume_Peg
         
     }
     

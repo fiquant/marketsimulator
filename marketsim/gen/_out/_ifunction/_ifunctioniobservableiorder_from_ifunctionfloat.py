@@ -33,23 +33,6 @@ class IFunctionIObservableIOrder_from_IFunctionfloat(object):
         from marketsim.gen._out.order._curried._price_peg import price_Peg
         return price_Peg(self)
     
-    def volume_StopLoss(self, maxloss = None):
-        from marketsim.gen._out.order._curried._volume_stoploss import volume_StopLoss
-        return volume_StopLoss(self,maxloss)
-    
-    def volume_WithExpiry(self, expiry = None):
-        from marketsim.gen._out.order._curried._volume_withexpiry import volume_WithExpiry
-        return volume_WithExpiry(self,expiry)
-    
-    @property
-    def volume_ImmediateOrCancel(self):
-        from marketsim.gen._out.order._curried._volume_immediateorcancel import volume_ImmediateOrCancel
-        return volume_ImmediateOrCancel(self)
-    
-    def volume_Iceberg(self, lotSize = None):
-        from marketsim.gen._out.order._curried._volume_iceberg import volume_Iceberg
-        return volume_Iceberg(self,lotSize)
-    
     def price_FloatingPrice(self, floatingPrice = None):
         from marketsim.gen._out.order._curried._price_floatingprice import price_FloatingPrice
         return price_FloatingPrice(self,floatingPrice)
