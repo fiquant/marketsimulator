@@ -9,8 +9,8 @@ from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 #(.IObservable[.Boolean],(() => .Side),(() => .Side)) => .IObservable[.Side]
 class IFunctionIObservableSideIObservableboolIFunctionSideIFunctionSide(object):
     _types = [meta.function((IObservablebool,IFunctionSide,IFunctionSide,),IObservableSide)]
-    _types.append(IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide)
     _types.append(IFunctionIObservableSideIObservableboolIFunctionSideIObservableSide)
+    _types.append(IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide)
     _types.append(IFunctionIObservableSideIObservableboolIObservableSideIObservableSide)
     pass
 

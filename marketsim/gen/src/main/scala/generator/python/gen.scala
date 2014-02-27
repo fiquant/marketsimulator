@@ -72,6 +72,24 @@ package object gen
 
                             ty_out.println(base.withImports(s).toString)
                         }
+                    case f : TypesBound.Interface if f.decl.name == "Observable" =>
+                        val rt = f.genericArgs(0)
+                        val name = Printer.mangle(f.asCode.toString)
+
+                        val casts = Code.from(
+                            TypesBound.directCasts(f.genericArgs(0)).toList map { t =>
+                                "_types.append(" ||| Typed.topLevel.observableImplOf(t).asCode ||| ")" },
+                            predef.crlf)
+
+                        for (ty_out <- managed(printWriter(new File(out_dir, "_observable"), s"_$name.py")))
+                        {
+                            val s =
+                                s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
+                                        ("_types = []" | casts) | nl | ImportFrom("Conditional_Impl", "marketsim.event")
+
+                            ty_out.println(base.withImports(s).toString)
+                        }
+
                     case _ =>
 
                 }
@@ -242,32 +260,6 @@ package object gen
 
                                     out.println(base.withImports(s).toString)
 
-                                } else {
-                                    val base_dir = new File(s"$dir/_$name")
-
-                                    if (interface.name == "Observable") {
-
-                                        val fs = interface.getInstances
-
-                                        fs foreach { f =>
-
-                                            val rt = f.genericArgs(0)
-                                            val name = Printer.mangle(f.asCode.toString)
-
-                                            val casts = Code.from(
-                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
-                                                predef.crlf)
-
-                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
-                                            {
-                                                val s =
-                                                    s"class $name(Conditional_Impl, "||| Typed.topLevel.observableOf(rt).asCode |||"):" |>
-                                                            ("_types = []" | casts) | nl | ImportFrom("Conditional_Impl", "marketsim.event")
-
-                                                ty_out.println(base.withImports(s).toString)
-                                            }
-                                        }
-                                    }
                                 }
                             }
 

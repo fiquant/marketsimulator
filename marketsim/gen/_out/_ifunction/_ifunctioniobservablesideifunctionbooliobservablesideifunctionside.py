@@ -9,8 +9,8 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 #((() => .Boolean),.IObservable[.Side],(() => .Side)) => .IObservable[.Side]
 class IFunctionIObservableSideIFunctionboolIObservableSideIFunctionSide(object):
     _types = [meta.function((IFunctionbool,IObservableSide,IFunctionSide,),IObservableSide)]
-    _types.append(IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide)
     _types.append(IFunctionIObservableSideIObservableboolIObservableSideIFunctionSide)
+    _types.append(IFunctionIObservableSideIFunctionboolIObservableSideIObservableSide)
     _types.append(IFunctionIObservableSideIObservableboolIObservableSideIObservableSide)
     pass
 
