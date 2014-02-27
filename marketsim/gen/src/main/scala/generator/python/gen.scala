@@ -31,7 +31,7 @@ package object gen
         processFunctions(p, new File(dst_dir), new File(idx_dir))
         processTypes(p, new File(dst_dir), new File(idx_dir))
 
-        //Typed.topLevel.getUsedTypes foreach { t => println(base.withImports(t.asCode)) }
+        processUsedTypes(new File(dst_dir))
     }
 
     def printWriter(dst_dir : File, filename : String) =
@@ -42,11 +42,43 @@ package object gen
                         new File(dst_dir, filename.toLowerCase), true))),
         true)
 
-    def processUsedTypes()
+    def processUsedTypes(out_dir : File)
     {
         var processedTypes = Set.empty[TypesBound.Base]
 
-        def impl(typesToProcess : Set[TypesBound.Base]) {
+        def impl(typesToProcess : Set[TypesBound.Base])
+        {
+            if (typesToProcess.nonEmpty)
+            {
+                Typed.topLevel.clearUsedTypes()
+
+                typesToProcess foreach {
+                    case f : TypesBound.Interface if f.decl.name == "IObservable" =>
+                        val rt = f.genericArgs(0)
+                        val name = Printer.mangle(f.asCode.toString)
+                        val methods = getMethods(f)
+                        val casts = Code.from(
+                            TypesBound.directCasts(f.genericArgs(0)).toList map {
+                                t => "_types.append(" ||| Typed.topLevel.observableOf(t).asCode ||| ")"
+                            },
+                            predef.crlf)
+
+                        for (ty_out <- managed(printWriter(new File(out_dir, "_iobservable"), s"_$name.py")))
+                        {
+                            val s =
+                                s"class $name("||| Typed.topLevel.IEvent.asCode |||", "|||
+                                                   TypesBound.Function(Nil, rt).asCode |||"):" |>
+                                        ("_types = []" | casts | methods)
+
+                            ty_out.println(base.withImports(s).toString)
+                        }
+                    case _ =>
+
+                }
+                processedTypes = processedTypes ++ typesToProcess
+
+                impl(Typed.topLevel.getUsedTypes -- processedTypes)
+            }
 
         }
 
@@ -132,6 +164,30 @@ package object gen
         }
 
     }
+    def getMethods(t : TypesBound.Base) =
+    {
+        val methods = Typed.topLevel getMethods t
+
+        if (methods.isEmpty)
+            toLazy("pass")
+        else {
+            (methods map { case (method_name, fs) =>
+                val args = fs.head.parameters.tail
+                val target = fs.head.name ||| ImportFrom(fs.head.name, Printer.moduleName(fs.head))
+                if (args.isEmpty) {
+                    base.Prop(method_name, "return " ||| target ||| "(self)")
+                } else {
+                    val in_args = Code.from(args map { _.name ||| " = None" }, ",")
+                    val pass_args = Code.from(args map { "," ||| _.name }, "")
+                    base.Def(method_name,
+                        in_args,
+                        "return " ||| target |||
+                                "(self" ||| pass_args ||| ")")
+                }
+            } reduce { _ | _ }) | "pass"
+        }
+    }
+
     def processTypes(p : Typed.Package, dir : File, idx_dir : File)
     {
         ensure_dir(dir)
@@ -144,30 +200,6 @@ package object gen
 
         def importsWithout(code: => predef.Code, exclude : Importable => Boolean) : Code =
             new WithoutImports((code.imports.toSet[Importable] filterNot exclude map { _.repr + crlf } mkString "") + code)
-
-        def getMethods(t : TypesBound.Base) =
-        {
-            val methods = Typed.topLevel getMethods t
-
-            if (methods.isEmpty)
-                toLazy("pass")
-            else {
-                (methods map { case (method_name, fs) =>
-                    val args = fs.head.parameters.tail
-                    val target = fs.head.name ||| ImportFrom(fs.head.name, Printer.moduleName(fs.head))
-                    if (args.isEmpty) {
-                        base.Prop(method_name, "return " ||| target ||| "(self)")
-                    } else {
-                        val in_args = Code.from(args map { _.name ||| " = None" }, ",")
-                        val pass_args = Code.from(args map { "," ||| _.name }, "")
-                        base.Def(method_name,
-                            in_args,
-                            "return " ||| target |||
-                                    "(self" ||| pass_args ||| ")")
-                    }
-                } reduce { _ | _ }) | "pass"
-            }
-        }
 
         for (idx_out <- managed(printWriter(idx_dir, "__init__.py")))
         {
@@ -213,30 +245,6 @@ package object gen
                                 } else {
                                     val base_dir = new File(s"$dir/_$name")
 
-                                    if (interface.name == "IObservable") {
-
-                                        val fs = interface.getInstances
-
-                                        fs foreach { f =>
-
-                                            val rt = f.genericArgs(0)
-                                            val name = Printer.mangle(f.asCode.toString)
-                                            val methods = getMethods(f)
-                                            val casts = Code.from(
-                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
-                                                predef.crlf)
-
-                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
-                                            {
-                                                val s =
-                                                    s"class $name("||| Typed.topLevel.IEvent.asCode |||", "|||
-                                                                       TypesBound.Function(Nil, rt).asCode |||"):" |>
-                                                            ("_types = []" | casts | methods)
-
-                                                ty_out.println(base.withImports(s).toString)
-                                            }
-                                        }
-                                    }
                                     if (interface.name == "Observable") {
 
                                         val fs = interface.getInstances
