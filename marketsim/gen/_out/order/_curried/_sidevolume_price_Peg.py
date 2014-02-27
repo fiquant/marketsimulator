@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSideIFunctionfloat
 @registry.expose(["Order", "price_Peg"])
-class sidevolume_price_Peg_SideFloatFloatIObservableIOrder(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+class sidevolume_price_Peg_SideFloatFloatIObservableIOrder(IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSideIFunctionfloat):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -19,7 +19,7 @@ class sidevolume_price_Peg_SideFloatFloatIObservableIOrder(IFunctionIFunctionIOb
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+        'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSideIFunctionfloat
     }
     def __repr__(self):
         return "price_Peg(%(proto)s)" % self.__dict__
@@ -34,8 +34,8 @@ class sidevolume_price_Peg_SideFloatFloatIObservableIOrder(IFunctionIFunctionIOb
         return price_Peg(proto(side,volume))
     
 def sidevolume_price_Peg(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionsideifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSideIFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSideIFunctionfloat):
         return sidevolume_price_Peg_SideFloatFloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for sidevolume_price_Peg('+str(proto) +':'+ str(type(proto))+')')

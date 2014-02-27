@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 @registry.expose(["Order", "Market"])
-class sidevolume_Market_(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+class sidevolume_Market_(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 

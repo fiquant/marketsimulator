@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "price_StopLoss"])
-class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -22,7 +22,7 @@ class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObs
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide,
+        'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide,
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObs
         return price_StopLoss(proto(side), maxloss)
     
 def side_price_StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide):
         if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
             return side_price_StopLoss_SideFloatIObservableIOrderFloat(proto,maxloss)
     raise Exception('Cannot find suitable overload for side_price_StopLoss('+str(proto) +':'+ str(type(proto))+','+str(maxloss) +':'+ str(type(maxloss))+')')

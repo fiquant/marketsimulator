@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
-class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionfloat):
+class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
@@ -20,7 +20,7 @@ class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFu
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'expiry' : IFunctionfloat
     }
     def __repr__(self):
@@ -35,10 +35,10 @@ class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFu
         return WithExpiry(proto(price), expiry)
     
 def price_WithExpiry(proto = None,expiry = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
             return price_WithExpiry_FloatIObservableIOrderFloat(proto,expiry)
     raise Exception('Cannot find suitable overload for price_WithExpiry('+str(proto) +':'+ str(type(proto))+','+str(expiry) +':'+ str(type(expiry))+')')

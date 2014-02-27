@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
 @registry.expose(["Order", "Peg"])
-class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
+class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -20,7 +20,7 @@ class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSid
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+        'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__
@@ -33,8 +33,8 @@ class side_Peg_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSid
         return Peg(proto(side))
     
 def side_Peg(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionside import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide):
         return side_Peg_SideFloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for side_Peg('+str(proto) +':'+ str(type(proto))+')')

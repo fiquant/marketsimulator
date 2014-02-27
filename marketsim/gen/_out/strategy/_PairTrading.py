@@ -1,6 +1,6 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -35,7 +35,7 @@ class PairTrading_IEventSideIObservableIOrderIOrderBookFloat(ISingleAssetStrateg
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide,
         'bookToDependOn' : IOrderBook,
         'factor' : float
     }
@@ -64,11 +64,11 @@ class PairTrading_IEventSideIObservableIOrderIOrderBookFloat(ISingleAssetStrateg
     
 def PairTrading(eventGen = None,orderFactory = None,bookToDependOn = None,factor = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             if bookToDependOn is None or rtti.can_be_casted(bookToDependOn, IOrderBook):
                 if factor is None or rtti.can_be_casted(factor, float):
                     return PairTrading_IEventSideIObservableIOrderIOrderBookFloat(eventGen,orderFactory,bookToDependOn,factor)

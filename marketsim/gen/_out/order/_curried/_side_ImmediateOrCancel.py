@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 @registry.expose(["Order", "ImmediateOrCancel"])
-class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFunctionSide):
+class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -21,7 +21,7 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFu
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSide
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -34,8 +34,8 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrderIFu
         return ImmediateOrCancel(proto(side))
     
 def side_ImmediateOrCancel(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSide):
         return side_ImmediateOrCancel_SideIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for side_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

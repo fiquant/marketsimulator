@@ -1,6 +1,6 @@
 from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Peg"])
@@ -25,15 +25,15 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__
     
     
 def Peg(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         return Peg_FloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for Peg('+str(proto) +':'+ str(type(proto))+')')

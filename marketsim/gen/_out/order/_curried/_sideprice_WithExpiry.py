@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
-class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
@@ -20,7 +20,7 @@ class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableI
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'expiry' : IFunctionfloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableI
         return WithExpiry(proto(side,price), expiry)
     
 def sideprice_WithExpiry(proto = None,expiry = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
         if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
             return sideprice_WithExpiry_SideFloatIObservableIOrderFloat(proto,expiry)
     raise Exception('Cannot find suitable overload for sideprice_WithExpiry('+str(proto) +':'+ str(type(proto))+','+str(expiry) +':'+ str(type(expiry))+')')

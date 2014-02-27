@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Order", "FloatingPrice"])
-class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObservableIOrderIFunctionfloat):
+class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
@@ -21,7 +21,7 @@ class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObser
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
@@ -36,10 +36,10 @@ class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObser
         return FloatingPrice(proto(price), floatingPrice)
     
 def price_FloatingPrice(proto = None,floatingPrice = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservablefloat):
             return price_FloatingPrice_FloatIObservableIOrderIObservableFloat(proto,floatingPrice)
     raise Exception('Cannot find suitable overload for price_FloatingPrice('+str(proto) +':'+ str(type(proto))+','+str(floatingPrice) +':'+ str(type(floatingPrice))+')')

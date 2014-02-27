@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
 @registry.expose(["Order", "Peg"])
-class volume_Peg_FloatFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat):
+class volume_Peg_FloatFloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -20,7 +20,7 @@ class volume_Peg_FloatFloatIObservableIOrder(IFunctionIObservableIOrderIFunction
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+        'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__
@@ -33,8 +33,8 @@ class volume_Peg_FloatFloatIObservableIOrder(IFunctionIObservableIOrderIFunction
         return Peg(proto(volume))
     
 def volume_Peg(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat):
         return volume_Peg_FloatFloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for volume_Peg('+str(proto) +':'+ str(type(proto))+')')

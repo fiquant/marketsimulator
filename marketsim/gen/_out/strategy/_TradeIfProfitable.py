@@ -1,8 +1,8 @@
-from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "TradeIfProfitable"])
 class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy):
     """ 
@@ -28,8 +28,8 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     
     _properties = {
         'inner' : ISingleAssetStrategy,
-        'account' : IFunctionIAccountISingleAssetStrategy,
-        'performance' : IFunctionIFunctionfloatIAccount
+        'account' : IFunctionIAccount_from_ISingleAssetStrategy,
+        'performance' : IFunctionIFunctionfloat_from_IAccount
     }
     def __repr__(self):
         return "TradeIfProfitable(%(inner)s, %(account)s, %(performance)s)" % self.__dict__
@@ -57,11 +57,11 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     
 def TradeIfProfitable(inner = None,account = None,performance = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
-    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
+    from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
     from marketsim import rtti
     if inner is None or rtti.can_be_casted(inner, ISingleAssetStrategy):
-        if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):
-            if performance is None or rtti.can_be_casted(performance, IFunctionIFunctionfloatIAccount):
+        if account is None or rtti.can_be_casted(account, IFunctionIAccount_from_ISingleAssetStrategy):
+            if performance is None or rtti.can_be_casted(performance, IFunctionIFunctionfloat_from_IAccount):
                 return TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(inner,account,performance)
     raise Exception('Cannot find suitable overload for TradeIfProfitable('+str(inner) +':'+ str(type(inner))+','+str(account) +':'+ str(type(account))+','+str(performance) +':'+ str(type(performance))+')')

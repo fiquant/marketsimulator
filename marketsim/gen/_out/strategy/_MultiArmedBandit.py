@@ -1,11 +1,11 @@
-from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.multiarmed_bandit import _MultiarmedBandit2_Impl
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
 from marketsim import listOf
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "MultiArmedBandit"])
 class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(ISingleAssetStrategy,_MultiarmedBandit2_Impl):
     """  In some moments of time the efficiency of the strategies is evaluated
@@ -35,26 +35,26 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
     
     _properties = {
         'strategies' : listOf(ISingleAssetStrategy),
-        'account' : IFunctionIAccountISingleAssetStrategy,
-        'weight' : IFunctionIFunctionfloatIAccount,
-        'normalizer' : IFunctionIFunctionfloatIFunctionfloat,
-        'corrector' : IFunctionIFunctionlistOffloatlistOffloat
+        'account' : IFunctionIAccount_from_ISingleAssetStrategy,
+        'weight' : IFunctionIFunctionfloat_from_IAccount,
+        'normalizer' : IFunctionIFunctionfloat_from_IFunctionfloat,
+        'corrector' : IFunctionIFunctionlistOffloat_from_listOffloat
     }
     def __repr__(self):
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
-    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
     from marketsim import rtti
-    from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloatlistoffloat import IFunctionIFunctionlistOffloatlistOffloat
-    from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
+    from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
     from marketsim import listOf
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
-        if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):
-            if weight is None or rtti.can_be_casted(weight, IFunctionIFunctionfloatIAccount):
-                if normalizer is None or rtti.can_be_casted(normalizer, IFunctionIFunctionfloatIFunctionfloat):
-                    if corrector is None or rtti.can_be_casted(corrector, IFunctionIFunctionlistOffloatlistOffloat):
+        if account is None or rtti.can_be_casted(account, IFunctionIAccount_from_ISingleAssetStrategy):
+            if weight is None or rtti.can_be_casted(weight, IFunctionIFunctionfloat_from_IAccount):
+                if normalizer is None or rtti.can_be_casted(normalizer, IFunctionIFunctionfloat_from_IFunctionfloat):
+                    if corrector is None or rtti.can_be_casted(corrector, IFunctionIFunctionlistOffloat_from_listOffloat):
                         return MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(strategies,account,weight,normalizer,corrector)
     raise Exception('Cannot find suitable overload for MultiArmedBandit('+str(strategies) +':'+ str(type(strategies))+','+str(account) +':'+ str(type(account))+','+str(weight) +':'+ str(type(weight))+','+str(normalizer) +':'+ str(type(normalizer))+','+str(corrector) +':'+ str(type(corrector))+')')

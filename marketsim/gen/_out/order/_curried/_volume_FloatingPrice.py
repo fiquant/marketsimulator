@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Order", "FloatingPrice"])
-class volume_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFunctionIObservableIOrderIFunctionfloat):
+class volume_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
@@ -22,7 +22,7 @@ class volume_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFunction
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat,
+        'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat,
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class volume_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(IFunction
         return FloatingPrice(proto(volume), floatingPrice)
     
 def volume_FloatingPrice(proto = None,floatingPrice = None): 
-    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat):
         if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservablefloat):
             return volume_FloatingPrice_FloatFloatIObservableIOrderIObservableFloat(proto,floatingPrice)
     raise Exception('Cannot find suitable overload for volume_FloatingPrice('+str(proto) +':'+ str(type(proto))+','+str(floatingPrice) +':'+ str(type(floatingPrice))+')')

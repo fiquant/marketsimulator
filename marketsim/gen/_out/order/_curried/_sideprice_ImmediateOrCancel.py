@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 @registry.expose(["Order", "ImmediateOrCancel"])
-class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
     """ 
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
@@ -21,7 +21,7 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     }
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % self.__dict__
@@ -36,8 +36,8 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
         return ImmediateOrCancel(proto(side,price))
     
 def sideprice_ImmediateOrCancel(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
         return sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for sideprice_ImmediateOrCancel('+str(proto) +':'+ str(type(proto))+')')

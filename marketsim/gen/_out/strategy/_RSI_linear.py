@@ -1,4 +1,4 @@
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
@@ -27,7 +27,7 @@ class RSI_linear_FloatIObservableIOrderFloatIObservableFloatFloat(ISingleAssetSt
         return repr(self)
     
     _properties = {
-        'orderFactory' : IFunctionIObservableIOrderIFunctionfloat,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'alpha' : float,
         'k' : IObservablefloat,
         'timeframe' : float
@@ -56,10 +56,10 @@ class RSI_linear_FloatIObservableIOrderFloatIObservableFloatFloat(ISingleAssetSt
         self.on_order_created.fire(order, self)
     
 def RSI_linear(orderFactory = None,alpha = None,k = None,timeframe = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
-    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionfloat):
+    if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionfloat):
         if alpha is None or rtti.can_be_casted(alpha, float):
             if k is None or rtti.can_be_casted(k, IObservablefloat):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):

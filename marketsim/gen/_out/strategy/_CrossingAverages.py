@@ -1,5 +1,5 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -32,7 +32,7 @@ class CrossingAverages_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetSt
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide,
         'ewma_alpha_1' : float,
         'ewma_alpha_2' : float,
         'threshold' : float
@@ -62,10 +62,10 @@ class CrossingAverages_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetSt
     
 def CrossingAverages(eventGen = None,orderFactory = None,ewma_alpha_1 = None,ewma_alpha_2 = None,threshold = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             if ewma_alpha_1 is None or rtti.can_be_casted(ewma_alpha_1, float):
                 if ewma_alpha_2 is None or rtti.can_be_casted(ewma_alpha_2, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):

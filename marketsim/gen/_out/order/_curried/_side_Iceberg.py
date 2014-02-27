@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "Iceberg"])
-class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSide):
+class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
@@ -21,7 +21,7 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunctio
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSide,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSide,
         'lotSize' : IFunctionfloat
     }
     def __repr__(self):
@@ -36,10 +36,10 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunctio
         return Iceberg(proto(side), lotSize)
     
 def side_Iceberg(proto = None,lotSize = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSide):
         if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):
             return side_Iceberg_SideIObservableIOrderFloat(proto,lotSize)
     raise Exception('Cannot find suitable overload for side_Iceberg('+str(proto) +':'+ str(type(proto))+','+str(lotSize) +':'+ str(type(lotSize))+')')

@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
-class price_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionfloat):
+class price_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -22,7 +22,7 @@ class price_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunc
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class price_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunc
         return StopLoss(proto(price), maxloss)
     
 def price_StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
             return price_StopLoss_FloatIObservableIOrderFloat(proto,maxloss)
     raise Exception('Cannot find suitable overload for price_StopLoss('+str(proto) +':'+ str(type(proto))+','+str(maxloss) +':'+ str(type(maxloss))+')')

@@ -1,5 +1,5 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -27,7 +27,7 @@ class Noise_IEventSideIObservableIOrder(ISingleAssetStrategy):
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
         return "Noise(%(eventGen)s, %(orderFactory)s)" % self.__dict__
@@ -54,9 +54,9 @@ class Noise_IEventSideIObservableIOrder(ISingleAssetStrategy):
     
 def Noise(eventGen = None,orderFactory = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             return Noise_IEventSideIObservableIOrder(eventGen,orderFactory)
     raise Exception('Cannot find suitable overload for Noise('+str(eventGen) +':'+ str(type(eventGen))+','+str(orderFactory) +':'+ str(type(orderFactory))+')')

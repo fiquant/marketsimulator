@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 @registry.expose(["Strategy", "inner_VirtualMarket"])
-class inner_VirtualMarket_(IFunctionIAccountISingleAssetStrategy):
+class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     """   how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)

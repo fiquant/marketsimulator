@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 @registry.expose(["Order", "Peg"])
-class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat):
+class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionfloat):
     """ 
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
@@ -19,7 +19,7 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat)
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
         return "Peg(%(proto)s)" % self.__dict__
@@ -32,8 +32,8 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrderIFunctionfloat)
         return Peg(proto(price))
     
 def price_Peg(proto = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         return price_Peg_FloatIObservableIOrder(proto)
     raise Exception('Cannot find suitable overload for price_Peg('+str(proto) +':'+ str(type(proto))+')')

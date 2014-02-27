@@ -1,9 +1,9 @@
-from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import listOf
 from marketsim import registry
 from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
 @registry.expose(["Strategy", "ChooseTheBest"])
 class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy,_ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
@@ -28,20 +28,20 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     
     _properties = {
         'strategies' : listOf(ISingleAssetStrategy),
-        'account' : IFunctionIAccountISingleAssetStrategy,
-        'performance' : IFunctionIFunctionfloatIAccount
+        'account' : IFunctionIAccount_from_ISingleAssetStrategy,
+        'performance' : IFunctionIFunctionfloat_from_IAccount
     }
     def __repr__(self):
         return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
     
 def ChooseTheBest(strategies = None,account = None,performance = None): 
-    from marketsim.gen._out._ifunction._ifunctioniaccountisingleassetstrategy import IFunctionIAccountISingleAssetStrategy
     from marketsim import rtti
+    from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-    from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
     from marketsim import listOf
+    from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
     if strategies is None or rtti.can_be_casted(strategies, listOf(ISingleAssetStrategy)):
-        if account is None or rtti.can_be_casted(account, IFunctionIAccountISingleAssetStrategy):
-            if performance is None or rtti.can_be_casted(performance, IFunctionIFunctionfloatIAccount):
+        if account is None or rtti.can_be_casted(account, IFunctionIAccount_from_ISingleAssetStrategy):
+            if performance is None or rtti.can_be_casted(performance, IFunctionIFunctionfloat_from_IAccount):
                 return ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(strategies,account,performance)
     raise Exception('Cannot find suitable overload for ChooseTheBest('+str(strategies) +':'+ str(type(strategies))+','+str(account) +':'+ str(type(account))+','+str(performance) +':'+ str(type(performance))+')')

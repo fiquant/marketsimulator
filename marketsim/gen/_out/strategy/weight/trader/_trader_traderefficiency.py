@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatiaccount import IFunctionIFunctionfloatIAccount
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 @registry.expose(["Strategy", "trader_TraderEfficiency"])
-class trader_TraderEfficiency_(IFunctionIFunctionfloatIAccount):
+class trader_TraderEfficiency_(IFunctionIFunctionfloat_from_IAccount):
     """ 
     """ 
     def __init__(self):

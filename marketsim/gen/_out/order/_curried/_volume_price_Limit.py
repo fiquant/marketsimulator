@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorderifunctionfloatifunctionfloat import IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionfloat import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Order", "price_Limit"])
-class volume_price_Limit_Side(IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat):
+class volume_price_Limit_Side(IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionfloat):
     """ 
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled

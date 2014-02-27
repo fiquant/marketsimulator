@@ -1,5 +1,5 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
@@ -31,7 +31,7 @@ class FundamentalValue_IEventSideIObservableIOrderIObservableFloat(ISingleAssetS
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide,
         'fundamentalValue' : IObservablefloat
     }
     def __repr__(self):
@@ -57,9 +57,9 @@ class FundamentalValue_IEventSideIObservableIOrderIObservableFloat(ISingleAssetS
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -90,7 +90,7 @@ class FundamentalValue_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide,
         'fundamentalValue' : IFunctionfloat
     }
     def __repr__(self):
@@ -120,14 +120,14 @@ def FundamentalValue(eventGen = None,orderFactory = None,fundamentalValue = None
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IObservablefloat):
                 return FundamentalValue_IEventSideIObservableIOrderIObservableFloat(eventGen,orderFactory,fundamentalValue)
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             if fundamentalValue is None or rtti.can_be_casted(fundamentalValue, IFunctionfloat):
                 return FundamentalValue_IEventSideIObservableIOrderFloat(eventGen,orderFactory,fundamentalValue)
     raise Exception('Cannot find suitable overload for FundamentalValue('+str(eventGen) +':'+ str(type(eventGen))+','+str(orderFactory) +':'+ str(type(orderFactory))+','+str(fundamentalValue) +':'+ str(type(fundamentalValue))+')')

@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "FixedBudget"])
-class side_FixedBudget_Float(IFunctionIObservableIOrderIFunctionSide):
+class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.

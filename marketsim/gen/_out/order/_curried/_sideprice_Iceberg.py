@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "Iceberg"])
-class sideprice_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+class sideprice_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
     """ 
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
@@ -21,7 +21,7 @@ class sideprice_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrd
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'lotSize' : IFunctionfloat
     }
     def __repr__(self):
@@ -38,10 +38,10 @@ class sideprice_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrd
         return Iceberg(proto(side,price), lotSize)
     
 def sideprice_Iceberg(proto = None,lotSize = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
         if lotSize is None or rtti.can_be_casted(lotSize, IFunctionfloat):
             return sideprice_Iceberg_SideFloatIObservableIOrderFloat(proto,lotSize)
     raise Exception('Cannot find suitable overload for sideprice_Iceberg('+str(proto) +':'+ str(type(proto))+','+str(lotSize) +':'+ str(type(lotSize))+')')

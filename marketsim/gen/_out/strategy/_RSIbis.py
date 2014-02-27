@@ -1,5 +1,5 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
@@ -31,7 +31,7 @@ class RSIbis_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetStrategy):
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSide,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide,
         'alpha' : float,
         'timeframe' : float,
         'threshold' : float
@@ -65,10 +65,10 @@ class RSIbis_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetStrategy):
     
 def RSIbis(eventGen = None,orderFactory = None,alpha = None,timeframe = None,threshold = None): 
     from marketsim.gen._out._ievent import IEvent
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim import rtti
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSide):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSide):
             if alpha is None or rtti.can_be_casted(alpha, float):
                 if timeframe is None or rtti.can_be_casted(timeframe, float):
                     if threshold is None or rtti.can_be_casted(threshold, float):

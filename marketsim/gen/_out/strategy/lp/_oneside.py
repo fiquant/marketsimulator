@@ -1,8 +1,8 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "OneSide"])
@@ -36,7 +36,7 @@ class OneSide_FloatFloatIEventSideFloatIObservableIOrderSide(ISingleAssetStrateg
         'initialValue' : float,
         'priceDistr' : IFunctionfloat,
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'side' : IFunctionSide
     }
     def __repr__(self):
@@ -66,12 +66,12 @@ def OneSide(initialValue = None,priceDistr = None,eventGen = None,orderFactory =
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
     if initialValue is None or rtti.can_be_casted(initialValue, float):
         if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):
             if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-                if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+                if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
                     if side is None or rtti.can_be_casted(side, IFunctionSide):
                         return OneSide_FloatFloatIEventSideFloatIObservableIOrderSide(initialValue,priceDistr,eventGen,orderFactory,side)
     raise Exception('Cannot find suitable overload for OneSide('+str(initialValue) +':'+ str(type(initialValue))+','+str(priceDistr) +':'+ str(type(priceDistr))+','+str(eventGen) +':'+ str(type(eventGen))+','+str(orderFactory) +':'+ str(type(orderFactory))+','+str(side) +':'+ str(type(side))+')')

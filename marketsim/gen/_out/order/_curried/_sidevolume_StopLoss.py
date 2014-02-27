@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
-class sidevolume_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+class sidevolume_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -22,7 +22,7 @@ class sidevolume_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIO
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
@@ -39,10 +39,10 @@ class sidevolume_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIO
         return StopLoss(proto(side,volume), maxloss)
     
 def sidevolume_StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
         if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
             return sidevolume_StopLoss_SideFloatIObservableIOrderFloat(proto,maxloss)
     raise Exception('Cannot find suitable overload for sidevolume_StopLoss('+str(proto) +':'+ str(type(proto))+','+str(maxloss) +':'+ str(type(maxloss))+')')

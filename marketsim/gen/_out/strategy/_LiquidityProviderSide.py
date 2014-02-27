@@ -1,8 +1,8 @@
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "LiquidityProviderSide"])
@@ -34,7 +34,7 @@ class LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat(ISing
     
     _properties = {
         'eventGen' : IEvent,
-        'orderFactory' : IFunctionIObservableIOrderIFunctionSideIFunctionfloat,
+        'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'side' : IFunctionSide,
         'initialValue' : float,
         'priceDistr' : IFunctionfloat
@@ -66,10 +66,10 @@ def LiquidityProviderSide(eventGen = None,orderFactory = None,side = None,initia
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim.gen._out._ievent import IEvent
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionsideifunctionfloat import IFunctionIObservableIOrderIFunctionSideIFunctionfloat
     if eventGen is None or rtti.can_be_casted(eventGen, IEvent):
-        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrderIFunctionSideIFunctionfloat):
+        if orderFactory is None or rtti.can_be_casted(orderFactory, IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
             if side is None or rtti.can_be_casted(side, IFunctionSide):
                 if initialValue is None or rtti.can_be_casted(initialValue, float):
                     if priceDistr is None or rtti.can_be_casted(priceDistr, IFunctionfloat):

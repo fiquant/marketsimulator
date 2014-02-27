@@ -1,6 +1,6 @@
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
@@ -29,7 +29,7 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionfloat,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
     
     
 def FloatingPrice(proto = None,floatingPrice = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionfloat):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionfloat):
         if floatingPrice is None or rtti.can_be_casted(floatingPrice, IObservablefloat):
             return FloatingPrice_FloatIObservableIOrderIObservableFloat(proto,floatingPrice)
     raise Exception('Cannot find suitable overload for FloatingPrice('+str(proto) +':'+ str(type(proto))+','+str(floatingPrice) +':'+ str(type(floatingPrice))+')')

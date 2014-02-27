@@ -49,7 +49,7 @@ object Printer {
             self : TypesBound.Function =>
 
             def asCode = {
-                val x = "IFunction" ||| ret.asCode ||| Code.from(args map { _.asCode  })
+                val x = "IFunction" ||| ret.asCode ||| (if (args.isEmpty) "" : Code else "_from_" ||| Code.from(args map { _.asCode  }))
 
                 val m = mangle(x.toString)
 

@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
-class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSide):
+class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
@@ -20,7 +20,7 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunc
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSide,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSide,
         'expiry' : IFunctionfloat
     }
     def __repr__(self):
@@ -35,10 +35,10 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunc
         return WithExpiry(proto(side), expiry)
     
 def side_WithExpiry(proto = None,expiry = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSide):
         if expiry is None or rtti.can_be_casted(expiry, IFunctionfloat):
             return side_WithExpiry_SideIObservableIOrderFloat(proto,expiry)
     raise Exception('Cannot find suitable overload for side_WithExpiry('+str(proto) +':'+ str(type(proto))+','+str(expiry) +':'+ str(type(expiry))+')')

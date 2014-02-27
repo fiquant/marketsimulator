@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionifunctionfloatifunctionfloat import IFunctionIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
 @registry.expose(["Strategy", "f_Clamp0"])
-class f_Clamp0_(IFunctionIFunctionfloatIFunctionfloat):
+class f_Clamp0_(IFunctionIFunctionfloat_from_IFunctionfloat):
     """ 
     """ 
     def __init__(self):

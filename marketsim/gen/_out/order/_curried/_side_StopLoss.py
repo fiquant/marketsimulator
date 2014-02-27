@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
-class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFunctionSide):
+class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
@@ -22,7 +22,7 @@ class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFuncti
         return repr(self)
     
     _properties = {
-        'proto' : IFunctionIObservableIOrderIFunctionSide,
+        'proto' : IFunctionIObservableIOrder_from_IFunctionSide,
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
@@ -37,10 +37,10 @@ class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrderIFuncti
         return StopLoss(proto(side), maxloss)
     
 def side_StopLoss(proto = None,maxloss = None): 
-    from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionside import IFunctionIObservableIOrderIFunctionSide
+    from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti
-    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrderIFunctionSide):
+    if proto is None or rtti.can_be_casted(proto, IFunctionIObservableIOrder_from_IFunctionSide):
         if maxloss is None or rtti.can_be_casted(maxloss, IFunctionfloat):
             return side_StopLoss_SideIObservableIOrderFloat(proto,maxloss)
     raise Exception('Cannot find suitable overload for side_StopLoss('+str(proto) +':'+ str(type(proto))+','+str(maxloss) +':'+ str(type(maxloss))+')')
