@@ -30,6 +30,8 @@ package object gen
     {
         processFunctions(p, new File(dst_dir), new File(idx_dir))
         processTypes(p, new File(dst_dir), new File(idx_dir))
+
+        //Typed.topLevel.getUsedTypes foreach { t => println(base.withImports(t.asCode)) }
     }
 
     def printWriter(dst_dir : File, filename : String) =
@@ -39,6 +41,17 @@ package object gen
                     new FileOutputStream(
                         new File(dst_dir, filename.toLowerCase), true))),
         true)
+
+    def processUsedTypes()
+    {
+        var processedTypes = Set.empty[TypesBound.Base]
+
+        def impl(typesToProcess : Set[TypesBound.Base]) {
+
+        }
+
+        impl(Typed.topLevel.getUsedTypes)
+    }
 
     def processFunctions(p : Typed.Package, dir : File, idx_dir : File)
     {
@@ -201,9 +214,6 @@ package object gen
                                     val base_dir = new File(s"$dir/_$name")
 
                                     if (interface.name == "IObservable") {
-                                        out.println("from marketsim import meta")
-                                        out.println("from marketsim.gen._out._ievent import IEvent")
-                                        out.println("IObservable = {}")
 
                                         val fs = interface.getInstances
 
@@ -225,17 +235,9 @@ package object gen
 
                                                 ty_out.println(base.withImports(s).toString)
                                             }
-
-                                            val s =
-                                                "IObservable[" ||| rt.asCode ||| "] = " ||| name |||
-                                                            ImportFrom(name, "_" + name) | nl
-
-                                            out.println(base.withImports(s).toString)
                                         }
                                     }
                                     if (interface.name == "Observable") {
-                                        out.println("from marketsim.event import Conditional_Impl")
-                                        out.println("Observable = {}")
 
                                         val fs = interface.getInstances
 
@@ -256,12 +258,6 @@ package object gen
 
                                                 ty_out.println(base.withImports(s).toString)
                                             }
-
-                                            val s =
-                                                "Observable[" ||| rt.asCode ||| "] = " ||| name |||
-                                                        ImportFrom(name, "_" + name) | nl
-
-                                            out.println(base.withImports(s).toString)
                                         }
                                     }
                                 }
@@ -285,8 +281,6 @@ package object gen
                                 else {
                                     val base_dir = new File(s"$dir/_$name")
                                     if (alias.name == "IFunction") {
-                                        out.println("from marketsim import meta")
-                                        out.println("IFunction = {}")
 
                                         val fs =
                                             alias.getInstances map {
@@ -314,10 +308,6 @@ package object gen
                                                 (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
                                                 predef.crlf)
 
-                                            val s =
-                                                "IFunction[" ||| f.ret.asCode |||
-                                                        (if (f.args.isEmpty) toLazy("") else "," ||| args )  ||| "] = " ||| name | nl
-
                                             for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
                                             {
                                                 val s =
@@ -329,13 +319,6 @@ package object gen
 
                                                 ty_out.println(base.withImports(s).toString)
                                             }
-
-                                            def isMine(p : Importable) = p match {
-                                                case ImportFrom(_, module) if module endsWith "._ifunction" => true
-                                                case _ => false
-                                            }
-
-                                            out.println(importsWithout(s, isMine).toString)
                                         }
                                     }
                                 }

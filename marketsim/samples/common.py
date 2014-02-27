@@ -6,7 +6,7 @@ from marketsim import (_, scheduler, veusz, registry, config,
                        context, bind)
 
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._ifunction import IFunction
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 
 
 from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
@@ -318,7 +318,7 @@ def run(name, constructor, only_veusz):
 def Constant(c, demo):
     return [(constant(c).OnEveryDt(10), demo)]
 
-class Interlacing(IFunction[float]):
+class Interlacing(IFunctionfloat):
 
     def __init__(self, phase = 1, timeframe = 10):
         self.timeframe = timeframe
@@ -330,9 +330,9 @@ class Interlacing(IFunction[float]):
     def __call__(self):
         return int(self._scheduler.currentTime / self.timeframe) % 2 * 2 - 1
 
-from marketsim.gen._out._side import Side
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 
-class InterlacingSide(IFunction[Side]):
+class InterlacingSide(IFunctionSide):
     
     def __init__(self, phase = 1, timeframe = 10):
         self._impl = Interlacing(phase, timeframe)

@@ -368,6 +368,12 @@ package object Typed
             used_types = used_types + t.unOptionalize
         }
 
+        def clearUsedTypes() {
+            used_types = Set.empty
+        }
+
+        def getUsedTypes = used_types
+
         private var methods_by_name = Map.empty[String, Map[TypesBound.Base, Set[AST.QualifiedName]]]
         private var methods_by_type = Map.empty[TypesBound.Base, Map[String, Set[NameTable.Scope]]]
         private var untyped = Option.empty[NameTable.Scope]
