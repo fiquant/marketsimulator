@@ -1,11 +1,18 @@
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionobjectifunctionsideifunctionfloat import IFunctionobjectIFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionieventifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIEventIFunctionfloatIFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionobjectifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionobjectIFunctionfloatIFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctioniorderifunctionfloatifunctionsideifunctionfloat import IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionSideIFunctionfloat
 #((() => .Side),(() => .Float)) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionSide,IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    
+    _types.append(IFunctionobjectIFunctionSideIFunctionfloat)
+    _types.append(IFunctionIFunctionobjectIFunctionfloatIFunctionSideIFunctionfloat)
+    _types.append(IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionSideIFunctionfloat)
+    _types.append(IFunctionIFunctionIEventIFunctionfloatIFunctionSideIFunctionfloat)
     def sidevolume_price_WithExpiry(self, expiry = None):
         from marketsim.gen._out.order._curried._sidevolume_price_withexpiry import sidevolume_price_WithExpiry
         return sidevolume_price_WithExpiry(self,expiry)

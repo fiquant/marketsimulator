@@ -89,6 +89,41 @@ package object gen
 
                             ty_out.println(base.withImports(s).toString)
                         }
+                    case f : TypesBound.Alias =>
+                        Typed.topLevel addTypeUsage f.target
+
+                    case f : TypesBound.Function =>
+
+                        val name = f.asCode
+
+                        val args = TypesBound.Tuple(f.args).asCode
+
+                        val b =
+                            if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_))
+                                "Function_impl" ||| ImportFrom("Function_impl", "marketsim.types")
+                            else
+                                TypesBound.Any_.asCode
+
+                        val methods = getMethods(f)
+
+                        val casts = Code.from(
+                            TypesBound.directCasts(f.ret).toList map { t =>
+                                "_types.append(" ||| TypesBound.Function(f.args, t).asCode ||| ")" },
+                            predef.crlf)
+
+                        for (ty_out <- managed(printWriter(new File(out_dir, "_ifunction"), s"_$name.py")))
+                        {
+                            val s =
+                                "#" ||| f.asScala |
+                                s"class $name("||| b |||"):" |>
+                                        ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]"
+                                                | casts | methods) | nl |
+                                ImportFrom("meta", "marketsim")
+
+                            ty_out.println(base.withImports(s).toString)
+                        }
+
+
 
                     case _ =>
 
@@ -278,50 +313,6 @@ package object gen
                                     out.println(
                                         base.withImports(alias.name + " = " |||
                                                 (alias.target bind TypesUnbound.EmptyTypeMapper_Bound).asCode).toString)
-                                else {
-                                    val base_dir = new File(s"$dir/_$name")
-                                    if (alias.name == "IFunction") {
-
-                                        val fs =
-                                            alias.getInstances map {
-                                                case f : TypesBound.Function => f
-                                                case f : TypesBound.Alias => f.target.asInstanceOf[TypesBound.Function]
-                                                case _ =>
-                                                    throw new Exception("IFunction instance may be only function or alias")
-                                            }
-
-                                        fs foreach { f =>
-
-                                            val name = f.asCode
-
-                                            val args = TypesBound.Tuple(f.args).asCode
-
-                                            val b =
-                                                if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_))
-                                                    "Function_impl" ||| ImportFrom("Function_impl", "marketsim.types")
-                                                else
-                                                    TypesBound.Any_.asCode
-
-                                            val methods = getMethods(f)
-
-                                            val casts = Code.from(
-                                                (fs filter { y => y != f && (f canCastTo y) } map { "_types.append(" ||| _.asCode ||| ")" }).toList,
-                                                predef.crlf)
-
-                                            for (ty_out <- managed(printWriter(base_dir, s"_$name.py")))
-                                            {
-                                                val s =
-                                                    "#" ||| f.asScala |
-                                                    s"class $name("||| b |||"):" |>
-                                                            ("_types = [meta.function("||| args ||| "," ||| f.ret.asCode |||")]"
-                                                                    | casts | methods) | nl |
-                                                    ImportFrom("meta", "marketsim")
-
-                                                ty_out.println(base.withImports(s).toString)
-                                            }
-                                        }
-                                    }
-                                }
                 }
             }
 

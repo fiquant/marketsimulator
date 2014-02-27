@@ -1,10 +1,17 @@
+from marketsim.gen._out._ifunction._ifunctionifunctionobjectifunctionfloatifunctionfloat import IFunctionIFunctionobjectIFunctionfloatIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionieventifunctionfloatifunctionfloat import IFunctionIFunctionIEventIFunctionfloatIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctioniorderifunctionfloatifunctionfloat import IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+from marketsim.gen._out._ifunction._ifunctionobjectifunctionfloat import IFunctionobjectIFunctionfloat
 #(() => .Float) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,),IFunctionIObservableIOrderIFunctionfloat)]
-    
+    _types.append(IFunctionobjectIFunctionfloat)
+    _types.append(IFunctionIFunctionobjectIFunctionfloatIFunctionfloat)
+    _types.append(IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionfloat)
+    _types.append(IFunctionIFunctionIEventIFunctionfloatIFunctionfloat)
     def volume_price_WithExpiry(self, expiry = None):
         from marketsim.gen._out.order._curried._volume_price_withexpiry import volume_price_WithExpiry
         return volume_price_WithExpiry(self,expiry)

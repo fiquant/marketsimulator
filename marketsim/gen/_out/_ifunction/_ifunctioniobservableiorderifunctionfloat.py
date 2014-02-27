@@ -1,11 +1,15 @@
+from marketsim.gen._out._ifunction._ifunctionifunctioniorderifunctionfloat import IFunctionIFunctionIOrderIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._ifunction._ifunctionieventifunctionfloat import IFunctionIEventIFunctionfloat
 from marketsim import meta
+from marketsim.gen._out._ifunction._ifunctionobjectifunctionfloat import IFunctionobjectIFunctionfloat
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 #(() => .Float) => .IObservable[.IOrder]
 class IFunctionIObservableIOrderIFunctionfloat(object):
     _types = [meta.function((IFunctionfloat,),IObservableIOrder)]
+    _types.append(IFunctionobjectIFunctionfloat)
+    _types.append(IFunctionIFunctionIOrderIFunctionfloat)
     _types.append(IFunctionIEventIFunctionfloat)
     def RSI_linear(self, alpha = None,k = None,timeframe = None):
         from marketsim.gen._out.strategy._rsi_linear import RSI_linear

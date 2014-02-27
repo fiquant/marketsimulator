@@ -1,10 +1,17 @@
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionobjectifunctionside import IFunctionobjectIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctionobjectifunctionfloatifunctionside import IFunctionIFunctionobjectIFunctionfloatIFunctionSide
 from marketsim.gen._out._ifunction._ifunctioniobservableiorderifunctionfloat import IFunctionIObservableIOrderIFunctionfloat
 from marketsim import meta
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctionifunctioniorderifunctionfloatifunctionside import IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionSide
+from marketsim.gen._out._ifunction._ifunctionifunctionieventifunctionfloatifunctionside import IFunctionIFunctionIEventIFunctionfloatIFunctionSide
 #(() => .Side) => ((() => .Float) => .IObservable[.IOrder])
 class IFunctionIFunctionIObservableIOrderIFunctionfloatIFunctionSide(object):
     _types = [meta.function((IFunctionSide,),IFunctionIObservableIOrderIFunctionfloat)]
-    
+    _types.append(IFunctionobjectIFunctionSide)
+    _types.append(IFunctionIFunctionobjectIFunctionfloatIFunctionSide)
+    _types.append(IFunctionIFunctionIFunctionIOrderIFunctionfloatIFunctionSide)
+    _types.append(IFunctionIFunctionIEventIFunctionfloatIFunctionSide)
     def side_price_StopLoss(self, maxloss = None):
         from marketsim.gen._out.order._curried._side_price_stoploss import side_price_StopLoss
         return side_price_StopLoss(self,maxloss)
