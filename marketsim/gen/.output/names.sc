@@ -1925,7 +1925,7 @@ type Volume = Int
 
 type Optional[T]
 
-type ICumulative : IStatDomain
+type ICumulative() : IStatDomain
 
 type IAccount
 
@@ -1951,7 +1951,7 @@ type IEvent
 
 type IMultiAssetStrategy
 
-type IMoving : IStatDomain
+type IMoving(timeframe = 100.0) : IStatDomain
 
 type ITwoWayLink
 
@@ -1965,7 +1965,7 @@ type ISingleAssetTrader : IAccount, ITrader
 
 type IVolumeLevels
 
-type IEW : IStatDomain
+type IEW(alpha = 0.015) : IStatDomain
 
 type List[T]
 

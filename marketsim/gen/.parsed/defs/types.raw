@@ -5,6 +5,7 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | | | - T
+| | - None
 | | - List:
 | | - List:
 | - Interface:
@@ -12,36 +13,42 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | | | - T
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - Any
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - String
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - Boolean
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - Float
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - Int
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -87,6 +94,7 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | | | - T
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -103,6 +111,7 @@ Definitions:
 | | - IEvent
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
@@ -110,6 +119,7 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | | | - U
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -132,6 +142,7 @@ Definitions:
 | | - Generics:
 | | | - List:
 | | | | - U
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -148,30 +159,35 @@ Definitions:
 | | - IOrderQueue
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IOrderBook
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - ILink
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - ITwoWayLink
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IOrder
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Alias:
@@ -193,18 +209,21 @@ Definitions:
 | | - ITrader
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IAccount
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - ISingleAssetTrader
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -221,6 +240,7 @@ Definitions:
 | | - IDifferentiable
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -237,48 +257,64 @@ Definitions:
 | | - ICandleStick
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IVolumeLevels
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - ISingleAssetStrategy
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IMultiAssetStrategy
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IGraph
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - ITimeSerie
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IStatDomain
 | | - Generics:
 | | | - List:
+| | - None
 | | - List:
 | | - List:
 | - Interface:
 | | - IEW
 | | - Generics:
 | | | - List:
+| | - Some:
+| | | - List:
+| | | | - Parameter:
+| | | | | - alpha
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FloatLit:
+| | | | | | | - 0.015
+| | | | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:
@@ -289,6 +325,8 @@ Definitions:
 | - Interface:
 | | - ICumulative
 | | - Generics:
+| | | - List:
+| | - Some:
 | | | - List:
 | | - List:
 | | | - SimpleType:
@@ -301,6 +339,15 @@ Definitions:
 | | - IMoving
 | | - Generics:
 | | | - List:
+| | - Some:
+| | | - List:
+| | | | - Parameter:
+| | | | | - timeframe
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FloatLit:
+| | | | | | | - 100.0
+| | | | | - List:
 | | - List:
 | | | - SimpleType:
 | | | | - QualifiedName:

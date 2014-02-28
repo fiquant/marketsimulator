@@ -185,11 +185,14 @@ package object Printer
             val decorators : Iterable[Decorator]
             val name : String
             val generics : Generics
+            def parameters : Option[List[Parameter]]
             val bases : List[Any]
 
             protected def toScala = crlf +
                     (decorators map {_ + crlf} mkString "") +
-                    "type " + name + generics + (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+                    "type " + name + generics +
+                    (if (parameters.isEmpty) "" else parameters.get mkString ("(",",",")")) +
+                    (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
         }
 
         trait TypeAlias extends Printable with Definition

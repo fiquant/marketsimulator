@@ -127,6 +127,7 @@ package object AST {
 
     case class Interface(name       : String,
                          generics   : Generics,
+                         parameters : Option[List[Parameter]],
                          bases      : List[Type],
                          decorators : List[Decorator])
             extends TypeDeclaration

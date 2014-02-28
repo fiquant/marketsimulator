@@ -61,8 +61,8 @@ type ITimeSerie
 
 type IStatDomain
 
-type IEW : IStatDomain
+type IEW(alpha = 0.015) : IStatDomain
 
-type ICumulative : IStatDomain
+type ICumulative() : IStatDomain
 
-type IMoving : IStatDomain
+type IMoving(timeframe = 100.0) : IStatDomain
