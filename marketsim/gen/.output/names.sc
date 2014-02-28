@@ -310,26 +310,49 @@ package math
         
         type IMoving : IStatDomain
         
-        @python.intrinsic.function("moments.tmp.Alpha_Impl")
-        @method = "N/A"
-        def alpha(x = .math.impl.EW()) : .Float
-        
         @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-        @method = "N/A"
-        def timeframe(x = .math.impl.Moving()) : .Float
+        def Timeframe(x = .math.impl.Moving()) : .Float
         
-        @python.intrinsic("moments.tmp.Source_Impl")
-        @method = "N/A"
-        def source(x = .math.impl.EW() : .math.impl.IStatDomain) : .IObservable[.Float]
+        def RelStdDev(x = .math.impl.Moving()) = .math.Moving.RelStdDev(.math.impl.Source(x),.math.impl.Timeframe(x))
+        
+        def RelStdDev(x = .math.impl.Cumulative()) = .math.Cumulative.RelStdDev(.math.impl.Source(x))
+        
+        def RelStdDev(x = .math.impl.EW()) = .math.EW.RelStdDev(.math.impl.Source(x),.math.impl.Alpha(x))
+        
+        def Var(x = .math.impl.Moving()) = .math.Moving.Var(.math.impl.Source(x),.math.impl.Timeframe(x))
+        
+        def Var(x = .math.impl.Cumulative()) = .math.Cumulative.Var(.math.impl.Source(x))
+        
+        def Var(x = .math.impl.EW()) = .math.EW.Var(.math.impl.Source(x),.math.impl.Alpha(x))
+        
+        def Avg(x = .math.impl.Moving()) = .math.Moving.Avg(.math.impl.Source(x),.math.impl.Timeframe(x))
+        
+        def Avg(x = .math.impl.Cumulative()) = .math.Cumulative.Avg(.math.impl.Source(x))
+        
+        def Avg(x = .math.impl.EW()) = .math.EW.Avg(.math.impl.Source(x),.math.impl.Alpha(x))
         
         @python.intrinsic.function("_constant._Empty_Impl")
         def Cumulative(source = .const(1.0)) : .math.impl.ICumulative
         
+        @python.intrinsic("moments.tmp.Source_Impl")
+        def Source(x = .math.impl.EW() : .math.impl.IStatDomain) : .IObservable[.Float]
+        
+        def StdDev(x = .math.impl.Moving()) = .math.Moving.StdDev(.math.impl.Source(x),.math.impl.Timeframe(x))
+        
+        def StdDev(x = .math.impl.Cumulative()) = .math.Cumulative.StdDev(.math.impl.Source(x))
+        
+        def StdDev(x = .math.impl.EW()) = .math.EW.StdDev(.math.impl.Source(x),.math.impl.Alpha(x))
+        
         @python.intrinsic.function("_constant._Empty_Impl")
+        @label = "EW_{\\\\alpha=%(alpha)s}"
         def EW(source = .const(1.0),
                alpha = 0.015) : .math.impl.IEW
         
+        @python.intrinsic.function("moments.tmp.Alpha_Impl")
+        def Alpha(x = .math.impl.EW()) : .Float
+        
         @python.intrinsic.function("_constant._Empty_Impl")
+        @label = "Moving_{%(timeframe)s}"
         def Moving(source = .const(1.0),
                    timeframe = 100.0) : .math.impl.IMoving
         

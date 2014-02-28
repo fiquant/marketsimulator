@@ -21,9 +21,9 @@ class f_AtanPow_Float(IFunctionIFunctionfloat_from_IFunctionfloat):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.strategy.weight._atanpow import AtanPow_FloatFloat as _strategy_weight_AtanPow_FloatFloat
-        f = f if f is not None else call(_constant_Float,1.0)
+        f = f if f is not None else deref_opt(_constant_Float(1.0))
         base = self.base
         return _strategy_weight_AtanPow_FloatFloat(f,base)
     

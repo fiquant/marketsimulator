@@ -35,8 +35,8 @@ class constant_Int(IFunctionint):
     
     def getImpl(self):
         from marketsim.gen._out._const import const_Int as _const_Int
-        from marketsim import call
-        return call(_const_Int,self.x)
+        from marketsim import deref_opt
+        return deref_opt(_const_Int(self.x))
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -75,8 +75,8 @@ class constant_Float(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
-        return call(_const_Float,self.x)
+        from marketsim import deref_opt
+        return deref_opt(_const_Float(self.x))
     
 def constant(x = None): 
     from marketsim import rtti

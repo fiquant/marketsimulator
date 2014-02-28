@@ -9,10 +9,10 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
     def __init__(self, trader = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
+        self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         
         rtti.check_fields(self)
         Balance_Impl.__init__(self)

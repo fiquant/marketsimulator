@@ -13,9 +13,9 @@ class AtanPow_FloatFloat(IFunctionfloat):
     """ 
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.f = f if f is not None else call(_constant_Float,1.0)
+        self.f = f if f is not None else deref_opt(_constant_Float(1.0))
         self.base = base if base is not None else 1.002
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -47,8 +47,8 @@ class AtanPow_FloatFloat(IFunctionfloat):
         from marketsim.gen._out.math._atan import Atan_Float as _math_Atan_Float
         from marketsim.gen._out.math._pow import Pow_FloatFloat as _math_Pow_FloatFloat
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
-        return call(_math_Atan_Float,call(_math_Pow_FloatFloat,call(_const_Float,self.base),self.f))
+        from marketsim import deref_opt
+        return deref_opt(_math_Atan_Float(deref_opt(_math_Pow_FloatFloat(deref_opt(_const_Float(self.base)),self.f))))
     
 def AtanPow(f = None,base = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

@@ -7,13 +7,13 @@ class Min_IObservableFloatFloat(Observablefloat,Min_Impl):
     """ 
     """ 
     def __init__(self, source = None, timeframe = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import rtti
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.source = source if source is not None else call(_const_Float,1.0)
+        self.source = source if source is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 100.0
         

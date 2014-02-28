@@ -53,13 +53,16 @@ class Context(object):
         
         delay = constant(1.07)
 
-        self.link_A = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
-        self.link_B = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
-        self.link_C = orderbook.TwoWayLink(orderbook.Link(delay), orderbook.Link(delay))
+        def link():
+            return delay.Link.TwoWayLink(delay.Link)
 
-        self.remote_A = orderbook.Remote(self.book_A, self.link_A)
-        self.remote_B = orderbook.Remote(self.book_B, self.link_B)
-        self.remote_C = orderbook.Remote(self.book_C, self.link_C)
+        self.link_A = link()
+        self.link_B = link()
+        self.link_C = link()
+
+        self.remote_A = self.book_A.Remote(self.link_A)
+        self.remote_B = self.book_B.Remote(self.link_B)
+        self.remote_C = self.book_C.Remote(self.link_C)
 
         self.graph = graph_renderer
         self.price_graph = self.graph("Price")
@@ -185,17 +188,17 @@ def orderBooksToRender(ctx, traders):
                     thisBook.Bids.WeightedPrice()
                 ],
                 ctx.avgs_graph : [
-                    assetPrice.Cumulative_Avg,
-                    (assetPrice.Moving_Avg(20.), config.collectMoving),
-                    (assetPrice.Moving_Avg(100.), config.collectMoving),
-                    assetPrice.EW_Avg(0.15),
-                    assetPrice.EW_Avg(0.65),
-                    assetPrice.EW_Avg(0.015),
+                    assetPrice.Cumulative.Avg,
+                    (assetPrice.Moving(20).Avg, config.collectMoving),
+                    (assetPrice.Moving(100).Avg, config.collectMoving),
+                    assetPrice.EW(0.15).Avg,
+                    assetPrice.EW(0.65).Avg,
+                    assetPrice.EW(0.015).Avg,
                 ],
                 ctx.macd_graph : [
                     scaled,
-                    scaled.EW_Avg(2./27),
-                    scaled.EW_Avg(2./13),
+                    scaled.EW(2./27).Avg,
+                    scaled.EW(2./13).Avg,
                     assetPrice.MACD(),
                     assetPrice.macd_Signal(),
                     assetPrice.macd_Histogram(),
@@ -208,9 +211,9 @@ def orderBooksToRender(ctx, traders):
                     (assetPrice.Moving_Max(100.), config.collectMoving),
                     (assetPrice.Moving_Min(100.), config.collectMoving)
                 ],
-                ctx.bollinger_100_graph : bollinger(assetPrice.Moving_Avg(100), assetPrice.Moving_StdDev(100)) if config.collectMoving else [],
-                ctx.bollinger_20_graph : bollinger(assetPrice.Moving_Avg(20), assetPrice.Moving_StdDev(20)) if config.collectMoving else [],
-                ctx.bollinger_a015_graph : bollinger(assetPrice.EW_Avg(0.015), assetPrice.EW_StdDev(0.015)),
+                ctx.bollinger_100_graph : bollinger(assetPrice.Moving(100).Avg, assetPrice.Moving(100).StdDev) if config.collectMoving else [],
+                ctx.bollinger_20_graph : bollinger(assetPrice.Moving(20).Avg, assetPrice.Moving(20).StdDev) if config.collectMoving else [],
+                ctx.bollinger_a015_graph : bollinger(assetPrice.EW(0.015).Avg, assetPrice.EW(0.015).StdDev),
 
             }
 

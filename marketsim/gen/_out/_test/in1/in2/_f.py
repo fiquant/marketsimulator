@@ -7,9 +7,9 @@ class F_Float(IFunctionfloat):
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._test.in1.in2._intfunc import IntFunc_ as __test_in1_in2_IntFunc_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else call(__test_in1_in2_IntFunc_,)
+        self.x = x if x is not None else deref_opt(__test_in1_in2_IntFunc_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
     

@@ -8,9 +8,9 @@ class Avg_IObservableFloat(IDifferentiable,CMA_Impl):
     """ 
     def __init__(self, source = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.source = source if source is not None else call(_const_Float,1.0)
+        self.source = source if source is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         CMA_Impl.__init__(self)
     

@@ -9,15 +9,15 @@ class RSIbis_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetStrategy):
       and sells when RSI is less than 50 - *thresold*
     """ 
     def __init__(self, eventGen = None, orderFactory = None, alpha = None, timeframe = None, threshold = None):
+        from marketsim import deref_opt
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim import call
         from marketsim import event
-        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,call(_math_random_expovariate_Float,1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else call(_order__curried_side_Market_Float,)
+        self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
+        self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         self.alpha = alpha if alpha is not None else (1.0/14)
         self.timeframe = timeframe if timeframe is not None else 1.0
         self.threshold = threshold if threshold is not None else 30.0
@@ -54,13 +54,13 @@ class RSIbis_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetStrategy):
     
     def getImpl(self):
         from marketsim.gen._out.math._rsi import RSI_IOrderBookFloatFloat as _math_RSI_IOrderBookFloatFloat
+        from marketsim import deref_opt
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
-        return call(_strategy_Generic_IObservableIOrderIEvent,call(self.orderFactory,call(_strategy_side_Signal_FloatFloat,call(_ops_Sub_FloatFloat,call(_constant_Float,50.0),call(_math_RSI_IOrderBookFloatFloat,call(_orderbook_OfTrader_IAccount,),self.timeframe,self.alpha)),(50.0-self.threshold))),self.eventGen)
+        return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IOrderBookFloatFloat(deref_opt(_orderbook_OfTrader_IAccount()),self.timeframe,self.alpha)))),(50.0-self.threshold))))),self.eventGen))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

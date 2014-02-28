@@ -10,9 +10,9 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunction
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.proto = proto if proto is not None else call(_order__curried_price_Limit_SideFloat,)
+        self.proto = proto if proto is not None else deref_opt(_order__curried_price_Limit_SideFloat())
         rtti.check_fields(self)
     
     @property
@@ -27,9 +27,9 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunction
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.order._peg import Peg
-        price = price if price is not None else call(_constant_Float,100.0)
+        price = price if price is not None else deref_opt(_constant_Float(100.0))
         proto = self.proto
         return Peg(proto(price))
     

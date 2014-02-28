@@ -7,15 +7,15 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_const_Float,1.0)
-        self.elsePart = elsePart if elsePart is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
+        self.elsePart = elsePart if elsePart is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -47,8 +47,8 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
         from marketsim.gen._out.ops._notequal import NotEqual_IObservableFloatFloat as _ops_NotEqual_IObservableFloatFloat
         from marketsim.gen._out._null import null_ as _null_
-        from marketsim import call
-        return call(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat,call(_ops_NotEqual_IObservableFloatFloat,self.x,call(_null_,)),self.x,self.elsePart)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(deref_opt(_ops_NotEqual_IObservableFloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -60,16 +60,16 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
-        self.elsePart = elsePart if elsePart is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
+        self.elsePart = elsePart if elsePart is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -101,8 +101,8 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         from marketsim.gen._out.ops._condition import Condition_BooleanFloatIObservableFloat as _ops_Condition_BooleanFloatIObservableFloat
         from marketsim.gen._out.ops._notequal import NotEqual_FloatFloat as _ops_NotEqual_FloatFloat
         from marketsim.gen._out._null import null_ as _null_
-        from marketsim import call
-        return call(_ops_Condition_BooleanFloatIObservableFloat,call(_ops_NotEqual_FloatFloat,self.x,call(_null_,)),self.x,self.elsePart)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_BooleanFloatIObservableFloat(deref_opt(_ops_NotEqual_FloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -114,16 +114,16 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_const_Float,1.0)
-        self.elsePart = elsePart if elsePart is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
+        self.elsePart = elsePart if elsePart is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -155,8 +155,8 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatFloat as _ops_Condition_IObservableBooleanIObservableFloatFloat
         from marketsim.gen._out.ops._notequal import NotEqual_IObservableFloatFloat as _ops_NotEqual_IObservableFloatFloat
         from marketsim.gen._out._null import null_ as _null_
-        from marketsim import call
-        return call(_ops_Condition_IObservableBooleanIObservableFloatFloat,call(_ops_NotEqual_IObservableFloatFloat,self.x,call(_null_,)),self.x,self.elsePart)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatFloat(deref_opt(_ops_NotEqual_IObservableFloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -167,15 +167,15 @@ class IfDefined_FloatFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None, elsePart = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
-        self.elsePart = elsePart if elsePart is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
+        self.elsePart = elsePart if elsePart is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -207,8 +207,8 @@ class IfDefined_FloatFloat(Observablefloat):
         from marketsim.gen._out.ops._condition import Condition_BooleanFloatFloat as _ops_Condition_BooleanFloatFloat
         from marketsim.gen._out.ops._notequal import NotEqual_FloatFloat as _ops_NotEqual_FloatFloat
         from marketsim.gen._out._null import null_ as _null_
-        from marketsim import call
-        return call(_ops_Condition_BooleanFloatFloat,call(_ops_NotEqual_FloatFloat,self.x,call(_null_,)),self.x,self.elsePart)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_BooleanFloatFloat(deref_opt(_ops_NotEqual_FloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
 def IfDefined(x = None,elsePart = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

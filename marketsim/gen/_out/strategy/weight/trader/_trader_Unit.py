@@ -21,9 +21,9 @@ class trader_Unit_(IFunctionIFunctionfloat_from_IAccount):
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.strategy.weight._unit import Unit_IAccount as _strategy_weight_Unit_IAccount
-        trader = trader if trader is not None else call(_trader_SingleProxy_,)
+        trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         
         return _strategy_weight_Unit_IAccount(trader)
     

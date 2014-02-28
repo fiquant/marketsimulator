@@ -7,10 +7,10 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,_Com
     """ 
     def __init__(self, A = None, B = None):
         from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.A = A if A is not None else call(_strategy_Noise_IEventSideIObservableIOrder,)
-        self.B = B if B is not None else call(_strategy_Noise_IEventSideIObservableIOrder,)
+        self.A = A if A is not None else deref_opt(_strategy_Noise_IEventSideIObservableIOrder())
+        self.B = B if B is not None else deref_opt(_strategy_Noise_IEventSideIObservableIOrder())
         rtti.check_fields(self)
         _Combine_Impl.__init__(self)
     

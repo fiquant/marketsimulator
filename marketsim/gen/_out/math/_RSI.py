@@ -8,9 +8,9 @@ class RSI_IOrderBookFloatFloat(IFunctionfloat):
     """ 
     def __init__(self, book = None, timeframe = None, alpha = None):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
+        self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
@@ -41,14 +41,14 @@ class RSI_IOrderBookFloatFloat(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim import deref_opt
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out.math.rsi._raw import Raw_IObservableFloatFloatFloat as _math_rsi_Raw_IObservableFloatFloatFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out.ops._add import Add_FloatFloat as _ops_Add_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        return call(_ops_Sub_FloatFloat,call(_constant_Float,100.0),call(_ops_Div_FloatFloat,call(_constant_Float,100.0),call(_ops_Add_FloatFloat,call(_constant_Float,1.0),call(_math_rsi_Raw_IObservableFloatFloatFloat,call(_orderbook_MidPrice_IOrderBook,self.book),self.timeframe,self.alpha))))
+        return deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(100.0)),deref_opt(_ops_Div_FloatFloat(deref_opt(_constant_Float(100.0)),deref_opt(_ops_Add_FloatFloat(deref_opt(_constant_Float(1.0)),deref_opt(_math_rsi_Raw_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.timeframe,self.alpha))))))))
     
 def RSI(book = None,timeframe = None,alpha = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

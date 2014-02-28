@@ -35,8 +35,8 @@ class Buy_(IFunctionSide):
     
     def getImpl(self):
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
-        from marketsim import call
-        return call(_side_observableBuy_,)
+        from marketsim import deref_opt
+        return deref_opt(_side_observableBuy_())
     
 def Buy(): 
     from marketsim import rtti

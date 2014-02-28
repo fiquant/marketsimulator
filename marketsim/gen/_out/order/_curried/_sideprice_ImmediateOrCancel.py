@@ -12,9 +12,9 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.proto = proto if proto is not None else call(_order__curried_sideprice_Limit_Float,)
+        self.proto = proto if proto is not None else deref_opt(_order__curried_sideprice_Limit_Float())
         rtti.check_fields(self)
     
     @property
@@ -29,11 +29,11 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
     
     def __call__(self, side = None,price = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.order._immediateorcancel import ImmediateOrCancel
-        side = side if side is not None else call(_side_Sell_,)
-        price = price if price is not None else call(_constant_Float,100.0)
+        side = side if side is not None else deref_opt(_side_Sell_())
+        price = price if price is not None else deref_opt(_constant_Float(100.0))
         proto = self.proto
         return ImmediateOrCancel(proto(side,price))
     

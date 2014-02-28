@@ -51,6 +51,7 @@ class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim import deref_opt
         from marketsim.gen._out.ops._add import Add_IObservableFloatFloat as _ops_Add_IObservableFloatFloat
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.order._floatingprice import FloatingPrice_FloatIObservableIOrderIObservableFloat as _order_FloatingPrice_FloatIObservableIOrderIObservableFloat
@@ -58,14 +59,13 @@ class MarketData_StringStringStringFloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out.observable._breaksatchanges import BreaksAtChanges_IObservableFloat as _observable_BreaksAtChanges_IObservableFloat
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
         from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy
         from marketsim.gen._out.event._after import After_Float as _event_After_Float
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.order._iceberg import Iceberg_IObservableIOrderFloat as _order_Iceberg_IObservableIOrderFloat
-        return call(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy,call(_strategy_Generic_IObservableIOrderIEvent,call(_order_Iceberg_IObservableIOrderFloat,call(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat,call(_order__curried_price_Limit_SideFloat,call(_side_Sell_,),call(_constant_Float,(self.volume*1000))),call(_observable_BreaksAtChanges_IObservableFloat,call(_ops_Add_IObservableFloatFloat,call(_observable_Quote_StringStringString,self.ticker,self.start,self.end),call(_constant_Float,self.delta)))),call(_constant_Float,self.volume)),call(_event_After_Float,call(_constant_Float,0.0))),call(_strategy_Generic_IObservableIOrderIEvent,call(_order_Iceberg_IObservableIOrderFloat,call(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat,call(_order__curried_price_Limit_SideFloat,call(_side_Buy_,),call(_constant_Float,(self.volume*1000))),call(_observable_BreaksAtChanges_IObservableFloat,call(_ops_Sub_IObservableFloatFloat,call(_observable_Quote_StringStringString,self.ticker,self.start,self.end),call(_constant_Float,self.delta)))),call(_constant_Float,self.volume)),call(_event_After_Float,call(_constant_Float,0.0))))
+        return deref_opt(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(_order_Iceberg_IObservableIOrderFloat(deref_opt(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat(deref_opt(_order__curried_price_Limit_SideFloat(deref_opt(_side_Sell_()),deref_opt(_constant_Float((self.volume*1000))))),deref_opt(_observable_BreaksAtChanges_IObservableFloat(deref_opt(_ops_Add_IObservableFloatFloat(deref_opt(_observable_Quote_StringStringString(self.ticker,self.start,self.end)),deref_opt(_constant_Float(self.delta)))))))),deref_opt(_constant_Float(self.volume)))),deref_opt(_event_After_Float(deref_opt(_constant_Float(0.0)))))),deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(_order_Iceberg_IObservableIOrderFloat(deref_opt(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat(deref_opt(_order__curried_price_Limit_SideFloat(deref_opt(_side_Buy_()),deref_opt(_constant_Float((self.volume*1000))))),deref_opt(_observable_BreaksAtChanges_IObservableFloat(deref_opt(_ops_Sub_IObservableFloatFloat(deref_opt(_observable_Quote_StringStringString(self.ticker,self.start,self.end)),deref_opt(_constant_Float(self.delta)))))))),deref_opt(_constant_Float(self.volume)))),deref_opt(_event_After_Float(deref_opt(_constant_Float(0.0))))))))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

@@ -9,9 +9,9 @@ class OfTrader_IAccount(IOrderBook,_OfTrader_Impl):
     """ 
     def __init__(self, Trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.Trader = Trader if Trader is not None else call(_trader_SingleProxy_,)
+        self.Trader = Trader if Trader is not None else deref_opt(_trader_SingleProxy_())
         rtti.check_fields(self)
         _OfTrader_Impl.__init__(self)
     

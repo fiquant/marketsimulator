@@ -10,10 +10,10 @@ class TwoWayLink_ILinkILink(ITwoWayLink,_TwoWayLink_Impl):
     """ 
     def __init__(self, up = None, down = None):
         from marketsim.gen._out.orderbook._link import Link_IObservableFloat as _orderbook_Link_IObservableFloat
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.up = up if up is not None else call(_orderbook_Link_IObservableFloat,)
-        self.down = down if down is not None else call(_orderbook_Link_IObservableFloat,)
+        self.up = up if up is not None else deref_opt(_orderbook_Link_IObservableFloat())
+        self.down = down if down is not None else deref_opt(_orderbook_Link_IObservableFloat())
         rtti.check_fields(self)
         _TwoWayLink_Impl.__init__(self)
     

@@ -10,11 +10,11 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,_Generic_Impl):
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim import rtti
-        self.orderFactory = orderFactory if orderFactory is not None else call(_order_Limit_SideFloatFloat,)
-        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,)
+        self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order_Limit_SideFloatFloat())
+        self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float())
         rtti.check_fields(self)
         _Generic_Impl.__init__(self)
     

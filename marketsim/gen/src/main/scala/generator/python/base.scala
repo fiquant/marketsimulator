@@ -143,11 +143,14 @@ package object base {
 
         def functionBase = {
             // here should be a check that ret_type casts to some function
-            f.ret_type
+            if (f.ret_type canCastTo Typed.topLevel.float_) TypesBound.Nothing else f.ret_type
         }
 
         override def base_class_list =
+            if (functionBase != TypesBound.Nothing)
                 functionBase :: super.base_class_list
+            else
+                super.base_class_list
     }
 
     trait BaseClass_Observable extends Printer {

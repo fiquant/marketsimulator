@@ -8,9 +8,9 @@ class TraderEfficiency_IAccount(IFunctionfloat):
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
+        self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -38,8 +38,8 @@ class TraderEfficiency_IAccount(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency_IAccount
-        from marketsim import call
-        return call(_trader_Efficiency_IAccount,self.trader)
+        from marketsim import deref_opt
+        return deref_opt(_trader_Efficiency_IAccount(self.trader))
     
 def TraderEfficiency(trader = None): 
     from marketsim.gen._out._iaccount import IAccount

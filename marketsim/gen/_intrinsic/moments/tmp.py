@@ -1,17 +1,17 @@
 class Source_Impl(object):
 
     @property
-    def _impl(self):
-        return self.source
+    def dereference(self):
+        return self.x.source
 
 class Alpha_Impl(object):
 
     @property
-    def _impl(self):
-        return self.alpha
+    def dereference(self):
+        return self.x.alpha
 
 class Timeframe_Impl(object):
 
     @property
-    def _impl(self):
-        return self.timeframe
+    def dereference(self):
+        return self.x.timeframe

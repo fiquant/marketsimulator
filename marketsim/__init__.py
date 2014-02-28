@@ -15,11 +15,8 @@ bool = bool
 str = str
 int = int
 
-def call(target, *args):
-    r = target(*args)
-    if hasattr(r, "dereference"):
-        r = getattr(r, "dereference")
-    return r
+def deref_opt(x):
+    return getattr(x, "dereference") if hasattr(x, "dereference") else x
 
 
 class Alias(object):

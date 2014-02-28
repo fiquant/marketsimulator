@@ -34,8 +34,8 @@ class S2_(str):
     
     def getImpl(self):
         from marketsim.gen._out._test.in1.in2._s1 import S1_String as __test_in1_in2_S1_String
-        from marketsim import call
-        return call(__test_in1_in2_S1_String,)
+        from marketsim import deref_opt
+        return deref_opt(__test_in1_in2_S1_String())
     
 def S2(): 
     from marketsim import rtti

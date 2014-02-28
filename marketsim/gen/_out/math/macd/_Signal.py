@@ -8,9 +8,9 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
     """ 
     def __init__(self, x = None, slow = None, fast = None, timeframe = None, step = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         self.timeframe = timeframe if timeframe is not None else 9.0
@@ -48,8 +48,8 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD_IObservableFloatFloatFloat
-        from marketsim import call
-        return call(_math_EW_Avg_IObservableFloatFloat,call(_observable_OnEveryDt_FloatFloat,call(_math_macd_MACD_IObservableFloatFloatFloat,self.x,self.slow,self.fast),self.step),(2/((self.timeframe+1))))
+        from marketsim import deref_opt
+        return deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast)),self.step)),(2/((self.timeframe+1)))))
     
 def Signal(x = None,slow = None,fast = None,timeframe = None,step = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

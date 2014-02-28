@@ -8,9 +8,9 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
     """ 
     def __init__(self, trader = None, alpha = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
+        self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         self.alpha = alpha if alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -42,8 +42,8 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
         from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency_IAccount
-        from marketsim import call
-        return call(_math_Derivative_IDifferentiable,call(_math_EW_Avg_IObservableFloatFloat,call(_trader_Efficiency_IAccount,self.trader),self.alpha))
+        from marketsim import deref_opt
+        return deref_opt(_math_Derivative_IDifferentiable(deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_trader_Efficiency_IAccount(self.trader)),self.alpha))))
     
 def EfficiencyTrend(trader = None,alpha = None): 
     from marketsim.gen._out._iaccount import IAccount

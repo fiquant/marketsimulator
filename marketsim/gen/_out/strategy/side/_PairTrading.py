@@ -8,17 +8,17 @@ class PairTrading_IOrderBookFloatIOrderBook(ObservableSide):
     """ 
     """ 
     def __init__(self, bookToDependOn = None, factor = None, book = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
-        from marketsim import call
         from marketsim import event
         ObservableSide.__init__(self)
-        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else call(_orderbook_OfTrader_IAccount,)
+        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.factor = factor if factor is not None else 1.0
-        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
+        self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -49,11 +49,11 @@ class PairTrading_IOrderBookFloatIOrderBook(ObservableSide):
     
     def getImpl(self):
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue_IObservableFloatIOrderBook
+        from marketsim import deref_opt
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
-        return call(_strategy_side_FundamentalValue_IObservableFloatIOrderBook,call(_ops_Mul_IObservableFloatFloat,call(_orderbook_MidPrice_IOrderBook,self.bookToDependOn),call(_constant_Float,self.factor)),self.book)
+        return deref_opt(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.bookToDependOn)),deref_opt(_constant_Float(self.factor)))),self.book))
     
 def PairTrading(bookToDependOn = None,factor = None,book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

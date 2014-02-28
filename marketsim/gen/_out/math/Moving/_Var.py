@@ -8,9 +8,9 @@ class Var_IObservableFloatFloat(IFunctionfloat,MV_Impl):
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.source = source if source is not None else call(_const_Float,1.0)
+        self.source = source if source is not None else deref_opt(_const_Float(1.0))
         self.timeframe = timeframe if timeframe is not None else 100.0
         rtti.check_fields(self)
         MV_Impl.__init__(self)

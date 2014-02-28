@@ -9,9 +9,9 @@ class Link_IObservableFloat(ILink,_Link_Impl):
     """ 
     def __init__(self, latency = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.latency = latency if latency is not None else call(_const_Float,0.001)
+        self.latency = latency if latency is not None else deref_opt(_const_Float(0.001))
         rtti.check_fields(self)
         _Link_Impl.__init__(self)
     

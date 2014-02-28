@@ -7,14 +7,14 @@ class Sqr_IObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -43,8 +43,8 @@ class Sqr_IObservableFloat(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        from marketsim import call
-        return call(_ops_Mul_IObservableFloatIObservableFloat,self.x,self.x)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Mul_IObservableFloatIObservableFloat(self.x,self.x))
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -55,14 +55,14 @@ class Sqr_Float(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -91,8 +91,8 @@ class Sqr_Float(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.ops._mul import Mul_FloatFloat as _ops_Mul_FloatFloat
-        from marketsim import call
-        return call(_ops_Mul_FloatFloat,self.x,self.x)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Mul_FloatFloat(self.x,self.x))
     
 def Sqr(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

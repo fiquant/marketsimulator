@@ -12,10 +12,10 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
     """ 
     def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._arbitrage import Arbitrage_ as _strategy_Arbitrage_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
         self.traders = traders if traders is not None else []
-        self.strategy = strategy if strategy is not None else call(_strategy_Arbitrage_,)
+        self.strategy = strategy if strategy is not None else deref_opt(_strategy_Arbitrage_())
         self.name = name if name is not None else "-trader-"
         self.PnL = PnL if PnL is not None else 0.0
         self.timeseries = timeseries if timeseries is not None else []

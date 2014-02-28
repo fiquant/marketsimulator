@@ -40,8 +40,8 @@ class IntObs_(Observableint):
     
     def getImpl(self):
         from marketsim.gen._out._const import const_Int as _const_Int
-        from marketsim import call
-        return call(_const_Int,0)
+        from marketsim import deref_opt
+        return deref_opt(_const_Int(0))
     
 def IntObs(): 
     from marketsim import rtti

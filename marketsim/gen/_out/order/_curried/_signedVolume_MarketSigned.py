@@ -22,9 +22,9 @@ class signedVolume_MarketSigned_(IFunctionIObservableIOrder_from_IFunctionfloat)
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.order._marketsigned import MarketSigned
-        signedVolume = signedVolume if signedVolume is not None else call(_constant_Float,1.0)
+        signedVolume = signedVolume if signedVolume is not None else deref_opt(_constant_Float(1.0))
         
         return MarketSigned(signedVolume)
     

@@ -13,17 +13,17 @@ class PairTrading_IEventSideIObservableIOrderIOrderBookFloat(ISingleAssetStrateg
      asset *B* changes.
     """ 
     def __init__(self, eventGen = None, orderFactory = None, bookToDependOn = None, factor = None):
+        from marketsim import deref_opt
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim import call
         from marketsim import event
-        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,call(_math_random_expovariate_Float,1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else call(_order__curried_side_Market_Float,)
-        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else call(_orderbook_OfTrader_IAccount,)
+        self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
+        self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
+        self.bookToDependOn = bookToDependOn if bookToDependOn is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.factor = factor if factor is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -58,8 +58,8 @@ class PairTrading_IEventSideIObservableIOrderIOrderBookFloat(ISingleAssetStrateg
     def getImpl(self):
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading_IOrderBookFloatIOrderBook
-        from marketsim import call
-        return call(_strategy_Generic_IObservableIOrderIEvent,call(self.orderFactory,call(_strategy_side_PairTrading_IOrderBookFloatIOrderBook,self.bookToDependOn,self.factor)),self.eventGen)
+        from marketsim import deref_opt
+        return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_side_PairTrading_IOrderBookFloatIOrderBook(self.bookToDependOn,self.factor)))),self.eventGen))
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

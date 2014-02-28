@@ -230,9 +230,9 @@ object Printer {
         self: Typed.FunctionCall =>
 
         def asCode =
-            "call(" ||| target.asCode ||| "," |||
-                    makeCodeString(arguments map { _.asCode}, ",") ||| ")" |||
-                    ImportFrom("call", "marketsim")
+            "deref_opt(" |||
+                target.asCode ||| makeCodeString(arguments map { _.asCode}, "(",",",")") ||| ")" |||
+                ImportFrom("deref_opt", "marketsim")
     }
 
 }

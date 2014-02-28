@@ -8,9 +8,9 @@ class After_Float(IEvent,_After_Impl):
     """ 
     def __init__(self, delay = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
-        self.delay = delay if delay is not None else call(_constant_Float,10.0)
+        self.delay = delay if delay is not None else deref_opt(_constant_Float(10.0))
         rtti.check_fields(self)
         _After_Impl.__init__(self)
     

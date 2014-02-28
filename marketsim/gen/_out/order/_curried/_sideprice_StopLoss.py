@@ -11,11 +11,11 @@ class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOr
     """ 
     def __init__(self, proto = None, maxloss = None):
         from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else call(_order__curried_sideprice_Limit_Float,)
-        self.maxloss = maxloss if maxloss is not None else call(_constant_Float,0.1)
+        self.proto = proto if proto is not None else deref_opt(_order__curried_sideprice_Limit_Float())
+        self.maxloss = maxloss if maxloss is not None else deref_opt(_constant_Float(0.1))
         rtti.check_fields(self)
     
     @property
@@ -31,11 +31,11 @@ class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOr
     
     def __call__(self, side = None,price = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.order._stoploss import StopLoss
-        side = side if side is not None else call(_side_Sell_,)
-        price = price if price is not None else call(_constant_Float,100.0)
+        side = side if side is not None else deref_opt(_side_Sell_())
+        price = price if price is not None else deref_opt(_constant_Float(100.0))
         proto = self.proto
         maxloss = self.maxloss
         return StopLoss(proto(side,price), maxloss)

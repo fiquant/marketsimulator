@@ -1,7 +1,7 @@
 from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
 from marketsim import context
 
-class C_ICandleStickInt(int):
+class C_ICandleStickInt(object):
     """ 
     """ 
     def __init__(self, x , p = None):

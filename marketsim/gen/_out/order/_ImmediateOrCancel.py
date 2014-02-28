@@ -14,13 +14,13 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
-        from marketsim import call
         from marketsim import event
         ObservableIOrder.__init__(self)
-        self.proto = proto if proto is not None else call(_order_Limit_SideFloatFloat,)
+        self.proto = proto if proto is not None else deref_opt(_order_Limit_SideFloatFloat())
         event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     

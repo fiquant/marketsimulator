@@ -13,15 +13,15 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
       Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         Observablefloat.__init__(self)
-        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
+        self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         
-        self.depth = depth if depth is not None else call(_constant_Float,1.0)
+        self.depth = depth if depth is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
         CumulativePrice_Impl.__init__(self)

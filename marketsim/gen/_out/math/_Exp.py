@@ -8,10 +8,10 @@ class Exp_Float(Observablefloat):
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
     

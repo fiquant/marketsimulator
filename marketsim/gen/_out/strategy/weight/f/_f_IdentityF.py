@@ -21,9 +21,9 @@ class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.strategy.weight._identityf import IdentityF_Float as _strategy_weight_IdentityF_Float
-        f = f if f is not None else call(_constant_Float,1.0)
+        f = f if f is not None else deref_opt(_constant_Float(1.0))
         
         return _strategy_weight_IdentityF_Float(f)
     

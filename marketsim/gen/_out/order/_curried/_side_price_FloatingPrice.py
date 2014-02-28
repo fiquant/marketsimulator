@@ -10,11 +10,11 @@ class side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat(IFunct
     """ 
     def __init__(self, proto = None, floatingPrice = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else call(_order__curried_side_price_Limit_Float,)
-        self.floatingPrice = floatingPrice if floatingPrice is not None else call(_const_Float,10.0)
+        self.proto = proto if proto is not None else deref_opt(_order__curried_side_price_Limit_Float())
+        self.floatingPrice = floatingPrice if floatingPrice is not None else deref_opt(_const_Float(10.0))
         rtti.check_fields(self)
     
     @property
@@ -30,9 +30,9 @@ class side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat(IFunct
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.order._curried._price_floatingprice import price_FloatingPrice
-        side = side if side is not None else call(_side_Sell_,)
+        side = side if side is not None else deref_opt(_side_Sell_())
         proto = self.proto
         floatingPrice = self.floatingPrice
         return price_FloatingPrice(proto(side), floatingPrice)

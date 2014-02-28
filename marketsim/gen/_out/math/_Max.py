@@ -7,15 +7,15 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_const_Float,1.0)
-        self.y = y if y is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
+        self.y = y if y is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -46,8 +46,8 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatIObservableFloat as _ops_Greater_IObservableFloatIObservableFloat
-        from marketsim import call
-        return call(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat,call(_ops_Greater_IObservableFloatIObservableFloat,self.x,self.y),self.x,self.y)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(deref_opt(_ops_Greater_IObservableFloatIObservableFloat(self.x,self.y)),self.x,self.y))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -59,16 +59,16 @@ class Max_FloatIObservableFloat(Observablefloat):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
-        self.y = y if y is not None else call(_const_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
+        self.y = y if y is not None else deref_opt(_const_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -99,8 +99,8 @@ class Max_FloatIObservableFloat(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanFloatIObservableFloat as _ops_Condition_IObservableBooleanFloatIObservableFloat
         from marketsim.gen._out.ops._greater import Greater_FloatIObservableFloat as _ops_Greater_FloatIObservableFloat
-        from marketsim import call
-        return call(_ops_Condition_IObservableBooleanFloatIObservableFloat,call(_ops_Greater_FloatIObservableFloat,self.x,self.y),self.x,self.y)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_IObservableBooleanFloatIObservableFloat(deref_opt(_ops_Greater_FloatIObservableFloat(self.x,self.y)),self.x,self.y))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -112,16 +112,16 @@ class Max_IObservableFloatFloat(Observablefloat):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_const_Float,1.0)
-        self.y = y if y is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_const_Float(1.0))
+        self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -152,8 +152,8 @@ class Max_IObservableFloatFloat(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatFloat as _ops_Condition_IObservableBooleanIObservableFloatFloat
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
-        from marketsim import call
-        return call(_ops_Condition_IObservableBooleanIObservableFloatFloat,call(_ops_Greater_IObservableFloatFloat,self.x,self.y),self.x,self.y)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatFloat(deref_opt(_ops_Greater_IObservableFloatFloat(self.x,self.y)),self.x,self.y))
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -164,15 +164,15 @@ class Max_FloatFloat(Observablefloat):
     """  If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else call(_constant_Float,1.0)
-        self.y = y if y is not None else call(_constant_Float,1.0)
+        self.x = x if x is not None else deref_opt(_constant_Float(1.0))
+        self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -203,8 +203,8 @@ class Max_FloatFloat(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_BooleanFloatFloat as _ops_Condition_BooleanFloatFloat
         from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
-        from marketsim import call
-        return call(_ops_Condition_BooleanFloatFloat,call(_ops_Greater_FloatFloat,self.x,self.y),self.x,self.y)
+        from marketsim import deref_opt
+        return deref_opt(_ops_Condition_BooleanFloatFloat(deref_opt(_ops_Greater_FloatFloat(self.x,self.y)),self.x,self.y))
     
 def Max(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

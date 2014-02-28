@@ -23,9 +23,9 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     
     def __call__(self, inner = None):
         from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim.gen._out.strategy.account._virtualmarket import VirtualMarket_ISingleAssetStrategy as _strategy_account_VirtualMarket_ISingleAssetStrategy
-        inner = inner if inner is not None else call(_strategy_Noise_IEventSideIObservableIOrder,)
+        inner = inner if inner is not None else deref_opt(_strategy_Noise_IEventSideIObservableIOrder())
         
         return _strategy_account_VirtualMarket_ISingleAssetStrategy(inner)
     

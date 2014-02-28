@@ -545,6 +545,8 @@ class Registry(object):
             
         return rv
 
+import traceback
+
 def expose(alias, constructor=None, args = None):
     def inner(f):
         if inspect.isclass(f) or args is not None:
@@ -552,7 +554,8 @@ def expose(alias, constructor=None, args = None):
                 try:
                     obj = f() if args is None else f(*args)
                 except Exception, err:
-                    print "Exposing ", f, "failed: ", err
+                    print "Exposing ", f, "failed: ", err,
+                    traceback.print_exc()
 
                 obj._alias = alias
                 instance.insert(obj)

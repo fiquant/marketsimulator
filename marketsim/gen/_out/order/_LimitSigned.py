@@ -11,15 +11,15 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, signedVolume = None, price = None):
+        from marketsim import deref_opt
         from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import call
         ObservableIOrder.__init__(self)
-        self.signedVolume = signedVolume if signedVolume is not None else call(_constant_Float,1.0)
+        self.signedVolume = signedVolume if signedVolume is not None else deref_opt(_constant_Float(1.0))
         
-        self.price = price if price is not None else call(_constant_Float,100.0)
+        self.price = price if price is not None else deref_opt(_constant_Float(100.0))
         
         rtti.check_fields(self)
     

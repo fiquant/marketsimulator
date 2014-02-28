@@ -9,10 +9,10 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevel
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
         from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph_String
-        from marketsim import call
+        from marketsim import deref_opt
         from marketsim import rtti
         self.source = source
-        self.graph = graph if graph is not None else call(_veusz_Graph_String,)
+        self.graph = graph if graph is not None else deref_opt(_veusz_Graph_String())
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 4
         self._smooth = _smooth if _smooth is not None else 1
         self._volumes = _volumes if _volumes is not None else [30.0]
