@@ -36,7 +36,8 @@ class h_(IFunctionint):
     def getImpl(self):
         from marketsim.gen._out._test.overloading._f import f_Int as __test_overloading_f_Int
         from marketsim.gen._out._constant import constant_Int as _constant_Int
-        return __test_overloading_f_Int(_constant_Int(12))
+        from marketsim import call
+        return call(__test_overloading_f_Int,call(_constant_Int,12))
     
 def h(): 
     from marketsim import rtti

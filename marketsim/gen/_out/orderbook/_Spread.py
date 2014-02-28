@@ -11,9 +11,10 @@ class Spread_IOrderBook(Observablefloat):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim import call
         from marketsim import event
         Observablefloat.__init__(self)
-        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
+        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -41,11 +42,12 @@ class Spread_IOrderBook(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim import call
         from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
-        return _ops_Sub_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book)))
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
+        return call(_ops_Sub_IObservableFloatIObservableFloat,call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Asks_IOrderBook,self.book)),call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Bids_IOrderBook,self.book)))
     
 def Spread(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

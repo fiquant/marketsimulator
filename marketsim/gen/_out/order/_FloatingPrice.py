@@ -13,14 +13,15 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
     """ 
     def __init__(self, proto = None, floatingPrice = None):
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
         from marketsim import event
         Factory_Impl.__init__(self)
-        self.proto = proto if proto is not None else _order__curried_price_Limit_SideFloat()
+        self.proto = proto if proto is not None else call(_order__curried_price_Limit_SideFloat,)
         
-        self.floatingPrice = floatingPrice if floatingPrice is not None else _const_Float(10.0)
+        self.floatingPrice = floatingPrice if floatingPrice is not None else call(_const_Float,10.0)
         event.subscribe(self.floatingPrice, self.fire, self)
         rtti.check_fields(self)
     

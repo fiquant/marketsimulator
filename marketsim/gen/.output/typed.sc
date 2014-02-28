@@ -660,6 +660,46 @@ package math {
     }
     
     @category = "Statistics"
+    
+    package impl {
+        type IStatDomain
+        
+        type IEW : IStatDomain
+        
+        type ICumulative : IStatDomain
+        
+        type IMoving : IStatDomain
+        @method = "N/A"
+        
+        @python.intrinsic.function("moments.tmp.Alpha_Impl")
+        def alpha(x : Optional[.math.impl.IEW] = .math.impl.EW()) : .Float
+        
+        @method = "N/A"
+        
+        @python.intrinsic.function("moments.tmp.Timeframe_Impl")
+        def timeframe(x : Optional[.math.impl.IMoving] = .math.impl.Moving()) : .Float
+        
+        @method = "N/A"
+        
+        @python.intrinsic("moments.tmp.Source_Impl")
+        def source(x : Optional[.math.impl.IStatDomain] = .math.impl.EW() : .math.impl.IStatDomain) : .IObservable[.Float]
+        
+        
+        @python.intrinsic.function("_constant._Empty_Impl")
+        def Cumulative(source : Optional[.IObservable[.Float]] = .const(1.0)) : .math.impl.ICumulative
+        
+        
+        @python.intrinsic.function("_constant._Empty_Impl")
+        def EW(source : Optional[.IObservable[.Float]] = .const(1.0),
+               alpha : Optional[.Float] = 0.015) : .math.impl.IEW
+        
+        
+        @python.intrinsic.function("_constant._Empty_Impl")
+        def Moving(source : Optional[.IObservable[.Float]] = .const(1.0),
+                   timeframe : Optional[.Float] = 100.0) : .math.impl.IMoving
+    }
+    
+    @category = "Statistics"
     @suffix = "_{cumul}(%(source)s)"
     @kind = "Cumulative"
     

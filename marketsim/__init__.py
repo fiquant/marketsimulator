@@ -15,7 +15,11 @@ bool = bool
 str = str
 int = int
 
-
+def call(target, *args):
+    r = target(*args)
+    if hasattr(r, "dereference"):
+        r = getattr(r, "dereference")
+    return r
 
 
 class Alias(object):

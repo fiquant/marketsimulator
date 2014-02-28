@@ -11,9 +11,10 @@ class RoughPnL_IAccount(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim import event
         Observablefloat.__init__(self)
-        self.trader = trader if trader is not None else _trader_SingleProxy_()
+        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -44,9 +45,10 @@ class RoughPnL_IAccount(Observablefloat):
         from marketsim.gen._out.ops._add import Add_IObservableFloatIObservableFloat as _ops_Add_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook._naivecumulativeprice import NaiveCumulativePrice_IOrderBookIObservableFloat as _orderbook_NaiveCumulativePrice_IOrderBookIObservableFloat
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim import call
         from marketsim.gen._out.trader._balance import Balance_IAccount as _trader_Balance_IAccount
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
-        return _ops_Add_IObservableFloatIObservableFloat(_trader_Balance_IAccount(self.trader),_orderbook_NaiveCumulativePrice_IOrderBookIObservableFloat(_orderbook_OfTrader_IAccount(self.trader),_trader_Position_IAccount(self.trader)))
+        return call(_ops_Add_IObservableFloatIObservableFloat,call(_trader_Balance_IAccount,self.trader),call(_orderbook_NaiveCumulativePrice_IOrderBookIObservableFloat,call(_orderbook_OfTrader_IAccount,self.trader),call(_trader_Position_IAccount,self.trader)))
     
 def RoughPnL(trader = None): 
     from marketsim.gen._out._iaccount import IAccount

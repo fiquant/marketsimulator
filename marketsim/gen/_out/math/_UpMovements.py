@@ -10,10 +10,11 @@ class UpMovements_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         self.timeframe = timeframe if timeframe is not None else 10.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -43,11 +44,12 @@ class UpMovements_IObservableFloatFloat(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged_IObservableFloatFloat
         from marketsim.gen._out.math._max import Max_FloatIObservableFloat as _math_Max_FloatIObservableFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
-        from marketsim.gen._out.math._lagged import Lagged_IObservableFloatFloat as _math_Lagged_IObservableFloatFloat
-        return _math_Max_FloatIObservableFloat(_constant_Float(0.0),_ops_Sub_IObservableFloatIObservableFloat(self.source,_math_Lagged_IObservableFloatFloat(self.source,self.timeframe)))
+        return call(_math_Max_FloatIObservableFloat,call(_constant_Float,0.0),call(_ops_Sub_IObservableFloatIObservableFloat,self.source,call(_math_Lagged_IObservableFloatFloat,self.source,self.timeframe)))
     
 def UpMovements(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

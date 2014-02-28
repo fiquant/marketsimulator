@@ -35,7 +35,8 @@ class false_(IFunctionbool):
     
     def getImpl(self):
         from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
-        return _observableFalse_()
+        from marketsim import call
+        return call(_observableFalse_,)
     
 def false(): 
     from marketsim import rtti

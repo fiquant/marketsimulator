@@ -12,8 +12,9 @@ class Clamp0_Float(IFunctionfloat):
     """ 
     def __init__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim import rtti
-        self.f = f if f is not None else _constant_Float(1.0)
+        self.f = f if f is not None else call(_constant_Float,1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -43,7 +44,8 @@ class Clamp0_Float(IFunctionfloat):
         from marketsim.gen._out.ops._add import Add_FloatFloat as _ops_Add_FloatFloat
         from marketsim.gen._out.math._max import Max_FloatFloat as _math_Max_FloatFloat
         from marketsim.gen._out._constant import constant_Int as _constant_Int
-        return _ops_Add_FloatFloat(_math_Max_FloatFloat(_constant_Int(0),self.f),_constant_Int(1))
+        from marketsim import call
+        return call(_ops_Add_FloatFloat,call(_math_Max_FloatFloat,call(_constant_Int,0),self.f),call(_constant_Int,1))
     
 def Clamp0(f = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

@@ -8,8 +8,9 @@ class MACD_IObservableFloatFloatFloat(IFunctionfloat):
     """ 
     def __init__(self, x = None, slow = None, fast = None):
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import call
         from marketsim import rtti
-        self.x = x if x is not None else _const_Float(1.0)
+        self.x = x if x is not None else call(_const_Float,1.0)
         self.slow = slow if slow is not None else 26.0
         self.fast = fast if fast is not None else 12.0
         rtti.check_fields(self)
@@ -42,7 +43,8 @@ class MACD_IObservableFloatFloatFloat(IFunctionfloat):
     def getImpl(self):
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
-        return _ops_Sub_FloatFloat(_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.fast+1)))),_math_EW_Avg_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))
+        from marketsim import call
+        return call(_ops_Sub_FloatFloat,call(_math_EW_Avg_IObservableFloatFloat,self.x,(2.0/((self.fast+1)))),call(_math_EW_Avg_IObservableFloatFloat,self.x,(2.0/((self.slow+1)))))
     
 def MACD(x = None,slow = None,fast = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

@@ -9,12 +9,13 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
-        from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         ObservableIOrder.__init__(self)
-        self.signedVolume = signedVolume if signedVolume is not None else _constant_Float(1.0)
+        self.signedVolume = signedVolume if signedVolume is not None else call(_constant_Float,1.0)
         
         rtti.check_fields(self)
     

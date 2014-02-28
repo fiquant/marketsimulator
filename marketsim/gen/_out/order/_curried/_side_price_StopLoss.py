@@ -11,10 +11,11 @@ class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObs
     """ 
     def __init__(self, proto = None, maxloss = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float
+        from marketsim import call
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_price_Limit_Float()
-        self.maxloss = maxloss if maxloss is not None else _constant_Float(0.1)
+        self.proto = proto if proto is not None else call(_order__curried_side_price_Limit_Float,)
+        self.maxloss = maxloss if maxloss is not None else call(_constant_Float,0.1)
         rtti.check_fields(self)
     
     @property
@@ -30,8 +31,9 @@ class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObs
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import call
         from marketsim.gen._out.order._curried._price_stoploss import price_StopLoss
-        side = side if side is not None else _side_Sell_()
+        side = side if side is not None else call(_side_Sell_,)
         proto = self.proto
         maxloss = self.maxloss
         return price_StopLoss(proto(side), maxloss)

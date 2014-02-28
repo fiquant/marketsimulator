@@ -12,11 +12,12 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.desiredPosition = desiredPosition if desiredPosition is not None else _const_Float(1.0)
-        self.trader = trader if trader is not None else _trader_SingleProxy_()
+        self.desiredPosition = desiredPosition if desiredPosition is not None else call(_const_Float,1.0)
+        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -47,8 +48,9 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observablefloat):
     def getImpl(self):
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
+        from marketsim import call
         from marketsim.gen._out.trader._pendingvolume import PendingVolume_IAccount as _trader_PendingVolume_IAccount
-        return _ops_Sub_IObservableFloatIObservableFloat(_ops_Sub_IObservableFloatIObservableFloat(self.desiredPosition,_trader_Position_IAccount(self.trader)),_trader_PendingVolume_IAccount(self.trader))
+        return call(_ops_Sub_IObservableFloatIObservableFloat,call(_ops_Sub_IObservableFloatIObservableFloat,self.desiredPosition,call(_trader_Position_IAccount,self.trader)),call(_trader_PendingVolume_IAccount,self.trader))
     
 def DesiredPosition(desiredPosition = None,trader = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

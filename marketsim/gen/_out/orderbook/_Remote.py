@@ -10,10 +10,11 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,_Remote_Impl):
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
         from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as _orderbook_Local_StringFloatIntListITimeSerie
+        from marketsim import call
         from marketsim.gen._out.orderbook._twowaylink import TwoWayLink_ILinkILink as _orderbook_TwoWayLink_ILinkILink
         from marketsim import rtti
-        self.orderbook = orderbook if orderbook is not None else _orderbook_Local_StringFloatIntListITimeSerie()
-        self.link = link if link is not None else _orderbook_TwoWayLink_ILinkILink()
+        self.orderbook = orderbook if orderbook is not None else call(_orderbook_Local_StringFloatIntListITimeSerie,)
+        self.link = link if link is not None else call(_orderbook_TwoWayLink_ILinkILink,)
         self.timeseries = timeseries if timeseries is not None else []
         rtti.check_fields(self)
         _Remote_Impl.__init__(self)

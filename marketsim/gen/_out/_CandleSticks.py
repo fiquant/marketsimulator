@@ -9,12 +9,13 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim.gen._out._observable._observableicandlestick import ObservableICandleStick
         from marketsim import event
         from marketsim.gen._out._icandlestick import ICandleStick
         ObservableICandleStick.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0
         

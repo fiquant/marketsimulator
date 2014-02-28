@@ -17,11 +17,12 @@ class StopLoss_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim import event
         ObservableIOrder.__init__(self)
-        self.proto = proto if proto is not None else _order_Limit_SideFloatFloat()
+        self.proto = proto if proto is not None else call(_order_Limit_SideFloatFloat,)
         event.subscribe(self.proto, self.fire, self)
-        self.maxloss = maxloss if maxloss is not None else _constant_Float(0.1)
+        self.maxloss = maxloss if maxloss is not None else call(_constant_Float,0.1)
         
         rtti.check_fields(self)
     

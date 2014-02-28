@@ -8,8 +8,9 @@ class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
     """ 
     def __init__(self, trader = None, alpha = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim import call
         from marketsim import rtti
-        self.trader = trader if trader is not None else _trader_SingleProxy_()
+        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
         self.alpha = alpha if alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -39,7 +40,8 @@ class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.trader._efficiencytrend import EfficiencyTrend_IAccountFloat as _trader_EfficiencyTrend_IAccountFloat
-        return _trader_EfficiencyTrend_IAccountFloat(self.trader,self.alpha)
+        from marketsim import call
+        return call(_trader_EfficiencyTrend_IAccountFloat,self.trader,self.alpha)
     
 def TraderEfficiencyTrend(trader = None,alpha = None): 
     from marketsim.gen._out._iaccount import IAccount

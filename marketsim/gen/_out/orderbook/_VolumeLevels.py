@@ -9,11 +9,12 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
         from marketsim.gen._out._ivolumelevels import IVolumeLevels
+        from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._observable._observableivolumelevels import ObservableIVolumeLevels
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        from marketsim import rtti
         ObservableIVolumeLevels.__init__(self)
-        self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
+        self.queue = queue if queue is not None else call(_orderbook_Asks_IOrderBook,)
         
         self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
         

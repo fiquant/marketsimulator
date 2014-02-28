@@ -8,15 +8,16 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,_RandomWalk_Impl):
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import call
+        from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
         Observablefloat.__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         
-        self.deltaDistr = deltaDistr if deltaDistr is not None else _math_random_normalvariate_FloatFloat(0.0,1.0)
+        self.deltaDistr = deltaDistr if deltaDistr is not None else call(_math_random_normalvariate_FloatFloat,0.0,1.0)
         
-        self.intervalDistr = intervalDistr if intervalDistr is not None else _math_random_expovariate_Float(1.0)
+        self.intervalDistr = intervalDistr if intervalDistr is not None else call(_math_random_expovariate_Float,1.0)
         
         self.name = name if name is not None else "-random-"
         

@@ -35,7 +35,8 @@ class true_(IFunctionbool):
     
     def getImpl(self):
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
-        return _observableTrue_()
+        from marketsim import call
+        return call(_observableTrue_,)
     
 def true(): 
     from marketsim import rtti

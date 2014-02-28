@@ -8,10 +8,11 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,_Suspendable_
     """ 
     def __init__(self, inner = None, predicate = None):
         from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
+        from marketsim import call
         from marketsim.gen._out._true import true_ as _true_
         from marketsim import rtti
-        self.inner = inner if inner is not None else _strategy_Noise_IEventSideIObservableIOrder()
-        self.predicate = predicate if predicate is not None else _true_()
+        self.inner = inner if inner is not None else call(_strategy_Noise_IEventSideIObservableIOrder,)
+        self.predicate = predicate if predicate is not None else call(_true_,)
         rtti.check_fields(self)
         _Suspendable_Impl.__init__(self)
     

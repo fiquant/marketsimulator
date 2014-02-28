@@ -16,16 +16,17 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
     """ 
     def __init__(self, strategies = None, account = None, weight = None, normalizer = None, corrector = None):
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend_Float as _strategy_weight_trader_trader_TraderEfficiencyTrend_Float
         from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
         from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow_Float as _strategy_weight_f_f_AtanPow_Float
         from marketsim.gen._out.strategy.weight.array._array_identityl import array_IdentityL_ as _strategy_weight_array_array_IdentityL_
-        self.strategies = strategies if strategies is not None else [_strategy_Noise_IEventSideIObservableIOrder()]
-        self.account = account if account is not None else _strategy_account_inner_inner_VirtualMarket_()
-        self.weight = weight if weight is not None else _strategy_weight_trader_trader_TraderEfficiencyTrend_Float()
-        self.normalizer = normalizer if normalizer is not None else _strategy_weight_f_f_AtanPow_Float()
-        self.corrector = corrector if corrector is not None else _strategy_weight_array_array_IdentityL_()
+        self.strategies = strategies if strategies is not None else [call(_strategy_Noise_IEventSideIObservableIOrder,)]
+        self.account = account if account is not None else call(_strategy_account_inner_inner_VirtualMarket_,)
+        self.weight = weight if weight is not None else call(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float,)
+        self.normalizer = normalizer if normalizer is not None else call(_strategy_weight_f_f_AtanPow_Float,)
+        self.corrector = corrector if corrector is not None else call(_strategy_weight_array_array_IdentityL_,)
         rtti.check_fields(self)
         _MultiarmedBandit2_Impl.__init__(self)
     

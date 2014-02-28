@@ -9,9 +9,10 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     def __init__(self, trader = None):
         from marketsim.gen._out._observable._observableint import Observableint
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim import call
         from marketsim import rtti
         Observableint.__init__(self)
-        self.trader = trader if trader is not None else _trader_SingleProxy_()
+        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
         
         rtti.check_fields(self)
         PendingVolume_Impl.__init__(self)

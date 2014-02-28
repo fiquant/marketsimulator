@@ -8,11 +8,12 @@ class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import rtti
         Observablefloat.__init__(self)
-        self.x = x if x is not None else _const_Float(1.0)
+        self.x = x if x is not None else call(_const_Float,1.0)
         event.subscribe(self.x, self.fire, self)
         rtti.check_fields(self)
         _Negate_Impl.__init__(self)
@@ -38,9 +39,10 @@ class Negate_Float(Observablefloat,_Negate_Impl):
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.x = x if x is not None else _constant_Float(1.0)
+        self.x = x if x is not None else call(_constant_Float,1.0)
         
         rtti.check_fields(self)
         _Negate_Impl.__init__(self)

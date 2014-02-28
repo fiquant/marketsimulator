@@ -14,11 +14,12 @@ class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         ObservableSide.__init__(self)
-        self.fv = fv if fv is not None else _const_Float(200.0)
-        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
+        self.fv = fv if fv is not None else call(_const_Float,200.0)
+        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -53,11 +54,12 @@ class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatIObservableFloat as _ops_Greater_IObservableFloatIObservableFloat
         from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim import call
         from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book)),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatIObservableFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),self.fv),_side_Buy_(),_side_Nothing_()))
+        return call(_ops_Condition_IObservableBooleanSideIObservableSide,call(_ops_Greater_IObservableFloatIObservableFloat,call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Bids_IOrderBook,self.book)),self.fv),call(_side_Sell_,),call(_ops_Condition_IObservableBooleanSideSide,call(_ops_Less_IObservableFloatIObservableFloat,call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Asks_IOrderBook,self.book)),self.fv),call(_side_Buy_,),call(_side_Nothing_,)))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._side import Side
@@ -76,10 +78,11 @@ class FundamentalValue_FloatIOrderBook(ObservableSide):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._side import Side
+        from marketsim import call
         from marketsim import event
         ObservableSide.__init__(self)
-        self.fv = fv if fv is not None else _constant_Float(200.0)
-        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
+        self.fv = fv if fv is not None else call(_constant_Float,200.0)
+        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -114,11 +117,12 @@ class FundamentalValue_FloatIOrderBook(ObservableSide):
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim import call
         from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Bids_IOrderBook(self.book)),self.fv),_side_Sell_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatFloat(_orderbook_BestPrice_IOrderQueue(_orderbook_Asks_IOrderBook(self.book)),self.fv),_side_Buy_(),_side_Nothing_()))
+        return call(_ops_Condition_IObservableBooleanSideIObservableSide,call(_ops_Greater_IObservableFloatFloat,call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Bids_IOrderBook,self.book)),self.fv),call(_side_Sell_,),call(_ops_Condition_IObservableBooleanSideSide,call(_ops_Less_IObservableFloatFloat,call(_orderbook_BestPrice_IOrderQueue,call(_orderbook_Asks_IOrderBook,self.book)),self.fv),call(_side_Buy_,),call(_side_Nothing_,)))
     
 def FundamentalValue(fv = None,book = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

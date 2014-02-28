@@ -35,7 +35,8 @@ class Nothing_(IFunctionSide):
     
     def getImpl(self):
         from marketsim.gen._out.side._observablenothing import observableNothing_ as _side_observableNothing_
-        return _side_observableNothing_()
+        from marketsim import call
+        return call(_side_observableNothing_,)
     
 def Nothing(): 
     from marketsim import rtti

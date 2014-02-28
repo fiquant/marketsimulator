@@ -13,10 +13,11 @@ class MeanReversion_FloatIOrderBook(ObservableSide):
         from marketsim import rtti
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._side import Side
+        from marketsim import call
         from marketsim import event
         ObservableSide.__init__(self)
         self.alpha = alpha if alpha is not None else 0.015
-        self.book = book if book is not None else _orderbook_OfTrader_IAccount()
+        self.book = book if book is not None else call(_orderbook_OfTrader_IAccount,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -48,7 +49,8 @@ class MeanReversion_FloatIOrderBook(ObservableSide):
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        return _strategy_side_FundamentalValue_FloatIOrderBook(_math_EW_Avg_IObservableFloatFloat(_orderbook_MidPrice_IOrderBook(self.book),self.alpha),self.book)
+        from marketsim import call
+        return call(_strategy_side_FundamentalValue_FloatIOrderBook,call(_math_EW_Avg_IObservableFloatFloat,call(_orderbook_MidPrice_IOrderBook,self.book),self.alpha),self.book)
     
 def MeanReversion(alpha = None,book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

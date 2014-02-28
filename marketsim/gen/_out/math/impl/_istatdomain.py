@@ -1,0 +1,2 @@
+class IStatDomain(object):
+    pass

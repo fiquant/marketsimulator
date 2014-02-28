@@ -21,8 +21,9 @@ class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloat_from_IAccount):
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim import call
         from marketsim.gen._out.strategy.weight._traderefficiencytrend import TraderEfficiencyTrend_IAccountFloat as _strategy_weight_TraderEfficiencyTrend_IAccountFloat
-        trader = trader if trader is not None else _trader_SingleProxy_()
+        trader = trader if trader is not None else call(_trader_SingleProxy_,)
         alpha = self.alpha
         return _strategy_weight_TraderEfficiencyTrend_IAccountFloat(trader,alpha)
     

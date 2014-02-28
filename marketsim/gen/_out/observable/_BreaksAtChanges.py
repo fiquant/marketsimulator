@@ -8,11 +8,12 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,_BreaksAtChanges_Impl):
     """ 
     def __init__(self, source = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        from marketsim import rtti
         Observablefloat.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         event.subscribe(self.source, self.fire, self)
         rtti.check_fields(self)
         _BreaksAtChanges_Impl.__init__(self)

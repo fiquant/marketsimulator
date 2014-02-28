@@ -10,10 +10,11 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         self.timeframe = timeframe if timeframe is not None else 100.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -43,11 +44,12 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
-        from marketsim.gen._out.math.moving._avg import Avg_IObservableFloatFloat as _math_Moving_Avg_IObservableFloatFloat
         from marketsim.gen._out.math.moving._stddev import StdDev_IObservableFloatFloat as _math_Moving_StdDev_IObservableFloatFloat
-        return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_Moving_Avg_IObservableFloatFloat(self.source,self.timeframe)),_math_Moving_StdDev_IObservableFloatFloat(self.source,self.timeframe))
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
+        from marketsim.gen._out.math.moving._avg import Avg_IObservableFloatFloat as _math_Moving_Avg_IObservableFloatFloat
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
+        from marketsim import call
+        return call(_ops_Div_IObservableFloatFloat,call(_ops_Sub_IObservableFloatFloat,self.source,call(_math_Moving_Avg_IObservableFloatFloat,self.source,self.timeframe)),call(_math_Moving_StdDev_IObservableFloatFloat,self.source,self.timeframe))
     
 def RelStdDev(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

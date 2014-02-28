@@ -13,11 +13,12 @@ class Pow_FloatFloat(Observablefloat):
     def __init__(self, base = None, power = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.base = base if base is not None else _constant_Float(1.0)
+        self.base = base if base is not None else call(_constant_Float,1.0)
         
-        self.power = power if power is not None else _constant_Float(1.0)
+        self.power = power if power is not None else call(_constant_Float,1.0)
         
         rtti.check_fields(self)
     

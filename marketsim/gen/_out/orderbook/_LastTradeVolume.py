@@ -9,9 +9,10 @@ class LastTradeVolume_IOrderQueue(Observableint,_LastTradeVolume_Impl):
     def __init__(self, queue = None):
         from marketsim.gen._out._observable._observableint import Observableint
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim import call
         from marketsim import rtti
         Observableint.__init__(self)
-        self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
+        self.queue = queue if queue is not None else call(_orderbook_Asks_IOrderBook,)
         
         rtti.check_fields(self)
         _LastTradeVolume_Impl.__init__(self)

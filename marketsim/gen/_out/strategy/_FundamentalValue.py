@@ -15,11 +15,12 @@ class FundamentalValue_IEventSideIObservableIOrderIObservableFloat(ISingleAssetS
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
-        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_Float()
-        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _const_Float(100.0)
+        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,call(_math_random_expovariate_Float,1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else call(_order__curried_side_Market_Float,)
+        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else call(_const_Float,100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -52,7 +53,8 @@ class FundamentalValue_IEventSideIObservableIOrderIObservableFloat(ISingleAssetS
     def getImpl(self):
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_IObservableFloatIOrderBook as _strategy_side_FundamentalValue_IObservableFloatIOrderBook
-        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(self.fundamentalValue)),self.eventGen)
+        from marketsim import call
+        return call(_strategy_Generic_IObservableIOrderIEvent,call(self.orderFactory,call(_strategy_side_FundamentalValue_IObservableFloatIOrderBook,self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -75,10 +77,11 @@ class FundamentalValue_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import call
         from marketsim import event
-        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_Float()
-        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else _constant_Float(100.0)
+        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,call(_math_random_expovariate_Float,1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else call(_order__curried_side_Market_Float,)
+        self.fundamentalValue = fundamentalValue if fundamentalValue is not None else call(_constant_Float,100.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         self.on_order_created = event.Event()
@@ -111,7 +114,8 @@ class FundamentalValue_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
     def getImpl(self):
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
-        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_side_FundamentalValue_FloatIOrderBook(self.fundamentalValue)),self.eventGen)
+        from marketsim import call
+        return call(_strategy_Generic_IObservableIOrderIEvent,call(self.orderFactory,call(_strategy_side_FundamentalValue_FloatIOrderBook,self.fundamentalValue)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

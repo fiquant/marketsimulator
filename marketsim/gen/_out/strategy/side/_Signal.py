@@ -12,10 +12,11 @@ class Signal_IObservableFloatFloat(ObservableSide):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._side import Side
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         ObservableSide.__init__(self)
-        self.signal = signal if signal is not None else _const_Float(0.0)
+        self.signal = signal if signal is not None else call(_const_Float,0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -51,9 +52,10 @@ class Signal_IObservableFloatFloat(ObservableSide):
         from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
-        return _ops_Condition_IObservableBooleanSideIObservableSide(_ops_Greater_IObservableFloatFloat(self.signal,_constant_Float(self.threshold)),_side_Buy_(),_ops_Condition_IObservableBooleanSideSide(_ops_Less_IObservableFloatFloat(self.signal,_constant_Float((0-self.threshold))),_side_Sell_(),_side_Nothing_()))
+        return call(_ops_Condition_IObservableBooleanSideIObservableSide,call(_ops_Greater_IObservableFloatFloat,self.signal,call(_constant_Float,self.threshold)),call(_side_Buy_,),call(_ops_Condition_IObservableBooleanSideSide,call(_ops_Less_IObservableFloatFloat,self.signal,call(_constant_Float,(0-self.threshold))),call(_side_Sell_,),call(_side_Nothing_,)))
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._side import Side
@@ -70,9 +72,10 @@ class Signal_FloatFloat(ObservableSide):
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._side import Side
+        from marketsim import call
         from marketsim import event
         ObservableSide.__init__(self)
-        self.signal = signal if signal is not None else _constant_Float(0.0)
+        self.signal = signal if signal is not None else call(_constant_Float,0.0)
         self.threshold = threshold if threshold is not None else 0.7
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -108,8 +111,9 @@ class Signal_FloatFloat(ObservableSide):
         from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
-        return _ops_Condition_BooleanSideSide(_ops_Greater_FloatFloat(self.signal,_constant_Float(self.threshold)),_side_Buy_(),_ops_Condition_BooleanSideSide(_ops_Less_FloatFloat(self.signal,_constant_Float((0-self.threshold))),_side_Sell_(),_side_Nothing_()))
+        return call(_ops_Condition_BooleanSideSide,call(_ops_Greater_FloatFloat,self.signal,call(_constant_Float,self.threshold)),call(_side_Buy_,),call(_ops_Condition_BooleanSideSide,call(_ops_Less_FloatFloat,self.signal,call(_constant_Float,(0-self.threshold))),call(_side_Sell_,),call(_side_Nothing_,)))
     
 def Signal(signal = None,threshold = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

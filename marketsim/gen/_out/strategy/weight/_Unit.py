@@ -13,8 +13,9 @@ class Unit_IAccount(IFunctionfloat):
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
+        from marketsim import call
         from marketsim import rtti
-        self.trader = trader if trader is not None else _trader_SingleProxy_()
+        self.trader = trader if trader is not None else call(_trader_SingleProxy_,)
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -42,7 +43,8 @@ class Unit_IAccount(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return _constant_Float(1.0)
+        from marketsim import call
+        return call(_constant_Float,1.0)
     
 def Unit(trader = None): 
     from marketsim.gen._out._iaccount import IAccount

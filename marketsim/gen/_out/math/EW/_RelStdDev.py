@@ -10,10 +10,11 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -46,8 +47,9 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim import call
         from marketsim.gen._out.math.ew._stddev import StdDev_IObservableFloatFloat as _math_EW_StdDev_IObservableFloatFloat
-        return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_EW_Avg_IObservableFloatFloat(self.source,self.alpha)),_math_EW_StdDev_IObservableFloatFloat(self.source,self.alpha))
+        return call(_ops_Div_IObservableFloatFloat,call(_ops_Sub_IObservableFloatFloat,self.source,call(_math_EW_Avg_IObservableFloatFloat,self.source,self.alpha)),call(_math_EW_StdDev_IObservableFloatFloat,self.source,self.alpha))
     
 def RelStdDev(source = None,alpha = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

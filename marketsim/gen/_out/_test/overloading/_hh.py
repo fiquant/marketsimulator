@@ -36,7 +36,8 @@ class hh_(IFunctionfloat):
     def getImpl(self):
         from marketsim.gen._out._test.overloading._f import f_Float as __test_overloading_f_Float
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return __test_overloading_f_Float(_constant_Float(12.2))
+        from marketsim import call
+        return call(__test_overloading_f_Float,call(_constant_Float,12.2))
     
 def hh(): 
     from marketsim import rtti

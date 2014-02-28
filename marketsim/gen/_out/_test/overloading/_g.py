@@ -34,7 +34,8 @@ class g_Int(IFunctionint):
     
     def getImpl(self):
         from marketsim.gen._out._test.overloading._f import f_Int as __test_overloading_f_Int
-        return __test_overloading_f_Int(self.x)
+        from marketsim import call
+        return call(__test_overloading_f_Int,self.x)
     
 def g(x = None): 
     from marketsim.gen._out._ifunction._ifunctionint import IFunctionint

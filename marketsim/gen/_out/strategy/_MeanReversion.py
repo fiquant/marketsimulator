@@ -15,9 +15,10 @@ class MeanReversion_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import call
         from marketsim import event
-        self.eventGen = eventGen if eventGen is not None else _event_Every_Float(_math_random_expovariate_Float(1.0))
-        self.orderFactory = orderFactory if orderFactory is not None else _order__curried_side_Market_Float()
+        self.eventGen = eventGen if eventGen is not None else call(_event_Every_Float,call(_math_random_expovariate_Float,1.0))
+        self.orderFactory = orderFactory if orderFactory is not None else call(_order__curried_side_Market_Float,)
         self.ewma_alpha = ewma_alpha if ewma_alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -51,7 +52,8 @@ class MeanReversion_IEventSideIObservableIOrderFloat(ISingleAssetStrategy):
     def getImpl(self):
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_FloatIOrderBook as _strategy_side_MeanReversion_FloatIOrderBook
-        return _strategy_Generic_IObservableIOrderIEvent(self.orderFactory(_strategy_side_MeanReversion_FloatIOrderBook(self.ewma_alpha)),self.eventGen)
+        from marketsim import call
+        return call(_strategy_Generic_IObservableIOrderIEvent,call(self.orderFactory,call(_strategy_side_MeanReversion_FloatIOrderBook,self.ewma_alpha)),self.eventGen)
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

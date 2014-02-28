@@ -10,10 +10,11 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IF
     """ 
     def __init__(self, proto = None, lotSize = None):
         from marketsim.gen._out.order._curried._side_limit import side_Limit_FloatFloat as _order__curried_side_Limit_FloatFloat
+        from marketsim import call
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_Limit_FloatFloat()
-        self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
+        self.proto = proto if proto is not None else call(_order__curried_side_Limit_FloatFloat,)
+        self.lotSize = lotSize if lotSize is not None else call(_constant_Float,10.0)
         rtti.check_fields(self)
     
     @property
@@ -29,8 +30,9 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IF
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import call
         from marketsim.gen._out.order._iceberg import Iceberg
-        side = side if side is not None else _side_Sell_()
+        side = side if side is not None else call(_side_Sell_,)
         proto = self.proto
         lotSize = self.lotSize
         return Iceberg(proto(side), lotSize)

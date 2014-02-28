@@ -10,10 +10,11 @@ class RelStdDev_IObservableFloat(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
+        from marketsim import call
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import event
         Observablefloat.__init__(self)
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -42,10 +43,11 @@ class RelStdDev_IObservableFloat(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math.cumulative._avg import Avg_IObservableFloat as _math_Cumulative_Avg_IObservableFloat
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
+        from marketsim import call
         from marketsim.gen._out.math.cumulative._stddev import StdDev_IObservableFloat as _math_Cumulative_StdDev_IObservableFloat
-        return _ops_Div_IObservableFloatFloat(_ops_Sub_IObservableFloatFloat(self.source,_math_Cumulative_Avg_IObservableFloat(self.source)),_math_Cumulative_StdDev_IObservableFloat(self.source))
+        return call(_ops_Div_IObservableFloatFloat,call(_ops_Sub_IObservableFloatFloat,self.source,call(_math_Cumulative_Avg_IObservableFloat,self.source)),call(_math_Cumulative_StdDev_IObservableFloat,self.source))
     
 def RelStdDev(source = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

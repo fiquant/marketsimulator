@@ -124,5 +124,38 @@ package math
                 = (source - source~>Moving_Avg(timeframe)) / source~>Moving_StdDev(timeframe)
         }
 
+        package impl
+        {
+            type IStatDomain
+            type IEW : IStatDomain
+            type ICumulative : IStatDomain
+            type IMoving : IStatDomain
+
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def EW(source = const(1.), alpha = 0.015) : IEW
+
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def Cumulative(source = const(1.)) : ICumulative
+
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def Moving(source = const(1.), timeframe = 100.) : IMoving
+
+            @python.intrinsic("moments.tmp.Source_Impl")
+            @method = "N/A"
+            def source(x = EW() : IStatDomain) : IObservable[Float]
+
+            @python.intrinsic.function("moments.tmp.Alpha_Impl")
+            @method = "N/A"
+            def alpha(x = EW()) : Float
+
+            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
+            @method = "N/A"
+            def timeframe(x = Moving()) : Float
+
+//            def Avg(x = EW()) = math.EW.Avg(source(x), alpha(x))
+//            def Avg(x = Cumulative()) = math.Cumulative.Avg(source(x))
+//            def Avg(x = Moving()) = math.Moving.Avg(source(x), timeframe(x))
+        }
+
     }
 }

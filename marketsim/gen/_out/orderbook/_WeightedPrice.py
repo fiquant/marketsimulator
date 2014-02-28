@@ -8,8 +8,9 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
     """ 
     def __init__(self, queue = None, alpha = None):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim import call
         from marketsim import rtti
-        self.queue = queue if queue is not None else _orderbook_Asks_IOrderBook()
+        self.queue = queue if queue is not None else call(_orderbook_Asks_IOrderBook,)
         self.alpha = alpha if alpha is not None else 0.15
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -42,8 +43,9 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         from marketsim.gen._out.orderbook._lasttradevolume import LastTradeVolume_IOrderQueue as _orderbook_LastTradeVolume_IOrderQueue
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim import call
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        return _ops_Div_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_ops_Mul_IObservableFloatIObservableFloat(_orderbook_LastTradePrice_IOrderQueue(self.queue),_orderbook_LastTradeVolume_IOrderQueue(self.queue)),self.alpha),_math_EW_Avg_IObservableFloatFloat(_orderbook_LastTradeVolume_IOrderQueue(self.queue),self.alpha))
+        return call(_ops_Div_FloatFloat,call(_math_EW_Avg_IObservableFloatFloat,call(_ops_Mul_IObservableFloatIObservableFloat,call(_orderbook_LastTradePrice_IOrderQueue,self.queue),call(_orderbook_LastTradeVolume_IOrderQueue,self.queue)),self.alpha),call(_math_EW_Avg_IObservableFloatFloat,call(_orderbook_LastTradeVolume_IOrderQueue,self.queue),self.alpha))
     
 def WeightedPrice(queue = None,alpha = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

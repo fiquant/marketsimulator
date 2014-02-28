@@ -111,5 +111,44 @@ package math() {@category = "Statistics"
             def RelStdDev(/** observable data source */ source = const(1.0),
                           /** sliding window size    */ timeframe = 100.0) = (source-source~>Moving_Avg(timeframe))/source~>Moving_StdDev(timeframe)
         }
+        
+        package impl() {
+            type IStatDomain
+            
+            type IEW : IStatDomain
+            
+            type ICumulative : IStatDomain
+            
+            type IMoving : IStatDomain
+            
+            // defined at defs\math\moments.sc: 134.13
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def EW(source = const(1.0),
+                   alpha = 0.015) : IEW
+            
+            // defined at defs\math\moments.sc: 137.13
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def Cumulative(source = const(1.0)) : ICumulative
+            
+            // defined at defs\math\moments.sc: 140.13
+            @python.intrinsic.function("_constant._Empty_Impl")
+            def Moving(source = const(1.0),
+                       timeframe = 100.0) : IMoving
+            
+            // defined at defs\math\moments.sc: 143.13
+            @python.intrinsic("moments.tmp.Source_Impl")
+            @method = "N/A"
+            def source(x = EW() : IStatDomain) : IObservable[Float]
+            
+            // defined at defs\math\moments.sc: 147.13
+            @python.intrinsic.function("moments.tmp.Alpha_Impl")
+            @method = "N/A"
+            def alpha(x = EW()) : Float
+            
+            // defined at defs\math\moments.sc: 151.13
+            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
+            @method = "N/A"
+            def timeframe(x = Moving()) : Float
+        }
     }
 }

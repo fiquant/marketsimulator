@@ -10,9 +10,10 @@ class side_Limit_FloatFloat(IFunctionIObservableIOrder_from_IFunctionSide):
     """ 
     def __init__(self, price = None, volume = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim import rtti
-        self.price = price if price is not None else _constant_Float(100.0)
-        self.volume = volume if volume is not None else _constant_Float(1.0)
+        self.price = price if price is not None else call(_constant_Float,100.0)
+        self.volume = volume if volume is not None else call(_constant_Float,1.0)
         rtti.check_fields(self)
     
     @property
@@ -28,8 +29,9 @@ class side_Limit_FloatFloat(IFunctionIObservableIOrder_from_IFunctionSide):
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import call
         from marketsim.gen._out.order._limit import Limit
-        side = side if side is not None else _side_Sell_()
+        side = side if side is not None else call(_side_Sell_,)
         price = self.price
         volume = self.volume
         return Limit(side, price, volume)

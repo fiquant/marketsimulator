@@ -35,7 +35,8 @@ class Sell_(IFunctionSide):
     
     def getImpl(self):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        return _side_observableSell_()
+        from marketsim import call
+        return call(_side_observableSell_,)
     
 def Sell(): 
     from marketsim import rtti

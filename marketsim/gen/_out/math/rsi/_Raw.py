@@ -8,8 +8,9 @@ class Raw_IObservableFloatFloatFloat(IFunctionfloat):
     """ 
     def __init__(self, source = None, timeframe = None, alpha = None):
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import call
         from marketsim import rtti
-        self.source = source if source is not None else _const_Float(1.0)
+        self.source = source if source is not None else call(_const_Float,1.0)
         self.timeframe = timeframe if timeframe is not None else 10.0
         self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
@@ -40,11 +41,12 @@ class Raw_IObservableFloatFloatFloat(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
-        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
         from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements_IObservableFloatFloat
+        from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out.math._downmovements import DownMovements_IObservableFloatFloat as _math_DownMovements_IObservableFloatFloat
-        return _ops_Div_FloatFloat(_math_EW_Avg_IObservableFloatFloat(_math_UpMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha),_math_EW_Avg_IObservableFloatFloat(_math_DownMovements_IObservableFloatFloat(self.source,self.timeframe),self.alpha))
+        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim import call
+        return call(_ops_Div_FloatFloat,call(_math_EW_Avg_IObservableFloatFloat,call(_math_UpMovements_IObservableFloatFloat,self.source,self.timeframe),self.alpha),call(_math_EW_Avg_IObservableFloatFloat,call(_math_DownMovements_IObservableFloatFloat,self.source,self.timeframe),self.alpha))
     
 def Raw(source = None,timeframe = None,alpha = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

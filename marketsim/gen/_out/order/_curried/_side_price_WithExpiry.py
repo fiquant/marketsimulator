@@ -9,10 +9,11 @@ class side_price_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIFunctionIO
     """ 
     def __init__(self, proto = None, expiry = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float
+        from marketsim import call
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_side_price_Limit_Float()
-        self.expiry = expiry if expiry is not None else _constant_Float(10.0)
+        self.proto = proto if proto is not None else call(_order__curried_side_price_Limit_Float,)
+        self.expiry = expiry if expiry is not None else call(_constant_Float,10.0)
         rtti.check_fields(self)
     
     @property
@@ -28,8 +29,9 @@ class side_price_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIFunctionIO
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import call
         from marketsim.gen._out.order._curried._price_withexpiry import price_WithExpiry
-        side = side if side is not None else _side_Sell_()
+        side = side if side is not None else call(_side_Sell_,)
         proto = self.proto
         expiry = self.expiry
         return price_WithExpiry(proto(side), expiry)

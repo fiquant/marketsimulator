@@ -9,8 +9,9 @@ class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
     """ 
     def __init__(self, cancellationIntervalDistr = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import call
         from marketsim import rtti
-        self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else _math_random_expovariate_Float(1.0)
+        self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else call(_math_random_expovariate_Float,1.0)
         rtti.check_fields(self)
         _Canceller_Impl.__init__(self)
     

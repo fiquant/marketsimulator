@@ -10,10 +10,11 @@ class price_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_
     """ 
     def __init__(self, proto = None, lotSize = None):
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
+        from marketsim import call
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
-        self.proto = proto if proto is not None else _order__curried_price_Limit_SideFloat()
-        self.lotSize = lotSize if lotSize is not None else _constant_Float(10.0)
+        self.proto = proto if proto is not None else call(_order__curried_price_Limit_SideFloat,)
+        self.lotSize = lotSize if lotSize is not None else call(_constant_Float,10.0)
         rtti.check_fields(self)
     
     @property
@@ -29,8 +30,9 @@ class price_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import call
         from marketsim.gen._out.order._iceberg import Iceberg
-        price = price if price is not None else _constant_Float(100.0)
+        price = price if price is not None else call(_constant_Float,100.0)
         proto = self.proto
         lotSize = self.lotSize
         return Iceberg(proto(price), lotSize)
