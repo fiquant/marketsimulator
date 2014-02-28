@@ -52,6 +52,12 @@ class Bollinger_linear_FloatIObservableIOrderFloatIObservableFloat(ISingleAssetS
         from marketsim import deref_opt
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader(self.alpha,self.k))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

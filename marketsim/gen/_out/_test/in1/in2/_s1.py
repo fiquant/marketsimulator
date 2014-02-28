@@ -35,6 +35,12 @@ class S1_String(str):
     def getImpl(self):
         return self.y
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def S1(y = None): 
     from marketsim import rtti
     if y is None or rtti.can_be_casted(y, str):

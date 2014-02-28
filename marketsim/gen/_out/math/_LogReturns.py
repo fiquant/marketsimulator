@@ -45,6 +45,12 @@ class LogReturns_IObservableFloatFloat(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(_math_Log_Float(deref_opt(_ops_Div_IObservableFloatIObservableFloat(self.x,deref_opt(_math_Lagged_IObservableFloatFloat(self.x,self.timeframe))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def LogReturns(x = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

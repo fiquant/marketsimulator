@@ -279,7 +279,18 @@ package object Typer
             typed getOrElseUpdateType (definition.name, {
                     visited.enter(source qualifyName definition.name) {
                         definition match {
-                            case t : AST.Interface => toTyped(t)
+                            case t : AST.Interface =>
+                                if (t.parameters.nonEmpty)
+                                    source add AST.FunDef(
+                                        t.name,
+                                        t.parameters.get,
+                                        None,
+                                        Some(AST.SimpleType(source qualifyName t.name)),
+                                        None,
+                                        AST.Annotation("python" :: "constructor" :: Nil, Nil) ::
+                                        AST.Attribute("category", "-") :: t.decorators)
+
+                                toTyped(t)
                             case t : AST.Alias => toTyped(t)
                         }
                     }

@@ -50,6 +50,12 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(deref_opt(_ops_NotEqual_IObservableFloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
@@ -103,6 +109,12 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         from marketsim.gen._out._null import null_ as _null_
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_BooleanFloatIObservableFloat(deref_opt(_ops_NotEqual_FloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -158,6 +170,12 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatFloat(deref_opt(_ops_NotEqual_IObservableFloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -209,6 +227,12 @@ class IfDefined_FloatFloat(Observablefloat):
         from marketsim.gen._out._null import null_ as _null_
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_BooleanFloatFloat(deref_opt(_ops_NotEqual_FloatFloat(self.x,deref_opt(_null_()))),self.x,self.elsePart))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def IfDefined(x = None,elsePart = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

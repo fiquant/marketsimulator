@@ -59,6 +59,12 @@ class LiquidityProvider_SideFloatFloatIOrderBook(Observablefloat):
         from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice_IOrderQueueFloat as _orderbook_SafeSidePrice_IOrderQueueFloat
         return deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_SafeSidePrice_IOrderQueueFloat(deref_opt(_orderbook_Queue_IOrderBookSide(self.book,self.side)),deref_opt(_constant_Float(self.initialValue)))),self.priceDistr))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def LiquidityProvider(side = None,initialValue = None,priceDistr = None,book = None): 
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

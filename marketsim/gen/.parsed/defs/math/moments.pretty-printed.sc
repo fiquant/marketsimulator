@@ -114,68 +114,52 @@ package math() {@category = "Statistics"
         
         package impl() {
             // defined at defs\math\moments.sc: 129.13
-            @python.intrinsic.function("_constant._Empty_Impl")
-            @label = "EW_{%(alpha)s}(%(source)s)"
-            def EW(source = const(1.0),
-                   alpha = 0.015) : IEW
+            @python.intrinsic("moments.tmp.Source_Impl")
+            def Source(x = .EW() : IStatDomain) : IObservable[Float]
             
-            // defined at defs\math\moments.sc: 133.13
-            @python.intrinsic.function("_constant._Empty_Impl")
-            def Cumulative(source = const(1.0)) : ICumulative
+            // defined at defs\math\moments.sc: 132.13
+            @python.intrinsic.function("moments.tmp.Alpha_Impl")
+            def Alpha(x = .EW()) : Float
             
-            // defined at defs\math\moments.sc: 136.13
-            @python.intrinsic.function("_constant._Empty_Impl")
-            @label = "Moving_{%(timeframe)s}(%(source)s)"
-            def Moving(source = const(1.0),
-                       timeframe = 100.0) : IMoving
+            // defined at defs\math\moments.sc: 135.13
+            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
+            def Timeframe(x = .Moving()) : Float
+            
+            // defined at defs\math\moments.sc: 138.13
+            def Avg(x = .EW()) = math.EW.Avg(x~>Source,x~>Alpha)
+            
+            // defined at defs\math\moments.sc: 139.13
+            def Avg(x = .Cumulative()) = math.Cumulative.Avg(x~>Source)
             
             // defined at defs\math\moments.sc: 140.13
-            @python.intrinsic("moments.tmp.Source_Impl")
-            def Source(x = EW() : IStatDomain) : IObservable[Float]
+            def Avg(x = .Moving()) = math.Moving.Avg(x~>Source,x~>Timeframe)
+            
+            // defined at defs\math\moments.sc: 142.13
+            def Var(x = .EW()) = math.EW.Var(x~>Source,x~>Alpha)
             
             // defined at defs\math\moments.sc: 143.13
-            @python.intrinsic.function("moments.tmp.Alpha_Impl")
-            def Alpha(x = EW()) : Float
+            def Var(x = .Cumulative()) = math.Cumulative.Var(x~>Source)
+            
+            // defined at defs\math\moments.sc: 144.13
+            def Var(x = .Moving()) = math.Moving.Var(x~>Source,x~>Timeframe)
             
             // defined at defs\math\moments.sc: 146.13
-            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-            def Timeframe(x = Moving()) : Float
+            def StdDev(x = .EW()) = math.EW.StdDev(x~>Source,x~>Alpha)
             
-            // defined at defs\math\moments.sc: 149.13
-            def Avg(x = EW()) = math.EW.Avg(x~>Source,x~>Alpha)
+            // defined at defs\math\moments.sc: 147.13
+            def StdDev(x = .Cumulative()) = math.Cumulative.StdDev(x~>Source)
+            
+            // defined at defs\math\moments.sc: 148.13
+            def StdDev(x = .Moving()) = math.Moving.StdDev(x~>Source,x~>Timeframe)
             
             // defined at defs\math\moments.sc: 150.13
-            def Avg(x = Cumulative()) = math.Cumulative.Avg(x~>Source)
+            def RelStdDev(x = .EW()) = math.EW.RelStdDev(x~>Source,x~>Alpha)
             
             // defined at defs\math\moments.sc: 151.13
-            def Avg(x = Moving()) = math.Moving.Avg(x~>Source,x~>Timeframe)
+            def RelStdDev(x = .Cumulative()) = math.Cumulative.RelStdDev(x~>Source)
             
-            // defined at defs\math\moments.sc: 153.13
-            def Var(x = EW()) = math.EW.Var(x~>Source,x~>Alpha)
-            
-            // defined at defs\math\moments.sc: 154.13
-            def Var(x = Cumulative()) = math.Cumulative.Var(x~>Source)
-            
-            // defined at defs\math\moments.sc: 155.13
-            def Var(x = Moving()) = math.Moving.Var(x~>Source,x~>Timeframe)
-            
-            // defined at defs\math\moments.sc: 157.13
-            def StdDev(x = EW()) = math.EW.StdDev(x~>Source,x~>Alpha)
-            
-            // defined at defs\math\moments.sc: 158.13
-            def StdDev(x = Cumulative()) = math.Cumulative.StdDev(x~>Source)
-            
-            // defined at defs\math\moments.sc: 159.13
-            def StdDev(x = Moving()) = math.Moving.StdDev(x~>Source,x~>Timeframe)
-            
-            // defined at defs\math\moments.sc: 161.13
-            def RelStdDev(x = EW()) = math.EW.RelStdDev(x~>Source,x~>Alpha)
-            
-            // defined at defs\math\moments.sc: 162.13
-            def RelStdDev(x = Cumulative()) = math.Cumulative.RelStdDev(x~>Source)
-            
-            // defined at defs\math\moments.sc: 163.13
-            def RelStdDev(x = Moving()) = math.Moving.RelStdDev(x~>Source,x~>Timeframe)
+            // defined at defs\math\moments.sc: 152.13
+            def RelStdDev(x = .Moving()) = math.Moving.RelStdDev(x~>Source,x~>Timeframe)
         }
     }
 }

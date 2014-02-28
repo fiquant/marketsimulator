@@ -49,6 +49,12 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(deref_opt(_ops_Greater_IObservableFloatIObservableFloat(self.x,self.y)),self.x,self.y))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
@@ -101,6 +107,12 @@ class Max_FloatIObservableFloat(Observablefloat):
         from marketsim.gen._out.ops._greater import Greater_FloatIObservableFloat as _ops_Greater_FloatIObservableFloat
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_IObservableBooleanFloatIObservableFloat(deref_opt(_ops_Greater_FloatIObservableFloat(self.x,self.y)),self.x,self.y))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -155,6 +167,12 @@ class Max_IObservableFloatFloat(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatFloat(deref_opt(_ops_Greater_IObservableFloatFloat(self.x,self.y)),self.x,self.y))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -205,6 +223,12 @@ class Max_FloatFloat(Observablefloat):
         from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
         return deref_opt(_ops_Condition_BooleanFloatFloat(deref_opt(_ops_Greater_FloatFloat(self.x,self.y)),self.x,self.y))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def Max(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

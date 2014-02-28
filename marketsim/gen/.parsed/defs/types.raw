@@ -303,11 +303,50 @@ Definitions:
 | | - List:
 | | - List:
 | - Interface:
-| | - IEW
+| | - Cumulative
 | | - Generics:
 | | | - List:
 | | - Some:
 | | | - List:
+| | | | - Parameter:
+| | | | | - source
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - const
+| | | | | | | - List:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IStatDomain
+| | | | - List:
+| | - List:
+| - Interface:
+| | - EW
+| | - Generics:
+| | | - List:
+| | - Some:
+| | | - List:
+| | | | - Parameter:
+| | | | | - source
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - const
+| | | | | | | - List:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | - List:
 | | | | - Parameter:
 | | | | | - alpha
 | | | | | - None
@@ -322,25 +361,28 @@ Definitions:
 | | | | | | - IStatDomain
 | | | | - List:
 | | - List:
+| | | - Attribute:
+| | | | - label
+| | | | - EW_{%(alpha)s}(%(source)s)
 | - Interface:
-| | - ICumulative
+| | - Moving
 | | - Generics:
 | | | - List:
 | | - Some:
 | | | - List:
-| | - List:
-| | | - SimpleType:
-| | | | - QualifiedName:
+| | | | - Parameter:
+| | | | | - source
+| | | | | - None
+| | | | | - Some:
+| | | | | | - FunCall:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - 
+| | | | | | | | | - const
+| | | | | | | - List:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
 | | | | | - List:
-| | | | | | - IStatDomain
-| | | | - List:
-| | - List:
-| - Interface:
-| | - IMoving
-| | - Generics:
-| | | - List:
-| | - Some:
-| | | - List:
 | | | | - Parameter:
 | | | | | - timeframe
 | | | | | - None
@@ -355,3 +397,6 @@ Definitions:
 | | | | | | - IStatDomain
 | | | | - List:
 | | - List:
+| | | - Attribute:
+| | | | - label
+| | | | - Moving_{%(timeframe)s}(%(source)s)

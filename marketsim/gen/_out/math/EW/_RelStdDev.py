@@ -51,6 +51,12 @@ class RelStdDev_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out.math.ew._stddev import StdDev_IObservableFloatFloat as _math_EW_StdDev_IObservableFloatFloat
         return deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_ops_Sub_IObservableFloatFloat(self.source,deref_opt(_math_EW_Avg_IObservableFloatFloat(self.source,self.alpha)))),deref_opt(_math_EW_StdDev_IObservableFloatFloat(self.source,self.alpha))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def RelStdDev(source = None,alpha = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

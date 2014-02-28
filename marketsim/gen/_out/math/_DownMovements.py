@@ -51,6 +51,12 @@ class DownMovements_IObservableFloatFloat(Observablefloat):
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatIObservableFloat as _ops_Sub_IObservableFloatIObservableFloat
         return deref_opt(_math_Max_FloatIObservableFloat(deref_opt(_constant_Float(0.0)),deref_opt(_ops_Sub_IObservableFloatIObservableFloat(deref_opt(_math_Lagged_IObservableFloatFloat(self.source,self.timeframe)),self.source))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def DownMovements(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

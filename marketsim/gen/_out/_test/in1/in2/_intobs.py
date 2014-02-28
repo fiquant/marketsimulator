@@ -43,6 +43,12 @@ class IntObs_(Observableint):
         from marketsim import deref_opt
         return deref_opt(_const_Int(0))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def IntObs(): 
     from marketsim import rtti
     return IntObs_()

@@ -155,9 +155,12 @@ package object gen
                     case f : Typed.Function =>
                         try {
                             generationUnit(f) map { g =>
-                                //println(f.parent.qualifiedName, f.name)
-                                for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
+                                //println(base_name, f.parent.qualifiedName, f.name, g.code)
+                                (managed(printWriter(dir, s"_$base_name.py")) map { out =>
                                     out.println(g.code)
+                                }).either match {
+                                    case Left(exceptions) => throw new Exception(exceptions map { _.toString } mkString predef.crlf)
+                                    case Right(result)    => result
                                 }
                             } getOrElse f.name
                         } catch {
@@ -170,47 +173,63 @@ package object gen
                     case f : Typed.FunctionAlias =>
                 }
 
-                import predef._
-
-                def tryOverload(f : Typed.Function, local : Boolean) : Code =
-                    generationUnit(f) map { g =>
-                        val args_to_pass = f.parameters map { _.name } mkString ","
-
-                        def typecheck(args : List[Typed.Parameter]) : Code = args match {
-                            case Nil =>
-                                s"return "||| (if (local) toLazy(g.name) else Printer.qualifiedCall(f)) |||s"($args_to_pass)"
-                            case x :: tl =>
-                                (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
-                                    |> typecheck(tl))
-                        }
-                        typecheck(f.parameters)
-                    } getOrElse ""
-
-                val overloads = fs map {
-                    case f : Typed.Function      => (f, true)
-                    case a : Typed.FunctionAlias => (a.target, false)
-                }
-
-                def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
-
-                val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
-
-                if (calls.toString != "")
+                if (p.types contains base_name)
                 {
-                    idx_out.println(base.withImports(Printer.pubImportsOf(fs.head)))
+                    val long_name = generationUnit(fs.head.asInstanceOf[Typed.Function]).get.name
+                    val interface = p.types(base_name).asInstanceOf[Typed.InterfaceDecl]
 
-                    val resolver =
-                        s"def $base_name($input_args): " |> base.withImports(
-                                calls |||
-                                ImportFrom("rtti", "marketsim") |
-                                s"raise Exception('Cannot find suitable overload for $base_name("+
-                                        (fs.head.parameter_names
-                                                map { p => "str(" + p + ") +':'+ str(type("+ p +"))"  }
-                                                mkString ("'+", "+','+", "+'"))+
-                                        ")')")
+                    (managed(printWriter(dir, s"_$base_name.py")) map { out =>
+                        out.println("" |> getMethods(interface.instances.head))
+                        out.println(s"$base_name = $long_name")
+                    }).either match {
+                        case Left(exceptions) => throw new Exception(exceptions map { _.toString } mkString predef.crlf)
+                        case Right(result)    => result
+                    }
+                }
+                else
+                {
+                    import predef._
 
-                    for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
-                        out.println(resolver)
+                    def tryOverload(f : Typed.Function, local : Boolean) : Code =
+                        generationUnit(f) map { g =>
+                            val args_to_pass = f.parameters map { _.name } mkString ","
+
+                            def typecheck(args : List[Typed.Parameter]) : Code = args match {
+                                case Nil =>
+                                    s"return "||| (if (local) toLazy(g.name) else Printer.qualifiedCall(f)) |||s"($args_to_pass)"
+                                case x :: tl =>
+                                    (s"if ${x.name} is None or rtti.can_be_casted(${x.name}, " ||| x.ty.asCode ||| "):"
+                                        |> typecheck(tl))
+                            }
+                            typecheck(f.parameters)
+                        } getOrElse ""
+
+                    val overloads = fs map {
+                        case f : Typed.Function      => (f, true)
+                        case a : Typed.FunctionAlias => (a.target, false)
+                    }
+
+                    def calls = overloads map { p => tryOverload(p._1, p._2) } reduce { _ | _ }
+
+                    val input_args = fs.head.parameter_names map { _ + " = None" } mkString ","
+
+                    if (calls.toString != "")
+                    {
+                        idx_out.println(base.withImports(Printer.pubImportsOf(fs.head)))
+
+                        val resolver =
+                            s"def $base_name($input_args): " |> base.withImports(
+                                    calls |||
+                                    ImportFrom("rtti", "marketsim") |
+                                    s"raise Exception('Cannot find suitable overload for $base_name("+
+                                            (fs.head.parameter_names
+                                                    map { p => "str(" + p + ") +':'+ str(type("+ p +"))"  }
+                                                    mkString ("'+", "+','+", "+'"))+
+                                            ")')")
+
+                        for (out <- managed(printWriter(dir, s"_$base_name.py"))) {
+                            out.println(resolver)
+                        }
                     }
                 }
             }
@@ -259,6 +278,7 @@ package object gen
             if (p.types.nonEmpty)
             {
                 p.types.values foreach {
+                    case interface : Typed.InterfaceDecl if p.functions contains interface.name =>
                     case interface : Typed.InterfaceDecl =>
                             val name = interface.name
 
@@ -275,6 +295,9 @@ package object gen
                                 if (interface.generics.isEmpty) {
 
                                     val bases =
+                                        if (p.functions contains name) {
+                                            toLazy("object")
+                                        } else
                                         if (interface.bases.nonEmpty)
                                                 interface.bases map {
                                                     b => (b bind TypesUnbound.EmptyTypeMapper_Bound).asCode
@@ -365,6 +388,7 @@ package object gen
         register(intrinsic)
         register(intrinsic_function)
         register(intrinsic_observable)
+        register(constructor)
         register(order_factory)
         register(order_factory_curried)
         register(order_factory_on_proto)

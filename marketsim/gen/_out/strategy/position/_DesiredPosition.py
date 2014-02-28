@@ -52,6 +52,12 @@ class DesiredPosition_IObservableFloatISingleAssetTrader(Observablefloat):
         from marketsim.gen._out.trader._pendingvolume import PendingVolume_IAccount as _trader_PendingVolume_IAccount
         return deref_opt(_ops_Sub_IObservableFloatIObservableFloat(deref_opt(_ops_Sub_IObservableFloatIObservableFloat(self.desiredPosition,deref_opt(_trader_Position_IAccount(self.trader)))),deref_opt(_trader_PendingVolume_IAccount(self.trader))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def DesiredPosition(desiredPosition = None,trader = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim.gen._out._isingleassettrader import ISingleAssetTrader

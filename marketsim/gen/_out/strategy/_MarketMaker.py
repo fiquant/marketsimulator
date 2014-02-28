@@ -63,6 +63,12 @@ class MarketMaker_FloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.order._iceberg import Iceberg_IObservableIOrderFloat as _order_Iceberg_IObservableIOrderFloat
         return deref_opt(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(_order_Iceberg_IObservableIOrderFloat(deref_opt(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat(deref_opt(_order__curried_price_Limit_SideFloat(deref_opt(_side_Sell_()),deref_opt(_constant_Float((self.volume*1000))))),deref_opt(_observable_BreaksAtChanges_IObservableFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_orderbook_SafeSidePrice_IOrderQueueFloat(deref_opt(_orderbook_Asks_IOrderBook()),deref_opt(_constant_Float((100+self.delta))))),deref_opt(_math_Exp_Float(deref_opt(_ops_Div_FloatFloat(deref_opt(_math_Atan_Float(deref_opt(_trader_Position_IAccount()))),deref_opt(_constant_Int(1000)))))))),0.9)))))),deref_opt(_constant_Float(self.volume)))),deref_opt(_event_After_Float(deref_opt(_constant_Float(0.0)))))),deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(_order_Iceberg_IObservableIOrderFloat(deref_opt(_order_FloatingPrice_FloatIObservableIOrderIObservableFloat(deref_opt(_order__curried_price_Limit_SideFloat(deref_opt(_side_Buy_()),deref_opt(_constant_Float((self.volume*1000))))),deref_opt(_observable_BreaksAtChanges_IObservableFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_orderbook_SafeSidePrice_IOrderQueueFloat(deref_opt(_orderbook_Bids_IOrderBook()),deref_opt(_constant_Float((100-self.delta))))),deref_opt(_math_Exp_Float(deref_opt(_ops_Div_FloatFloat(deref_opt(_math_Atan_Float(deref_opt(_trader_Position_IAccount()))),deref_opt(_constant_Int(1000)))))))),0.9)))))),deref_opt(_constant_Float(self.volume)))),deref_opt(_event_After_Float(deref_opt(_constant_Float(0.0))))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

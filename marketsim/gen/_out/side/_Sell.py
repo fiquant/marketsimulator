@@ -38,6 +38,12 @@ class Sell_(IFunctionSide):
         from marketsim import deref_opt
         return deref_opt(_side_observableSell_())
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def Sell(): 
     from marketsim import rtti
     return Sell_()

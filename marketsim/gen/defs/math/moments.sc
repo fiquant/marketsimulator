@@ -126,41 +126,30 @@ package math
 
         package impl
         {
-            @python.intrinsic.function("_constant._Empty_Impl")
-            @label = "EW_{%(alpha)s}(%(source)s)"
-            def EW(source = const(1.), alpha = 0.015) : IEW
-
-            @python.intrinsic.function("_constant._Empty_Impl")
-            def Cumulative(source = const(1.)) : ICumulative
-
-            @python.intrinsic.function("_constant._Empty_Impl")
-            @label = "Moving_{%(timeframe)s}(%(source)s)"
-            def Moving(source = const(1.), timeframe = 100.) : IMoving
-
             @python.intrinsic("moments.tmp.Source_Impl")
-            def Source(x = EW() : IStatDomain) : IObservable[Float]
+            def Source(x = .EW() : IStatDomain) : IObservable[Float]
 
             @python.intrinsic.function("moments.tmp.Alpha_Impl")
-            def Alpha(x = EW()) : Float
+            def Alpha(x = .EW()) : Float
 
             @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-            def Timeframe(x = Moving()) : Float
+            def Timeframe(x = .Moving()) : Float
 
-            def Avg(x = EW())           = math.EW.Avg(x~>Source, x~>Alpha)
-            def Avg(x = Cumulative())   = math.Cumulative.Avg(x~>Source)
-            def Avg(x = Moving())       = math.Moving.Avg(x~>Source, x~>Timeframe)
+            def Avg(x = .EW())           = math.EW.Avg(x~>Source, x~>Alpha)
+            def Avg(x = .Cumulative())   = math.Cumulative.Avg(x~>Source)
+            def Avg(x = .Moving())       = math.Moving.Avg(x~>Source, x~>Timeframe)
 
-            def Var(x = EW())           = math.EW.Var(x~>Source, x~>Alpha)
-            def Var(x = Cumulative())   = math.Cumulative.Var(x~>Source)
-            def Var(x = Moving())       = math.Moving.Var(x~>Source, x~>Timeframe)
+            def Var(x = .EW())           = math.EW.Var(x~>Source, x~>Alpha)
+            def Var(x = .Cumulative())   = math.Cumulative.Var(x~>Source)
+            def Var(x = .Moving())       = math.Moving.Var(x~>Source, x~>Timeframe)
 
-            def StdDev(x = EW())           = math.EW.StdDev(x~>Source, x~>Alpha)
-            def StdDev(x = Cumulative())   = math.Cumulative.StdDev(x~>Source)
-            def StdDev(x = Moving())       = math.Moving.StdDev(x~>Source, x~>Timeframe)
+            def StdDev(x = .EW())           = math.EW.StdDev(x~>Source, x~>Alpha)
+            def StdDev(x = .Cumulative())   = math.Cumulative.StdDev(x~>Source)
+            def StdDev(x = .Moving())       = math.Moving.StdDev(x~>Source, x~>Timeframe)
 
-            def RelStdDev(x = EW())           = math.EW.RelStdDev(x~>Source, x~>Alpha)
-            def RelStdDev(x = Cumulative())   = math.Cumulative.RelStdDev(x~>Source)
-            def RelStdDev(x = Moving())       = math.Moving.RelStdDev(x~>Source, x~>Timeframe)
+            def RelStdDev(x = .EW())           = math.EW.RelStdDev(x~>Source, x~>Alpha)
+            def RelStdDev(x = .Cumulative())   = math.Cumulative.RelStdDev(x~>Source)
+            def RelStdDev(x = .Moving())       = math.Moving.RelStdDev(x~>Source, x~>Timeframe)
         }
 
     }

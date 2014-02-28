@@ -50,6 +50,12 @@ class AtanPow_FloatFloat(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(_math_Atan_Float(deref_opt(_math_Pow_FloatFloat(deref_opt(_const_Float(self.base)),self.f))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def AtanPow(f = None,base = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._out._iew import IEW
+from marketsim.gen._out._ew import EW
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev_IEW(Observablefloat):
+class RelStdDev_EW(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -11,10 +11,10 @@ class RelStdDev_IEW(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
+        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim import event
         Observablefloat.__init__(self)
-        self.x = x if x is not None else deref_opt(_math_impl_EW_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_EW_IObservableFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -24,7 +24,7 @@ class RelStdDev_IEW(Observablefloat):
         return repr(self)
     
     _properties = {
-        'x' : IEW
+        'x' : EW
     }
     def __repr__(self):
         return "RelStdDev(%(x)s)" % self.__dict__
@@ -45,15 +45,21 @@ class RelStdDev_IEW(Observablefloat):
         from marketsim.gen._out.math.ew._relstddev import RelStdDev_IObservableFloatFloat as _math_EW_RelStdDev_IObservableFloatFloat
         from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._alpha import Alpha_IEW as _math_impl_Alpha_IEW
-        return deref_opt(_math_EW_RelStdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Alpha_IEW(self.x))))
+        from marketsim.gen._out.math.impl._alpha import Alpha_EW as _math_impl_Alpha_EW
+        return deref_opt(_math_EW_RelStdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Alpha_EW(self.x))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._out._icumulative import ICumulative
+from marketsim.gen._out._cumulative import Cumulative
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev_ICumulative(Observablefloat):
+class RelStdDev_Cumulative(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -61,10 +67,10 @@ class RelStdDev_ICumulative(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.math.impl._cumulative import Cumulative_IObservableFloat as _math_impl_Cumulative_IObservableFloat
         from marketsim import event
+        from marketsim.gen._out._cumulative import Cumulative_IObservableFloat as _Cumulative_IObservableFloat
         Observablefloat.__init__(self)
-        self.x = x if x is not None else deref_opt(_math_impl_Cumulative_IObservableFloat())
+        self.x = x if x is not None else deref_opt(_Cumulative_IObservableFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -74,7 +80,7 @@ class RelStdDev_ICumulative(Observablefloat):
         return repr(self)
     
     _properties = {
-        'x' : ICumulative
+        'x' : Cumulative
     }
     def __repr__(self):
         return "RelStdDev(%(x)s)" % self.__dict__
@@ -97,12 +103,18 @@ class RelStdDev_ICumulative(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_math_Cumulative_RelStdDev_IObservableFloat(deref_opt(_math_impl_Source_IStatDomain(self.x))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._out._imoving import IMoving
+from marketsim.gen._out._moving import Moving
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
-class RelStdDev_IMoving(Observablefloat):
+class RelStdDev_Moving(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -110,10 +122,10 @@ class RelStdDev_IMoving(Observablefloat):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.math.impl._moving import Moving_IObservableFloatFloat as _math_impl_Moving_IObservableFloatFloat
         from marketsim import event
+        from marketsim.gen._out._moving import Moving_IObservableFloatFloat as _Moving_IObservableFloatFloat
         Observablefloat.__init__(self)
-        self.x = x if x is not None else deref_opt(_math_impl_Moving_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_Moving_IObservableFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -123,7 +135,7 @@ class RelStdDev_IMoving(Observablefloat):
         return repr(self)
     
     _properties = {
-        'x' : IMoving
+        'x' : Moving
     }
     def __repr__(self):
         return "RelStdDev(%(x)s)" % self.__dict__
@@ -144,18 +156,24 @@ class RelStdDev_IMoving(Observablefloat):
         from marketsim.gen._out.math.moving._relstddev import RelStdDev_IObservableFloatFloat as _math_Moving_RelStdDev_IObservableFloatFloat
         from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._timeframe import Timeframe_IMoving as _math_impl_Timeframe_IMoving
-        return deref_opt(_math_Moving_RelStdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Timeframe_IMoving(self.x))))
+        from marketsim.gen._out.math.impl._timeframe import Timeframe_Moving as _math_impl_Timeframe_Moving
+        return deref_opt(_math_Moving_RelStdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Timeframe_Moving(self.x))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def RelStdDev(x = None): 
-    from marketsim.gen._out._iew import IEW
-    from marketsim.gen._out._icumulative import ICumulative
-    from marketsim.gen._out._imoving import IMoving
+    from marketsim.gen._out._ew import EW
+    from marketsim.gen._out._cumulative import Cumulative
+    from marketsim.gen._out._moving import Moving
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IEW):
-        return RelStdDev_IEW(x)
-    if x is None or rtti.can_be_casted(x, ICumulative):
-        return RelStdDev_ICumulative(x)
-    if x is None or rtti.can_be_casted(x, IMoving):
-        return RelStdDev_IMoving(x)
+    if x is None or rtti.can_be_casted(x, EW):
+        return RelStdDev_EW(x)
+    if x is None or rtti.can_be_casted(x, Cumulative):
+        return RelStdDev_Cumulative(x)
+    if x is None or rtti.can_be_casted(x, Moving):
+        return RelStdDev_Moving(x)
     raise Exception('Cannot find suitable overload for RelStdDev('+str(x) +':'+ str(type(x))+')')

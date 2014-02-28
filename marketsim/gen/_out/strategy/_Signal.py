@@ -58,6 +58,12 @@ class Signal_IEventSideIObservableIOrderIObservableFloatFloat(ISingleAssetStrate
         from marketsim import deref_opt
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_side_Signal_IObservableFloatFloat(self.signal,self.threshold)))),self.eventGen))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -120,6 +126,12 @@ class Signal_IEventSideIObservableIOrderFloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
         from marketsim import deref_opt
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_side_Signal_FloatFloat(self.signal,self.threshold)))),self.eventGen))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

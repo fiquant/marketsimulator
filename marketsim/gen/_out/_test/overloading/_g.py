@@ -37,6 +37,12 @@ class g_Int(IFunctionint):
         from marketsim import deref_opt
         return deref_opt(__test_overloading_f_Int(self.x))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def g(x = None): 
     from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
     from marketsim import rtti

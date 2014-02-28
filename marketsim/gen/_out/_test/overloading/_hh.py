@@ -39,6 +39,12 @@ class hh_(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(__test_overloading_f_Float(deref_opt(_constant_Float(12.2))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def hh(): 
     from marketsim import rtti
     return hh_()

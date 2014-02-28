@@ -38,6 +38,12 @@ class constant_Int(IFunctionint):
         from marketsim import deref_opt
         return deref_opt(_const_Int(self.x))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
@@ -77,6 +83,12 @@ class constant_Float(IFunctionfloat):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
         return deref_opt(_const_Float(self.x))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def constant(x = None): 
     from marketsim import rtti

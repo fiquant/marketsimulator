@@ -316,6 +316,7 @@ package object NameTable {
                 case AST.FunCall(n, params) =>
                     val (qualified, extra_params) =
                         n.names match {
+                            case "" :: tl => (n, Nil)
                             case x :: Nil if isLocal(x) => (n, Nil)
                             case _ =>
                                 lookupScope(_ hasFunction _, n) match {

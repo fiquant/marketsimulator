@@ -57,6 +57,12 @@ class Signal_IObservableFloatFloat(ObservableSide):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
         return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatFloat(self.signal,deref_opt(_constant_Float(self.threshold)))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatFloat(self.signal,deref_opt(_constant_Float((0-self.threshold))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._side import Side
 from marketsim import registry
@@ -114,6 +120,12 @@ class Signal_FloatFloat(ObservableSide):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
         return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(self.signal,deref_opt(_constant_Float(self.threshold)))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Less_FloatFloat(self.signal,deref_opt(_constant_Float((0-self.threshold))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def Signal(signal = None,threshold = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

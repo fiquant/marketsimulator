@@ -62,6 +62,12 @@ class RSIbis_IEventSideIObservableIOrderFloatFloatFloat(ISingleAssetStrategy):
         from marketsim.gen._out.strategy._generic import Generic_IObservableIOrderIEvent as _strategy_Generic_IObservableIOrderIEvent
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IOrderBookFloatFloat(deref_opt(_orderbook_OfTrader_IAccount()),self.timeframe,self.alpha)))),(50.0-self.threshold))))),self.eventGen))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

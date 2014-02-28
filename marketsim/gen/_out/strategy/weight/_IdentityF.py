@@ -43,6 +43,12 @@ class IdentityF_Float(IFunctionfloat):
     def getImpl(self):
         return self.f
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def IdentityF(f = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

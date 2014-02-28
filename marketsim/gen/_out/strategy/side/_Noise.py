@@ -45,6 +45,12 @@ class Noise_Float(IFunctionSide):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(self.side_distribution,deref_opt(_constant_Float(0.5)))),deref_opt(_side_Sell_()),deref_opt(_side_Buy_())))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def Noise(side_distribution = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

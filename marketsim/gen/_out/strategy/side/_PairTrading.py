@@ -55,6 +55,12 @@ class PairTrading_IOrderBookFloatIOrderBook(ObservableSide):
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
         return deref_opt(_strategy_side_FundamentalValue_IObservableFloatIOrderBook(deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.bookToDependOn)),deref_opt(_constant_Float(self.factor)))),self.book))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def PairTrading(bookToDependOn = None,factor = None,book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti

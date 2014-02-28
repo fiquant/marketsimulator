@@ -35,6 +35,12 @@ class f_Int(IFunctionint):
     def getImpl(self):
         return self.x
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 
@@ -71,6 +77,12 @@ class f_Float(IFunctionfloat):
     
     def getImpl(self):
         return self.x
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def f(x = None): 
     from marketsim.gen._out._ifunction._ifunctionint import IFunctionint

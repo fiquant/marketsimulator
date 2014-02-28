@@ -8,11 +8,11 @@ class Source_IStatDomain(Observablefloat,Source_Impl):
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
+        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.x = x if x is not None else deref_opt(_math_impl_EW_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_EW_IObservableFloatFloat())
         
         rtti.check_fields(self)
         Source_Impl.__init__(self)

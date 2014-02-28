@@ -37,6 +37,12 @@ class S2_(str):
         from marketsim import deref_opt
         return deref_opt(__test_in1_in2_S1_String())
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def S2(): 
     from marketsim import rtti
     return S2_()

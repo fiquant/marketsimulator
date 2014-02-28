@@ -60,6 +60,12 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
         return deref_opt(_strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(deref_opt(_ops_Mul_IObservableFloatIObservableFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IOrderBookFloatFloat(deref_opt(_orderbook_OfTrader_IAccount(self.trader)),self.timeframe,self.alpha)))),1.0)),self.k)),self.trader))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def RSI_linear(alpha = None,k = None,timeframe = None,trader = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim.gen._out._isingleassettrader import ISingleAssetTrader

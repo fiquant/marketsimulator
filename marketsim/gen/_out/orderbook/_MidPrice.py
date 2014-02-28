@@ -51,6 +51,12 @@ class MidPrice_IOrderBook(Observablefloat):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         return deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_ops_Add_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(self.book)))),deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(self.book)))))),deref_opt(_constant_Float(2.0))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def MidPrice(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti

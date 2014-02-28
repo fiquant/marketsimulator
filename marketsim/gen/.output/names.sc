@@ -303,60 +303,49 @@ package math
     package impl
     {
         @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-        def Timeframe(x = .math.impl.Moving()) : .Float
+        def Timeframe(x = .Moving()) : .Float
         
-        def RelStdDev(x = .math.impl.EW()) = .math.EW.RelStdDev(x~>Source,x~>Alpha)
+        def RelStdDev(x = .EW()) = .math.EW.RelStdDev(x~>Source,x~>Alpha)
         
-        def RelStdDev(x = .math.impl.Cumulative()) = .math.Cumulative.RelStdDev(x~>Source)
+        def RelStdDev(x = .Cumulative()) = .math.Cumulative.RelStdDev(x~>Source)
         
-        def RelStdDev(x = .math.impl.Moving()) = .math.Moving.RelStdDev(x~>Source,x~>Timeframe)
+        def RelStdDev(x = .Moving()) = .math.Moving.RelStdDev(x~>Source,x~>Timeframe)
         
-        def Var(x = .math.impl.EW()) = .math.EW.Var(x~>Source,x~>Alpha)
+        def Var(x = .EW()) = .math.EW.Var(x~>Source,x~>Alpha)
         
-        def Var(x = .math.impl.Cumulative()) = .math.Cumulative.Var(x~>Source)
+        def Var(x = .Cumulative()) = .math.Cumulative.Var(x~>Source)
         
-        def Var(x = .math.impl.Moving()) = .math.Moving.Var(x~>Source,x~>Timeframe)
+        def Var(x = .Moving()) = .math.Moving.Var(x~>Source,x~>Timeframe)
         
-        def Avg(x = .math.impl.EW()) = .math.EW.Avg(x~>Source,x~>Alpha)
+        def Avg(x = .EW()) = .math.EW.Avg(x~>Source,x~>Alpha)
         
-        def Avg(x = .math.impl.Cumulative()) = .math.Cumulative.Avg(x~>Source)
+        def Avg(x = .Cumulative()) = .math.Cumulative.Avg(x~>Source)
         
-        def Avg(x = .math.impl.Moving()) = .math.Moving.Avg(x~>Source,x~>Timeframe)
-        
-        @python.intrinsic.function("_constant._Empty_Impl")
-        def Cumulative(source = .const(1.0)) : .ICumulative
+        def Avg(x = .Moving()) = .math.Moving.Avg(x~>Source,x~>Timeframe)
         
         @python.intrinsic("moments.tmp.Source_Impl")
-        def Source(x = .math.impl.EW() : .IStatDomain) : .IObservable[.Float]
+        def Source(x = .EW() : .IStatDomain) : .IObservable[.Float]
         
-        def MinEpsilon(x = .math.impl.Cumulative(),
+        @label = "Min_{\\epsilon}(%(x)s)"
+        def MinEpsilon(x = .Cumulative(),
                        epsilon = .constant(0.01)) = .math.Cumulative.MinEpsilon(x~>Source,epsilon)
         
-        def MaxEpsilon(x = .math.impl.Cumulative(),
+        @label = "Max_{\\epsilon}(%(x)s)"
+        def MaxEpsilon(x = .Cumulative(),
                        epsilon = .constant(0.01)) = .math.Cumulative.MaxEpsilon(x~>Source,epsilon)
         
-        def StdDev(x = .math.impl.EW()) = .math.EW.StdDev(x~>Source,x~>Alpha)
+        def StdDev(x = .EW()) = .math.EW.StdDev(x~>Source,x~>Alpha)
         
-        def StdDev(x = .math.impl.Cumulative()) = .math.Cumulative.StdDev(x~>Source)
+        def StdDev(x = .Cumulative()) = .math.Cumulative.StdDev(x~>Source)
         
-        def StdDev(x = .math.impl.Moving()) = .math.Moving.StdDev(x~>Source,x~>Timeframe)
+        def StdDev(x = .Moving()) = .math.Moving.StdDev(x~>Source,x~>Timeframe)
         
-        @python.intrinsic.function("_constant._Empty_Impl")
-        @label = "EW_{%(alpha)s}(%(source)s)"
-        def EW(source = .const(1.0),
-               alpha = 0.015) : .IEW
-        
-        def Maximum(x = .math.impl.Moving()) = .math.Moving.Max(x~>Source,x~>Timeframe)
+        def Maximum(x = .Moving()) = .math.Moving.Max(x~>Source,x~>Timeframe)
         
         @python.intrinsic.function("moments.tmp.Alpha_Impl")
-        def Alpha(x = .math.impl.EW()) : .Float
+        def Alpha(x = .EW()) : .Float
         
-        @python.intrinsic.function("_constant._Empty_Impl")
-        @label = "Moving_{%(timeframe)s}(%(source)s)"
-        def Moving(source = .const(1.0),
-                   timeframe = 100.0) : .IMoving
-        
-        def Minimum(x = .math.impl.Moving()) = .math.Moving.Min(x~>Source,x~>Timeframe)
+        def Minimum(x = .Moving()) = .math.Moving.Min(x~>Source,x~>Timeframe)
         
     }
     
@@ -1925,8 +1914,6 @@ type Volume = Int
 
 type Optional[T]
 
-type ICumulative() : IStatDomain
-
 type IAccount
 
 type IOrder
@@ -1951,7 +1938,7 @@ type IEvent
 
 type IMultiAssetStrategy
 
-type IMoving(timeframe = 100.0) : IStatDomain
+type Cumulative(source = .const(0.0)) : IStatDomain
 
 type ITwoWayLink
 
@@ -1965,13 +1952,17 @@ type ISingleAssetTrader : IAccount, ITrader
 
 type IVolumeLevels
 
-type IEW(alpha = 0.015) : IStatDomain
+@label = "EW_{%(alpha)s}(%(source)s)"
+type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
 
 type List[T]
 
 type Observable[U] : IObservable[U]
 
 type IDifferentiable : IFunction[Float]
+
+@label = "Moving_{%(timeframe)s}(%(source)s)"
+type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
 
 type ITimeSerie
 

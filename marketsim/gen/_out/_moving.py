@@ -1,5 +1,30 @@
+from marketsim import registry
 from marketsim.gen._out._istatdomain import IStatDomain
-class IMoving(IStatDomain):
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+@registry.expose(["-", "Moving"])
+class Moving_IObservableFloatFloat(IStatDomain):
+    """ 
+    """ 
+    def __init__(self, source = None, timeframe = None):
+        from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import deref_opt
+        from marketsim import rtti
+        self.source = source if source is not None else deref_opt(_const_Float(0.0))
+        self.timeframe = timeframe if timeframe is not None else 100.0
+        rtti.check_fields(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'source' : IObservablefloat,
+        'timeframe' : float
+    }
+    def __repr__(self):
+        return "Moving_{%(timeframe)s}(%(source)s)" % self.__dict__
+    
+
     @property
     def Timeframe(self):
         from marketsim.gen._out.math.impl._timeframe import Timeframe
@@ -36,3 +61,4 @@ class IMoving(IStatDomain):
         return Minimum(self)
     
     pass
+Moving = Moving_IObservableFloatFloat

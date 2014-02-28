@@ -44,6 +44,12 @@ class O_IObservableFloat(Observablefloat):
     def getImpl(self):
         return self.x
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def O(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

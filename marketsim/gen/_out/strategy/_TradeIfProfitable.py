@@ -54,6 +54,12 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         from marketsim.gen._out._constant import constant_Int as _constant_Int
         return deref_opt(_strategy_Suspendable_ISingleAssetStrategyBoolean(self.inner,deref_opt(_ops_GreaterEqual_FloatFloat(deref_opt(self.performance(deref_opt(self.account(self.inner)))),deref_opt(_constant_Int(0))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

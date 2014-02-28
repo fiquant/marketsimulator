@@ -204,7 +204,7 @@ package object base {
 
         def internals = "_internals = ['impl']"
 
-        override def body = super.body | internals | call | reset | getImpl
+        override def body = super.body | internals | call | reset | getImpl | getattr
 
         override def call_body = "return self.impl()"
 
@@ -217,6 +217,10 @@ package object base {
             "ctx = getattr(self, '_ctx', None)" |
             "if ctx: context.bind(self.impl, ctx)") |||
             ImportFrom("context", "marketsim")
+
+        def getattr = Def("__getattr__", "name",
+            "if name[0:2] != '__' and self.impl:" |> "return getattr(self.impl, name)" |
+            "else:" |> "raise AttributeError")
     }
 
     trait SubscribeParameter extends Parameter

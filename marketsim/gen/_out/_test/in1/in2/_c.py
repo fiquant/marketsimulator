@@ -37,6 +37,12 @@ class C_ICandleStickInt(object):
     def getImpl(self):
         return self.p
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def C(x = None,p = None): 
     from marketsim.gen._out._ifunction._ifunctionicandlestick import IFunctionICandleStick
     from marketsim import rtti

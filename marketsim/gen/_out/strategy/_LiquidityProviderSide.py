@@ -61,6 +61,12 @@ class LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat(ISing
         from marketsim import deref_opt
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(self.side,deref_opt(_strategy_price_LiquidityProvider_SideFloatFloatIOrderBook(self.side,self.initialValue,self.priceDistr)))),self.eventGen))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

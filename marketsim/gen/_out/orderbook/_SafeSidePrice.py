@@ -52,6 +52,12 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
         return deref_opt(_IfDefined_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(self.queue)),deref_opt(_IfDefined_IObservableFloatIObservableFloat(deref_opt(_orderbook_LastPrice_IOrderQueue(self.queue)),self.defaultValue))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import registry
@@ -106,6 +112,12 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         from marketsim.gen._out.orderbook._lastprice import LastPrice_IOrderQueue as _orderbook_LastPrice_IOrderQueue
         from marketsim.gen._out._ifdefined import IfDefined_IObservableFloatIObservableFloat as _IfDefined_IObservableFloatIObservableFloat
         return deref_opt(_IfDefined_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(self.queue)),deref_opt(_IfDefined_IObservableFloatFloat(deref_opt(_orderbook_LastPrice_IOrderQueue(self.queue)),self.defaultValue))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def SafeSidePrice(queue = None,defaultValue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

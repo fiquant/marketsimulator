@@ -50,6 +50,12 @@ class RSI_IOrderBookFloatFloat(IFunctionfloat):
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         return deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(100.0)),deref_opt(_ops_Div_FloatFloat(deref_opt(_constant_Float(100.0)),deref_opt(_ops_Add_FloatFloat(deref_opt(_constant_Float(1.0)),deref_opt(_math_rsi_Raw_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.timeframe,self.alpha))))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def RSI(book = None,timeframe = None,alpha = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti

@@ -59,6 +59,12 @@ class LiquidityProvider_IEventSideFloatIObservableIOrderFloatFloat(ISingleAssetS
         from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat as _strategy_LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat
         return deref_opt(_strategy_Array_ListISingleAssetStrategy([deref_opt(_strategy_LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat(self.eventGen,self.orderFactory,deref_opt(_side_Sell_()),self.initialValue,self.priceDistr)),deref_opt(_strategy_LiquidityProviderSide_IEventSideFloatIObservableIOrderSideFloatFloat(self.eventGen,self.orderFactory,deref_opt(_side_Buy_()),self.initialValue,self.priceDistr))]))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

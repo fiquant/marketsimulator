@@ -42,10 +42,16 @@ class MACD_IObservableFloatFloatFloat(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        from marketsim.gen._out.math.impl._avg import Avg_IEW as _math_impl_Avg_IEW
-        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
+        from marketsim.gen._out.math.impl._avg import Avg_EW as _math_impl_Avg_EW
+        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim import deref_opt
-        return deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_impl_Avg_IEW(deref_opt(_math_impl_EW_IObservableFloatFloat(self.x,(2.0/((self.fast+1))))))),deref_opt(_math_impl_Avg_IEW(deref_opt(_math_impl_EW_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))))))
+        return deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_impl_Avg_EW(deref_opt(_EW_IObservableFloatFloat(self.x,(2.0/((self.fast+1))))))),deref_opt(_math_impl_Avg_EW(deref_opt(_EW_IObservableFloatFloat(self.x,(2.0/((self.slow+1)))))))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def MACD(x = None,slow = None,fast = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

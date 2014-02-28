@@ -47,6 +47,12 @@ class Clamp0_Float(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Add_FloatFloat(deref_opt(_math_Max_FloatFloat(deref_opt(_constant_Int(0)),self.f)),deref_opt(_constant_Int(1))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def Clamp0(f = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

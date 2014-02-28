@@ -46,6 +46,12 @@ class Sqr_IObservableFloat(Observablefloat):
         from marketsim import deref_opt
         return deref_opt(_ops_Mul_IObservableFloatIObservableFloat(self.x,self.x))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -93,6 +99,12 @@ class Sqr_Float(Observablefloat):
         from marketsim.gen._out.ops._mul import Mul_FloatFloat as _ops_Mul_FloatFloat
         from marketsim import deref_opt
         return deref_opt(_ops_Mul_FloatFloat(self.x,self.x))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def Sqr(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

@@ -284,6 +284,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - Moving
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
@@ -318,6 +319,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - Moving
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
@@ -352,6 +354,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - Cumulative
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
@@ -385,6 +388,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Min_{\\epsilon}(%(x)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MaxEpsilon
 | | | | | | | | - List:
@@ -395,6 +401,7 @@ Definitions:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
 | | | | | | | | | | | | | | - Cumulative
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
@@ -428,6 +435,9 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - None
 | | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - label
+| | | | | | | | | | - Max_{\\epsilon}(%(x)s)
 | | | | | - List:
 | | | | | - List:
 | | | | | - false

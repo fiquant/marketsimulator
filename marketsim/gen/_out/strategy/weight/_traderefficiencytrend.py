@@ -43,6 +43,12 @@ class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(_trader_EfficiencyTrend_IAccountFloat(self.trader,self.alpha))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def TraderEfficiencyTrend(trader = None,alpha = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

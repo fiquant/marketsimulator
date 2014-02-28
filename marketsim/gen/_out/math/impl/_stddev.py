@@ -1,16 +1,16 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iew import IEW
+from marketsim.gen._out._ew import EW
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
-class StdDev_IEW(IFunctionfloat):
+class StdDev_EW(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
+        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_math_impl_EW_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_EW_IObservableFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -19,7 +19,7 @@ class StdDev_IEW(IFunctionfloat):
         return repr(self)
     
     _properties = {
-        'x' : IEW
+        'x' : EW
     }
     def __repr__(self):
         return "StdDev(%(x)s)" % self.__dict__
@@ -40,22 +40,28 @@ class StdDev_IEW(IFunctionfloat):
         from marketsim.gen._out.math.ew._stddev import StdDev_IObservableFloatFloat as _math_EW_StdDev_IObservableFloatFloat
         from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._alpha import Alpha_IEW as _math_impl_Alpha_IEW
-        return deref_opt(_math_EW_StdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Alpha_IEW(self.x))))
+        from marketsim.gen._out.math.impl._alpha import Alpha_EW as _math_impl_Alpha_EW
+        return deref_opt(_math_EW_StdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Alpha_EW(self.x))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._icumulative import ICumulative
+from marketsim.gen._out._cumulative import Cumulative
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
-class StdDev_ICumulative(IFunctionfloat):
+class StdDev_Cumulative(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.math.impl._cumulative import Cumulative_IObservableFloat as _math_impl_Cumulative_IObservableFloat
+        from marketsim.gen._out._cumulative import Cumulative_IObservableFloat as _Cumulative_IObservableFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_math_impl_Cumulative_IObservableFloat())
+        self.x = x if x is not None else deref_opt(_Cumulative_IObservableFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -64,7 +70,7 @@ class StdDev_ICumulative(IFunctionfloat):
         return repr(self)
     
     _properties = {
-        'x' : ICumulative
+        'x' : Cumulative
     }
     def __repr__(self):
         return "StdDev(%(x)s)" % self.__dict__
@@ -87,19 +93,25 @@ class StdDev_ICumulative(IFunctionfloat):
         from marketsim import deref_opt
         return deref_opt(_math_Cumulative_StdDev_IObservableFloat(deref_opt(_math_impl_Source_IStatDomain(self.x))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._imoving import IMoving
+from marketsim.gen._out._moving import Moving
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
-class StdDev_IMoving(IFunctionfloat):
+class StdDev_Moving(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.math.impl._moving import Moving_IObservableFloatFloat as _math_impl_Moving_IObservableFloatFloat
+        from marketsim.gen._out._moving import Moving_IObservableFloatFloat as _Moving_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_math_impl_Moving_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_Moving_IObservableFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
     
@@ -108,7 +120,7 @@ class StdDev_IMoving(IFunctionfloat):
         return repr(self)
     
     _properties = {
-        'x' : IMoving
+        'x' : Moving
     }
     def __repr__(self):
         return "StdDev(%(x)s)" % self.__dict__
@@ -129,18 +141,24 @@ class StdDev_IMoving(IFunctionfloat):
         from marketsim.gen._out.math.moving._stddev import StdDev_IObservableFloatFloat as _math_Moving_StdDev_IObservableFloatFloat
         from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._timeframe import Timeframe_IMoving as _math_impl_Timeframe_IMoving
-        return deref_opt(_math_Moving_StdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Timeframe_IMoving(self.x))))
+        from marketsim.gen._out.math.impl._timeframe import Timeframe_Moving as _math_impl_Timeframe_Moving
+        return deref_opt(_math_Moving_StdDev_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Timeframe_Moving(self.x))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def StdDev(x = None): 
-    from marketsim.gen._out._iew import IEW
-    from marketsim.gen._out._icumulative import ICumulative
-    from marketsim.gen._out._imoving import IMoving
+    from marketsim.gen._out._ew import EW
+    from marketsim.gen._out._cumulative import Cumulative
+    from marketsim.gen._out._moving import Moving
     from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, IEW):
-        return StdDev_IEW(x)
-    if x is None or rtti.can_be_casted(x, ICumulative):
-        return StdDev_ICumulative(x)
-    if x is None or rtti.can_be_casted(x, IMoving):
-        return StdDev_IMoving(x)
+    if x is None or rtti.can_be_casted(x, EW):
+        return StdDev_EW(x)
+    if x is None or rtti.can_be_casted(x, Cumulative):
+        return StdDev_Cumulative(x)
+    if x is None or rtti.can_be_casted(x, Moving):
+        return StdDev_Moving(x)
     raise Exception('Cannot find suitable overload for StdDev('+str(x) +':'+ str(type(x))+')')

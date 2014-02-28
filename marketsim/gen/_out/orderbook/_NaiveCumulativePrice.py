@@ -61,6 +61,12 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
         return deref_opt(_ops_Condition_IObservableBooleanIObservableFloatIObservableFloat(deref_opt(_ops_Less_IObservableFloatFloat(self.depth,deref_opt(_constant_Float(0.0)))),deref_opt(_ops_Mul_IObservableFloatIObservableFloat(self.depth,deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(self.book)))))),deref_opt(_ops_Condition_IObservableBooleanIObservableFloatFloat(deref_opt(_ops_Greater_IObservableFloatFloat(self.depth,deref_opt(_constant_Float(0.0)))),deref_opt(_ops_Mul_IObservableFloatIObservableFloat(self.depth,deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(self.book)))))),deref_opt(_constant_Float(0.0))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
@@ -123,6 +129,12 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
         from marketsim.gen._out.ops._condition import Condition_BooleanIObservableFloatFloat as _ops_Condition_BooleanIObservableFloatFloat
         return deref_opt(_ops_Condition_BooleanIObservableFloatIObservableFloat(deref_opt(_ops_Less_FloatFloat(self.depth,deref_opt(_constant_Float(0.0)))),deref_opt(_ops_Mul_FloatIObservableFloat(self.depth,deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(self.book)))))),deref_opt(_ops_Condition_BooleanIObservableFloatFloat(deref_opt(_ops_Greater_FloatFloat(self.depth,deref_opt(_constant_Float(0.0)))),deref_opt(_ops_Mul_FloatIObservableFloat(self.depth,deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(self.book)))))),deref_opt(_constant_Float(0.0))))))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
     
 def NaiveCumulativePrice(book = None,depth = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

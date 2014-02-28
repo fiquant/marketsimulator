@@ -48,17 +48,19 @@ package math() {@category = "Statistics"
     
     package impl() {
         // defined at defs\math\minmax.sc: 53.9
-        def Minimum(x = Moving()) = math.Moving.Min(x~>Source,x~>Timeframe)
+        def Minimum(x = .Moving()) = math.Moving.Min(x~>Source,x~>Timeframe)
         
         // defined at defs\math\minmax.sc: 54.9
-        def Maximum(x = Moving()) = math.Moving.Max(x~>Source,x~>Timeframe)
+        def Maximum(x = .Moving()) = math.Moving.Max(x~>Source,x~>Timeframe)
         
         // defined at defs\math\minmax.sc: 56.9
-        def MinEpsilon(x = Cumulative(),
+        @label = "Min_{\\epsilon}(%(x)s)"
+        def MinEpsilon(x = .Cumulative(),
                        epsilon = constant(0.01)) = math.Cumulative.MinEpsilon(x~>Source,epsilon)
         
-        // defined at defs\math\minmax.sc: 57.9
-        def MaxEpsilon(x = Cumulative(),
+        // defined at defs\math\minmax.sc: 59.9
+        @label = "Max_{\\epsilon}(%(x)s)"
+        def MaxEpsilon(x = .Cumulative(),
                        epsilon = constant(0.01)) = math.Cumulative.MaxEpsilon(x~>Source,epsilon)
     }
 }

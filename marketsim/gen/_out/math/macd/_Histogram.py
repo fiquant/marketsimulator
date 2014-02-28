@@ -51,6 +51,12 @@ class Histogram_IObservableFloatFloatFloatFloatFloat(IFunctionfloat):
         from marketsim.gen._out.math.macd._signal import Signal_IObservableFloatFloatFloatFloatFloat as _math_macd_Signal_IObservableFloatFloatFloatFloatFloat
         return deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast)),deref_opt(_math_macd_Signal_IObservableFloatFloatFloatFloatFloat(self.x,self.slow,self.fast,self.timeframe,self.step))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def Histogram(x = None,slow = None,fast = None,timeframe = None,step = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

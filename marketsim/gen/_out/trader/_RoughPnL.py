@@ -50,6 +50,12 @@ class RoughPnL_IAccount(Observablefloat):
         from marketsim.gen._out.trader._position import Position_IAccount as _trader_Position_IAccount
         return deref_opt(_ops_Add_IObservableFloatIObservableFloat(deref_opt(_trader_Balance_IAccount(self.trader)),deref_opt(_orderbook_NaiveCumulativePrice_IOrderBookIObservableFloat(deref_opt(_orderbook_OfTrader_IAccount(self.trader)),deref_opt(_trader_Position_IAccount(self.trader))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def RoughPnL(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

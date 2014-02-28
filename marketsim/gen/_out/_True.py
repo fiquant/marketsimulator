@@ -38,6 +38,12 @@ class true_(IFunctionbool):
         from marketsim import deref_opt
         return deref_opt(_observableTrue_())
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 def true(): 
     from marketsim import rtti
     return true_()

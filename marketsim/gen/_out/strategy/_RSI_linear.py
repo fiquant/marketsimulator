@@ -54,6 +54,12 @@ class RSI_linear_FloatIObservableIOrderFloatIObservableFloatFloat(ISingleAssetSt
         from marketsim import deref_opt
         return deref_opt(_strategy_Generic_IObservableIOrderIEvent(deref_opt(self.orderFactory(deref_opt(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(self.alpha,self.k,self.timeframe))))))
     
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
