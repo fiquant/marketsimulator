@@ -36,5 +36,5 @@ package trader() {
     /** Returns first derivative of a moving average of the trader efficiency
      */
     def EfficiencyTrend(trader = SingleProxy() : IAccount,
-                        alpha = 0.15) = trader~>Efficiency~>EW_Avg(alpha)~>Derivative
+                        alpha = 0.15) = trader~>Efficiency~>EW(alpha)~>Avg~>Derivative
 }

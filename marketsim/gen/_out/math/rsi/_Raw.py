@@ -41,12 +41,13 @@ class Raw_IObservableFloatFloatFloat(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.math.impl._avg import Avg_mathimplIEW as _math_impl_Avg_mathimplIEW
         from marketsim import deref_opt
         from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements_IObservableFloatFloat
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out.math._downmovements import DownMovements_IObservableFloatFloat as _math_DownMovements_IObservableFloatFloat
-        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
-        return deref_opt(_ops_Div_FloatFloat(deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_math_UpMovements_IObservableFloatFloat(self.source,self.timeframe)),self.alpha)),deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_math_DownMovements_IObservableFloatFloat(self.source,self.timeframe)),self.alpha))))
+        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
+        return deref_opt(_ops_Div_FloatFloat(deref_opt(_math_impl_Avg_mathimplIEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_math_UpMovements_IObservableFloatFloat(self.source,self.timeframe)),self.alpha)))),deref_opt(_math_impl_Avg_mathimplIEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_math_DownMovements_IObservableFloatFloat(self.source,self.timeframe)),self.alpha))))))
     
 def Raw(source = None,timeframe = None,alpha = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

@@ -68,8 +68,8 @@ package orderbook
                       /** parameter alpha for the moving average  */
                       alpha = 0.15) =
 
-        (queue~>LastTradePrice * queue~>LastTradeVolume)~>EW_Avg(alpha) /
-                queue~>LastTradeVolume~>EW_Avg(alpha)
+        (queue~>LastTradePrice * queue~>LastTradeVolume)~>EW(alpha)~>Avg /
+                queue~>LastTradeVolume~>EW(alpha)~>Avg
 
     /**
      *  Returns tick size for the order *book*

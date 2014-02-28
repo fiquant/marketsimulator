@@ -366,32 +366,38 @@ Definitions:
 | | | | | | - BinOp:
 | | | | | | | - Div
 | | | | | | | - MemberAccess:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Mul
-| | | | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Mul
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - queue
+| | | | | | | | | | | - LastTradePrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - queue
+| | | | | | | | | | | - LastTradeVolume
+| | | | | | | | | | | - List:
+| | | | | | | | | - EW
+| | | | | | | | | - List:
 | | | | | | | | | | - Var:
-| | | | | | | | | | | - queue
-| | | | | | | | | | - LastTradePrice
-| | | | | | | | | | - List:
+| | | | | | | | | | | - alpha
+| | | | | | | | - Avg
+| | | | | | | | - List:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - Var:
 | | | | | | | | | | | - queue
 | | | | | | | | | | - LastTradeVolume
 | | | | | | | | | | - List:
-| | | | | | | | - EW_Avg
-| | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - alpha
-| | | | | | | - MemberAccess:
-| | | | | | | | - MemberAccess:
-| | | | | | | | | - Var:
-| | | | | | | | | | - queue
-| | | | | | | | | - LastTradeVolume
+| | | | | | | | | - EW
 | | | | | | | | | - List:
-| | | | | | | | - EW_Avg
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - alpha
+| | | | | | | | - Avg
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - alpha
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:

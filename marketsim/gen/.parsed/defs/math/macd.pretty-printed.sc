@@ -7,7 +7,7 @@ package math.macd() {
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
     def MACD(/** source */ x = const(1.0),
              /** long period */ slow = 26.0,
-             /** short period */ fast = 12.0) = x~>EW_Avg(2.0/(fast+1))-x~>EW_Avg(2.0/(slow+1))
+             /** short period */ fast = 12.0) = x~>EW(2.0/(fast+1))~>Avg-x~>EW(2.0/(slow+1))~>Avg
     
     // defined at defs\math\macd.sc: 14.5
     /** Moving average convergence/divergence signal
@@ -18,7 +18,7 @@ package math.macd() {
                /** long period */ slow = 26.0,
                /** short period */ fast = 12.0,
                /** signal period */ timeframe = 9.0,
-               /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW_Avg(2/(timeframe+1))
+               /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW(2/(timeframe+1))~>Avg
     
     // defined at defs\math\macd.sc: 27.5
     /** Moving average convergence/divergence histogram

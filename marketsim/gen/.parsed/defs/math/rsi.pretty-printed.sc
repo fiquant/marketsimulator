@@ -31,7 +31,7 @@ package math() {
         @method = "rsi_Raw"
         def Raw(/** observable data source */ source = const(1.0),
                 /** lag size */ timeframe = 10.0,
-                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW_Avg(alpha)/source~>DownMovements(timeframe)~>EW_Avg(alpha)
+                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW(alpha)~>Avg/source~>DownMovements(timeframe)~>EW(alpha)~>Avg
     }
     
     // defined at defs\math\rsi.sc: 45.5

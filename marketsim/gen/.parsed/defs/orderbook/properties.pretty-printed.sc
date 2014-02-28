@@ -61,7 +61,7 @@ package orderbook() {
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
-                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW_Avg(alpha)/queue~>LastTradeVolume~>EW_Avg(alpha)
+                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW(alpha)~>Avg/queue~>LastTradeVolume~>EW(alpha)~>Avg
     
     // defined at defs\orderbook\properties.sc: 74.5
     /** Returns tick size for the order *book*

@@ -22,7 +22,7 @@ package strategy.position
                 trader  = trader.SingleProxy())
 
         = DesiredPosition(
-                    trader~>Orderbook~>MidPrice~>EW_RelStdDev(alpha)~>OnEveryDt(1.0) * k,
+                    trader~>Orderbook~>MidPrice~>EW(alpha)~>RelStdDev~>OnEveryDt(1.0) * k,
                     trader)
 
     /**

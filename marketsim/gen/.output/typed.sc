@@ -817,7 +817,7 @@ package math {
         def Raw(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** lag size */ timeframe : Optional[.Float] = 10.0,
                 /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : () => .Float
-            	 = .ops.Div(.math.EW.Avg(.math.UpMovements(source,timeframe),alpha),.math.EW.Avg(.math.DownMovements(source,timeframe),alpha))
+            	 = .ops.Div(.math.impl.Avg(.math.impl.EW(.math.UpMovements(source,timeframe),alpha)),.math.impl.Avg(.math.impl.EW(.math.DownMovements(source,timeframe),alpha)))
     }
     
     @category = "MACD"
@@ -830,7 +830,7 @@ package math {
         def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
                  /** long period */ slow : Optional[.Float] = 26.0,
                  /** short period */ fast : Optional[.Float] = 12.0) : () => .Float
-            	 = .ops.Sub(.math.EW.Avg(x,2.0/(fast+1)),.math.EW.Avg(x,2.0/(slow+1)))
+            	 = .ops.Sub(.math.impl.Avg(.math.impl.EW(x,2.0/(fast+1))),.math.impl.Avg(.math.impl.EW(x,2.0/(slow+1))))
         
         /** Moving average convergence/divergence signal
          */
@@ -842,7 +842,7 @@ package math {
                    /** short period */ fast : Optional[.Float] = 12.0,
                    /** signal period */ timeframe : Optional[.Float] = 9.0,
                    /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
-            	 = .math.EW.Avg(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1))
+            	 = .math.impl.Avg(.math.impl.EW(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1)))
         
         /** Moving average convergence/divergence histogram
          */
@@ -1770,7 +1770,7 @@ package strategy {@category = "Side function"
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 : Optional[.Float] = 0.015,
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.ops.Sub(.math.EW.Avg(.orderbook.MidPrice(book),alpha_1),.math.EW.Avg(.orderbook.MidPrice(book),alpha_2)),threshold)
+            	 = .strategy.side.Signal(.ops.Sub(.math.impl.Avg(.math.impl.EW(.orderbook.MidPrice(book),alpha_1)),.math.impl.Avg(.math.impl.EW(.orderbook.MidPrice(book),alpha_2))),threshold)
         
         /** Side function for trend follower strategy
          */
@@ -1778,7 +1778,7 @@ package strategy {@category = "Side function"
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15,
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.math.Derivative(.math.EW.Avg(.orderbook.MidPrice(book),alpha)),threshold)
+            	 = .strategy.side.Signal(.math.Derivative(.math.impl.Avg(.math.impl.EW(.orderbook.MidPrice(book),alpha))),threshold)
         
         /** Side function for fundamental value strategy
          */
@@ -1799,7 +1799,7 @@ package strategy {@category = "Side function"
         
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.math.EW.Avg(.orderbook.MidPrice(book),alpha),book)
+            	 = .strategy.side.FundamentalValue(.math.impl.Avg(.math.impl.EW(.orderbook.MidPrice(book),alpha)),book)
         
         /** Side function for a noise trading strategy
          */
@@ -2003,7 +2003,7 @@ package strategy {@category = "Side function"
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
                              /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.EW.RelStdDev(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha),1.0),k),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.impl.RelStdDev(.math.impl.EW(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)),1.0),k),trader)
     }
     
     
@@ -2368,7 +2368,7 @@ package trader {
     
     def EfficiencyTrend(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount,
                         alpha : Optional[.Float] = 0.15) : () => .Float
-        	 = .math.Derivative(.math.EW.Avg(.trader.Efficiency(trader),alpha))
+        	 = .math.Derivative(.math.impl.Avg(.math.impl.EW(.trader.Efficiency(trader),alpha)))
     
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
@@ -2425,7 +2425,7 @@ package orderbook {
     
     def WeightedPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
                       /** parameter alpha for the moving average  */ alpha : Optional[.Float] = 0.15) : () => .Float
-        	 = .ops.Div(.math.EW.Avg(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue)),alpha),.math.EW.Avg(.orderbook.LastTradeVolume(queue),alpha))
+        	 = .ops.Div(.math.impl.Avg(.math.impl.EW(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue)),alpha)),.math.impl.Avg(.math.impl.EW(.orderbook.LastTradeVolume(queue),alpha)))
     
     /** Returns tick size for the order *book*
      */

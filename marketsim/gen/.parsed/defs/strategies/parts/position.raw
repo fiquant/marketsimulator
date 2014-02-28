@@ -108,16 +108,19 @@ Definitions:
 | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - trader
-| | | | | | | | | | | | | - Orderbook
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - trader
+| | | | | | | | | | | | | | - Orderbook
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - EW
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - EW_RelStdDev
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - RelStdDev
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
 | | | | | | | | | | - OnEveryDt
 | | | | | | | | | | - List:
 | | | | | | | | | | | - FloatLit:

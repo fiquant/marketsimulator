@@ -39,7 +39,7 @@ package trader
      */
     def EfficiencyTrend(trader = SingleProxy() : IAccount, alpha = 0.15)
 
-        = trader~>Efficiency~>EW_Avg(alpha)~>Derivative
+        = trader~>Efficiency~>EW(alpha)~>Avg~>Derivative
 }
 
 

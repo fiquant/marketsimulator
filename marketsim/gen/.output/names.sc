@@ -420,7 +420,7 @@ package math
         @method = "rsi_Raw"
         def Raw(/** observable data source */ source = .const(1.0),
                 /** lag size */ timeframe = 10.0,
-                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW_Avg(alpha)/source~>DownMovements(timeframe)~>EW_Avg(alpha)
+                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW(alpha)~>Avg/source~>DownMovements(timeframe)~>EW(alpha)~>Avg
         
     }
     
@@ -432,7 +432,7 @@ package math
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
         def MACD(/** source */ x = .const(1.0),
                  /** long period */ slow = 26.0,
-                 /** short period */ fast = 12.0) = x~>EW_Avg(2.0/(fast+1))-x~>EW_Avg(2.0/(slow+1))
+                 /** short period */ fast = 12.0) = x~>EW(2.0/(fast+1))~>Avg-x~>EW(2.0/(slow+1))~>Avg
         
         /** Moving average convergence/divergence signal
          */
@@ -442,7 +442,7 @@ package math
                    /** long period */ slow = 26.0,
                    /** short period */ fast = 12.0,
                    /** signal period */ timeframe = 9.0,
-                   /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW_Avg(2/(timeframe+1))
+                   /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW(2/(timeframe+1))~>Avg
         
         /** Moving average convergence/divergence histogram
          */
@@ -1220,13 +1220,13 @@ package strategy
         def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,
                              /** threshold when the trader starts to act */ threshold = 0.0,
-                             /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW_Avg(alpha_1)-book~>MidPrice~>EW_Avg(alpha_2),threshold)
+                             /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW(alpha_1)~>Avg-book~>MidPrice~>EW(alpha_2)~>Avg,threshold)
         
         /** Side function for trend follower strategy
          */
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,
                           /** threshold when the trader starts to act */ threshold = 0.0,
-                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW_Avg(alpha)~>Derivative,threshold)
+                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative,threshold)
         
         /** Side function for fundamental value strategy
          */
@@ -1236,7 +1236,7 @@ package strategy
         /** Side function for mean reversion strategy
          */
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,
-                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(book~>MidPrice~>EW_Avg(alpha),book)
+                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.FundamentalValue(book~>MidPrice~>EW(alpha)~>Avg,book)
         
         /** Side function for a noise trading strategy
          */
@@ -1406,7 +1406,7 @@ package strategy
          */
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),
-                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(trader~>Orderbook~>MidPrice~>EW_RelStdDev(alpha)~>OnEveryDt(1.0)*k,trader)
+                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(trader~>Orderbook~>MidPrice~>EW(alpha)~>RelStdDev~>OnEveryDt(1.0)*k,trader)
         
         /** Position function for Relative Strength Index strategy with linear scaling
          */
@@ -1709,7 +1709,7 @@ package trader
     /** Returns first derivative of a moving average of the trader efficiency
      */
     def EfficiencyTrend(trader = .trader.SingleProxy() : .IAccount,
-                        alpha = 0.15) = trader~>Efficiency~>EW_Avg(alpha)~>Derivative
+                        alpha = 0.15) = trader~>Efficiency~>EW(alpha)~>Avg~>Derivative
     
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
@@ -1751,7 +1751,7 @@ package orderbook
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = .orderbook.Asks(),
-                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW_Avg(alpha)/queue~>LastTradeVolume~>EW_Avg(alpha)
+                      /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW(alpha)~>Avg/queue~>LastTradeVolume~>EW(alpha)~>Avg
     
     /** Returns tick size for the order *book*
      */

@@ -262,14 +262,17 @@ Definitions:
 | | | | | | - MemberAccess:
 | | | | | | | - MemberAccess:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - Var:
-| | | | | | | | | | - trader
-| | | | | | | | | - Efficiency
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - trader
+| | | | | | | | | | - Efficiency
+| | | | | | | | | | - List:
+| | | | | | | | | - EW
 | | | | | | | | | - List:
-| | | | | | | | - EW_Avg
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - alpha
+| | | | | | | | - Avg
 | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - alpha
 | | | | | | | - Derivative
 | | | | | | | - List:
 | | | | | - None

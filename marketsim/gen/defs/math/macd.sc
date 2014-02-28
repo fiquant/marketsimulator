@@ -9,7 +9,7 @@ package math.macd
              /** long period */  slow = 26.0,
              /** short period */ fast = 12.0)
 
-        = x~>EW_Avg(2./(fast+1)) - x~>EW_Avg(2./(slow+1))
+        = x~>EW(2./(fast+1))~>Avg - x~>EW(2./(slow+1))~>Avg
 
     /**
      *  Moving average convergence/divergence signal
@@ -22,7 +22,7 @@ package math.macd
                /** signal period */         timeframe = 9.0,
                /** discretization step */   step = 1.0)
 
-        = x~>MACD(slow, fast)~>OnEveryDt(step)~>EW_Avg(2/(timeframe+1))
+        = x~>MACD(slow, fast)~>OnEveryDt(step)~>EW(2/(timeframe+1))~>Avg
 
     /**
      *  Moving average convergence/divergence histogram

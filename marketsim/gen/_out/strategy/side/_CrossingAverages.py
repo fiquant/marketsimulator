@@ -43,12 +43,13 @@ class CrossingAverages_FloatFloatFloatIOrderBook(IFunctionSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.math.impl._avg import Avg_mathimplIEW as _math_impl_Avg_mathimplIEW
         from marketsim import deref_opt
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
         from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        return deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha_1)),deref_opt(_math_EW_Avg_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha_2)))),self.threshold))
+        return deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_impl_Avg_mathimplIEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha_1)))),deref_opt(_math_impl_Avg_mathimplIEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha_2)))))),self.threshold))
     
 def CrossingAverages(alpha_1 = None,alpha_2 = None,threshold = None,book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

@@ -18,7 +18,7 @@ package strategy.side() {
      */
     def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0,
-                      /** asset in question */ book = orderbook.OfTrader()) = Signal(book~>MidPrice~>EW_Avg(alpha)~>Derivative,threshold)
+                      /** asset in question */ book = orderbook.OfTrader()) = Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative,threshold)
     
     // defined at defs\strategies\parts\side.sc: 37.5
     /** Side function for crossing averages strategy
@@ -26,7 +26,7 @@ package strategy.side() {
     def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,
                          /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,
                          /** threshold when the trader starts to act */ threshold = 0.0,
-                         /** asset in question */ book = orderbook.OfTrader()) = Signal(book~>MidPrice~>EW_Avg(alpha_1)-book~>MidPrice~>EW_Avg(alpha_2),threshold)
+                         /** asset in question */ book = orderbook.OfTrader()) = Signal(book~>MidPrice~>EW(alpha_1)~>Avg-book~>MidPrice~>EW(alpha_2)~>Avg,threshold)
     
     // defined at defs\strategies\parts\side.sc: 55.5
     /** Side function for fundamental value strategy
@@ -38,7 +38,7 @@ package strategy.side() {
     /** Side function for mean reversion strategy
      */
     def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,
-                      /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(book~>MidPrice~>EW_Avg(alpha),book)
+                      /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(book~>MidPrice~>EW(alpha)~>Avg,book)
     
     // defined at defs\strategies\parts\side.sc: 81.5
     /** Side function for pair trading strategy

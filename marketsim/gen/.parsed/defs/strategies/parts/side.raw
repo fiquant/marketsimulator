@@ -167,14 +167,17 @@ Definitions:
 | | | | | | | | - MemberAccess:
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - EW
 | | | | | | | | | | | - List:
-| | | | | | | | | | - EW_Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha
 | | | | | | | | | - Derivative
 | | | | | | | | | - List:
 | | | | | | | | - Var:
@@ -234,24 +237,30 @@ Definitions:
 | | | | | | | | | - Sub
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - EW
 | | | | | | | | | | | - List:
-| | | | | | | | | | - EW_Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | - Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha_1
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - EW
 | | | | | | | | | | | - List:
-| | | | | | | | | | - EW_Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha_2
+| | | | | | | | | | - Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha_2
 | | | | | | | | - Var:
 | | | | | | | | | - threshold
 | | | | | - None
@@ -370,14 +379,17 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - MemberAccess:
 | | | | | | | | | - MemberAccess:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - book
-| | | | | | | | | | - MidPrice
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | - EW
 | | | | | | | | | | - List:
-| | | | | | | | | - EW_Avg
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | - Avg
 | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - alpha
 | | | | | | | | - Var:
 | | | | | | | | | - book
 | | | | | - None

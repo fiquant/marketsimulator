@@ -12,7 +12,7 @@ package strategy.position() {
      */
     def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
                          /** observable scaling function that maps relative deviation to desired position */ k = const(0.5),
-                         /** trader in question */ trader = trader.SingleProxy()) = DesiredPosition(trader~>Orderbook~>MidPrice~>EW_RelStdDev(alpha)~>OnEveryDt(1.0)*k,trader)
+                         /** trader in question */ trader = trader.SingleProxy()) = DesiredPosition(trader~>Orderbook~>MidPrice~>EW(alpha)~>RelStdDev~>OnEveryDt(1.0)*k,trader)
     
     // defined at defs\strategies\parts\position.sc: 28.5
     /** Position function for Relative Strength Index strategy with linear scaling
