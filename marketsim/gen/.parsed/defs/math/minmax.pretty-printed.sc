@@ -45,4 +45,20 @@ package math() {@category = "Statistics"
         def MaxEpsilon(/** observable data source */ source = const(1.0),
                        /** tolerance step         */ epsilon = constant(0.01)) : IObservable[Float]
     }
+    
+    package impl() {
+        // defined at defs\math\minmax.sc: 53.9
+        def Minimum(x = Moving()) = math.Moving.Min(x~>Source,x~>Timeframe)
+        
+        // defined at defs\math\minmax.sc: 54.9
+        def Maximum(x = Moving()) = math.Moving.Max(x~>Source,x~>Timeframe)
+        
+        // defined at defs\math\minmax.sc: 56.9
+        def MinEpsilon(x = Cumulative(),
+                       epsilon = constant(0.01)) = math.Cumulative.MinEpsilon(x~>Source,epsilon)
+        
+        // defined at defs\math\minmax.sc: 57.9
+        def MaxEpsilon(x = Cumulative(),
+                       epsilon = constant(0.01)) = math.Cumulative.MaxEpsilon(x~>Source,epsilon)
+    }
 }

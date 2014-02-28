@@ -1,5 +1,10 @@
-from marketsim.gen._out.math.impl._istatdomain import IStatDomain
-class IEW(IStatDomain):
+from marketsim.gen._out._istatdomain import IStatDomain
+class IMoving(IStatDomain):
+    @property
+    def Timeframe(self):
+        from marketsim.gen._out.math.impl._timeframe import Timeframe
+        return Timeframe(self)
+    
     @property
     def RelStdDev(self):
         from marketsim.gen._out.math.impl._relstddev import RelStdDev
@@ -21,8 +26,13 @@ class IEW(IStatDomain):
         return StdDev(self)
     
     @property
-    def Alpha(self):
-        from marketsim.gen._out.math.impl._alpha import Alpha
-        return Alpha(self)
+    def Maximum(self):
+        from marketsim.gen._out.math.impl._maximum import Maximum
+        return Maximum(self)
+    
+    @property
+    def Minimum(self):
+        from marketsim.gen._out.math.impl._minimum import Minimum
+        return Minimum(self)
     
     pass

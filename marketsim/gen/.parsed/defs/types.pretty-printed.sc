@@ -58,3 +58,11 @@ type IMultiAssetStrategy
 type IGraph
 
 type ITimeSerie
+
+type IStatDomain
+
+type IEW : IStatDomain
+
+type ICumulative : IStatDomain
+
+type IMoving : IStatDomain

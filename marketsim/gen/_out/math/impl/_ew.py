@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out.math.impl._iew import IEW
+from marketsim.gen._out._iew import IEW
 from marketsim.gen._intrinsic._constant import _Empty_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "EW"])
@@ -24,7 +24,7 @@ class EW_IObservableFloatFloat(IEW,_Empty_Impl):
         'alpha' : float
     }
     def __repr__(self):
-        return "EW_{\\\\alpha=%(alpha)s}" % self.__dict__
+        return "EW_{%(alpha)s}(%(source)s)" % self.__dict__
     
 def EW(source = None,alpha = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

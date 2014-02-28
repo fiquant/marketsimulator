@@ -269,3 +269,42 @@ Definitions:
 | | | - List:
 | | - List:
 | | - List:
+| - Interface:
+| | - IStatDomain
+| | - Generics:
+| | | - List:
+| | - List:
+| | - List:
+| - Interface:
+| | - IEW
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IStatDomain
+| | | | - List:
+| | - List:
+| - Interface:
+| | - ICumulative
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IStatDomain
+| | | | - List:
+| | - List:
+| - Interface:
+| | - IMoving
+| | - Generics:
+| | | - List:
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - IStatDomain
+| | | | - List:
+| | - List:

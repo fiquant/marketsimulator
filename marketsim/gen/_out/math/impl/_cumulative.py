@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out.math.impl._icumulative import ICumulative
+from marketsim.gen._out._icumulative import ICumulative
 from marketsim.gen._intrinsic._constant import _Empty_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Cumulative"])

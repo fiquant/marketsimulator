@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.moments.tmp import Alpha_Impl
-from marketsim.gen._out.math.impl._iew import IEW
+from marketsim.gen._out._iew import IEW
 @registry.expose(["Statistics", "Alpha"])
-class Alpha_mathimplIEW(Alpha_Impl):
+class Alpha_IEW(Alpha_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -24,8 +24,8 @@ class Alpha_mathimplIEW(Alpha_Impl):
         return "Alpha(%(x)s)" % self.__dict__
     
 def Alpha(x = None): 
-    from marketsim.gen._out.math.impl._iew import IEW
+    from marketsim.gen._out._iew import IEW
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IEW):
-        return Alpha_mathimplIEW(x)
+        return Alpha_IEW(x)
     raise Exception('Cannot find suitable overload for Alpha('+str(x) +':'+ str(type(x))+')')

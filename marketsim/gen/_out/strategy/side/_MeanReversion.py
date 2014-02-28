@@ -46,12 +46,12 @@ class MeanReversion_FloatIOrderBook(ObservableSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.impl._avg import Avg_mathimplIEW as _math_impl_Avg_mathimplIEW
         from marketsim import deref_opt
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        from marketsim.gen._out.math.impl._avg import Avg_IEW as _math_impl_Avg_IEW
         from marketsim.gen._out.math.impl._ew import EW_IObservableFloatFloat as _math_impl_EW_IObservableFloatFloat
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
-        return deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook(deref_opt(_math_impl_Avg_mathimplIEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha)))),self.book))
+        return deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook(deref_opt(_math_impl_Avg_IEW(deref_opt(_math_impl_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha)))),self.book))
     
 def MeanReversion(alpha = None,book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

@@ -71,3 +71,9 @@ type IMultiAssetStrategy
 type IGraph
 type ITimeSerie
 
+type IStatDomain
+// type IEW(alpha = 0.015) : IStatDomain
+type IEW : IStatDomain
+type ICumulative : IStatDomain
+// type IMoving(timeframe = 100.) : IStatDomain
+type IMoving : IStatDomain

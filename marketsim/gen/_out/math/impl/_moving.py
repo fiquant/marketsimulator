@@ -1,5 +1,5 @@
 from marketsim import registry
-from marketsim.gen._out.math.impl._imoving import IMoving
+from marketsim.gen._out._imoving import IMoving
 from marketsim.gen._intrinsic._constant import _Empty_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Statistics", "Moving"])
@@ -24,7 +24,7 @@ class Moving_IObservableFloatFloat(IMoving,_Empty_Impl):
         'timeframe' : float
     }
     def __repr__(self):
-        return "Moving_{%(timeframe)s}" % self.__dict__
+        return "Moving_{%(timeframe)s}(%(source)s)" % self.__dict__
     
 def Moving(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

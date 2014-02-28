@@ -1,5 +1,10 @@
-from marketsim.gen._out.math.impl._istatdomain import IStatDomain
-class ICumulative(IStatDomain):
+from marketsim.gen._out._istatdomain import IStatDomain
+class IEW(IStatDomain):
+    @property
+    def RelStdDev(self):
+        from marketsim.gen._out.math.impl._relstddev import RelStdDev
+        return RelStdDev(self)
+    
     @property
     def Var(self):
         from marketsim.gen._out.math.impl._var import Var
@@ -16,8 +21,8 @@ class ICumulative(IStatDomain):
         return StdDev(self)
     
     @property
-    def RelStdDev(self):
-        from marketsim.gen._out.math.impl._relstddev import RelStdDev
-        return RelStdDev(self)
+    def Alpha(self):
+        from marketsim.gen._out.math.impl._alpha import Alpha
+        return Alpha(self)
     
     pass

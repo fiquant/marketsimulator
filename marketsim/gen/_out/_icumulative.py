@@ -1,10 +1,5 @@
-from marketsim.gen._out.math.impl._istatdomain import IStatDomain
-class IMoving(IStatDomain):
-    @property
-    def Timeframe(self):
-        from marketsim.gen._out.math.impl._timeframe import Timeframe
-        return Timeframe(self)
-    
+from marketsim.gen._out._istatdomain import IStatDomain
+class ICumulative(IStatDomain):
     @property
     def RelStdDev(self):
         from marketsim.gen._out.math.impl._relstddev import RelStdDev
@@ -19,6 +14,14 @@ class IMoving(IStatDomain):
     def Avg(self):
         from marketsim.gen._out.math.impl._avg import Avg
         return Avg(self)
+    
+    def MinEpsilon(self, epsilon = None):
+        from marketsim.gen._out.math.impl._minepsilon import MinEpsilon
+        return MinEpsilon(self,epsilon)
+    
+    def MaxEpsilon(self, epsilon = None):
+        from marketsim.gen._out.math.impl._maxepsilon import MaxEpsilon
+        return MaxEpsilon(self,epsilon)
     
     @property
     def StdDev(self):

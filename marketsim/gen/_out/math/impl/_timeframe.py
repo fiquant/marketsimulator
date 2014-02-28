@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.gen._intrinsic.moments.tmp import Timeframe_Impl
-from marketsim.gen._out.math.impl._imoving import IMoving
+from marketsim.gen._out._imoving import IMoving
 @registry.expose(["Statistics", "Timeframe"])
-class Timeframe_mathimplIMoving(Timeframe_Impl):
+class Timeframe_IMoving(Timeframe_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -24,8 +24,8 @@ class Timeframe_mathimplIMoving(Timeframe_Impl):
         return "Timeframe(%(x)s)" % self.__dict__
     
 def Timeframe(x = None): 
-    from marketsim.gen._out.math.impl._imoving import IMoving
+    from marketsim.gen._out._imoving import IMoving
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IMoving):
-        return Timeframe_mathimplIMoving(x)
+        return Timeframe_IMoving(x)
     raise Exception('Cannot find suitable overload for Timeframe('+str(x) +':'+ str(type(x))+')')

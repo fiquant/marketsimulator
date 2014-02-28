@@ -206,10 +206,10 @@ def orderBooksToRender(ctx, traders):
                 ],
                 ctx.minmax_graph : [
                     assetPrice,
-                    assetPrice.Cumulative_MaxEpsilon(),
-                    assetPrice.Cumulative_MinEpsilon(),
-                    (assetPrice.Moving_Max(100.), config.collectMoving),
-                    (assetPrice.Moving_Min(100.), config.collectMoving)
+                    assetPrice.Cumulative.MaxEpsilon(),
+                    assetPrice.Cumulative.MinEpsilon(),
+                    (assetPrice.Moving(100.).Maximum, config.collectMoving),
+                    (assetPrice.Moving(100.).Minimum, config.collectMoving)
                 ],
                 ctx.bollinger_100_graph : bollinger(assetPrice.Moving(100).Avg, assetPrice.Moving(100).StdDev) if config.collectMoving else [],
                 ctx.bollinger_20_graph : bollinger(assetPrice.Moving(20).Avg, assetPrice.Moving(20).StdDev) if config.collectMoving else [],

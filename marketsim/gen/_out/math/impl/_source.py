@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.moments.tmp import Source_Impl
-from marketsim.gen._out.math.impl._istatdomain import IStatDomain
+from marketsim.gen._out._istatdomain import IStatDomain
 @registry.expose(["Statistics", "Source"])
-class Source_mathimplIStatDomain(Observablefloat,Source_Impl):
+class Source_IStatDomain(Observablefloat,Source_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -28,8 +28,8 @@ class Source_mathimplIStatDomain(Observablefloat,Source_Impl):
         return "Source(%(x)s)" % self.__dict__
     
 def Source(x = None): 
-    from marketsim.gen._out.math.impl._istatdomain import IStatDomain
+    from marketsim.gen._out._istatdomain import IStatDomain
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, IStatDomain):
-        return Source_mathimplIStatDomain(x)
+        return Source_IStatDomain(x)
     raise Exception('Cannot find suitable overload for Source('+str(x) +':'+ str(type(x))+')')

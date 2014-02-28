@@ -266,6 +266,171 @@ Definitions:
 | | | | | | | - Statistics
 | | | | | - List:
 | | | | | - false
+| | | | - PackageDef:
+| | | | | - Some:
+| | | | | | - QualifiedName:
+| | | | | | | - List:
+| | | | | | | | - impl
+| | | | | - List:
+| | | | | - Definitions:
+| | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Minimum
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - Moving
+| | | | | | | | | | | | - Min
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Source
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Timeframe
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - Maximum
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - Moving
+| | | | | | | | | | | | - Max
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Source
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Timeframe
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - MinEpsilon
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - epsilon
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.01
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | - MinEpsilon
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Source
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - epsilon
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | - FunDef:
+| | | | | | | | - MaxEpsilon
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - epsilon
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - constant
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | - 0.01
+| | | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | | - MaxEpsilon
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - x
+| | | | | | | | | | | | - Source
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - epsilon
+| | | | | | | | - None
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
 | | - List:
 | | - List:
 | | - false
