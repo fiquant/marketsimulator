@@ -34,17 +34,13 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math._logreturns import LogReturns
         return LogReturns(self,timeframe)
     
-    def macd_Signal(self, slow = None,fast = None,timeframe = None,step = None):
-        from marketsim.gen._out.math.macd._signal import Signal
-        return Signal(self,slow,fast,timeframe,step)
-    
     @property
     def Cumulative(self):
         from marketsim.gen._out.math._cumulative import Cumulative
         return Cumulative(self)
     
     def macd(self, slow = None,fast = None):
-        from marketsim.gen._out.math.macd._macd import macd
+        from marketsim.gen._out.math._macd import macd
         return macd(self,slow,fast)
     
     def CandleSticks(self, timeframe = None):
@@ -54,14 +50,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
     def EW(self, alpha = None):
         from marketsim.gen._out.math._ew import EW
         return EW(self,alpha)
-    
-    def MACD(self, slow = None,fast = None):
-        from marketsim.gen._out.math.macd._macd import MACD
-        return MACD(self,slow,fast)
-    
-    def macd_Histogram(self, slow = None,fast = None,timeframe = None,step = None):
-        from marketsim.gen._out.math.macd._histogram import Histogram
-        return Histogram(self,slow,fast,timeframe,step)
     
     def Moving(self, timeframe = None):
         from marketsim.gen._out.math._moving import Moving

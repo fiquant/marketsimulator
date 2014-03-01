@@ -2,17 +2,25 @@ from marketsim.gen._out.math._timeframe import Timeframe
 
 from marketsim.gen._out.math._min import Min
 
+from marketsim.gen._out.math._histogram import Histogram
+
 from marketsim.gen._out.math._relstddev import RelStdDev
 
 from marketsim.gen._out.math._var import Var
+
+from marketsim.gen._out.math._signal import Signal
 
 from marketsim.gen._out.math._downmovements import DownMovements
 
 from marketsim.gen._out.math._atan import Atan
 
+from marketsim.gen._out.math._fast import Fast
+
 from marketsim.gen._out.math._lagged import Lagged
 
 from marketsim.gen._out.math._max import Max
+
+from marketsim.gen._out.math._value import Value
 
 from marketsim.gen._out.math._upmovements import UpMovements
 
@@ -21,6 +29,8 @@ from marketsim.gen._out.math._sqr import Sqr
 from marketsim.gen._out.math._logreturns import LogReturns
 
 from marketsim.gen._out.math._avg import Avg
+
+from marketsim.gen._out.math._slow import Slow
 
 from marketsim.gen._out.math._sqrt import Sqrt
 
@@ -52,4 +62,3 @@ from marketsim.gen._out.math._minimum import Minimum
 
 import random
 import rsi
-import macd

@@ -199,9 +199,9 @@ def orderBooksToRender(ctx, traders):
                     scaled,
                     scaled.EW(2./27).Avg,
                     scaled.EW(2./13).Avg,
-                    assetPrice.MACD(),
-                    assetPrice.macd_Signal(),
-                    assetPrice.macd_Histogram(),
+                    assetPrice.macd().Value,
+                    assetPrice.macd().Signal(),
+                    assetPrice.macd().Histogram(),
                     ((assetPrice.LogReturns() * 100).OnEveryDt(1), config.collectMoving)
                 ],
                 ctx.minmax_graph : [

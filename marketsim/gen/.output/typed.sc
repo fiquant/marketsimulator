@@ -673,69 +673,12 @@ package math {
             	 = .ops.Div(.math.Avg(.math.EW(.math.UpMovements(source,timeframe),alpha)),.math.Avg(.math.EW(.math.DownMovements(source,timeframe),alpha)))
     }
     
-    @category = "MACD"
-    
-    package macd {
-        type macd
-        @category = "-"
-        
-        @python.accessor()
-        def X(x : Optional[.math.macd.macd] = .math.macd.macd()) : .IObservable[.Float]
-        
-        /** Moving average convergence/divergence histogram
-         */
-        @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @method = "macd_Histogram"
-        
-        def Histogram(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                      /** long period */ slow : Optional[.Float] = 26.0,
-                      /** short period */ fast : Optional[.Float] = 12.0,
-                      /** signal period */ timeframe : Optional[.Float] = 9.0,
-                      /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
-            	 = .ops.Sub(.math.macd.MACD(x,slow,fast),.math.macd.Signal(x,slow,fast,timeframe,step))
-        
-        /** Moving average convergence/divergence signal
-         */
-        @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @method = "macd_Signal"
-        
-        def Signal(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                   /** long period */ slow : Optional[.Float] = 26.0,
-                   /** short period */ fast : Optional[.Float] = 12.0,
-                   /** signal period */ timeframe : Optional[.Float] = 9.0,
-                   /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
-            	 = .math.Avg(.math.EW(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1)))
-        
-        @category = "-"
-        
-        @python.accessor()
-        def Fast(x : Optional[.math.macd.macd] = .math.macd.macd()) : .Float
-        
-        @category = "-"
-        
-        @python.accessor()
-        def Slow(x : Optional[.math.macd.macd] = .math.macd.macd()) : .Float
-        
-        @category = "-"
-        
-        @python.constructor()
-        def macd(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                 /** long period */ slow : Optional[.Float] = 26.0,
-                 /** short period */ fast : Optional[.Float] = 12.0) : .math.macd.macd
-        
-        /** Moving average convergence/divergence
-         */
-        @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        
-        def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                 /** long period */ slow : Optional[.Float] = 26.0,
-                 /** short period */ fast : Optional[.Float] = 12.0) : () => .Float
-            	 = .ops.Sub(.math.Avg(.math.EW(x,2.0/(fast+1))),.math.Avg(.math.EW(x,2.0/(slow+1))))
-    }
-    
     type IStatDomain
     
     type Cumulative : IStatDomain
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    
+    type macd
     @label = "EW_{%(alpha)s}(%(source)s)"
     
     type EW : IStatDomain
@@ -793,6 +736,16 @@ package math {
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
         	 = .ops.Condition(.ops.Less(x,y),x,y)
     
+    /** Moving average convergence/divergence histogram
+     */
+    @category = "MACD"
+    @label = "Histogram^{%(timeframe)s}_{%(step)s}(%(x)s)"
+    
+    def Histogram(x : Optional[.math.macd] = .math.macd(),
+                  /** signal period */ timeframe : Optional[.Float] = 9.0,
+                  /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
+        	 = .ops.Sub(.math.Value(x),.math.Signal(x,timeframe,step))
+    
     /** Exponentially weighted moving relative standard deviation
      */
     @category = "Statistics"
@@ -835,6 +788,16 @@ package math {
     @python.intrinsic("moments.mv.MV_Impl")
     def Var(x : Optional[.math.Moving] = .math.Moving()) : () => .Float
     
+    /** Moving average convergence/divergence signal
+     */
+    @category = "MACD"
+    @label = "Signal^{%(timeframe)s}_{%(step)s}(%(x)s)"
+    
+    def Signal(x : Optional[.math.macd] = .math.macd(),
+               /** signal period */ timeframe : Optional[.Float] = 9.0,
+               /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
+        	 = .math.Avg(.math.EW(.observable.OnEveryDt(.math.Value(x),step),2/(timeframe+1)))
+    
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
@@ -850,6 +813,12 @@ package math {
     
     @python.mathops("atan")
     def Atan(x : Optional[() => .Float] = .constant(0.0)) : () => .Float
+    
+    @category = "-"
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    
+    @python.accessor()
+    def Fast(x : Optional[.math.macd] = .math.macd()) : .Float
     
     /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
      */
@@ -898,6 +867,13 @@ package math {
     def Max(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
         	 = .ops.Condition(.ops.Greater(x,y),x,y)
+    
+    /** Moving average convergence/divergence
+     */
+    @category = "MACD"
+    
+    def Value(x : Optional[.math.macd] = .math.macd()) : () => .Float
+        	 = .ops.Sub(.math.Avg(.math.EW(.math.Source(x),2.0/(.math.Fast(x)+1))),.math.Avg(.math.EW(.math.Source(x),2.0/(.math.Slow(x)+1))))
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -954,6 +930,12 @@ package math {
     @python.intrinsic("moments.ma.MA_Impl")
     def Avg(x : Optional[.math.Moving] = .math.Moving()) : .IDifferentiable
     
+    @category = "-"
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    
+    @python.accessor()
+    def Slow(x : Optional[.math.macd] = .math.macd()) : .Float
+    
     /** Square root of *x*
      *
      */
@@ -1008,6 +990,12 @@ package math {
     def Source(x : Optional[.math.EW] = .math.EW()) : .IObservable[.Float]
     
     @category = "-"
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    
+    @python.accessor()
+    def Source(x : Optional[.math.macd] = .math.macd()) : .IObservable[.Float]
+    
+    @category = "-"
     
     @python.accessor()
     def Source(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IObservable[.Float]
@@ -1026,6 +1014,14 @@ package math {
                    /** increment function */ deltaDistr : Optional[() => .Float] = .math.random.normalvariate(0.0,1.0),
                    /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
                    name : Optional[.String] = "-random-") : .IObservable[.Float]
+    
+    @category = "-"
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    
+    @python.constructor()
+    def macd(/** source */ source : Optional[.IObservable[.Float]] = .const(1.0),
+             /** long period */ slow : Optional[.Float] = 26.0,
+             /** short period */ fast : Optional[.Float] = 12.0) : .math.macd
     
     /** Cumulative minimum of a function with positive tolerance.
      *

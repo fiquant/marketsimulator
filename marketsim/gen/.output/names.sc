@@ -312,43 +312,12 @@ package math
         
     }
     
-    @category = "MACD"
-    package macd
-    {
-        type macd(/** source */ x = .const(1.0),/** long period */ slow = 26.0,/** short period */ fast = 12.0)
-        
-        /** Moving average convergence/divergence
-         */
-        @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
-        def MACD(/** source */ x = .const(1.0),
-                 /** long period */ slow = 26.0,
-                 /** short period */ fast = 12.0) = x~>EW(2.0/(fast+1))~>Avg-x~>EW(2.0/(slow+1))~>Avg
-        
-        /** Moving average convergence/divergence signal
-         */
-        @label = "Signal^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @method = "macd_Signal"
-        def Signal(/** source */ x = .const(1.0),
-                   /** long period */ slow = 26.0,
-                   /** short period */ fast = 12.0,
-                   /** signal period */ timeframe = 9.0,
-                   /** discretization step */ step = 1.0) = x~>MACD(slow,fast)~>OnEveryDt(step)~>EW(2/(timeframe+1))~>Avg
-        
-        /** Moving average convergence/divergence histogram
-         */
-        @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @method = "macd_Histogram"
-        def Histogram(/** source */ x = .const(1.0),
-                      /** long period */ slow = 26.0,
-                      /** short period */ fast = 12.0,
-                      /** signal period */ timeframe = 9.0,
-                      /** discretization step */ step = 1.0) = x~>MACD(slow,fast)-x~>macd_Signal(slow,fast,timeframe,step)
-        
-    }
-    
     type IStatDomain(source = .const(0.0))
     
     type Cumulative() : IStatDomain
+    
+    @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
+    type macd(/** source */ source = .const(1.0),/** long period */ slow = 26.0,/** short period */ fast = 12.0)
     
     @label = "EW_{%(alpha)s}(%(source)s)"
     type EW(alpha = 0.015) : IStatDomain
@@ -363,6 +332,14 @@ package math
     @label = "min{%(x)s, %(y)s}"
     def Min(x = .constant(1.0),
             y = .constant(1.0)) = if x<y then x else y
+    
+    /** Moving average convergence/divergence histogram
+     */
+    @category = "MACD"
+    @label = "Histogram^{%(timeframe)s}_{%(step)s}(%(x)s)"
+    def Histogram(x = .math.macd(),
+                  /** signal period */ timeframe = 9.0,
+                  /** discretization step */ step = 1.0) = x~>Value-x~>Signal(timeframe,step)
     
     /** Exponentially weighted moving relative standard deviation
      */
@@ -397,6 +374,14 @@ package math
     @python.intrinsic("moments.mv.MV_Impl")
     def Var(x = .math.Moving()) : () => .Float
     
+    /** Moving average convergence/divergence signal
+     */
+    @category = "MACD"
+    @label = "Signal^{%(timeframe)s}_{%(step)s}(%(x)s)"
+    def Signal(x = .math.macd(),
+               /** signal period */ timeframe = 9.0,
+               /** discretization step */ step = 1.0) = x~>Value~>OnEveryDt(step)~>EW(2/(timeframe+1))~>Avg
+    
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
     @label = "Downs_{%(timeframe)s}(%(source)s)"
@@ -424,6 +409,11 @@ package math
     @label = "max{%(x)s, %(y)s}"
     def Max(x = .constant(1.0),
             y = .constant(1.0)) = if x>y then x else y
+    
+    /** Moving average convergence/divergence
+     */
+    @category = "MACD"
+    def Value(x = .math.macd()) = x~>Source~>EW(2.0/(x~>Fast+1))~>Avg-x~>Source~>EW(2.0/(x~>Slow+1))~>Avg
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */

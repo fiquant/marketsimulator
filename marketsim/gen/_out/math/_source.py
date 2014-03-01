@@ -53,6 +53,33 @@ class Source_mathEW(object):
         return self.x.source
     
 from marketsim import registry
+from marketsim.gen._out.math._macd import macd
+@registry.expose(["-", "Source"])
+class Source_mathmacd(object):
+    """ 
+    """ 
+    def __init__(self, x = None):
+        from marketsim.gen._out.math._macd import macd_IObservableFloatFloatFloat as _math_macd_IObservableFloatFloatFloat
+        from marketsim import deref_opt
+        from marketsim import rtti
+        self.x = x if x is not None else deref_opt(_math_macd_IObservableFloatFloatFloat())
+        rtti.check_fields(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'x' : macd
+    }
+    def __repr__(self):
+        return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % self.__dict__
+    
+    @property
+    def dereference(self):
+        return self.x.source
+    
+from marketsim import registry
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["-", "Source"])
 class Source_mathCumulative(object):
@@ -110,12 +137,15 @@ def Source(x = None):
     from marketsim.gen._out.math._istatdomain import IStatDomain
     from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim import rtti
+    from marketsim.gen._out.math._macd import macd
     from marketsim.gen._out.math._moving import Moving
     from marketsim.gen._out.math._ew import EW
     if x is None or rtti.can_be_casted(x, Moving):
         return Source_mathMoving(x)
     if x is None or rtti.can_be_casted(x, EW):
         return Source_mathEW(x)
+    if x is None or rtti.can_be_casted(x, macd):
+        return Source_mathmacd(x)
     if x is None or rtti.can_be_casted(x, Cumulative):
         return Source_mathCumulative(x)
     if x is None or rtti.can_be_casted(x, IStatDomain):
