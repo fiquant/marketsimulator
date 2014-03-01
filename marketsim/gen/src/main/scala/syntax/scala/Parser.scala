@@ -4,11 +4,18 @@ import scala.util.parsing.combinator._
 import AST._
 import scala.util.parsing.input.{NoPosition}
 
-abstract class Parser() extends JavaTokenParsers with PackratParsers
+class Parser() extends JavaTokenParsers with PackratParsers
 {
     protected override val whiteSpace = """(\s|//.*)+""".r
 
-    protected def currentFile : String
+    protected var _currentFile : Option[String] = None
+
+    protected def currentFile = _currentFile.get
+
+    def parseType(s : String) : AST.Type = parseAll(typ, s) match {
+        case Success(result, _) => result
+        case _ => throw new Exception(s"cannot parse as type " + s)
+    }
 
     lazy val expr : Parser[Expr] =  castable | string_literal
 

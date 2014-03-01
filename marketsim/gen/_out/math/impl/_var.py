@@ -38,10 +38,10 @@ class Var_EW(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.math.ew._var import Var_IObservableFloatFloat as _math_EW_Var_IObservableFloatFloat
-        from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
+        from marketsim.gen._out._source import Source_EW as _Source_EW
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._alpha import Alpha_EW as _math_impl_Alpha_EW
-        return deref_opt(_math_EW_Var_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Alpha_EW(self.x))))
+        from marketsim.gen._out._alpha import Alpha_EW as _Alpha_EW
+        return deref_opt(_math_EW_Var_IObservableFloatFloat(deref_opt(_Source_EW(self.x)),deref_opt(_Alpha_EW(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -89,9 +89,9 @@ class Var_Cumulative(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.math.cumulative._var import Var_IObservableFloat as _math_Cumulative_Var_IObservableFloat
-        from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
+        from marketsim.gen._out._source import Source_Cumulative as _Source_Cumulative
         from marketsim import deref_opt
-        return deref_opt(_math_Cumulative_Var_IObservableFloat(deref_opt(_math_impl_Source_IStatDomain(self.x))))
+        return deref_opt(_math_Cumulative_Var_IObservableFloat(deref_opt(_Source_Cumulative(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -139,10 +139,10 @@ class Var_Moving(IFunctionfloat):
     
     def getImpl(self):
         from marketsim.gen._out.math.moving._var import Var_IObservableFloatFloat as _math_Moving_Var_IObservableFloatFloat
-        from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
+        from marketsim.gen._out._source import Source_Moving as _Source_Moving
         from marketsim import deref_opt
-        from marketsim.gen._out.math.impl._timeframe import Timeframe_Moving as _math_impl_Timeframe_Moving
-        return deref_opt(_math_Moving_Var_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),deref_opt(_math_impl_Timeframe_Moving(self.x))))
+        from marketsim.gen._out._timeframe import Timeframe_Moving as _Timeframe_Moving
+        return deref_opt(_math_Moving_Var_IObservableFloatFloat(deref_opt(_Source_Moving(self.x)),deref_opt(_Timeframe_Moving(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

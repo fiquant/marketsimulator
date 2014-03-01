@@ -1,8 +1,7 @@
 from marketsim import registry
-from marketsim.gen._intrinsic.moments.tmp import Timeframe_Impl
 from marketsim.gen._out._moving import Moving
-@registry.expose(["Statistics", "Timeframe"])
-class Timeframe_Moving(Timeframe_Impl):
+@registry.expose(["-", "Timeframe"])
+class Timeframe_Moving(object):
     """ 
     """ 
     def __init__(self, x = None):
@@ -11,7 +10,6 @@ class Timeframe_Moving(Timeframe_Impl):
         from marketsim import rtti
         self.x = x if x is not None else deref_opt(_Moving_IObservableFloatFloat())
         rtti.check_fields(self)
-        Timeframe_Impl.__init__(self)
     
     @property
     def label(self):
@@ -21,7 +19,11 @@ class Timeframe_Moving(Timeframe_Impl):
         'x' : Moving
     }
     def __repr__(self):
-        return "Timeframe(%(x)s)" % self.__dict__
+        return "Moving_{%(timeframe)s}(%(source)s)" % self.__dict__
+    
+    @property
+    def dereference(self):
+        return self.x.timeframe
     
 def Timeframe(x = None): 
     from marketsim.gen._out._moving import Moving

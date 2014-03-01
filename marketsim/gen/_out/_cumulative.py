@@ -38,6 +38,11 @@ class Cumulative_IObservableFloat(IStatDomain):
         from marketsim.gen._out.math.impl._avg import Avg
         return Avg(self)
     
+    @property
+    def Source(self):
+        from marketsim.gen._out._source import Source
+        return Source(self)
+    
     def MinEpsilon(self, epsilon = None):
         from marketsim.gen._out.math.impl._minepsilon import MinEpsilon
         return MinEpsilon(self,epsilon)

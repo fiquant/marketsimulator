@@ -27,7 +27,7 @@ class Moving_IObservableFloatFloat(IStatDomain):
 
     @property
     def Timeframe(self):
-        from marketsim.gen._out.math.impl._timeframe import Timeframe
+        from marketsim.gen._out._timeframe import Timeframe
         return Timeframe(self)
     
     @property
@@ -44,6 +44,11 @@ class Moving_IObservableFloatFloat(IStatDomain):
     def Avg(self):
         from marketsim.gen._out.math.impl._avg import Avg
         return Avg(self)
+    
+    @property
+    def Source(self):
+        from marketsim.gen._out._source import Source
+        return Source(self)
     
     @property
     def StdDev(self):

@@ -126,15 +126,15 @@ package math
 
         package impl
         {
-            @python.intrinsic("moments.tmp.Source_Impl")
-            def Source(x = .EW() : IStatDomain) : IObservable[Float]
-
-            @python.intrinsic.function("moments.tmp.Alpha_Impl")
-            def Alpha(x = .EW()) : Float
-
-            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-            def Timeframe(x = .Moving()) : Float
-
+//            @python.intrinsic("moments.tmp.Source_Impl")
+//            def Source(x = .EW() : IStatDomain) : IObservable[Float]
+//
+//            @python.intrinsic.function("moments.tmp.Alpha_Impl")
+//            def Alpha(x = .EW()) : Float
+//
+//            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
+//            def Timeframe(x = .Moving()) : Float
+//
             def Avg(x = .EW())           = math.EW.Avg(x~>Source, x~>Alpha)
             def Avg(x = .Cumulative())   = math.Cumulative.Avg(x~>Source)
             def Avg(x = .Moving())       = math.Moving.Avg(x~>Source, x~>Timeframe)

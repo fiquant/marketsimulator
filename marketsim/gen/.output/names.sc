@@ -302,9 +302,6 @@ package math
     @category = "Statistics"
     package impl
     {
-        @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-        def Timeframe(x = .Moving()) : .Float
-        
         def RelStdDev(x = .EW()) = .math.EW.RelStdDev(x~>Source,x~>Alpha)
         
         def RelStdDev(x = .Cumulative()) = .math.Cumulative.RelStdDev(x~>Source)
@@ -323,9 +320,6 @@ package math
         
         def Avg(x = .Moving()) = .math.Moving.Avg(x~>Source,x~>Timeframe)
         
-        @python.intrinsic("moments.tmp.Source_Impl")
-        def Source(x = .EW() : .IStatDomain) : .IObservable[.Float]
-        
         @label = "Min_{\\epsilon}(%(x)s)"
         def MinEpsilon(x = .Cumulative(),
                        epsilon = .constant(0.01)) = .math.Cumulative.MinEpsilon(x~>Source,epsilon)
@@ -341,9 +335,6 @@ package math
         def StdDev(x = .Moving()) = .math.Moving.StdDev(x~>Source,x~>Timeframe)
         
         def Maximum(x = .Moving()) = .math.Moving.Max(x~>Source,x~>Timeframe)
-        
-        @python.intrinsic.function("moments.tmp.Alpha_Impl")
-        def Alpha(x = .EW()) : .Float
         
         def Minimum(x = .Moving()) = .math.Moving.Min(x~>Source,x~>Timeframe)
         

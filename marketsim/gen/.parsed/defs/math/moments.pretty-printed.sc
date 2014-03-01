@@ -113,18 +113,6 @@ package math() {@category = "Statistics"
         }
         
         package impl() {
-            // defined at defs\math\moments.sc: 129.13
-            @python.intrinsic("moments.tmp.Source_Impl")
-            def Source(x = .EW() : IStatDomain) : IObservable[Float]
-            
-            // defined at defs\math\moments.sc: 132.13
-            @python.intrinsic.function("moments.tmp.Alpha_Impl")
-            def Alpha(x = .EW()) : Float
-            
-            // defined at defs\math\moments.sc: 135.13
-            @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-            def Timeframe(x = .Moving()) : Float
-            
             // defined at defs\math\moments.sc: 138.13
             def Avg(x = .EW()) = math.EW.Avg(x~>Source,x~>Alpha)
             

@@ -6,18 +6,12 @@ import sext._
 
 object Runner extends syntax.scala.Parser {
 
-    var _currentFile : Option[String] = None
-
-    protected def currentFile = _currentFile.get
-
     def parseAll[T](p: Parser[T], in: Reader[Char], filename : String): ParseResult[T] = {
         _currentFile = Some(filename)
         val ret = super.parseAll(p, in)
         _currentFile = None
         ret
     }
-
-
 
     def parse(file : File) : Option[AST.Definitions] = {
 

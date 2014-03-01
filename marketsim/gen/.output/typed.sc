@@ -663,96 +663,84 @@ package math {
     
     package impl {
         
-        @python.intrinsic.function("moments.tmp.Timeframe_Impl")
-        def Timeframe(x : Optional[.Moving] = .Moving()) : .Float
-        
-        
         def RelStdDev(x : Optional[.EW] = .EW()) : .IObservable[.Float]
-            	 = .math.EW.RelStdDev(.math.impl.Source(x),.math.impl.Alpha(x))
+            	 = .math.EW.RelStdDev(.Source(x),.Alpha(x))
         
         
         def RelStdDev(x : Optional[.Cumulative] = .Cumulative()) : .IObservable[.Float]
-            	 = .math.Cumulative.RelStdDev(.math.impl.Source(x))
+            	 = .math.Cumulative.RelStdDev(.Source(x))
         
         
         def RelStdDev(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
-            	 = .math.Moving.RelStdDev(.math.impl.Source(x),.math.impl.Timeframe(x))
+            	 = .math.Moving.RelStdDev(.Source(x),.Timeframe(x))
         
         
         def Var(x : Optional[.EW] = .EW()) : () => .Float
-            	 = .math.EW.Var(.math.impl.Source(x),.math.impl.Alpha(x))
+            	 = .math.EW.Var(.Source(x),.Alpha(x))
         
         
         def Var(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
-            	 = .math.Cumulative.Var(.math.impl.Source(x))
+            	 = .math.Cumulative.Var(.Source(x))
         
         
         def Var(x : Optional[.Moving] = .Moving()) : () => .Float
-            	 = .math.Moving.Var(.math.impl.Source(x),.math.impl.Timeframe(x))
+            	 = .math.Moving.Var(.Source(x),.Timeframe(x))
         
         
         def Avg(x : Optional[.EW] = .EW()) : .IDifferentiable
-            	 = .math.EW.Avg(.math.impl.Source(x),.math.impl.Alpha(x))
+            	 = .math.EW.Avg(.Source(x),.Alpha(x))
         
         
         def Avg(x : Optional[.Cumulative] = .Cumulative()) : .IDifferentiable
-            	 = .math.Cumulative.Avg(.math.impl.Source(x))
+            	 = .math.Cumulative.Avg(.Source(x))
         
         
         def Avg(x : Optional[.Moving] = .Moving()) : .IDifferentiable
-            	 = .math.Moving.Avg(.math.impl.Source(x),.math.impl.Timeframe(x))
-        
-        
-        @python.intrinsic("moments.tmp.Source_Impl")
-        def Source(x : Optional[.IStatDomain] = .EW() : .IStatDomain) : .IObservable[.Float]
+            	 = .math.Moving.Avg(.Source(x),.Timeframe(x))
         
         @label = "Min_{\\epsilon}(%(x)s)"
         
         def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
                        epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MinEpsilon(.math.impl.Source(x),epsilon)
+            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
         
         @label = "Min_{\\epsilon}(%(x)s)"
         
         def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
                        epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MinEpsilon(.math.impl.Source(x),epsilon)
+            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
         
         @label = "Max_{\\epsilon}(%(x)s)"
         
         def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
                        epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MaxEpsilon(.math.impl.Source(x),epsilon)
+            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
         
         @label = "Max_{\\epsilon}(%(x)s)"
         
         def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
                        epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MaxEpsilon(.math.impl.Source(x),epsilon)
+            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
         
         
         def StdDev(x : Optional[.EW] = .EW()) : () => .Float
-            	 = .math.EW.StdDev(.math.impl.Source(x),.math.impl.Alpha(x))
+            	 = .math.EW.StdDev(.Source(x),.Alpha(x))
         
         
         def StdDev(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
-            	 = .math.Cumulative.StdDev(.math.impl.Source(x))
+            	 = .math.Cumulative.StdDev(.Source(x))
         
         
         def StdDev(x : Optional[.Moving] = .Moving()) : () => .Float
-            	 = .math.Moving.StdDev(.math.impl.Source(x),.math.impl.Timeframe(x))
+            	 = .math.Moving.StdDev(.Source(x),.Timeframe(x))
         
         
         def Maximum(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
-            	 = .math.Moving.Max(.math.impl.Source(x),.math.impl.Timeframe(x))
-        
-        
-        @python.intrinsic.function("moments.tmp.Alpha_Impl")
-        def Alpha(x : Optional[.EW] = .EW()) : .Float
+            	 = .math.Moving.Max(.Source(x),.Timeframe(x))
         
         
         def Minimum(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
-            	 = .math.Moving.Min(.math.impl.Source(x),.math.impl.Timeframe(x))
+            	 = .math.Moving.Min(.Source(x),.Timeframe(x))
     }
     
     @category = "Statistics"
@@ -2700,6 +2688,12 @@ type ICandleStick
 type IOrderGenerator = IObservable[IOrder]
 
 type String
+@category = "-"
+@label = "Moving_{%(timeframe)s}(%(source)s)"
+
+@python.accessor()
+def Timeframe(x : Optional[.Moving] = .Moving()) : .Float
+
 /** Function always returning *x*
  */
 @category = "Basic"
@@ -2782,6 +2776,23 @@ def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 @python.intrinsic.observable("_constant._Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
+@category = "-"
+@label = "Moving_{%(timeframe)s}(%(source)s)"
+
+@python.accessor()
+def Source(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
+
+@category = "-"
+@label = "EW_{%(alpha)s}(%(source)s)"
+
+@python.accessor()
+def Source(x : Optional[.EW] = .EW()) : .IObservable[.Float]
+
+@category = "-"
+
+@python.accessor()
+def Source(x : Optional[.Cumulative] = .Cumulative()) : .IObservable[.Float]
+
 /** Observable returning at the end of every *timeframe*
  * open/close/min/max price, its average and standard deviation
  */
@@ -2806,6 +2817,12 @@ def true() : () => .Boolean
 @python.constructor()
 def EW(source : Optional[.IObservable[.Float]] = .const(0.0),
        alpha : Optional[.Float] = 0.015) : .EW
+
+@category = "-"
+@label = "EW_{%(alpha)s}(%(source)s)"
+
+@python.accessor()
+def Alpha(x : Optional[.EW] = .EW()) : .Float
 
 @category = "-"
 @label = "Moving_{%(timeframe)s}(%(source)s)"

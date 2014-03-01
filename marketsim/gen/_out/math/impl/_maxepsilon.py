@@ -47,9 +47,9 @@ class MaxEpsilon_CumulativeIObservableFloat(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.math.cumulative._maxepsilon import MaxEpsilon_IObservableFloatFloat as _math_Cumulative_MaxEpsilon_IObservableFloatFloat
-        from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
+        from marketsim.gen._out._source import Source_Cumulative as _Source_Cumulative
         from marketsim import deref_opt
-        return deref_opt(_math_Cumulative_MaxEpsilon_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),self.epsilon))
+        return deref_opt(_math_Cumulative_MaxEpsilon_IObservableFloatFloat(deref_opt(_Source_Cumulative(self.x)),self.epsilon))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -106,9 +106,9 @@ class MaxEpsilon_CumulativeFloat(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.math.cumulative._maxepsilon import MaxEpsilon_IObservableFloatFloat as _math_Cumulative_MaxEpsilon_IObservableFloatFloat
-        from marketsim.gen._out.math.impl._source import Source_IStatDomain as _math_impl_Source_IStatDomain
+        from marketsim.gen._out._source import Source_Cumulative as _Source_Cumulative
         from marketsim import deref_opt
-        return deref_opt(_math_Cumulative_MaxEpsilon_IObservableFloatFloat(deref_opt(_math_impl_Source_IStatDomain(self.x)),self.epsilon))
+        return deref_opt(_math_Cumulative_MaxEpsilon_IObservableFloatFloat(deref_opt(_Source_Cumulative(self.x)),self.epsilon))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

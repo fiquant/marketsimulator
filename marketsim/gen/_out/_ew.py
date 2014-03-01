@@ -41,13 +41,18 @@ class EW_IObservableFloatFloat(IStatDomain):
         return Avg(self)
     
     @property
+    def Source(self):
+        from marketsim.gen._out._source import Source
+        return Source(self)
+    
+    @property
     def StdDev(self):
         from marketsim.gen._out.math.impl._stddev import StdDev
         return StdDev(self)
     
     @property
     def Alpha(self):
-        from marketsim.gen._out.math.impl._alpha import Alpha
+        from marketsim.gen._out._alpha import Alpha
         return Alpha(self)
     
     pass

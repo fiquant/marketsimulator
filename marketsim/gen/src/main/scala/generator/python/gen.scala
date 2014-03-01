@@ -389,6 +389,7 @@ package object gen
         register(intrinsic_function)
         register(intrinsic_observable)
         register(constructor)
+        register(accessor)
         register(order_factory)
         register(order_factory_curried)
         register(order_factory_on_proto)
