@@ -39,12 +39,12 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_EW as _math_Avg_EW
+        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
         from marketsim import deref_opt
-        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
         from marketsim.gen._out.trader._efficiency import Efficiency_IAccount as _trader_Efficiency_IAccount
-        return deref_opt(_math_Derivative_IDifferentiable(deref_opt(_math_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_trader_Efficiency_IAccount(self.trader)),self.alpha))))))
+        return deref_opt(_math_Derivative_IDifferentiable(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_trader_Efficiency_IAccount(self.trader)),self.alpha))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

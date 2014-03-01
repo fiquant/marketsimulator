@@ -8,6 +8,10 @@ class Min_Impl(fold.Last):
     def __init__(self):
         event.subscribe(self.source, _(self)._update, self)
         self.reset()
+
+    @property
+    def source(self):
+        return self.x.source
         
     def reset(self):
         import blist
@@ -34,7 +38,7 @@ class Min_Impl(fold.Last):
             if x not in self._levels:
                 self._levels[x] = 0
             self._levels[x] += 1 
-            self._scheduler.scheduleAfter(self.timeframe, _(self, x)._remove)
+            self._scheduler.scheduleAfter(self.x.timeframe, _(self, x)._remove)
         self._x = x
         self.fire(self)
         
@@ -44,6 +48,10 @@ class Max_Impl(fold.Last):
         event.subscribe(self.source, _(self)._update, self)
         self.reset()
         
+    @property
+    def source(self):
+        return self.x.source
+
     def reset(self):
         import blist
         self._levels = blist.sorteddict()
@@ -69,7 +77,7 @@ class Max_Impl(fold.Last):
             if -x not in self._levels:
                 self._levels[-x] = 0
             self._levels[-x] += 1 
-            self._scheduler.scheduleAfter(self.timeframe, _(self, x)._remove)
+            self._scheduler.scheduleAfter(self.x.timeframe, _(self, x)._remove)
         self._x = x
         self.fire(self)
         

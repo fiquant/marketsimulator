@@ -10,8 +10,6 @@ def Peg(order):
     with a price one tick better than the best price in the book.
     """
     from marketsim.gen._out.orderbook._oftrader import OfTrader
-    from marketsim.gen._out.math.cumulative._maxepsilon import MaxEpsilon
-    from marketsim.gen._out.math.cumulative._minepsilon import MinEpsilon
 
     side = order.side
     book = OfTrader()
@@ -19,9 +17,9 @@ def Peg(order):
     askPrice = book.Asks.BestPrice
     bidPrice = book.Bids.BestPrice
     
-    price = MinEpsilon(askPrice, tickSize)\
+    price = askPrice.Cumulative.MinEpsilon(tickSize)\
                 if side == Side.Sell else\
-            MaxEpsilon(bidPrice, tickSize)
+            bidPrice.Cumulative.MaxEpsilon(tickSize)
 
     return FloatingPrice(order, price)
 

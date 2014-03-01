@@ -299,47 +299,6 @@ package math
         
     }
     
-    package impl
-    {
-        def Minimum(x = .Moving()) = .math.Moving.Min(x~>Source,x~>Timeframe)
-        
-        def Maximum(x = .Moving()) = .math.Moving.Max(x~>Source,x~>Timeframe)
-        
-        @label = "Min_{\\epsilon}(%(x)s)"
-        def MinEpsilon(x = .Cumulative(),
-                       epsilon = .constant(0.01)) = .math.Cumulative.MinEpsilon(x~>Source,epsilon)
-        
-        @label = "Max_{\\epsilon}(%(x)s)"
-        def MaxEpsilon(x = .Cumulative(),
-                       epsilon = .constant(0.01)) = .math.Cumulative.MaxEpsilon(x~>Source,epsilon)
-        
-    }
-    
-    @category = "Statistics"
-    package Cumulative
-    {
-        /** Cumulative minimum of a function with positive tolerance.
-         *
-         *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
-         */
-        @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
-        @label = "Min_{\\epsilon}(%(source)s)"
-        @method = "Cumulative_MinEpsilon"
-        def MinEpsilon(/** observable data source */ source = .const(1.0),
-                       /** tolerance step         */ epsilon = .constant(0.01)) : .IObservable[.Float]
-        
-        /** Cumulative maximum of a function with positive tolerance.
-         *
-         *  It fires updates only if *source* value becomes greater than the old value plus *epsilon*
-         */
-        @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
-        @label = "Max_{\\epsilon}(%(source)s)"
-        @method = "Cumulative_MaxEpsilon"
-        def MaxEpsilon(/** observable data source */ source = .const(1.0),
-                       /** tolerance step         */ epsilon = .constant(0.01)) : .IObservable[.Float]
-        
-    }
-    
     @category = "RSI"
     package rsi
     {
@@ -385,26 +344,15 @@ package math
         
     }
     
-    @category = "Statistics"
-    package Moving
-    {
-        /** Running minimum of a function
-         */
-        @python.intrinsic("observable.minmax.Min_Impl")
-        @label = "Min_{n=%(timeframe)s}(%(source)s)"
-        @method = "Moving_Min"
-        def Min(/** observable data source */ source = .const(1.0),
-                /** sliding window size    */ timeframe = 100.0) : .IObservable[.Float]
-        
-        /** Running maximum of a function
-         */
-        @python.intrinsic("observable.minmax.Max_Impl")
-        @label = "Max_{n=%(timeframe)s}(%(source)s)"
-        @method = "Moving_Max"
-        def Max(/** observable data source */ source = .const(1.0),
-                /** sliding window size    */ timeframe = 100.0) : .IObservable[.Float]
-        
-    }
+    type IStatDomain
+    
+    type Cumulative(source = .const(0.0)) : IStatDomain
+    
+    @label = "EW_{%(alpha)s}(%(source)s)"
+    type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
+    
+    @label = "Moving_{%(timeframe)s}(%(source)s)"
+    type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -417,35 +365,35 @@ package math
     /** Exponentially weighted moving relative standard deviation
      */
     @category = "Statistics"
-    def RelStdDev(x = .EW()) = (x~>Source-x~>Avg)/x~>StdDev
+    def RelStdDev(x = .math.EW()) = (x~>Source-x~>Avg)/x~>StdDev
     
     /** Cumulative relative standard deviation
      */
     @category = "Statistics"
-    def RelStdDev(x = .Cumulative()) = (x~>Source-x~>Avg)/x~>StdDev
+    def RelStdDev(x = .math.Cumulative()) = (x~>Source-x~>Avg)/x~>StdDev
     
     /** Simple moving relative standard deviation
      */
     @category = "Statistics"
-    def RelStdDev(x = .Moving()) = (x~>Source-x~>Avg)/x~>StdDev
+    def RelStdDev(x = .math.Moving()) = (x~>Source-x~>Avg)/x~>StdDev
     
     /** Exponentially weighted moving variance
      */
     @category = "Statistics"
     @python.intrinsic("moments.ewmv.EWMV_Impl")
-    def Var(x = .EW()) : () => .Float
+    def Var(x = .math.EW()) : () => .Float
     
     /** Cumulative variance
      */
     @category = "Statistics"
     @python.intrinsic("moments.cmv.Variance_Impl")
-    def Var(x = .Cumulative()) : () => .Float
+    def Var(x = .math.Cumulative()) : () => .Float
     
     /** Simple moving variance
      */
     @category = "Statistics"
     @python.intrinsic("moments.mv.MV_Impl")
-    def Var(x = .Moving()) : () => .Float
+    def Var(x = .math.Moving()) : () => .Float
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
@@ -498,19 +446,19 @@ package math
      */
     @category = "Statistics"
     @python.intrinsic("moments.ewma.EWMA_Impl")
-    def Avg(x = .EW()) : .IDifferentiable
+    def Avg(x = .math.EW()) : .IDifferentiable
     
     /** Cumulative average
      */
     @category = "Statistics"
     @python.intrinsic("moments.cma.CMA_Impl")
-    def Avg(x = .Cumulative()) : .IDifferentiable
+    def Avg(x = .math.Cumulative()) : .IDifferentiable
     
     /** Simple moving average
      */
     @category = "Statistics"
     @python.intrinsic("moments.ma.MA_Impl")
-    def Avg(x = .Moving()) : .IDifferentiable
+    def Avg(x = .math.Moving()) : .IDifferentiable
     
     /** Square root of *x*
      *
@@ -552,27 +500,53 @@ package math
                    /** intervals between signal updates */ intervalDistr = .math.random.expovariate(1.0),
                    name = "-random-") : .IObservable[.Float]
     
+    /** Cumulative minimum of a function with positive tolerance.
+     *
+     *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
+     */
+    @category = "Statistics"
+    @python.intrinsic("observable.minmax_eps.MinEpsilon_Impl")
+    @label = "Min_{\\epsilon}(%(x)s)"
+    def MinEpsilon(x = .math.Cumulative(),
+                   epsilon = .constant(0.01)) : .IObservable[.Float]
+    
+    /** Cumulative maximum of a function with positive tolerance.
+     *
+     *  It fires updates only if *source* value becomes greater than the old value plus *epsilon*
+     */
+    @category = "Statistics"
+    @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
+    @label = "Max_{\\epsilon}(%(x)s)"
+    def MaxEpsilon(x = .math.Cumulative(),
+                   epsilon = .constant(0.01)) : .IObservable[.Float]
+    
     /** Exponentially weighted moving standard deviation
      */
     @category = "Statistics"
-    def StdDev(x = .EW()) = x~>Var~>Sqrt
+    def StdDev(x = .math.EW()) = x~>Var~>Sqrt
     
     /** Cumulative standard deviation
      */
     @category = "Statistics"
-    def StdDev(x = .Cumulative()) = x~>Var~>Sqrt
+    def StdDev(x = .math.Cumulative()) = x~>Var~>Sqrt
     
     /** Simple moving standard deviation
      */
     @category = "Statistics"
-    def StdDev(x = .Moving()) = x~>Var~>Sqrt
+    def StdDev(x = .math.Moving()) = x~>Var~>Sqrt
+    
+    /** Running maximum of a function
+     */
+    @category = "Statistics"
+    @python.intrinsic("observable.minmax.Max_Impl")
+    def Maximum(x = .math.Moving()) : .IObservable[.Float]
     
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x = .math.Avg(.EW()) : .IDifferentiable) : () => .Float
+    def Derivative(x = .math.Avg(.math.EW()) : .IDifferentiable) : () => .Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -587,6 +561,12 @@ package math
     @label = "%(base)s^{%(power)s}"
     def Pow(base = .constant(1.0),
             power = .constant(1.0)) : () => .Float
+    
+    /** Running minimum of a function
+     */
+    @category = "Statistics"
+    @python.intrinsic("observable.minmax.Min_Impl")
+    def Minimum(x = .math.Moving()) : .IObservable[.Float]
     
 }
 
@@ -1837,8 +1817,6 @@ package observable
     
 }
 
-type IStatDomain
-
 type ITrader
 
 type IGraph
@@ -1873,8 +1851,6 @@ type IEvent
 
 type IMultiAssetStrategy
 
-type Cumulative(source = .const(0.0)) : IStatDomain
-
 type ITwoWayLink
 
 type IObservable[U] : IFunction[U], IEvent
@@ -1887,17 +1863,11 @@ type ISingleAssetTrader : IAccount, ITrader
 
 type IVolumeLevels
 
-@label = "EW_{%(alpha)s}(%(source)s)"
-type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
-
 type List[T]
 
 type Observable[U] : IObservable[U]
 
 type IDifferentiable : IFunction[Float]
-
-@label = "Moving_{%(timeframe)s}(%(source)s)"
-type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
 
 type ITimeSerie
 

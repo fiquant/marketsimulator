@@ -1,15 +1,16 @@
 from marketsim import registry
-from marketsim.gen._out._istatdomain import IStatDomain
+from marketsim.gen._out.math._istatdomain import IStatDomain
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-@registry.expose(["-", "Cumulative"])
-class Cumulative_IObservableFloat(IStatDomain):
+@registry.expose(["-", "EW"])
+class EW_IObservableFloatFloat(IStatDomain):
     """ 
     """ 
-    def __init__(self, source = None):
+    def __init__(self, source = None, alpha = None):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
         from marketsim import rtti
         self.source = source if source is not None else deref_opt(_const_Float(0.0))
+        self.alpha = alpha if alpha is not None else 0.015
         rtti.check_fields(self)
     
     @property
@@ -17,10 +18,11 @@ class Cumulative_IObservableFloat(IStatDomain):
         return repr(self)
     
     _properties = {
-        'source' : IObservablefloat
+        'source' : IObservablefloat,
+        'alpha' : float
     }
     def __repr__(self):
-        return "Cumulative(%(source)s)" % self.__dict__
+        return "EW_{%(alpha)s}(%(source)s)" % self.__dict__
     
 
     @property
@@ -40,21 +42,18 @@ class Cumulative_IObservableFloat(IStatDomain):
     
     @property
     def Source(self):
-        from marketsim.gen._out._source import Source
+        from marketsim.gen._out.math._source import Source
         return Source(self)
-    
-    def MinEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.impl._minepsilon import MinEpsilon
-        return MinEpsilon(self,epsilon)
-    
-    def MaxEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.impl._maxepsilon import MaxEpsilon
-        return MaxEpsilon(self,epsilon)
     
     @property
     def StdDev(self):
         from marketsim.gen._out.math._stddev import StdDev
         return StdDev(self)
     
+    @property
+    def Alpha(self):
+        from marketsim.gen._out.math._alpha import Alpha
+        return Alpha(self)
+    
     pass
-Cumulative = Cumulative_IObservableFloat
+EW = EW_IObservableFloatFloat

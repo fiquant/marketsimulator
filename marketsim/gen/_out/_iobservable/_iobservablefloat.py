@@ -12,10 +12,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math._downmovements import DownMovements
         return DownMovements(self,timeframe)
     
-    def Cumulative_MinEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.cumulative._minepsilon import MinEpsilon
-        return MinEpsilon(self,epsilon)
-    
     def Lagged(self, timeframe = None):
         from marketsim.gen._out.math._lagged import Lagged
         return Lagged(self,timeframe)
@@ -29,10 +25,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math._upmovements import UpMovements
         return UpMovements(self,timeframe)
     
-    def Moving_Max(self, timeframe = None):
-        from marketsim.gen._out.math.moving._max import Max
-        return Max(self,timeframe)
-    
     def LogReturns(self, timeframe = None):
         from marketsim.gen._out.math._logreturns import LogReturns
         return LogReturns(self,timeframe)
@@ -43,23 +35,15 @@ class IObservablefloat(IEvent, IFunctionfloat):
     
     @property
     def Cumulative(self):
-        from marketsim.gen._out._cumulative import Cumulative
+        from marketsim.gen._out.math._cumulative import Cumulative
         return Cumulative(self)
-    
-    def Moving_Min(self, timeframe = None):
-        from marketsim.gen._out.math.moving._min import Min
-        return Min(self,timeframe)
     
     def CandleSticks(self, timeframe = None):
         from marketsim.gen._out._candlesticks import CandleSticks
         return CandleSticks(self,timeframe)
     
-    def Cumulative_MaxEpsilon(self, epsilon = None):
-        from marketsim.gen._out.math.cumulative._maxepsilon import MaxEpsilon
-        return MaxEpsilon(self,epsilon)
-    
     def EW(self, alpha = None):
-        from marketsim.gen._out._ew import EW
+        from marketsim.gen._out.math._ew import EW
         return EW(self,alpha)
     
     def MACD(self, slow = None,fast = None):
@@ -71,7 +55,7 @@ class IObservablefloat(IEvent, IFunctionfloat):
         return Histogram(self,slow,fast,timeframe,step)
     
     def Moving(self, timeframe = None):
-        from marketsim.gen._out._moving import Moving
+        from marketsim.gen._out.math._moving import Moving
         return Moving(self,timeframe)
     
     def rsi_Raw(self, timeframe = None,alpha = None):

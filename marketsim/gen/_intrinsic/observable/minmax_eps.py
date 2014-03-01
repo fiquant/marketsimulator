@@ -10,11 +10,11 @@ class Base(object):
         self.value = None
 
     def _subscribe(self):
-        self.value = self.source()
+        self.value = self.x.source()
         self._handler = _(self)._fire_
         if self.value is not None:
             self._handler = self._predicate(self.value + self._sign*self.epsilon(), self._handler)
-        self.source += self._handler
+        self.x.source += self._handler
 
     def bind(self, ctx):
         self._subscribe()
@@ -25,14 +25,14 @@ class Base(object):
     def _dummy(self, dummy): pass
 
     def _fire_(self, dummy):
-        if self.source() is not None:
-            self.source -= self._handler
+        if self.x.source() is not None:
+            self.x.source -= self._handler
             self._subscribe()
             self.my_fire(dummy)
 
     @property
     def label(self):
-        return self._label + "^{" + self.source.label + "}_{\epsilon}"
+        return self._label + "^{" + self.x.source.label + "}_{\epsilon}"
 
     @property
     def attributes(self):

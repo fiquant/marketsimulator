@@ -9,37 +9,23 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Moving
+| | | | | - None
 | | | | | - List:
 | | | | | - Definitions:
 | | | | | | - List:
 | | | | | | | - FunDef:
-| | | | | | | | - Min
+| | | | | | | | - Minimum
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
-| | | | | | | | | | - source
+| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - Moving
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  observable data source 
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  sliding window size    
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -64,36 +50,19 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - observable.minmax.Min_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Min_{n=%(timeframe)s}(%(source)s)
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - method
-| | | | | | | | | | - Moving_Min
 | | | | | | | - FunDef:
-| | | | | | | | - Max
+| | | | | | | | - Maximum
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
-| | | | | | | | | | - source
+| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - Moving
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  observable data source 
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - timeframe
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | - 100.0
-| | | | | | | | | | - List:
-| | | | | | | | | | | -  sliding window size    
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -118,42 +87,19 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
 | | | | | | | | | | | - observable.minmax.Max_Impl
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Max_{n=%(timeframe)s}(%(source)s)
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - method
-| | | | | | | | | | - Moving_Max
-| | | | | - List:
-| | | | | | - Attribute:
-| | | | | | | - category
-| | | | | | | - Statistics
-| | | | | - List:
-| | | | | - false
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - Cumulative
-| | | | | - List:
-| | | | | - Definitions:
-| | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - MinEpsilon
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
-| | | | | | | | | | - source
+| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - Cumulative
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
 | | | | | | | | | | - None
@@ -166,7 +112,6 @@ Definitions:
 | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  tolerance step         
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -195,26 +140,20 @@ Definitions:
 | | | | | | | | | | | - observable.minmax_eps.MinEpsilon_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Min_{\\epsilon}(%(source)s)
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - method
-| | | | | | | | | | - Cumulative_MinEpsilon
+| | | | | | | | | | - Min_{\\epsilon}(%(x)s)
 | | | | | | | - FunDef:
 | | | | | | | | - MaxEpsilon
 | | | | | | | | - List:
 | | | | | | | | | - Parameter:
-| | | | | | | | | | - source
+| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - FunCall:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - const
+| | | | | | | | | | | | | | - Cumulative
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 1.0
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  observable data source 
 | | | | | | | | | - Parameter:
 | | | | | | | | | | - epsilon
 | | | | | | | | | | - None
@@ -227,7 +166,6 @@ Definitions:
 | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | - 0.01
 | | | | | | | | | | - List:
-| | | | | | | | | | | -  tolerance step         
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - SimpleType:
@@ -256,185 +194,11 @@ Definitions:
 | | | | | | | | | | | - observable.minmax_eps.MaxEpsilon_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
-| | | | | | | | | | - Max_{\\epsilon}(%(source)s)
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - method
-| | | | | | | | | | - Cumulative_MaxEpsilon
+| | | | | | | | | | - Max_{\\epsilon}(%(x)s)
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category
 | | | | | | | - Statistics
-| | | | | - List:
-| | | | | - false
-| | | | - PackageDef:
-| | | | | - Some:
-| | | | | | - QualifiedName:
-| | | | | | | - List:
-| | | | | | | | - impl
-| | | | | - List:
-| | | | | - Definitions:
-| | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Minimum
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - Min
-| | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Timeframe
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Maximum
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - Max
-| | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Timeframe
-| | | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - MinEpsilon
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - epsilon
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - MinEpsilon
-| | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - epsilon
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Min_{\\epsilon}(%(x)s)
-| | | | | | | - FunDef:
-| | | | | | | | - MaxEpsilon
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - epsilon
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - constant
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | - 0.01
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - math
-| | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - MaxEpsilon
-| | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - epsilon
-| | | | | | | | - None
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | | - Attribute:
-| | | | | | | | | | - label
-| | | | | | | | | | - Max_{\\epsilon}(%(x)s)
-| | | | | - List:
 | | | | | - List:
 | | | | | - false
 | | - List:

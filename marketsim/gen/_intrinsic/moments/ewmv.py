@@ -1,13 +1,11 @@
 from marketsim import getLabel, event, _
 
 from marketsim.gen._intrinsic.observable import fold
-from marketsim.gen._out.math._avg import Avg
-from marketsim.gen._out._ew import EW
 
 class EWMV_Impl(fold.Last):
 
     def __init__(self):
-        self._mean = Avg(self.x) # TODO: handle source and alpha change
+        self._mean = self.x.Avg # TODO: handle source and alpha change
         self.reset()
         self._event = event.subscribe(self.source, _(self)._update, self)
 

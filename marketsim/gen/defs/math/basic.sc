@@ -68,7 +68,7 @@ package {
      */
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
-    def Derivative(x = math.Avg(.EW()) : IDifferentiable) => Float
+    def Derivative(x = math.Avg(.math.EW()) : IDifferentiable) => Float
 }
 
 @category = "Trigonometric"

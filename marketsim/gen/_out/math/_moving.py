@@ -1,16 +1,16 @@
 from marketsim import registry
-from marketsim.gen._out._istatdomain import IStatDomain
+from marketsim.gen._out.math._istatdomain import IStatDomain
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-@registry.expose(["-", "EW"])
-class EW_IObservableFloatFloat(IStatDomain):
+@registry.expose(["-", "Moving"])
+class Moving_IObservableFloatFloat(IStatDomain):
     """ 
     """ 
-    def __init__(self, source = None, alpha = None):
+    def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
         from marketsim import rtti
         self.source = source if source is not None else deref_opt(_const_Float(0.0))
-        self.alpha = alpha if alpha is not None else 0.015
+        self.timeframe = timeframe if timeframe is not None else 100.0
         rtti.check_fields(self)
     
     @property
@@ -19,12 +19,17 @@ class EW_IObservableFloatFloat(IStatDomain):
     
     _properties = {
         'source' : IObservablefloat,
-        'alpha' : float
+        'timeframe' : float
     }
     def __repr__(self):
-        return "EW_{%(alpha)s}(%(source)s)" % self.__dict__
+        return "Moving_{%(timeframe)s}(%(source)s)" % self.__dict__
     
 
+    @property
+    def Timeframe(self):
+        from marketsim.gen._out.math._timeframe import Timeframe
+        return Timeframe(self)
+    
     @property
     def RelStdDev(self):
         from marketsim.gen._out.math._relstddev import RelStdDev
@@ -42,7 +47,7 @@ class EW_IObservableFloatFloat(IStatDomain):
     
     @property
     def Source(self):
-        from marketsim.gen._out._source import Source
+        from marketsim.gen._out.math._source import Source
         return Source(self)
     
     @property
@@ -51,9 +56,14 @@ class EW_IObservableFloatFloat(IStatDomain):
         return StdDev(self)
     
     @property
-    def Alpha(self):
-        from marketsim.gen._out._alpha import Alpha
-        return Alpha(self)
+    def Maximum(self):
+        from marketsim.gen._out.math._maximum import Maximum
+        return Maximum(self)
+    
+    @property
+    def Minimum(self):
+        from marketsim.gen._out.math._minimum import Minimum
+        return Minimum(self)
     
     pass
-EW = EW_IObservableFloatFloat
+Moving = Moving_IObservableFloatFloat

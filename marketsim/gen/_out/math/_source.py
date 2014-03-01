@@ -1,14 +1,14 @@
 from marketsim import registry
-from marketsim.gen._out._moving import Moving
+from marketsim.gen._out.math._moving import Moving
 @registry.expose(["-", "Source"])
-class Source_Moving(object):
+class Source_mathMoving(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._moving import Moving_IObservableFloatFloat as _Moving_IObservableFloatFloat
+        from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_Moving_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_math_Moving_IObservableFloatFloat())
         rtti.check_fields(self)
     
     @property
@@ -26,16 +26,16 @@ class Source_Moving(object):
         return self.x.source
     
 from marketsim import registry
-from marketsim.gen._out._ew import EW
+from marketsim.gen._out.math._ew import EW
 @registry.expose(["-", "Source"])
-class Source_EW(object):
+class Source_mathEW(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_EW_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_math_EW_IObservableFloatFloat())
         rtti.check_fields(self)
     
     @property
@@ -53,16 +53,16 @@ class Source_EW(object):
         return self.x.source
     
 from marketsim import registry
-from marketsim.gen._out._cumulative import Cumulative
+from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["-", "Source"])
-class Source_Cumulative(object):
+class Source_mathCumulative(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out._cumulative import Cumulative_IObservableFloat as _Cumulative_IObservableFloat
+        from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_Cumulative_IObservableFloat())
+        self.x = x if x is not None else deref_opt(_math_Cumulative_IObservableFloat())
         rtti.check_fields(self)
     
     @property
@@ -80,14 +80,14 @@ class Source_Cumulative(object):
         return self.x.source
     
 def Source(x = None): 
-    from marketsim.gen._out._moving import Moving
-    from marketsim.gen._out._ew import EW
-    from marketsim.gen._out._cumulative import Cumulative
+    from marketsim.gen._out.math._moving import Moving
+    from marketsim.gen._out.math._ew import EW
+    from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, Moving):
-        return Source_Moving(x)
+        return Source_mathMoving(x)
     if x is None or rtti.can_be_casted(x, EW):
-        return Source_EW(x)
+        return Source_mathEW(x)
     if x is None or rtti.can_be_casted(x, Cumulative):
-        return Source_Cumulative(x)
+        return Source_mathCumulative(x)
     raise Exception('Cannot find suitable overload for Source('+str(x) +':'+ str(type(x))+')')

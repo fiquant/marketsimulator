@@ -45,12 +45,12 @@ class Signal_IObservableFloatFloatFloatFloatFloat(IDifferentiable):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_EW as _math_Avg_EW
+        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
         from marketsim import deref_opt
         from marketsim.gen._out.math.macd._macd import MACD_IObservableFloatFloatFloat as _math_macd_MACD_IObservableFloatFloatFloat
-        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
-        return deref_opt(_math_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast)),self.step)),(2/((self.timeframe+1)))))))
+        return deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_math_macd_MACD_IObservableFloatFloatFloat(self.x,self.slow,self.fast)),self.step)),(2/((self.timeframe+1)))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
