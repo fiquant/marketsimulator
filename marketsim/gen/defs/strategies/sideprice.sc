@@ -71,23 +71,18 @@ package strategy
 
     def TwoSides(x = MarketData()) = Combine(x~>OneSide(side.Sell(), 1.), x~>OneSide(side.Buy(), -1.))
 
-    def MarketMaker(delta = 1., volume = 20.) =
+    type MarketMaker(delta = 1., volume = 20.)
 
-        Combine(
-                order.price.Limit(side.Sell(), volume*1000)
-                    ~>FloatingPrice(
-                        (orderbook.Asks()~>SafeSidePrice(100 + delta) / (trader.Position()~>Atan / 1000)~>Exp)
-                            ~>OnEveryDt(0.9)~>BreaksAtChanges)
-                    ~>Iceberg(volume)
-                    ~>Strategy(event.After(0.)),
+    def OneSide(x = MarketMaker(), side = side.Sell(), sign = 1.) =
 
-                order.price.Limit(side.Buy(), volume*1000)
-                    ~>FloatingPrice(
-                        (orderbook.Bids()~>SafeSidePrice(100 - delta) / (trader.Position()~>Atan / 1000)~>Exp)
-                            ~>OnEveryDt(0.9)~>BreaksAtChanges)
-                    ~>Iceberg(volume)
-                    ~>Strategy(event.After(0.))
-                )
+        order.price.Limit(side, x~>Volume*1000)
+            ~>FloatingPrice(
+                (orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100 + x~>Delta*sign) / (trader.Position()~>Atan / 1000)~>Exp)
+                    ~>OnEveryDt(0.9)~>BreaksAtChanges)
+            ~>Iceberg(x~>Volume)
+            ~>Strategy(event.After(0.))
+
+    def TwoSides(x = MarketMaker()) = Combine(x~>OneSide(side.Sell(), 1.), x~>OneSide(side.Buy(), -1.))
 
 
 }

@@ -2006,6 +2006,8 @@ package strategy {@category = "Side function"
     }
     
     type MarketData
+    
+    type MarketMaker
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -2022,6 +2024,11 @@ package strategy {@category = "Side function"
                    /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                    /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
+    
+    @category = "-"
+    
+    @python.accessor()
+    def Delta(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .Float
     
     @category = "-"
     
@@ -2057,6 +2064,11 @@ package strategy {@category = "Side function"
     @category = "-"
     
     @python.accessor()
+    def Volume(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .Float
+    
+    @category = "-"
+    
+    @python.accessor()
     def Volume(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
     
     /** Signal strategy listens to some discrete signal
@@ -2080,6 +2092,10 @@ package strategy {@category = "Side function"
                /** signal to be listened to */ signal : Optional[() => .Float] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
+    
+    
+    def TwoSides(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .ISingleAssetStrategy
+        	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
     
     
     def TwoSides(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .ISingleAssetStrategy
@@ -2130,10 +2146,22 @@ package strategy {@category = "Side function"
         	 = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
     
     
+    def OneSide(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker(),
+                side : Optional[.IObservable[.Side]] = .side.observableSell(),
+                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
+    
+    
     def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
                 side : Optional[.IObservable[.Side]] = .side.observableSell(),
                 sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
+    
+    
+    def OneSide(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker(),
+                side : Optional[() => .Side] = .side.Sell(),
+                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
     
     
     def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
@@ -2282,10 +2310,11 @@ package strategy {@category = "Side function"
     def Generic(/** order factory function*/ orderFactory : Optional[.IObservable[.IOrder]] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
     
+    @category = "-"
     
+    @python.constructor()
     def MarketMaker(delta : Optional[.Float] = 1.0,
-                    volume : Optional[.Float] = 20.0) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Asks(),.constant(100+delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(volume)),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Bids(),.constant(100-delta)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(volume)),.event.After(.constant(0.0))))
+                    volume : Optional[.Float] = 20.0) : .strategy.MarketMaker
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */
@@ -2593,6 +2622,13 @@ package observable {
     def OnEveryDt(/** function to discretize */ x : Optional[() => .Float] = .constant(1.0),
                   /** time discretization step */ dt : Optional[.Float] = 1.0) : .IObservable[.Float]
     
+    /** Observable listening to *source*
+     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
+     */
+    
+    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    def BreaksAtChanges(source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
+    
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
      *  and follows the price in scale 1 model unit of time = 1 real day
      */
@@ -2602,13 +2638,6 @@ package observable {
     def Quote(/** defines quotes to download */ ticker : Optional[.String] = "^GSPC",
               /** defines first day to download in form YYYY-MM-DD */ start : Optional[.String] = "2001-1-1",
               /** defines last day to download in form YYYY-MM-DD */ end : Optional[.String] = "2010-1-1") : .IObservable[.Float]
-    
-    /** Observable listening to *source*
-     *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
-     */
-    
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
-    def BreaksAtChanges(source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
 }
 
 type ITrader

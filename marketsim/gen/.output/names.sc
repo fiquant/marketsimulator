@@ -1359,6 +1359,8 @@ package strategy
     
     type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
     
+    type MarketMaker(delta = 1.0,volume = 20.0)
+    
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -1405,6 +1407,8 @@ package strategy
                /** signal to be listened to */ signal = .constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7) = orderFactory(.strategy.side.Signal(signal,threshold))~>Strategy(eventGen)
     
+    def TwoSides(x = .strategy.MarketMaker()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
+    
     def TwoSides(x = .strategy.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
     
     /** Liquidity provider for two sides
@@ -1443,6 +1447,10 @@ package strategy
                       /** order factory function*/ orderFactory = .order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold))~>Strategy(eventGen)
+    
+    def OneSide(x = .strategy.MarketMaker(),
+                side = .side.Sell(),
+                sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(.orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+x~>Delta*sign)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
     
     def OneSide(x = .strategy.MarketData(),
                 side = .side.Sell(),
@@ -1538,9 +1546,6 @@ package strategy
     @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
-    
-    def MarketMaker(delta = 1.0,
-                    volume = 20.0) = .strategy.Combine(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(.orderbook.Asks()~>SafeSidePrice(100+delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)),.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(.orderbook.Bids()~>SafeSidePrice(100-delta)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)))
     
     /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
      */

@@ -29,7 +29,13 @@ package strategy() {
     // defined at defs\strategies\sideprice.sc: 72.5
     def TwoSides(x = MarketData()) = Combine(x~>OneSide(side.Sell(),1.0),x~>OneSide(side.Buy(),-1.0))
     
-    // defined at defs\strategies\sideprice.sc: 74.5
-    def MarketMaker(delta = 1.0,
-                    volume = 20.0) = Combine(order.price.Limit(side.Sell(),volume*1000)~>FloatingPrice(orderbook.Asks()~>SafeSidePrice(100+delta)/trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(event.After(0.0)),order.price.Limit(side.Buy(),volume*1000)~>FloatingPrice(orderbook.Bids()~>SafeSidePrice(100-delta)/trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(event.After(0.0)))
+    type MarketMaker(delta = 1.0,volume = 20.0)
+    
+    // defined at defs\strategies\sideprice.sc: 76.5
+    def OneSide(x = MarketMaker(),
+                side = side.Sell(),
+                sign = 1.0) = order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+x~>Delta*sign)/trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(event.After(0.0))
+    
+    // defined at defs\strategies\sideprice.sc: 85.5
+    def TwoSides(x = MarketMaker()) = Combine(x~>OneSide(side.Sell(),1.0),x~>OneSide(side.Buy(),-1.0))
 }
