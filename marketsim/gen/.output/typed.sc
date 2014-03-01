@@ -2005,6 +2005,7 @@ package strategy {@category = "Side function"
         def virtualMarket = .strategy.account.inner.inner_VirtualMarket
     }
     
+    type MarketData
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -2021,6 +2022,11 @@ package strategy {@category = "Side function"
                    /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                    /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
+    
+    @category = "-"
+    
+    @python.accessor()
+    def Delta(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
     
     /** Dependent price strategy believes that the fair price of an asset *A*
      * is completely correlated with price of another asset *B* and the following relation
@@ -2048,6 +2054,11 @@ package strategy {@category = "Side function"
                       /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
     
+    @category = "-"
+    
+    @python.accessor()
+    def Volume(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
+    
     /** Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
      * When the signal gets lower than -threshold the strategy starts to sell.
@@ -2069,6 +2080,10 @@ package strategy {@category = "Side function"
                /** signal to be listened to */ signal : Optional[() => .Float] = .constant(0.0),
                /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
+    
+    
+    def TwoSides(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .ISingleAssetStrategy
+        	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
     
     /** Liquidity provider for two sides
      */
@@ -2113,6 +2128,18 @@ package strategy {@category = "Side function"
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
                       /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
+    
+    
+    def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
+                side : Optional[.IObservable[.Side]] = .side.observableSell(),
+                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
+    
+    
+    def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
+                side : Optional[() => .Side] = .side.Sell(),
+                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -2170,6 +2197,11 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.combine._Array_Impl")
     def Array(/** strategies to combine */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Noise()]) : .ISingleAssetStrategy
     
+    @category = "-"
+    
+    @python.accessor()
+    def Start(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
+    
     /** Mean reversion strategy believes that asset price should return to its average value.
      * It estimates this average using some functional and
      * if the current asset price is lower than the average
@@ -2203,21 +2235,19 @@ package strategy {@category = "Side function"
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => (() => List[.Float])] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
     
-    /** A Strategy that allows to drive the asset price based on historical market data
-     *  by creating large volume orders for the given price.
-     *
-     *  Every time step of 1 in the simulation corresponds to a 1 day in the market data.
-     *
-     *  At each time step the previous Limit Buy/Sell orders are cancelled and new ones
-     *  are created based on the next price of the market data.
-     */
+    @category = "-"
     
+    @python.accessor()
+    def End(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
+    
+    @category = "-"
+    
+    @python.constructor()
     def MarketData(/** Ticker of the asset */ ticker : Optional[.String] = "^GSPC",
                    /** Start date in DD-MM-YYYY format */ start : Optional[.String] = "2001-1-1",
                    /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
                    /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(.side.Sell(),.constant(volume*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(ticker,start,end),.constant(delta)))),.constant(volume)),.event.After(.constant(0.0))),.strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(.side.Buy(),.constant(volume*1000)),.observable.BreaksAtChanges(.ops.Sub(.observable.Quote(ticker,start,end),.constant(delta)))),.constant(volume)),.event.After(.constant(0.0))))
+                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .strategy.MarketData
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
@@ -2237,6 +2267,11 @@ package strategy {@category = "Side function"
                               /** defines multipliers for current asset price when price of
                                 *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
         	 = .strategy.Generic(orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
+    
+    @category = "-"
+    
+    @python.accessor()
+    def Ticker(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader

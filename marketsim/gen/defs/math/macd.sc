@@ -6,6 +6,9 @@ package math
         type macd(/** source */       source = .const(1.),
                   /** long period */  slow = 26.0,
                   /** short period */ fast = 12.0)
+
+            // = source~>EW(2./(fast+1))~>Avg - source~>EW(2./(slow+1))~>Avg
+
         /**
          *  Moving average convergence/divergence
          */

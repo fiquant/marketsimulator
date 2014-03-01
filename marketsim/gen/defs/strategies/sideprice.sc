@@ -51,7 +51,7 @@ package strategy
      *  At each time step the previous Limit Buy/Sell orders are cancelled and new ones
      *  are created based on the next price of the market data.
      */
-    def MarketData( /** Ticker of the asset */
+    type MarketData(/** Ticker of the asset */
                     ticker = "^GSPC",
                     /** Start date in DD-MM-YYYY format */
                     start = "2001-1-1",
@@ -62,18 +62,14 @@ package strategy
                     /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */
                     volume = 1000.)
 
-    =
-    Combine(
-            order.price.Limit(side.Sell(), volume*1000)
-                ~>FloatingPrice((ticker~>Quote(start, end) + delta)~>BreaksAtChanges)
-                ~>Iceberg(volume)
-                ~>Strategy(event.After(0.)),
+    def OneSide(x = MarketData(), side = side.Sell(), sign = 1.)
 
-            order.price.Limit(side.Buy(), volume*1000)
-                ~>FloatingPrice((ticker~>Quote(start, end) - delta)~>BreaksAtChanges)
-                ~>Iceberg(volume)
-                ~>Strategy(event.After(0.))
-    )
+        = order.price.Limit(side, x~>Volume*1000)
+            ~>FloatingPrice((x~>Ticker~>Quote(x~>Start, x~>End) + x~>Delta*sign)~>BreaksAtChanges)
+            ~>Iceberg(x~>Volume)
+            ~>Strategy(event.After(0.))
+
+    def TwoSides(x = MarketData()) = Combine(x~>OneSide(side.Sell(), 1.), x~>OneSide(side.Buy(), -1.))
 
     def MarketMaker(delta = 1., volume = 20.) =
 

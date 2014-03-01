@@ -1357,6 +1357,8 @@ package strategy
         
     }
     
+    type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
+    
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -1403,6 +1405,8 @@ package strategy
                /** signal to be listened to */ signal = .constant(0.0),
                /** threshold when the trader starts to act */ threshold = 0.7) = orderFactory(.strategy.side.Signal(signal,threshold))~>Strategy(eventGen)
     
+    def TwoSides(x = .strategy.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
+    
     /** Liquidity provider for two sides
      */
     def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
@@ -1439,6 +1443,10 @@ package strategy
                       /** order factory function*/ orderFactory = .order.side.Market(),
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
                       /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold))~>Strategy(eventGen)
+    
+    def OneSide(x = .strategy.MarketData(),
+                side = .side.Sell(),
+                sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(x~>Ticker~>Quote(x~>Start,x~>End)+x~>Delta*sign~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
     
     /** Fundamental value strategy believes that an asset should have some specific price
      * (*fundamental value*) and if the current asset price is lower than the fundamental value
@@ -1506,20 +1514,6 @@ package strategy
                          /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = .strategy.weight.atanPow(),
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector = .strategy.weight.identityL()) : .ISingleAssetStrategy
-    
-    /** A Strategy that allows to drive the asset price based on historical market data
-     *  by creating large volume orders for the given price.
-     *
-     *  Every time step of 1 in the simulation corresponds to a 1 day in the market data.
-     *
-     *  At each time step the previous Limit Buy/Sell orders are cancelled and new ones
-     *  are created based on the next price of the market data.
-     */
-    def MarketData(/** Ticker of the asset */ ticker = "^GSPC",
-                   /** Start date in DD-MM-YYYY format */ start = "2001-1-1",
-                   /** End date in DD-MM-YYYY format */ end = "2010-1-1",
-                   /** Price difference between orders placed and underlying quotes */ delta = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0) = .strategy.Combine(.order.price.Limit(.side.Sell(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)+delta~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)),.order.price.Limit(.side.Buy(),volume*1000)~>FloatingPrice(ticker~>Quote(start,end)-delta~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(.event.After(0.0)))
     
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it

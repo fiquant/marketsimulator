@@ -241,49 +241,174 @@ Definitions:
 | | | | | | | - Liquidity provider for two sides
 | | | | | | | - List:
 | | | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - MarketData
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - ticker
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - StringLit:
+| | | | | | | | | | - ^GSPC
+| | | | | | | | - List:
+| | | | | | | | | -  Ticker of the asset 
+| | | | | | | - Parameter:
+| | | | | | | | - start
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - StringLit:
+| | | | | | | | | | - 2001-1-1
+| | | | | | | | - List:
+| | | | | | | | | -  Start date in DD-MM-YYYY format 
+| | | | | | | - Parameter:
+| | | | | | | | - end
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - StringLit:
+| | | | | | | | | | - 2010-1-1
+| | | | | | | | - List:
+| | | | | | | | | -  End date in DD-MM-YYYY format 
+| | | | | | | - Parameter:
+| | | | | | | | - delta
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | - List:
+| | | | | | | | | -  Price difference between orders placed and underlying quotes 
+| | | | | | | - Parameter:
+| | | | | | | | - volume
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1000.0
+| | | | | | | | - List:
+| | | | | | | | | -  Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. 
+| | | | | - List:
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - OneSide
 | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - ticker
+| | | | | | | - x
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - ^GSPC
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MarketData
+| | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  Ticker of the asset 
 | | | | | | - Parameter:
-| | | | | | | - start
+| | | | | | | - side
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - 2001-1-1
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - side
+| | | | | | | | | | | - Sell
+| | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  Start date in DD-MM-YYYY format 
 | | | | | | - Parameter:
-| | | | | | | - end
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - StringLit:
-| | | | | | | | | - 2010-1-1
-| | | | | | | - List:
-| | | | | | | | -  End date in DD-MM-YYYY format 
-| | | | | | - Parameter:
-| | | | | | | - delta
+| | | | | | | - sign
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FloatLit:
 | | | | | | | | | - 1.0
 | | | | | | | - List:
-| | | | | | | | -  Price difference between orders placed and underlying quotes 
+| | | | | - Some:
+| | | | | | - MemberAccess:
+| | | | | | | - MemberAccess:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - order
+| | | | | | | | | | | | - price
+| | | | | | | | | | | | - Limit
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Mul
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | - Volume
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | - 1000
+| | | | | | | | | - FloatingPrice
+| | | | | | | | | - List:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Add
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | - Ticker
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Quote
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | | - Start
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | | - End
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Mul
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | - Delta
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - sign
+| | | | | | | | | | | - BreaksAtChanges
+| | | | | | | | | | | - List:
+| | | | | | | | - Iceberg
+| | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - x
+| | | | | | | | | | - Volume
+| | | | | | | | | | - List:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - event
+| | | | | | | | | | | - After
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.0
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
+| | | | | - TwoSides
+| | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - volume
+| | | | | | | - x
 | | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 1000.0
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - MarketData
+| | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. 
 | | | | | - Some:
 | | | | | | - FunCall:
 | | | | | | | - QualifiedName:
@@ -291,124 +416,33 @@ Definitions:
 | | | | | | | | | - Combine
 | | | | | | | - List:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | | | - Sell
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | - Mul
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | | | - 1000
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | - Add
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ticker
-| | | | | | | | | | | | | | | - Quote
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - start
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - end
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - delta
-| | | | | | | | | | | | | - BreaksAtChanges
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - Iceberg
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - volume
-| | | | | | | | | - Strategy
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - OneSide
 | | | | | | | | | - List:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - event
-| | | | | | | | | | | | | - After
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Sell
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - order
-| | | | | | | | | | | | | | - price
-| | | | | | | | | | | | | | - Limit
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - side
-| | | | | | | | | | | | | | | | - Buy
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | - Mul
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - volume
-| | | | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | | | - 1000
-| | | | | | | | | | | - FloatingPrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - ticker
-| | | | | | | | | | | | | | | - Quote
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - start
-| | | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | | - end
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - delta
-| | | | | | | | | | | | | - BreaksAtChanges
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | - Iceberg
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - volume
-| | | | | | | | | - Strategy
+| | | | | | | | | - Var:
+| | | | | | | | | | - x
+| | | | | | | | | - OneSide
 | | | | | | | | | - List:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - event
-| | | | | | | | | | | | | - After
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Buy
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 0.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - -1.0
 | | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - A Strategy that allows to drive the asset price based on historical market data
-| | | | | | | - List:
-| | | | | | | | -   by creating large volume orders for the given price.
-| | | | | | | | - 
-| | | | | | | | -   Every time step of 1 in the simulation corresponds to a 1 day in the market data.
-| | | | | | | | - 
-| | | | | | | | -   At each time step the previous Limit Buy/Sell orders are cancelled and new ones
-| | | | | | | | -   are created based on the next price of the market data.
+| | | | | - None
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - MarketMaker

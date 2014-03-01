@@ -185,6 +185,7 @@ package object gen
                         case Left(exceptions) => throw new Exception(exceptions map { _.toString } mkString predef.crlf)
                         case Right(result)    => result
                     }
+                    idx_out.println(base.withImports(Printer.pubImportsOf(fs.head)))
                 }
                 else
                 {
