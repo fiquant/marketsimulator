@@ -275,7 +275,7 @@ package object Typer
             typed.functions(name)
         }
 
-        private def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
+        def getTyped(definition : AST.TypeDeclaration) : Typed.TypeDeclaration = {
             typed getOrElseUpdateType (definition.name, {
                     visited.enter(source qualifyName definition.name) {
                         definition match {

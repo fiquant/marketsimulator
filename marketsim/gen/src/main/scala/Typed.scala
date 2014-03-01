@@ -455,22 +455,22 @@ package object Typed
 
         def getName = ""
 
-//        def getTypeDefinition(name : String) =
-//            types getOrElse (name, Typer.P)
+        def getTypeDefinition(name : String) =
+            types getOrElse (name, Typer.Processor(untypedTopLevel) getTyped untypedTopLevel.types(name))
 
         def getScalar(name : String) =
-            (types get name).get resolveGenerics Nil
+            getTypeDefinition(name) resolveGenerics Nil
 
         def getScalarBound(name : String) =
             getScalar(name) bind EmptyTypeMapper
 
-        lazy val IFunction = (types get "IFunction").get.asInstanceOf[AliasDecl]
+        lazy val IFunction = getTypeDefinition("IFunction").asInstanceOf[AliasDecl]
 
         def unboundFunctionOf(t : TypesUnbound.Base) =
             IFunction resolveGenerics  t :: Nil
 
-        lazy val IObservable = (types get "IObservable").get.asInstanceOf[InterfaceDecl]
-        lazy val Observable = (types get "Observable").get.asInstanceOf[InterfaceDecl]
+        lazy val IObservable = getTypeDefinition("IObservable").asInstanceOf[InterfaceDecl]
+        lazy val Observable = getTypeDefinition("Observable").asInstanceOf[InterfaceDecl]
 
         def unboundObservableOf(t : TypesUnbound.Base) =
             IObservable resolveGenerics  t :: Nil
@@ -511,11 +511,18 @@ package object Typed
     def topLevel = topLevelInstance.get
     def untypedTopLevel = untypedTopLevelInstance.get
 
-    def withNewTopLevel[T](untyped : NameTable.Scope)(f : => T) : T ={
+    def withNewTopLevel[T](untyped : NameTable.Scope)(f : => T) : T =
+    {
         val old = topLevelInstance
-        topLevelInstance = Some(new TopLevelPackage)
-        val ret = f
+        val old_untyped = untypedTopLevelInstance
+
+            untypedTopLevelInstance = Some(untyped)
+            topLevelInstance = Some(new TopLevelPackage)
+            val ret = f
+
         topLevelInstance = old
+        untypedTopLevelInstance = old_untyped
+
         ret
     }
 
