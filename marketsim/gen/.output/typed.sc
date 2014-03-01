@@ -659,119 +659,44 @@ package math {
                         Beta : Optional[.Float] = 1.0) : () => .Float
     }
     
-    @category = "Statistics"
     
     package impl {
         
-        def RelStdDev(x : Optional[.EW] = .EW()) : .IObservable[.Float]
-            	 = .math.EW.RelStdDev(.Source(x),.Alpha(x))
-        
-        
-        def RelStdDev(x : Optional[.Cumulative] = .Cumulative()) : .IObservable[.Float]
-            	 = .math.Cumulative.RelStdDev(.Source(x))
-        
-        
-        def RelStdDev(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
-            	 = .math.Moving.RelStdDev(.Source(x),.Timeframe(x))
-        
-        
-        def Var(x : Optional[.EW] = .EW()) : () => .Float
-            	 = .math.EW.Var(.Source(x),.Alpha(x))
-        
-        
-        def Var(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
-            	 = .math.Cumulative.Var(.Source(x))
-        
-        
-        def Var(x : Optional[.Moving] = .Moving()) : () => .Float
-            	 = .math.Moving.Var(.Source(x),.Timeframe(x))
-        
-        
-        def Avg(x : Optional[.EW] = .EW()) : .IDifferentiable
-            	 = .math.EW.Avg(.Source(x),.Alpha(x))
-        
-        
-        def Avg(x : Optional[.Cumulative] = .Cumulative()) : .IDifferentiable
-            	 = .math.Cumulative.Avg(.Source(x))
-        
-        
-        def Avg(x : Optional[.Moving] = .Moving()) : .IDifferentiable
-            	 = .math.Moving.Avg(.Source(x),.Timeframe(x))
-        
-        @label = "Min_{\\epsilon}(%(x)s)"
-        
-        def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
-                       epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
-        
-        @label = "Min_{\\epsilon}(%(x)s)"
-        
-        def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
-                       epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
-        
-        @label = "Max_{\\epsilon}(%(x)s)"
-        
-        def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
-                       epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
-        
-        @label = "Max_{\\epsilon}(%(x)s)"
-        
-        def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
-                       epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
-            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
-        
-        
-        def StdDev(x : Optional[.EW] = .EW()) : () => .Float
-            	 = .math.EW.StdDev(.Source(x),.Alpha(x))
-        
-        
-        def StdDev(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
-            	 = .math.Cumulative.StdDev(.Source(x))
-        
-        
-        def StdDev(x : Optional[.Moving] = .Moving()) : () => .Float
-            	 = .math.Moving.StdDev(.Source(x),.Timeframe(x))
+        def Minimum(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
+            	 = .math.Moving.Min(.Source(x),.Timeframe(x))
         
         
         def Maximum(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
             	 = .math.Moving.Max(.Source(x),.Timeframe(x))
         
+        @label = "Min_{\\epsilon}(%(x)s)"
         
-        def Minimum(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
-            	 = .math.Moving.Min(.Source(x),.Timeframe(x))
+        def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
+                       epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
+            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
+        
+        @label = "Min_{\\epsilon}(%(x)s)"
+        
+        def MinEpsilon(x : Optional[.Cumulative] = .Cumulative(),
+                       epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
+            	 = .math.Cumulative.MinEpsilon(.Source(x),epsilon)
+        
+        @label = "Max_{\\epsilon}(%(x)s)"
+        
+        def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
+                       epsilon : Optional[.IObservable[.Float]] = .const(0.01)) : .IObservable[.Float]
+            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
+        
+        @label = "Max_{\\epsilon}(%(x)s)"
+        
+        def MaxEpsilon(x : Optional[.Cumulative] = .Cumulative(),
+                       epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
+            	 = .math.Cumulative.MaxEpsilon(.Source(x),epsilon)
     }
     
     @category = "Statistics"
-    @suffix = "_{cumul}(%(source)s)"
-    @kind = "Cumulative"
     
     package Cumulative {
-        /** Cumulative relative standard deviation
-         */
-        @label = "RSD{{suffix}}"
-        @method = "{{kind}}_RelStdDev"
-        
-        def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
-            	 = .ops.Div(.ops.Sub(source,.math.Cumulative.Avg(source)),.math.Cumulative.StdDev(source))
-        
-        /** Cumulative variance
-         */
-        @label = "\\sigma^2{{suffix}}"
-        @method = "{{kind}}_Var"
-        
-        @python.intrinsic("moments.cmv.Variance_Impl")
-        def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : () => .Float
-        
-        /** Cumulative average
-         */
-        @label = "Avg{{suffix}}"
-        @method = "{{kind}}_Avg"
-        
-        @python.intrinsic("moments.cma.CMA_Impl")
-        def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : .IDifferentiable
-        
         /** Cumulative minimum of a function with positive tolerance.
          *
          *  It fires updates only if *source* value becomes less than the old value minus *epsilon*
@@ -793,14 +718,6 @@ package math {
         @python.intrinsic("observable.minmax_eps.MaxEpsilon_Impl")
         def MaxEpsilon(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                        /** tolerance step         */ epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
-        
-        /** Cumulative standard deviation
-         */
-        @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        @method = "{{kind}}_StdDev"
-        
-        def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0)) : () => .Float
-            	 = .math.Sqrt(.math.Cumulative.Var(source))
     }
     
     @category = "RSI"
@@ -814,7 +731,7 @@ package math {
         def Raw(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** lag size */ timeframe : Optional[.Float] = 10.0,
                 /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : () => .Float
-            	 = .ops.Div(.math.impl.Avg(.EW(.math.UpMovements(source,timeframe),alpha)),.math.impl.Avg(.EW(.math.DownMovements(source,timeframe),alpha)))
+            	 = .ops.Div(.math.Avg(.EW(.math.UpMovements(source,timeframe),alpha)),.math.Avg(.EW(.math.DownMovements(source,timeframe),alpha)))
     }
     
     @category = "MACD"
@@ -827,7 +744,7 @@ package math {
         def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
                  /** long period */ slow : Optional[.Float] = 26.0,
                  /** short period */ fast : Optional[.Float] = 12.0) : () => .Float
-            	 = .ops.Sub(.math.impl.Avg(.EW(x,2.0/(fast+1))),.math.impl.Avg(.EW(x,2.0/(slow+1))))
+            	 = .ops.Sub(.math.Avg(.EW(x,2.0/(fast+1))),.math.Avg(.EW(x,2.0/(slow+1))))
         
         /** Moving average convergence/divergence signal
          */
@@ -839,7 +756,7 @@ package math {
                    /** short period */ fast : Optional[.Float] = 12.0,
                    /** signal period */ timeframe : Optional[.Float] = 9.0,
                    /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
-            	 = .math.impl.Avg(.EW(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1)))
+            	 = .math.Avg(.EW(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1)))
         
         /** Moving average convergence/divergence histogram
          */
@@ -855,50 +772,6 @@ package math {
     }
     
     @category = "Statistics"
-    @suffix = "_{\\\\alpha=%(alpha)s}(%(source)s)"
-    @kind = "EW"
-    
-    package EW {
-        /** Exponentially weighted moving average
-         */
-        @label = "Avg{{suffix}}"
-        @method = "{{kind}}_Avg"
-        
-        @python.intrinsic("moments.ewma.EWMA_Impl")
-        def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** alpha parameter */ alpha : Optional[.Float] = 0.015) : .IDifferentiable
-        
-        /** Exponentially weighted moving variance
-         */
-        @label = "\\sigma^2{{suffix}}"
-        @method = "{{kind}}_Var"
-        
-        @python.intrinsic("moments.ewmv.EWMV_Impl")
-        def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** alpha parameter */ alpha : Optional[.Float] = 0.015) : () => .Float
-        
-        /** Exponentially weighted moving standard deviation
-         */
-        @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        @method = "{{kind}}_StdDev"
-        
-        def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                   /** alpha parameter */ alpha : Optional[.Float] = 0.015) : () => .Float
-            	 = .math.Sqrt(.math.EW.Var(source,alpha))
-        
-        /** Exponentially weighted moving relative standard deviation
-         */
-        @label = "RSD{{suffix}}"
-        @method = "{{kind}}_RelStdDev"
-        
-        def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                      /** alpha parameter */ alpha : Optional[.Float] = 0.015) : .IObservable[.Float]
-            	 = .ops.Div(.ops.Sub(source,.math.EW.Avg(source,alpha)),.math.EW.StdDev(source,alpha))
-    }
-    
-    @category = "Statistics"
-    @suffix = "_{n=%(timeframe)s}(%(source)s)"
-    @kind = "Moving"
     
     package Moving {
         /** Running minimum of a function
@@ -910,25 +783,6 @@ package math {
         def Min(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
         
-        /** Simple moving relative standard deviation
-         */
-        @label = "RSD{{suffix}}"
-        @method = "{{kind}}_RelStdDev"
-        
-        def RelStdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                      /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
-            	 = .ops.Div(.ops.Sub(source,.math.Moving.Avg(source,timeframe)),.math.Moving.StdDev(source,timeframe))
-        
-        /** Simple moving variance
-         */
-        @label = "\\sigma^2{{suffix}}"
-        @method = "{{kind}}_Var"
-        
-        @python.intrinsic("moments.mv.MV_Impl")
-        def Var(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float
-            	 = .math.Max(.ops.Sub(.math.Moving.Avg(.math.Sqr(source),timeframe),.math.Sqr(.math.Moving.Avg(source,timeframe))),.constant(0))
-        
         /** Running maximum of a function
          */
         @label = "Max_{n=%(timeframe)s}(%(source)s)"
@@ -937,24 +791,6 @@ package math {
         @python.intrinsic("observable.minmax.Max_Impl")
         def Max(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
                 /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IObservable[.Float]
-        
-        /** Simple moving average
-         */
-        @label = "Avg{{suffix}}"
-        @method = "{{kind}}_Avg"
-        
-        @python.intrinsic("moments.ma.MA_Impl")
-        def Avg(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : .IDifferentiable
-        
-        /** Simple moving standard deviation
-         */
-        @label = "\\sqrt{\\sigma^2{{suffix}}}"
-        @method = "{{kind}}_StdDev"
-        
-        def StdDev(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                   /** sliding window size    */ timeframe : Optional[.Float] = 100.0) : () => .Float
-            	 = .math.Sqrt(.math.Moving.Var(source,timeframe))
     }
     
     /** Function returning minimum of two functions *x* and *y*.
@@ -996,6 +832,48 @@ package math {
     def Min(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
         	 = .ops.Condition(.ops.Less(x,y),x,y)
+    
+    /** Exponentially weighted moving relative standard deviation
+     */
+    @category = "Statistics"
+    
+    def RelStdDev(x : Optional[.EW] = .EW()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Sub(.Source(x),.math.Avg(x)),.math.StdDev(x))
+    
+    /** Cumulative relative standard deviation
+     */
+    @category = "Statistics"
+    
+    def RelStdDev(x : Optional[.Cumulative] = .Cumulative()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Sub(.Source(x),.math.Avg(x)),.math.StdDev(x))
+    
+    /** Simple moving relative standard deviation
+     */
+    @category = "Statistics"
+    
+    def RelStdDev(x : Optional[.Moving] = .Moving()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Sub(.Source(x),.math.Avg(x)),.math.StdDev(x))
+    
+    /** Exponentially weighted moving variance
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.ewmv.EWMV_Impl")
+    def Var(x : Optional[.EW] = .EW()) : () => .Float
+    
+    /** Cumulative variance
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.cmv.Variance_Impl")
+    def Var(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
+    
+    /** Simple moving variance
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.mv.MV_Impl")
+    def Var(x : Optional[.Moving] = .Moving()) : () => .Float
     
     /** Returns negative movements of some observable *source* with lag *timeframe*
      */
@@ -1095,6 +973,27 @@ package math {
                    /** lag size */ timeframe : Optional[.Float] = 10.0) : () => .Float
         	 = .math.Log(.ops.Div(x,.math.Lagged(x,timeframe)))
     
+    /** Exponentially weighted moving average
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.ewma.EWMA_Impl")
+    def Avg(x : Optional[.EW] = .EW()) : .IDifferentiable
+    
+    /** Cumulative average
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.cma.CMA_Impl")
+    def Avg(x : Optional[.Cumulative] = .Cumulative()) : .IDifferentiable
+    
+    /** Simple moving average
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.ma.MA_Impl")
+    def Avg(x : Optional[.Moving] = .Moving()) : .IDifferentiable
+    
     /** Square root of *x*
      *
      */
@@ -1141,13 +1040,34 @@ package math {
                    /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
                    name : Optional[.String] = "-random-") : .IObservable[.Float]
     
+    /** Exponentially weighted moving standard deviation
+     */
+    @category = "Statistics"
+    
+    def StdDev(x : Optional[.EW] = .EW()) : () => .Float
+        	 = .math.Sqrt(.math.Var(x))
+    
+    /** Cumulative standard deviation
+     */
+    @category = "Statistics"
+    
+    def StdDev(x : Optional[.Cumulative] = .Cumulative()) : () => .Float
+        	 = .math.Sqrt(.math.Var(x))
+    
+    /** Simple moving standard deviation
+     */
+    @category = "Statistics"
+    
+    def StdDev(x : Optional[.Moving] = .Moving()) : () => .Float
+        	 = .math.Sqrt(.math.Var(x))
+    
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
     @label = "\\frac{d%(x)s}{dt}"
     
     @python.intrinsic("observable.derivative._Derivative_Impl")
-    def Derivative(x : Optional[.IDifferentiable] = .math.EW.Avg() : .IDifferentiable) : () => .Float
+    def Derivative(x : Optional[.IDifferentiable] = .math.Avg(.EW()) : .IDifferentiable) : () => .Float
     
     /** Return *x* raised to the power *y*.
      *
@@ -1767,7 +1687,7 @@ package strategy {@category = "Side function"
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 : Optional[.Float] = 0.015,
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.ops.Sub(.math.impl.Avg(.EW(.orderbook.MidPrice(book),alpha_1)),.math.impl.Avg(.EW(.orderbook.MidPrice(book),alpha_2))),threshold)
+            	 = .strategy.side.Signal(.ops.Sub(.math.Avg(.EW(.orderbook.MidPrice(book),alpha_1)),.math.Avg(.EW(.orderbook.MidPrice(book),alpha_2))),threshold)
         
         /** Side function for trend follower strategy
          */
@@ -1775,7 +1695,7 @@ package strategy {@category = "Side function"
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15,
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.math.Derivative(.math.impl.Avg(.EW(.orderbook.MidPrice(book),alpha))),threshold)
+            	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.EW(.orderbook.MidPrice(book),alpha))),threshold)
         
         /** Side function for fundamental value strategy
          */
@@ -1796,7 +1716,7 @@ package strategy {@category = "Side function"
         
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.math.impl.Avg(.EW(.orderbook.MidPrice(book),alpha)),book)
+            	 = .strategy.side.FundamentalValue(.math.Avg(.EW(.orderbook.MidPrice(book),alpha)),book)
         
         /** Side function for a noise trading strategy
          */
@@ -2000,7 +1920,7 @@ package strategy {@category = "Side function"
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
                              /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.impl.RelStdDev(.EW(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)),1.0),k),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.RelStdDev(.EW(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)),1.0),k),trader)
     }
     
     
@@ -2365,7 +2285,7 @@ package trader {
     
     def EfficiencyTrend(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount,
                         alpha : Optional[.Float] = 0.15) : () => .Float
-        	 = .math.Derivative(.math.impl.Avg(.EW(.trader.Efficiency(trader),alpha)))
+        	 = .math.Derivative(.math.Avg(.EW(.trader.Efficiency(trader),alpha)))
     
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
@@ -2422,7 +2342,7 @@ package orderbook {
     
     def WeightedPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks(),
                       /** parameter alpha for the moving average  */ alpha : Optional[.Float] = 0.15) : () => .Float
-        	 = .ops.Div(.math.impl.Avg(.EW(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue)),alpha)),.math.impl.Avg(.EW(.orderbook.LastTradeVolume(queue),alpha)))
+        	 = .ops.Div(.math.Avg(.EW(.ops.Mul(.orderbook.LastTradePrice(queue),.orderbook.LastTradeVolume(queue)),alpha)),.math.Avg(.EW(.orderbook.LastTradeVolume(queue),alpha)))
     
     /** Returns tick size for the order *book*
      */

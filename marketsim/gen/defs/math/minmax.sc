@@ -50,14 +50,14 @@ package math
 
     package impl
     {
-        def Minimum(x = .Moving()) = math.Moving.Min(x~>Source, x~>Timeframe)
-        def Maximum(x = .Moving()) = math.Moving.Max(x~>Source, x~>Timeframe)
+        def Minimum(x = Moving()) = math.Moving.Min(x~>Source, x~>Timeframe)
+        def Maximum(x = Moving()) = math.Moving.Max(x~>Source, x~>Timeframe)
 
         @label = "Min_{\\epsilon}(%(x)s)"
-        def MinEpsilon(x = .Cumulative(), epsilon = constant(0.01)) = math.Cumulative.MinEpsilon(x~>Source, epsilon)
+        def MinEpsilon(x = Cumulative(), epsilon = constant(0.01)) = math.Cumulative.MinEpsilon(x~>Source, epsilon)
 
         @label = "Max_{\\epsilon}(%(x)s)"
-        def MaxEpsilon(x = .Cumulative(), epsilon = constant(0.01)) = math.Cumulative.MaxEpsilon(x~>Source, epsilon)
+        def MaxEpsilon(x = Cumulative(), epsilon = constant(0.01)) = math.Cumulative.MaxEpsilon(x~>Source, epsilon)
 
     }
 }

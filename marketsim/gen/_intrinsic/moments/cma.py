@@ -8,6 +8,10 @@ class CMA_Impl(fold.Last):
         self.reset()
         self._event = event.subscribe(self.source, _(self)._update, self)
 
+    @property
+    def source(self):
+        return self.x.source
+
 
     def reset(self):
         self._x = None

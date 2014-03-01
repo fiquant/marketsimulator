@@ -1,9 +1,5 @@
 from marketsim import _, event, context
 
-
-from marketsim.gen._out.math.cumulative._avg import Avg as CMA
-from marketsim.gen._out.math.cumulative._stddev import StdDev
-
 from marketsim.gen._out._constant import constant
 from marketsim.ops._all import CandleStick
 
@@ -13,8 +9,8 @@ class CandleSticks_Impl(object):
         self._event = event.subscribe(self.source, _(self)._update, self)
         event.subscribe(event.Every(constant(self.timeframe)), _(self)._flush, self)
         self.reset()
-        self._mean = CMA(self.source)
-        self._stddev = StdDev(self.source)
+        self._mean = self.source.Cumulative.Avg
+        self._stddev = self.source.Cumulative.StdDev
 
     @property
     def attributes(self):

@@ -295,7 +295,7 @@ package object Typer
                                         val method_name = p.name.head.toUpper + p.name.tail
                                         if (method_name == p.name)
                                             throw new Exception(s"parameter $p for type $definition should start from a lower case letter")
-                                        println(initializer.ty)
+
                                         // it is an ugly hack and should be replaced in future
                                         val ast_ty = new syntax.scala.Parser() parseType initializer.ty.toString
 

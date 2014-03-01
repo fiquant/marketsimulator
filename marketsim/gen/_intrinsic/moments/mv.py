@@ -1,13 +1,9 @@
-from marketsim import ops, types, event, _
-
-from marketsim.gen._out.math.moving._avg import Avg
-from marketsim.gen._out.math._sqr import Sqr
-
 class MV_Impl(object):
     
     def __init__(self):
-        self._mean = Avg(self.source, self.timeframe)
-        self._mean2 = Avg(Sqr(self.source), self.timeframe)
+        from marketsim.gen._out.math._sqr import Sqr_IObservableFloat
+        self._mean = self.x.Avg
+        self._mean2 = self.x.source.Sqr.Moving(self.x.timeframe).Avg
 
     _internals = ["_mean", '_mean2']
 

@@ -3,7 +3,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
-@registry.expose(["Statistics", "MaxEpsilon"])
+@registry.expose(["Basic", "MaxEpsilon"])
 class MaxEpsilon_CumulativeIObservableFloat(Observablefloat):
     """ 
     """ 
@@ -62,7 +62,7 @@ from marketsim.gen._out._cumulative import Cumulative
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim import context
-@registry.expose(["Statistics", "MaxEpsilon"])
+@registry.expose(["Basic", "MaxEpsilon"])
 class MaxEpsilon_CumulativeFloat(Observablefloat):
     """ 
     """ 

@@ -25,17 +25,17 @@ class Cumulative_IObservableFloat(IStatDomain):
 
     @property
     def RelStdDev(self):
-        from marketsim.gen._out.math.impl._relstddev import RelStdDev
+        from marketsim.gen._out.math._relstddev import RelStdDev
         return RelStdDev(self)
     
     @property
     def Var(self):
-        from marketsim.gen._out.math.impl._var import Var
+        from marketsim.gen._out.math._var import Var
         return Var(self)
     
     @property
     def Avg(self):
-        from marketsim.gen._out.math.impl._avg import Avg
+        from marketsim.gen._out.math._avg import Avg
         return Avg(self)
     
     @property
@@ -53,7 +53,7 @@ class Cumulative_IObservableFloat(IStatDomain):
     
     @property
     def StdDev(self):
-        from marketsim.gen._out.math.impl._stddev import StdDev
+        from marketsim.gen._out.math._stddev import StdDev
         return StdDev(self)
     
     pass

@@ -6,6 +6,10 @@ class MA_Impl(fold.Last):
     def __init__(self):
         self.reset()
         self._event = event.subscribe(self.source, _(self)._update, self)
+
+    @property
+    def source(self):
+        return self.x.source
         
     def reset(self):
         self._x = None
@@ -13,14 +17,14 @@ class MA_Impl(fold.Last):
         self._t = 0
         self._backX = 0
         self._startT = 0
-        self._backT = -self.timeframe
+        self._backT = -self.x.timeframe
     
     def at(self, t):
         T = t - self._startT
         return (self._sum 
                 + self._x * (t - self._t) 
-                - self._backX * (t - self.timeframe - self._backT)
-                ) / min(T, self.timeframe)\
+                - self._backX * (t - self.x.timeframe - self._backT)
+                ) / min(T, self.x.timeframe)\
             if T > 0 and self._x is not None else None
 
     def derivative(self):
@@ -30,8 +34,8 @@ class MA_Impl(fold.Last):
         T = t - self._startT
         return\
             (self._x / T - (self._x * (t - self._t) + self._sum) / T / T\
-                if t - self._startT < self.timeframe else\
-             (self._x - self._backX) / self.timeframe)\
+                if t - self._startT < self.x.timeframe else\
+             (self._x - self._backX) / self.x.timeframe)\
         if T > 0 and self._x is not None else None
         
     @property
@@ -48,7 +52,7 @@ class MA_Impl(fold.Last):
             if self._x is not None:
                 dS = self._x * (t - self._t)
                 self._sum += dS
-                self._scheduler.scheduleAfter(self.timeframe, _(self, dS, t, x)._remove)
+                self._scheduler.scheduleAfter(self.x.timeframe, _(self, dS, t, x)._remove)
             else:
                 self._startT = t
             self._t = t

@@ -39,14 +39,14 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out.math._avg import Avg_EW as _math_Avg_EW
         from marketsim import deref_opt
         from marketsim.gen._out.orderbook._lasttradeprice import LastTradePrice_IOrderQueue as _orderbook_LastTradePrice_IOrderQueue
-        from marketsim.gen._out.math.impl._avg import Avg_EW as _math_impl_Avg_EW
         from marketsim.gen._out.orderbook._lasttradevolume import LastTradeVolume_IOrderQueue as _orderbook_LastTradeVolume_IOrderQueue
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        return deref_opt(_ops_Div_FloatFloat(deref_opt(_math_impl_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_ops_Mul_IObservableFloatIObservableFloat(deref_opt(_orderbook_LastTradePrice_IOrderQueue(self.queue)),deref_opt(_orderbook_LastTradeVolume_IOrderQueue(self.queue)))),self.alpha)))),deref_opt(_math_impl_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_orderbook_LastTradeVolume_IOrderQueue(self.queue)),self.alpha))))))
+        return deref_opt(_ops_Div_FloatFloat(deref_opt(_math_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_ops_Mul_IObservableFloatIObservableFloat(deref_opt(_orderbook_LastTradePrice_IOrderQueue(self.queue)),deref_opt(_orderbook_LastTradeVolume_IOrderQueue(self.queue)))),self.alpha)))),deref_opt(_math_Avg_EW(deref_opt(_EW_IObservableFloatFloat(deref_opt(_orderbook_LastTradeVolume_IOrderQueue(self.queue)),self.alpha))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

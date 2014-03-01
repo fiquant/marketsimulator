@@ -2,8 +2,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ew import EW
 from marketsim import context
-@registry.expose(["Statistics", "Var"])
-class Var_EW(IFunctionfloat):
+@registry.expose(["Statistics", "StdDev"])
+class StdDev_EW(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -22,7 +22,7 @@ class Var_EW(IFunctionfloat):
         'x' : EW
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "StdDev(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -37,11 +37,10 @@ class Var_EW(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.ew._var import Var_IObservableFloatFloat as _math_EW_Var_IObservableFloatFloat
-        from marketsim.gen._out._source import Source_EW as _Source_EW
+        from marketsim.gen._out.math._sqrt import Sqrt_Float as _math_Sqrt_Float
+        from marketsim.gen._out.math._var import Var_EW as _math_Var_EW
         from marketsim import deref_opt
-        from marketsim.gen._out._alpha import Alpha_EW as _Alpha_EW
-        return deref_opt(_math_EW_Var_IObservableFloatFloat(deref_opt(_Source_EW(self.x)),deref_opt(_Alpha_EW(self.x))))
+        return deref_opt(_math_Sqrt_Float(deref_opt(_math_Var_EW(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -53,8 +52,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._cumulative import Cumulative
 from marketsim import context
-@registry.expose(["Statistics", "Var"])
-class Var_Cumulative(IFunctionfloat):
+@registry.expose(["Statistics", "StdDev"])
+class StdDev_Cumulative(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -73,7 +72,7 @@ class Var_Cumulative(IFunctionfloat):
         'x' : Cumulative
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "StdDev(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -88,10 +87,10 @@ class Var_Cumulative(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.cumulative._var import Var_IObservableFloat as _math_Cumulative_Var_IObservableFloat
-        from marketsim.gen._out._source import Source_Cumulative as _Source_Cumulative
+        from marketsim.gen._out.math._sqrt import Sqrt_Float as _math_Sqrt_Float
+        from marketsim.gen._out.math._var import Var_Cumulative as _math_Var_Cumulative
         from marketsim import deref_opt
-        return deref_opt(_math_Cumulative_Var_IObservableFloat(deref_opt(_Source_Cumulative(self.x))))
+        return deref_opt(_math_Sqrt_Float(deref_opt(_math_Var_Cumulative(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -103,8 +102,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._moving import Moving
 from marketsim import context
-@registry.expose(["Statistics", "Var"])
-class Var_Moving(IFunctionfloat):
+@registry.expose(["Statistics", "StdDev"])
+class StdDev_Moving(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -123,7 +122,7 @@ class Var_Moving(IFunctionfloat):
         'x' : Moving
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "StdDev(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -138,11 +137,10 @@ class Var_Moving(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math.moving._var import Var_IObservableFloatFloat as _math_Moving_Var_IObservableFloatFloat
-        from marketsim.gen._out._source import Source_Moving as _Source_Moving
+        from marketsim.gen._out.math._sqrt import Sqrt_Float as _math_Sqrt_Float
+        from marketsim.gen._out.math._var import Var_Moving as _math_Var_Moving
         from marketsim import deref_opt
-        from marketsim.gen._out._timeframe import Timeframe_Moving as _Timeframe_Moving
-        return deref_opt(_math_Moving_Var_IObservableFloatFloat(deref_opt(_Source_Moving(self.x)),deref_opt(_Timeframe_Moving(self.x))))
+        return deref_opt(_math_Sqrt_Float(deref_opt(_math_Var_Moving(self.x))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -150,15 +148,15 @@ class Var_Moving(IFunctionfloat):
         else:
             raise AttributeError
     
-def Var(x = None): 
+def StdDev(x = None): 
     from marketsim.gen._out._ew import EW
     from marketsim.gen._out._cumulative import Cumulative
     from marketsim.gen._out._moving import Moving
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, EW):
-        return Var_EW(x)
+        return StdDev_EW(x)
     if x is None or rtti.can_be_casted(x, Cumulative):
-        return Var_Cumulative(x)
+        return StdDev_Cumulative(x)
     if x is None or rtti.can_be_casted(x, Moving):
-        return Var_Moving(x)
-    raise Exception('Cannot find suitable overload for Var('+str(x) +':'+ str(type(x))+')')
+        return StdDev_Moving(x)
+    raise Exception('Cannot find suitable overload for StdDev('+str(x) +':'+ str(type(x))+')')

@@ -13,12 +13,14 @@ class EWMA_Impl(fold.Last):
         """ Initializes EWMA with \alpha = alpha
         """
         from marketsim.gen._out._ievent import IEvent
-        if not isinstance(self.source, IEvent):
-            self.source = OnEveryDt(self.source, 1)
 
-        self._event = event.subscribe(self.source, _(self)._update, self)
+        self._event = event.subscribe(self.x.source, _(self)._update, self)
 
         self.reset()
+
+    @property
+    def source(self):
+        return self.x.source
 
     def reset(self):
         self._avg = None
@@ -37,7 +39,7 @@ class EWMA_Impl(fold.Last):
         Returns None if no data has come
         """
         return \
-            self._avg + (self._lastValue - self._avg)*(1 - (1 - self.alpha)**( t - self._lastTime)) \
+            self._avg + (self._lastValue - self._avg)*(1 - (1 - self.x.alpha)**( t - self._lastTime)) \
             if self._avg is not None else None
 
     def derivative(self):
@@ -50,7 +52,7 @@ class EWMA_Impl(fold.Last):
         if self._avg is None:
             return None
         dt = t - self._lastTime
-        return  -(self._lastValue - self._avg)*math.log(1 - self.alpha)*(1 - self.alpha)**dt
+        return  -(self._lastValue - self._avg)*math.log(1 - self.x.alpha)*(1 - self.x.alpha)**dt
 
     def update(self, time, value):
         """ Adds point (time, value) to calculate the average

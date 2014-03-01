@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._moving import Moving
 from marketsim import context
-@registry.expose(["Statistics", "Maximum"])
+@registry.expose(["Basic", "Maximum"])
 class Maximum_Moving(Observablefloat):
     """ 
     """ 

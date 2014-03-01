@@ -323,7 +323,17 @@ package object NameTable {
                                     case Some(scope) =>
                                         (scope qualifyName n.last, scope.collectParameters.toList)
                                     case None =>
-                                        throw new Exception(s"Cannot lookup $n from scope $qualifiedName")
+                                        lookupScope(_ hasType _, n) match {
+                                            case Some(scope) =>
+                                                scope.types(n.last) match {
+                                                    case t : AST.Interface if t.parameters.nonEmpty =>
+                                                        (scope qualifyName n.last, scope.collectParameters.toList)
+                                                    case _ =>
+                                                        throw new Exception(s"Cannot lookup $n from scope $qualifiedName")
+                                                }
+                                            case _ =>
+                                                throw new Exception(s"Cannot lookup $n from scope $qualifiedName")
+                                        }
                                 }
                         }
                     val extra = extra_params map { p => AST.Var(p.name) }

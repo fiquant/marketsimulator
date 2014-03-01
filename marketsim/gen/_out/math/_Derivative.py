@@ -7,10 +7,11 @@ class Derivative_IDifferentiable(IFunctionfloat,_Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.math.ew._avg import Avg_IObservableFloatFloat as _math_EW_Avg_IObservableFloatFloat
+        from marketsim.gen._out.math._avg import Avg_EW as _math_Avg_EW
+        from marketsim.gen._out._ew import EW_IObservableFloatFloat as _EW_IObservableFloatFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_math_EW_Avg_IObservableFloatFloat())
+        self.x = x if x is not None else deref_opt(_math_Avg_EW(deref_opt(_EW_IObservableFloatFloat())))
         rtti.check_fields(self)
         _Derivative_Impl.__init__(self)
     
