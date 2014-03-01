@@ -455,6 +455,9 @@ package object Typed
 
         def getName = ""
 
+//        def getTypeDefinition(name : String) =
+//            types getOrElse (name, Typer.P)
+
         def getScalar(name : String) =
             (types get name).get resolveGenerics Nil
 
@@ -502,11 +505,13 @@ package object Typed
         
     }
 
-    private var topLevelInstance : Option[TopLevelPackage] = None
+    private var topLevelInstance = Option.empty[TopLevelPackage]
+    private var untypedTopLevelInstance = Option.empty[NameTable.Scope]
 
     def topLevel = topLevelInstance.get
+    def untypedTopLevel = untypedTopLevelInstance.get
 
-    def withNewTopLevel[T](f : => T) : T ={
+    def withNewTopLevel[T](untyped : NameTable.Scope)(f : => T) : T ={
         val old = topLevelInstance
         topLevelInstance = Some(new TopLevelPackage)
         val ret = f

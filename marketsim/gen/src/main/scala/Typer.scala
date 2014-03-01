@@ -280,7 +280,7 @@ package object Typer
                     visited.enter(source qualifyName definition.name) {
                         definition match {
                             case t : AST.Interface =>
-                                if (t.parameters.nonEmpty)
+                                if (t.parameters.nonEmpty) {
                                     source add AST.FunDef(
                                         t.name,
                                         t.parameters.get,
@@ -290,7 +290,11 @@ package object Typer
                                         AST.Annotation("python" :: "constructor" :: Nil, Nil) ::
                                         AST.Attribute("category", "-") :: t.decorators)
 
+                                    //t.parameters.get foreach { p => inferType(Nil)(p.initializer.get) }
+                                }
+
                                 toTyped(t)
+
                             case t : AST.Alias => toTyped(t)
                         }
                     }

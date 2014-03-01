@@ -106,19 +106,19 @@ object Runner extends syntax.scala.Parser {
             cleanUp("_out")
             cleanUp("../_pub")
 
-            Typed.withNewTopLevel({
-                print(s"parsing...")
+            print(s"parsing...")
 
-                val parsed = (config.sources flatMap   getFileTree)
-                                            .filter  {  _.getName endsWith ".sc" }
-                                            .flatMap {  parse }.toList
+            val parsed = (config.sources flatMap   getFileTree)
+                                        .filter  {  _.getName endsWith ".sc" }
+                                        .flatMap {  parse }.toList
 
-                println("done")
+            println("done")
 
-                buildNames(parsed) map {
-                    buildTyped(_) map generatePython
+            buildNames(parsed) map { names =>
+                Typed.withNewTopLevel(names) {
+                    buildTyped(names) map generatePython
                 }
-            })
+            }
         }
     }
 
@@ -144,9 +144,7 @@ object Runner extends syntax.scala.Parser {
 
             if (config.check_names)
             {
-                Typed.withNewTopLevel({
-                    NameTable.create(parse(new File(names_file)).get :: Nil)
-                }) map { names_2 =>
+                NameTable.create(parse(new File(names_file)).get :: Nil) map { names_2 =>
                     if (names_2 != names) {
                         for (output <- managed(new PrintWriter(names_failed_file))) {
                             config.WithHiddenLocation({ output.println(names_2) })
@@ -180,7 +178,7 @@ object Runner extends syntax.scala.Parser {
             if (config.check_typed)
             {
                 NameTable.create(parse(new File(typed_file)).get :: Nil) map { names_2 =>
-                    Typed.withNewTopLevel({
+                    Typed.withNewTopLevel(names_2)({
                         Typer.run(names_2)
                     }) map { typed_2 =>
                         if (typed != typed_2) {
@@ -194,11 +192,9 @@ object Runner extends syntax.scala.Parser {
                 }
             }
 
-
             println("done")
 
             typed
         }
-
     }
 }
