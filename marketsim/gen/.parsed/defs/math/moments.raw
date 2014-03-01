@@ -17,13 +17,6 @@ Definitions:
 | | | | | | | | - IStatDomain
 | | | | | | | | - Generics:
 | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - Interface:
-| | | | | | | | - Cumulative
-| | | | | | | | - Generics:
-| | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - List:
 | | | | | | | | | | - Parameter:
@@ -39,6 +32,14 @@ Definitions:
 | | | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | | | - 0.0
 | | | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | - Interface:
+| | | | | | | | - Cumulative
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
+| | | | | | | | - Some:
+| | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | | - SimpleType:
 | | | | | | | | | | - QualifiedName:
@@ -52,19 +53,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - List:
-| | | | | | | | | | - Parameter:
-| | | | | | | | | | | - source
-| | | | | | | | | | | - None
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - const
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | - List:
 | | | | | | | | | | - Parameter:
 | | | | | | | | | | | - alpha
 | | | | | | | | | | | - None
@@ -88,19 +76,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | | - Some:
 | | | | | | | | | - List:
-| | | | | | | | | | - Parameter:
-| | | | | | | | | | | - source
-| | | | | | | | | | | - None
-| | | | | | | | | | | - Some:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - 
-| | | | | | | | | | | | | | | - const
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 0.0
-| | | | | | | | | | | - List:
 | | | | | | | | | | - Parameter:
 | | | | | | | | | | | - timeframe
 | | | | | | | | | | | - None

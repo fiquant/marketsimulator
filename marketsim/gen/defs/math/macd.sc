@@ -1,6 +1,9 @@
 @category = "MACD"
 package math.macd
 {
+    type macd(/** source */       x = .const(1.),
+              /** long period */  slow = 26.0,
+              /** short period */ fast = 12.0)
     /**
      *  Moving average convergence/divergence
      */

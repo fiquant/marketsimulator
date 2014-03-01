@@ -280,17 +280,43 @@ package object Typer
                     visited.enter(source qualifyName definition.name) {
                         definition match {
                             case t : AST.Interface =>
-                                if (t.parameters.nonEmpty) {
-                                    source add AST.FunDef(
+
+                                val typed = toTyped(t)
+
+                                def collectParameters(scope : NameTable.Scope, x : AST.Interface) : List[AST.Parameter] =
+                                {
+                                    if (x.parameters.isEmpty)
+                                        Nil
+                                    else
+                                    {
+                                        (x.bases flatMap {
+                                            case s : AST.SimpleType =>
+                                                scope lookupType s.name match {
+                                                    case Some((scope_found, decl_found : AST.Interface)) =>
+                                                        collectParameters(scope_found, decl_found)
+                                                    case _ => Nil
+                                                }
+                                            case _ => Nil
+                                        }) ++ x.parameters.get
+                                    }
+                                }
+
+                                val parameters = collectParameters(source, t)
+
+                                if (parameters.nonEmpty) {
+
+                                    val constructor = AST.FunDef(
                                         t.name,
-                                        t.parameters.get,
+                                        parameters,
                                         None,
                                         Some(AST.SimpleType(source qualifyName t.name)),
                                         None,
                                         AST.Annotation("python" :: "constructor" :: Nil, Nil) ::
                                         AST.Attribute("category", "-") :: t.decorators)
 
-                                    t.parameters.get foreach { p =>
+                                    source add constructor
+
+                                    parameters foreach { p =>
                                         val initializer = inferType(Nil)(p.initializer.get)
                                         val method_name = p.name.head.toUpper + p.name.tail
                                         if (method_name == p.name)
@@ -299,7 +325,7 @@ package object Typer
                                         // it is an ugly hack and should be replaced in future
                                         val ast_ty = new syntax.scala.Parser() parseType initializer.ty.toString
 
-                                        source add AST.FunDef(
+                                        val accessor = AST.FunDef(
                                             method_name,
                                             AST.Parameter("x", None, Some(AST.FunCall(source qualifyName t.name, Nil)), Nil) :: Nil,
                                             None,
@@ -308,10 +334,12 @@ package object Typer
                                             AST.Annotation("python" :: "accessor" :: Nil, Nil) ::
                                             AST.Attribute("category", "-") :: t.decorators
                                         )
+
+                                        source add accessor
                                     }
                                 }
 
-                                toTyped(t)
+                                typed
 
                             case t : AST.Alias => toTyped(t)
                         }

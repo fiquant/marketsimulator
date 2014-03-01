@@ -9,6 +9,44 @@ Definitions:
 | | - List:
 | | - Definitions:
 | | | - List:
+| | | | - Interface:
+| | | | | - macd
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - x
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 1.0
+| | | | | | | | - List:
+| | | | | | | | | -  source 
+| | | | | | | - Parameter:
+| | | | | | | | - slow
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 26.0
+| | | | | | | | - List:
+| | | | | | | | | -  long period 
+| | | | | | | - Parameter:
+| | | | | | | | - fast
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 12.0
+| | | | | | | | - List:
+| | | | | | | | | -  short period 
+| | | | | - List:
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - MACD
 | | | | | - List:

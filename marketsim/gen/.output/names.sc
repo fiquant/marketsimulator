@@ -315,6 +315,8 @@ package math
     @category = "MACD"
     package macd
     {
+        type macd(/** source */ x = .const(1.0),/** long period */ slow = 26.0,/** short period */ fast = 12.0)
+        
         /** Moving average convergence/divergence
          */
         @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
@@ -344,15 +346,15 @@ package math
         
     }
     
-    type IStatDomain
+    type IStatDomain(source = .const(0.0))
     
-    type Cumulative(source = .const(0.0)) : IStatDomain
+    type Cumulative() : IStatDomain
     
     @label = "EW_{%(alpha)s}(%(source)s)"
-    type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
+    type EW(alpha = 0.015) : IStatDomain
     
     @label = "Moving_{%(timeframe)s}(%(source)s)"
-    type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
+    type Moving(timeframe = 100.0) : IStatDomain
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable

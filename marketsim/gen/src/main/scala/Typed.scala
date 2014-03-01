@@ -413,7 +413,7 @@ package object Typed
         
         def lookupMethod(name : String, ty : TypesBound.Base) =
 
-            methods_by_name get name match {
+            (methods_by_name get name match {
                 case None       => Nil
                 case Some(m)    =>
                     (m.toList   filter  { ty canCastTo _._1 }
@@ -421,7 +421,7 @@ package object Typed
                                     _._2.toList flatMap { p =>
                                         Typer.Processor(untyped.get) lookupFunction p
                     }})
-            }
+            }).distinct
 
         def getMethods(t : TypesBound.Base) = {
 

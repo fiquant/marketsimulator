@@ -676,14 +676,23 @@ package math {
     @category = "MACD"
     
     package macd {
-        /** Moving average convergence/divergence
-         */
-        @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
+        type macd
+        @category = "-"
         
-        def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                 /** long period */ slow : Optional[.Float] = 26.0,
-                 /** short period */ fast : Optional[.Float] = 12.0) : () => .Float
-            	 = .ops.Sub(.math.Avg(.math.EW(x,2.0/(fast+1))),.math.Avg(.math.EW(x,2.0/(slow+1))))
+        @python.accessor()
+        def X(x : Optional[.math.macd.macd] = .math.macd.macd()) : .IObservable[.Float]
+        
+        /** Moving average convergence/divergence histogram
+         */
+        @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
+        @method = "macd_Histogram"
+        
+        def Histogram(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
+                      /** long period */ slow : Optional[.Float] = 26.0,
+                      /** short period */ fast : Optional[.Float] = 12.0,
+                      /** signal period */ timeframe : Optional[.Float] = 9.0,
+                      /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
+            	 = .ops.Sub(.math.macd.MACD(x,slow,fast),.math.macd.Signal(x,slow,fast,timeframe,step))
         
         /** Moving average convergence/divergence signal
          */
@@ -697,17 +706,31 @@ package math {
                    /** discretization step */ step : Optional[.Float] = 1.0) : .IDifferentiable
             	 = .math.Avg(.math.EW(.observable.OnEveryDt(.math.macd.MACD(x,slow,fast),step),2/(timeframe+1)))
         
-        /** Moving average convergence/divergence histogram
-         */
-        @label = "Histogram^{%(timeframe)s}_{%(step)s}(MACD_{%(fast)s}^{%(slow)s}(%(x)s))"
-        @method = "macd_Histogram"
+        @category = "-"
         
-        def Histogram(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
-                      /** long period */ slow : Optional[.Float] = 26.0,
-                      /** short period */ fast : Optional[.Float] = 12.0,
-                      /** signal period */ timeframe : Optional[.Float] = 9.0,
-                      /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
-            	 = .ops.Sub(.math.macd.MACD(x,slow,fast),.math.macd.Signal(x,slow,fast,timeframe,step))
+        @python.accessor()
+        def Fast(x : Optional[.math.macd.macd] = .math.macd.macd()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Slow(x : Optional[.math.macd.macd] = .math.macd.macd()) : .Float
+        
+        @category = "-"
+        
+        @python.constructor()
+        def macd(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
+                 /** long period */ slow : Optional[.Float] = 26.0,
+                 /** short period */ fast : Optional[.Float] = 12.0) : .math.macd.macd
+        
+        /** Moving average convergence/divergence
+         */
+        @label = "MACD_{%(fast)s}^{%(slow)s}(%(x)s)"
+        
+        def MACD(/** source */ x : Optional[.IObservable[.Float]] = .const(1.0),
+                 /** long period */ slow : Optional[.Float] = 26.0,
+                 /** short period */ fast : Optional[.Float] = 12.0) : () => .Float
+            	 = .ops.Sub(.math.Avg(.math.EW(x,2.0/(fast+1))),.math.Avg(.math.EW(x,2.0/(slow+1))))
     }
     
     type IStatDomain
@@ -724,6 +747,11 @@ package math {
     
     @python.accessor()
     def Timeframe(x : Optional[.math.Moving] = .math.Moving()) : .Float
+    
+    @category = "-"
+    
+    @python.constructor()
+    def IStatDomain(source : Optional[.IObservable[.Float]] = .const(0.0)) : .math.IStatDomain
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -983,6 +1011,11 @@ package math {
     
     @python.accessor()
     def Source(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IObservable[.Float]
+    
+    @category = "-"
+    
+    @python.accessor()
+    def Source(x : Optional[.math.IStatDomain] = .math.IStatDomain()) : .IObservable[.Float]
     
     /** A discrete signal with user-defined increments.
      */
