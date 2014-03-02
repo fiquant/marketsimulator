@@ -62,7 +62,7 @@ object Runner extends syntax.scala.Parser {
                         None
                 }
         }).either match {
-            case Left(exceptions) => throw new Exception(exceptions map { _.toString } mkString predef.crlf)
+            case Left(exceptions) => throw new Exception((exceptions map { _.toString } mkString predef.crlf) + " when parsing " + _currentFile.get)
             case Right(result)    => result
         }
     }

@@ -659,23 +659,12 @@ package math {
                         Beta : Optional[.Float] = 1.0) : () => .Float
     }
     
-    @category = "RSI"
-    
-    package rsi {
-        /** Absolute value for Relative Strength Index
-         */
-        @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        @method = "rsi_Raw"
-        
-        def Raw(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
-                /** lag size */ timeframe : Optional[.Float] = 10.0,
-                /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : () => .Float
-            	 = .ops.Div(.math.Avg(.math.EW(.math.UpMovements(source,timeframe),alpha)),.math.Avg(.math.EW(.math.DownMovements(source,timeframe),alpha)))
-    }
-    
     type IStatDomain
     
     type Cumulative : IStatDomain
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    
+    type RSI
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
     
     type macd
@@ -690,6 +679,12 @@ package math {
     
     @python.accessor()
     def Timeframe(x : Optional[.math.Moving] = .math.Moving()) : .Float
+    
+    @category = "-"
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    
+    @python.accessor()
+    def Timeframe(x : Optional[.math.RSI] = .math.RSI()) : .Float
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
@@ -863,6 +858,11 @@ package math {
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
         	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
+    @category = "RSI"
+    
+    def Value(x : Optional[.math.RSI] = .math.RSI()) : () => .Float
+        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.Raw(x))))
+    
     /** Moving average convergence/divergence
      */
     @category = "MACD"
@@ -945,14 +945,13 @@ package math {
     @python.constructor()
     def Cumulative(source : Optional[.IObservable[.Float]] = .const(0.0)) : .math.Cumulative
     
-    /** Relative Strength Index
-     */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    @category = "-"
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
     
+    @python.constructor()
     def RSI(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
             /** lag size */ timeframe : Optional[.Float] = 10.0,
-            /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : () => .Float
-        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.rsi.Raw(source,timeframe,alpha))))
+            /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : .math.RSI
     
     /** Exponent of *x*
      *
@@ -989,6 +988,12 @@ package math {
     
     @python.accessor()
     def Source(x : Optional[.math.macd] = .math.macd()) : .IObservable[.Float]
+    
+    @category = "-"
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    
+    @python.accessor()
+    def Source(x : Optional[.math.RSI] = .math.RSI()) : .IObservable[.Float]
     
     @category = "-"
     
@@ -1078,6 +1083,13 @@ package math {
     @python.intrinsic("observable.derivative._Derivative_Impl")
     def Derivative(x : Optional[.IDifferentiable] = .math.Avg(.math.EW()) : .IDifferentiable) : () => .Float
     
+    /** Absolute value for Relative Strength Index
+     */
+    @category = "RSI"
+    
+    def Raw(x : Optional[.math.RSI] = .math.RSI()) : () => .Float
+        	 = .ops.Div(.math.Avg(.math.EW(.math.UpMovements(.math.Source(x),.math.Timeframe(x)),.math.Alpha(x))),.math.Avg(.math.EW(.math.DownMovements(.math.Source(x),.math.Timeframe(x)),.math.Alpha(x))))
+    
     /** Return *x* raised to the power *y*.
      *
      * Exceptional cases follow Annex F of the C99 standard as far as possible.
@@ -1098,6 +1110,12 @@ package math {
     
     @python.accessor()
     def Alpha(x : Optional[.math.EW] = .math.EW()) : .Float
+    
+    @category = "-"
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    
+    @python.accessor()
+    def Alpha(x : Optional[.math.RSI] = .math.RSI()) : .Float
     
     @category = "-"
     @label = "Moving_{%(timeframe)s}(%(source)s)"
@@ -1772,7 +1790,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Side
-            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader()),.strategy.side.Timeframe(x),.strategy.side.Alpha(x))),50.0-.strategy.side.Threshold(x)))
+            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader()),.strategy.side.Timeframe(x),.strategy.side.Alpha(x)))),50.0-.strategy.side.Threshold(x)))
         
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
@@ -2136,7 +2154,7 @@ package strategy {@category = "Side function"
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
                        /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader(trader)),timeframe,alpha)),1.0),k),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.ops.Sub(.constant(50.0),.observable.OnEveryDt(.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader(trader)),timeframe,alpha)),1.0)),k),trader)
         
         /** Position function for Bollinger bands strategy with linear scaling
          */

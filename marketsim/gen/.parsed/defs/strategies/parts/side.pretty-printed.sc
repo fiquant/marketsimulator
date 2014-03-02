@@ -65,6 +65,6 @@ package strategy.side() {
     type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,/** lag for calculating up and down movements for RSI */ timeframe = 1.0,/** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) : SideStrategy
     {
         // defined at defs\strategies\parts\side.sc: 150.9
-        def Side() = Signal(50.0-orderbook.OfTrader()~>MidPrice~>RSI(timeframe,alpha),50.0-threshold)~>S_Side
+        def Side() = Signal(50.0-orderbook.OfTrader()~>MidPrice~>RSI(timeframe,alpha)~>Value,50.0-threshold)~>S_Side
     }
 }

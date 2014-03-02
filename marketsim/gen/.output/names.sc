@@ -299,22 +299,12 @@ package math
         
     }
     
-    @category = "RSI"
-    package rsi
-    {
-        /** Absolute value for Relative Strength Index
-         */
-        @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        @method = "rsi_Raw"
-        def Raw(/** observable data source */ source = .const(1.0),
-                /** lag size */ timeframe = 10.0,
-                /** alpha parameter for EWMA */ alpha = 0.015) = source~>UpMovements(timeframe)~>EW(alpha)~>Avg/source~>DownMovements(timeframe)~>EW(alpha)~>Avg
-        
-    }
-    
     abstract type IStatDomain(source = .const(0.0))
     
     type Cumulative(source = .const(0.0)) : IStatDomain
+    
+    @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    type RSI(/** observable data source */ source = .const(1.0),/** lag size */ timeframe = 10.0,/** alpha parameter for EWMA */ alpha = 0.015)
     
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
     type macd(/** source */ source = .const(1.0),/** long period */ slow = 26.0,/** short period */ fast = 12.0)
@@ -410,6 +400,9 @@ package math
     def Max(x = .constant(1.0),
             y = .constant(1.0)) = if x>y then x else y
     
+    @category = "RSI"
+    def Value(x = .math.RSI()) = 100.0-100.0/(1.0+x~>Raw)
+    
     /** Moving average convergence/divergence
      */
     @category = "MACD"
@@ -459,13 +452,6 @@ package math
     @python.mathops("sqrt")
     @label = "\\sqrt{%(x)s}"
     def Sqrt(x = .constant(1.0)) : () => .Float
-    
-    /** Relative Strength Index
-     */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-    def RSI(/** observable data source */ source = .const(1.0),
-            /** lag size */ timeframe = 10.0,
-            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+source~>rsi_Raw(timeframe,alpha))
     
     /** Exponent of *x*
      *
@@ -539,6 +525,11 @@ package math
     @python.intrinsic("observable.derivative._Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x = .math.Avg(.math.EW()) : .IDifferentiable) : () => .Float
+    
+    /** Absolute value for Relative Strength Index
+     */
+    @category = "RSI"
+    def Raw(x = .math.RSI()) = x~>Source~>UpMovements(x~>Timeframe)~>EW(x~>Alpha)~>Avg/x~>Source~>DownMovements(x~>Timeframe)~>EW(x~>Alpha)~>Avg
     
     /** Return *x* raised to the power *y*.
      *
@@ -1157,7 +1148,7 @@ package strategy
          */
         def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
         
-        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha),50.0-x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha)~>Value,50.0-x~>Threshold)~>S_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
@@ -1348,7 +1339,7 @@ package strategy
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe = 1.0,
-                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>OnEveryDt(1.0)*k,trader)
+                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition((50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>Value~>OnEveryDt(1.0))*k,trader)
         
     }
     

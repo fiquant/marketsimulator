@@ -20,5 +20,5 @@ package strategy.position() {
     def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
                    /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = const(-0.04),
                    /** lag for calculating up and down movements */ timeframe = 1.0,
-                   /** trader in question */ trader = trader.SingleProxy()) = DesiredPosition(50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>OnEveryDt(1.0)*k,trader)
+                   /** trader in question */ trader = trader.SingleProxy()) = DesiredPosition((50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>Value~>OnEveryDt(1.0))*k,trader)
 }

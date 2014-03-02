@@ -60,6 +60,8 @@ from marketsim.gen._out.math._maximum import Maximum
 
 from marketsim.gen._out.math._derivative import Derivative
 
+from marketsim.gen._out.math._raw import Raw
+
 from marketsim.gen._out.math._pow import Pow
 
 from marketsim.gen._out.math._alpha import Alpha
@@ -69,4 +71,3 @@ from marketsim.gen._out.math._moving import Moving
 from marketsim.gen._out.math._minimum import Minimum
 
 import random
-import rsi

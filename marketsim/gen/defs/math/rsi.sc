@@ -27,30 +27,26 @@ package math
         = Max(0.0, source~>Lagged(timeframe) - source)
 
     @category = "RSI"
-    package rsi
-    {
+    package {
         /**
-         *  Absolute value for Relative Strength Index
+         *  Relative Strength Index
          */
         @label = "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-        @method = "rsi_Raw"
-        def Raw(/** observable data source */   source      = const (1.),
-                /** lag size */                 timeframe   = 10.0,
-                /** alpha parameter for EWMA */ alpha       = 0.015)
-
-            =   source~>UpMovements  (timeframe)~>EW(alpha)~>Avg /
+        type RSI(/** observable data source */   source      = .const (1.),
+                 /** lag size */                 timeframe   = 10.0,
+                 /** alpha parameter for EWMA */ alpha       = 0.015)
+        {
+            /**
+             *  Absolute value for Relative Strength Index
+             */
+            def Raw =
+                source~>UpMovements  (timeframe)~>EW(alpha)~>Avg /
                 source~>DownMovements(timeframe)~>EW(alpha)~>Avg
+
+            def Value = 100.0 - 100.0 / (1.0 + Raw)
+        }
+
     }
-
-    /**
-     *  Relative Strength Index
-     */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
-    def RSI(    /** observable data source */   source      = const (1.),
-                /** lag size */                 timeframe   = 10.0,
-                /** alpha parameter for EWMA */ alpha       = 0.015)
-
-        = 100.0 - 100.0 / (1.0 + source~>rsi_Raw(timeframe, alpha))
 
     /**
      *  Log returns

@@ -258,7 +258,7 @@ def orderBooksToRender(ctx, traders):
                                   5]:
                     ts.append(
                         TimeSerie(
-                            thisBook.RSI(timeframe, 1./14).OnEveryDt(1),
+                            thisBook.RSI(timeframe, 1./14).Value.OnEveryDt(1),
                             b.rsi_graph))
 
         return books

@@ -21,7 +21,7 @@ def RSI(ctx):
 
     alpha = 1./14
     
-    myRsiBis = lambda: [(orderbook.OfTrader().MidPrice.RSI(1, alpha).OnEveryDt(1), demo)]
+    myRsiBis = lambda: [(orderbook.OfTrader().MidPrice.RSI(1, alpha).Value.OnEveryDt(1), demo)]
     
     return [
         ctx.makeTrader_A(

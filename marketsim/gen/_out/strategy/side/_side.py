@@ -160,11 +160,12 @@ class Side_strategysideRSIbis(IFunctionSide):
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideRSIbis as _strategy_side_Threshold_strategysideRSIbis
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.math._value import Value_mathRSI as _math_Value_mathRSI
         from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.strategy.side._s_side import S_Side_strategysideSignal as _strategy_side_S_Side_strategysideSignal
         from marketsim.gen._out.math._rsi import RSI_IObservableFloatFloatFloat as _math_RSI_IObservableFloatFloatFloat
-        return deref_opt(_strategy_side_S_Side_strategysideSignal(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_orderbook_OfTrader_IAccount()))),deref_opt(_strategy_side_Timeframe_strategysideRSIbis(self.x)),deref_opt(_strategy_side_Alpha_strategysideRSIbis(self.x)))))),(50.0-deref_opt(_strategy_side_Threshold_strategysideRSIbis(self.x)))))))
+        return deref_opt(_strategy_side_S_Side_strategysideSignal(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_Value_mathRSI(deref_opt(_math_RSI_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_orderbook_OfTrader_IAccount()))),deref_opt(_strategy_side_Timeframe_strategysideRSIbis(self.x)),deref_opt(_strategy_side_Alpha_strategysideRSIbis(self.x)))))))),(50.0-deref_opt(_strategy_side_Threshold_strategysideRSIbis(self.x)))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

@@ -54,10 +54,6 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math._moving import Moving
         return Moving(self,timeframe)
     
-    def rsi_Raw(self, timeframe = None,alpha = None):
-        from marketsim.gen._out.math.rsi._raw import Raw
-        return Raw(self,timeframe,alpha)
-    
     @property
     def Link(self):
         from marketsim.gen._out.orderbook._link import Link
