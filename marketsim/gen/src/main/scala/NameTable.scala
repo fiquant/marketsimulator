@@ -465,8 +465,10 @@ package object NameTable {
                     def handleMethodCalls(e : AST.Expr) : AST.Expr = e match {
                         case AST.FunCall(ns, args) =>
                             translateName(ns) match {
-                                case Some(n) => AST.MemberAccess(AST.Var("x"), n, args map handleMethodCalls)
-                                case None => AST.FunCall(ns, args map handleMethodCalls)
+                                case Some(n) if parameters forall { _.name != n } =>
+                                    AST.MemberAccess(AST.Var("x"), n, args map handleMethodCalls)
+                                case None =>
+                                    AST.FunCall(ns, args map handleMethodCalls)
                             }
                         case AST.Var(n) =>
                             translateName(n :: Nil) match {

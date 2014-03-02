@@ -25,18 +25,20 @@ def Dependency(ctx):
             "LiquidityProvider_B"),
     
         ctx.makeTrader_A(
-            strategy.PairTrading(
+            strategy.side.PairTrading(
+                ctx.book_B,
+                factor=2.
+            ).Strategy(
                 event.Every(constant(1.)),
-                order.side.Market(),
-                ctx.book_B, 
-                factor=2.),
+                order.side.Market()),
             "A dependent on B ex"),
     
         ctx.makeTrader_B(
-            strategy.PairTrading(
-                event.Every(constant(1.)),
-                order.side.Market(),
+            strategy.side.PairTrading(
                 ctx.book_A,
-                factor=.5),
+                factor=.5
+            ).Strategy(
+                event.Every(constant(1.)),
+                order.side.Market()),
             "B dependent on A ex"),
     ]

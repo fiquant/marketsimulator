@@ -1,8 +1,4 @@
 class IEvent(object):
-    def PairTrading(self, orderFactory = None,bookToDependOn = None,factor = None):
-        from marketsim.gen._out.strategy._pairtrading import PairTrading
-        return PairTrading(self,orderFactory,bookToDependOn,factor)
-    
     def Signal(self, orderFactory = None,signal = None,threshold = None):
         from marketsim.gen._out.strategy._signal import Signal
         return Signal(self,orderFactory,signal,threshold)

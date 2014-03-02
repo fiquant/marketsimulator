@@ -398,64 +398,130 @@ Definitions:
 | | | | | | | - Side function for mean reversion strategy
 | | | | | | | - List:
 | | | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - PairTrading
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - bookToDependOn
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
-| | | | | | - Parameter:
-| | | | | | | - factor
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
-| | | | | | - Parameter:
-| | | | | | | - book
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  asset in question 
+| | | | | - Generics:
+| | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - bookToDependOn
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
+| | | | | | | | | | - List:
 | | | | | | | | - List:
-| | | | | | | | | - FundamentalValue
-| | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Mul
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - bookToDependOn
-| | | | | | | | | | - MidPrice
+| | | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
+| | | | | | | - Parameter:
+| | | | | | | | - factor
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | - List:
+| | | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
+| | | | | | | - Parameter:
+| | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
 | | | | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - factor
-| | | | | | | | - Var:
-| | | | | | | | | - book
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Side function for pair trading strategy
-| | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  asset in question 
 | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
+| | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FundamentalValue
+| | | | | | | | | - List:
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - factor
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - DocString:
+| | | | | | | | | - Side function for pair trading strategy
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - eventGen
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - event
+| | | | | | | | | | | | | - Every
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - random
+| | | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | - List:
+| | | | | | | | | | -  Event source making the strategy to wake up
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Market
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Generic
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Side
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category

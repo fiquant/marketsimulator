@@ -78,16 +78,30 @@ package strategy.side
                 book~>MidPrice~>EW(alpha)~>Avg,
                 book)
 
-    /** Side function for pair trading strategy */
-    def PairTrading(
+    /**
+      * Dependent price strategy believes that the fair price of an asset *A*
+      * is completely correlated with price of another asset *B* and the following relation
+      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
+      * It may be considered as a variety of a fundamental value strategy
+      * with the exception that it is invoked every the time price of another
+      * asset *B* changes.
+      */
+    type PairTrading(
         /** reference to order book for another asset used to evaluate fair price of our asset */
-        bookToDependOn  = orderbook.OfTrader(),
+        bookToDependOn  = .orderbook.OfTrader(),
         /** multiplier to obtain fair asset price from the reference asset price */
         factor          = 1.0,
         /** asset in question */
         book = orderbook.OfTrader())
-
-        =   FundamentalValue(
+    {
+        /** Side function for pair trading strategy */
+        def Side = FundamentalValue(
                 bookToDependOn~>MidPrice * factor,
                 book)
+
+        def Strategy(/** Event source making the strategy to wake up*/
+                    eventGen        = event.Every(math.random.expovariate(1.)),
+                    /** order factory function*/
+                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
+    }
 }

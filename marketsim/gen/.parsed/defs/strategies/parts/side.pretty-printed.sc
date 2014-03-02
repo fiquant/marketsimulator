@@ -40,10 +40,15 @@ package strategy.side() {
     def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,
                       /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(book~>MidPrice~>EW(alpha)~>Avg,book)
     
-    // defined at defs\strategies\parts\side.sc: 81.5
-    /** Side function for pair trading strategy
-     */
-    def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
-                    /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,
-                    /** asset in question */ book = orderbook.OfTrader()) = FundamentalValue(bookToDependOn~>MidPrice*factor,book)
+    type PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader())
+    {
+        // defined at defs\strategies\parts\side.sc: 97.9
+        /** Side function for pair trading strategy
+         */
+        def Side() = FundamentalValue(bookToDependOn~>MidPrice*factor,book)
+        
+        // defined at defs\strategies\parts\side.sc: 102.9
+        def Strategy(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = order.side.Market()) = Generic(orderFactory(Side),eventGen)
+    }
 }

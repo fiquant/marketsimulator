@@ -61,19 +61,6 @@ package strategy() {
                       /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15) = orderFactory(side.MeanReversion(ewma_alpha))~>Strategy(eventGen)
     
     // defined at defs\strategies\side.sc: 100.5
-    /** Dependent price strategy believes that the fair price of an asset *A*
-     * is completely correlated with price of another asset *B* and the following relation
-     * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
-     * It may be considered as a variety of a fundamental value strategy
-     * with the exception that it is invoked every the time price of another
-     * asset *B* changes.
-     */
-    def PairTrading(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                    /** order factory function*/ orderFactory = order.side.Market(),
-                    /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = orderbook.OfTrader(),
-                    /** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0) = orderFactory(side.PairTrading(bookToDependOn,factor))~>Strategy(eventGen)
-    
-    // defined at defs\strategies\side.sc: 119.5
     /** Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

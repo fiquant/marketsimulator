@@ -1685,13 +1685,13 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
-        /** Side function for pair trading strategy
-         */
+        type PairTrading
+        @category = "-"
         
+        @python.constructor()
         def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0,
-                        /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(bookToDependOn),.constant(factor)),book)
+                        /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.PairTrading
         
         /** Side function for signal strategy
          */
@@ -1726,6 +1726,12 @@ package strategy {@category = "Side function"
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha))),threshold)
         
+        /** Side function for pair trading strategy
+         */
+        
+        def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
+            	 = .strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x))
+        
         /** Side function for fundamental value strategy
          */
         
@@ -1739,6 +1745,27 @@ package strategy {@category = "Side function"
         def FundamentalValue(/** observable fundamental value */ fv : Optional[() => .Float] = .constant(200.0),
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
             	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(book)),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(book)),fv),.side.Buy(),.side.Nothing()))
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Factor(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .Float
+        
+        
+        def Strategy(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Book(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
+        def BookToDependOn(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
         
         /** Side function for mean reversion strategy
          */
@@ -2024,20 +2051,6 @@ package strategy {@category = "Side function"
     
     @python.accessor()
     def Delta(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
-    
-    /** Dependent price strategy believes that the fair price of an asset *A*
-     * is completely correlated with price of another asset *B* and the following relation
-     * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
-     * It may be considered as a variety of a fundamental value strategy
-     * with the exception that it is invoked every the time price of another
-     * asset *B* changes.
-     */
-    
-    def PairTrading(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                    /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                    /** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                    /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.PairTrading(bookToDependOn,factor)),eventGen)
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
