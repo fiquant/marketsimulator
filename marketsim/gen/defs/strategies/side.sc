@@ -30,25 +30,6 @@ package strategy
         =   (orderFactory(side.Signal(signal, threshold)))~>Strategy(eventGen)
 
     /**
-     * Trend follower can be considered as a sort of a signal strategy
-     * where the *signal* is a trend of the asset.
-     * Under trend we understand the first derivative of some moving average of asset prices.
-     * If the derivative is positive, the trader buys; if negative - it sells.
-     * Since moving average is a continuously changing signal, we check its
-     * derivative at moments of time given by *eventGen*.
-     */
-    def TrendFollower(  /** Event source making the strategy to wake up*/
-                        eventGen     = event.Every(math.random.expovariate(1.)),
-                        /** order factory function*/
-                        orderFactory = order.side.Market(),
-                        /** parameter |alpha| for exponentially weighted moving average */
-                        ewma_alpha   = 0.15,
-                        /** threshold when the trader starts to act */
-                        threshold    = 0.)
-
-        =   (orderFactory(side.TrendFollower(ewma_alpha, threshold)))~>Strategy(eventGen)
-
-    /**
      *  Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

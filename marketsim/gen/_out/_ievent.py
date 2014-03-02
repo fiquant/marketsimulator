@@ -7,10 +7,6 @@ class IEvent(object):
         from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
         return LiquidityProvider(self,orderFactory,initialValue,priceDistr)
     
-    def TrendFollower(self, orderFactory = None,ewma_alpha = None,threshold = None):
-        from marketsim.gen._out.strategy._trendfollower import TrendFollower
-        return TrendFollower(self,orderFactory,ewma_alpha,threshold)
-    
     def RSIbis(self, orderFactory = None,alpha = None,timeframe = None,threshold = None):
         from marketsim.gen._out.strategy._rsibis import RSIbis
         return RSIbis(self,orderFactory,alpha,timeframe,threshold)

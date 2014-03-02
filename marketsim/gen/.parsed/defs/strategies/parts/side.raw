@@ -191,67 +191,80 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - TrendFollower
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.15
+| | | | | | | | - List:
+| | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | | | - Parameter:
+| | | | | | | | - threshold
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.0
+| | | | | | | | - List:
+| | | | | | | | | -  threshold when the trader starts to act 
+| | | | | | | - Parameter:
+| | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  asset in question 
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.15
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
 | | | | | | | - List:
-| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
-| | | | | | - Parameter:
-| | | | | | | - threshold
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.0
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
 | | | | | | | - List:
-| | | | | | | | -  threshold when the trader starts to act 
-| | | | | | - Parameter:
-| | | | | | | - book
-| | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
+| | | | | | | | | | | - Signal
 | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  asset in question 
-| | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Signal
-| | | | | | | - List:
-| | | | | | | | - MemberAccess:
-| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - EW
+| | | | | | | | | | | - Derivative
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha
-| | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | | - Derivative
-| | | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - threshold
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Side function for trend follower strategy
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - None
 | | | | | | | - List:
-| | | | | - List:
+| | | | | - false
 | | | | - Interface:
 | | | | | - CrossingAverages
 | | | | | - Generics:

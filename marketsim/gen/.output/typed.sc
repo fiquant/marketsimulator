@@ -1691,9 +1691,16 @@ package strategy {@category = "Side function"
         
         type SideStrategy
         
+        type TrendFollower : SideStrategy
+        
         type FundamentalValue : SideStrategy
         
         type MeanReversion : SideStrategy
+        @category = "-"
+        
+        @python.accessor()
+        def Threshold(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : .Float
+        
         @category = "-"
         
         @python.accessor()
@@ -1730,13 +1737,12 @@ package strategy {@category = "Side function"
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.CrossingAverages
         
-        /** Side function for trend follower strategy
-         */
+        @category = "-"
         
+        @python.constructor()
         def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15,
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
-                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha))),threshold)
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.TrendFollower
         
         /** Side function for mean reversion strategy
          */
@@ -1747,6 +1753,10 @@ package strategy {@category = "Side function"
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
             	 = .strategy.side.FV_Side(x)
+        
+        
+        def Side(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : () => .Side
+            	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x)))),.strategy.side.Threshold(x))
         
         
         def Side(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : () => .Side
@@ -1782,6 +1792,12 @@ package strategy {@category = "Side function"
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
         
         
+        def Strategy(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
+        
         def Strategy(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages(),
                      /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
@@ -1802,6 +1818,11 @@ package strategy {@category = "Side function"
         
         @python.accessor()
         def Book(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Book(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : .IOrderBook
         
         @category = "-"
         
@@ -1849,6 +1870,11 @@ package strategy {@category = "Side function"
         
         @python.accessor()
         def Alpha(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : .Float
         
         /** Side function for a noise trading strategy
          */
@@ -2196,20 +2222,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Noise(),
                     /** predicate to evaluate */ predicate : Optional[() => .Boolean] = .true()) : .ISingleAssetStrategy
-    
-    /** Trend follower can be considered as a sort of a signal strategy
-     * where the *signal* is a trend of the asset.
-     * Under trend we understand the first derivative of some moving average of asset prices.
-     * If the derivative is positive, the trader buys; if negative - it sells.
-     * Since moving average is a continuously changing signal, we check its
-     * derivative at moments of time given by *eventGen*.
-     */
-    
-    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15,
-                      /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold)),eventGen)
     
     
     def OneSide(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker(),

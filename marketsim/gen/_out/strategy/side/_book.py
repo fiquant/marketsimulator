@@ -53,6 +53,33 @@ class Book_strategysideFundamentalValue(object):
         return self.x.book
     
 from marketsim import registry
+from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
+@registry.expose(["-", "Book"])
+class Book_strategysideTrendFollower(object):
+    """ 
+    """ 
+    def __init__(self, x = None):
+        from marketsim.gen._out.strategy.side._trendfollower import TrendFollower_FloatFloatIOrderBook as _strategy_side_TrendFollower_FloatFloatIOrderBook
+        from marketsim import deref_opt
+        from marketsim import rtti
+        self.x = x if x is not None else deref_opt(_strategy_side_TrendFollower_FloatFloatIOrderBook())
+        rtti.check_fields(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'x' : TrendFollower
+    }
+    def __repr__(self):
+        return "Book(%(x)s)" % self.__dict__
+    
+    @property
+    def dereference(self):
+        return self.x.book
+    
+from marketsim import registry
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
 @registry.expose(["-", "Book"])
 class Book_strategysideCrossingAverages(object):
@@ -111,11 +138,14 @@ def Book(x = None):
     from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
     from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
     from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
+    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
     from marketsim.gen._out.strategy.side._pairtrading import PairTrading
     if x is None or rtti.can_be_casted(x, MeanReversion):
         return Book_strategysideMeanReversion(x)
     if x is None or rtti.can_be_casted(x, FundamentalValue):
         return Book_strategysideFundamentalValue(x)
+    if x is None or rtti.can_be_casted(x, TrendFollower):
+        return Book_strategysideTrendFollower(x)
     if x is None or rtti.can_be_casted(x, CrossingAverages):
         return Book_strategysideCrossingAverages(x)
     if x is None or rtti.can_be_casted(x, PairTrading):

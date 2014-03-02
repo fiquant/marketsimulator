@@ -1107,6 +1107,8 @@ package strategy
         
         abstract type SideStrategy
         
+        type TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
+        
         type FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
         
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
@@ -1117,17 +1119,13 @@ package strategy
         def Signal(/** signal to be listened to */ signal = .constant(0.0),
                    /** threshold when the trader starts to act */ threshold = 0.7) = if signal>threshold then .side.Buy() else if signal<0-threshold then .side.Sell() else .side.Nothing()
         
-        /** Side function for trend follower strategy
-         */
-        def TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,
-                          /** threshold when the trader starts to act */ threshold = 0.0,
-                          /** asset in question */ book = .orderbook.OfTrader()) = .strategy.side.Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative,threshold)
-        
         /** Side function for mean reversion strategy
          */
         def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
+        
+        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)
         
         def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)
         
@@ -1140,6 +1138,10 @@ package strategy
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
         def Strategy(x = .strategy.side.FundamentalValue(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
+        
+        def Strategy(x = .strategy.side.TrendFollower(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
@@ -1431,18 +1433,6 @@ package strategy
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = .strategy.Noise(),
                     /** predicate to evaluate */ predicate = .true()) : .ISingleAssetStrategy
-    
-    /** Trend follower can be considered as a sort of a signal strategy
-     * where the *signal* is a trend of the asset.
-     * Under trend we understand the first derivative of some moving average of asset prices.
-     * If the derivative is positive, the trader buys; if negative - it sells.
-     * Since moving average is a continuously changing signal, we check its
-     * derivative at moments of time given by *eventGen*.
-     */
-    def TrendFollower(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory = .order.side.Market(),
-                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha = 0.15,
-                      /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(.strategy.side.TrendFollower(ewma_alpha,threshold))~>Strategy(eventGen)
     
     def OneSide(x = .strategy.MarketMaker(),
                 side = .side.Sell(),

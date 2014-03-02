@@ -16,8 +16,6 @@ from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
 
 from marketsim.gen._out.strategy._suspendable import Suspendable
 
-from marketsim.gen._out.strategy._trendfollower import TrendFollower
-
 from marketsim.gen._out.strategy._oneside import OneSide
 
 from marketsim.gen._out.strategy._arbitrage import Arbitrage

@@ -36,10 +36,9 @@ def TrendFollower(ctx):
                              (linear_signal, ctx.amount_graph)
                             ]),
     
-            ctx.makeTrader_A(strategy.TrendFollower(
-                                event.Every(constant(1.)),
-                                order.side.Market(volume = const(V)),
-                                alpha),
+            ctx.makeTrader_A(strategy.side.TrendFollower(alpha)
+                                          .Strategy(event.Every(constant(1.)),
+                                                    order.side.Market(volume = const(V))),
                              "trendfollower_ex",
                              myVolume()), 
     ]

@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim import context
-@registry.expose(["Side function", "TrendFollower"])
-class TrendFollower_FloatFloatIOrderBook(IFunctionSide):
+@registry.expose(["-", "TrendFollower"])
+class TrendFollower_FloatFloatIOrderBook(SideStrategy):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
@@ -14,7 +13,6 @@ class TrendFollower_FloatFloatIOrderBook(IFunctionSide):
         self.threshold = threshold if threshold is not None else 0.0
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         rtti.check_fields(self)
-        self.impl = self.getImpl()
     
     @property
     def label(self):
@@ -28,38 +26,30 @@ class TrendFollower_FloatFloatIOrderBook(IFunctionSide):
     def __repr__(self):
         return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % self.__dict__
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+
+    @property
+    def Threshold(self):
+        from marketsim.gen._out.strategy.side._threshold import Threshold
+        return Threshold(self)
     
-    _internals = ['impl']
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    @property
+    def Side(self):
+        from marketsim.gen._out.strategy.side._side import Side
+        return Side(self)
     
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+    def Strategy(self, eventGen = None,orderFactory = None):
+        from marketsim.gen._out.strategy.side._strategy import Strategy
+        return Strategy(self,eventGen,orderFactory)
     
-    def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
-        from marketsim import deref_opt
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
-        from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
-        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
-        return deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_math_Derivative_IDifferentiable(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(self.book)),self.alpha)))))),self.threshold))
+    @property
+    def Book(self):
+        from marketsim.gen._out.strategy.side._book import Book
+        return Book(self)
     
-    def __getattr__(self, name):
-        if name[0:2] != '__' and self.impl:
-            return getattr(self.impl, name)
-        else:
-            raise AttributeError
+    @property
+    def Alpha(self):
+        from marketsim.gen._out.strategy.side._alpha import Alpha
+        return Alpha(self)
     
-def TrendFollower(alpha = None,threshold = None,book = None): 
-    from marketsim.gen._out._iorderbook import IOrderBook
-    from marketsim import rtti
-    if alpha is None or rtti.can_be_casted(alpha, float):
-        if threshold is None or rtti.can_be_casted(threshold, float):
-            if book is None or rtti.can_be_casted(book, IOrderBook):
-                return TrendFollower_FloatFloatIOrderBook(alpha,threshold,book)
-    raise Exception('Cannot find suitable overload for TrendFollower('+str(alpha) +':'+ str(type(alpha))+','+str(threshold) +':'+ str(type(threshold))+','+str(book) +':'+ str(type(book))+')')
+    pass
+TrendFollower = TrendFollower_FloatFloatIOrderBook

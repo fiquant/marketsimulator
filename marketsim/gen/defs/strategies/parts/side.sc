@@ -30,17 +30,24 @@ package strategy.side
                                      side.Nothing()
 
     /**
-     * Side function for trend follower strategy
+     * Trend follower can be considered as a sort of a signal strategy
+     * where the *signal* is a trend of the asset.
+     * Under trend we understand the first derivative of some moving average of asset prices.
+     * If the derivative is positive, the trader buys; if negative - it sells.
+     * Since moving average is a continuously changing signal, we check its
+     * derivative at moments of time given by *eventGen*.
      */
-    def TrendFollower(
+    type TrendFollower(
             /** parameter |alpha| for exponentially weighted moving average */
             alpha   = 0.15,
             /** threshold when the trader starts to act */
             threshold    = 0.,
             /** asset in question */
-            book = orderbook.OfTrader())
+            book = .orderbook.OfTrader()) : SideStrategy
+    {
+        def Side = Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold)
+    }
 
-        = Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold)
 
     /**
       * Two averages strategy compares two averages of price of the same asset but
