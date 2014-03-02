@@ -1,7 +1,5 @@
 from marketsim.gen._out.math._timeframe import Timeframe
 
-from marketsim.gen._out.math._istatdomain import IStatDomain
-
 from marketsim.gen._out.math._min import Min
 
 from marketsim.gen._out.math._histogram import Histogram

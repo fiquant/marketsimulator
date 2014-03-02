@@ -481,15 +481,18 @@ package object NameTable {
                     (t.copy(parameters = t.parameters map { ps => parameters },
                            members = Nil),
 
-                    t.members map { f =>
-                        f.copy(parameters =
-                            AST.Parameter(
-                                "x",
-                                None,
-                                Some(AST.FunCall(t.name :: Nil, Nil)),
-                                Nil) :: f.parameters,
-                               body = f.body map handleMethodCalls)
-                    })
+                    if (t.`abstract`)
+                        Nil
+                    else
+                        t.members map { f =>
+                            f.copy(parameters =
+                                AST.Parameter(
+                                    "x",
+                                    None,
+                                    Some(AST.FunCall(t.name :: Nil, Nil)),
+                                    Nil) :: f.parameters,
+                                   body = f.body map handleMethodCalls)
+                        })
 
                 case t =>
                     (t, Nil)

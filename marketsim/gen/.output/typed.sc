@@ -691,11 +691,6 @@ package math {
     @python.accessor()
     def Timeframe(x : Optional[.math.Moving] = .math.Moving()) : .Float
     
-    @category = "-"
-    
-    @python.constructor()
-    def IStatDomain(source : Optional[.IObservable[.Float]] = .const(0.0)) : .math.IStatDomain
-    
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable
      */
@@ -999,11 +994,6 @@ package math {
     
     @python.accessor()
     def Source(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IObservable[.Float]
-    
-    @category = "-"
-    
-    @python.accessor()
-    def Source(x : Optional[.math.IStatDomain] = .math.IStatDomain()) : .IObservable[.Float]
     
     /** A discrete signal with user-defined increments.
      */

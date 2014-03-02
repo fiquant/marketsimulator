@@ -4,11 +4,6 @@ from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 class IObservablefloat(IEvent, IFunctionfloat):
     _types = []
     _types.append(IObservableobject)
-    @property
-    def IStatDomain(self):
-        from marketsim.gen._out.math._istatdomain import IStatDomain
-        return IStatDomain(self)
-    
     def DesiredPosition(self, trader = None):
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition
         return DesiredPosition(self,trader)

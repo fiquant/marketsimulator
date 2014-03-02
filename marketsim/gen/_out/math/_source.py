@@ -106,35 +106,7 @@ class Source_mathCumulative(object):
     def dereference(self):
         return self.x.source
     
-from marketsim import registry
-from marketsim.gen._out.math._istatdomain import IStatDomain
-@registry.expose(["-", "Source"])
-class Source_mathIStatDomain(object):
-    """ 
-    """ 
-    def __init__(self, x = None):
-        from marketsim.gen._out.math._istatdomain import IStatDomain_IObservableFloat as _math_IStatDomain_IObservableFloat
-        from marketsim import deref_opt
-        from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_math_IStatDomain_IObservableFloat())
-        rtti.check_fields(self)
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'x' : IStatDomain
-    }
-    def __repr__(self):
-        return "Source(%(x)s)" % self.__dict__
-    
-    @property
-    def dereference(self):
-        return self.x.source
-    
 def Source(x = None): 
-    from marketsim.gen._out.math._istatdomain import IStatDomain
     from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim import rtti
     from marketsim.gen._out.math._macd import macd
@@ -148,6 +120,4 @@ def Source(x = None):
         return Source_mathmacd(x)
     if x is None or rtti.can_be_casted(x, Cumulative):
         return Source_mathCumulative(x)
-    if x is None or rtti.can_be_casted(x, IStatDomain):
-        return Source_mathIStatDomain(x)
     raise Exception('Cannot find suitable overload for Source('+str(x) +':'+ str(type(x))+')')

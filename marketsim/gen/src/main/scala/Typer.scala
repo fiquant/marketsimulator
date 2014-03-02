@@ -283,7 +283,7 @@ package object Typer
 
                                 val typed = toTyped(t)
 
-                                if (t.parameters.nonEmpty) {
+                                if (t.parameters.nonEmpty && !t.`abstract`) {
 
                                     val constructor = AST.FunDef(
                                         t.name,
