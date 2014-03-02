@@ -49,6 +49,87 @@ Definitions:
 | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - Avg
+| | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Cumulative average
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.cma.CMA_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - Var
+| | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Cumulative variance
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.cmv.Variance_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - StdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Var
+| | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Cumulative standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - RelStdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Div
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Cumulative relative standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - Interface:
 | | | | | | | | - EW
 | | | | | | | | - Generics:
@@ -74,6 +155,67 @@ Definitions:
 | | | | | | | | | | - EW_{%(alpha)s}(%(source)s)
 | | | | | | | | - List:
 | | | | | | | | | - FunDef:
+| | | | | | | | | | - Avg
+| | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Exponentially weighted moving average
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.ewma.EWMA_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - Var
+| | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunctionType:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Exponentially weighted moving variance
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.ewmv.EWMV_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - StdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Var
+| | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Exponentially weighted moving standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - FunDef:
 | | | | | | | | | | - RelStdDev
 | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
@@ -81,21 +223,12 @@ Definitions:
 | | | | | | | | | | | | - Div
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - x
-| | | | | | | | | | | | | | - Source
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - x
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
 | | | | | | | | | | | | | - StdDev
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - DocString:
@@ -126,366 +259,87 @@ Definitions:
 | | | | | | | | | | - label
 | | | | | | | | | | - Moving_{%(timeframe)s}(%(source)s)
 | | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - Avg
+| | | | | | | | | | - List:
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Simple moving average
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.ma.MA_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - Var
 | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Exponentially weighted moving average
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ewma.EWMA_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
+| | | | | | | | | | | - FunctionType:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IDifferentiable
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Cumulative average
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.cma.CMA_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Avg
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
+| | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - Float
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Simple moving variance
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - SimpleType:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - IDifferentiable
+| | | | | | | | | | | - Annotation:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - python
+| | | | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - moments.mv.MV_Impl
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - StdDev
 | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Simple moving average
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ma.MA_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Exponentially weighted moving variance
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.ewmv.EWMV_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Cumulative variance
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.cmv.Variance_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - Var
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunctionType:
-| | | | | | | | | | - List:
-| | | | | | | | | | - SimpleType:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Float
-| | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Simple moving variance
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | - Annotation:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - python
-| | | | | | | | | | | | - intrinsic
-| | | | | | | | | | - List:
-| | | | | | | | | | | - moments.mv.MV_Impl
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - Var
-| | | | | | | | | | | - List:
-| | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Exponentially weighted moving standard deviation
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - Var
-| | | | | | | | | | | - List:
-| | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Cumulative standard deviation
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - StdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - Var
-| | | | | | | | | | | - List:
-| | | | | | | | | | - Sqrt
-| | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Simple moving standard deviation
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Cumulative
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
 | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
+| | | | | | | | | | | | | - Var
+| | | | | | | | | | | | - Sqrt
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Cumulative relative standard deviation
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Moving
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Simple moving standard deviation
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Simple moving relative standard deviation
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - RelStdDev
 | | | | | | | | | | - List:
-| | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Div
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Simple moving relative standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

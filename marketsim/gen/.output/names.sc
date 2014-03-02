@@ -346,27 +346,27 @@ package math
     @category = "Statistics"
     def RelStdDev(x = .math.Cumulative()) = (x~>Source-x~>Avg)/x~>StdDev
     
-    /** Simple moving relative standard deviation
-     */
-    @category = "Statistics"
-    def RelStdDev(x = .math.Moving()) = (x~>Source-x~>Avg)/x~>StdDev
-    
     /** Exponentially weighted moving relative standard deviation
      */
     @category = "Statistics"
     def RelStdDev(x = .math.EW()) = (x~>Source-x~>Avg)/x~>StdDev
     
-    /** Exponentially weighted moving variance
+    /** Simple moving relative standard deviation
      */
     @category = "Statistics"
-    @python.intrinsic("moments.ewmv.EWMV_Impl")
-    def Var(x = .math.EW()) : () => .Float
+    def RelStdDev(x = .math.Moving()) = (x~>Source-x~>Avg)/x~>StdDev
     
     /** Cumulative variance
      */
     @category = "Statistics"
     @python.intrinsic("moments.cmv.Variance_Impl")
     def Var(x = .math.Cumulative()) : () => .Float
+    
+    /** Exponentially weighted moving variance
+     */
+    @category = "Statistics"
+    @python.intrinsic("moments.ewmv.EWMV_Impl")
+    def Var(x = .math.EW()) : () => .Float
     
     /** Simple moving variance
      */
@@ -434,17 +434,17 @@ package math
     def LogReturns(/** observable data source */ x = .const(1.0),
                    /** lag size */ timeframe = 10.0) = .math.Log(x/x~>Lagged(timeframe))
     
-    /** Exponentially weighted moving average
-     */
-    @category = "Statistics"
-    @python.intrinsic("moments.ewma.EWMA_Impl")
-    def Avg(x = .math.EW()) : .IDifferentiable
-    
     /** Cumulative average
      */
     @category = "Statistics"
     @python.intrinsic("moments.cma.CMA_Impl")
     def Avg(x = .math.Cumulative()) : .IDifferentiable
+    
+    /** Exponentially weighted moving average
+     */
+    @category = "Statistics"
+    @python.intrinsic("moments.ewma.EWMA_Impl")
+    def Avg(x = .math.EW()) : .IDifferentiable
     
     /** Simple moving average
      */
@@ -512,15 +512,15 @@ package math
     def MaxEpsilon(x = .math.Cumulative(),
                    epsilon = .constant(0.01)) : .IObservable[.Float]
     
-    /** Exponentially weighted moving standard deviation
-     */
-    @category = "Statistics"
-    def StdDev(x = .math.EW()) = x~>Var~>Sqrt
-    
     /** Cumulative standard deviation
      */
     @category = "Statistics"
     def StdDev(x = .math.Cumulative()) = x~>Var~>Sqrt
+    
+    /** Exponentially weighted moving standard deviation
+     */
+    @category = "Statistics"
+    def StdDev(x = .math.EW()) = x~>Var~>Sqrt
     
     /** Simple moving standard deviation
      */

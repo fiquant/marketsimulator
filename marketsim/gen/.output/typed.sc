@@ -753,13 +753,6 @@ package math {
     def RelStdDev(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IObservable[.Float]
         	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
-    /** Simple moving relative standard deviation
-     */
-    @category = "Statistics"
-    
-    def RelStdDev(x : Optional[.math.Moving] = .math.Moving()) : .IObservable[.Float]
-        	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
-    
     /** Exponentially weighted moving relative standard deviation
      */
     @category = "Statistics"
@@ -767,12 +760,12 @@ package math {
     def RelStdDev(x : Optional[.math.EW] = .math.EW()) : .IObservable[.Float]
         	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
-    /** Exponentially weighted moving variance
+    /** Simple moving relative standard deviation
      */
     @category = "Statistics"
     
-    @python.intrinsic("moments.ewmv.EWMV_Impl")
-    def Var(x : Optional[.math.EW] = .math.EW()) : () => .Float
+    def RelStdDev(x : Optional[.math.Moving] = .math.Moving()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
     /** Cumulative variance
      */
@@ -780,6 +773,13 @@ package math {
     
     @python.intrinsic("moments.cmv.Variance_Impl")
     def Var(x : Optional[.math.Cumulative] = .math.Cumulative()) : () => .Float
+    
+    /** Exponentially weighted moving variance
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.ewmv.EWMV_Impl")
+    def Var(x : Optional[.math.EW] = .math.EW()) : () => .Float
     
     /** Simple moving variance
      */
@@ -909,19 +909,19 @@ package math {
                    /** lag size */ timeframe : Optional[.Float] = 10.0) : () => .Float
         	 = .math.Log(.ops.Div(x,.math.Lagged(x,timeframe)))
     
-    /** Exponentially weighted moving average
-     */
-    @category = "Statistics"
-    
-    @python.intrinsic("moments.ewma.EWMA_Impl")
-    def Avg(x : Optional[.math.EW] = .math.EW()) : .IDifferentiable
-    
     /** Cumulative average
      */
     @category = "Statistics"
     
     @python.intrinsic("moments.cma.CMA_Impl")
     def Avg(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IDifferentiable
+    
+    /** Exponentially weighted moving average
+     */
+    @category = "Statistics"
+    
+    @python.intrinsic("moments.ewma.EWMA_Impl")
+    def Avg(x : Optional[.math.EW] = .math.EW()) : .IDifferentiable
     
     /** Simple moving average
      */
@@ -1045,18 +1045,18 @@ package math {
     def MaxEpsilon(x : Optional[.math.Cumulative] = .math.Cumulative(),
                    epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
     
-    /** Exponentially weighted moving standard deviation
-     */
-    @category = "Statistics"
-    
-    def StdDev(x : Optional[.math.EW] = .math.EW()) : () => .Float
-        	 = .math.Sqrt(.math.Var(x))
-    
     /** Cumulative standard deviation
      */
     @category = "Statistics"
     
     def StdDev(x : Optional[.math.Cumulative] = .math.Cumulative()) : () => .Float
+        	 = .math.Sqrt(.math.Var(x))
+    
+    /** Exponentially weighted moving standard deviation
+     */
+    @category = "Statistics"
+    
+    def StdDev(x : Optional[.math.EW] = .math.EW()) : () => .Float
         	 = .math.Sqrt(.math.Var(x))
     
     /** Simple moving standard deviation

@@ -429,7 +429,50 @@ package object NameTable {
             val r = types.values map {
                 case t : AST.Interface =>
 
-                    (t.copy(parameters = t.parameters map { ps => collectParameters(t) },
+                    val parameters = collectParameters(t)
+
+                    val methods = t.members map { _.name } // later we should consider also names in base classes
+
+                    def translateName(names : List[String]) = names match {
+                        case n :: Nil =>
+                            if (methods contains n)
+                                Some(n)
+                            else
+                                parameters find { _.name == n} map { p => n.head.toUpper + n.tail }
+                        case _ => None
+                    }
+
+
+
+                    def handleMethodCalls(e : AST.Expr) : AST.Expr = e match {
+                        case AST.FunCall(ns, args) =>
+                            translateName(ns) match {
+                                case Some(n) => AST.MemberAccess(AST.Var("x"), n, args map handleMethodCalls)
+                                case None => AST.FunCall(ns, args map handleMethodCalls)
+                            }
+                        case AST.Var(n) =>
+                            translateName(n :: Nil) match {
+                                case Some(m) => AST.MemberAccess(AST.Var("x"), m, Nil)
+                                case None => AST.Var(n)
+                            }
+                        case AST.MemberAccess(base, n, params) =>
+                             AST.MemberAccess(handleMethodCalls(base), n, params map handleMethodCalls)
+                        case AST.Cast(x, ty) =>
+                            AST.Cast(handleMethodCalls(x), ty)
+                        case x : AST.StringLit => x
+                        case x : AST.FloatLit => x
+                        case x : AST.IntLit => x
+                        case AST.List_(xs) => AST.List_(xs map handleMethodCalls)
+                        case AST.BinOp(s, x, y) => AST.BinOp(s, handleMethodCalls(x), handleMethodCalls(y))
+                        case AST.Neg(x) => AST.Neg(handleMethodCalls(x))
+                        case AST.IfThenElse(cond, x, y) => AST.IfThenElse(handleMethodCalls(cond), handleMethodCalls(x), handleMethodCalls(y))
+                        case AST.And(x, y) => AST.And(handleMethodCalls(x), handleMethodCalls(y))
+                        case AST.Or(x, y) => AST.Or(handleMethodCalls(x), handleMethodCalls(y))
+                        case AST.Not(x) => AST.Not(handleMethodCalls(x))
+                        case AST.Condition(c, x, y) => AST.Condition(c, handleMethodCalls(x), handleMethodCalls(y))
+                    }
+
+                    (t.copy(parameters = t.parameters map { ps => parameters },
                            members = Nil),
 
                     t.members map { f =>
@@ -438,7 +481,8 @@ package object NameTable {
                                 "x",
                                 None,
                                 Some(AST.FunCall(t.name :: Nil, Nil)),
-                                Nil) :: f.parameters)
+                                Nil) :: f.parameters,
+                               body = f.body map handleMethodCalls)
                     })
 
                 case t =>
