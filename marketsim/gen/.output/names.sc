@@ -314,16 +314,16 @@ package math
     
     type IStatDomain(source = .const(0.0))
     
-    type Cumulative() : IStatDomain
+    type Cumulative(source = .const(0.0)) : IStatDomain
     
     @label = "MACD_{%(fast)s}^{%(slow)s}(%(source)s)"
     type macd(/** source */ source = .const(1.0),/** long period */ slow = 26.0,/** short period */ fast = 12.0)
     
     @label = "EW_{%(alpha)s}(%(source)s)"
-    type EW(alpha = 0.015) : IStatDomain
+    type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
     
     @label = "Moving_{%(timeframe)s}(%(source)s)"
-    type Moving(timeframe = 100.0) : IStatDomain
+    type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
     
     /** Function returning minimum of two functions *x* and *y*.
      * If *x* or/and *y* are observables, *Min* is also observable

@@ -283,31 +283,11 @@ package object Typer
 
                                 val typed = toTyped(t)
 
-                                def collectParameters(scope : NameTable.Scope, x : AST.Interface) : List[AST.Parameter] =
-                                {
-                                    if (x.parameters.isEmpty)
-                                        Nil
-                                    else
-                                    {
-                                        (x.bases flatMap {
-                                            case s : AST.SimpleType =>
-                                                scope lookupType s.name match {
-                                                    case Some((scope_found, decl_found : AST.Interface)) =>
-                                                        collectParameters(scope_found, decl_found)
-                                                    case _ => Nil
-                                                }
-                                            case _ => Nil
-                                        }) ++ x.parameters.get
-                                    }
-                                }
-
-                                val parameters = collectParameters(source, t)
-
-                                if (parameters.nonEmpty) {
+                                if (t.parameters.nonEmpty) {
 
                                     val constructor = AST.FunDef(
                                         t.name,
-                                        parameters,
+                                        t.parameters.get,
                                         None,
                                         Some(AST.SimpleType(source qualifyName t.name)),
                                         None,
@@ -316,7 +296,7 @@ package object Typer
 
                                     source add constructor
 
-                                    parameters foreach { p =>
+                                    t.parameters.get foreach { p =>
                                         val initializer = inferType(Nil)(p.initializer.get)
                                         val method_name = p.name.head.toUpper + p.name.tail
                                         if (method_name == p.name)

@@ -404,6 +404,35 @@ package object NameTable {
                 case x => x
             } }
         }
+
+        def collectParameters(x : AST.Interface) : List[AST.Parameter] =
+        {
+            if (x.parameters.isEmpty)
+                Nil
+            else
+            {
+                (x.bases flatMap {
+                    case s : AST.SimpleType =>
+                        lookupType(s.name) match {
+                            case Some((scope_found, decl_found : AST.Interface)) =>
+                                scope_found collectParameters decl_found
+                            case _ => Nil
+                        }
+                    case _ => Nil
+                }) ++ x.parameters.get
+            }
+        }
+
+        def desugarClasses() {
+            packages.values foreach { _.desugarClasses() }
+
+            types = types mapValues {
+                case t : AST.Interface if t.parameters.nonEmpty =>
+                    t.copy(parameters = Some(collectParameters(t)))
+                case t =>
+                    t
+            }
+        }
     }
 
     private def create(p : AST.Definitions, a : Iterable[AST.Attribute], impl : Scope) {
@@ -431,6 +460,9 @@ package object NameTable {
 
             println("\tremoving abstract packages")
             impl.removeAbstract()
+
+            println("\tclass desugaring")
+            impl.desugarClasses()
 
             println("\tapplying before typing annotations")
             Typed.BeforeTyping(impl)
