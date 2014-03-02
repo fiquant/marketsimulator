@@ -1103,6 +1103,8 @@ package strategy
     {
         type PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
         
+        type Signal(/** signal to be listened to */ source = .constant(0.0),/** threshold when the trader starts to act */ threshold = 0.7) : SideStrategy
+        
         type CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,/** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
         
         abstract type SideStrategy
@@ -1113,21 +1115,17 @@ package strategy
         
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
         
-        /** Side function for signal strategy
-         */
-        @python.observable()
-        def Signal(/** signal to be listened to */ signal = .constant(0.0),
-                   /** threshold when the trader starts to act */ threshold = 0.7) = if signal>threshold then .side.Buy() else if signal<0-threshold then .side.Sell() else .side.Nothing()
-        
         /** Side function for mean reversion strategy
          */
         def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
-        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)
+        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)~>S_Side
         
-        def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)
+        def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)~>S_Side
+        
+        def Side(x = .strategy.side.Signal()) = x~>S_Side
         
         /** Side function for pair trading strategy
          */
@@ -1149,6 +1147,10 @@ package strategy
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
+        def Strategy(x = .strategy.side.Signal(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
+        
         def Strategy(x = .strategy.side.PairTrading(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
@@ -1160,6 +1162,8 @@ package strategy
         /** Side function for a noise trading strategy
          */
         def Noise(side_distribution = .math.random.uniform(0.0,1.0)) = if side_distribution>0.5 then .side.Sell() else .side.Buy()
+        
+        def S_Side(x = .strategy.side.Signal()) = if x~>Source>x~>Threshold then .side.Buy() else if x~>Source<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
     }
     
@@ -1407,15 +1411,6 @@ package strategy
                       /** function creating phantom strategy used for efficiency estimation */ account = .strategy.account.virtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance = .strategy.weight.efficiencyTrend()) : .ISingleAssetStrategy
     
-    /** Signal strategy listens to some discrete signal
-     * and when the signal becomes more than some threshold the strategy starts to buy.
-     * When the signal gets lower than -threshold the strategy starts to sell.
-     */
-    def Signal(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = .order.side.Market(),
-               /** signal to be listened to */ signal = .constant(0.0),
-               /** threshold when the trader starts to act */ threshold = 0.7) = orderFactory(.strategy.side.Signal(signal,threshold))~>Strategy(eventGen)
-    
     def TwoSides(x = .strategy.MarketMaker()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
     
     def TwoSides(x = .strategy.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
@@ -1458,7 +1453,7 @@ package strategy
                /** order factory function*/ orderFactory = .order.side.Market(),
                /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,
                /** lag for calculating up and down movements for RSI */ timeframe = 1.0,
-               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = orderFactory(.strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold))~>Strategy(eventGen)
+               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = orderFactory(.strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold)~>S_Side)~>Strategy(eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */

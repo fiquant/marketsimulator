@@ -27,10 +27,9 @@ def MeanReversion(ctx):
                                  .sideprice_WithExpiry(constant(10))),
                        label="liquidity"),
     
-        ctx.makeTrader_A(strategy.Signal(
-                                event.Every(constant(1.)),
-                                order.side.Market(volume = constant(V*3)),
-                                linear_signal), 
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal)
+                                      .Strategy(event.Every(constant(1.)),
+                                                order.side.Market(volume = constant(V*3))),
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
      

@@ -8,8 +8,6 @@ from marketsim.gen._out.strategy._choosethebest import ChooseTheBest
 
 from marketsim.gen._out.strategy._volume import Volume
 
-from marketsim.gen._out.strategy._signal import Signal
-
 from marketsim.gen._out.strategy._twosides import TwoSides
 
 from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider

@@ -30,9 +30,9 @@ def RSI(ctx):
                         order.side_price.Limit(volume=const(4))),
                 "liquidity"),
         
-        ctx.makeTrader_A(strategy.Signal(event.Every(constant(1.)),
-                                         order.side.Market(),
-                                         linear_signal), 
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal)
+                                      .Strategy(event.Every(constant(1.)),
+                                                order.side.Market()),
                          "signal", 
                          [(linear_signal, ctx.amount_graph)]),
     

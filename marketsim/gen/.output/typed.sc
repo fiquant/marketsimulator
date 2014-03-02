@@ -1687,6 +1687,8 @@ package strategy {@category = "Side function"
     package side {
         type PairTrading : SideStrategy
         
+        type Signal : SideStrategy
+        
         type CrossingAverages : SideStrategy
         
         type SideStrategy
@@ -1708,26 +1710,21 @@ package strategy {@category = "Side function"
         
         @category = "-"
         
+        @python.accessor()
+        def Threshold(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : .Float
+        
+        @category = "-"
+        
         @python.constructor()
         def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0,
                         /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.PairTrading
         
-        /** Side function for signal strategy
-         */
+        @category = "-"
         
-        @python.observable()
-        def Signal(/** signal to be listened to */ signal : Optional[.IObservable[.Float]] = .const(0.0),
-                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
-        
-        /** Side function for signal strategy
-         */
-        
-        @python.observable()
-        def Signal(/** signal to be listened to */ signal : Optional[() => .Float] = .constant(0.0),
-                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
-            	 = .ops.Condition(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
+        @python.constructor()
+        def Signal(/** signal to be listened to */ source : Optional[() => .Float] = .constant(0.0),
+                   /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .strategy.side.Signal
         
         @category = "-"
         
@@ -1756,11 +1753,15 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : () => .Side
-            	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x)))),.strategy.side.Threshold(x))
+            	 = .strategy.side.S_Side(.strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x)))),.strategy.side.Threshold(x)))
         
         
         def Side(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : () => .Side
-            	 = .strategy.side.Signal(.ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_1(x))),.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_2(x)))),.strategy.side.Threshold(x))
+            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_1(x))),.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_2(x)))),.strategy.side.Threshold(x)))
+        
+        
+        def Side(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Side
+            	 = .strategy.side.S_Side(x)
         
         /** Side function for pair trading strategy
          */
@@ -1799,6 +1800,12 @@ package strategy {@category = "Side function"
         
         
         def Strategy(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
+        
+        def Strategy(x : Optional[.strategy.side.Signal] = .strategy.side.Signal(),
                      /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
@@ -1859,6 +1866,11 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
+        def Source(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Float
+        
+        @category = "-"
+        
+        @python.accessor()
         def Fv(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : () => .Float
         
         @category = "-"
@@ -1881,6 +1893,10 @@ package strategy {@category = "Side function"
         
         def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : () => .Side
             	 = .ops.Condition(.ops.Greater(side_distribution,.constant(0.5)),.side.Sell(),.side.Buy())
+        
+        
+        def S_Side(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Side
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Source(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Source(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
     }
     
     
@@ -2176,28 +2192,6 @@ package strategy {@category = "Side function"
     @python.accessor()
     def Volume(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
     
-    /** Signal strategy listens to some discrete signal
-     * and when the signal becomes more than some threshold the strategy starts to buy.
-     * When the signal gets lower than -threshold the strategy starts to sell.
-     */
-    
-    def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-               /** signal to be listened to */ signal : Optional[.IObservable[.Float]] = .const(0.0),
-               /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
-    
-    /** Signal strategy listens to some discrete signal
-     * and when the signal becomes more than some threshold the strategy starts to buy.
-     * When the signal gets lower than -threshold the strategy starts to sell.
-     */
-    
-    def Signal(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-               /** signal to be listened to */ signal : Optional[() => .Float] = .constant(0.0),
-               /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.Signal(signal,threshold)),eventGen)
-    
     
     def TwoSides(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .ISingleAssetStrategy
         	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
@@ -2266,7 +2260,7 @@ package strategy {@category = "Side function"
                /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha : Optional[.Float] = 1.0/14,
                /** lag for calculating up and down movements for RSI */ timeframe : Optional[.Float] = 1.0,
                /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold : Optional[.Float] = 30.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(),timeframe,alpha)),50.0-threshold)),eventGen)
+        	 = .strategy.Generic(orderFactory(.strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(),timeframe,alpha)),50.0-threshold))),eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */

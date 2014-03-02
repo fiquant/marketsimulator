@@ -16,7 +16,7 @@ package object Typer
         {
             // checking that there are no recursive calls
             if (grey_set contains obj)
-                throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("->"))
+                throw new Exception("Cycle detected in function definitions: " + grey_set.mkString("[", "->", "]"))
 
             grey_set = obj :: grey_set
 

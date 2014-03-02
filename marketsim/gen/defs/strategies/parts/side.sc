@@ -17,17 +17,23 @@ package strategy.side
         if side_distribution > 0.5 then side.Sell() else side.Buy()
 
     /**
-     * Side function for signal strategy
+     * Signal strategy listens to some discrete signal
+     * and when the signal becomes more than some threshold the strategy starts to buy.
+     * When the signal gets lower than -threshold the strategy starts to sell.
      */
-    @python.observable
-    def Signal(/** signal to be listened to */
-               signal       = constant(0.),
+    type Signal(/** signal to be listened to */
+               source       = .constant(0.),
                /** threshold when the trader starts to act */
-               threshold    = 0.7) =
+               threshold    = 0.7) : SideStrategy
+    {
+        def S_Side =
+            if source >   threshold then side.Buy()  else
+            if source < 0-threshold then side.Sell() else
+                                         side.Nothing()
 
-        if signal >   threshold then side.Buy()  else
-        if signal < 0-threshold then side.Sell() else
-                                     side.Nothing()
+        def Side = S_Side
+    }
+
 
     /**
      * Trend follower can be considered as a sort of a signal strategy
@@ -45,7 +51,7 @@ package strategy.side
             /** asset in question */
             book = .orderbook.OfTrader()) : SideStrategy
     {
-        def Side = Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold)
+        def Side = (Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold))~>S_Side
     }
 
 
@@ -65,10 +71,10 @@ package strategy.side
             /** asset in question */
             book = .orderbook.OfTrader()) : SideStrategy
     {
-        def Side = Signal(
+        def Side = (Signal(
                 book~>MidPrice~>EW(alpha_1)~>Avg -
                 book~>MidPrice~>EW(alpha_2)~>Avg,
-            threshold)
+            threshold))~>S_Side
     }
 
 

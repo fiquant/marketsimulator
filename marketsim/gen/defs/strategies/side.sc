@@ -14,22 +14,6 @@ package strategy
                 eventGen)
 
     /**
-     * Signal strategy listens to some discrete signal
-     * and when the signal becomes more than some threshold the strategy starts to buy.
-     * When the signal gets lower than -threshold the strategy starts to sell.
-     */
-    def Signal(/** Event source making the strategy to wake up*/
-               eventGen     = event.Every(math.random.expovariate(1.)),
-               /** order factory function*/
-               orderFactory = order.side.Market(),
-               /** signal to be listened to */
-               signal       = constant(0.),
-               /** threshold when the trader starts to act */
-               threshold    = 0.7)
-
-        =   (orderFactory(side.Signal(signal, threshold)))~>Strategy(eventGen)
-
-    /**
      *  Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*
@@ -46,8 +30,8 @@ package strategy
                         threshold    = 30.)
 
         =   (orderFactory(
-                    side.Signal(
+                    (side.Signal(
                         50.0 - orderbook.OfTrader()~>RSI(timeframe, alpha),
-                        50.0 - threshold))
+                        50.0 - threshold))~>S_Side)
             )~>Strategy(eventGen)
 }

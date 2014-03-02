@@ -29,9 +29,9 @@ def TwoAverages(ctx):
                     order.side_price.Limit(volume=const(10))),
                 "liquidity"),
 
-        ctx.makeTrader_A(strategy.Signal(event.Every(constant(1.)),
-                                         order.side.Market(volume = const(3)),
-                                         linear_signal), 
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal)
+                                      .Strategy(event.Every(constant(1.)),
+                                                order.side.Market(volume = const(3))),
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             

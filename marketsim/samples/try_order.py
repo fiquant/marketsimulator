@@ -48,103 +48,90 @@ def Orders(ctx):
                              .sideprice_WithExpiry(const(5))),
                     "liquidity iceberg expiry"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(1.)),
-                            order.side.Market(volume = const(1)),
-                            linear_signal),
+                            order.side.Market(volume = const(1))),
                          "signal market"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(1.)),
                             order.side.price.Limit(const(1))
-                                 .side_FloatingPrice(const(100)),
-                            linear_signal),
+                                 .side_FloatingPrice(const(100))),
                          "signal floating"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(1.)),
                             order.side.Limit(const(110), const(3))
-                                 .side_Iceberg(const(1)),
-                            linear_signal),
+                                 .side_Iceberg(const(1))),
                          "signal iceberg"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(1.)),
                             order.side.Limit(const(120), const(1))
-                                 .side_ImmediateOrCancel,
-                            linear_signal),
+                                 .side_ImmediateOrCancel),
                          "signal ioc"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(10.)),
                             order.side.price.Limit(const(1))
-                                 .side_Peg,
-                            linear_signal),
+                                 .side_Peg),
                          "signal peg"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(1.)),
                             order.side.Market(volume = const(1))
-                                 .side_StopLoss(const(0.1)),
-                            linear_signal),
+                                 .side_StopLoss(const(0.1))),
                          "signal stoploss"),
 
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(
                             event.Every(const(10.)),
                             order.side.Limit(
                                 price = midPrice,
-                                volume = const(1)),
-                            linear_signal),
+                                volume = const(1))),
                          "signal limit"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(const(10)),
                             order.side.Limit(
                                 price = const(120),
-                                volume = const(1)),
-                            Interlacing()),
+                                volume = const(1))),
                          "noise limit"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(const(10)),
                             order.side.Limit(price = const(120),
                                              volume = const(1))
-                                 .side_WithExpiry(const(10)),
-                            Interlacing()),
+                                 .side_WithExpiry(const(10))),
                          "noise expiry"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(const(10.)),
                                     order.side.price.Limit(const(1))
                                         .side_Peg
-                                        .side_Iceberg(const(1)),
-                            Interlacing()),
+                                        .side_Iceberg(const(1))),
                          "iceberg peg"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(const(10.)),
                             order.side.price.Limit(const(3))
                                  .side_price_Iceberg(const(1))
-                                 .side_Peg,
-                            Interlacing()),
+                                 .side_Peg),
                          "peg iceberg"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(constant(3.)),
                             order.side.price.Limit(const(3))
                                  .side_price_Iceberg(const(1))
                                  .side_Peg
-                                 .side_WithExpiry(const(3)),
-                            Interlacing()),
+                                 .side_WithExpiry(const(3))),
                          "peg iceberg expiry"),
 
-        ctx.makeTrader_A(strategy.Signal(
+        ctx.makeTrader_A(strategy.side.Signal(Interlacing()).Strategy(
                             event.Every(constant(10.)),
                             order.side.price.Limit(const(1))
                                  .side_Peg
                                  .side_Iceberg(const(1))
-                                 .side_WithExpiry(const(10.)),
-                            Interlacing()),
+                                 .side_WithExpiry(const(10.))),
                          "iceberg peg expiry"),
     ]

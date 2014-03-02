@@ -28,9 +28,9 @@ def TrendFollower(ctx):
                                 order.side_price.Limit(volume=constant(V*8)).sideprice_WithExpiry(constant(100))),
                              label="liquidity"),
     
-            ctx.makeTrader_A(strategy.Signal(event.Every(constant(1.)),
-                                             order.side.Market(const(V*2)),
-                                             linear_signal), 
+            ctx.makeTrader_A(strategy.side.Signal(linear_signal)
+                                          .Strategy(event.Every(constant(1.)),
+                                                    order.side.Market(const(V*2))),
                             "signal", 
                             [
                              (linear_signal, ctx.amount_graph)
