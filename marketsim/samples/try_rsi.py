@@ -43,11 +43,10 @@ def RSI(ctx):
                          "rsi_linear",
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.RSIbis(event.Every(constant(1.)),
+        ctx.makeTrader_A(strategy.side.RSIbis(alpha, 1, threshold)
+                                      .Strategy(event.Every(constant(1.)),
                                          order.side.Market(one),
-                                         alpha = alpha,
-                                         timeframe = 1,
-                                         threshold=threshold),
+                                         ),
                          "rsi_bis",
                          myVolume() + myRsiBis()), 
     ]

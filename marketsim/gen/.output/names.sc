@@ -1113,6 +1113,8 @@ package strategy
         
         type FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
         
+        type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,/** lag for calculating up and down movements for RSI */ timeframe = 1.0,/** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) : SideStrategy
+        
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
         
         type Noise(side_distribution = math.random.uniform(0.0,1.0)) : SideStrategy
@@ -1122,6 +1124,10 @@ package strategy
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
         def Strategy(x = .strategy.side.MeanReversion(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
+        
+        def Strategy(x = .strategy.side.RSIbis(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
@@ -1150,6 +1156,8 @@ package strategy
         /** Side function for mean reversion strategy
          */
         def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
+        
+        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(x~>Timeframe,x~>Alpha),50.0-x~>Threshold)~>S_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
@@ -1448,16 +1456,6 @@ package strategy
      */
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
-    
-    /** Strategy that calculates Relative Strength Index of an asset
-     *  and starts to buy when RSI is greater than 50 + *threshold*
-     *  and sells when RSI is less than 50 - *thresold*
-     */
-    def RSIbis(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory = .order.side.Market(),
-               /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,
-               /** lag for calculating up and down movements for RSI */ timeframe = 1.0,
-               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) = orderFactory(.strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(timeframe,alpha),50.0-threshold)~>S_Side)~>Strategy(eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */

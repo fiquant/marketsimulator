@@ -1,3 +1,5 @@
+from marketsim.gen._out.strategy.side._timeframe import Timeframe
+
 from marketsim.gen._out.strategy.side._threshold import Threshold
 
 from marketsim.gen._out.strategy.side._side_distribution import Side_distribution
@@ -13,6 +15,8 @@ from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 from marketsim.gen._out.strategy.side._side import Side
 
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
+
+from marketsim.gen._out.strategy.side._rsibis import RSIbis
 
 from marketsim.gen._out.strategy.side._factor import Factor
 

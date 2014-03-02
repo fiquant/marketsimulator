@@ -34,6 +34,10 @@ class Float(object):
         from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend
         return trader_TraderEfficiencyTrend(self)
     
+    def RSIbis(self, timeframe = None,threshold = None):
+        from marketsim.gen._out.strategy.side._rsibis import RSIbis
+        return RSIbis(self,timeframe,threshold)
+    
     def triangular(self, High = None,Mode = None):
         from marketsim.gen._out.math.random._triangular import triangular
         return triangular(self,High,Mode)

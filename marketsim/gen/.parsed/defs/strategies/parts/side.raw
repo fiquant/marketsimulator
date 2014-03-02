@@ -643,6 +643,87 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - false
+| | | | - Interface:
+| | | | | - RSIbis
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | | | | - IntLit:
+| | | | | | | | | | | - 14
+| | | | | | | | - List:
+| | | | | | | | | -  parameter |alpha| for exponentially weighted moving average when calculating RSI 
+| | | | | | | - Parameter:
+| | | | | | | | - timeframe
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 1.0
+| | | | | | | | - List:
+| | | | | | | | | -  lag for calculating up and down movements for RSI 
+| | | | | | | - Parameter:
+| | | | | | | | - threshold
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 30.0
+| | | | | | | | - List:
+| | | | | | | | | -  strategy starts to act once RSI is out of [50-threshold, 50+threshold] 
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
+| | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Signal
+| | | | | | | | | | - List:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - RSI
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | | - S_Side
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category

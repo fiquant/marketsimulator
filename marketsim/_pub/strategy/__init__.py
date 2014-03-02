@@ -18,8 +18,6 @@ from marketsim.gen._out.strategy._oneside import OneSide
 
 from marketsim.gen._out.strategy._arbitrage import Arbitrage
 
-from marketsim.gen._out.strategy._rsibis import RSIbis
-
 from marketsim.gen._out.strategy._tradeifprofitable import TradeIfProfitable
 
 from marketsim.gen._out.strategy._array import Array

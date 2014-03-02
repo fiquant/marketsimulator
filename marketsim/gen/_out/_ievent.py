@@ -3,10 +3,6 @@ class IEvent(object):
         from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide
         return LiquidityProviderSide(self,orderFactory,side,initialValue,priceDistr)
     
-    def RSIbis(self, orderFactory = None,alpha = None,timeframe = None,threshold = None):
-        from marketsim.gen._out.strategy._rsibis import RSIbis
-        return RSIbis(self,orderFactory,alpha,timeframe,threshold)
-    
     def LiquidityProvider(self, orderFactory = None,initialValue = None,priceDistr = None):
         from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
         return LiquidityProvider(self,orderFactory,initialValue,priceDistr)

@@ -1697,9 +1697,21 @@ package strategy {@category = "Side function"
         
         type FundamentalValue : SideStrategy
         
+        type RSIbis : SideStrategy
+        
         type MeanReversion : SideStrategy
         
         type Noise : SideStrategy
+        @category = "-"
+        
+        @python.accessor()
+        def Timeframe(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Threshold(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : .Float
+        
         @category = "-"
         
         @python.accessor()
@@ -1759,6 +1771,10 @@ package strategy {@category = "Side function"
             	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x)))
         
         
+        def Side(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Side
+            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(),.strategy.side.Timeframe(x),.strategy.side.Alpha(x))),50.0-.strategy.side.Threshold(x)))
+        
+        
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
             	 = .strategy.side.FV_Side(x)
         
@@ -1788,6 +1804,13 @@ package strategy {@category = "Side function"
         
         @category = "-"
         
+        @python.constructor()
+        def RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha : Optional[.Float] = 1.0/14,
+                   /** lag for calculating up and down movements for RSI */ timeframe : Optional[.Float] = 1.0,
+                   /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold : Optional[.Float] = 30.0) : .strategy.side.RSIbis
+        
+        @category = "-"
+        
         @python.accessor()
         def Factor(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .Float
         
@@ -1799,6 +1822,12 @@ package strategy {@category = "Side function"
         
         
         def Strategy(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
+        
+        def Strategy(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis(),
                      /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
@@ -1899,6 +1928,11 @@ package strategy {@category = "Side function"
         
         @python.accessor()
         def Alpha(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : .Float
         
         @category = "-"
         
@@ -2265,18 +2299,6 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
-    
-    /** Strategy that calculates Relative Strength Index of an asset
-     *  and starts to buy when RSI is greater than 50 + *threshold*
-     *  and sells when RSI is less than 50 - *thresold*
-     */
-    
-    def RSIbis(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-               /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-               /** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha : Optional[.Float] = 1.0/14,
-               /** lag for calculating up and down movements for RSI */ timeframe : Optional[.Float] = 1.0,
-               /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold : Optional[.Float] = 30.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(),timeframe,alpha)),50.0-threshold))),eventGen)
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */

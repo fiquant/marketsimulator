@@ -1,4 +1,31 @@
 from marketsim import registry
+from marketsim.gen._out.strategy.side._rsibis import RSIbis
+@registry.expose(["-", "Threshold"])
+class Threshold_strategysideRSIbis(object):
+    """ 
+    """ 
+    def __init__(self, x = None):
+        from marketsim.gen._out.strategy.side._rsibis import RSIbis_FloatFloatFloat as _strategy_side_RSIbis_FloatFloatFloat
+        from marketsim import deref_opt
+        from marketsim import rtti
+        self.x = x if x is not None else deref_opt(_strategy_side_RSIbis_FloatFloatFloat())
+        rtti.check_fields(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'x' : RSIbis
+    }
+    def __repr__(self):
+        return "Threshold(%(x)s)" % self.__dict__
+    
+    @property
+    def dereference(self):
+        return self.x.threshold
+    
+from marketsim import registry
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 @registry.expose(["-", "Threshold"])
 class Threshold_strategysideTrendFollower(object):
@@ -80,10 +107,13 @@ class Threshold_strategysideSignal(object):
         return self.x.threshold
     
 def Threshold(x = None): 
-    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
-    from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-    from marketsim.gen._out.strategy.side._signal import Signal
     from marketsim import rtti
+    from marketsim.gen._out.strategy.side._signal import Signal
+    from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
+    from marketsim.gen._out.strategy.side._rsibis import RSIbis
+    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
+    if x is None or rtti.can_be_casted(x, RSIbis):
+        return Threshold_strategysideRSIbis(x)
     if x is None or rtti.can_be_casted(x, TrendFollower):
         return Threshold_strategysideTrendFollower(x)
     if x is None or rtti.can_be_casted(x, CrossingAverages):

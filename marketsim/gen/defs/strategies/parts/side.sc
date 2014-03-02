@@ -139,4 +139,15 @@ package strategy.side
                 bookToDependOn~>MidPrice * factor,
                 book))~>FV_Side
     }
+
+    type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */
+                alpha        = 1./14,
+                /** lag for calculating up and down movements for RSI */
+                timeframe    = 1.,
+                /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */
+                threshold    = 30.) : SideStrategy
+    {
+        def Side = (Signal(50.0 - orderbook.OfTrader()~>RSI(timeframe, alpha),
+                           50.0 - threshold))~>S_Side
+    }
 }
