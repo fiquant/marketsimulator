@@ -1101,6 +1101,8 @@ package strategy
     @category = "Side function"
     package side
     {
+        type FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),/** asset in question */ book = .orderbook.OfTrader())
+        
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader())
         
         type PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader())
@@ -1126,16 +1128,13 @@ package strategy
         
         /** Side function for pair trading strategy
          */
-        def Side(x = .strategy.side.PairTrading()) = .strategy.side.FundamentalValue(x~>BookToDependOn~>MidPrice*x~>Factor,x~>Book)
+        def Side(x = .strategy.side.PairTrading()) = .strategy.side.FundamentalValue(x~>BookToDependOn~>MidPrice*x~>Factor,x~>Book)~>FV_Side
         
         /** Side function for mean reversion strategy
          */
-        def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)
+        def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
         
-        /** Side function for fundamental value strategy
-         */
-        def FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),
-                             /** asset in question */ book = .orderbook.OfTrader()) = if book~>Bids~>BestPrice>fv then .side.Sell() else if book~>Asks~>BestPrice<fv then .side.Buy() else .side.Nothing()
+        def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
         def Strategy(x = .strategy.side.PairTrading(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
@@ -1144,6 +1143,14 @@ package strategy
         def Strategy(x = .strategy.side.MeanReversion(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
+        
+        def Strategy(x = .strategy.side.FundamentalValue(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
+        
+        /** Side function for fundamental value strategy
+         */
+        def FV_Side(x = .strategy.side.FundamentalValue()) = if x~>Book~>Bids~>BestPrice>x~>Fv then .side.Sell() else if x~>Book~>Asks~>BestPrice<x~>Fv then .side.Buy() else .side.Nothing()
         
         /** Side function for a noise trading strategy
          */
@@ -1452,14 +1459,6 @@ package strategy
     def OneSide(x = .strategy.MarketData(),
                 side = .side.Sell(),
                 sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(x~>Ticker~>Quote(x~>Start,x~>End)+x~>Delta*sign~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
-    
-    /** Fundamental value strategy believes that an asset should have some specific price
-     * (*fundamental value*) and if the current asset price is lower than the fundamental value
-     * it starts to buy the asset and if the price is higher it starts to sell the asset.
-     */
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = .order.side.Market(),
-                         /** defines fundamental value */ fundamentalValue = .constant(100.0)) = orderFactory(.strategy.side.FundamentalValue(fundamentalValue))~>Strategy(eventGen)
     
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues

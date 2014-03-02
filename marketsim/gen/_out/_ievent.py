@@ -15,10 +15,6 @@ class IEvent(object):
         from marketsim.gen._out.strategy._trendfollower import TrendFollower
         return TrendFollower(self,orderFactory,ewma_alpha,threshold)
     
-    def FundamentalValue(self, orderFactory = None,fundamentalValue = None):
-        from marketsim.gen._out.strategy._fundamentalvalue import FundamentalValue
-        return FundamentalValue(self,orderFactory,fundamentalValue)
-    
     def RSIbis(self, orderFactory = None,alpha = None,timeframe = None,threshold = None):
         from marketsim.gen._out.strategy._rsibis import RSIbis
         return RSIbis(self,orderFactory,alpha,timeframe,threshold)

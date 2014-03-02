@@ -14,10 +14,9 @@ def MultiarmedBandit(ctx):
     myVolume = lambda: [(trader.Position(), demo)]
 
     def fv(x):
-        return  strategy.FundamentalValue(
+        return  strategy.side.FundamentalValue(const(x)).Strategy(
                     event.Every(constant(1.)),
-                    order.side.Market(volume = constant(1.)),
-                    fundamentalValue = const(x))
+                    order.side.Market(volume = constant(1.)))
                                         
     xs = range(100, 300, 50) + range(160, 190, 10)
     def strategies():
@@ -32,10 +31,9 @@ def MultiarmedBandit(ctx):
                          "liquidity"),
             
         ctx.makeTrader_A(        
-                strategy.FundamentalValue(
+                strategy.side.FundamentalValue(const(200)).Strategy(
                     event.Every(constant(1.)),
-                    order.side.Market(volume = constant(12.)),
-                    fundamentalValue = const(200)),
+                    order.side.Market(volume = constant(12.))),
                 'fv 12-200'), 
 
         ctx.makeTrader_A(strategy.MultiArmedBandit(

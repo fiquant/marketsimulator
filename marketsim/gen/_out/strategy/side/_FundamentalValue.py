@@ -1,97 +1,18 @@
-from marketsim.gen._out._side import Side
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._observable._observableside import ObservableSide
-@registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue_IObservableFloatIOrderBook(ObservableSide):
-    """ 
-    """ 
-    def __init__(self, fv = None, book = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableside import ObservableSide
-        from marketsim import _
-        from marketsim import rtti
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim.gen._out._side import Side
-        from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
-        ObservableSide.__init__(self)
-        self.fv = fv if fv is not None else deref_opt(_const_Float(200.0))
-        self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
-        rtti.check_fields(self)
-        self.impl = self.getImpl()
-        event.subscribe(self.impl, _(self).fire, self)
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'fv' : IObservablefloat,
-        'book' : IOrderBook
-    }
-    def __repr__(self):
-        return "FundamentalValue(%(fv)s, %(book)s)" % self.__dict__
-    
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
-    
-    _internals = ['impl']
-    def __call__(self, *args, **kwargs):
-        return self.impl()
-    
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
-    
-    def getImpl(self):
-        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        from marketsim.gen._out.ops._less import Less_IObservableFloatIObservableFloat as _ops_Less_IObservableFloatIObservableFloat
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim.gen._out.ops._greater import Greater_IObservableFloatIObservableFloat as _ops_Greater_IObservableFloatIObservableFloat
-        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
-        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(self.book)))),self.fv)),deref_opt(_side_Sell_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(self.book)))),self.fv)),deref_opt(_side_Buy_()),deref_opt(_side_Nothing_())))))
-    
-    def __getattr__(self, name):
-        if name[0:2] != '__' and self.impl:
-            return getattr(self.impl, name)
-        else:
-            raise AttributeError
-    
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._side import Side
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._observable._observableside import ObservableSide
-@registry.expose(["Side function", "FundamentalValue"])
-class FundamentalValue_FloatIOrderBook(ObservableSide):
+@registry.expose(["-", "FundamentalValue"])
+class FundamentalValue_FloatIOrderBook(object):
     """ 
     """ 
     def __init__(self, fv = None, book = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableside import ObservableSide
-        from marketsim import _
-        from marketsim import rtti
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out._side import Side
-        from marketsim import event
-        ObservableSide.__init__(self)
+        from marketsim import deref_opt
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim import rtti
         self.fv = fv if fv is not None else deref_opt(_constant_Float(200.0))
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         rtti.check_fields(self)
-        self.impl = self.getImpl()
-        event.subscribe(self.impl, _(self).fire, self)
     
     @property
     def label(self):
@@ -104,47 +25,30 @@ class FundamentalValue_FloatIOrderBook(ObservableSide):
     def __repr__(self):
         return "FundamentalValue(%(fv)s, %(book)s)" % self.__dict__
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+
+    @property
+    def Side(self):
+        from marketsim.gen._out.strategy.side._side import Side
+        return Side(self)
     
-    _internals = ['impl']
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def Strategy(self, eventGen = None,orderFactory = None):
+        from marketsim.gen._out.strategy.side._strategy import Strategy
+        return Strategy(self,eventGen,orderFactory)
     
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+    @property
+    def Book(self):
+        from marketsim.gen._out.strategy.side._book import Book
+        return Book(self)
     
-    def getImpl(self):
-        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        from marketsim.gen._out.ops._less import Less_IObservableFloatFloat as _ops_Less_IObservableFloatFloat
-        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
-        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
-        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(self.book)))),self.fv)),deref_opt(_side_Sell_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(self.book)))),self.fv)),deref_opt(_side_Buy_()),deref_opt(_side_Nothing_())))))
+    @property
+    def FV_Side(self):
+        from marketsim.gen._out.strategy.side._fv_side import FV_Side
+        return FV_Side(self)
     
-    def __getattr__(self, name):
-        if name[0:2] != '__' and self.impl:
-            return getattr(self.impl, name)
-        else:
-            raise AttributeError
+    @property
+    def Fv(self):
+        from marketsim.gen._out.strategy.side._fv import Fv
+        return Fv(self)
     
-def FundamentalValue(fv = None,book = None): 
-    from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-    from marketsim.gen._out._iorderbook import IOrderBook
-    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-    from marketsim import rtti
-    if fv is None or rtti.can_be_casted(fv, IObservablefloat):
-        if book is None or rtti.can_be_casted(book, IOrderBook):
-            return FundamentalValue_IObservableFloatIOrderBook(fv,book)
-    if fv is None or rtti.can_be_casted(fv, IFunctionfloat):
-        if book is None or rtti.can_be_casted(book, IOrderBook):
-            return FundamentalValue_FloatIOrderBook(fv,book)
-    raise Exception('Cannot find suitable overload for FundamentalValue('+str(fv) +':'+ str(type(fv))+','+str(book) +':'+ str(type(book))+')')
+    pass
+FundamentalValue = FundamentalValue_FloatIOrderBook

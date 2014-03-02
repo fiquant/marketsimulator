@@ -42,15 +42,6 @@ package strategy() {
                          /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold))~>Strategy(eventGen)
     
     // defined at defs\strategies\side.sc: 70.5
-    /** Fundamental value strategy believes that an asset should have some specific price
-     * (*fundamental value*) and if the current asset price is lower than the fundamental value
-     * it starts to buy the asset and if the price is higher it starts to sell the asset.
-     */
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order.side.Market(),
-                         /** defines fundamental value */ fundamentalValue = constant(100.0)) = orderFactory(side.FundamentalValue(fundamentalValue))~>Strategy(eventGen)
-    
-    // defined at defs\strategies\side.sc: 85.5
     /** Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

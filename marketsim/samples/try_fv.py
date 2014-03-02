@@ -23,10 +23,11 @@ def FundamentalValue(ctx):
             "liquidity"),
     
         ctx.makeTrader_A(
-             strategy.FundamentalValue(
+             strategy.side.FundamentalValue(
+                 const(fv)
+             ).Strategy(
                 event.Every(const(1.)),
-                order.side.Market(volume = const(1.)),
-                const(fv)),
+                order.side.Market(volume = const(1.))),
             "fv_200",
             myVolume()),
     ]

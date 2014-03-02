@@ -22,8 +22,6 @@ from marketsim.gen._out.strategy._trendfollower import TrendFollower
 
 from marketsim.gen._out.strategy._oneside import OneSide
 
-from marketsim.gen._out.strategy._fundamentalvalue import FundamentalValue
-
 from marketsim.gen._out.strategy._arbitrage import Arbitrage
 
 from marketsim.gen._out.strategy._rsibis import RSIbis

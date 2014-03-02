@@ -1685,6 +1685,8 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
+        type FundamentalValue
+        
         type MeanReversion
         
         type PairTrading
@@ -1732,27 +1734,23 @@ package strategy {@category = "Side function"
          */
         
         def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x))
+            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x)))
         
         /** Side function for mean reversion strategy
          */
         
         def Side(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x))
+            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x)))
         
-        /** Side function for fundamental value strategy
-         */
         
-        def FundamentalValue(/** observable fundamental value */ fv : Optional[.IObservable[.Float]] = .const(200.0),
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(book)),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(book)),fv),.side.Buy(),.side.Nothing()))
+        def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
+            	 = .strategy.side.FV_Side(x)
         
-        /** Side function for fundamental value strategy
-         */
+        @category = "-"
         
+        @python.constructor()
         def FundamentalValue(/** observable fundamental value */ fv : Optional[() => .Float] = .constant(200.0),
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(book)),fv),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(book)),fv),.side.Buy(),.side.Nothing()))
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.FundamentalValue
         
         @category = "-"
         
@@ -1771,6 +1769,12 @@ package strategy {@category = "Side function"
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
         
+        
+        def Strategy(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
         @category = "-"
         
         @python.accessor()
@@ -1784,6 +1788,11 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
+        def Book(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
         def BookToDependOn(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
         
         @category = "-"
@@ -1791,6 +1800,17 @@ package strategy {@category = "Side function"
         @python.constructor()
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.MeanReversion
+        
+        /** Side function for fundamental value strategy
+         */
+        
+        def FV_Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(.strategy.side.Book(x))),.strategy.side.Fv(x)),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(.strategy.side.Book(x))),.strategy.side.Fv(x)),.side.Buy(),.side.Nothing()))
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Fv(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : () => .Float
         
         @category = "-"
         
@@ -2194,26 +2214,6 @@ package strategy {@category = "Side function"
                 side : Optional[() => .Side] = .side.Sell(),
                 sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
         	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
-    
-    /** Fundamental value strategy believes that an asset should have some specific price
-     * (*fundamental value*) and if the current asset price is lower than the fundamental value
-     * it starts to buy the asset and if the price is higher it starts to sell the asset.
-     */
-    
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                         /** defines fundamental value */ fundamentalValue : Optional[.IObservable[.Float]] = .const(100.0)) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
-    
-    /** Fundamental value strategy believes that an asset should have some specific price
-     * (*fundamental value*) and if the current asset price is lower than the fundamental value
-     * it starts to buy the asset and if the price is higher it starts to sell the asset.
-     */
-    
-    def FundamentalValue(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                         /** defines fundamental value */ fundamentalValue : Optional[() => .Float] = .constant(100.0)) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.FundamentalValue(fundamentalValue)),eventGen)
     
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues

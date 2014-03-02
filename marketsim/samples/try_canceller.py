@@ -16,7 +16,7 @@ def Canceller(ctx):
 
         ctx.makeTrader_A(strategy.Canceller(), "canceller"),
          
-        ctx.makeTrader_A(   strategy.FundamentalValue(
-                                fundamentalValue = const(1000)),
+        ctx.makeTrader_A(
+            strategy.side.FundamentalValue(const(1000)).Strategy(),
                             "fv_1000")
         ]

@@ -53,17 +53,31 @@ package strategy.side
             threshold)
 
     /**
-     * Side function for fundamental value strategy
+     * Fundamental value strategy believes that an asset should have some specific price
+     * (*fundamental value*) and if the current asset price is lower than the fundamental value
+     * it starts to buy the asset and if the price is higher it starts to sell the asset.
      */
-    def FundamentalValue(
+    type FundamentalValue(
         /** observable fundamental value */
-        fv      = constant(200.),
+        fv      = .constant(200.),
         /** asset in question */
-        book    = orderbook.OfTrader())
+        book    = .orderbook.OfTrader())
+    {
+        /**
+         * Side function for fundamental value strategy
+         */
+        def FV_Side
+            =   if book~>Bids~>BestPrice > fv then side.Sell() else
+                if book~>Asks~>BestPrice < fv then side.Buy()  else
+                                                       side.Nothing()
 
-        =   if book~>Bids~>BestPrice > fv then side.Sell() else
-            if book~>Asks~>BestPrice < fv then side.Buy()  else
-                                                   side.Nothing()
+        def Side = FV_Side
+
+        def Strategy(/** Event source making the strategy to wake up*/
+                    eventGen        = event.Every(math.random.expovariate(1.)),
+                    /** order factory function*/
+                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
+    }
 
     /**
       * Mean reversion strategy believes that asset price should return to its average value.
@@ -80,9 +94,9 @@ package strategy.side
         /**
          * Side function for mean reversion strategy
          */
-        def Side = FundamentalValue(
+        def Side = (FundamentalValue(
                             book~>MidPrice~>EW(alpha)~>Avg,
-                            book)
+                            book))~>FV_Side
 
         def Strategy(/** Event source making the strategy to wake up*/
                     eventGen        = event.Every(math.random.expovariate(1.)),
@@ -107,9 +121,9 @@ package strategy.side
         book = orderbook.OfTrader())
     {
         /** Side function for pair trading strategy */
-        def Side = FundamentalValue(
+        def Side = (FundamentalValue(
                 bookToDependOn~>MidPrice * factor,
-                book)
+                book))~>FV_Side
 
         def Strategy(/** Event source making the strategy to wake up*/
                     eventGen        = event.Every(math.random.expovariate(1.)),

@@ -28,32 +28,41 @@ package strategy.side() {
                          /** threshold when the trader starts to act */ threshold = 0.0,
                          /** asset in question */ book = orderbook.OfTrader()) = Signal(book~>MidPrice~>EW(alpha_1)~>Avg-book~>MidPrice~>EW(alpha_2)~>Avg,threshold)
     
-    // defined at defs\strategies\parts\side.sc: 55.5
-    /** Side function for fundamental value strategy
-     */
-    def FundamentalValue(/** observable fundamental value */ fv = constant(200.0),
-                         /** asset in question */ book = orderbook.OfTrader()) = if book~>Bids~>BestPrice>fv then side.Sell() else if book~>Asks~>BestPrice<fv then side.Buy() else side.Nothing()
+    type FundamentalValue(/** observable fundamental value */ fv = .constant(200.0),/** asset in question */ book = .orderbook.OfTrader())
+    {
+        // defined at defs\strategies\parts\side.sc: 66.9
+        /** Side function for fundamental value strategy
+         */
+        def FV_Side() = if book~>Bids~>BestPrice>fv then side.Sell() else if book~>Asks~>BestPrice<fv then side.Buy() else side.Nothing()
+        
+        // defined at defs\strategies\parts\side.sc: 74.9
+        def Side() = FV_Side
+        
+        // defined at defs\strategies\parts\side.sc: 76.9
+        def Strategy(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = order.side.Market()) = Generic(orderFactory(Side),eventGen)
+    }
     
     type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader())
     {
-        // defined at defs\strategies\parts\side.sc: 80.9
+        // defined at defs\strategies\parts\side.sc: 94.9
         /** Side function for mean reversion strategy
          */
-        def Side() = FundamentalValue(book~>MidPrice~>EW(alpha)~>Avg,book)
+        def Side() = FundamentalValue(book~>MidPrice~>EW(alpha)~>Avg,book)~>FV_Side
         
-        // defined at defs\strategies\parts\side.sc: 87.9
+        // defined at defs\strategies\parts\side.sc: 101.9
         def Strategy(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = order.side.Market()) = Generic(orderFactory(Side),eventGen)
     }
     
     type PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader())
     {
-        // defined at defs\strategies\parts\side.sc: 109.9
+        // defined at defs\strategies\parts\side.sc: 123.9
         /** Side function for pair trading strategy
          */
-        def Side() = FundamentalValue(bookToDependOn~>MidPrice*factor,book)
+        def Side() = FundamentalValue(bookToDependOn~>MidPrice*factor,book)~>FV_Side
         
-        // defined at defs\strategies\parts\side.sc: 114.9
+        // defined at defs\strategies\parts\side.sc: 128.9
         def Strategy(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = order.side.Market()) = Generic(orderFactory(Side),eventGen)
     }

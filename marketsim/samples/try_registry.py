@@ -14,16 +14,13 @@ def Complete(ctx):
 
     c_200 = const(200.)
     
-    fv_200_12 = strategy.FundamentalValue(fundamentalValue=c_200,
-                                          orderFactory=order.side.Market(volume=const(12)))
+    fv_200_12 = strategy.side.FundamentalValue(c_200).Strategy(orderFactory=order.side.Market(volume=const(12)))
 
-    fv_200 = strategy.FundamentalValue(fundamentalValue=c_200,
-                                       orderFactory=order.side.Market(volume=const(1)))
+    fv_200 = strategy.side.FundamentalValue(c_200).Strategy(orderFactory=order.side.Market(volume=const(1)))
      
     def s_fv(fv):
         return strategy.TradeIfProfitable(
-            strategy.FundamentalValue(fundamentalValue=const(fv),
-                                       orderFactory=order.side.Market(volume=const(1))))
+            strategy.side.FundamentalValue(const(fv)).Strategy(orderFactory=order.side.Market(volume=const(1))))
 
     def fv_virtual(fv):
         return ctx.makeTrader_A(s_fv(fv), "v" + str(fv))
@@ -41,9 +38,9 @@ def Complete(ctx):
             ctx.makeTrader_A(fv_200_12, "t200"),    
             ctx.makeTrader_A(fv_200, "t200_1"),
 
-            ctx.makeTrader_A(strategy.FundamentalValue(event.Every(constant(1.)),
-                                                       order.side.Market(const(1.)),
-                                                       fundamentalValue=const(150.)),
+            ctx.makeTrader_A(strategy.side.FundamentalValue(const(150.))
+                                          .Strategy(event.Every(constant(1.)),
+                                                    order.side.Market(const(1.))),
                              "t150"),
             
             ctx.makeTrader_A(strategy.side.MeanReversion().Strategy(event.Every(constant(1.)),
