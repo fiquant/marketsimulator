@@ -1,13 +1,2 @@
 Definitions:
 - List:
-| - PackageDef:
-| | - Some:
-| | | - QualifiedName:
-| | | | - List:
-| | | | | - strategy
-| | - List:
-| | - Definitions:
-| | | - List:
-| | - List:
-| | - List:
-| | - false

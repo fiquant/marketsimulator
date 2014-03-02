@@ -947,12 +947,12 @@ package math {
     
     /** Relative Strength Index
      */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
+    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
     
-    def RSI(/** asset price in question  */ book : Optional[.IOrderBook] = .orderbook.OfTrader(),
+    def RSI(/** observable data source */ source : Optional[.IObservable[.Float]] = .const(1.0),
             /** lag size */ timeframe : Optional[.Float] = 10.0,
             /** alpha parameter for EWMA */ alpha : Optional[.Float] = 0.015) : () => .Float
-        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.rsi.Raw(.orderbook.MidPrice(book),timeframe,alpha))))
+        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.rsi.Raw(source,timeframe,alpha))))
     
     /** Exponent of *x*
      *
@@ -1772,7 +1772,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Side
-            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(),.strategy.side.Timeframe(x),.strategy.side.Alpha(x))),50.0-.strategy.side.Threshold(x)))
+            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader()),.strategy.side.Timeframe(x),.strategy.side.Alpha(x))),50.0-.strategy.side.Threshold(x)))
         
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
@@ -2136,7 +2136,7 @@ package strategy {@category = "Side function"
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
                        /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.OfTrader(trader),timeframe,alpha)),1.0),k),trader)
+            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.ops.Sub(.constant(50.0),.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader(trader)),timeframe,alpha)),1.0),k),trader)
         
         /** Position function for Bollinger bands strategy with linear scaling
          */

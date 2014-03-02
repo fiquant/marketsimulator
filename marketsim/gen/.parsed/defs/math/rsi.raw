@@ -258,17 +258,18 @@ Definitions:
 | | | | | - RSI
 | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - book
+| | | | | | | - source
 | | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
+| | | | | | | | | | | - const
 | | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
 | | | | | | | - List:
-| | | | | | | | -  asset price in question  
+| | | | | | | | -  observable data source 
 | | | | | | - Parameter:
 | | | | | | | - timeframe
 | | | | | | | - None
@@ -299,11 +300,8 @@ Definitions:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 1.0
 | | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - MidPrice
-| | | | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - source
 | | | | | | | | | | - rsi_Raw
 | | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
@@ -318,7 +316,7 @@ Definitions:
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
-| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)
+| | | | | | | - RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)
 | | | | - FunDef:
 | | | | | - LogReturns
 | | | | | - List:

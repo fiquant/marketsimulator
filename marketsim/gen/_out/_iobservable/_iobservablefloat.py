@@ -34,6 +34,10 @@ class IObservablefloat(IEvent, IFunctionfloat):
         from marketsim.gen._out.math._cumulative import Cumulative
         return Cumulative(self)
     
+    def RSI(self, timeframe = None,alpha = None):
+        from marketsim.gen._out.math._rsi import RSI
+        return RSI(self,timeframe,alpha)
+    
     def macd(self, slow = None,fast = None):
         from marketsim.gen._out.math._macd import macd
         return macd(self,slow,fast)

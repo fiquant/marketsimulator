@@ -462,10 +462,10 @@ package math
     
     /** Relative Strength Index
      */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    def RSI(/** asset price in question  */ book = .orderbook.OfTrader(),
+    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    def RSI(/** observable data source */ source = .const(1.0),
             /** lag size */ timeframe = 10.0,
-            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+book~>MidPrice~>rsi_Raw(timeframe,alpha))
+            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+source~>rsi_Raw(timeframe,alpha))
     
     /** Exponent of *x*
      *
@@ -1157,7 +1157,7 @@ package strategy
          */
         def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
         
-        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>RSI(x~>Timeframe,x~>Alpha),50.0-x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha),50.0-x~>Threshold)~>S_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
@@ -1348,7 +1348,7 @@ package strategy
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe = 1.0,
-                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(50.0-trader~>Orderbook~>RSI(timeframe,alpha)~>OnEveryDt(1.0)*k,trader)
+                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>OnEveryDt(1.0)*k,trader)
         
     }
     

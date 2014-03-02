@@ -50,15 +50,16 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._rsi import RSI_IOrderBookFloatFloat as _math_RSI_IOrderBookFloatFloat
         from marketsim import deref_opt
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
         from marketsim.gen._out.strategy.position._desiredposition import DesiredPosition_IObservableFloatISingleAssetTrader as _strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
         from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
         from marketsim.gen._out.ops._mul import Mul_IObservableFloatIObservableFloat as _ops_Mul_IObservableFloatIObservableFloat
-        return deref_opt(_strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(deref_opt(_ops_Mul_IObservableFloatIObservableFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IOrderBookFloatFloat(deref_opt(_orderbook_OfTrader_IAccount(self.trader)),self.timeframe,self.alpha)))),1.0)),self.k)),self.trader))
+        from marketsim.gen._out.math._rsi import RSI_IObservableFloatFloatFloat as _math_RSI_IObservableFloatFloatFloat
+        return deref_opt(_strategy_position_DesiredPosition_IObservableFloatISingleAssetTrader(deref_opt(_ops_Mul_IObservableFloatIObservableFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_RSI_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_orderbook_OfTrader_IAccount(self.trader)))),self.timeframe,self.alpha)))),1.0)),self.k)),self.trader))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

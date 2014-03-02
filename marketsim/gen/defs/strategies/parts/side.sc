@@ -147,7 +147,7 @@ package strategy.side
                 /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */
                 threshold    = 30.) : SideStrategy
     {
-        def Side = (Signal(50.0 - orderbook.OfTrader()~>RSI(timeframe, alpha),
+        def Side = (Signal(50.0 - orderbook.OfTrader()~>MidPrice~>RSI(timeframe, alpha),
                            50.0 - threshold))~>S_Side
     }
 }

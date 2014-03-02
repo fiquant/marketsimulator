@@ -23,10 +23,6 @@ class IOrderBook(object):
         from marketsim.gen._out.orderbook._bids import Bids
         return Bids(self)
     
-    def RSI(self, timeframe = None,alpha = None):
-        from marketsim.gen._out.math._rsi import RSI
-        return RSI(self,timeframe,alpha)
-    
     def Queue(self, side = None):
         from marketsim.gen._out.orderbook._queue import Queue
         return Queue(self,side)

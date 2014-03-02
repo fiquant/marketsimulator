@@ -700,11 +700,14 @@ Definitions:
 | | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | | - 50.0
 | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | - OfTrader
+| | | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - RSI
 | | | | | | | | | | | | | - List:

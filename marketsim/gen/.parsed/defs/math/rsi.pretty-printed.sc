@@ -37,10 +37,10 @@ package math() {
     // defined at defs\math\rsi.sc: 45.5
     /** Relative Strength Index
      */
-    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(book)s)"
-    def RSI(/** asset price in question  */ book = orderbook.OfTrader(),
+    @label = "RSI_{%(timeframe)s}^{%(alpha)s}(%(source)s)"
+    def RSI(/** observable data source */ source = const(1.0),
             /** lag size */ timeframe = 10.0,
-            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+book~>MidPrice~>rsi_Raw(timeframe,alpha))
+            /** alpha parameter for EWMA */ alpha = 0.015) = 100.0-100.0/(1.0+source~>rsi_Raw(timeframe,alpha))
     
     // defined at defs\math\rsi.sc: 55.5
     /** Log returns

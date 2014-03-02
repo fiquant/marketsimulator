@@ -39,6 +39,6 @@ package strategy.position
             trader = trader.SingleProxy())
 
         = DesiredPosition(
-                (50. - trader~>Orderbook~>RSI(timeframe, alpha))~>OnEveryDt(1.0) * k,
+                (50. - trader~>Orderbook~>MidPrice~>RSI(timeframe, alpha))~>OnEveryDt(1.0) * k,
                 trader)
 }
