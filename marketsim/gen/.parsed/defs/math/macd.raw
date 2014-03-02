@@ -54,6 +54,7 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - MACD_{%(fast)s}^{%(slow)s}(%(source)s)
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Value
 | | | | | | | | - List:

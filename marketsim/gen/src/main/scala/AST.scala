@@ -129,7 +129,8 @@ package object AST {
                          generics   : Generics,
                          parameters : Option[List[Parameter]],
                          bases      : List[Type],
-                         decorators : List[Decorator])
+                         decorators : List[Decorator],
+                         members    : List[FunDef])
             extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable

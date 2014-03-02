@@ -187,12 +187,14 @@ package object Printer
             val generics : Generics
             def parameters : Option[List[Parameter]]
             val bases : List[Any]
+            val members : List[Any]
 
             protected def toScala = crlf +
                     (decorators map {_ + crlf} mkString "") +
                     "type " + name + generics +
                     (if (parameters.isEmpty) "" else parameters.get mkString ("(",",",")")) +
-                    (if (bases.isEmpty) "" else " : " + bases.mkString(", "))
+                    (if (bases.isEmpty) "" else " : " + bases.mkString(", ")) +
+                    (if (members.isEmpty) "" else crlf + "{" + indent(4){ members mkString crlf } + crlf + "}")
         }
 
         trait TypeAlias extends Printable with Definition

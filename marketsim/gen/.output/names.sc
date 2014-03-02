@@ -321,6 +321,11 @@ package math
     
     @label = "EW_{%(alpha)s}(%(source)s)"
     type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
+    {
+        /** Exponentially weighted moving relative standard deviation
+         */
+        def RelStdDev() = (source-Avg)/StdDev
+    }
     
     @label = "Moving_{%(timeframe)s}(%(source)s)"
     type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain

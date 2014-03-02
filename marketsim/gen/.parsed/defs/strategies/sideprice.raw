@@ -289,6 +289,7 @@ Definitions:
 | | | | | | | | | -  Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. 
 | | | | | - List:
 | | | | | - List:
+| | | | | - List:
 | | | | - FunDef:
 | | | | | - OneSide
 | | | | | - List:
@@ -464,6 +465,7 @@ Definitions:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 20.0
 | | | | | | | | - List:
+| | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | - FunDef:

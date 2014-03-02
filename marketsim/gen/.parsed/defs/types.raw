@@ -8,12 +8,14 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - List
 | | - Generics:
 | | | - List:
 | | | | - T
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -23,11 +25,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - String
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -37,11 +41,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - Float
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -55,6 +61,7 @@ Definitions:
 | | | | | - List:
 | | | | | | - Float
 | | | | - List:
+| | - List:
 | | - List:
 | - Alias:
 | | - Volume
@@ -107,11 +114,13 @@ Definitions:
 | | | | | | | | - T
 | | | | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IEvent
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -137,6 +146,7 @@ Definitions:
 | | | | | | - IEvent
 | | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - Observable
 | | - Generics:
@@ -155,11 +165,13 @@ Definitions:
 | | | | | | | | - U
 | | | | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IOrderQueue
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -169,11 +181,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ILink
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -183,11 +197,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IOrder
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Alias:
@@ -212,11 +228,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IAccount
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -236,6 +254,7 @@ Definitions:
 | | | | | | - ITrader
 | | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IDifferentiable
 | | - Generics:
@@ -253,11 +272,13 @@ Definitions:
 | | | | | | | | - Float
 | | | | | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ICandleStick
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -267,11 +288,13 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ISingleAssetStrategy
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:
 | - Interface:
@@ -281,6 +304,7 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - IGraph
 | | - Generics:
@@ -288,10 +312,12 @@ Definitions:
 | | - None
 | | - List:
 | | - List:
+| | - List:
 | - Interface:
 | | - ITimeSerie
 | | - Generics:
 | | | - List:
 | | - None
+| | - List:
 | | - List:
 | | - List:

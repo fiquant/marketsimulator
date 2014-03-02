@@ -34,6 +34,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | - Interface:
 | | | | | | | | - Cumulative
 | | | | | | | | - Generics:
@@ -46,6 +47,7 @@ Definitions:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - IStatDomain
 | | | | | | | | | | - List:
+| | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - Interface:
 | | | | | | | | - EW
@@ -70,6 +72,27 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - EW_{%(alpha)s}(%(source)s)
+| | | | | | | | - List:
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - RelStdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Div
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Exponentially weighted moving relative standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | - Interface:
 | | | | | | | | - Moving
 | | | | | | | | - Generics:
@@ -93,6 +116,7 @@ Definitions:
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - Moving_{%(timeframe)s}(%(source)s)
+| | | | | | | | - List:
 | | | | | | | - FunDef:
 | | | | | | | | - Avg
 | | | | | | | | - List:

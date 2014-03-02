@@ -9,6 +9,12 @@ package math
 
         @label = "EW_{%(alpha)s}(%(source)s)"
         type EW(alpha = 0.015) : IStatDomain
+        {
+            /**
+             *  Exponentially weighted moving relative standard deviation
+             */
+            def RelStdDev() = (source - Avg) / StdDev
+        }
 
         @label = "Moving_{%(timeframe)s}(%(source)s)"
         type Moving(timeframe = 100.) : IStatDomain
