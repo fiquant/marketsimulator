@@ -1,6 +1,14 @@
 @category = "Side function"
 package strategy.side
 {
+    abstract type SideStrategy
+    {
+        def Strategy(/** Event source making the strategy to wake up*/
+                    eventGen        = event.Every(math.random.expovariate(1.)),
+                    /** order factory function*/
+                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
+    }
+
     /**
      * Side function for a noise trading strategy
      */
@@ -61,7 +69,7 @@ package strategy.side
         /** observable fundamental value */
         fv      = .constant(200.),
         /** asset in question */
-        book    = .orderbook.OfTrader())
+        book    = .orderbook.OfTrader()) : SideStrategy
     {
         /**
          * Side function for fundamental value strategy
@@ -72,11 +80,6 @@ package strategy.side
                                                        side.Nothing()
 
         def Side = FV_Side
-
-        def Strategy(/** Event source making the strategy to wake up*/
-                    eventGen        = event.Every(math.random.expovariate(1.)),
-                    /** order factory function*/
-                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
     }
 
     /**
@@ -89,7 +92,7 @@ package strategy.side
         /** parameter |alpha| for exponentially weighted moving average */
         alpha = 0.015,
         /** asset in question */
-        book = orderbook.OfTrader())
+        book = orderbook.OfTrader()) : SideStrategy
     {
         /**
          * Side function for mean reversion strategy
@@ -97,11 +100,6 @@ package strategy.side
         def Side = (FundamentalValue(
                             book~>MidPrice~>EW(alpha)~>Avg,
                             book))~>FV_Side
-
-        def Strategy(/** Event source making the strategy to wake up*/
-                    eventGen        = event.Every(math.random.expovariate(1.)),
-                    /** order factory function*/
-                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
     }
 
     /**
@@ -118,16 +116,11 @@ package strategy.side
         /** multiplier to obtain fair asset price from the reference asset price */
         factor          = 1.0,
         /** asset in question */
-        book = orderbook.OfTrader())
+        book = orderbook.OfTrader()) : SideStrategy
     {
         /** Side function for pair trading strategy */
         def Side = (FundamentalValue(
                 bookToDependOn~>MidPrice * factor,
                 book))~>FV_Side
-
-        def Strategy(/** Event source making the strategy to wake up*/
-                    eventGen        = event.Every(math.random.expovariate(1.)),
-                    /** order factory function*/
-                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
     }
 }

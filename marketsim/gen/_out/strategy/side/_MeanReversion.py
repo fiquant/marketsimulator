@@ -1,7 +1,8 @@
 from marketsim import registry
+from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["-", "MeanReversion"])
-class MeanReversion_FloatIOrderBook(object):
+class MeanReversion_FloatIOrderBook(SideStrategy):
     """ 
     """ 
     def __init__(self, alpha = None, book = None):

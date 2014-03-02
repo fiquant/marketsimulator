@@ -1685,11 +1685,13 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
-        type FundamentalValue
+        type SideStrategy
         
-        type MeanReversion
+        type FundamentalValue : SideStrategy
         
-        type PairTrading
+        type MeanReversion : SideStrategy
+        
+        type PairTrading : SideStrategy
         @category = "-"
         
         @python.constructor()

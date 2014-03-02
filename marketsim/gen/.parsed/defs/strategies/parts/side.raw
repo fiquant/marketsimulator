@@ -9,6 +9,70 @@ Definitions:
 | | - List:
 | | - Definitions:
 | | | - List:
+| | | | - Interface:
+| | | | | - SideStrategy
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - eventGen
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - event
+| | | | | | | | | | | | | - Every
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - random
+| | | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | - List:
+| | | | | | | | | | -  Event source making the strategy to wake up
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Market
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Generic
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Side
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - true
 | | | | - FunDef:
 | | | | | - Noise
 | | | | | - List:
@@ -303,6 +367,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | -  asset in question 
 | | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
@@ -368,61 +437,6 @@ Definitions:
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:
-| | | | | | - FunDef:
-| | | | | | | - Strategy
-| | | | | | | - List:
-| | | | | | | | - Parameter:
-| | | | | | | | | - eventGen
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - event
-| | | | | | | | | | | | | - Every
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | | - random
-| | | | | | | | | | | | | | | - expovariate
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
-| | | | | | | | | - List:
-| | | | | | | | | | -  Event source making the strategy to wake up
-| | | | | | | | - Parameter:
-| | | | | | | | | - orderFactory
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Market
-| | | | | | | | | | | - List:
-| | | | | | | | | - List:
-| | | | | | | | | | -  order factory function
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Generic
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderFactory
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Side
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - eventGen
-| | | | | | | - None
-| | | | | | | - None
-| | | | | | | - List:
 | | | | | - false
 | | | | - Interface:
 | | | | | - MeanReversion
@@ -451,6 +465,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | -  asset in question 
 | | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
@@ -485,61 +504,6 @@ Definitions:
 | | | | | | | | - DocString:
 | | | | | | | | | - Side function for mean reversion strategy
 | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - FunDef:
-| | | | | | | - Strategy
-| | | | | | | - List:
-| | | | | | | | - Parameter:
-| | | | | | | | | - eventGen
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - event
-| | | | | | | | | | | | | - Every
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | | - random
-| | | | | | | | | | | | | | | - expovariate
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
-| | | | | | | | | - List:
-| | | | | | | | | | -  Event source making the strategy to wake up
-| | | | | | | | - Parameter:
-| | | | | | | | | - orderFactory
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Market
-| | | | | | | | | | | - List:
-| | | | | | | | | - List:
-| | | | | | | | | | -  order factory function
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Generic
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderFactory
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Side
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - eventGen
-| | | | | | | - None
-| | | | | | | - None
 | | | | | | | - List:
 | | | | | - false
 | | | | - Interface:
@@ -582,6 +546,11 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | | -  asset in question 
 | | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
@@ -612,61 +581,6 @@ Definitions:
 | | | | | | | | - DocString:
 | | | | | | | | | - Side function for pair trading strategy
 | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - FunDef:
-| | | | | | | - Strategy
-| | | | | | | - List:
-| | | | | | | | - Parameter:
-| | | | | | | | | - eventGen
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - event
-| | | | | | | | | | | | | - Every
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - math
-| | | | | | | | | | | | | | | - random
-| | | | | | | | | | | | | | | - expovariate
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | | | - 1.0
-| | | | | | | | | - List:
-| | | | | | | | | | -  Event source making the strategy to wake up
-| | | | | | | | - Parameter:
-| | | | | | | | | - orderFactory
-| | | | | | | | | - None
-| | | | | | | | | - Some:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - order
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Market
-| | | | | | | | | | | - List:
-| | | | | | | | | - List:
-| | | | | | | | | | -  order factory function
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Generic
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - orderFactory
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Side
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - eventGen
-| | | | | | | - None
-| | | | | | | - None
 | | | | | | | - List:
 | | | | | - false
 | | - List:

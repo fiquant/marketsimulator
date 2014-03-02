@@ -1,0 +1,2 @@
+class SideStrategy(object):
+    pass

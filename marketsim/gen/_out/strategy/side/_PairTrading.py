@@ -1,7 +1,8 @@
 from marketsim import registry
+from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["-", "PairTrading"])
-class PairTrading_IOrderBookFloatIOrderBook(object):
+class PairTrading_IOrderBookFloatIOrderBook(SideStrategy):
     """ 
     """ 
     def __init__(self, bookToDependOn = None, factor = None, book = None):
