@@ -5,20 +5,11 @@ package _test
 package types {
     type T1 = T
 
-    package {
-        type T
-    }
+    type T
 
-    package {
-        type R : T
-    }
+    type R : T
 
-    package {
-        package {
-            type U : R
-        }
-    }
-
+    type U : R
 }
 
 package overloading {

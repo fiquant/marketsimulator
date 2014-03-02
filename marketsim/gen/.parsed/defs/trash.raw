@@ -26,72 +26,40 @@ Definitions:
 | | | | | | | | | | | - T
 | | | | | | | | | - List:
 | | | | | | | | - List:
-| | | | | | | - PackageDef:
+| | | | | | | - Interface:
+| | | | | | | | - T
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - Interface:
-| | | | | | | | | | | - T
-| | | | | | | | | | | - Generics:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
-| | | | | | | - PackageDef:
+| | | | | | | - Interface:
+| | | | | | | | - R
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - Interface:
-| | | | | | | | | | | - R
-| | | | | | | | | | | - Generics:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - None
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - T
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
+| | | | | | | | | | | | - T
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false
-| | | | | | | - PackageDef:
+| | | | | | | - Interface:
+| | | | | | | | - U
+| | | | | | | | - Generics:
+| | | | | | | | | - List:
 | | | | | | | | - None
 | | | | | | | | - List:
-| | | | | | | | - Definitions:
-| | | | | | | | | - List:
-| | | | | | | | | | - PackageDef:
-| | | | | | | | | | | - None
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | - Definitions:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Interface:
-| | | | | | | | | | | | | | - U
-| | | | | | | | | | | | | | - Generics:
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - None
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - SimpleType:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - R
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - false
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | - false
+| | | | | | | | | | | | - R
+| | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - false

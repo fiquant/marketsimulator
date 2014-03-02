@@ -403,25 +403,35 @@ package object NameTable {
             } }
         }
 
-        def collectParameters(x : AST.Interface) : List[AST.Parameter] =
+        def nonTrivialBases(t : AST.TypeDeclaration) : Stream[AST.Interface] = t match
         {
-            if (x.parameters.isEmpty)
-                Nil
-            else
-            {
-                (x.bases flatMap {
+            case x : AST.Interface =>
+                (x.bases.toStream flatMap {
                     case s : AST.SimpleType =>
                         lookupType(s.name) match {
-                            case Some((scope_found, decl_found : AST.Interface)) =>
-                                scope_found collectParameters decl_found
+                            case Some((scope_found, decl_found)) =>
+                                scope_found nonTrivialBases decl_found
                             case None =>
                                 throw new Exception(s"Cannot find type ${s.name} in scope " + qualifiedNameAnon)
-                            case _ => Nil
                         }
-                    case _ => Nil
-                }) ++ x.parameters.get
+                    case _ => Stream.empty
+                }) #::: Stream(x)
+
+            case a : AST.Alias => a.target match {
+                case s : AST.SimpleType =>
+                    lookupType(s.name) match {
+                        case Some((scope_found, decl_found)) =>
+                            scope_found nonTrivialBases decl_found
+                        case None =>
+                            throw new Exception(s"Cannot find type ${s.name} in scope " + qualifiedNameAnon)
+                    }
+                case _ => Stream.empty
             }
         }
+
+        def collectParameters(x : AST.Interface) : List[AST.Parameter] =
+
+            nonTrivialBases(x).toList flatMap { b => if (b.parameters.nonEmpty) b.parameters.get else Nil }
 
         def desugarClasses() {
             packages.values foreach { _.desugarClasses() }
