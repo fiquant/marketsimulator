@@ -746,13 +746,6 @@ package math {
                   /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
         	 = .ops.Sub(.math.Value(x),.math.Signal(x,timeframe,step))
     
-    /** Exponentially weighted moving relative standard deviation
-     */
-    @category = "Statistics"
-    
-    def RelStdDev(x : Optional[.math.EW] = .math.EW()) : .IObservable[.Float]
-        	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
-    
     /** Cumulative relative standard deviation
      */
     @category = "Statistics"
@@ -765,6 +758,13 @@ package math {
     @category = "Statistics"
     
     def RelStdDev(x : Optional[.math.Moving] = .math.Moving()) : .IObservable[.Float]
+        	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
+    
+    /** Exponentially weighted moving relative standard deviation
+     */
+    @category = "Statistics"
+    
+    def RelStdDev(x : Optional[.math.EW] = .math.EW()) : .IObservable[.Float]
         	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
     /** Exponentially weighted moving variance

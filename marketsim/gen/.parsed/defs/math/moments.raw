@@ -81,12 +81,21 @@ Definitions:
 | | | | | | | | | | | | - Div
 | | | | | | | | | | | | - BinOp:
 | | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - x
+| | | | | | | | | | | | | | - Source
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - x
 | | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - x
 | | | | | | | | | | | | | - StdDev
+| | | | | | | | | | | | | - List:
 | | | | | | | | | | - None
 | | | | | | | | | | - Some:
 | | | | | | | | | | | - DocString:
@@ -397,45 +406,6 @@ Definitions:
 | | | | | | | | - Some:
 | | | | | | | | | - DocString:
 | | | | | | | | | | - Simple moving standard deviation
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | - FunDef:
-| | | | | | | | - RelStdDev
-| | | | | | | | - List:
-| | | | | | | | | - Parameter:
-| | | | | | | | | | - x
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | - Some:
-| | | | | | | | | - BinOp:
-| | | | | | | | | | - Div
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Source
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - x
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - x
-| | | | | | | | | | | - StdDev
-| | | | | | | | | | | - List:
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - DocString:
-| | | | | | | | | | - Exponentially weighted moving relative standard deviation
 | | | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | - FunDef:

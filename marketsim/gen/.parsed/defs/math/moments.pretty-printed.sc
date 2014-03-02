@@ -12,7 +12,7 @@ package math() {@category = "Statistics"
             // defined at defs\math\moments.sc: 13.13
             /** Exponentially weighted moving relative standard deviation
              */
-            def RelStdDev() = (source-Avg)/StdDev
+            def RelStdDev() = (x~>Source-x~>Avg)/x~>StdDev
         }
         
         @label = "Moving_{%(timeframe)s}(%(source)s)"
@@ -68,11 +68,6 @@ package math() {@category = "Statistics"
         /** Simple moving standard deviation
          */
         def StdDev(x = Moving()) = x~>Var~>Sqrt
-        
-        // defined at defs\math\moments.sc: 73.9
-        /** Exponentially weighted moving relative standard deviation
-         */
-        def RelStdDev(x = EW()) = (x~>Source-x~>Avg)/x~>StdDev
         
         // defined at defs\math\moments.sc: 78.9
         /** Cumulative relative standard deviation

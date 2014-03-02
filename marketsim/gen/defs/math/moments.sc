@@ -13,7 +13,7 @@ package math
             /**
              *  Exponentially weighted moving relative standard deviation
              */
-            def RelStdDev() = (source - Avg) / StdDev
+            def RelStdDev() = (x~>Source - x~>Avg) / x~>StdDev
         }
 
         @label = "Moving_{%(timeframe)s}(%(source)s)"
@@ -70,10 +70,10 @@ package math
          */
         def StdDev (x = Moving()) = x~>Var~>Sqrt
 
-        /**
-         *  Exponentially weighted moving relative standard deviation
-         */
-        def RelStdDev(x = EW()) = (x~>Source - x~>Avg) / x~>StdDev
+//        /**
+//         *  Exponentially weighted moving relative standard deviation
+//         */
+//        def RelStdDev(x = EW()) = (x~>Source - x~>Avg) / x~>StdDev
 
         /**
          *  Cumulative relative standard deviation

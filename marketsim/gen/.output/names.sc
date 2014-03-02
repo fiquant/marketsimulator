@@ -321,11 +321,6 @@ package math
     
     @label = "EW_{%(alpha)s}(%(source)s)"
     type EW(source = .const(0.0),alpha = 0.015) : IStatDomain
-    {
-        /** Exponentially weighted moving relative standard deviation
-         */
-        def RelStdDev() = (source-Avg)/StdDev
-    }
     
     @label = "Moving_{%(timeframe)s}(%(source)s)"
     type Moving(source = .const(0.0),timeframe = 100.0) : IStatDomain
@@ -346,11 +341,6 @@ package math
                   /** signal period */ timeframe = 9.0,
                   /** discretization step */ step = 1.0) = x~>Value-x~>Signal(timeframe,step)
     
-    /** Exponentially weighted moving relative standard deviation
-     */
-    @category = "Statistics"
-    def RelStdDev(x = .math.EW()) = (x~>Source-x~>Avg)/x~>StdDev
-    
     /** Cumulative relative standard deviation
      */
     @category = "Statistics"
@@ -360,6 +350,11 @@ package math
      */
     @category = "Statistics"
     def RelStdDev(x = .math.Moving()) = (x~>Source-x~>Avg)/x~>StdDev
+    
+    /** Exponentially weighted moving relative standard deviation
+     */
+    @category = "Statistics"
+    def RelStdDev(x = .math.EW()) = (x~>Source-x~>Avg)/x~>StdDev
     
     /** Exponentially weighted moving variance
      */

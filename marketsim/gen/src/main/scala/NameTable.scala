@@ -237,25 +237,23 @@ package object NameTable {
         def lookupScope(hasName : (Scope, String) => Boolean, qn : List[String]) : Option[Scope] =
         {
             //println(s"looking for $qn in $qualifiedNameAnon")
-            if (isAnonymous)
-                parent.get lookupScope (hasName, qn)
-            else
-                qn match {
-                    case Nil => throw new Exception("Qualified name cannot be empty")
-                    case "" :: tl =>
-                        parent match {
+
+            qn match {
+                case Nil => throw new Exception("Qualified name cannot be empty")
+                case "" :: tl =>
+                    parent match {
+                        case Some(p) => p lookupScope (hasName, qn)
+                        case None    => lookupScope(hasName, tl)
+                    }
+                case _ =>
+                    lookupInnerScopes(hasName, qn) match {
+                        case None    => parent match {
+                            case None => None
                             case Some(p) => p lookupScope (hasName, qn)
-                            case None    => lookupScope(hasName, tl)
                         }
-                    case _ =>
-                        lookupInnerScopes(hasName, qn) match {
-                            case None    => parent match {
-                                case None => None
-                                case Some(p) => p lookupScope (hasName, qn)
-                            }
-                            case x => x
-                        }
-                }
+                        case x => x
+                    }
+            }
         }
 
         def hasFunction(name : String) = functions contains name
@@ -416,6 +414,8 @@ package object NameTable {
                         lookupType(s.name) match {
                             case Some((scope_found, decl_found : AST.Interface)) =>
                                 scope_found collectParameters decl_found
+                            case None =>
+                                throw new Exception(s"Cannot find type ${s.name} in scope " + qualifiedNameAnon)
                             case _ => Nil
                         }
                     case _ => Nil
@@ -426,12 +426,30 @@ package object NameTable {
         def desugarClasses() {
             packages.values foreach { _.desugarClasses() }
 
-            types = types mapValues {
-                case t : AST.Interface if t.parameters.nonEmpty =>
-                    t.copy(parameters = Some(collectParameters(t)))
+            val r = types.values map {
+                case t : AST.Interface =>
+
+                    (t.copy(parameters = t.parameters map { ps => collectParameters(t) },
+                           members = Nil),
+
+                    t.members map { f =>
+                        f.copy(parameters =
+                            AST.Parameter(
+                                "x",
+                                None,
+                                Some(AST.FunCall(t.name :: Nil, Nil)),
+                                Nil) :: f.parameters)
+                    })
+
                 case t =>
-                    t
+                    (t, Nil)
             }
+
+            types = (r map { p => (p._1.name, p._1)}).toMap
+
+            val methods = r flatMap { _._2 }
+
+            methods foreach { add }
         }
     }
 
@@ -452,7 +470,10 @@ package object NameTable {
         try {
             p foreach { create(_, Nil, impl) }
 
-            println("\r\n\tremoving anonymous packages")
+            println("\r\n\tclass desugaring")
+            impl.desugarClasses()
+
+            println("\tremoving anonymous packages")
             impl.removeAnonymous()
 
             println("\tinjecting base packages")
@@ -460,9 +481,6 @@ package object NameTable {
 
             println("\tremoving abstract packages")
             impl.removeAbstract()
-
-            println("\tclass desugaring")
-            impl.desugarClasses()
 
             println("\tapplying before typing annotations")
             Typed.BeforeTyping(impl)
