@@ -2140,29 +2140,86 @@ package strategy {@category = "Side function"
     @category = "Volume function"
     
     package position {
-        /** Position function for desired position strategy
-         */
+        type DesiredPositionStrategy
         
-        def DesiredPosition(/** observable desired position */ desiredPosition : Optional[.IObservable[.Float]] = .const(1.0),
-                            /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .ops.Sub(.ops.Sub(desiredPosition,.trader.Position(trader)),.trader.PendingVolume(trader))
+        type Bollinger_linear : DesiredPositionStrategy
         
-        /** Position function for Relative Strength Index strategy with linear scaling
-         */
+        type RSI_linear : DesiredPositionStrategy
+        @category = "-"
         
+        @python.accessor()
+        def Timeframe(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .Float
+        
+        @category = "-"
+        
+        @python.constructor()
         def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha : Optional[.Float] = 1.0/14.0,
                        /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
                        /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0,
-                       /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.ops.Sub(.constant(50.0),.observable.OnEveryDt(.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader(trader)),timeframe,alpha)),1.0)),k),trader)
+                       /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .strategy.position.RSI_linear
         
-        /** Position function for Bollinger bands strategy with linear scaling
-         */
+        @category = "-"
         
+        @python.accessor()
+        def Trader(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .ISingleAssetTrader
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Trader(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear()) : .ISingleAssetTrader
+        
+        
+        def DesiredPosition(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .IObservable[.Float]
+            	 = .ops.Mul(.ops.Sub(.constant(50.0),.observable.OnEveryDt(.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader(.strategy.position.Trader(x))),.strategy.position.Timeframe(x),.strategy.position.Alpha(x))),1.0)),.strategy.position.K(x))
+        
+        
+        def DesiredPosition(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear()) : .IObservable[.Float]
+            	 = .ops.Mul(.observable.OnEveryDt(.math.RelStdDev(.math.EW(.orderbook.MidPrice(.orderbook.OfTrader(.strategy.position.Trader(x))),.strategy.position.Alpha(x))),1.0),.strategy.position.K(x))
+        
+        
+        def Position(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .IObservable[.Float]
+            	 = .ops.Sub(.ops.Sub(.strategy.position.DesiredPosition(x),.trader.Position(.strategy.position.Trader(x))),.trader.PendingVolume(.strategy.position.Trader(x)))
+        
+        
+        def Position(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear()) : .IObservable[.Float]
+            	 = .ops.Sub(.ops.Sub(.strategy.position.DesiredPosition(x),.trader.Position(.strategy.position.Trader(x))),.trader.PendingVolume(.strategy.position.Trader(x)))
+        
+        
+        def Strategy(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear(),
+                     /** order factory function */ orderFactory : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.signedVolume_MarketSigned()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.position.Position(x)))
+        
+        
+        def Strategy(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear(),
+                     /** order factory function */ orderFactory : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.signedVolume_MarketSigned()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.position.Position(x)))
+        
+        @category = "-"
+        
+        @python.accessor()
+        def K(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .IObservable[.Float]
+        
+        @category = "-"
+        
+        @python.accessor()
+        def K(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear()) : .IObservable[.Float]
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha(x : Optional[.strategy.position.RSI_linear] = .strategy.position.RSI_linear()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha(x : Optional[.strategy.position.Bollinger_linear] = .strategy.position.Bollinger_linear()) : .Float
+        
+        @category = "-"
+        
+        @python.constructor()
         def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
                              /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
-                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .IObservable[.Float]
-            	 = .strategy.position.DesiredPosition(.ops.Mul(.observable.OnEveryDt(.math.RelStdDev(.math.EW(.orderbook.MidPrice(.orderbook.OfTrader(trader)),alpha)),1.0),k),trader)
+                             /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .strategy.position.Bollinger_linear
     }
     
     
@@ -2218,15 +2275,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                 B : Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .ISingleAssetStrategy
-    
-    /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
-     */
-    
-    def RSI_linear(/** order factory function */ orderFactory : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.signedVolume_MarketSigned(),
-                   /** alpha parameter for exponentially moving averages of up movements and down movements */ alpha : Optional[.Float] = 1.0/14,
-                   /** observable scaling function that maps RSI deviation from 50 to the desired position */ k : Optional[.IObservable[.Float]] = .const(-0.04),
-                   /** lag for calculating up and down movements */ timeframe : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe)))
     
     @category = "-"
     
@@ -2412,14 +2460,6 @@ package strategy {@category = "Side function"
     @python.constructor()
     def MarketMaker(delta : Optional[.Float] = 1.0,
                     volume : Optional[.Float] = 20.0) : .strategy.MarketMaker
-    
-    /** Strategy believing that trader position should be proportional to the relative standard deviation of its price
-     */
-    
-    def Bollinger_linear(/** order factory function */ orderFactory : Optional[(() => .Float) => .IObservable[.IOrder]] = .order._curried.signedVolume_MarketSigned(),
-                         /** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
-                         /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5)) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.position.Bollinger_linear(alpha,k)))
 }
 
 @category = "Trader"

@@ -9,99 +9,121 @@ Definitions:
 | | - List:
 | | - Definitions:
 | | | - List:
-| | | | - FunDef:
-| | | | | - DesiredPosition
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - desiredPosition
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | | | -  observable desired position 
-| | | | | | - Parameter:
-| | | | | | | - trader
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  trader in question 
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Sub
-| | | | | | | - BinOp:
-| | | | | | | | - Sub
-| | | | | | | | - Var:
-| | | | | | | | | - desiredPosition
-| | | | | | | | - MemberAccess:
-| | | | | | | | | - Var:
-| | | | | | | | | | - trader
-| | | | | | | | | - Position
-| | | | | | | | | - List:
-| | | | | | | - MemberAccess:
-| | | | | | | | - Var:
-| | | | | | | | | - trader
-| | | | | | | | - PendingVolume
-| | | | | | | | - List:
+| | | | - Interface:
+| | | | | - DesiredPositionStrategy
+| | | | | - Generics:
+| | | | | | - List:
 | | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Position function for desired position strategy
-| | | | | | | - List:
 | | | | | - List:
-| | | | - FunDef:
-| | | | | - Bollinger_linear
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.15
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Position
 | | | | | | | - List:
-| | | | | | | | -  alpha parameter for exponentially weighted moving everage and variance 
-| | | | | | - Parameter:
-| | | | | | | - k
-| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.5
-| | | | | | | - List:
-| | | | | | | | -  observable scaling function that maps relative deviation to desired position 
-| | | | | | - Parameter:
-| | | | | | | - trader
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Sub
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - DesiredPosition
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | - Position
+| | | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - Var:
 | | | | | | | | | | | - trader
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
+| | | | | | | | | | - PendingVolume
+| | | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
 | | | | | | | - List:
-| | | | | | | | -  trader in question 
+| | | | | | - FunDef:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - signedVolume
+| | | | | | | | | | | | | - MarketSigned
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function 
+| | | | | | | - Some:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderFactory
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - Position
+| | | | | | | | | - Strategy
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - true
+| | | | - Interface:
+| | | | | - Bollinger_linear
+| | | | | - Generics:
+| | | | | | - List:
 | | | | | - Some:
-| | | | | | - FunCall:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.15
+| | | | | | | | - List:
+| | | | | | | | | -  alpha parameter for exponentially weighted moving everage and variance 
+| | | | | | | - Parameter:
+| | | | | | | | - k
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.5
+| | | | | | | | - List:
+| | | | | | | | | -  observable scaling function that maps relative deviation to desired position 
+| | | | | | | - Parameter:
+| | | | | | | | - trader
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  trader in question 
+| | | | | - List:
+| | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - DesiredPosition
+| | | | | | | | | - DesiredPositionStrategy
 | | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - DesiredPosition
+| | | | | | | - List:
+| | | | | | | - Some:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Mul
 | | | | | | | | | - MemberAccess:
@@ -127,68 +149,75 @@ Definitions:
 | | | | | | | | | | | | - 1.0
 | | | | | | | | | - Var:
 | | | | | | | | | | - k
-| | | | | | | | - Var:
-| | | | | | | | | - trader
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Position function for Bollinger bands strategy with linear scaling
-| | | | | | | - List:
-| | | | | - List:
-| | | | - FunDef:
-| | | | | - RSI_linear
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
 | | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Div
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - false
+| | | | - Interface:
+| | | | | - RSI_linear
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - BinOp:
+| | | | | | | | | | - Div
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 1.0
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 14.0
+| | | | | | | | - List:
+| | | | | | | | | -  alpha parameter for exponentially moving averages of up movements and down movements 
+| | | | | | | - Parameter:
+| | | | | | | | - k
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - const
+| | | | | | | | | | - List:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - -0.04
+| | | | | | | | - List:
+| | | | | | | | | -  observable scaling function that maps RSI deviation from 50 to the desired position 
+| | | | | | | - Parameter:
+| | | | | | | | - timeframe
+| | | | | | | | - None
+| | | | | | | | - Some:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 1.0
-| | | | | | | | | - FloatLit:
-| | | | | | | | | | - 14.0
-| | | | | | | - List:
-| | | | | | | | -  alpha parameter for exponentially moving averages of up movements and down movements 
-| | | | | | - Parameter:
-| | | | | | | - k
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | -  lag for calculating up and down movements 
+| | | | | | | - Parameter:
+| | | | | | | | - trader
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - trader
+| | | | | | | | | | | | - SingleProxy
 | | | | | | | | | | - List:
-| | | | | | | | | | | - const
-| | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - -0.04
-| | | | | | | - List:
-| | | | | | | | -  observable scaling function that maps RSI deviation from 50 to the desired position 
-| | | | | | - Parameter:
-| | | | | | | - timeframe
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | | | -  lag for calculating up and down movements 
-| | | | | | - Parameter:
-| | | | | | | - trader
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - trader
-| | | | | | | | | | | - SingleProxy
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  trader in question 
-| | | | | - Some:
-| | | | | | - FunCall:
+| | | | | | | | - List:
+| | | | | | | | | -  trader in question 
+| | | | | - List:
+| | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - DesiredPosition
+| | | | | | | | | - DesiredPositionStrategy
 | | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - DesiredPosition
+| | | | | | | - List:
+| | | | | | | - Some:
 | | | | | | | | - BinOp:
 | | | | | | | | | - Mul
 | | | | | | | | | - BinOp:
@@ -220,14 +249,10 @@ Definitions:
 | | | | | | | | | | | | | - 1.0
 | | | | | | | | | - Var:
 | | | | | | | | | | - k
-| | | | | | | | - Var:
-| | | | | | | | | - trader
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Position function for Relative Strength Index strategy with linear scaling
+| | | | | | | - None
+| | | | | | | - None
 | | | | | | | - List:
-| | | | | - List:
+| | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category

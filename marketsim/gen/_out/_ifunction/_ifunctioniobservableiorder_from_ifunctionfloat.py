@@ -11,10 +11,6 @@ class IFunctionIObservableIOrder_from_IFunctionfloat(object):
     _types.append(IFunctionobject_from_IFunctionfloat)
     _types.append(IFunctionIFunctionIOrder_from_IFunctionfloat)
     _types.append(IFunctionIEvent_from_IFunctionfloat)
-    def RSI_linear(self, alpha = None,k = None,timeframe = None):
-        from marketsim.gen._out.strategy._rsi_linear import RSI_linear
-        return RSI_linear(self,alpha,k,timeframe)
-    
     def price_Iceberg(self, lotSize = None):
         from marketsim.gen._out.order._curried._price_iceberg import price_Iceberg
         return price_Iceberg(self,lotSize)
@@ -49,10 +45,6 @@ class IFunctionIObservableIOrder_from_IFunctionfloat(object):
     def Peg(self):
         from marketsim.gen._out.order._peg import Peg
         return Peg(self)
-    
-    def Bollinger_linear(self, alpha = None,k = None):
-        from marketsim.gen._out.strategy._bollinger_linear import Bollinger_linear
-        return Bollinger_linear(self,alpha,k)
     
     pass
 

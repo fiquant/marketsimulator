@@ -1,7 +1,5 @@
 from marketsim.gen._out.strategy._combine import Combine
 
-from marketsim.gen._out.strategy._rsi_linear import RSI_linear
-
 from marketsim.gen._out.strategy._delta import Delta
 
 from marketsim.gen._out.strategy._choosethebest import ChooseTheBest
@@ -41,8 +39,6 @@ from marketsim.gen._out.strategy._ticker import Ticker
 from marketsim.gen._out.strategy._generic import Generic
 
 from marketsim.gen._out.strategy._marketmaker import MarketMaker
-
-from marketsim.gen._out.strategy._bollinger_linear import Bollinger_linear
 
 import side
 import weight

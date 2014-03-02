@@ -1,0 +1,2 @@
+class DesiredPositionStrategy(object):
+    pass

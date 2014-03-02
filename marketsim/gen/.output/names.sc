@@ -1323,23 +1323,25 @@ package strategy
     @category = "Volume function"
     package position
     {
-        /** Position function for desired position strategy
-         */
-        def DesiredPosition(/** observable desired position */ desiredPosition = .const(1.0),
-                            /** trader in question */ trader = .trader.SingleProxy()) = desiredPosition-trader~>Position-trader~>PendingVolume
+        abstract type DesiredPositionStrategy
         
-        /** Position function for Bollinger bands strategy with linear scaling
-         */
-        def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
-                             /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),
-                             /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition(trader~>Orderbook~>MidPrice~>EW(alpha)~>RelStdDev~>OnEveryDt(1.0)*k,trader)
+        type Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,/** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),/** trader in question */ trader = .trader.SingleProxy()) : DesiredPositionStrategy
         
-        /** Position function for Relative Strength Index strategy with linear scaling
-         */
-        def RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,
-                       /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
-                       /** lag for calculating up and down movements */ timeframe = 1.0,
-                       /** trader in question */ trader = .trader.SingleProxy()) = .strategy.position.DesiredPosition((50.0-trader~>Orderbook~>MidPrice~>RSI(timeframe,alpha)~>Value~>OnEveryDt(1.0))*k,trader)
+        type RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,/** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),/** lag for calculating up and down movements */ timeframe = 1.0,/** trader in question */ trader = .trader.SingleProxy()) : DesiredPositionStrategy
+        
+        def Position(x = .strategy.position.RSI_linear()) = x~>DesiredPosition-x~>Trader~>Position-x~>Trader~>PendingVolume
+        
+        def Position(x = .strategy.position.Bollinger_linear()) = x~>DesiredPosition-x~>Trader~>Position-x~>Trader~>PendingVolume
+        
+        def Strategy(x = .strategy.position.RSI_linear(),
+                     /** order factory function */ orderFactory = .order.signedVolume.MarketSigned()) = orderFactory(x~>Position)~>Strategy
+        
+        def Strategy(x = .strategy.position.Bollinger_linear(),
+                     /** order factory function */ orderFactory = .order.signedVolume.MarketSigned()) = orderFactory(x~>Position)~>Strategy
+        
+        def DesiredPosition(x = .strategy.position.RSI_linear()) = (50.0-x~>Trader~>Orderbook~>MidPrice~>RSI(x~>Timeframe,x~>Alpha)~>Value~>OnEveryDt(1.0))*x~>K
+        
+        def DesiredPosition(x = .strategy.position.Bollinger_linear()) = x~>Trader~>Orderbook~>MidPrice~>EW(x~>Alpha)~>RelStdDev~>OnEveryDt(1.0)*x~>K
         
     }
     
@@ -1395,13 +1397,6 @@ package strategy
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A = .strategy.Empty(),
                 B = .strategy.Empty()) : .ISingleAssetStrategy
-    
-    /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
-     */
-    def RSI_linear(/** order factory function */ orderFactory = .order.signedVolume.MarketSigned(),
-                   /** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14,
-                   /** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),
-                   /** lag for calculating up and down movements */ timeframe = 1.0) = orderFactory(.strategy.position.RSI_linear(alpha,k,timeframe))~>Strategy
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
@@ -1503,12 +1498,6 @@ package strategy
     @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
-    
-    /** Strategy believing that trader position should be proportional to the relative standard deviation of its price
-     */
-    def Bollinger_linear(/** order factory function */ orderFactory = .order.signedVolume.MarketSigned(),
-                         /** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,
-                         /** observable scaling function that maps relative deviation to desired position */ k = .const(0.5)) = orderFactory(.strategy.position.Bollinger_linear(alpha,k))~>Strategy
     
 }
 

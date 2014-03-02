@@ -258,7 +258,7 @@ def orderBooksToRender(ctx, traders):
                                   5]:
                     ts.append(
                         TimeSerie(
-                            thisBook.RSI(timeframe, 1./14).Value.OnEveryDt(1),
+                            thisBook.MidPrice.RSI(timeframe, 1./14).Value.OnEveryDt(1),
                             b.rsi_graph))
 
         return books
@@ -273,10 +273,10 @@ def run(name, constructor, only_veusz):
 
         if config.useMinorTraders:
             traders.extend([
-                ctx.makeMinorTrader(strategy.RSI_linear(k = const(0.07)), "RSI 0.07"),
-                ctx.makeMinorTrader(strategy.RSI_linear(k = const(-0.07)), "RSI -0.07"),
-                ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(-0.5)), "Bollinger -0.5"),
-                ctx.makeMinorTrader(strategy.Bollinger_linear(alpha=0.15, k = const(+0.5)), "Bollinger +0.5"),
+                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(0.07)).Strategy(), "RSI 0.07"),
+                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(-0.07)).Strategy(), "RSI -0.07"),
+                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(-0.5)).Strategy(), "Bollinger -0.5"),
+                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(+0.5)).Strategy(), "Bollinger +0.5"),
             ])
         
         books = orderBooksToRender(ctx, traders)
