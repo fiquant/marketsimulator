@@ -4,6 +4,17 @@ package math
     package {
 
         abstract type IStatDomain(source = .const(0.))
+        {
+            /**
+             *  Standard deviation
+             */
+            def StdDev = Var~>Sqrt
+
+            /**
+             *  Relative standard deviation
+             */
+            def RelStdDev = (source - Avg) / StdDev
+        }
 
         type Cumulative() : IStatDomain
         {
@@ -18,16 +29,6 @@ package math
              */
             @python.intrinsic("moments.cmv.Variance_Impl")
             def Var => Float
-
-            /**
-             *  Cumulative standard deviation
-             */
-            def StdDev = Var~>Sqrt
-
-            /**
-             *  Cumulative relative standard deviation
-             */
-            def RelStdDev = (source - Avg) / StdDev
         }
 
         @label = "EW_{%(alpha)s}(%(source)s)"
@@ -44,16 +45,6 @@ package math
              */
             @python.intrinsic("moments.ewmv.EWMV_Impl")
             def Var => Float
-
-            /**
-             *  Exponentially weighted moving standard deviation
-             */
-            def StdDev = Var~>Sqrt
-
-            /**
-             *  Exponentially weighted moving relative standard deviation
-             */
-            def RelStdDev = (source - Avg) / StdDev
         }
 
         @label = "Moving_{%(timeframe)s}(%(source)s)"
@@ -70,16 +61,6 @@ package math
              */
             @python.intrinsic("moments.mv.MV_Impl")
             def Var => Float
-
-            /**
-             *  Simple moving standard deviation
-             */
-            def StdDev = Var~>Sqrt
-
-            /**
-             *  Simple moving relative standard deviation
-             */
-            def RelStdDev = (source - Avg) / StdDev
         }
     }
 }

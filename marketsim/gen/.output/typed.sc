@@ -741,21 +741,21 @@ package math {
                   /** discretization step */ step : Optional[.Float] = 1.0) : () => .Float
         	 = .ops.Sub(.math.Value(x),.math.Signal(x,timeframe,step))
     
-    /** Cumulative relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     
     def RelStdDev(x : Optional[.math.Cumulative] = .math.Cumulative()) : .IObservable[.Float]
         	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
-    /** Exponentially weighted moving relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     
     def RelStdDev(x : Optional[.math.EW] = .math.EW()) : .IObservable[.Float]
         	 = .ops.Div(.ops.Sub(.math.Source(x),.math.Avg(x)),.math.StdDev(x))
     
-    /** Simple moving relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     
@@ -1035,21 +1035,21 @@ package math {
     def MaxEpsilon(x : Optional[.math.Cumulative] = .math.Cumulative(),
                    epsilon : Optional[() => .Float] = .constant(0.01)) : .IObservable[.Float]
     
-    /** Cumulative standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     
     def StdDev(x : Optional[.math.Cumulative] = .math.Cumulative()) : () => .Float
         	 = .math.Sqrt(.math.Var(x))
     
-    /** Exponentially weighted moving standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     
     def StdDev(x : Optional[.math.EW] = .math.EW()) : () => .Float
         	 = .math.Sqrt(.math.Var(x))
     
-    /** Simple moving standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     

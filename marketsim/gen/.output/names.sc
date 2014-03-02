@@ -341,17 +341,17 @@ package math
                   /** signal period */ timeframe = 9.0,
                   /** discretization step */ step = 1.0) = x~>Value-x~>Signal(timeframe,step)
     
-    /** Cumulative relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     def RelStdDev(x = .math.Cumulative()) = (x~>Source-x~>Avg)/x~>StdDev
     
-    /** Exponentially weighted moving relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     def RelStdDev(x = .math.EW()) = (x~>Source-x~>Avg)/x~>StdDev
     
-    /** Simple moving relative standard deviation
+    /** Relative standard deviation
      */
     @category = "Statistics"
     def RelStdDev(x = .math.Moving()) = (x~>Source-x~>Avg)/x~>StdDev
@@ -512,17 +512,17 @@ package math
     def MaxEpsilon(x = .math.Cumulative(),
                    epsilon = .constant(0.01)) : .IObservable[.Float]
     
-    /** Cumulative standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     def StdDev(x = .math.Cumulative()) = x~>Var~>Sqrt
     
-    /** Exponentially weighted moving standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     def StdDev(x = .math.EW()) = x~>Var~>Sqrt
     
-    /** Simple moving standard deviation
+    /** Standard deviation
      */
     @category = "Statistics"
     def StdDev(x = .math.Moving()) = x~>Var~>Sqrt

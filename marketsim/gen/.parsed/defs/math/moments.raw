@@ -35,6 +35,41 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - StdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Var
+| | | | | | | | | | | | - Sqrt
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - FunDef:
+| | | | | | | | | | - RelStdDev
+| | | | | | | | | | - List:
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Div
+| | | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | | - Sub
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - source
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - StdDev
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - DocString:
+| | | | | | | | | | | | - Relative standard deviation
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
 | | | | | | | | - true
 | | | | | | | - Interface:
 | | | | | | | | - Cumulative
@@ -96,41 +131,6 @@ Definitions:
 | | | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - moments.cmv.Variance_Impl
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - StdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Cumulative standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - RelStdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Div
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Cumulative relative standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - Interface:
 | | | | | | | | - EW
@@ -202,41 +202,6 @@ Definitions:
 | | | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - moments.ewmv.EWMV_Impl
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - StdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Exponentially weighted moving standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - RelStdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Div
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Exponentially weighted moving relative standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | | | - Interface:
 | | | | | | | | - Moving
@@ -308,41 +273,6 @@ Definitions:
 | | | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - List:
 | | | | | | | | | | | | | - moments.mv.MV_Impl
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - StdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - Var
-| | | | | | | | | | | | - Sqrt
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Simple moving standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
-| | | | | | | | | - FunDef:
-| | | | | | | | | | - RelStdDev
-| | | | | | | | | | - List:
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Div
-| | | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | | - Sub
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - source
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - StdDev
-| | | | | | | | | | - None
-| | | | | | | | | | - Some:
-| | | | | | | | | | | - DocString:
-| | | | | | | | | | | | - Simple moving relative standard deviation
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - List:
 | | | | | | | | - false
 | | | | | - List:
 | | | | | | - Attribute:

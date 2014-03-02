@@ -429,9 +429,17 @@ package object NameTable {
             }
         }
 
-        def collectParameters(x : AST.Interface) : List[AST.Parameter] =
+        def collectParameters(x : AST.Interface)  =
 
             nonTrivialBases(x).toList flatMap { b => if (b.parameters.nonEmpty) b.parameters.get else Nil }
+
+        def collectMethods(x : AST.Interface) =
+
+            nonTrivialBases(x).toList.foldLeft(Map.empty[String, AST.FunDef]) {
+                case (methods, base) =>
+                    base.members.foldLeft(methods) { case (acc, m) => acc updated (m.name, m) }
+            }
+
 
         def desugarClasses() {
             packages.values foreach { _.desugarClasses() }
@@ -441,7 +449,7 @@ package object NameTable {
 
                     val parameters = collectParameters(t)
 
-                    val methods = t.members map { _.name } // later we should consider also names in base classes
+                    val methods = collectMethods(t)
 
                     def translateName(names : List[String]) = names match {
                         case n :: Nil =>
@@ -494,7 +502,7 @@ package object NameTable {
                     if (t.`abstract`)
                         Nil
                     else
-                        t.members map { f =>
+                        methods.values map { f =>
                             f.copy(parameters =
                                 AST.Parameter(
                                     "x",
