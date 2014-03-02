@@ -472,6 +472,12 @@ package object NameTable {
                         case AST.Condition(c, x, y) => AST.Condition(c, handleMethodCalls(x), handleMethodCalls(y))
                     }
 
+                    def mergeAttributes(from : List[AST.Decorator], to : List[AST.Decorator]) = {
+                        val dst_attrs = (to collect { case a : AST.Attribute => a.name }).toSet[String]
+
+                        (from collect { case a : AST.Attribute if !(dst_attrs contains a.name) => a }) ++ to
+                    }
+
                     (t.copy(parameters = t.parameters map { ps => parameters },
                            members = Nil),
 

@@ -61,28 +61,31 @@ package strategy
                     delta = 1.,
                     /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */
                     volume = 1000.)
+    {
+        def OneSide(side = side.Sell(), sign = 1.)
 
-    def OneSide(x = MarketData(), side = side.Sell(), sign = 1.)
+            = order.price.Limit(side, volume*1000)
+                ~>FloatingPrice((ticker~>Quote(start, end) + delta*sign)~>BreaksAtChanges)
+                ~>Iceberg(volume)
+                ~>Strategy(event.After(0.))
 
-        = order.price.Limit(side, x~>Volume*1000)
-            ~>FloatingPrice((x~>Ticker~>Quote(x~>Start, x~>End) + x~>Delta*sign)~>BreaksAtChanges)
-            ~>Iceberg(x~>Volume)
-            ~>Strategy(event.After(0.))
-
-    def TwoSides(x = MarketData()) = Combine(x~>OneSide(side.Sell(), 1.), x~>OneSide(side.Buy(), -1.))
+        def TwoSides = Combine(OneSide(side.Sell(), 1.), OneSide(side.Buy(), -1.))
+    }
 
     type MarketMaker(delta = 1., volume = 20.)
+    {
+        def OneSide(side = side.Sell(), sign = 1.) =
 
-    def OneSide(x = MarketMaker(), side = side.Sell(), sign = 1.) =
+            order.price.Limit(side, volume*1000)
+                ~>FloatingPrice(
+                    (orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100 + delta*sign) / (trader.Position()~>Atan / 1000)~>Exp)
+                        ~>OnEveryDt(0.9)~>BreaksAtChanges)
+                ~>Iceberg(volume)
+                ~>Strategy(event.After(0.))
 
-        order.price.Limit(side, x~>Volume*1000)
-            ~>FloatingPrice(
-                (orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100 + x~>Delta*sign) / (trader.Position()~>Atan / 1000)~>Exp)
-                    ~>OnEveryDt(0.9)~>BreaksAtChanges)
-            ~>Iceberg(x~>Volume)
-            ~>Strategy(event.After(0.))
+        def TwoSides = Combine(OneSide(side.Sell(), 1.), OneSide(side.Buy(), -1.))
+    }
 
-    def TwoSides(x = MarketMaker()) = Combine(x~>OneSide(side.Sell(), 1.), x~>OneSide(side.Buy(), -1.))
 
 
 }

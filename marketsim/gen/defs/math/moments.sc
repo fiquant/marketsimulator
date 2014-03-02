@@ -11,23 +11,23 @@ package math
              *  Cumulative average
              */
             @python.intrinsic("moments.cma.CMA_Impl")
-            def Avg () : IDifferentiable
+            def Avg : IDifferentiable
 
             /**
              *  Cumulative variance
              */
             @python.intrinsic("moments.cmv.Variance_Impl")
-            def Var () => Float
+            def Var => Float
 
             /**
              *  Cumulative standard deviation
              */
-            def StdDev () = Var~>Sqrt
+            def StdDev = Var~>Sqrt
 
             /**
              *  Cumulative relative standard deviation
              */
-            def RelStdDev() = (source - Avg) / StdDev
+            def RelStdDev = (source - Avg) / StdDev
         }
 
         @label = "EW_{%(alpha)s}(%(source)s)"
@@ -37,23 +37,23 @@ package math
              *  Exponentially weighted moving average
              */
             @python.intrinsic("moments.ewma.EWMA_Impl")
-            def Avg() : IDifferentiable
+            def Avg : IDifferentiable
 
             /**
              *  Exponentially weighted moving variance
              */
             @python.intrinsic("moments.ewmv.EWMV_Impl")
-            def Var() => Float
+            def Var => Float
 
             /**
              *  Exponentially weighted moving standard deviation
              */
-            def StdDev() = Var~>Sqrt
+            def StdDev = Var~>Sqrt
 
             /**
              *  Exponentially weighted moving relative standard deviation
              */
-            def RelStdDev() = (source - Avg) / StdDev
+            def RelStdDev = (source - Avg) / StdDev
         }
 
         @label = "Moving_{%(timeframe)s}(%(source)s)"
@@ -63,23 +63,23 @@ package math
              *  Simple moving average
              */
             @python.intrinsic("moments.ma.MA_Impl")
-            def Avg () : IDifferentiable
+            def Avg : IDifferentiable
 
             /**
              *  Simple moving variance
              */
             @python.intrinsic("moments.mv.MV_Impl")
-            def Var () => Float
+            def Var => Float
 
             /**
              *  Simple moving standard deviation
              */
-            def StdDev () = Var~>Sqrt
+            def StdDev = Var~>Sqrt
 
             /**
              *  Simple moving relative standard deviation
              */
-            def RelStdDev() = (source - Avg) / StdDev
+            def RelStdDev = (source - Avg) / StdDev
         }
     }
 }
