@@ -3,7 +3,7 @@ package math
     @category = "Statistics"
     package {
 
-        type IStatDomain(source = .const(0.))
+        abstract type IStatDomain(source = .const(0.))
 
         type Cumulative() : IStatDomain
         {

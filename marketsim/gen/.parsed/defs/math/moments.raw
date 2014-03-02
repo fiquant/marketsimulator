@@ -35,6 +35,7 @@ Definitions:
 | | | | | | | | - List:
 | | | | | | | | - List:
 | | | | | | | | - List:
+| | | | | | | | - true
 | | | | | | | - Interface:
 | | | | | | | | - Cumulative
 | | | | | | | | - Generics:
@@ -130,6 +131,7 @@ Definitions:
 | | | | | | | | | | | | - Cumulative relative standard deviation
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - Interface:
 | | | | | | | | - EW
 | | | | | | | | - Generics:
@@ -235,6 +237,7 @@ Definitions:
 | | | | | | | | | | | | - Exponentially weighted moving relative standard deviation
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | | | - Interface:
 | | | | | | | | - Moving
 | | | | | | | | - Generics:
@@ -340,6 +343,7 @@ Definitions:
 | | | | | | | | | | | | - Simple moving relative standard deviation
 | | | | | | | | | | | | - List:
 | | | | | | | | | | - List:
+| | | | | | | | - false
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - category

@@ -130,7 +130,8 @@ package object AST {
                          parameters : Option[List[Parameter]],
                          bases      : List[Type],
                          decorators : List[Decorator],
-                         members    : List[FunDef])
+                         members    : List[FunDef],
+                        `abstract`  : Boolean)
             extends TypeDeclaration
             with    pp.TypeDeclaration
             with    ScPrintable

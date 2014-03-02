@@ -188,9 +188,11 @@ package object Printer
             def parameters : Option[List[Parameter]]
             val bases : List[Any]
             val members : List[Any]
+            val `abstract` : Boolean
 
             protected def toScala = crlf +
                     (decorators map {_ + crlf} mkString "") +
+                    (if (`abstract`) "abstract " else "") +
                     "type " + name + generics +
                     (if (parameters.isEmpty) "" else parameters.get mkString ("(",",",")")) +
                     (if (bases.isEmpty) "" else " : " + bases.mkString(", ")) +

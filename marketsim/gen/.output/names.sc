@@ -312,7 +312,7 @@ package math
         
     }
     
-    type IStatDomain(source = .const(0.0))
+    abstract type IStatDomain(source = .const(0.0))
     
     type Cumulative(source = .const(0.0)) : IStatDomain
     
