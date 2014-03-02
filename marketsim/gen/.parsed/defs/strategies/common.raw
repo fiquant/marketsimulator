@@ -68,7 +68,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
@@ -78,7 +78,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | - None
@@ -113,7 +113,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | | | - Empty
 | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategies to combine 

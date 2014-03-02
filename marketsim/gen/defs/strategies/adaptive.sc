@@ -6,7 +6,7 @@ package strategy
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(
         /** wrapped strategy */
-        inner       = Noise(),
+        inner       = Empty(),
         /** predicate to evaluate */
         predicate   = true()) : ISingleAssetStrategy
 
@@ -15,7 +15,7 @@ package strategy
      */
     def TradeIfProfitable(
                 /** wrapped strategy */
-                inner       = Noise(),
+                inner       = Empty(),
                 /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                   * used in order to estimate how the strategy would have traded if all her orders appear at market */
                 account     = account.virtualMarket(),
@@ -35,7 +35,7 @@ package strategy
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(
             /** original strategies that can be suspended */
-            strategies = [Noise()],
+            strategies = [Empty()],
             /** function creating a virtual account used for estimate efficiency of the strategy itself */
             account    = account.virtualMarket(),
             /** function estimating is the strategy efficient or not */
@@ -56,7 +56,7 @@ package strategy
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
     def ChooseTheBest(
             /** original strategies that can be suspended */
-            strategies = [Noise()],
+            strategies = [Empty()],
             /** function creating phantom strategy used for efficiency estimation */
             account    = account.virtualMarket(),
             /** function estimating is the strategy efficient or not */

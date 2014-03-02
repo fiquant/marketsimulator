@@ -1,9 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim import context
-@registry.expose(["Side function", "Noise"])
-class Noise_Float(IFunctionSide):
+@registry.expose(["-", "Noise"])
+class Noise_Float(SideStrategy):
     """ 
     """ 
     def __init__(self, side_distribution = None):
@@ -12,7 +11,6 @@ class Noise_Float(IFunctionSide):
         from marketsim import rtti
         self.side_distribution = side_distribution if side_distribution is not None else deref_opt(_math_random_uniform_FloatFloat(0.0,1.0))
         rtti.check_fields(self)
-        self.impl = self.getImpl()
     
     @property
     def label(self):
@@ -24,36 +22,20 @@ class Noise_Float(IFunctionSide):
     def __repr__(self):
         return "Noise(%(side_distribution)s)" % self.__dict__
     
-    def bind(self, ctx):
-        self._ctx = ctx.clone()
+
+    @property
+    def Side_distribution(self):
+        from marketsim.gen._out.strategy.side._side_distribution import Side_distribution
+        return Side_distribution(self)
     
-    _internals = ['impl']
-    def __call__(self, *args, **kwargs):
-        return self.impl()
+    def Strategy(self, eventGen = None,orderFactory = None):
+        from marketsim.gen._out.strategy.side._strategy import Strategy
+        return Strategy(self,eventGen,orderFactory)
     
-    def reset(self):
-        self.impl = self.getImpl()
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+    @property
+    def Side(self):
+        from marketsim.gen._out.strategy.side._side import Side
+        return Side(self)
     
-    def getImpl(self):
-        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
-        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(self.side_distribution,deref_opt(_constant_Float(0.5)))),deref_opt(_side_Sell_()),deref_opt(_side_Buy_())))
-    
-    def __getattr__(self, name):
-        if name[0:2] != '__' and self.impl:
-            return getattr(self.impl, name)
-        else:
-            raise AttributeError
-    
-def Noise(side_distribution = None): 
-    from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-    from marketsim import rtti
-    if side_distribution is None or rtti.can_be_casted(side_distribution, IFunctionfloat):
-        return Noise_Float(side_distribution)
-    raise Exception('Cannot find suitable overload for Noise('+str(side_distribution) +':'+ str(type(side_distribution))+')')
+    pass
+Noise = Noise_Float

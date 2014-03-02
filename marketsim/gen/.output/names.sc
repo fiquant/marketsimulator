@@ -1115,21 +1115,11 @@ package strategy
         
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.015,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
         
-        /** Side function for mean reversion strategy
-         */
-        def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
+        type Noise(side_distribution = math.random.uniform(0.0,1.0)) : SideStrategy
         
-        def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
-        
-        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)~>S_Side
-        
-        def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)~>S_Side
-        
-        def Side(x = .strategy.side.Signal()) = x~>S_Side
-        
-        /** Side function for pair trading strategy
-         */
-        def Side(x = .strategy.side.PairTrading()) = .strategy.side.FundamentalValue(x~>BookToDependOn~>MidPrice*x~>Factor,x~>Book)~>FV_Side
+        def Strategy(x = .strategy.side.Noise(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
         def Strategy(x = .strategy.side.MeanReversion(),
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
@@ -1155,15 +1145,29 @@ package strategy
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
+        def Side(x = .strategy.side.Noise()) = if x~>Side_distribution>0.5 then .side.Sell() else .side.Buy()
+        
+        /** Side function for mean reversion strategy
+         */
+        def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
+        
+        def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
+        
+        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)~>S_Side
+        
+        def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)~>S_Side
+        
+        def Side(x = .strategy.side.Signal()) = x~>S_Side
+        
+        /** Side function for pair trading strategy
+         */
+        def Side(x = .strategy.side.PairTrading()) = .strategy.side.FundamentalValue(x~>BookToDependOn~>MidPrice*x~>Factor,x~>Book)~>FV_Side
+        
+        def S_Side(x = .strategy.side.Signal()) = if x~>Source>x~>Threshold then .side.Buy() else if x~>Source<0-x~>Threshold then .side.Sell() else .side.Nothing()
+        
         /** Side function for fundamental value strategy
          */
         def FV_Side(x = .strategy.side.FundamentalValue()) = if x~>Book~>Bids~>BestPrice>x~>Fv then .side.Sell() else if x~>Book~>Asks~>BestPrice<x~>Fv then .side.Buy() else .side.Nothing()
-        
-        /** Side function for a noise trading strategy
-         */
-        def Noise(side_distribution = .math.random.uniform(0.0,1.0)) = if side_distribution>0.5 then .side.Sell() else .side.Buy()
-        
-        def S_Side(x = .strategy.side.Signal()) = if x~>Source>x~>Threshold then .side.Buy() else if x~>Source<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
     }
     
@@ -1365,7 +1369,7 @@ package strategy
          */
         @python.intrinsic("strategy.account._Account_Impl")
         @curried("inner")
-        def Real(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+        def Real(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
         /** Associated with a strategy account that evaluates for every order sent by the strategy
          *  how it would be traded by sending request.evalMarketOrder
@@ -1374,7 +1378,7 @@ package strategy
          */
         @python.intrinsic("strategy.account._VirtualMarket_Impl")
         @curried("inner")
-        def VirtualMarket(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Noise()) : .IAccount
+        def VirtualMarket(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
         def real = .strategy.account.inner.inner_Real
         
@@ -1390,8 +1394,8 @@ package strategy
      *  Can be considered as a particular case of Array strategy
      */
     @python.intrinsic("strategy.combine._Combine_Impl")
-    def Combine(A = .strategy.Noise(),
-                B = .strategy.Noise()) : .ISingleAssetStrategy
+    def Combine(A = .strategy.Empty(),
+                B = .strategy.Empty()) : .ISingleAssetStrategy
     
     /** Strategy believing that trader position should be proportional to 50 - RSI(asset)
      */
@@ -1407,7 +1411,7 @@ package strategy
      * *corrector* parameter set to *chooseTheBest*
      */
     @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
-    def ChooseTheBest(/** original strategies that can be suspended */ strategies = [.strategy.Noise()],
+    def ChooseTheBest(/** original strategies that can be suspended */ strategies = [.strategy.Empty()],
                       /** function creating phantom strategy used for efficiency estimation */ account = .strategy.account.virtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance = .strategy.weight.efficiencyTrend()) : .ISingleAssetStrategy
     
@@ -1426,7 +1430,7 @@ package strategy
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
-    def Suspendable(/** wrapped strategy */ inner = .strategy.Noise(),
+    def Suspendable(/** wrapped strategy */ inner = .strategy.Empty(),
                     /** predicate to evaluate */ predicate = .true()) : .ISingleAssetStrategy
     
     def OneSide(x = .strategy.MarketMaker(),
@@ -1457,7 +1461,7 @@ package strategy
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
      */
-    def TradeIfProfitable(/** wrapped strategy */ inner = .strategy.Noise(),
+    def TradeIfProfitable(/** wrapped strategy */ inner = .strategy.Empty(),
                           /** defines how strategy trades are booked: actually traded amount or virtual market orders are
                             * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = .strategy.account.virtualMarket(),
                           /** given a trading account tells should it be considered as effective or not */ performance = .strategy.weight.efficiencyTrend()) = inner~>Suspendable(performance(account(inner))>=0)
@@ -1465,7 +1469,7 @@ package strategy
     /** Creates a strategy combining an array of strategies
      */
     @python.intrinsic("strategy.combine._Array_Impl")
-    def Array(/** strategies to combine */ strategies = [.strategy.Noise()]) : .ISingleAssetStrategy
+    def Array(/** strategies to combine */ strategies = [.strategy.Empty()]) : .ISingleAssetStrategy
     
     /** Empty strategy doing nothing
      */
@@ -1480,7 +1484,7 @@ package strategy
      * All other strategies are suspended
      */
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
-    def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [.strategy.Noise()],
+    def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [.strategy.Empty()],
                          /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = .strategy.account.virtualMarket(),
                          /** function estimating is the strategy efficient or not */ weight = .strategy.weight.efficiencyTrend(),
                          /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = .strategy.weight.atanPow(),
@@ -1510,11 +1514,6 @@ package strategy
     @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
-    
-    /** Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
-     */
-    def Noise(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-              /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(.strategy.side.Noise()),eventGen)
     
     /** Strategy believing that trader position should be proportional to the relative standard deviation of its price
      */
@@ -1582,7 +1581,7 @@ package trader
     @python.intrinsic("trader.classes._SingleAsset_Impl")
     @label = "%(name)s"
     def SingleAsset(/** order book for the asset being traded */ orderBook : .IOrderBook,
-                    /** strategy run by the trader */ strategy = .strategy.Noise(),
+                    /** strategy run by the trader */ strategy = .strategy.Empty(),
                     name = "-trader-",
                     /** current position of the trader (number of assets that it owns) */ amount = 0.0,
                     /** current trader balance (number of money units that it owns) */ PnL = 0.0,

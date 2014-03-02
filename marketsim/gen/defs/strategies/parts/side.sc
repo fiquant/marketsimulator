@@ -9,12 +9,10 @@ package strategy.side
                     orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
     }
 
-    /**
-     * Side function for a noise trading strategy
-     */
-    def Noise(side_distribution = math.random.uniform(0., 1.)) =
-
-        if side_distribution > 0.5 then side.Sell() else side.Buy()
+    type Noise(side_distribution = math.random.uniform(0., 1.)) : SideStrategy
+    {
+        def Side = if side_distribution > 0.5 then side.Sell() else side.Buy()
+    }
 
     /**
      * Signal strategy listens to some discrete signal

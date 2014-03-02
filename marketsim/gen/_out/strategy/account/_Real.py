@@ -7,10 +7,10 @@ class Real_ISingleAssetStrategy(IAccount,_Account_Impl):
     """   how orders sent by the strategy have been actually traded
     """ 
     def __init__(self, inner = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
+        from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
         from marketsim import deref_opt
         from marketsim import rtti
-        self.inner = inner if inner is not None else deref_opt(_strategy_Noise_IEventSideIObservableIOrder())
+        self.inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         rtti.check_fields(self)
         _Account_Impl.__init__(self)
     

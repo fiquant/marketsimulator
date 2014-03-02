@@ -30,7 +30,7 @@ Definitions:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
 | | | | | | | | | | | - strategy
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategy run by the trader 

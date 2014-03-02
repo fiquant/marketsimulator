@@ -18,7 +18,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  wrapped strategy 
@@ -62,7 +62,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  wrapped strategy 
@@ -131,7 +131,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | | | - Empty
 | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  original strategies that can be suspended 
@@ -220,7 +220,7 @@ Definitions:
 | | | | | | | | | | - FunCall:
 | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Noise
+| | | | | | | | | | | | | - Empty
 | | | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  original strategies that can be suspended 

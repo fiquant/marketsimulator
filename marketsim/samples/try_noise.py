@@ -18,5 +18,5 @@ def Noise(ctx):
                                  .sideprice_WithExpiry(constant(10))),
                         "liquidity"),
         
-        ctx.makeTrader_A(strategy.Noise(), "noise_ex"),
+        ctx.makeTrader_A(strategy.side.Noise().Strategy(), "noise_ex"),
     ]

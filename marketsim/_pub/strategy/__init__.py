@@ -44,8 +44,6 @@ from marketsim.gen._out.strategy._generic import Generic
 
 from marketsim.gen._out.strategy._marketmaker import MarketMaker
 
-from marketsim.gen._out.strategy._noise import Noise
-
 from marketsim.gen._out.strategy._bollinger_linear import Bollinger_linear
 
 import side

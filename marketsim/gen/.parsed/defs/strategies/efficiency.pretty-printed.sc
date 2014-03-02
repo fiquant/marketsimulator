@@ -6,7 +6,7 @@ package strategy.account() {
      */
     @python.intrinsic("strategy.account._Account_Impl")
     @curried("inner")
-    def Real(/** strategy to track */ inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
+    def Real(/** strategy to track */ inner : Optional[ISingleAssetStrategy] = Empty()) : IAccount
     
     // defined at defs\strategies\efficiency.sc: 12.5
     /** Associated with a strategy account that evaluates for every order sent by the strategy
@@ -16,7 +16,7 @@ package strategy.account() {
      */
     @python.intrinsic("strategy.account._VirtualMarket_Impl")
     @curried("inner")
-    def VirtualMarket(/** strategy to track */ inner : Optional[ISingleAssetStrategy] = Noise()) : IAccount
+    def VirtualMarket(/** strategy to track */ inner : Optional[ISingleAssetStrategy] = Empty()) : IAccount
     
     def real = inner.inner_Real
     

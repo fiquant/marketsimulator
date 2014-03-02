@@ -9,68 +9,6 @@ Definitions:
 | | - Definitions:
 | | | - List:
 | | | | - FunDef:
-| | | | | - Noise
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - eventGen
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - event
-| | | | | | | | | | | - Every
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - math
-| | | | | | | | | | | | | - random
-| | | | | | | | | | | | | - expovariate
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 1.0
-| | | | | | | - List:
-| | | | | | | | -  Event source making the strategy to wake up
-| | | | | | - Parameter:
-| | | | | | | - orderFactory
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - order
-| | | | | | | | | | | - side
-| | | | | | | | | | | - Market
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  order factory function
-| | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Generic
-| | | | | | | - List:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - orderFactory
-| | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Noise
-| | | | | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - eventGen
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
-| | | | | | | - List:
-| | | | | - List:
-| | | | - FunDef:
 | | | | | - RSIbis
 | | | | | - List:
 | | | | | | - Parameter:

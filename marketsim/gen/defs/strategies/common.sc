@@ -17,15 +17,15 @@ package strategy
      *  Can be considered as a particular case of Array strategy
      */
     @python.intrinsic("strategy.combine._Combine_Impl")
-    def Combine(A = Noise(),
-                B = Noise()) : ISingleAssetStrategy
+    def Combine(A = Empty(),
+                B = Empty()) : ISingleAssetStrategy
 
     /**
      *  Creates a strategy combining an array of strategies
      */
     @python.intrinsic("strategy.combine._Array_Impl")
     def Array(/** strategies to combine */
-              strategies = [Noise()]) : ISingleAssetStrategy
+              strategies = [Empty()]) : ISingleAssetStrategy
 
     /**
      *  Strategy that listens to all orders sent by a trader to the market

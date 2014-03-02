@@ -9,7 +9,7 @@ package trader
     def SingleAsset(/** order book for the asset being traded */
                     orderBook : IOrderBook,
                     /** strategy run by the trader */
-                    strategy    = strategy.Noise(),
+                    strategy    = strategy.Empty(),
                     name        = "-trader-",
                     /** current position of the trader (number of assets that it owns) */
                     amount      = 0.0,

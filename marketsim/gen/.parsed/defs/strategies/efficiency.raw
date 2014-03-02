@@ -29,7 +29,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategy to track 
@@ -79,7 +79,7 @@ Definitions:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Noise
+| | | | | | | | | | | - Empty
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | | | -  strategy to track 

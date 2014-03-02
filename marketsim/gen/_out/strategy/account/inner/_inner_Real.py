@@ -20,10 +20,10 @@ class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
         return "inner_Real" % self.__dict__
     
     def __call__(self, inner = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
+        from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
         from marketsim import deref_opt
         from marketsim.gen._out.strategy.account._real import Real_ISingleAssetStrategy as _strategy_account_Real_ISingleAssetStrategy
-        inner = inner if inner is not None else deref_opt(_strategy_Noise_IEventSideIObservableIOrder())
+        inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         
         return _strategy_account_Real_ISingleAssetStrategy(inner)
     

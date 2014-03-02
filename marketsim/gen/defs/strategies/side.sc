@@ -1,19 +1,6 @@
 package strategy
 {
     /**
-     * Noise strategy is a quite dummy strategy that randomly chooses trade side and sends market orders
-     */
-    def Noise(/** Event source making the strategy to wake up*/
-               eventGen     = event.Every(math.random.expovariate(1.)),
-               /** order factory function*/
-               orderFactory = order.side.Market())
-
-        =   Generic(
-                orderFactory(
-                    side.Noise()),
-                eventGen)
-
-    /**
      *  Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

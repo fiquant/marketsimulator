@@ -1,3 +1,57 @@
+from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out.strategy.side._noise import Noise
+from marketsim import context
+@registry.expose(["Side function", "Side"])
+class Side_strategysideNoise(IFunctionSide):
+    """ 
+    """ 
+    def __init__(self, x = None):
+        from marketsim.gen._out.strategy.side._noise import Noise_Float as _strategy_side_Noise_Float
+        from marketsim import deref_opt
+        from marketsim import rtti
+        self.x = x if x is not None else deref_opt(_strategy_side_Noise_Float())
+        rtti.check_fields(self)
+        self.impl = self.getImpl()
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'x' : Noise
+    }
+    def __repr__(self):
+        return "Side(%(x)s)" % self.__dict__
+    
+    def bind(self, ctx):
+        self._ctx = ctx.clone()
+    
+    _internals = ['impl']
+    def __call__(self, *args, **kwargs):
+        return self.impl()
+    
+    def reset(self):
+        self.impl = self.getImpl()
+        ctx = getattr(self, '_ctx', None)
+        if ctx: context.bind(self.impl, ctx)
+    
+    def getImpl(self):
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
+        from marketsim import deref_opt
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.strategy.side._side_distribution import Side_distribution_strategysideNoise as _strategy_side_Side_distribution_strategysideNoise
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Side_distribution_strategysideNoise(self.x)),deref_opt(_constant_Float(0.5)))),deref_opt(_side_Sell_()),deref_opt(_side_Buy_())))
+    
+    def __getattr__(self, name):
+        if name[0:2] != '__' and self.impl:
+            return getattr(self.impl, name)
+        else:
+            raise AttributeError
+    
 from marketsim.gen._out._side import Side
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim import registry
@@ -345,12 +399,15 @@ class Side_strategysidePairTrading(ObservableSide):
     
 def Side(x = None): 
     from marketsim import rtti
+    from marketsim.gen._out.strategy.side._noise import Noise
     from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
     from marketsim.gen._out.strategy.side._signal import Signal
     from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
     from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
     from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
     from marketsim.gen._out.strategy.side._pairtrading import PairTrading
+    if x is None or rtti.can_be_casted(x, Noise):
+        return Side_strategysideNoise(x)
     if x is None or rtti.can_be_casted(x, MeanReversion):
         return Side_strategysideMeanReversion(x)
     if x is None or rtti.can_be_casted(x, FundamentalValue):

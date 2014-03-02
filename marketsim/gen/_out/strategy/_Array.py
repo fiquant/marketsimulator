@@ -7,10 +7,10 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,_Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
-        from marketsim.gen._out.strategy._noise import Noise_IEventSideIObservableIOrder as _strategy_Noise_IEventSideIObservableIOrder
+        from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
         from marketsim import deref_opt
         from marketsim import rtti
-        self.strategies = strategies if strategies is not None else [deref_opt(_strategy_Noise_IEventSideIObservableIOrder())]
+        self.strategies = strategies if strategies is not None else [deref_opt(_strategy_Empty_())]
         rtti.check_fields(self)
         _Array_Impl.__init__(self)
     

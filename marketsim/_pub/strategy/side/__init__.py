@@ -1,5 +1,7 @@
 from marketsim.gen._out.strategy.side._threshold import Threshold
 
+from marketsim.gen._out.strategy.side._side_distribution import Side_distribution
+
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 
 from marketsim.gen._out.strategy.side._signal import Signal
