@@ -35,10 +35,11 @@ def MeanReversion(ctx):
                          [(linear_signal, ctx.amount_graph)]),
      
         ctx.makeTrader_A(
-                strategy.MeanReversion(
+                strategy.side.MeanReversion(
+                    alpha
+                ).Strategy(
                     event.Every(constant(1.)),
-                    order.side.Market(volume = constant(V)),
-                    alpha),
+                    order.side.Market(volume = constant(V))),
                  "meanreversion_ex", 
                  myVolume()),
     ]    

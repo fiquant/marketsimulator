@@ -20,5 +20,7 @@ from marketsim.gen._out.strategy.side._booktodependon import BookToDependOn
 
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 
+from marketsim.gen._out.strategy.side._alpha import Alpha
+
 from marketsim.gen._out.strategy.side._noise import Noise
 

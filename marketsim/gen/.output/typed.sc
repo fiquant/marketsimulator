@@ -1685,6 +1685,8 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
+        type MeanReversion
+        
         type PairTrading
         @category = "-"
         
@@ -1732,6 +1734,12 @@ package strategy {@category = "Side function"
         def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
             	 = .strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x))
         
+        /** Side function for mean reversion strategy
+         */
+        
+        def Side(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IObservable[.Side]
+            	 = .strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x))
+        
         /** Side function for fundamental value strategy
          */
         
@@ -1757,6 +1765,12 @@ package strategy {@category = "Side function"
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
         
+        
+        def Strategy(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
         @category = "-"
         
         @python.accessor()
@@ -1765,14 +1779,23 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
+        def Book(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
         def BookToDependOn(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
         
-        /** Side function for mean reversion strategy
-         */
+        @category = "-"
         
+        @python.constructor()
         def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
-                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Side]
-            	 = .strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha)),book)
+                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.MeanReversion
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .Float
         
         /** Side function for a noise trading strategy
          */
@@ -2232,17 +2255,6 @@ package strategy {@category = "Side function"
     
     @python.accessor()
     def Start(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
-    
-    /** Mean reversion strategy believes that asset price should return to its average value.
-     * It estimates this average using some functional and
-     * if the current asset price is lower than the average
-     * it buys the asset and if the price is higher it sells the asset.
-     */
-    
-    def MeanReversion(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                      /** parameter |alpha| for exponentially weighted moving average */ ewma_alpha : Optional[.Float] = 0.15) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.MeanReversion(ewma_alpha)),eventGen)
     
     /** Empty strategy doing nothing
      */

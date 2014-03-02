@@ -66,17 +66,29 @@ package strategy.side
                                                    side.Nothing()
 
     /**
-     * Side function for mean reversion strategy
-     */
-    def MeanReversion(
+      * Mean reversion strategy believes that asset price should return to its average value.
+      * It estimates this average using some functional and
+      * if the current asset price is lower than the average
+      * it buys the asset and if the price is higher it sells the asset.
+      */
+    type MeanReversion(
         /** parameter |alpha| for exponentially weighted moving average */
         alpha = 0.015,
         /** asset in question */
         book = orderbook.OfTrader())
+    {
+        /**
+         * Side function for mean reversion strategy
+         */
+        def Side = FundamentalValue(
+                            book~>MidPrice~>EW(alpha)~>Avg,
+                            book)
 
-        =   FundamentalValue(
-                book~>MidPrice~>EW(alpha)~>Avg,
-                book)
+        def Strategy(/** Event source making the strategy to wake up*/
+                    eventGen        = event.Every(math.random.expovariate(1.)),
+                    /** order factory function*/
+                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
+    }
 
     /**
       * Dependent price strategy believes that the fair price of an asset *A*

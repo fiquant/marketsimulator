@@ -83,21 +83,6 @@ package strategy
         =   (orderFactory(side.FundamentalValue(fundamentalValue)))~>Strategy(eventGen)
 
     /**
-      * Mean reversion strategy believes that asset price should return to its average value.
-      * It estimates this average using some functional and
-      * if the current asset price is lower than the average
-      * it buys the asset and if the price is higher it sells the asset.
-      */
-    def MeanReversion(  /** Event source making the strategy to wake up*/
-                        eventGen     = event.Every(math.random.expovariate(1.)),
-                        /** order factory function*/
-                        orderFactory = order.side.Market(),
-                        /** parameter |alpha| for exponentially weighted moving average */
-                        ewma_alpha   = 0.15)
-
-        =   (orderFactory(side.MeanReversion(ewma_alpha)))~>Strategy(eventGen)
-
-    /**
      *  Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

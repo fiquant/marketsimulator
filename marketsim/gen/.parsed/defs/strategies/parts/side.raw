@@ -348,56 +348,121 @@ Definitions:
 | | | | | | | - Side function for fundamental value strategy
 | | | | | | | - List:
 | | | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - MeanReversion
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.015
+| | | | | | | | - List:
+| | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
+| | | | | | | - Parameter:
+| | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  asset in question 
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.015
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
 | | | | | | | - List:
-| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
-| | | | | | - Parameter:
-| | | | | | | - book
-| | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
+| | | | | | | | | | | - FundamentalValue
 | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  asset in question 
-| | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - FundamentalValue
-| | | | | | | - List:
-| | | | | | | | - MemberAccess:
-| | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - EW
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Avg
 | | | | | | | | | | | - List:
-| | | | | | | | | | - EW
-| | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - alpha
-| | | | | | | | | - Avg
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - book
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - DocString:
+| | | | | | | | | - Side function for mean reversion strategy
 | | | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - book
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Side function for mean reversion strategy
 | | | | | | | - List:
-| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - eventGen
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - event
+| | | | | | | | | | | | | - Every
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - random
+| | | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | - List:
+| | | | | | | | | | -  Event source making the strategy to wake up
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Market
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Generic
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - Side
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - false
 | | | | - Interface:
 | | | | | - PairTrading
 | | | | | - Generics:

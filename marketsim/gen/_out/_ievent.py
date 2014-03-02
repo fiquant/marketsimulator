@@ -23,10 +23,6 @@ class IEvent(object):
         from marketsim.gen._out.strategy._rsibis import RSIbis
         return RSIbis(self,orderFactory,alpha,timeframe,threshold)
     
-    def MeanReversion(self, orderFactory = None,ewma_alpha = None):
-        from marketsim.gen._out.strategy._meanreversion import MeanReversion
-        return MeanReversion(self,orderFactory,ewma_alpha)
-    
     def LiquidityProviderSide(self, orderFactory = None,side = None,initialValue = None,priceDistr = None):
         from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide
         return LiquidityProviderSide(self,orderFactory,side,initialValue,priceDistr)

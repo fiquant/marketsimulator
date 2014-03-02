@@ -46,8 +46,8 @@ def Complete(ctx):
                                                        fundamentalValue=const(150.)),
                              "t150"),
             
-            ctx.makeTrader_A(strategy.MeanReversion(event.Every(constant(1.)),
-                                                    order.side.Market(const(1.))),
+            ctx.makeTrader_A(strategy.side.MeanReversion().Strategy(event.Every(constant(1.)),
+                                                                    order.side.Market(const(1.))),
                              "mr_0_15"),
     
             ctx.makeTrader_A(strategy.CrossingAverages(event.Every(constant(1.)),

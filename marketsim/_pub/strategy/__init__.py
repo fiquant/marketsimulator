@@ -34,8 +34,6 @@ from marketsim.gen._out.strategy._array import Array
 
 from marketsim.gen._out.strategy._start import Start
 
-from marketsim.gen._out.strategy._meanreversion import MeanReversion
-
 from marketsim.gen._out.strategy._empty import Empty
 
 from marketsim.gen._out.strategy._multiarmedbandit import MultiArmedBandit
