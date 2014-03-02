@@ -26,7 +26,7 @@ def MultiarmedBandit(ctx):
         return [ctx.makeTrader_A(fv(x), "fv" + str(x), myVolume()) for x in xs]
         
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(
+        ctx.makeTrader_A(strategy.price.LiquidityProvider().Strategy(
             orderFactory = order.side_price.Limit(volume=constant(45))),
                          "liquidity"),
             

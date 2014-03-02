@@ -14,38 +14,43 @@ def Orders(ctx):
     midPrice = orderbook.MidPrice(ctx.book_A)
     return [
         ctx.makeTrader_A(
-                    strategy.LiquidityProvider(
-                        event.Every(const(1.)),
-                        order.side_price.Limit(volume=const(35))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(
+                                        event.Every(const(1.)),
+                                        order.side_price.Limit(volume=const(35))),
                     "liquidity"),
 
         ctx.makeTrader_A(
-                    strategy.LiquidityProvider(
-                        event.Every(const(100.)),
-                        order.side_price.Limit(volume=const(5))
-                             .sideprice_StopLoss(const(0.1))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(
+                                        event.Every(const(100.)),
+                                        order.side_price.Limit(volume=const(5))
+                                             .sideprice_StopLoss(const(0.1))),
                     "liquidity stoploss"),
 
         ctx.makeTrader_A(
-                    strategy.LiquidityProvider(
-                        event.Every(const(10.)),
-                            order.side_price.Limit(volume=const(5))
-                                 .sideprice_Iceberg(const(1))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(
+                                        event.Every(const(10.)),
+                                        order.side_price.Limit(volume=const(5))
+                                             .sideprice_Iceberg(const(1))),
                     "liquidity iceberg"),
 
         ctx.makeTrader_A(
-                    strategy.LiquidityProvider(
-                        event.Every(const(10.)),
-                        order.side_price.Limit(volume=const(5))
-                             .sideprice_WithExpiry(const(5))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(
+                                        event.Every(const(10.)),
+                                        order.side_price.Limit(volume=const(5))
+                                             .sideprice_WithExpiry(const(5))),
                     "liquidity expiry"),
 
         ctx.makeTrader_A(
-                    strategy.LiquidityProvider(
-                        event.Every(const(10.)),
-                        order.side_price.Limit(volume=const(15))
-                             .sideprice_Iceberg(const(1))
-                             .sideprice_WithExpiry(const(5))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(
+                                        event.Every(const(10.)),
+                                        order.side_price.Limit(volume=const(15))
+                                             .sideprice_Iceberg(const(1))
+                                             .sideprice_WithExpiry(const(5))),
                     "liquidity iceberg expiry"),
 
         ctx.makeTrader_A(strategy.side.Signal(linear_signal).Strategy(

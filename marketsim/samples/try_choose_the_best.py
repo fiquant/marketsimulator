@@ -32,8 +32,8 @@ def ChooseTheBest(ctx):
         
     return [
         ctx.makeTrader_A(
-            strategy.LiquidityProvider(
-                orderFactory = order.side_price.Limit(volume=constant(45))),
+            strategy.price.LiquidityProvider()
+                    .Strategy(orderFactory = order.side_price.Limit(volume=constant(45))),
                          "liquidity"),
 
         ctx.makeTrader_A(strategy.side.Signal(linear_signal)

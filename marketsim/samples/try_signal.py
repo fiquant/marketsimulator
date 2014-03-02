@@ -14,9 +14,9 @@ def Signal(ctx):
 
     return [
         ctx.makeTrader_A(
-            strategy.LiquidityProvider(
-                event.Every(constant(1.)),
-                order.side_price.Limit(volume=const(5))),
+            strategy.price.LiquidityProvider()
+                          .Strategy(event.Every(constant(1.)),
+                                    order.side_price.Limit(volume=const(5))),
             "liquidity"),
         
         ctx.makeTrader_A(strategy.side.Signal(linear_signal)

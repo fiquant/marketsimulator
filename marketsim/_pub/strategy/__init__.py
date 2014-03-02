@@ -8,8 +8,6 @@ from marketsim.gen._out.strategy._volume import Volume
 
 from marketsim.gen._out.strategy._twosides import TwoSides
 
-from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
-
 from marketsim.gen._out.strategy._suspendable import Suspendable
 
 from marketsim.gen._out.strategy._oneside import OneSide
@@ -31,8 +29,6 @@ from marketsim.gen._out.strategy._end import End
 from marketsim.gen._out.strategy._marketdata import MarketData
 
 from marketsim.gen._out.strategy._canceller import Canceller
-
-from marketsim.gen._out.strategy._liquidityproviderside import LiquidityProviderSide
 
 from marketsim.gen._out.strategy._ticker import Ticker
 

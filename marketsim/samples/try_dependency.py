@@ -13,15 +13,15 @@ def Dependency(ctx):
 
     return [
         ctx.makeTrader_A( 
-            strategy.LiquidityProvider(event.Every(constant(1.)),
-                                       order.side_price.Limit(volume = liqVol),
-                                       initialValue=50.),
+            strategy.price.LiquidityProvider(50.)
+                           .Strategy(event.Every(constant(1.)),
+                                     order.side_price.Limit(volume = liqVol)),
             "LiquidityProvider_A"),
     
         ctx.makeTrader_B( 
-            strategy.LiquidityProvider(event.Every(constant(1.)),
-                                       order.side_price.Limit(volume = liqVol),
-                                       initialValue=150.),
+            strategy.price.LiquidityProvider(150.)
+                           .Strategy(event.Every(constant(1.)),
+                                     order.side_price.Limit(volume = liqVol)),
             "LiquidityProvider_B"),
     
         ctx.makeTrader_A(

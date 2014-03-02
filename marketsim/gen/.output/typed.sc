@@ -2126,15 +2126,54 @@ package strategy {@category = "Side function"
     @category = "Price function"
     
     package price {
-        /** Price function for a liquidity provider strategy
-         */
+        type LiquidityProvider
+        @category = "-"
         
-        def LiquidityProvider(/** side of orders to create */ side : Optional[() => .Side] = .side.Sell() : () => .Side,
-                              /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
+        @python.accessor()
+        def PriceDistr(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : () => .Float
+        
+        @category = "-"
+        
+        @python.constructor()
+        def LiquidityProvider(/** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
                               /** defines multipliers for current asset price when price of
                                 *             order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1),
-                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IObservable[.Float]
-            	 = .ops.Mul(.orderbook.SafeSidePrice(.orderbook.Queue(book,side),.constant(initialValue)),priceDistr)
+                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.price.LiquidityProvider
+        
+        
+        def Price(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
+                  side : Optional[() => .Side] = .side.Sell() : () => .Side) : .IObservable[.Float]
+            	 = .ops.Mul(.orderbook.SafeSidePrice(.orderbook.Queue(.strategy.price.Book(x),side),.constant(.strategy.price.InitialValue(x))),.strategy.price.PriceDistr(x))
+        
+        
+        def Strategy(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit()) : .ISingleAssetStrategy
+            	 = .strategy.Combine(.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Sell()),.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Buy()))
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Book(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : .IOrderBook
+        
+        
+        def OneSideStrategy(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
+                            /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                            /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                            /** side of orders to create */ side : Optional[.IObservable[.Side]] = .side.observableSell()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(side,.strategy.price.Price(x,side)),eventGen)
+        
+        
+        def OneSideStrategy(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
+                            /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                            /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                            /** side of orders to create */ side : Optional[() => .Side] = .side.Sell()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(side,.strategy.price.Price(x,side)),eventGen)
+        
+        @category = "-"
+        
+        @python.accessor()
+        def InitialValue(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : .Float
     }
     
     @category = "Volume function"
@@ -2316,16 +2355,6 @@ package strategy {@category = "Side function"
     def TwoSides(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .ISingleAssetStrategy
         	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
     
-    /** Liquidity provider for two sides
-     */
-    
-    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                          /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
-                          /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
-                          /** defines multipliers for current asset price when price of
-                            *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
-        	 = .strategy.Array([.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr)])
-    
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     
@@ -2429,17 +2458,6 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
-    
-    /** Liquidity provider for one side
-     */
-    
-    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                              /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
-                              /** side of orders to create */ side : Optional[() => .Side] = .side.Sell() : () => .Side,
-                              /** initial price which is taken if orderBook is empty */ initialValue : Optional[.Float] = 100.0,
-                              /** defines multipliers for current asset price when price of
-                                *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr)),eventGen)
     
     @category = "-"
     

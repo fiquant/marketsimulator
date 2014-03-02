@@ -9,5 +9,5 @@ def MarketData(ctx):
     return [
         ctx.makeTrader_A(strategy.MarketMaker().TwoSides, "marketmaker2"),
    
-        ctx.makeTrader_A(strategy.Noise(), "noise")
+        ctx.makeTrader_A(strategy.side.Noise().Strategy(), "noise")
     ]

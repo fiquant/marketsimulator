@@ -16,6 +16,10 @@ class Float(object):
         from marketsim.gen._out.math.random._normalvariate import normalvariate
         return normalvariate(self,Sigma)
     
+    def LiquidityProvider(self, priceDistr = None,book = None):
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
+        return LiquidityProvider(self,priceDistr,book)
+    
     def CrossingAverages(self, alpha_2 = None,threshold = None,book = None):
         from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
         return CrossingAverages(self,alpha_2,threshold,book)

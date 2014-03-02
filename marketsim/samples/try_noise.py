@@ -12,10 +12,10 @@ def Noise(ctx):
 
     return [
         ctx.makeTrader_A(
-            strategy.LiquidityProvider(
-                        orderFactory =
-                            order.side_price.Limit(volume=constant(2))
-                                 .sideprice_WithExpiry(constant(10))),
+            strategy.price.LiquidityProvider()
+                          .Strategy(orderFactory =
+                                        order.side_price.Limit(volume=constant(2))
+                                             .sideprice_WithExpiry(constant(10))),
                         "liquidity"),
         
         ctx.makeTrader_A(strategy.side.Noise().Strategy(), "noise_ex"),

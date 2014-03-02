@@ -9,94 +9,251 @@ Definitions:
 | | - List:
 | | - Definitions:
 | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - LiquidityProvider
-| | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - side
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - Cast:
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - initialValue
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 100.0
+| | | | | | | | - List:
+| | | | | | | | | -  initial price which is taken if orderBook is empty 
+| | | | | | | - Parameter:
+| | | | | | | | - priceDistr
+| | | | | | | | - None
+| | | | | | | | - Some:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - 
-| | | | | | | | | | | | - side
-| | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - math
+| | | | | | | | | | | | - random
+| | | | | | | | | | | | - lognormvariate
 | | | | | | | | | | - List:
-| | | | | | | | | - SimpleType:
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.0
+| | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | - 0.1
+| | | | | | | | - List:
+| | | | | | | | | -  defines multipliers for current asset price when price of
+| | | | | | | | | -              order to create is calculated
+| | | | | | | - Parameter:
+| | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
-| | | | | | | | | | | | - IFunction
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
 | | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  asset in question 
+| | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Price
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - side
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - Cast:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - 
+| | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - List:
 | | | | | | | | | | | - SimpleType:
 | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | | - IFunction
 | | | | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  side of orders to create 
-| | | | | | - Parameter:
-| | | | | | | - initialValue
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 100.0
-| | | | | | | - List:
-| | | | | | | | -  initial price which is taken if orderBook is empty 
-| | | | | | - Parameter:
-| | | | | | | - priceDistr
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
-| | | | | | | | | | - List:
-| | | | | | | | | | | - math
-| | | | | | | | | | | - random
-| | | | | | | | | | | - lognormvariate
+| | | | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | | - Side
+| | | | | | | | | | | | | | - List:
 | | | | | | | | | - List:
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.0
-| | | | | | | | | | - FloatLit:
-| | | | | | | | | | | - 0.1
-| | | | | | | - List:
-| | | | | | | | -  defines multipliers for current asset price when price of
-| | | | | | | | -              order to create is calculated
-| | | | | | - Parameter:
-| | | | | | | - book
-| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - book
+| | | | | | | | | | | - Queue
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | - SafeSidePrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  asset in question 
-| | | | | - Some:
-| | | | | | - BinOp:
-| | | | | | | - Mul
-| | | | | | | - MemberAccess:
-| | | | | | | | - MemberAccess:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - initialValue
 | | | | | | | | | - Var:
-| | | | | | | | | | - book
-| | | | | | | | | - Queue
+| | | | | | | | | | - priceDistr
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - OneSideStrategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - eventGen
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - event
+| | | | | | | | | | | | | - Every
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - random
+| | | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | - List:
+| | | | | | | | | | -  Event source making the strategy to wake up
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - side_price
+| | | | | | | | | | | | | - Limit
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function
+| | | | | | | | - Parameter:
+| | | | | | | | | - side
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - 
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Sell
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  side of orders to create 
+| | | | | | | - Some:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - orderFactory
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Price
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - side
+| | | | | | | | | - Strategy
 | | | | | | | | | - List:
 | | | | | | | | | | - Var:
-| | | | | | | | | | | - side
-| | | | | | | | - SafeSidePrice
-| | | | | | | | - List:
-| | | | | | | | | - Var:
-| | | | | | | | | | - initialValue
-| | | | | | | - Var:
-| | | | | | | | - priceDistr
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Price function for a liquidity provider strategy
+| | | | | | | | | | | - eventGen
+| | | | | | | - None
+| | | | | | | - None
 | | | | | | | - List:
-| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Strategy
+| | | | | | | - List:
+| | | | | | | | - Parameter:
+| | | | | | | | | - eventGen
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - event
+| | | | | | | | | | | | | - Every
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - math
+| | | | | | | | | | | | | | | - random
+| | | | | | | | | | | | | | | - expovariate
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - FloatLit:
+| | | | | | | | | | | | | | | - 1.0
+| | | | | | | | | - List:
+| | | | | | | | | | -  Event source making the strategy to wake up
+| | | | | | | | - Parameter:
+| | | | | | | | | - orderFactory
+| | | | | | | | | - None
+| | | | | | | | | - Some:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - order
+| | | | | | | | | | | | | - side_price
+| | | | | | | | | | | | | - Limit
+| | | | | | | | | | | - List:
+| | | | | | | | | - List:
+| | | | | | | | | | -  order factory function
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Combine
+| | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - OneSideStrategy
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | - Sell
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - OneSideStrategy
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - eventGen
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - orderFactory
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | | - side
+| | | | | | | | | | | | | | | - Buy
+| | | | | | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - false
 | | - List:
 | | | - Attribute:
 | | | | - category

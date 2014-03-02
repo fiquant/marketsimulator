@@ -5,9 +5,9 @@ from marketsim import meta
 class IFunctionSide(object):
     _types = [meta.function((),Side)]
     _types.append(IFunctionobject)
-    def LiquidityProvider(self, initialValue = None,priceDistr = None,book = None):
-        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
-        return LiquidityProvider(self,initialValue,priceDistr,book)
+    def price_Limit(self, volume = None):
+        from marketsim.gen._out.order._curried._price_limit import price_Limit
+        return price_Limit(self,volume)
     
     def Limit(self, price = None,volume = None):
         from marketsim.gen._out.order._limit import Limit
@@ -20,10 +20,6 @@ class IFunctionSide(object):
     def FixedBudget(self, budget = None):
         from marketsim.gen._out.order._fixedbudget import FixedBudget
         return FixedBudget(self,budget)
-    
-    def price_Limit(self, volume = None):
-        from marketsim.gen._out.order._curried._price_limit import price_Limit
-        return price_Limit(self,volume)
     
     pass
 

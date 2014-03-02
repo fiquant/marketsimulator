@@ -1310,13 +1310,20 @@ package strategy
     @category = "Price function"
     package price
     {
-        /** Price function for a liquidity provider strategy
-         */
-        def LiquidityProvider(/** side of orders to create */ side = .side.Sell() : .IFunction[.Side],
-                              /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
-                              /** defines multipliers for current asset price when price of
-                                *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),
-                              /** asset in question */ book = .orderbook.OfTrader()) = book~>Queue(side)~>SafeSidePrice(initialValue)*priceDistr
+        type LiquidityProvider(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,/** defines multipliers for current asset price when price of
+          *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),/** asset in question */ book = .orderbook.OfTrader())
+        
+        def Price(x = .strategy.price.LiquidityProvider(),
+                  side = .side.Sell() : .IFunction[.Side]) = x~>Book~>Queue(side)~>SafeSidePrice(x~>InitialValue)*x~>PriceDistr
+        
+        def OneSideStrategy(x = .strategy.price.LiquidityProvider(),
+                            /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                            /** order factory function*/ orderFactory = .order.side_price.Limit(),
+                            /** side of orders to create */ side = .side.Sell()) = orderFactory(side,x~>Price(side))~>Strategy(eventGen)
+        
+        def Strategy(x = .strategy.price.LiquidityProvider(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
     }
     
@@ -1413,14 +1420,6 @@ package strategy
     
     def TwoSides(x = .strategy.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
     
-    /** Liquidity provider for two sides
-     */
-    def LiquidityProvider(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-                          /** order factory function*/ orderFactory = .order.side_price.Limit(),
-                          /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
-                          /** defines multipliers for current asset price when price of
-                            *                    order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1)) = .strategy.Array([.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr)])
-    
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
@@ -1481,15 +1480,6 @@ package strategy
      */
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
-    
-    /** Liquidity provider for one side
-     */
-    def LiquidityProviderSide(/** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-                              /** order factory function*/ orderFactory = .order.side_price.Limit(),
-                              /** side of orders to create */ side = .side.Sell() : .IFunction[.Side],
-                              /** initial price which is taken if orderBook is empty */ initialValue = 100.0,
-                              /** defines multipliers for current asset price when price of
-                                *                    order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1)) = orderFactory(side,.strategy.price.LiquidityProvider(side,initialValue,priceDistr))~>Strategy(eventGen)
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader

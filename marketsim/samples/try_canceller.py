@@ -11,7 +11,7 @@ def Canceller(ctx):
     ctx.volumeStep = 15
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(),
+        ctx.makeTrader_A(strategy.price.LiquidityProvider().Strategy(),
                          "LiquidityProviderEx-"),
 
         ctx.makeTrader_A(strategy.Canceller(), "canceller"),

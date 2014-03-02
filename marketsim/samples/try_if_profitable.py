@@ -34,9 +34,8 @@ def TradeIfProfitable(ctx):
     avg_minus_real = strategy.TradeIfProfitable(cross(fast_alpha, slow_alpha), strategy.account.real())
 
     return [
-        ctx.makeTrader_A(strategy.LiquidityProvider(
-            orderFactory = order.side_price.Limit(
-                volume=constant(45))),
+        ctx.makeTrader_A(strategy.price.LiquidityProvider()
+                                       .Strategy(orderFactory = order.side_price.Limit(constant(45))),
                          "liquidity"),
 
         ctx.makeTrader_A(strategy.side.Signal(linear_signal)

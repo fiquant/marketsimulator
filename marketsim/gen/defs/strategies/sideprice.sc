@@ -1,48 +1,6 @@
 package strategy
 {
     /**
-     * Liquidity provider for one side
-     */
-    def LiquidityProviderSide(
-                /** Event source making the strategy to wake up*/
-                eventGen     = event.Every(math.random.expovariate(1.)),
-                /** order factory function*/
-                orderFactory = order.side_price.Limit(),
-                /** side of orders to create */
-                side         = .side.Sell() : IFunction[Side],
-                /** initial price which is taken if orderBook is empty */
-                initialValue = 100.0,
-                /** defines multipliers for current asset price when price of
-                    order to create is calculated*/
-                priceDistr   = math.random.lognormvariate(0., .1))
-
-        =   (orderFactory(
-                    side,
-                    price.LiquidityProvider(
-                        side,
-                        initialValue,
-                        priceDistr)))~>Strategy(eventGen)
-
-    /**
-     * Liquidity provider for two sides
-     */
-    def LiquidityProvider(
-                /** Event source making the strategy to wake up*/
-                eventGen     = event.Every(math.random.expovariate(1.)),
-                /** order factory function*/
-                orderFactory = order.side_price.Limit(),
-                /** initial price which is taken if orderBook is empty */
-                initialValue = 100.0,
-                /** defines multipliers for current asset price when price of
-                    order to create is calculated*/
-                priceDistr   = math.random.lognormvariate(0., .1))
-
-        =   Array([
-                LiquidityProviderSide(eventGen, orderFactory, side.Sell(), initialValue, priceDistr),
-                LiquidityProviderSide(eventGen, orderFactory, side.Buy(), initialValue, priceDistr)
-            ])
-
-    /**
      *  A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.
      *

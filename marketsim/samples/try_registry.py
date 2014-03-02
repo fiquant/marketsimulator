@@ -28,10 +28,10 @@ def Complete(ctx):
     
     return [
             ctx.makeTrader_A( 
-                    strategy.LiquidityProvider(
-                                orderFactory =
-                                    order.side_price.Limit(volume=constant(170))
-                                         .sideprice_WithExpiry(constant(10))),
+                    strategy.price.LiquidityProvider()
+                                  .Strategy(orderFactory =
+                                                order.side_price.Limit(volume=constant(170))
+                                                     .sideprice_WithExpiry(constant(10))),
                       "liquidity"),
             
     
