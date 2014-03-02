@@ -30,18 +30,6 @@ package strategy() {
                       /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(side.TrendFollower(ewma_alpha,threshold))~>Strategy(eventGen)
     
     // defined at defs\strategies\side.sc: 51.5
-    /** Two averages strategy compares two averages of price of the same asset but
-     * with different parameters ('slow' and 'fast' averages) and when
-     * the first is greater than the second one it buys,
-     * when the first is lower than the second one it sells
-     */
-    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen = event.Every(math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory = order.side.Market(),
-                         /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 = 0.15,
-                         /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 = 0.015,
-                         /** threshold when the trader starts to act */ threshold = 0.0) = orderFactory(side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold))~>Strategy(eventGen)
-    
-    // defined at defs\strategies\side.sc: 70.5
     /** Strategy that calculates Relative Strength Index of an asset
      *  and starts to buy when RSI is greater than 50 + *threshold*
      *  and sells when RSI is less than 50 - *thresold*

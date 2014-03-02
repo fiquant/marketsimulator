@@ -252,87 +252,100 @@ Definitions:
 | | | | | | | - Side function for trend follower strategy
 | | | | | | | - List:
 | | | | | - List:
-| | | | - FunDef:
+| | | | - Interface:
 | | | | | - CrossingAverages
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | | | - Parameter:
+| | | | | | | | - alpha_1
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.15
+| | | | | | | | - List:
+| | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 1 
+| | | | | | | - Parameter:
+| | | | | | | | - alpha_2
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.015
+| | | | | | | | - List:
+| | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 2 
+| | | | | | | - Parameter:
+| | | | | | | | - threshold
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 0.0
+| | | | | | | | - List:
+| | | | | | | | | -  threshold when the trader starts to act 
+| | | | | | | - Parameter:
+| | | | | | | | - book
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - 
+| | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | - OfTrader
+| | | | | | | | | | - List:
+| | | | | | | | - List:
+| | | | | | | | | -  asset in question 
 | | | | | - List:
-| | | | | | - Parameter:
-| | | | | | | - alpha_1
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.15
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
 | | | | | | | - List:
-| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 1 
-| | | | | | - Parameter:
-| | | | | | | - alpha_2
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.015
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
 | | | | | | | - List:
-| | | | | | | | -  parameter |alpha| for exponentially weighted moving average 2 
-| | | | | | - Parameter:
-| | | | | | | - threshold
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - FloatLit:
-| | | | | | | | | - 0.0
-| | | | | | | - List:
-| | | | | | | | -  threshold when the trader starts to act 
-| | | | | | - Parameter:
-| | | | | | | - book
-| | | | | | | - None
 | | | | | | | - Some:
 | | | | | | | | - FunCall:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - orderbook
-| | | | | | | | | | | - OfTrader
+| | | | | | | | | | | - Signal
 | | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | | | -  asset in question 
-| | | | | - Some:
-| | | | | | - FunCall:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - Signal
-| | | | | | | - List:
-| | | | | | | | - BinOp:
-| | | | | | | | | - Sub
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
 | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha_1
-| | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | | - MemberAccess:
-| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_2
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - EW
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - alpha_2
-| | | | | | | | | | - Avg
-| | | | | | | | | | - List:
-| | | | | | | | - Var:
-| | | | | | | | | - threshold
-| | | | | - None
-| | | | | - Some:
-| | | | | | - DocString:
-| | | | | | | - Side function for crossing averages strategy
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - threshold
+| | | | | | | - None
+| | | | | | | - None
 | | | | | | | - List:
-| | | | | - List:
+| | | | | - false
 | | | | - Interface:
 | | | | | - FundamentalValue
 | | | | | - Generics:

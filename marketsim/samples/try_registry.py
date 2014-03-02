@@ -47,16 +47,16 @@ def Complete(ctx):
                                                                     order.side.Market(const(1.))),
                              "mr_0_15"),
     
-            ctx.makeTrader_A(strategy.CrossingAverages(event.Every(constant(1.)),
-                                                  order.side.Market(const(1.)),
-                                                  ewma_alpha_1=0.15,
-                                                  ewma_alpha_2=0.015),
+            ctx.makeTrader_A(strategy.side.CrossingAverages(alpha_1=0.15,
+                                                            alpha_2=0.015)
+                                          .Strategy(event.Every(constant(1.)),
+                                                    order.side.Market(const(1.))),
                              label="avg+"),
 
-            ctx.makeTrader_A(strategy.CrossingAverages(event.Every(constant(1.)),
-                                                  order.side.Market(const(1.)),
-                                                  ewma_alpha_2=0.15,
-                                                  ewma_alpha_1=0.015),
+            ctx.makeTrader_A(strategy.side.CrossingAverages(alpha_1=0.015,
+                                                            alpha_2=0.15)
+                                          .Strategy(event.Every(constant(1.)),
+                                                    order.side.Market(const(1.))),
                              label="avg-"),
     
             ctx.makeTrader_A(strategy.TradeIfProfitable(fv_200),

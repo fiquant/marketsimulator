@@ -35,19 +35,17 @@ def TwoAverages(ctx):
                         "signal", 
                         [(linear_signal, ctx.amount_graph)]),
             
-        ctx.makeTrader_A(strategy.CrossingAverages(
-                            event.Every(constant(1.)),
-                            order.side.Market(volume = const(1.)),
-                            alpha_slow, 
-                            alpha_fast),
+        ctx.makeTrader_A(strategy.side.CrossingAverages(alpha_slow,
+                                                        alpha_fast)
+                                      .Strategy(event.Every(constant(1.)),
+                                                order.side.Market(volume = const(1.))),
                          'avg_ex+',
                          myVolume()),
 
-        ctx.makeTrader_A(strategy.CrossingAverages(
-                            event.Every(constant(1.)),
-                            order.side.Market(volume = const(1.)),
-                            alpha_fast, 
-                            alpha_slow),
+        ctx.makeTrader_A(strategy.side.CrossingAverages(alpha_fast,
+                                                        alpha_slow)
+                                      .Strategy(event.Every(constant(1.)),
+                                                order.side.Market(volume = const(1.))),
                          'avg_ex-',
                          myVolume()),
     ]

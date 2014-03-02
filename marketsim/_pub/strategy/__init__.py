@@ -14,8 +14,6 @@ from marketsim.gen._out.strategy._twosides import TwoSides
 
 from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
 
-from marketsim.gen._out.strategy._crossingaverages import CrossingAverages
-
 from marketsim.gen._out.strategy._suspendable import Suspendable
 
 from marketsim.gen._out.strategy._trendfollower import TrendFollower

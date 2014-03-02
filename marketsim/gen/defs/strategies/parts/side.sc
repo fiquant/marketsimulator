@@ -43,9 +43,12 @@ package strategy.side
         = Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold)
 
     /**
-     * Side function for crossing averages strategy
-     */
-    def CrossingAverages(
+      * Two averages strategy compares two averages of price of the same asset but
+      * with different parameters ('slow' and 'fast' averages) and when
+      * the first is greater than the second one it buys,
+      * when the first is lower than the second one it sells
+      */
+    type CrossingAverages(
             /** parameter |alpha| for exponentially weighted moving average 1 */
             alpha_1 = 0.15,
             /** parameter |alpha| for exponentially weighted moving average 2 */
@@ -53,12 +56,14 @@ package strategy.side
             /** threshold when the trader starts to act */
             threshold    = 0.,
             /** asset in question */
-            book = orderbook.OfTrader())
-
-        = Signal(
+            book = .orderbook.OfTrader()) : SideStrategy
+    {
+        def Side = Signal(
                 book~>MidPrice~>EW(alpha_1)~>Avg -
                 book~>MidPrice~>EW(alpha_2)~>Avg,
             threshold)
+    }
+
 
     /**
      * Fundamental value strategy believes that an asset should have some specific price

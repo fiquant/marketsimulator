@@ -7,10 +7,6 @@ class IEvent(object):
         from marketsim.gen._out.strategy._liquidityprovider import LiquidityProvider
         return LiquidityProvider(self,orderFactory,initialValue,priceDistr)
     
-    def CrossingAverages(self, orderFactory = None,ewma_alpha_1 = None,ewma_alpha_2 = None,threshold = None):
-        from marketsim.gen._out.strategy._crossingaverages import CrossingAverages
-        return CrossingAverages(self,orderFactory,ewma_alpha_1,ewma_alpha_2,threshold)
-    
     def TrendFollower(self, orderFactory = None,ewma_alpha = None,threshold = None):
         from marketsim.gen._out.strategy._trendfollower import TrendFollower
         return TrendFollower(self,orderFactory,ewma_alpha,threshold)

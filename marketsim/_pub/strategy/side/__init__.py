@@ -1,3 +1,5 @@
+from marketsim.gen._out.strategy.side._threshold import Threshold
+
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 
 from marketsim.gen._out.strategy.side._signal import Signal
@@ -22,7 +24,11 @@ from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 
 from marketsim.gen._out.strategy.side._fv_side import FV_Side
 
+from marketsim.gen._out.strategy.side._alpha_2 import Alpha_2
+
 from marketsim.gen._out.strategy.side._fv import Fv
+
+from marketsim.gen._out.strategy.side._alpha_1 import Alpha_1
 
 from marketsim.gen._out.strategy.side._alpha import Alpha
 

@@ -1685,13 +1685,20 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
+        type PairTrading : SideStrategy
+        
+        type CrossingAverages : SideStrategy
+        
         type SideStrategy
         
         type FundamentalValue : SideStrategy
         
         type MeanReversion : SideStrategy
+        @category = "-"
         
-        type PairTrading : SideStrategy
+        @python.accessor()
+        def Threshold(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : .Float
+        
         @category = "-"
         
         @python.constructor()
@@ -1715,14 +1722,13 @@ package strategy {@category = "Side function"
                    /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.7) : () => .Side
             	 = .ops.Condition(.ops.Greater(signal,.constant(threshold)),.side.Buy(),.ops.Condition(.ops.Less(signal,.constant(0-threshold)),.side.Sell(),.side.Nothing()))
         
-        /** Side function for crossing averages strategy
-         */
+        @category = "-"
         
+        @python.constructor()
         def CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 : Optional[.Float] = 0.15,
                              /** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 : Optional[.Float] = 0.015,
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
-            	 = .strategy.side.Signal(.ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha_1)),.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha_2))),threshold)
+                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.CrossingAverages
         
         /** Side function for trend follower strategy
          */
@@ -1731,12 +1737,6 @@ package strategy {@category = "Side function"
                           /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                           /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Side
             	 = .strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(book),alpha))),threshold)
-        
-        /** Side function for pair trading strategy
-         */
-        
-        def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
-            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x)))
         
         /** Side function for mean reversion strategy
          */
@@ -1747,6 +1747,16 @@ package strategy {@category = "Side function"
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
             	 = .strategy.side.FV_Side(x)
+        
+        
+        def Side(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : () => .Side
+            	 = .strategy.side.Signal(.ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_1(x))),.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_2(x)))),.strategy.side.Threshold(x))
+        
+        /** Side function for pair trading strategy
+         */
+        
+        def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
+            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x)))
         
         @category = "-"
         
@@ -1760,12 +1770,6 @@ package strategy {@category = "Side function"
         def Factor(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .Float
         
         
-        def Strategy(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading(),
-                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
-            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
-        
-        
         def Strategy(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion(),
                      /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
@@ -1777,10 +1781,17 @@ package strategy {@category = "Side function"
                      /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
             	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
         
-        @category = "-"
         
-        @python.accessor()
-        def Book(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
+        def Strategy(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
+        
+        
+        def Strategy(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading(),
+                     /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market()) : .ISingleAssetStrategy
+            	 = .strategy.Generic(orderFactory(.strategy.side.Side(x)),eventGen)
         
         @category = "-"
         
@@ -1791,6 +1802,16 @@ package strategy {@category = "Side function"
         
         @python.accessor()
         def Book(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Book(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : .IOrderBook
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Book(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
         
         @category = "-"
         
@@ -1812,7 +1833,17 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
+        def Alpha_2(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
         def Fv(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : () => .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Alpha_1(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : .Float
         
         @category = "-"
         
@@ -2158,19 +2189,6 @@ package strategy {@category = "Side function"
                           /** defines multipliers for current asset price when price of
                             *                    order to create is calculated*/ priceDistr : Optional[() => .Float] = .math.random.lognormvariate(0.0,0.1)) : .ISingleAssetStrategy
         	 = .strategy.Array([.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Sell(),initialValue,priceDistr),.strategy.LiquidityProviderSide(eventGen,orderFactory,.side.Buy(),initialValue,priceDistr)])
-    
-    /** Two averages strategy compares two averages of price of the same asset but
-     * with different parameters ('slow' and 'fast' averages) and when
-     * the first is greater than the second one it buys,
-     * when the first is lower than the second one it sells
-     */
-    
-    def CrossingAverages(/** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every(.math.random.expovariate(1.0)),
-                         /** order factory function*/ orderFactory : Optional[(() => .Side) => .IObservable[.IOrder]] = .order._curried.side_Market(),
-                         /** parameter |alpha| for exponentially weighted moving average 1 */ ewma_alpha_1 : Optional[.Float] = 0.15,
-                         /** parameter |alpha| for exponentially weighted moving average 2 */ ewma_alpha_2 : Optional[.Float] = 0.015,
-                         /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(orderFactory(.strategy.side.CrossingAverages(ewma_alpha_1,ewma_alpha_2,threshold)),eventGen)
     
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
