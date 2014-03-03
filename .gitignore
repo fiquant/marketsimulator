@@ -22,3 +22,14 @@ marketsim/gen/target/
 marketsim/gen/.timestamp
 marketsim/gen/pygen.iml
 marketsim/gen/pygen.iml
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.nav
+*.out
+*.snm
+*.synctex
+*.tex.bak
+*.toc

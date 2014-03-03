@@ -125,10 +125,42 @@ Chair of Quantitative Finance, \'{E}cole Centrale Paris \\ % Your institution fo
 \frametitle{Evolution of the simulator II}
 \begin{enumerate}
   \item In order to make the simulator easy to to start work with, a Python version with a Web interface was developed in 2013. Karol Podkanski implemented number of trading strategies and indicators during his internship at summer 2013. Though this version gave a lot of insights on how a good modular design for market simulation software should be implemented, it showed that a lot of syntax noise appears in strategy description and the development becomes very error-prone because of the dynamic typing nature of Python.
-  \item Optimized C++ version based on automatic code generation is to be developed by September 2013
+  \item In October 2013 a decision to introduce a strategy definition language and a compiler for it was taken.
 \end{enumerate}
 \end{frame}
 %------------------------------------------------
+\begin{frame}
+\frametitle{Design goals}
+\begin{enumerate}
+  \item \textbf{\textit{Flexibility}}. A simulation library must have a very modular design in order to provide a high level of flexibility to the user. This requirement comes from the original purpose of a simulation as a test bed for experiments with different models and parameters.
+  \item \textbf{\textit{Used-friendliness}}. Since a typical simulation model is composed of many hundreds and thousands blocks, it is very important to provide a simple way for user to tell how a behaviour wanted differs from the default one. Simulator API should be friendly to modern IDEs
+  \item \textbf{\textit{Error checking}}. A simulator should detect incorrect parameter values as soon as possible in order to accelerate simulation development cycle and facilitate refactorings.
+  \item \textbf{\textit{Performance}}. A used should be allowed to choose between small start-up time and high simulation speed.
+\end{enumerate}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Modular Design}
+Representing a simulation model as a \textbf{network} of modules communicating by \textbf{messages} is a widely accepted practice for DES systems (e.g. Omnet++ or ns-2 for telecommunication network simulations).
+
+Module may have \textbf{parameters} that are used to adjust their behaviour. Modules may be organized into \textbf{hierarchy} in order to facilitate construction of large-scale simulation and it is useful to distinguish two sorts of modules:
+\begin{enumerate}
+\item \textbf{\textit{Simple modules}} provide functionality which is considered elementary (and there is no reason to reuse part of it to implement other modules).
+
+\item \textbf{\textit{Compound modules}} combine together other modules in some way and define their parameters based on its own parameters. Compound module behaviour is just a composition of its constituting modules behaviours.
+\end{enumerate}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Modular design sample}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{graph.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
 \begin{frame}
 \frametitle{Installation}
 \begin{itemize}
