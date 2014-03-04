@@ -18,7 +18,7 @@ def MultiarmedBandit(ctx):
                     event.Every(constant(1.)),
                     order.side.Market(volume = constant(1.)))
                                         
-    xs = range(100, 300, 50) + range(160, 190, 10)
+    xs = range(100, 200, 25)
     def strategies():
         return map(fv, xs)
     
@@ -27,14 +27,15 @@ def MultiarmedBandit(ctx):
         
     return [
         ctx.makeTrader_A(strategy.price.LiquidityProvider().Strategy(
-            orderFactory = order.side_price.Limit(volume=constant(45))),
+            orderFactory = order.side_price.Limit(const(30))
+                                .sideprice_WithExpiry(const(300))),
                          "liquidity"),
-            
-        ctx.makeTrader_A(        
-                strategy.side.FundamentalValue(const(200)).Strategy(
+
+        ctx.makeTrader_A(
+                strategy.side.FundamentalValue(const(150)).Strategy(
                     event.Every(constant(1.)),
-                    order.side.Market(volume = constant(12.))),
-                'fv 12-200'), 
+                    order.side.Market(volume = constant(10.))),
+                'fv 12-200'),
 
         ctx.makeTrader_A(strategy.MultiArmedBandit(
                                     strategies(), 
