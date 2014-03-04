@@ -267,27 +267,25 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Signal
-| | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | - Avg
+| | | | | | | | | | | | | - EW
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - Derivative
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | | - Avg
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | - Derivative
+| | | | | | | | | | | - List:
+| | | | | | | | | | - Signal
+| | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - threshold
 | | | | | | | | | - S_Side
@@ -352,39 +350,37 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Signal
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Sub
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | | - alpha_2
+| | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - Signal
 | | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha_1
-| | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha_2
-| | | | | | | | | | | | | - Avg
-| | | | | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - threshold
 | | | | | | | | | - S_Side
@@ -537,33 +533,28 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FundamentalValue
-| | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - EW
 | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - alpha
+| | | | | | | | | | | - Avg
+| | | | | | | | | | | - List:
+| | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
 | | | | | | | | | - FV_Side
 | | | | | | | | | - List:
 | | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - DocString:
-| | | | | | | | | - Side function for mean reversion strategy
-| | | | | | | | | - List:
+| | | | | | | - None
 | | | | | | | - List:
 | | | | | - false
 | | | | - Interface:
@@ -584,7 +575,8 @@ Definitions:
 | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | - List:
 | | | | | | | | - List:
-| | | | | | | | | -  reference to order book for another asset used to evaluate fair price of our asset 
+| | | | | | | | | -  reference to order book for another asset
+| | | | | | | | | -  used to evaluate fair price of our asset 
 | | | | | | | - Parameter:
 | | | | | | | | - factor
 | | | | | | | | - None
@@ -618,29 +610,24 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - FundamentalValue
-| | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Mul
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - bookToDependOn
-| | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - BinOp:
+| | | | | | | | | | | - Mul
+| | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - factor
+| | | | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - factor
+| | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
 | | | | | | | | | - FV_Side
 | | | | | | | | | - List:
 | | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - DocString:
-| | | | | | | | | - Side function for pair trading strategy
-| | | | | | | | | - List:
+| | | | | | | - None
 | | | | | | | - List:
 | | | | | - false
 | | | | - Interface:

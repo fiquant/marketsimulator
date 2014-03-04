@@ -84,7 +84,8 @@ Definitions:
 | | | | | | | | | - FloatLit:
 | | | | | | | | | | - 0.15
 | | | | | | | | - List:
-| | | | | | | | | -  alpha parameter for exponentially weighted moving everage and variance 
+| | | | | | | | | -  alpha parameter for exponentially weighted
+| | | | | | | | | -  moving everage and variance 
 | | | | | | | - Parameter:
 | | | | | | | | - k
 | | | | | | | | - None
@@ -98,7 +99,8 @@ Definitions:
 | | | | | | | | | | | - FloatLit:
 | | | | | | | | | | | | - 0.5
 | | | | | | | | - List:
-| | | | | | | | | -  observable scaling function that maps relative deviation to desired position 
+| | | | | | | | | -  observable scaling function that maps
+| | | | | | | | | -  relative deviation to desired position 
 | | | | | | | - Parameter:
 | | | | | | | | - trader
 | | | | | | | | - None

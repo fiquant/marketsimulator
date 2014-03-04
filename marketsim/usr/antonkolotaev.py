@@ -1,5 +1,5 @@
 def adjust(ctx):
 
-    ctx.useMinorTraders = False
+    ctx.useMinorTraders = True
     ctx.collectRSI = False
 

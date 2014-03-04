@@ -273,10 +273,10 @@ def run(name, constructor, only_veusz):
 
         if config.useMinorTraders:
             traders.extend([
-                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(0.07)).Strategy(), "RSI 0.07"),
-                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(-0.07)).Strategy(), "RSI -0.07"),
-                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(-0.5)).Strategy(), "Bollinger -0.5"),
-                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(+0.5)).Strategy(), "Bollinger +0.5"),
+                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(0.7)).Strategy(), "RSI 0.07"),
+                ctx.makeMinorTrader(strategy.position.RSI_linear(k = const(-0.7)).Strategy(), "RSI -0.07"),
+                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(-5.)).Strategy(), "Bollinger -0.5"),
+                ctx.makeMinorTrader(strategy.position.Bollinger_linear(alpha=0.15, k = const(+5.)).Strategy(), "Bollinger +0.5"),
             ])
         
         books = orderBooksToRender(ctx, traders)

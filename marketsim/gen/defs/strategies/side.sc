@@ -6,7 +6,9 @@ package strategy.side
         def Strategy(/** Event source making the strategy to wake up*/
                     eventGen        = event.Every(math.random.expovariate(1.)),
                     /** order factory function*/
-                    orderFactory    = order.side.Market()) = Generic(orderFactory(Side), eventGen)
+                    orderFactory    = order.side.Market())
+
+            = Generic(orderFactory(Side), eventGen)
     }
 
     type Noise(side_distribution = math.random.uniform(0., 1.)) : SideStrategy
@@ -36,7 +38,8 @@ package strategy.side
     /**
      * Trend follower can be considered as a sort of a signal strategy
      * where the *signal* is a trend of the asset.
-     * Under trend we understand the first derivative of some moving average of asset prices.
+     * Under trend we understand
+     * the first derivative of some moving average of asset prices.
      * If the derivative is positive, the trader buys; if negative - it sells.
      * Since moving average is a continuously changing signal, we check its
      * derivative at moments of time given by *eventGen*.
@@ -49,7 +52,10 @@ package strategy.side
             /** asset in question */
             book = .orderbook.OfTrader()) : SideStrategy
     {
-        def Side = (Signal(book~>MidPrice~>EW(alpha)~>Avg~>Derivative, threshold))~>S_Side
+        def Side = (book~>MidPrice
+                        ~>EW(alpha)~>Avg
+                        ~>Derivative)
+                        ~>Signal(threshold)~>S_Side
     }
 
 
@@ -69,17 +75,17 @@ package strategy.side
             /** asset in question */
             book = .orderbook.OfTrader()) : SideStrategy
     {
-        def Side = (Signal(
-                book~>MidPrice~>EW(alpha_1)~>Avg -
-                book~>MidPrice~>EW(alpha_2)~>Avg,
-            threshold))~>S_Side
+        def Side = (book~>MidPrice~>EW(alpha_1)~>Avg -
+                    book~>MidPrice~>EW(alpha_2)~>Avg)
+                        ~>Signal(threshold)~>S_Side
     }
 
 
     /**
-     * Fundamental value strategy believes that an asset should have some specific price
-     * (*fundamental value*) and if the current asset price is lower than the fundamental value
-     * it starts to buy the asset and if the price is higher it starts to sell the asset.
+     * Fundamental value strategy believes that an asset should have
+     * some specific price (*fundamental value*) and if the current
+     * asset price is lower than the fundamental value it starts to buy
+     * the asset and if the price is higher it starts to sell the asset.
      */
     type FundamentalValue(
         /** observable fundamental value */
@@ -93,13 +99,14 @@ package strategy.side
         def FV_Side
             =   if book~>Bids~>BestPrice > fv then side.Sell() else
                 if book~>Asks~>BestPrice < fv then side.Buy()  else
-                                                       side.Nothing()
+                                                   side.Nothing()
 
         def Side = FV_Side
     }
 
     /**
-      * Mean reversion strategy believes that asset price should return to its average value.
+      * Mean reversion strategy believes that
+      * asset price should return to its average value.
       * It estimates this average using some functional and
       * if the current asset price is lower than the average
       * it buys the asset and if the price is higher it sells the asset.
@@ -110,34 +117,30 @@ package strategy.side
         /** asset in question */
         book = orderbook.OfTrader()) : SideStrategy
     {
-        /**
-         * Side function for mean reversion strategy
-         */
-        def Side = (FundamentalValue(
-                            book~>MidPrice~>EW(alpha)~>Avg,
-                            book))~>FV_Side
+        def Side =  book~>MidPrice
+                        ~>EW(alpha)~>Avg
+                        ~>FundamentalValue(book)~>FV_Side
     }
 
     /**
       * Dependent price strategy believes that the fair price of an asset *A*
-      * is completely correlated with price of another asset *B* and the following relation
-      * should be held: *PriceA* = *kPriceB*, where *k* is some factor.
-      * It may be considered as a variety of a fundamental value strategy
-      * with the exception that it is invoked every the time price of another
-      * asset *B* changes.
+      * is completely correlated with price of another asset *B* and
+      * the following relation should be held: *PriceA* = *kPriceB*,
+      * where *k* is some factor. It may be considered as a variety of
+      * a fundamental value strategy with the exception that it is invoked
+      * every the time price of another asset *B* changes.
       */
     type PairTrading(
-        /** reference to order book for another asset used to evaluate fair price of our asset */
+        /** reference to order book for another asset
+          * used to evaluate fair price of our asset */
         bookToDependOn  = .orderbook.OfTrader(),
         /** multiplier to obtain fair asset price from the reference asset price */
         factor          = 1.0,
         /** asset in question */
         book = orderbook.OfTrader()) : SideStrategy
     {
-        /** Side function for pair trading strategy */
-        def Side = (FundamentalValue(
-                bookToDependOn~>MidPrice * factor,
-                book))~>FV_Side
+        def Side = (bookToDependOn~>MidPrice * factor)
+                        ~>FundamentalValue(book)~>FV_Side
     }
 
     type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */

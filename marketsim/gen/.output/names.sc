@@ -1112,7 +1112,8 @@ package strategy
     @category = "Side function"
     package side
     {
-        type PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
+        type PairTrading(/** reference to order book for another asset
+          * used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0,/** asset in question */ book = orderbook.OfTrader()) : SideStrategy
         
         type Signal(/** signal to be listened to */ source = .constant(0.0),/** threshold when the trader starts to act */ threshold = 0.7) : SideStrategy
         
@@ -1164,23 +1165,19 @@ package strategy
         
         def Side(x = .strategy.side.Noise()) = if x~>Side_distribution>0.5 then .side.Sell() else .side.Buy()
         
-        /** Side function for mean reversion strategy
-         */
-        def Side(x = .strategy.side.MeanReversion()) = .strategy.side.FundamentalValue(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg,x~>Book)~>FV_Side
+        def Side(x = .strategy.side.MeanReversion()) = x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>FundamentalValue(x~>Book)~>FV_Side
         
         def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha)~>Value,50.0-x~>Threshold)~>S_Side
         
         def Side(x = .strategy.side.FundamentalValue()) = x~>FV_Side
         
-        def Side(x = .strategy.side.TrendFollower()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative,x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.TrendFollower()) = x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative~>Signal(x~>Threshold)~>S_Side
         
-        def Side(x = .strategy.side.CrossingAverages()) = .strategy.side.Signal(x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg,x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.CrossingAverages()) = x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg~>Signal(x~>Threshold)~>S_Side
         
         def Side(x = .strategy.side.Signal()) = x~>S_Side
         
-        /** Side function for pair trading strategy
-         */
-        def Side(x = .strategy.side.PairTrading()) = .strategy.side.FundamentalValue(x~>BookToDependOn~>MidPrice*x~>Factor,x~>Book)~>FV_Side
+        def Side(x = .strategy.side.PairTrading()) = x~>BookToDependOn~>MidPrice*x~>Factor~>FundamentalValue(x~>Book)~>FV_Side
         
         def S_Side(x = .strategy.side.Signal()) = if x~>Source>x~>Threshold then .side.Buy() else if x~>Source<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
@@ -1368,7 +1365,9 @@ package strategy
     {
         abstract type DesiredPositionStrategy
         
-        type Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha = 0.15,/** observable scaling function that maps relative deviation to desired position */ k = .const(0.5),/** trader in question */ trader = .trader.SingleProxy()) : DesiredPositionStrategy
+        type Bollinger_linear(/** alpha parameter for exponentially weighted
+          * moving everage and variance */ alpha = 0.15,/** observable scaling function that maps
+          * relative deviation to desired position */ k = .const(0.5),/** trader in question */ trader = .trader.SingleProxy()) : DesiredPositionStrategy
         
         type RSI_linear(/** alpha parameter for exponentially moving averages of up movements and down movements */ alpha = 1.0/14.0,/** observable scaling function that maps RSI deviation from 50 to the desired position */ k = .const(-0.04),/** lag for calculating up and down movements */ timeframe = 1.0,/** trader in question */ trader = .trader.SingleProxy()) : DesiredPositionStrategy
         

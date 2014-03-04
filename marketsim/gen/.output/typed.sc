@@ -1774,7 +1774,8 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.constructor()
-        def PairTrading(/** reference to order book for another asset used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
+        def PairTrading(/** reference to order book for another asset
+                          * used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
                         /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0,
                         /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.PairTrading
         
@@ -1803,8 +1804,6 @@ package strategy {@category = "Side function"
         def Side(x : Optional[.strategy.side.Noise] = .strategy.side.Noise()) : () => .Side
             	 = .ops.Condition(.ops.Greater(.strategy.side.Side_distribution(x),.constant(0.5)),.side.Sell(),.side.Buy())
         
-        /** Side function for mean reversion strategy
-         */
         
         def Side(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IObservable[.Side]
             	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x)))
@@ -1829,8 +1828,6 @@ package strategy {@category = "Side function"
         def Side(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Side
             	 = .strategy.side.S_Side(x)
         
-        /** Side function for pair trading strategy
-         */
         
         def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
             	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x)))
@@ -2363,8 +2360,10 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.constructor()
-        def Bollinger_linear(/** alpha parameter for exponentially weighted moving everage and variance */ alpha : Optional[.Float] = 0.15,
-                             /** observable scaling function that maps relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
+        def Bollinger_linear(/** alpha parameter for exponentially weighted
+                               * moving everage and variance */ alpha : Optional[.Float] = 0.15,
+                             /** observable scaling function that maps
+                               * relative deviation to desired position */ k : Optional[.IObservable[.Float]] = .const(0.5),
                              /** trader in question */ trader : Optional[.ISingleAssetTrader] = .trader.SingleProxy()) : .strategy.position.Bollinger_linear
     }
     

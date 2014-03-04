@@ -10,17 +10,22 @@ package strategy.position
     }
 
     /**
-     *  Strategy believing that trader position should be proportional to the relative standard deviation of its price
+     *  Strategy believing that trader position should be proportional
+     *  to the relative standard deviation of its price
      */
     type Bollinger_linear(
-                /** alpha parameter for exponentially weighted moving everage and variance */
+                /** alpha parameter for exponentially weighted
+                  * moving everage and variance */
                 alpha   = 0.15,
-                /** observable scaling function that maps relative deviation to desired position */
+                /** observable scaling function that maps
+                  * relative deviation to desired position */
                 k       = .const(0.5),
                 /** trader in question */
                 trader  = .trader.SingleProxy()) : DesiredPositionStrategy
     {
-        def DesiredPosition = trader~>Orderbook~>MidPrice~>EW(alpha)~>RelStdDev~>OnEveryDt(1.0) * k
+        def DesiredPosition = trader~>Orderbook~>MidPrice
+                                               ~>EW(alpha)~>RelStdDev
+                                               ~>OnEveryDt(1.0) * k
     }
 
     /**
