@@ -1333,17 +1333,33 @@ package strategy
         type LiquidityProvider(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,/** defines multipliers for current asset price when price of
           *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),/** asset in question */ book = .orderbook.OfTrader())
         
+        type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
+        
+        type MarketMaker(delta = 1.0,volume = 20.0)
+        
+        def TwoSides(x = .strategy.price.MarketMaker()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
+        
+        def TwoSides(x = .strategy.price.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
+        
+        def OneSide(x = .strategy.price.MarketMaker(),
+                    side = .side.Sell(),
+                    sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(.orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+x~>Delta*sign)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
+        
+        def OneSide(x = .strategy.price.MarketData(),
+                    side = .side.Sell(),
+                    sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(x~>Ticker~>Quote(x~>Start,x~>End)+x~>Delta*sign~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
+        
         def Price(x = .strategy.price.LiquidityProvider(),
                   side = .side.Sell() : .IFunction[.Side]) = x~>Book~>Queue(side)~>SafeSidePrice(x~>InitialValue)*x~>PriceDistr
+        
+        def Strategy(x = .strategy.price.LiquidityProvider(),
+                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
+                     /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
         def OneSideStrategy(x = .strategy.price.LiquidityProvider(),
                             /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                             /** order factory function*/ orderFactory = .order.side_price.Limit(),
                             /** side of orders to create */ side = .side.Sell()) = orderFactory(side,x~>Price(side))~>Strategy(eventGen)
-        
-        def Strategy(x = .strategy.price.LiquidityProvider(),
-                     /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
-                     /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
     }
     
@@ -1414,10 +1430,6 @@ package strategy
         
     }
     
-    type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
-    
-    type MarketMaker(delta = 1.0,volume = 20.0)
-    
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -1436,23 +1448,11 @@ package strategy
                       /** function creating phantom strategy used for efficiency estimation */ account = .strategy.account.virtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance = .strategy.weight.efficiencyTrend()) : .ISingleAssetStrategy
     
-    def TwoSides(x = .strategy.MarketMaker()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
-    
-    def TwoSides(x = .strategy.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
-    
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = .strategy.Empty(),
                     /** predicate to evaluate */ predicate = .true()) : .ISingleAssetStrategy
-    
-    def OneSide(x = .strategy.MarketMaker(),
-                side = .side.Sell(),
-                sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(.orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+x~>Delta*sign)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
-    
-    def OneSide(x = .strategy.MarketData(),
-                side = .side.Sell(),
-                sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(x~>Ticker~>Quote(x~>Start,x~>End)+x~>Delta*sign~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))
     
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues

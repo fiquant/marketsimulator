@@ -29,36 +29,36 @@ class MarketData_StringStringStringFloatFloat(object):
 
     @property
     def Delta(self):
-        from marketsim.gen._out.strategy._delta import Delta
+        from marketsim.gen._out.strategy.price._delta import Delta
         return Delta(self)
     
     @property
     def Volume(self):
-        from marketsim.gen._out.strategy._volume import Volume
+        from marketsim.gen._out.strategy.price._volume import Volume
         return Volume(self)
     
     @property
     def TwoSides(self):
-        from marketsim.gen._out.strategy._twosides import TwoSides
+        from marketsim.gen._out.strategy.price._twosides import TwoSides
         return TwoSides(self)
     
     def OneSide(self, side = None,sign = None):
-        from marketsim.gen._out.strategy._oneside import OneSide
+        from marketsim.gen._out.strategy.price._oneside import OneSide
         return OneSide(self,side,sign)
     
     @property
     def Start(self):
-        from marketsim.gen._out.strategy._start import Start
+        from marketsim.gen._out.strategy.price._start import Start
         return Start(self)
     
     @property
     def End(self):
-        from marketsim.gen._out.strategy._end import End
+        from marketsim.gen._out.strategy.price._end import End
         return End(self)
     
     @property
     def Ticker(self):
-        from marketsim.gen._out.strategy._ticker import Ticker
+        from marketsim.gen._out.strategy.price._ticker import Ticker
         return Ticker(self)
     
     pass

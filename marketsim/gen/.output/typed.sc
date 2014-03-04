@@ -2148,10 +2148,42 @@ package strategy {@category = "Side function"
     
     package price {
         type LiquidityProvider
+        
+        type MarketData
+        
+        type MarketMaker
         @category = "-"
         
         @python.accessor()
         def PriceDistr(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : () => .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Delta(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Delta(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Volume(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker()) : .Float
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Volume(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .Float
+        
+        
+        def TwoSides(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker()) : .ISingleAssetStrategy
+            	 = .strategy.Combine(.strategy.price.OneSide(x,.side.Sell(),1.0),.strategy.price.OneSide(x,.side.Buy(),-1.0))
+        
+        
+        def TwoSides(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .ISingleAssetStrategy
+            	 = .strategy.Combine(.strategy.price.OneSide(x,.side.Sell(),1.0),.strategy.price.OneSide(x,.side.Buy(),-1.0))
         
         @category = "-"
         
@@ -2162,9 +2194,38 @@ package strategy {@category = "Side function"
                               /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.price.LiquidityProvider
         
         
+        def OneSide(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker(),
+                    side : Optional[.IObservable[.Side]] = .side.observableSell(),
+                    sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+            	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.price.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.price.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.price.Volume(x))),.event.After(.constant(0.0)))
+        
+        
+        def OneSide(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData(),
+                    side : Optional[.IObservable[.Side]] = .side.observableSell(),
+                    sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+            	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.price.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.price.Ticker(x),.strategy.price.Start(x),.strategy.price.End(x)),.constant(.strategy.price.Delta(x)*sign)))),.constant(.strategy.price.Volume(x))),.event.After(.constant(0.0)))
+        
+        
+        def OneSide(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker(),
+                    side : Optional[() => .Side] = .side.Sell(),
+                    sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+            	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.price.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.price.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.price.Volume(x))),.event.After(.constant(0.0)))
+        
+        
+        def OneSide(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData(),
+                    side : Optional[() => .Side] = .side.Sell(),
+                    sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
+            	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.price.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.price.Ticker(x),.strategy.price.Start(x),.strategy.price.End(x)),.constant(.strategy.price.Delta(x)*sign)))),.constant(.strategy.price.Volume(x))),.event.After(.constant(0.0)))
+        
+        
         def Price(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
                   side : Optional[() => .Side] = .side.Sell() : () => .Side) : .IObservable[.Float]
             	 = .ops.Mul(.orderbook.SafeSidePrice(.orderbook.Queue(.strategy.price.Book(x),side),.constant(.strategy.price.InitialValue(x))),.strategy.price.PriceDistr(x))
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Start(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .String
         
         
         def Strategy(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
@@ -2194,7 +2255,32 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
+        def End(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .String
+        
+        @category = "-"
+        
+        @python.constructor()
+        def MarketData(/** Ticker of the asset */ ticker : Optional[.String] = "^GSPC",
+                       /** Start date in DD-MM-YYYY format */ start : Optional[.String] = "2001-1-1",
+                       /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
+                       /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
+                       /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .strategy.price.MarketData
+        
+        @category = "-"
+        
+        @python.accessor()
+        def Ticker(x : Optional[.strategy.price.MarketData] = .strategy.price.MarketData()) : .String
+        
+        @category = "-"
+        
+        @python.accessor()
         def InitialValue(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : .Float
+        
+        @category = "-"
+        
+        @python.constructor()
+        def MarketMaker(delta : Optional[.Float] = 1.0,
+                        volume : Optional[.Float] = 20.0) : .strategy.price.MarketMaker
     }
     
     @category = "Volume function"
@@ -2325,9 +2411,6 @@ package strategy {@category = "Side function"
         def virtualMarket = .strategy.account.inner.inner_VirtualMarket
     }
     
-    type MarketData
-    
-    type MarketMaker
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
@@ -2335,16 +2418,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.combine._Combine_Impl")
     def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                 B : Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .ISingleAssetStrategy
-    
-    @category = "-"
-    
-    @python.accessor()
-    def Delta(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .Float
-    
-    @category = "-"
-    
-    @python.accessor()
-    def Delta(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
     
     /** A composite strategy initialized with an array of strategies.
      * In some moments of time the most effective strategy
@@ -2358,54 +2431,12 @@ package strategy {@category = "Side function"
                       /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
     
-    @category = "-"
-    
-    @python.accessor()
-    def Volume(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .Float
-    
-    @category = "-"
-    
-    @python.accessor()
-    def Volume(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .Float
-    
-    
-    def TwoSides(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker()) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
-    
-    
-    def TwoSides(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .ISingleAssetStrategy
-        	 = .strategy.Combine(.strategy.OneSide(x,.side.Sell(),1.0),.strategy.OneSide(x,.side.Buy(),-1.0))
-    
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     
     @python.intrinsic("strategy.suspendable._Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                     /** predicate to evaluate */ predicate : Optional[() => .Boolean] = .true()) : .ISingleAssetStrategy
-    
-    
-    def OneSide(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker(),
-                side : Optional[.IObservable[.Side]] = .side.observableSell(),
-                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
-    
-    
-    def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
-                side : Optional[.IObservable[.Side]] = .side.observableSell(),
-                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
-    
-    
-    def OneSide(x : Optional[.strategy.MarketMaker] = .strategy.MarketMaker(),
-                side : Optional[() => .Side] = .side.Sell(),
-                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.observable.OnEveryDt(.ops.Div(.orderbook.SafeSidePrice(.orderbook.Queue(.orderbook.OfTrader(),side),.constant(100+.strategy.Delta(x)*sign)),.math.Exp(.ops.Div(.math.Atan(.trader.Position()),.constant(1000)))),0.9))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
-    
-    
-    def OneSide(x : Optional[.strategy.MarketData] = .strategy.MarketData(),
-                side : Optional[() => .Side] = .side.Sell(),
-                sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
-        	 = .strategy.Generic(.order.Iceberg(.order.FloatingPrice(.order._curried.price_Limit(side,.constant(.strategy.Volume(x)*1000)),.observable.BreaksAtChanges(.ops.Add(.observable.Quote(.strategy.Ticker(x),.strategy.Start(x),.strategy.End(x)),.constant(.strategy.Delta(x)*sign)))),.constant(.strategy.Volume(x))),.event.After(.constant(0.0)))
     
     /** Strategy for a multi asset trader.
      * It believes that these assets represent a single asset traded on different venues
@@ -2431,11 +2462,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.combine._Array_Impl")
     def Array(/** strategies to combine */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Empty()]) : .ISingleAssetStrategy
     
-    @category = "-"
-    
-    @python.accessor()
-    def Start(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
-    
     /** Empty strategy doing nothing
      */
     
@@ -2458,20 +2484,6 @@ package strategy {@category = "Side function"
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => (() => List[.Float])] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
     
-    @category = "-"
-    
-    @python.accessor()
-    def End(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
-    
-    @category = "-"
-    
-    @python.constructor()
-    def MarketData(/** Ticker of the asset */ ticker : Optional[.String] = "^GSPC",
-                   /** Start date in DD-MM-YYYY format */ start : Optional[.String] = "2001-1-1",
-                   /** End date in DD-MM-YYYY format */ end : Optional[.String] = "2010-1-1",
-                   /** Price difference between orders placed and underlying quotes */ delta : Optional[.Float] = 1.0,
-                   /** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume : Optional[.Float] = 1000.0) : .strategy.MarketData
-    
     /** Strategy that listens to all orders sent by a trader to the market
      *  and in some moments of time it randomly chooses an order and cancels it
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
@@ -2479,11 +2491,6 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.canceller._Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
-    
-    @category = "-"
-    
-    @python.accessor()
-    def Ticker(x : Optional[.strategy.MarketData] = .strategy.MarketData()) : .String
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
@@ -2493,12 +2500,6 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.generic._Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : Optional[.IObservable[.IOrder]] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
-    
-    @category = "-"
-    
-    @python.constructor()
-    def MarketMaker(delta : Optional[.Float] = 1.0,
-                    volume : Optional[.Float] = 20.0) : .strategy.MarketMaker
 }
 
 @category = "Trader"

@@ -90,7 +90,7 @@ class Float(object):
         return f_AtanPow(self)
     
     def MarketMaker(self, volume = None):
-        from marketsim.gen._out.strategy._marketmaker import MarketMaker
+        from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
         return MarketMaker(self,volume)
     
     def Bollinger_linear(self, k = None,trader = None):
