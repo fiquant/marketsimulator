@@ -134,7 +134,6 @@ Chair of Quantitative Finance, \'{E}cole Centrale Paris \\ % Your institution fo
 \begin{enumerate}
   \item \textbf{\textit{Flexibility}}. A simulation library must have a very modular design in order to provide a high level of flexibility to the user. This requirement comes from the original purpose of a simulation as a test bed for experiments with different models and parameters.
   \item \textbf{\textit{Used-friendliness}}. Since a typical simulation model is composed of many hundreds and thousands blocks, it is very important to provide a simple way for user to tell how a behaviour wanted differs from the default one. Simulator API should be friendly to modern IDEs
-  \item \textbf{\textit{Error checking}}. A simulator should detect incorrect parameter values as soon as possible in order to accelerate simulation development cycle and facilitate refactorings.
   \item \textbf{\textit{Performance}}. A used should be allowed to choose between small start-up time and high simulation speed.
 \end{enumerate}
 \end{frame}
@@ -158,6 +157,92 @@ Module may have \textbf{parameters} that are used to adjust their behaviour. Mod
 \centering
 \includegraphics[width=1\linewidth]{graph.png}
 \end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Motivation for an external DSL}
+\begin{enumerate}
+  \item \textbf{\textit{Syntax}}. We may design an external DSL so its syntax describes very well domain specific abstraction.
+  \item \textbf{\textit{Error checking}}. A DSL compiler can detect incorrect parameter values as soon as possible thus shortening simulation development cycle and facilitating refactorings.
+  \item \textbf{\textit{Multiple target languages}}. A DSL can be compiled into different languages: e.g. into Python to provide fast start-up and into C++ to have highly optimized simulations. A new target language introduced, only simple modules need to be re-written into it; compound modules will be ported automatically.
+  \item \textbf{\textit{IDE support}}. Modern IDEs like Eclipse, Intellij IDEA allow writing plug-ins that would provide smart syntax highlighting, auto-completion and check errors on-the-fly for user-defined DSLs.
+  \item \textbf{\textit{High-level optimizations}}. 
+\end{enumerate}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Scala as a language to implement the DSL compiler}
+\begin{enumerate}
+  \item As a ML-family member, very suitable for sophisticated symbol processing tasks like compilation: an internal DSL to parse texts, algebraic data types, pattern matching, a powerful collections library, mixin inheritance via traits.
+  \item Good balance between functional and imperative programming features -- easier to find software engineers
+  \item The most mainstream of a functional programming languages that results in wide community, excellent library and tool support, mature IDEs.
+  \item Very portable since runs on JVM.
+  \item Statically typed
+  \item Good for Web development.
+\end{enumerate}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Functions}
+Conceptually, a "function" declaration defines a term with a constructor provided (like case classes in Scala). 
+
+Types for input arguments are inferred automatically from their initializers and for the "return" value - from the function body.
+
+Functions represent compound modules of a simulation model.
+
+\includegraphics[width=1\linewidth]{logreturns.png}
+
+All methods are considered as extension methods of their first argument.
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Intrinsic Functions}
+Intrinsic functions import simple modules from a target language into the DSL. 
+"Return" types for intrinsic functions must be specified explicitly.
+\includegraphics[width=1\linewidth]{lagged.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Type System I}
+Types correspond to interfaces without methods from mainstream languages. They are used for error checking and for function overloading.
+\begin{enumerate}
+  \item Simple types may derive from other types or be aliases
+  \includegraphics[width=1\linewidth]{intfloat.png}
+  \item Tuple and function types
+  \includegraphics[width=1\linewidth]{tuplefunction.png}
+  \item Top (\texttt{Any}) and bottom (\texttt{Nothing}) types.
+  \item Lists (\texttt{List[T]})
+\end{enumerate}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Type System II}
+Types may be generic. 
+
+Functions are contravariant in the input type and covariant in the output type: \texttt{CanCast(D,B)} $\wedge$ \texttt{CanCast(R,T)} $\Rightarrow$ \texttt{CanCast(B=>R,D=>T)}.
+
+All other types are covariant.
+
+\includegraphics[width=1\linewidth]{iobservable.png}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Classes I}
+Classes are syntax sugar for a type declaration, constructor function and member accessors
+
+\includegraphics[width=1\linewidth]{macd.png}
+
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Classes II}
+Previous definition is de-sugared at typing stage into
+
+\includegraphics[width=1\linewidth]{macd_desugared.png}
+
+
 \end{frame}
 %------------------------------------------------
 
