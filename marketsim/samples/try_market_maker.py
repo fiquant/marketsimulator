@@ -4,8 +4,8 @@ sys.path.append(r'../..')
 from marketsim._pub import strategy
 from common import expose
 
-@expose("Market Data", __name__, only_veusz=True)
-def MarketData(ctx):
+@expose("Market Maker", __name__)
+def MarketMaker(ctx):
     return [
         ctx.makeTrader_A(strategy.price.MarketMaker().TwoSides, "marketmaker2"),
    

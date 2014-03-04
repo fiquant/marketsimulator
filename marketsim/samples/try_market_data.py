@@ -4,7 +4,7 @@ sys.path.append(r'../..')
 from marketsim._pub import strategy
 from common import expose
 
-@expose("Market Data", __name__, only_veusz=True)
+@expose("Market Data", __name__)
 def MarketData(ctx):
     return [
         ctx.makeTrader_A(strategy.price.MarketData().TwoSides, "marketdata2"),
