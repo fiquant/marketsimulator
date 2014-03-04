@@ -28,9 +28,9 @@ def createSimulation(name='All'):
         myRegistry = registry.create()
     
         ctx = Context(world, js.Graph)
-        dependency_ex = strategy.PairTrading(event.Every(math.random.expovariate(1.)),
-                                            order.side.Market(),
-                                            ctx.book_B)
+        dependency_ex = strategy.side.PairTrading(ctx.book_B)\
+                                     .Strategy(event.Every(math.random.expovariate(1.)),
+                                               order.side.Market())
         
         def register(annotated_objects):
             for obj, alias in annotated_objects:
