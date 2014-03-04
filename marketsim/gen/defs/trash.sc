@@ -2,6 +2,19 @@
 @method = "N/A"
 package _test
 
+@X = "X"
+@Y = "Y"
+package A.B {
+    @X = "Xa"
+    def f() => Float
+
+    @X = "Xb"
+    package {
+        def g() => Float
+        def h() => Float
+    }
+}
+
 package types {
     type T1 = T
 

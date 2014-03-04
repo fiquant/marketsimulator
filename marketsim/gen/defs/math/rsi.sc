@@ -1,11 +1,12 @@
 package math
 {
     /**
-     *  Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+     *  Observable that adds a lag to an observable data source
+     *  so Lagged(x, dt)(t0+dt) == x(t0)
      */
     @python.intrinsic("observable.lagged.Lagged_Impl")
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
-    def Lagged (/** observable data source */   source = const (1.),
+    def Lagged (/** observable data source */   source    = const (1.),
                 /** lag size */                 timeframe = 10.0) : IObservable[Float]
 
     /**

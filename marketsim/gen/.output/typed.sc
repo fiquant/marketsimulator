@@ -59,6 +59,26 @@ package event {
 @method = "N/A"
 
 package _test {
+    package A {@X = "X"
+        @Y = "Y"
+        
+        package B {
+            @X = "Xa"
+            
+            def f() : () => .Float
+            
+            @X = "Xb"
+            
+            def g() : () => .Float
+            
+            @X = "Xb"
+            
+            def h() : () => .Float
+        }
+        
+    }
+    
+    
     package in1 {
         package in2 {
             
@@ -810,7 +830,8 @@ package math {
     @python.accessor()
     def Fast(x : Optional[.math.macd] = .math.macd()) : .Float
     
-    /** Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+    /** Observable that adds a lag to an observable data source
+     *  so Lagged(x, dt)(t0+dt) == x(t0)
      */
     @label = "Lagged_{%(timeframe)s}(%(source)s)"
     

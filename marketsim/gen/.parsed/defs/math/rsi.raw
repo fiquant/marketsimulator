@@ -46,8 +46,9 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | - Some:
 | | | | | | - DocString:
-| | | | | | | - Observable that adds a lag to an observable data source so [Lagged(x, dt)]t=t0 == [x]t=t0+dt
+| | | | | | | - Observable that adds a lag to an observable data source
 | | | | | | | - List:
+| | | | | | | | -   so Lagged(x, dt)(t0+dt) == x(t0)
 | | | | | - List:
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:

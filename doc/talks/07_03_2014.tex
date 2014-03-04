@@ -241,7 +241,24 @@ Classes are syntax sugar for a type declaration, constructor function and member
 Previous definition is de-sugared at typing stage into
 
 \includegraphics[width=1\linewidth]{macd_desugared.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Class Inheritance}
+Classes derive fields and methods from base classes.
 
+Methods are treated as "virtual" to stimulate code re-use
+
+\includegraphics[width=1\linewidth]{moments.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Packages and Attributes}
+Package are used to group functions and types. They can be nested. Attributes are inherited from enclosing package. Anonymous packages are used to assign same attributes to a group of functions without introducing a new name scope.
+
+\includegraphics[width=1\linewidth]{packages.png}
+
+In this sample \texttt{.A.B.f} will have attributes \texttt{X == "Xa", Y == "Y"} and \texttt{.A.B.g} and \texttt{.A.B.h} will have attributes \texttt{X == "Xb", Y == "Y"}
 
 \end{frame}
 %------------------------------------------------
