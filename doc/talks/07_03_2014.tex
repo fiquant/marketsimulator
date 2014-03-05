@@ -111,7 +111,7 @@ Chair of Quantitative Finance, \'{E}cole Centrale Paris \\ % Your institution fo
 
 %------------------------------------------------
 \section{Introduction}
-
+\subsection{History}
 %------------------------------------------------
 \begin{frame}
 \frametitle{Evolution of the simulator I}
@@ -124,25 +124,28 @@ Chair of Quantitative Finance, \'{E}cole Centrale Paris \\ % Your institution fo
 \begin{frame}
 \frametitle{Evolution of the simulator II}
 \begin{enumerate}
-  \item In order to make the simulator easy to to start work with, a Python version with a Web interface was developed in 2013. Karol Podkanski implemented number of trading strategies and indicators during his internship at summer 2013. Though this version gave a lot of insights on how a good modular design for market simulation software should be implemented, it showed that a lot of syntax noise appears in strategy description and the development becomes very error-prone because of the dynamic typing nature of Python.
+  \item In order to make the simulator easy to start work with, a Python version with a Web interface was developed in 2013. Karol Podkanski implemented number of trading strategies and indicators during his internship at summer 2013. Though this version gave a lot of insights on how a good modular design for market simulation software should be implemented, it showed that a lot of syntax noise appears in strategy description and the development becomes very error-prone because of the dynamic typing nature of Python.
   \item In October 2013 a decision to introduce a strategy definition language and a compiler for it was taken.
 \end{enumerate}
 \end{frame}
 %------------------------------------------------
+\subsection{Design}
 \begin{frame}
 \frametitle{Design goals}
 \begin{enumerate}
   \item \textbf{\textit{Flexibility}}. A simulation library must have a very modular design in order to provide a high level of flexibility to the user. This requirement comes from the original purpose of a simulation as a test bed for experiments with different models and parameters.
   \item \textbf{\textit{Used-friendliness}}. Since a typical simulation model is composed of many hundreds and thousands blocks, it is very important to provide a simple way for user to tell how a behaviour wanted differs from the default one. Simulator API should be friendly to modern IDEs
-  \item \textbf{\textit{Performance}}. A used should be allowed to choose between small start-up time and high simulation speed.
+  \item \textbf{\textit{Performance}}. A user should be allowed to choose between small start-up time and high simulation speed.
 \end{enumerate}
 \end{frame}
 %------------------------------------------------
 \begin{frame}
 \frametitle{Modular Design}
-Representing a simulation model as a \textbf{network} of modules communicating by \textbf{messages} is a widely accepted practice for DES systems (e.g. Omnet++ or ns-2 for telecommunication network simulations).
+Representing a simulation model as a \textbf{network} of modules communicating by \textbf{messages} is a widely accepted practice for DES systems (e.g. Omnet++ or ns-2 to simulate telecommunication networks).
 
-Module may have \textbf{parameters} that are used to adjust their behaviour. Modules may be organized into \textbf{hierarchy} in order to facilitate construction of large-scale simulation and it is useful to distinguish two sorts of modules:
+Module may have \textbf{parameters} that are used to adjust their behaviour. Modules are organized into \textbf{hierarchy} in order to facilitate construction of large-scale simulation.
+
+We will distinguish two sorts of modules:
 \begin{enumerate}
 \item \textbf{\textit{Simple modules}} provide functionality which is considered elementary (and there is no reason to reuse part of it to implement other modules).
 
@@ -152,21 +155,22 @@ Module may have \textbf{parameters} that are used to adjust their behaviour. Mod
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Modular design sample}
+\frametitle{Modular design sample: Crossing Averages Strategy}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{graph.png}
 \end{figure}
 \end{frame}
 %------------------------------------------------
+\subsection{DSL}
 \begin{frame}
 \frametitle{Motivation for an external DSL}
 \begin{enumerate}
-  \item \textbf{\textit{Syntax}}. We may design an external DSL so its syntax describes very well domain specific abstraction.
+  \item \textbf{\textit{Syntax}}. We may design an external DSL so its syntax describes very well domain specific abstractions.
   \item \textbf{\textit{Error checking}}. A DSL compiler can detect incorrect parameter values as soon as possible thus shortening simulation development cycle and facilitating refactorings.
-  \item \textbf{\textit{Multiple target languages}}. A DSL can be compiled into different languages: e.g. into Python to provide fast start-up and into C++ to have highly optimized simulations. A new target language introduced, only simple modules need to be re-written into it; compound modules will be ported automatically.
+  \item \textbf{\textit{Multiple target languages}}. A DSL can be compiled into different languages: e.g. into Python to provide fast start-up and into C++ to have highly optimized fast simulations. A new target language introduced, only simple modules need to be re-written into it; compound modules will be ported automatically.
   \item \textbf{\textit{IDE support}}. Modern IDEs like Eclipse, Intellij IDEA allow writing plug-ins that would provide smart syntax highlighting, auto-completion and check errors on-the-fly for user-defined DSLs.
-  \item \textbf{\textit{High-level optimizations}}. 
+  \item \textbf{\textit{High-level optimizations}} are easier to implement. 
 \end{enumerate}
 \end{frame}
 %------------------------------------------------
@@ -175,7 +179,7 @@ Module may have \textbf{parameters} that are used to adjust their behaviour. Mod
 \begin{enumerate}
   \item As a ML-family member, very suitable for sophisticated symbol processing tasks like compilation: an internal DSL to parse texts, algebraic data types, pattern matching, a powerful collections library, mixin inheritance via traits.
   \item Good balance between functional and imperative programming features -- easier to find software engineers
-  \item The most mainstream of a functional programming languages that results in wide community, excellent library and tool support, mature IDEs.
+  \item The most mainstream of functional programming languages that results in wide community, excellent library and tool support, mature IDEs.
   \item Very portable since runs on JVM.
   \item Statically typed
   \item Right choice to develop a Web server.
@@ -183,6 +187,7 @@ Module may have \textbf{parameters} that are used to adjust their behaviour. Mod
 \end{frame}
 %------------------------------------------------
 \section{Strategy Definition Language}
+\subsection{Functions}
 \begin{frame}
 \frametitle{Functions}
 Conceptually, a "function" declaration defines a term with a constructor provided (like case classes in Scala). 
@@ -193,7 +198,9 @@ Functions represent compound modules of a simulation model.
 
 \includegraphics[width=1\linewidth]{logreturns.png}
 
-All methods are considered as extension methods of their first argument.
+All methods can be considered as extension methods of their first argument. 
+
+\texttt{x$\sim$>Lagged(dt)} is equivalent to \texttt{.observable.Lagged(x, dt)}.
 \end{frame}
 %------------------------------------------------
 \begin{frame}
@@ -203,6 +210,7 @@ Intrinsic functions import simple modules from a target language into the DSL.
 \includegraphics[width=1\linewidth]{lagged.png}
 \end{frame}
 %------------------------------------------------
+\subsection{Types}
 \begin{frame}
 \frametitle{Type System I}
 Types correspond to interfaces without methods from mainstream languages. They are used for error checking and for function overloading.
@@ -228,7 +236,7 @@ All other types are covariant.
 
 \end{frame}
 %------------------------------------------------
-
+\subsection{Classes}
 \begin{frame}
 \frametitle{Classes I}
 Classes are syntax sugar for a type declaration, constructor function and member accessors
@@ -253,9 +261,10 @@ Methods are treated as "virtual" to stimulate code re-use
 \includegraphics[width=1\linewidth]{moments.png}
 \end{frame}
 %------------------------------------------------
+\subsection{Packages}
 \begin{frame}
 \frametitle{Packages and Attributes}
-Package are used to group functions and types. They can be nested. Attributes are inherited from enclosing package. Anonymous packages are used to assign same attributes to a group of functions without introducing a new name scope.
+Packages are used to group functions and types. They can be nested. Attributes are inherited from enclosing package. Anonymous packages are used to assign same attributes to a group of functions without introducing a new name scope.
 
 \includegraphics[width=1\linewidth]{packages.png}
 
@@ -402,23 +411,11 @@ Backtests aggregated strategies and allows to run only to that one who has the b
 \includegraphics[width=1\linewidth]{multiarmedbandit.png}
 \end{frame}
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Installation}
-\begin{itemize}
-\item OS supported: Linux, Mac OS X, Windows
-\item Browsers supported: Chrome, Firefox, Safari, Opera
-\item Python 2.7
-\item Python packages can be installed using \texttt{pip} or \texttt{easyinstall}:
-\begin{itemize}
-\item \textcolor[rgb]{0.00,0.50,0.75}{\href{http://home.gna.org/veusz/}{Veusz}} (for graph plotting)
-\item \textcolor[rgb]{0.00,0.50,0.75}{\href{http://flask.pocoo.org}{Flask}} (to run a Web-server)
-\item \textcolor[rgb]{0.00,0.50,0.75}{\href{https://pypi.python.org/pypi/blist/}{Blist}} (sorted collections used by ArbitrageTrader)
-\end{itemize}
-\item Source code downloadable from \textcolor[rgb]{0.00,0.50,0.75}{\href{http://sourceforge.net/p/marketsimulator/svn/HEAD/tree/DevAnton/v3/}{SourceForge}}
-\end{itemize}
-
+\frametitle{Arbitrage Strategy}
+\includegraphics[width=1\linewidth]{Arbitrage.png}
 \end{frame}
+%------------------------------------------------
 
 \section{Simulator components}
 
@@ -430,7 +427,6 @@ Backtests aggregated strategies and allows to run only to that one who has the b
 \end{figure}
 \end{frame}
 
-\subsection{Scheduler}
 \begin{frame}
 \frametitle{Scheduler}
 \begin{itemize}
@@ -453,8 +449,17 @@ Interface:
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Events}
+\begin{itemize}
+  \item \texttt{event.Event}. Base class for multicast events.
+  \item \texttt{event.Conditional}. Multicast event class with conditional events support. Allows effective notification mechanism for collections of event handler of form \texttt{event.GreaterThan(x, listener)} and \texttt{event.LessThan(x, listener)}. Internally it keeps two dequeues of event handlers sorted by their trigger values and notifies only those handlers whose trigger conditions are fullfilled.
+  \item \texttt{event.GreaterThan(x, listener)}. Fires \texttt{listener} only if the value observed is greater than \texttt{x}.
+  \item \texttt{event.LessThan(x, listener)}. Fires \texttt{listener} only if the value observed is less than \texttt{x}.
+\end{itemize}
+\end{frame}
+
 %------------------------------------------------
-\subsection{Order books} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 \begin{frame}
 \frametitle{Order book}
 \begin{itemize}
@@ -479,7 +484,6 @@ Interface:
 \end{frame}
 
 %------------------------------------------------
-\subsection{Orders}
 \begin{frame}
 \frametitle{Basic orders}
 Orders supported internally by an order book:
@@ -494,18 +498,29 @@ Factory functions are usually used in order to create orders.
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Meta orders}
+\frametitle{Meta orders I}
 Follow order interface from trader's perspective (so they can be used instead of basic orders) but behave like a sequence of base orders from an order book point of view.
 \begin{itemize}
-  \item \texttt{Iceberg(volumeLimit, orderToSplit)} splits \texttt{orderToSplit} to pieces with volume less than \texttt{volumeLimit} and sends them one by one to an order book ensuring that only one order at time is processed there
-  \item \texttt{AlwaysBest(volume, limitOrderFactory)} creates a limit-like order with given volume and the most attractive price, sends it to an order book and if the order book best price changes, cancels it and resends with a better price
-  \item \texttt{WithExpiry(lifetime, limitOrderFactory)} sends a limit-like order and after \texttt{lifetime} cancels it
-  \item \texttt{LimitMarket(limitOrderFactory)} is like \texttt{WithExpiry} but with \texttt{lifetime} equal to 0
+  \item \texttt{Iceberg(volumeLimit, underlyingFactory)} splits orders created by \texttt{underlyingFactory} to pieces with volume less than \texttt{volumeLimit} and sends them one by one to an order book ensuring that only one order at time is processed there
+  \item \texttt{FloatingPrice(price, underlyingFactory)} listens to an observable \texttt{price} and when it changes, cancels its order on the markets and resends it with the new price.  
+  \item \texttt{Peg(underlyingFactory)} creates a limit-like order with given volume and the most attractive price, sends it to an order book and if the order book best price changes, cancels it and resends with a better price. Implemented via \texttt{FloatingPrice}.
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
-\subsection{Traders}
+\begin{frame}
+\frametitle{Meta orders II}
+\begin{itemize}
+  \item \texttt{WithExpiry(lifetime, underlyingFactory)} sends a limit-like order and after \texttt{lifetime} cancels it
+  \item \texttt{ImmediateOrCancel(underlyingFactory)} is like \texttt{WithExpiry} but with \texttt{lifetime} equal to 0 making a limit order to act as a conditional market order
+  \item \texttt{StopLoss(lossFactor, underlyingFactory)} order is initialised by an underlying order and a maximal acceptable loss factor.
+      It keeps track of position and balance change induced by trades of the underlying order and
+      if losses from keeping the position exceed certain limit (given by maximum \texttt{lossFactor}),
+      the meta order clears its position.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
 \begin{frame}
 \frametitle{Traders}
 Single asset traders
@@ -518,38 +533,20 @@ Single asset traders
 Single asset traders operate on a single or multiple markets.
 Multiple asset traders are about to be added.
 \end{frame}
-
 %------------------------------------------------
-\subsection{Strategies}
-\begin{frame}
-\frametitle{Generic strategy}
-Generic strategy that wakes up on events given by \texttt{eventGen},
-chooses side of order to create using \texttt{sideFunc} and its volume by \texttt{volumeFunc},
-creates an order via \texttt{orderFactory} and sends the order to the market using its trader
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=9cm, height=5cm]{python-generic.png}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
-\subsection{Observables}
 \begin{frame}
 \frametitle{Observable}
-Traders and order books provide basic accessors to their current state but don't collect any statistics. In order to do it in an interoperable way a notion of observable value was introduced: it allows to read its current value and notifies listeners about its change.
+Traders and order books provide basic accessors to their current state but don't collect any statistics. In order to do it in an interoperable way a notion of observable value was introduced: it allows to read its current value and notifies listeners about its change. Examples of observables are:
 \begin{itemize}
-    \item Primitive observables on
-    \begin{itemize}
-      \item traders: position, balance, market value of the portfolio, 'cleared' balance etc.
-      \item order books: ask/mid/bid price, last trade price, price at volume, volume of orders with price better than given one etc.
-    \end{itemize}
-    \item \texttt{OnEveryDt(dt, dataSource)} evaluates \texttt{dataSource} every \texttt{dt} moments of time. Often used with \texttt{Fold(observable, accumulator)} where \texttt{accumulator} may be a moving average or another statistics collector.
+    \item on traders: position, balance, market value of the portfolio, 'cleared' balance etc.
+    \item on order books: ask/mid/bid price, last trade price, price at volume, volume of orders with price better than given one etc.
+    \item \texttt{OnEveryDt(dt, dataSource)} evaluates \texttt{dataSource} every \texttt{dt} moments of time.
 \end{itemize}
 History of an observable can be stored in a \texttt{TimeSerie} and rendered later on a graph.
 \end{frame}
 %------------------------------------------------
 
-\section{Using Veusz}
+\section{GUIs: Veusz and Web}
 \begin{frame}
 \frametitle{Using Veusz}
 When developing a new strategy it is reasonable to test it using scripts and visualize results by Veusz
@@ -570,7 +567,6 @@ When developing a new strategy it is reasonable to test it using scripts and vis
 
 %------------------------------------------------
 
-\section{Web interface}
 \begin{frame}
 \frametitle{Web interface}
 Web interface allows to compose a market to simulate from existing objects and set up their parameters
@@ -615,113 +611,26 @@ Every user (identified by browser cookies) may switch between multiple workspace
 \end{figure}
 \end{frame}
 
-\section{Exposing Python classes to Web-interface}
 \begin{frame}
-\frametitle{Exposing Python classes to Web-interface}
+\frametitle{Installation}
 \begin{itemize}
-  \item displayable label for the class ('Random Walk')
-  \item docstring in rst format
-  \item property names and static constraints on types of their values
-\end{itemize}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{metainfo.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Type system}
+\item OS supported: Linux, Mac OS X, Windows
+\item Browsers supported: Chrome, Firefox, Safari, Opera
+\item Scala 10.2 can be installed using \textcolor[rgb]{0.00,0.50,0.75}{\href{http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html}{SBT}}
+\item Python 2.7  
+\item Python packages can be installed using \texttt{pip} or \texttt{easyinstall}:
 \begin{itemize}
-  \item Primitive types: int, float, string
-  \item Numeric constraints: \texttt{less\_than(2*math.pi, non\_negative)}
-  \item User-defined classes. If a property constraint is type B then any object of type D can be used as its value provided that D derives from B.
-  \item Array types: \texttt{meta.listOf(types.IStrategy)}
-  \item Functional types: \texttt{meta.function((Side, Price, Volume), IOrder)}
+\item \textcolor[rgb]{0.00,0.50,0.75}{\href{http://home.gna.org/veusz/}{Veusz}} (for graph plotting)
+\item \textcolor[rgb]{0.00,0.50,0.75}{\href{http://flask.pocoo.org}{Flask}} and \textcolor[rgb]{0.00,0.50,0.75}{\href{https://pypi.python.org/pypi/docutils}{Docutils}} (to run a Web-server)
+\item \textcolor[rgb]{0.00,0.50,0.75}{\href{https://pypi.python.org/pypi/blist/}{Blist}} (sorted collections used by ArbitrageTrader)
+\item \textcolor[rgb]{0.00,0.50,0.75}{\href{http://pandas.pydata.org/}{Pandas}} (only needed for \texttt{observable.Quotes} at the moment)
+\item \textcolor[rgb]{0.00,0.50,0.75}{\href{https://pypi.python.org/pypi/numpy}{Numpy}} (only needed for \texttt{strategy.MultiArmedBandit} at the moment)
 \end{itemize}
-Possible improvements:
-\begin{itemize}
-  \item \texttt{meta.function((a1, ..., aN), rettype)} could be used where \texttt{meta.function((a1, ..., aN, b1, ..., bM), rettype)} is expected
-  \item \texttt{meta.function((..., B, ...), rettype)} could be used where \texttt{meta.function((..., D, ...), rettype)} is expected if D casts to B
-  \item \texttt{meta.function(args, D)} could be used where \texttt{meta.function(args, B)} is expected if D casts to B
+\item Source code downloadable from \textcolor[rgb]{0.00,0.50,0.75}{\href{https://github.com/fiquant/marketsimulator}{GitHub}}
+\item Latest public version of the simulator can be downloaded from \textcolor[rgb]{0.00,0.50,0.75}{\href{https://github.com/fiquant/marketsimulator/releases}{here}}.
+\item Online documentation can be found \textcolor[rgb]{0.00,0.50,0.75}{\href{https://github.com/fiquant/marketsimulator/blob/master/README.rst}{here}}.
 \end{itemize}
-\end{frame}
 
-\section{Future developments}
-\begin{frame}
-\frametitle{Future developments}
-C++ version:
-\begin{enumerate}
-  \item Implement core functionality (scheduler, order books, basic orders and traders) in C++ (already done) and provide extension points to allow to a user create strategies and meta orders in Python (or use existing ones)
-  \item Given object tree describing a simulation model, generate on the fly C++ code as instantiations of template classes corresponding to classes in Python version
-\end{enumerate}
-\end{frame}
-
-\begin{frame}
-\frametitle{C++ version}
-Flexible as Python version and has performance comparable to a C hand-written version. The main problem: simulation configuring is not intuitive, so let's do the configuration automatically by a code generator.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{c++sample.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Python version/Web interface}
-\begin{itemize}
-  \item Automatic dependency tracking in Python code (observables/computed observables from KnockoutJs)
-  \item Notion of variables in the Web interface to label common object graph subtrees
-  \item Model graph representation in Web interface (???)
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Model graph representation in Web interface}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{graph.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Simulation components (by Karol Podkanski)}
-\begin{itemize}
-    \item Strategies
-    \begin{itemize}
-      \item \textbf{Relative strength index (RSI).} Buy/sell when stock is oversold/overbought according to the index
-      \item \textbf{Stop-loss strategy.} Applied to any strategy in order to limit losses if they reach a certain threshold
-      \item \textbf{Multi-armed bandit.} Evaluate an array of strategies and assign them scores based on their efficiency. A strategy is then chosen randomly, with a distribution based on the scores.
-      \item Other meta-strategies (???)
-      \item \textbf{Pairs trading.} A dependence between two assets is assumed (for example, correlation). A trade is initiated when a function of the two assets (for example: weighted average) deviates from it's mean value.
-    \end{itemize}
-    \item Volume management
-    \item Enter/exit time management  (currently random or constant)
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Simulation components (by Karol Podkanski)}
-\begin{itemize}
-    \item Observables (Indicators):
-    \begin{itemize}
-      \item Volatility
-      \item Volume
-      \item Performance
-      \item Relative strength index
-      \item Technical analysis
-      \begin{itemize}
-        \item Trendline: support and resistance
-        \item New High/Low
-        \item Channels
-        \item Double Top/Bottom
-        \item Head and Shoulders
-      \end{itemize}
-    \end{itemize}
-    \item Add position constraints to traders:
-        \begin{itemize}
-            \item traders have to allocate their limited resources
-            \item certain assets cannot be shorted
-        \end{itemize}
-\end{itemize}
 \end{frame}
 
 \begin{frame}
