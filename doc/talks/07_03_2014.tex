@@ -182,6 +182,7 @@ Module may have \textbf{parameters} that are used to adjust their behaviour. Mod
 \end{enumerate}
 \end{frame}
 %------------------------------------------------
+\section{Strategy Definition Language}
 \begin{frame}
 \frametitle{Functions}
 Conceptually, a "function" declaration defines a term with a constructor provided (like case classes in Scala). 
@@ -267,8 +268,10 @@ In this sample \texttt{.A.B.f} will have attributes \texttt{X == "Xa", Y == "Y"}
 \includegraphics[width=1\linewidth]{rsi.png}
 \end{frame}
 %------------------------------------------------
+\section{Strategies}
+\subsection{Position strategies}
 \begin{frame}
-\frametitle{Example: Relative Strength Index Strategy}
+\frametitle{Relative Strength Index Strategy}
 \includegraphics[width=1\linewidth]{rsi_strategy.png}
 \end{frame}
 %------------------------------------------------
@@ -277,6 +280,7 @@ In this sample \texttt{.A.B.f} will have attributes \texttt{X == "Xa", Y == "Y"}
 \includegraphics[width=1\linewidth]{bollinger_strategy.png}
 \end{frame}
 %------------------------------------------------
+\subsection{Side strategies}
 \begin{frame}
 \frametitle{Side Strategies}
 \includegraphics[width=1\linewidth]{side_strategy.png}
@@ -342,6 +346,7 @@ In this sample \texttt{.A.B.f} will have attributes \texttt{X == "Xa", Y == "Y"}
 \includegraphics[width=1\linewidth]{dependency.png}
 \end{frame}
 %------------------------------------------------
+\subsection{Price strategies}
 \begin{frame}
 \frametitle{Liquidity Provider Strategy}
 \includegraphics[width=1\linewidth]{lp_strategy.png}
@@ -365,6 +370,36 @@ In this sample \texttt{.A.B.f} will have attributes \texttt{X == "Xa", Y == "Y"}
 \begin{frame}
 \frametitle{Market Maker Strategy II}
 \includegraphics[width=1\linewidth]{marketmaker.png}
+\end{frame}
+%------------------------------------------------
+\subsection{Adaptive strategies}
+\begin{frame}
+\frametitle{Trade-If-Profitable Strategy I}
+\includegraphics[width=1\linewidth]{tradeifprofitable_strategy.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Trade-If-Profitable Strategy II}
+\includegraphics[width=1\linewidth]{tradeifprofitable.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Choose-the-best strategy}
+Backtests aggregated strategies and allows to run only to that one who has the best performance. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{choosethebest.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiarmed Bandit Strategy I}
+\includegraphics[width=1\linewidth]{multiarmedbandit_strategy.png}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiarmed Bandit Strategy II}
+\includegraphics[width=1\linewidth]{multiarmedbandit.png}
 \end{frame}
 %------------------------------------------------
 
@@ -497,98 +532,6 @@ creates an order via \texttt{orderFactory} and sends the order to the market usi
 \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Signal strategy}
-Signal strategy listens to some discrete signal and when the signal becomes more than some threshold it starts to buy. When the signal gets lower than -threshold the strategy starts to sell.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{signal.png}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Trend follower strategy}
-Trend follower is an instance of a signal strategy with signal equal to the first derivative of a moving average of the asset's price (i.e trend).
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{trendfollower.png}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Two averages strategy}
-Two averages is an instance of a signal strategy with signal equal to the difference between two moving averages of the asset's price (i.e trend).
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{twoaverages.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Fundamental value strategy}
-Fundamental value strategy is an instance of a signal strategy with signal equal to the difference between the asset's price and some fundamental value.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{fundamentalvalue.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Mean reversion strategy}
-Mean reversion strategy is an instance of a fundamental value strategy with fundamental value equal to some moving average of the asset's price.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{meanreversion.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Dependency strategy}
-Dependency strategy is an instance of a fundamental value strategy with fundamental value equal to another asset's price multiplied by given factor.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{dependency.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Liquidity provider}
-Liquidity provider sends limit-like orders with a price equal to the current asset's price multiplied by some randomly chosen factor
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{liquidityprovider.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Trade-if-profitable strategy}
-Suspends or resumes an underlying strategy basing on its performance backtesting. By default, first derivative of a moving average of 'cleared' trader's balance (trader's balance if its position was cleared) is used to evaluate the efficiency.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{tradeifprofitable.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Choose-the-best strategy}
-Backtests aggregated strategies and allows to run only to that one who has the best performance. By default, first derivative of a moving average of 'cleared' trader's balance is used to evaluate the efficiency.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{choosethebest.png}
-\end{figure}
-\end{frame}
 %------------------------------------------------
 \subsection{Observables}
 \begin{frame}

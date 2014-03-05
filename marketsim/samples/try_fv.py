@@ -13,8 +13,10 @@ def FundamentalValue(ctx):
     fv = 200
 
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(trader.Position(), demo)]
-    myPrice = lambda: [(orderbook.MidPrice(), demo)]
+    myVolume = lambda: [(trader.Position(), demo),
+                        (const(200.).OnEveryDt(100), demo),
+                        (orderbook.OfTrader().Asks.BestPrice, demo),
+                        (orderbook.OfTrader().Bids.BestPrice, demo)]
 
     return [
         ctx.makeTrader_A( 

@@ -1461,12 +1461,16 @@ package strategy
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
     
-    /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+    /** Adaptive strategy that evaluates *inner* strategy efficiency
+     *  and if it is considered as good, sends orders
      */
     def TradeIfProfitable(/** wrapped strategy */ inner = .strategy.Empty(),
-                          /** defines how strategy trades are booked: actually traded amount or virtual market orders are
-                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account = .strategy.account.virtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance = .strategy.weight.efficiencyTrend()) = inner~>Suspendable(performance(account(inner))>=0)
+                          /** defines how strategy trades are booked:
+                            * actually traded amount or virtual market orders are
+                            * used in order to estimate how the strategy would have traded
+                            * if all its orders appeared at market */ account = .strategy.account.virtualMarket(),
+                          /** given a trading account tells
+                            * should it be considered as effective or not */ performance = .strategy.weight.efficiencyTrend()) = inner~>Suspendable(performance(account(inner))>=0)
     
     /** Creates a strategy combining an array of strategies
      */
@@ -1487,9 +1491,11 @@ package strategy
      */
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [.strategy.Empty()],
-                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account = .strategy.account.virtualMarket(),
+                         /** function creating a virtual account used
+                           * to estimate efficiency of the strategy itself */ account = .strategy.account.virtualMarket(),
                          /** function estimating is the strategy efficient or not */ weight = .strategy.weight.efficiencyTrend(),
-                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer = .strategy.weight.atanPow(),
+                         /** function that maps trader efficiency to its weight
+                           * that will be used for random choice */ normalizer = .strategy.weight.atanPow(),
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector = .strategy.weight.identityL()) : .ISingleAssetStrategy
     

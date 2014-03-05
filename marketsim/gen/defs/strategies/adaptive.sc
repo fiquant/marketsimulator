@@ -11,16 +11,20 @@ package strategy
         predicate   = true()) : ISingleAssetStrategy
 
     /**
-     *  Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+     *  Adaptive strategy that evaluates *inner* strategy efficiency
+     *  and if it is considered as good, sends orders
      */
     def TradeIfProfitable(
-                /** wrapped strategy */
-                inner       = Empty(),
-                /** defines how strategy trades are booked: actually traded amount or virtual market orders are
-                  * used in order to estimate how the strategy would have traded if all her orders appear at market */
-                account     = account.virtualMarket(),
-                /** given a trading account tells should it be considered as effective or not */
-                performance = weight.efficiencyTrend())
+            /** wrapped strategy */
+            inner       = Empty(),
+            /** defines how strategy trades are booked:
+              * actually traded amount or virtual market orders are
+              * used in order to estimate how the strategy would have traded
+              * if all its orders appeared at market */
+            account     = account.virtualMarket(),
+            /** given a trading account tells
+              * should it be considered as effective or not */
+            performance = weight.efficiencyTrend())
 
         =   inner~>Suspendable(performance(account(inner)) >= 0)
 
@@ -36,11 +40,13 @@ package strategy
     def MultiArmedBandit(
             /** original strategies that can be suspended */
             strategies = [Empty()],
-            /** function creating a virtual account used for estimate efficiency of the strategy itself */
+            /** function creating a virtual account used
+              * to estimate efficiency of the strategy itself */
             account    = account.virtualMarket(),
             /** function estimating is the strategy efficient or not */
             weight     = weight.efficiencyTrend(),
-            /** function that maps trader efficiency to its weight that will be used for random choice */
+            /** function that maps trader efficiency to its weight
+              * that will be used for random choice */
             normalizer = weight.atanPow(),
             /** given array of strategy weights corrects them.
               * for example it may set to 0 all weights except the maximal one */

@@ -77,8 +77,10 @@ Definitions:
 | | | | | | | | | | | - virtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  defines how strategy trades are booked: actually traded amount or virtual market orders are
-| | | | | | | | -  used in order to estimate how the strategy would have traded if all her orders appear at market 
+| | | | | | | | -  defines how strategy trades are booked:
+| | | | | | | | -  actually traded amount or virtual market orders are
+| | | | | | | | -  used in order to estimate how the strategy would have traded
+| | | | | | | | -  if all its orders appeared at market 
 | | | | | | - Parameter:
 | | | | | | | - performance
 | | | | | | | - None
@@ -90,7 +92,8 @@ Definitions:
 | | | | | | | | | | | - efficiencyTrend
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  given a trading account tells should it be considered as effective or not 
+| | | | | | | | -  given a trading account tells
+| | | | | | | | -  should it be considered as effective or not 
 | | | | | - Some:
 | | | | | | - MemberAccess:
 | | | | | | | - Var:
@@ -116,8 +119,9 @@ Definitions:
 | | | | | - None
 | | | | | - Some:
 | | | | | | - DocString:
-| | | | | | | - Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+| | | | | | | - Adaptive strategy that evaluates *inner* strategy efficiency
 | | | | | | | - List:
+| | | | | | | | -   and if it is considered as good, sends orders
 | | | | | - List:
 | | | | - FunDef:
 | | | | | - MultiArmedBandit
@@ -146,7 +150,8 @@ Definitions:
 | | | | | | | | | | | - virtualMarket
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  function creating a virtual account used for estimate efficiency of the strategy itself 
+| | | | | | | | -  function creating a virtual account used
+| | | | | | | | -  to estimate efficiency of the strategy itself 
 | | | | | | - Parameter:
 | | | | | | | - weight
 | | | | | | | - None
@@ -170,7 +175,8 @@ Definitions:
 | | | | | | | | | | | - atanPow
 | | | | | | | | | - List:
 | | | | | | | - List:
-| | | | | | | | -  function that maps trader efficiency to its weight that will be used for random choice 
+| | | | | | | | -  function that maps trader efficiency to its weight
+| | | | | | | | -  that will be used for random choice 
 | | | | | | - Parameter:
 | | | | | | | - corrector
 | | | | | | | - None

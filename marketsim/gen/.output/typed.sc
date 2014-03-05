@@ -2446,13 +2446,17 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
     
-    /** Adaptive strategy that evaluates *inner* strategy efficiency and if it is considered as good, sends orders
+    /** Adaptive strategy that evaluates *inner* strategy efficiency
+     *  and if it is considered as good, sends orders
      */
     
     def TradeIfProfitable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
-                          /** defines how strategy trades are booked: actually traded amount or virtual market orders are
-                            * used in order to estimate how the strategy would have traded if all her orders appear at market */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
-                          /** given a trading account tells should it be considered as effective or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
+                          /** defines how strategy trades are booked:
+                            * actually traded amount or virtual market orders are
+                            * used in order to estimate how the strategy would have traded
+                            * if all its orders appeared at market */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
+                          /** given a trading account tells
+                            * should it be considered as effective or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
         	 = .strategy.Suspendable(inner,.ops.GreaterEqual(performance(account(inner)),.constant(0)))
     
     /** Creates a strategy combining an array of strategies
@@ -2477,9 +2481,11 @@ package strategy {@category = "Side function"
     
     @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Empty()],
-                         /** function creating a virtual account used for estimate efficiency of the strategy itself */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
+                         /** function creating a virtual account used
+                           * to estimate efficiency of the strategy itself */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                          /** function estimating is the strategy efficient or not */ weight : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend(),
-                         /** function that maps trader efficiency to its weight that will be used for random choice */ normalizer : Optional[Optional[() => .Float] => (() => .Float)] = .strategy.weight.f.f_AtanPow(),
+                         /** function that maps trader efficiency to its weight
+                           * that will be used for random choice */ normalizer : Optional[Optional[() => .Float] => (() => .Float)] = .strategy.weight.f.f_AtanPow(),
                          /** given array of strategy weights corrects them.
                            * for example it may set to 0 all weights except the maximal one */ corrector : Optional[Optional[List[.Float]] => (() => List[.Float])] = .strategy.weight.array.array_IdentityL()) : .ISingleAssetStrategy
     

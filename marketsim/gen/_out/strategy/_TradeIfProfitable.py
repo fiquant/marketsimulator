@@ -5,7 +5,7 @@ from marketsim import registry
 from marketsim import context
 @registry.expose(["Strategy", "TradeIfProfitable"])
 class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy):
-    """ 
+    """   and if it is considered as good, sends orders
     """ 
     def __init__(self, inner = None, account = None, performance = None):
         from marketsim import deref_opt

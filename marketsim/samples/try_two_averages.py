@@ -20,11 +20,14 @@ def TwoAverages(ctx):
                                       name="200-t")
     
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(trader.Position(), demo)]
+    myVolume = lambda: [(orderbook.OfTrader().MidPrice, demo),
+                        (trader.Position() / const(10.), demo),
+                        (orderbook.OfTrader().MidPrice.EW(alpha_fast).Avg.OnEveryDt(1), demo),
+                        (orderbook.OfTrader().MidPrice.EW(alpha_slow).Avg.OnEveryDt(1), demo)]
 
     return [
         ctx.makeTrader_A(
-                strategy.price.LiquidityProvider()
+                strategy.price.LiquidityProvider(initialValue=10.)
                               .Strategy(
                                     event.Every(constant(1.)),
                                     order.side_price.Limit(volume=const(10))),

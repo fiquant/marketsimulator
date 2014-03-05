@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (strategy, trader, order, math, event, constant)
+from marketsim._pub import (strategy, trader, order, math, event, constant, orderbook)
 
 from common import expose
 
@@ -17,17 +17,20 @@ def MeanReversion(ctx):
                                       name="200-t")
 
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(trader.Position(), demo)]
+    myVolume = lambda: [(trader.Position() / 3, demo),
+                        (orderbook.OfTrader().MidPrice.EW(alpha).Avg.OnEveryDt(1), demo),
+                        (orderbook.OfTrader().Asks.BestPrice, demo),
+                        (orderbook.OfTrader().Bids.BestPrice, demo)]
 
     return [
         ctx.makeTrader_A( 
-            strategy.price.LiquidityProvider()
+            strategy.price.LiquidityProvider(initialValue=30.)
                           .Strategy(orderFactory =
                                         order.side_price.Limit(volume=constant(V*20))
                                              .sideprice_WithExpiry(constant(10))),
                        label="liquidity"),
     
-        ctx.makeTrader_A(strategy.side.Signal(linear_signal)
+        ctx.makeTrader_A(strategy.side.Noise()
                                       .Strategy(event.Every(constant(1.)),
                                                 order.side.Market(volume = constant(V*3))),
                          "signal", 

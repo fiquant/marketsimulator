@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (strategy, trader, order, constant, event, math)
+from marketsim._pub import (strategy, trader, order, constant, event, math, orderbook)
 
 const = constant
 
@@ -19,7 +19,9 @@ def TrendFollower(ctx):
                                       name="200-t")
     
     demo = ctx.addGraph('demo')
-    myVolume = lambda: [(trader.Position(), demo)]
+    myVolume = lambda: [(orderbook.OfTrader().MidPrice, demo),
+                        (trader.Position(), demo),
+                        (orderbook.OfTrader().MidPrice.EW().Avg.OnEveryDt(1), demo)]
 
     return [
             ctx.makeTrader_A(
