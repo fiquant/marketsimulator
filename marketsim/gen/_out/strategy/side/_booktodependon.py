@@ -5,10 +5,10 @@ class BookToDependOn_strategysidePairTrading(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading_IOrderBookFloatIOrderBook
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
         rtti.check_fields(self)
     
     @property

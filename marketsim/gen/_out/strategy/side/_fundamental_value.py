@@ -1,9 +1,9 @@
 from marketsim import registry
-from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim import context
-@registry.expose(["Side function", "book"])
-class book_strategysideMeanReversion(IOrderBook):
+@registry.expose(["Side function", "Fundamental_Value"])
+class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
     """ 
     """ 
     def __init__(self, x = None):
@@ -22,7 +22,7 @@ class book_strategysideMeanReversion(IOrderBook):
         'x' : MeanReversion
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -37,9 +37,13 @@ class book_strategysideMeanReversion(IOrderBook):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
         from marketsim import deref_opt
-        return deref_opt(_orderbook_OfTrader_IAccount())
+        from marketsim.gen._out.strategy.side._book import book_strategysideMeanReversion as _strategy_side_book_strategysideMeanReversion
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim.gen._out.strategy.side._alpha import Alpha_strategysideMeanReversion as _strategy_side_Alpha_strategysideMeanReversion
+        return deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_book_strategysideMeanReversion(self.x)))),deref_opt(_strategy_side_Alpha_strategysideMeanReversion(self.x))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -48,11 +52,11 @@ class book_strategysideMeanReversion(IOrderBook):
             raise AttributeError
     
 from marketsim import registry
-from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
 from marketsim import context
-@registry.expose(["Side function", "book"])
-class book_strategysideFundamentalValue(IOrderBook):
+@registry.expose(["Side function", "Fundamental_Value"])
+class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
     """ 
     """ 
     def __init__(self, x = None):
@@ -71,7 +75,7 @@ class book_strategysideFundamentalValue(IOrderBook):
         'x' : FundamentalValue
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -86,9 +90,9 @@ class book_strategysideFundamentalValue(IOrderBook):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.strategy.side._fv import Fv_strategysideFundamentalValue as _strategy_side_Fv_strategysideFundamentalValue
         from marketsim import deref_opt
-        return deref_opt(_orderbook_OfTrader_IAccount())
+        return deref_opt(_strategy_side_Fv_strategysideFundamentalValue(self.x))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -97,20 +101,25 @@ class book_strategysideFundamentalValue(IOrderBook):
             raise AttributeError
     
 from marketsim import registry
-from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 from marketsim import context
-@registry.expose(["Side function", "book"])
-class book_strategysidePairTrading(IOrderBook):
+@registry.expose(["Side function", "Fundamental_Value"])
+class Fundamental_Value_strategysidePairTrading(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
         from marketsim import deref_opt
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import _
         from marketsim import rtti
+        from marketsim import event
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
+        Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
+        event.subscribe(self.impl, _(self).fire, self)
     
     @property
     def label(self):
@@ -120,7 +129,7 @@ class book_strategysidePairTrading(IOrderBook):
         'x' : PairTrading
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -135,9 +144,13 @@ class book_strategysidePairTrading(IOrderBook):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.strategy.side._factor import Factor_strategysidePairTrading as _strategy_side_Factor_strategysidePairTrading
         from marketsim import deref_opt
-        return deref_opt(_orderbook_OfTrader_IAccount())
+        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        from marketsim.gen._out.strategy.side._booktodependon import BookToDependOn_strategysidePairTrading as _strategy_side_BookToDependOn_strategysidePairTrading
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
+        return deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_BookToDependOn_strategysidePairTrading(self.x)))),deref_opt(_constant_Float(deref_opt(_strategy_side_Factor_strategysidePairTrading(self.x))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -145,78 +158,15 @@ class book_strategysidePairTrading(IOrderBook):
         else:
             raise AttributeError
     
-def book(x = None): 
+def Fundamental_Value(x = None): 
     from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
     from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
     from marketsim.gen._out.strategy.side._pairtrading import PairTrading
     from marketsim import rtti
     if x is None or rtti.can_be_casted(x, MeanReversion):
-        return book_strategysideMeanReversion(x)
+        return Fundamental_Value_strategysideMeanReversion(x)
     if x is None or rtti.can_be_casted(x, FundamentalValue):
-        return book_strategysideFundamentalValue(x)
+        return Fundamental_Value_strategysideFundamentalValue(x)
     if x is None or rtti.can_be_casted(x, PairTrading):
-        return book_strategysidePairTrading(x)
-    raise Exception('Cannot find suitable overload for book('+str(x) +':'+ str(type(x))+')')
-from marketsim import registry
-from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
-@registry.expose(["-", "Book"])
-class Book_strategysideTrendFollower(object):
-    """ 
-    """ 
-    def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._trendfollower import TrendFollower_FloatFloatIOrderBook as _strategy_side_TrendFollower_FloatFloatIOrderBook
-        from marketsim import deref_opt
-        from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_strategy_side_TrendFollower_FloatFloatIOrderBook())
-        rtti.check_fields(self)
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'x' : TrendFollower
-    }
-    def __repr__(self):
-        return "Book(%(x)s)" % self.__dict__
-    
-    @property
-    def dereference(self):
-        return self.x.book
-    
-from marketsim import registry
-from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-@registry.expose(["-", "Book"])
-class Book_strategysideCrossingAverages(object):
-    """ 
-    """ 
-    def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages_FloatFloatFloatIOrderBook as _strategy_side_CrossingAverages_FloatFloatFloatIOrderBook
-        from marketsim import deref_opt
-        from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_strategy_side_CrossingAverages_FloatFloatFloatIOrderBook())
-        rtti.check_fields(self)
-    
-    @property
-    def label(self):
-        return repr(self)
-    
-    _properties = {
-        'x' : CrossingAverages
-    }
-    def __repr__(self):
-        return "Book(%(x)s)" % self.__dict__
-    
-    @property
-    def dereference(self):
-        return self.x.book
-    
-def Book(x = None): 
-    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
-    from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-    from marketsim import rtti
-    if x is None or rtti.can_be_casted(x, TrendFollower):
-        return Book_strategysideTrendFollower(x)
-    if x is None or rtti.can_be_casted(x, CrossingAverages):
-        return Book_strategysideCrossingAverages(x)
-    raise Exception('Cannot find suitable overload for Book('+str(x) +':'+ str(type(x))+')')
+        return Fundamental_Value_strategysidePairTrading(x)
+    raise Exception('Cannot find suitable overload for Fundamental_Value('+str(x) +':'+ str(type(x))+')')

@@ -5,10 +5,10 @@ class Fv_strategysideFundamentalValue(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_Float as _strategy_side_FundamentalValue_Float
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_Float())
         rtti.check_fields(self)
     
     @property

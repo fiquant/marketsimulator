@@ -50,9 +50,10 @@ class IFunctionfloat(Function_impl):
         from marketsim.gen._out.ops._less import Less
         return Less(self,y)
     
-    def FundamentalValue(self, book = None):
+    @property
+    def FundamentalValue(self):
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
-        return FundamentalValue(self,book)
+        return FundamentalValue(self)
     
     @property
     def MarketSigned(self):

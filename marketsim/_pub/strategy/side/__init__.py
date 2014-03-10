@@ -2,6 +2,8 @@ from marketsim.gen._out.strategy.side._timeframe import Timeframe
 
 from marketsim.gen._out.strategy.side._threshold import Threshold
 
+from marketsim.gen._out.strategy.side._fundamental_value import Fundamental_Value
+
 from marketsim.gen._out.strategy.side._side_distribution import Side_distribution
 
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
@@ -9,6 +11,8 @@ from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 from marketsim.gen._out.strategy.side._signal import Signal
 
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
+
+from marketsim.gen._out.strategy.side._book import book
 
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 
@@ -27,8 +31,6 @@ from marketsim.gen._out.strategy.side._book import Book
 from marketsim.gen._out.strategy.side._booktodependon import BookToDependOn
 
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
-
-from marketsim.gen._out.strategy.side._fv_side import FV_Side
 
 from marketsim.gen._out.strategy.side._alpha_2 import Alpha_2
 

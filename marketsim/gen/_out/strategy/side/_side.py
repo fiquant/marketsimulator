@@ -62,15 +62,15 @@ class Side_strategysideMeanReversion(ObservableSide):
     """ 
     """ 
     def __init__(self, x = None):
+        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_Float as _strategy_side_MeanReversion_Float
         from marketsim import deref_opt
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_FloatIOrderBook as _strategy_side_MeanReversion_FloatIOrderBook
         from marketsim.gen._out._side import Side
         from marketsim import event
         ObservableSide.__init__(self)
-        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -98,15 +98,20 @@ class Side_strategysideMeanReversion(ObservableSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._book import Book_strategysideMeanReversion as _strategy_side_Book_strategysideMeanReversion
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
         from marketsim import deref_opt
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
-        from marketsim.gen._out.strategy.side._fv_side import FV_Side_strategysideFundamentalValue as _strategy_side_FV_Side_strategysideFundamentalValue
-        from marketsim.gen._out.strategy.side._alpha import Alpha_strategysideMeanReversion as _strategy_side_Alpha_strategysideMeanReversion
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
-        return deref_opt(_strategy_side_FV_Side_strategysideFundamentalValue(deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_Book_strategysideMeanReversion(self.x)))),deref_opt(_strategy_side_Alpha_strategysideMeanReversion(self.x)))))),deref_opt(_strategy_side_Book_strategysideMeanReversion(self.x))))))
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.strategy.side._book import book_strategysideMeanReversion as _strategy_side_book_strategysideMeanReversion
+        from marketsim.gen._out.ops._less import Less_IObservableFloatFloat as _ops_Less_IObservableFloatFloat
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.strategy.side._fundamental_value import Fundamental_Value_strategysideMeanReversion as _strategy_side_Fundamental_Value_strategysideMeanReversion
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(deref_opt(_strategy_side_book_strategysideMeanReversion(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysideMeanReversion(self.x)))),deref_opt(_side_Sell_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(deref_opt(_strategy_side_book_strategysideMeanReversion(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysideMeanReversion(self.x)))),deref_opt(_side_Buy_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -188,10 +193,10 @@ class Side_strategysideFundamentalValue(ObservableSide):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._side import Side
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_Float as _strategy_side_FundamentalValue_Float
         from marketsim import event
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
         ObservableSide.__init__(self)
-        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -219,9 +224,20 @@ class Side_strategysideFundamentalValue(ObservableSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._fv_side import FV_Side_strategysideFundamentalValue as _strategy_side_FV_Side_strategysideFundamentalValue
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
         from marketsim import deref_opt
-        return deref_opt(_strategy_side_FV_Side_strategysideFundamentalValue(self.x))
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._less import Less_IObservableFloatFloat as _ops_Less_IObservableFloatFloat
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        from marketsim.gen._out.strategy.side._book import book_strategysideFundamentalValue as _strategy_side_book_strategysideFundamentalValue
+        from marketsim.gen._out.strategy.side._fundamental_value import Fundamental_Value_strategysideFundamentalValue as _strategy_side_Fundamental_Value_strategysideFundamentalValue
+        return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(deref_opt(_strategy_side_book_strategysideFundamentalValue(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysideFundamentalValue(self.x)))),deref_opt(_side_Sell_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(deref_opt(_strategy_side_book_strategysideFundamentalValue(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysideFundamentalValue(self.x)))),deref_opt(_side_Buy_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -408,10 +424,10 @@ class Side_strategysidePairTrading(ObservableSide):
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out._side import Side
-        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading_IOrderBookFloatIOrderBook
         from marketsim import event
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
         ObservableSide.__init__(self)
-        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
@@ -439,16 +455,20 @@ class Side_strategysidePairTrading(ObservableSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._factor import Factor_strategysidePairTrading as _strategy_side_Factor_strategysidePairTrading
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
         from marketsim import deref_opt
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.strategy.side._book import Book_strategysidePairTrading as _strategy_side_Book_strategysidePairTrading
-        from marketsim.gen._out.strategy.side._booktodependon import BookToDependOn_strategysidePairTrading as _strategy_side_BookToDependOn_strategysidePairTrading
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.strategy.side._fv_side import FV_Side_strategysideFundamentalValue as _strategy_side_FV_Side_strategysideFundamentalValue
-        from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
-        return deref_opt(_strategy_side_FV_Side_strategysideFundamentalValue(deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook(deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_BookToDependOn_strategysidePairTrading(self.x)))),deref_opt(_constant_Float(deref_opt(_strategy_side_Factor_strategysidePairTrading(self.x)))))),deref_opt(_strategy_side_Book_strategysidePairTrading(self.x))))))
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._less import Less_IObservableFloatIObservableFloat as _ops_Less_IObservableFloatIObservableFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatIObservableFloat as _ops_Greater_IObservableFloatIObservableFloat
+        from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue
+        from marketsim.gen._out.strategy.side._book import book_strategysidePairTrading as _strategy_side_book_strategysidePairTrading
+        from marketsim.gen._out.orderbook._bids import Bids_IOrderBook as _orderbook_Bids_IOrderBook
+        from marketsim.gen._out.strategy.side._fundamental_value import Fundamental_Value_strategysidePairTrading as _strategy_side_Fundamental_Value_strategysidePairTrading
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideSide as _ops_Condition_IObservableBooleanSideSide
+        from marketsim.gen._out.ops._condition import Condition_IObservableBooleanSideIObservableSide as _ops_Condition_IObservableBooleanSideIObservableSide
+        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
+        return deref_opt(_ops_Condition_IObservableBooleanSideIObservableSide(deref_opt(_ops_Greater_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Bids_IOrderBook(deref_opt(_strategy_side_book_strategysidePairTrading(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysidePairTrading(self.x)))),deref_opt(_side_Sell_()),deref_opt(_ops_Condition_IObservableBooleanSideSide(deref_opt(_ops_Less_IObservableFloatIObservableFloat(deref_opt(_orderbook_BestPrice_IOrderQueue(deref_opt(_orderbook_Asks_IOrderBook(deref_opt(_strategy_side_book_strategysidePairTrading(self.x)))))),deref_opt(_strategy_side_Fundamental_Value_strategysidePairTrading(self.x)))),deref_opt(_side_Buy_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

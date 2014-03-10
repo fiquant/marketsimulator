@@ -1724,7 +1724,7 @@ package order {
 package strategy {@category = "Side function"
     
     package side {
-        type PairTrading : SideStrategy
+        type PairTrading : FundamentalValueStrategy
         
         type Signal : SideStrategy
         
@@ -1734,11 +1734,13 @@ package strategy {@category = "Side function"
         
         type TrendFollower : SideStrategy
         
-        type FundamentalValue : SideStrategy
+        type FundamentalValue : FundamentalValueStrategy
         
         type RSIbis : SideStrategy
         
-        type MeanReversion : SideStrategy
+        type FundamentalValueStrategy : SideStrategy
+        
+        type MeanReversion : FundamentalValueStrategy
         
         type Noise : SideStrategy
         @category = "-"
@@ -1766,6 +1768,18 @@ package strategy {@category = "Side function"
         @python.accessor()
         def Threshold(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : .Float
         
+        
+        def Fundamental_Value(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IDifferentiable
+            	 = .math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.book(x)),.strategy.side.Alpha(x)))
+        
+        
+        def Fundamental_Value(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : () => .Float
+            	 = .strategy.side.Fv(x)
+        
+        
+        def Fundamental_Value(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Float]
+            	 = .ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x)))
+        
         @category = "-"
         
         @python.accessor()
@@ -1776,8 +1790,7 @@ package strategy {@category = "Side function"
         @python.constructor()
         def PairTrading(/** reference to order book for another asset
                           * used to evaluate fair price of our asset */ bookToDependOn : Optional[.IOrderBook] = .orderbook.OfTrader(),
-                        /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0,
-                        /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.PairTrading
+                        /** multiplier to obtain fair asset price from the reference asset price */ factor : Optional[.Float] = 1.0) : .strategy.side.PairTrading
         
         @category = "-"
         
@@ -1793,6 +1806,18 @@ package strategy {@category = "Side function"
                              /** threshold when the trader starts to act */ threshold : Optional[.Float] = 0.0,
                              /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.CrossingAverages
         
+        
+        def book(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IOrderBook
+            	 = .orderbook.OfTrader()
+        
+        
+        def book(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IOrderBook
+            	 = .orderbook.OfTrader()
+        
+        
+        def book(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
+            	 = .orderbook.OfTrader()
+        
         @category = "-"
         
         @python.constructor()
@@ -1806,7 +1831,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IObservable[.Side]
-            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))),.strategy.side.Book(x)))
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Buy(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Side
@@ -1814,7 +1839,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
-            	 = .strategy.side.FV_Side(x)
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Buy(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : () => .Side
@@ -1830,13 +1855,12 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
-            	 = .strategy.side.FV_Side(.strategy.side.FundamentalValue(.ops.Mul(.orderbook.MidPrice(.strategy.side.BookToDependOn(x)),.constant(.strategy.side.Factor(x))),.strategy.side.Book(x)))
+            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(.strategy.side.book(x))),.strategy.side.Fundamental_Value(x)),.side.Buy(),.side.Nothing()))
         
         @category = "-"
         
         @python.constructor()
-        def FundamentalValue(/** observable fundamental value */ fv : Optional[() => .Float] = .constant(200.0),
-                             /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.FundamentalValue
+        def FundamentalValue(/** observable fundamental value */ fv : Optional[() => .Float] = .constant(200.0)) : .strategy.side.FundamentalValue
         
         @category = "-"
         
@@ -1901,16 +1925,6 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
-        def Book(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IOrderBook
-        
-        @category = "-"
-        
-        @python.accessor()
-        def Book(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IOrderBook
-        
-        @category = "-"
-        
-        @python.accessor()
         def Book(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : .IOrderBook
         
         @category = "-"
@@ -1921,24 +1935,12 @@ package strategy {@category = "Side function"
         @category = "-"
         
         @python.accessor()
-        def Book(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
-        
-        @category = "-"
-        
-        @python.accessor()
         def BookToDependOn(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IOrderBook
         
         @category = "-"
         
         @python.constructor()
-        def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.015,
-                          /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.side.MeanReversion
-        
-        /** Side function for fundamental value strategy
-         */
-        
-        def FV_Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
-            	 = .ops.Condition(.ops.Greater(.orderbook.BestPrice(.orderbook.Bids(.strategy.side.Book(x))),.strategy.side.Fv(x)),.side.Sell(),.ops.Condition(.ops.Less(.orderbook.BestPrice(.orderbook.Asks(.strategy.side.Book(x))),.strategy.side.Fv(x)),.side.Buy(),.side.Nothing()))
+        def MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha : Optional[.Float] = 0.15) : .strategy.side.MeanReversion
         
         @category = "-"
         

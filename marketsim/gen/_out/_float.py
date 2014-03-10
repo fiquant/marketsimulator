@@ -54,9 +54,10 @@ class Float(object):
         from marketsim.gen._out.math.random._uniform import uniform
         return uniform(self,High)
     
-    def MeanReversion(self, book = None):
+    @property
+    def MeanReversion(self):
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
-        return MeanReversion(self,book)
+        return MeanReversion(self)
     
     @property
     def const(self):

@@ -75,15 +75,15 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
     """ 
     """ 
     def __init__(self, x = None, eventGen = None, orderFactory = None):
+        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_Float as _strategy_side_MeanReversion_Float
         from marketsim import deref_opt
         from marketsim import _
         from marketsim import rtti
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
-        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_FloatIOrderBook as _strategy_side_MeanReversion_FloatIOrderBook
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import event
-        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_Float())
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
@@ -213,9 +213,9 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_Float as _strategy_side_FundamentalValue_Float
         from marketsim import event
-        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_FloatIOrderBook as _strategy_side_FundamentalValue_FloatIOrderBook
-        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_Float())
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
@@ -477,9 +477,9 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloatIOrderBook as _strategy_side_PairTrading_IOrderBookFloatIOrderBook
         from marketsim import event
-        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloatIOrderBook())
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
+        self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)

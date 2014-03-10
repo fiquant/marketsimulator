@@ -390,6 +390,86 @@ Definitions:
 | | | | | | | - List:
 | | | | | - false
 | | | | - Interface:
+| | | | | - FundamentalValueStrategy
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - book
+| | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | - orderbook
+| | | | | | | | | | | - OfTrader
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
+| | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - IfThenElse:
+| | | | | | | | | - Condition:
+| | | | | | | | | | - Greater
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - Bids
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - BestPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - Fundamental_Value
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Sell
+| | | | | | | | | | - List:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | | - book
+| | | | | | | | | | | | | - Asks
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | - BestPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - Fundamental_Value
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Buy
+| | | | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Nothing
+| | | | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - true
+| | | | - Interface:
 | | | | | - FundamentalValue
 | | | | | - Generics:
 | | | | | | - List:
@@ -409,87 +489,20 @@ Definitions:
 | | | | | | | | | | | | - 200.0
 | | | | | | | | - List:
 | | | | | | | | | -  observable fundamental value 
-| | | | | | | - Parameter:
-| | | | | | | | - book
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - 
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | -  asset in question 
 | | | | | - List:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - FundamentalValueStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - FV_Side
-| | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - IfThenElse:
-| | | | | | | | | - Condition:
-| | | | | | | | | | - Greater
-| | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - book
-| | | | | | | | | | | | - Bids
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - BestPrice
-| | | | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - fv
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - side
-| | | | | | | | | | | | - Sell
-| | | | | | | | | | - List:
-| | | | | | | | | - IfThenElse:
-| | | | | | | | | | - Condition:
-| | | | | | | | | | | - Less
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | - Asks
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - BestPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - fv
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Buy
-| | | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Nothing
-| | | | | | | | | | | - List:
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - DocString:
-| | | | | | | | | - Side function for fundamental value strategy
-| | | | | | | | | - List:
-| | | | | | | - List:
-| | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Fundamental_Value
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - Var:
-| | | | | | | | | - FV_Side
+| | | | | | | | | - fv
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:
@@ -505,53 +518,33 @@ Definitions:
 | | | | | | | | - None
 | | | | | | | | - Some:
 | | | | | | | | | - FloatLit:
-| | | | | | | | | | - 0.015
+| | | | | | | | | | - 0.15
 | | | | | | | | - List:
 | | | | | | | | | -  parameter |alpha| for exponentially weighted moving average 
-| | | | | | | - Parameter:
-| | | | | | | | - book
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | -  asset in question 
 | | | | | - List:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - FundamentalValueStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Fundamental_Value
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | - EW
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | - Avg
-| | | | | | | | | | | - List:
-| | | | | | | | | | - FundamentalValue
-| | | | | | | | | | - List:
 | | | | | | | | | | | - Var:
 | | | | | | | | | | | | - book
-| | | | | | | | | - FV_Side
+| | | | | | | | | | | - MidPrice
+| | | | | | | | | | | - List:
+| | | | | | | | | | - EW
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - alpha
+| | | | | | | | | - Avg
 | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - None
@@ -585,47 +578,27 @@ Definitions:
 | | | | | | | | | | - 1.0
 | | | | | | | | - List:
 | | | | | | | | | -  multiplier to obtain fair asset price from the reference asset price 
-| | | | | | | - Parameter:
-| | | | | | | | - book
-| | | | | | | | - None
-| | | | | | | | - Some:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | - OfTrader
-| | | | | | | | | | - List:
-| | | | | | | | - List:
-| | | | | | | | | -  asset in question 
 | | | | | - List:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - FundamentalValueStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Fundamental_Value
 | | | | | | | - List:
 | | | | | | | - Some:
-| | | | | | | | - MemberAccess:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Mul
 | | | | | | | | | - MemberAccess:
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Mul
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - bookToDependOn
-| | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - factor
-| | | | | | | | | | - FundamentalValue
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - bookToDependOn
+| | | | | | | | | | - MidPrice
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - book
-| | | | | | | | | - FV_Side
-| | | | | | | | | - List:
+| | | | | | | | | - Var:
+| | | | | | | | | | - factor
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:

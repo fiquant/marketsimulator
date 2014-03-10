@@ -80,6 +80,15 @@ package strategy.side
                         ~>Signal(threshold)~>S_Side
     }
 
+    abstract type FundamentalValueStrategy() : SideStrategy
+    {
+        def book = .orderbook.OfTrader()
+
+        def Side
+            =   if book~>Bids~>BestPrice > Fundamental_Value then side.Sell() else
+                if book~>Asks~>BestPrice < Fundamental_Value then side.Buy()  else
+                                                                  side.Nothing()
+    }
 
     /**
      * Fundamental value strategy believes that an asset should have
@@ -87,21 +96,10 @@ package strategy.side
      * asset price is lower than the fundamental value it starts to buy
      * the asset and if the price is higher it starts to sell the asset.
      */
-    type FundamentalValue(
-        /** observable fundamental value */
-        fv      = .constant(200.),
-        /** asset in question */
-        book    = .orderbook.OfTrader()) : SideStrategy
+    type FundamentalValue(/** observable fundamental value */
+                          fv = .constant(200.)) : FundamentalValueStrategy
     {
-        /**
-         * Side function for fundamental value strategy
-         */
-        def FV_Side
-            =   if book~>Bids~>BestPrice > fv then side.Sell() else
-                if book~>Asks~>BestPrice < fv then side.Buy()  else
-                                                   side.Nothing()
-
-        def Side = FV_Side
+        def Fundamental_Value = fv
     }
 
     /**
@@ -111,15 +109,10 @@ package strategy.side
       * if the current asset price is lower than the average
       * it buys the asset and if the price is higher it sells the asset.
       */
-    type MeanReversion(
-        /** parameter |alpha| for exponentially weighted moving average */
-        alpha = 0.015,
-        /** asset in question */
-        book = orderbook.OfTrader()) : SideStrategy
+    type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */
+                       alpha = 0.15) : FundamentalValueStrategy
     {
-        def Side =  book~>MidPrice
-                        ~>EW(alpha)~>Avg
-                        ~>FundamentalValue(book)~>FV_Side
+        def Fundamental_Value = book~>MidPrice~>EW(alpha)~>Avg
     }
 
     /**
@@ -131,16 +124,13 @@ package strategy.side
       * every the time price of another asset *B* changes.
       */
     type PairTrading(
-        /** reference to order book for another asset
-          * used to evaluate fair price of our asset */
-        bookToDependOn  = .orderbook.OfTrader(),
-        /** multiplier to obtain fair asset price from the reference asset price */
-        factor          = 1.0,
-        /** asset in question */
-        book = orderbook.OfTrader()) : SideStrategy
+            /** reference to order book for another asset
+              * used to evaluate fair price of our asset */
+            bookToDependOn  = .orderbook.OfTrader(),
+            /** multiplier to obtain fair asset price from the reference asset price */
+            factor          = 1.0) : FundamentalValueStrategy
     {
-        def Side = (bookToDependOn~>MidPrice * factor)
-                        ~>FundamentalValue(book)~>FV_Side
+        def Fundamental_Value = bookToDependOn~>MidPrice * factor
     }
 
     type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */

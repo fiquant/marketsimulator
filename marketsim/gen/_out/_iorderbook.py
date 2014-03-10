@@ -4,9 +4,9 @@ class IOrderBook(object):
         from marketsim.gen._out.orderbook._ticksize import TickSize
         return TickSize(self)
     
-    def PairTrading(self, factor = None,book = None):
+    def PairTrading(self, factor = None):
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading
-        return PairTrading(self,factor,book)
+        return PairTrading(self,factor)
     
     @property
     def MidPrice(self):

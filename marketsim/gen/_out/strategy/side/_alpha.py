@@ -5,10 +5,10 @@ class Alpha_strategysideMeanReversion(object):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_FloatIOrderBook as _strategy_side_MeanReversion_FloatIOrderBook
+        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_Float as _strategy_side_MeanReversion_Float
         from marketsim import deref_opt
         from marketsim import rtti
-        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_FloatIOrderBook())
+        self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_Float())
         rtti.check_fields(self)
     
     @property
