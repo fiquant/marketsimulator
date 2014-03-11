@@ -1115,21 +1115,23 @@ package strategy
         type PairTrading(/** reference to order book for another asset
           * used to evaluate fair price of our asset */ bookToDependOn = .orderbook.OfTrader(),/** multiplier to obtain fair asset price from the reference asset price */ factor = 1.0) : FundamentalValueStrategy
         
-        type Signal(/** signal to be listened to */ source = .constant(0.0),/** threshold when the trader starts to act */ threshold = 0.7) : SideStrategy
+        type Signal(/** signal to be listened to */ source = .constant(0.0),/** threshold when the trader starts to act */ threshold = 0.7) : SignalStrategy
         
-        type CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,/** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
+        type CrossingAverages(/** parameter |alpha| for exponentially weighted moving average 1 */ alpha_1 = 0.15,/** parameter |alpha| for exponentially weighted moving average 2 */ alpha_2 = 0.015,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SignalStrategy
         
         abstract type SideStrategy
         
-        type TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SideStrategy
+        type TrendFollower(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15,/** threshold when the trader starts to act */ threshold = 0.0,/** asset in question */ book = .orderbook.OfTrader()) : SignalStrategy
         
         type FundamentalValue(/** observable fundamental value */ fv = .constant(200.0)) : FundamentalValueStrategy
         
-        type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,/** lag for calculating up and down movements for RSI */ timeframe = 1.0,/** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) : SideStrategy
+        type RSIbis(/** parameter |alpha| for exponentially weighted moving average when calculating RSI */ alpha = 1.0/14,/** lag for calculating up and down movements for RSI */ timeframe = 1.0,/** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */ threshold = 30.0) : SignalStrategy
         
         abstract type FundamentalValueStrategy() : SideStrategy
         
         type MeanReversion(/** parameter |alpha| for exponentially weighted moving average */ alpha = 0.15) : FundamentalValueStrategy
+        
+        abstract type SignalStrategy() : SideStrategy
         
         type Noise(side_distribution = math.random.uniform(0.0,1.0)) : SideStrategy
         
@@ -1149,15 +1151,15 @@ package strategy
         
         def Side(x = .strategy.side.MeanReversion()) = if x~>book~>Bids~>BestPrice>x~>Fundamental_Value then .side.Sell() else if x~>book~>Asks~>BestPrice<x~>Fundamental_Value then .side.Buy() else .side.Nothing()
         
-        def Side(x = .strategy.side.RSIbis()) = .strategy.side.Signal(50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha)~>Value,50.0-x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.RSIbis()) = if x~>Signal_Value>x~>Threshold then .side.Buy() else if x~>Signal_Value<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
         def Side(x = .strategy.side.FundamentalValue()) = if x~>book~>Bids~>BestPrice>x~>Fundamental_Value then .side.Sell() else if x~>book~>Asks~>BestPrice<x~>Fundamental_Value then .side.Buy() else .side.Nothing()
         
-        def Side(x = .strategy.side.TrendFollower()) = x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative~>Signal(x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.TrendFollower()) = if x~>Signal_Value>x~>Threshold then .side.Buy() else if x~>Signal_Value<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
-        def Side(x = .strategy.side.CrossingAverages()) = x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg~>Signal(x~>Threshold)~>S_Side
+        def Side(x = .strategy.side.CrossingAverages()) = if x~>Signal_Value>x~>Threshold then .side.Buy() else if x~>Signal_Value<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
-        def Side(x = .strategy.side.Signal()) = x~>S_Side
+        def Side(x = .strategy.side.Signal()) = if x~>Signal_Value>x~>Threshold then .side.Buy() else if x~>Signal_Value<0-x~>Threshold then .side.Sell() else .side.Nothing()
         
         def Side(x = .strategy.side.PairTrading()) = if x~>book~>Bids~>BestPrice>x~>Fundamental_Value then .side.Sell() else if x~>book~>Asks~>BestPrice<x~>Fundamental_Value then .side.Buy() else .side.Nothing()
         
@@ -1193,7 +1195,13 @@ package strategy
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side.Market()) = .strategy.Generic(orderFactory(x~>Side),eventGen)
         
-        def S_Side(x = .strategy.side.Signal()) = if x~>Source>x~>Threshold then .side.Buy() else if x~>Source<0-x~>Threshold then .side.Sell() else .side.Nothing()
+        def Signal_Value(x = .strategy.side.RSIbis()) = 50.0-.orderbook.OfTrader()~>MidPrice~>RSI(x~>Timeframe,x~>Alpha)~>Value
+        
+        def Signal_Value(x = .strategy.side.TrendFollower()) = x~>Book~>MidPrice~>EW(x~>Alpha)~>Avg~>Derivative
+        
+        def Signal_Value(x = .strategy.side.CrossingAverages()) = x~>Book~>MidPrice~>EW(x~>Alpha_1)~>Avg-x~>Book~>MidPrice~>EW(x~>Alpha_2)~>Avg
+        
+        def Signal_Value(x = .strategy.side.Signal()) = x~>Source
         
     }
     

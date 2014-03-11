@@ -1726,21 +1726,23 @@ package strategy {@category = "Side function"
     package side {
         type PairTrading : FundamentalValueStrategy
         
-        type Signal : SideStrategy
+        type Signal : SignalStrategy
         
-        type CrossingAverages : SideStrategy
+        type CrossingAverages : SignalStrategy
         
         type SideStrategy
         
-        type TrendFollower : SideStrategy
+        type TrendFollower : SignalStrategy
         
         type FundamentalValue : FundamentalValueStrategy
         
-        type RSIbis : SideStrategy
+        type RSIbis : SignalStrategy
         
         type FundamentalValueStrategy : SideStrategy
         
         type MeanReversion : FundamentalValueStrategy
+        
+        type SignalStrategy : SideStrategy
         
         type Noise : SideStrategy
         @category = "-"
@@ -1835,7 +1837,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Side
-            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.constant(50.0),.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader()),.strategy.side.Timeframe(x),.strategy.side.Alpha(x)))),50.0-.strategy.side.Threshold(x)))
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Signal_Value(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Signal_Value(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : .IObservable[.Side]
@@ -1843,15 +1845,15 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : () => .Side
-            	 = .strategy.side.S_Side(.strategy.side.Signal(.math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x)))),.strategy.side.Threshold(x)))
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Signal_Value(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Signal_Value(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : () => .Side
-            	 = .strategy.side.S_Side(.strategy.side.Signal(.ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_1(x))),.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_2(x)))),.strategy.side.Threshold(x)))
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Signal_Value(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Signal_Value(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Side
-            	 = .strategy.side.S_Side(x)
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Signal_Value(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Signal_Value(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
         
         
         def Side(x : Optional[.strategy.side.PairTrading] = .strategy.side.PairTrading()) : .IObservable[.Side]
@@ -1957,6 +1959,22 @@ package strategy {@category = "Side function"
         @python.accessor()
         def Fv(x : Optional[.strategy.side.FundamentalValue] = .strategy.side.FundamentalValue()) : () => .Float
         
+        
+        def Signal_Value(x : Optional[.strategy.side.RSIbis] = .strategy.side.RSIbis()) : () => .Float
+            	 = .ops.Sub(.constant(50.0),.math.Value(.math.RSI(.orderbook.MidPrice(.orderbook.OfTrader()),.strategy.side.Timeframe(x),.strategy.side.Alpha(x))))
+        
+        
+        def Signal_Value(x : Optional[.strategy.side.TrendFollower] = .strategy.side.TrendFollower()) : () => .Float
+            	 = .math.Derivative(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha(x))))
+        
+        
+        def Signal_Value(x : Optional[.strategy.side.CrossingAverages] = .strategy.side.CrossingAverages()) : () => .Float
+            	 = .ops.Sub(.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_1(x))),.math.Avg(.math.EW(.orderbook.MidPrice(.strategy.side.Book(x)),.strategy.side.Alpha_2(x))))
+        
+        
+        def Signal_Value(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Float
+            	 = .strategy.side.Source(x)
+        
         @category = "-"
         
         @python.accessor()
@@ -1981,10 +1999,6 @@ package strategy {@category = "Side function"
         
         @python.constructor()
         def Noise(side_distribution : Optional[() => .Float] = .math.random.uniform(0.0,1.0)) : .strategy.side.Noise
-        
-        
-        def S_Side(x : Optional[.strategy.side.Signal] = .strategy.side.Signal()) : () => .Side
-            	 = .ops.Condition(.ops.Greater(.strategy.side.Source(x),.constant(.strategy.side.Threshold(x))),.side.Buy(),.ops.Condition(.ops.Less(.strategy.side.Source(x),.constant(0-.strategy.side.Threshold(x))),.side.Sell(),.side.Nothing()))
     }
     
     

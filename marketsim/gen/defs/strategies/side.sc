@@ -16,6 +16,14 @@ package strategy.side
         def Side = if side_distribution > 0.5 then side.Sell() else side.Buy()
     }
 
+    abstract type SignalStrategy() : SideStrategy
+    {
+        def Side =
+            if Signal_Value >   threshold then side.Buy()  else
+            if Signal_Value < 0-threshold then side.Sell() else
+                                         side.Nothing()
+    }
+
     /**
      * Signal strategy listens to some discrete signal
      * and when the signal becomes more than some threshold the strategy starts to buy.
@@ -24,14 +32,9 @@ package strategy.side
     type Signal(/** signal to be listened to */
                source       = .constant(0.),
                /** threshold when the trader starts to act */
-               threshold    = 0.7) : SideStrategy
+               threshold    = 0.7) : SignalStrategy
     {
-        def S_Side =
-            if source >   threshold then side.Buy()  else
-            if source < 0-threshold then side.Sell() else
-                                         side.Nothing()
-
-        def Side = S_Side
+        def Signal_Value = source
     }
 
 
@@ -48,14 +51,14 @@ package strategy.side
             /** parameter |alpha| for exponentially weighted moving average */
             alpha   = 0.15,
             /** threshold when the trader starts to act */
-            threshold    = 0.,
+            threshold    = 0.0,
             /** asset in question */
-            book = .orderbook.OfTrader()) : SideStrategy
+            book = .orderbook.OfTrader()) : SignalStrategy
     {
-        def Side = (book~>MidPrice
+        def Signal_Value
+                 =  book~>MidPrice
                         ~>EW(alpha)~>Avg
-                        ~>Derivative)
-                        ~>Signal(threshold)~>S_Side
+                        ~>Derivative
     }
 
 
@@ -71,13 +74,12 @@ package strategy.side
             /** parameter |alpha| for exponentially weighted moving average 2 */
             alpha_2 = 0.015,
             /** threshold when the trader starts to act */
-            threshold    = 0.,
+            threshold    = 0.0,
             /** asset in question */
-            book = .orderbook.OfTrader()) : SideStrategy
+            book = .orderbook.OfTrader()) : SignalStrategy
     {
-        def Side = (book~>MidPrice~>EW(alpha_1)~>Avg -
-                    book~>MidPrice~>EW(alpha_2)~>Avg)
-                        ~>Signal(threshold)~>S_Side
+        def Signal_Value =  book~>MidPrice~>EW(alpha_1)~>Avg -
+                            book~>MidPrice~>EW(alpha_2)~>Avg
     }
 
     abstract type FundamentalValueStrategy() : SideStrategy
@@ -138,9 +140,8 @@ package strategy.side
                 /** lag for calculating up and down movements for RSI */
                 timeframe    = 1.,
                 /** strategy starts to act once RSI is out of [50-threshold, 50+threshold] */
-                threshold    = 30.) : SideStrategy
+                threshold    = 30.) : SignalStrategy
     {
-        def Side = (Signal(50.0 - orderbook.OfTrader()~>MidPrice~>RSI(timeframe, alpha)~>Value,
-                           50.0 - threshold))~>S_Side
+        def Signal_Value = 50.0 - orderbook.OfTrader()~>MidPrice~>RSI(timeframe, alpha)~>Value
     }
 }

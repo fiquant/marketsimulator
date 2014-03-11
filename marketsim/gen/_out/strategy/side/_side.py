@@ -158,19 +158,17 @@ class Side_strategysideRSIbis(IFunctionSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._alpha import Alpha_strategysideRSIbis as _strategy_side_Alpha_strategysideRSIbis
-        from marketsim.gen._out.strategy.side._timeframe import Timeframe_strategysideRSIbis as _strategy_side_Timeframe_strategysideRSIbis
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideRSIbis as _strategy_side_Threshold_strategysideRSIbis
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.math._value import Value_mathRSI as _math_Value_mathRSI
-        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
-        from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        from marketsim.gen._out.strategy.side._s_side import S_Side_strategysideSignal as _strategy_side_S_Side_strategysideSignal
-        from marketsim.gen._out.math._rsi import RSI_IObservableFloatFloatFloat as _math_RSI_IObservableFloatFloatFloat
-        return deref_opt(_strategy_side_S_Side_strategysideSignal(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_constant_Float(50.0)),deref_opt(_math_Value_mathRSI(deref_opt(_math_RSI_IObservableFloatFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_orderbook_OfTrader_IAccount()))),deref_opt(_strategy_side_Timeframe_strategysideRSIbis(self.x)),deref_opt(_strategy_side_Alpha_strategysideRSIbis(self.x)))))))),(50.0-deref_opt(_strategy_side_Threshold_strategysideRSIbis(self.x)))))))
+        from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value_strategysideRSIbis as _strategy_side_Signal_Value_strategysideRSIbis
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideRSIbis(self.x)),deref_opt(_constant_Float(deref_opt(_strategy_side_Threshold_strategysideRSIbis(self.x)))))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Less_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideRSIbis(self.x)),deref_opt(_constant_Float((0-deref_opt(_strategy_side_Threshold_strategysideRSIbis(self.x))))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -284,17 +282,17 @@ class Side_strategysideTrendFollower(IFunctionSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
-        from marketsim.gen._out.strategy.side._book import Book_strategysideTrendFollower as _strategy_side_Book_strategysideTrendFollower
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.strategy.side._alpha import Alpha_strategysideTrendFollower as _strategy_side_Alpha_strategysideTrendFollower
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideTrendFollower as _strategy_side_Threshold_strategysideTrendFollower
-        from marketsim.gen._out.math._derivative import Derivative_IDifferentiable as _math_Derivative_IDifferentiable
-        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
-        from marketsim.gen._out.strategy.side._s_side import S_Side_strategysideSignal as _strategy_side_S_Side_strategysideSignal
-        return deref_opt(_strategy_side_S_Side_strategysideSignal(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_math_Derivative_IDifferentiable(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_Book_strategysideTrendFollower(self.x)))),deref_opt(_strategy_side_Alpha_strategysideTrendFollower(self.x)))))))),deref_opt(_strategy_side_Threshold_strategysideTrendFollower(self.x))))))
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value_strategysideTrendFollower as _strategy_side_Signal_Value_strategysideTrendFollower
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideTrendFollower(self.x)),deref_opt(_constant_Float(deref_opt(_strategy_side_Threshold_strategysideTrendFollower(self.x)))))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Less_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideTrendFollower(self.x)),deref_opt(_constant_Float((0-deref_opt(_strategy_side_Threshold_strategysideTrendFollower(self.x))))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -341,18 +339,17 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
-        from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
-        from marketsim.gen._out.strategy.side._book import Book_strategysideCrossingAverages as _strategy_side_Book_strategysideCrossingAverages
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideCrossingAverages as _strategy_side_Threshold_strategysideCrossingAverages
-        from marketsim.gen._out.strategy.side._alpha_1 import Alpha_1_strategysideCrossingAverages as _strategy_side_Alpha_1_strategysideCrossingAverages
-        from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
-        from marketsim.gen._out.ops._sub import Sub_FloatFloat as _ops_Sub_FloatFloat
-        from marketsim.gen._out.strategy.side._alpha_2 import Alpha_2_strategysideCrossingAverages as _strategy_side_Alpha_2_strategysideCrossingAverages
-        from marketsim.gen._out.strategy.side._s_side import S_Side_strategysideSignal as _strategy_side_S_Side_strategysideSignal
-        return deref_opt(_strategy_side_S_Side_strategysideSignal(deref_opt(_strategy_side_Signal_FloatFloat(deref_opt(_ops_Sub_FloatFloat(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_Book_strategysideCrossingAverages(self.x)))),deref_opt(_strategy_side_Alpha_1_strategysideCrossingAverages(self.x)))))),deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_Book_strategysideCrossingAverages(self.x)))),deref_opt(_strategy_side_Alpha_2_strategysideCrossingAverages(self.x)))))))),deref_opt(_strategy_side_Threshold_strategysideCrossingAverages(self.x))))))
+        from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value_strategysideCrossingAverages as _strategy_side_Signal_Value_strategysideCrossingAverages
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideCrossingAverages(self.x)),deref_opt(_constant_Float(deref_opt(_strategy_side_Threshold_strategysideCrossingAverages(self.x)))))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Less_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideCrossingAverages(self.x)),deref_opt(_constant_Float((0-deref_opt(_strategy_side_Threshold_strategysideCrossingAverages(self.x))))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -399,9 +396,17 @@ class Side_strategysideSignal(IFunctionSide):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._s_side import S_Side_strategysideSignal as _strategy_side_S_Side_strategysideSignal
+        from marketsim.gen._out.side._nothing import Nothing_ as _side_Nothing_
+        from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
-        return deref_opt(_strategy_side_S_Side_strategysideSignal(self.x))
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideSignal as _strategy_side_Threshold_strategysideSignal
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value_strategysideSignal as _strategy_side_Signal_Value_strategysideSignal
+        from marketsim.gen._out.ops._condition import Condition_BooleanSideSide as _ops_Condition_BooleanSideSide
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.ops._less import Less_FloatFloat as _ops_Less_FloatFloat
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideSignal(self.x)),deref_opt(_constant_Float(deref_opt(_strategy_side_Threshold_strategysideSignal(self.x)))))),deref_opt(_side_Buy_()),deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Less_FloatFloat(deref_opt(_strategy_side_Signal_Value_strategysideSignal(self.x)),deref_opt(_constant_Float((0-deref_opt(_strategy_side_Threshold_strategysideSignal(self.x))))))),deref_opt(_side_Sell_()),deref_opt(_side_Nothing_())))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

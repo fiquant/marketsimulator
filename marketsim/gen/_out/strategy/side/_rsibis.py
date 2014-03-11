@@ -1,7 +1,7 @@
 from marketsim import registry
-from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
+from marketsim.gen._out.strategy.side._signalstrategy import SignalStrategy
 @registry.expose(["-", "RSIbis"])
-class RSIbis_FloatFloatFloat(SideStrategy):
+class RSIbis_FloatFloatFloat(SignalStrategy):
     """ 
     """ 
     def __init__(self, alpha = None, timeframe = None, threshold = None):
@@ -42,6 +42,11 @@ class RSIbis_FloatFloatFloat(SideStrategy):
     def Strategy(self, eventGen = None,orderFactory = None):
         from marketsim.gen._out.strategy.side._strategy import Strategy
         return Strategy(self,eventGen,orderFactory)
+    
+    @property
+    def Signal_Value(self):
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value
+        return Signal_Value(self)
     
     @property
     def Alpha(self):

@@ -38,11 +38,11 @@ from marketsim.gen._out.strategy.side._source import Source
 
 from marketsim.gen._out.strategy.side._fv import Fv
 
+from marketsim.gen._out.strategy.side._signal_value import Signal_Value
+
 from marketsim.gen._out.strategy.side._alpha_1 import Alpha_1
 
 from marketsim.gen._out.strategy.side._alpha import Alpha
 
 from marketsim.gen._out.strategy.side._noise import Noise
-
-from marketsim.gen._out.strategy.side._s_side import S_Side
 

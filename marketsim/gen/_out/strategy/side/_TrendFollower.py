@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
+from marketsim.gen._out.strategy.side._signalstrategy import SignalStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["-", "TrendFollower"])
-class TrendFollower_FloatFloatIOrderBook(SideStrategy):
+class TrendFollower_FloatFloatIOrderBook(SignalStrategy):
     """ 
     """ 
     def __init__(self, alpha = None, threshold = None, book = None):
@@ -45,6 +45,11 @@ class TrendFollower_FloatFloatIOrderBook(SideStrategy):
     def Book(self):
         from marketsim.gen._out.strategy.side._book import Book
         return Book(self)
+    
+    @property
+    def Signal_Value(self):
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value
+        return Signal_Value(self)
     
     @property
     def Alpha(self):

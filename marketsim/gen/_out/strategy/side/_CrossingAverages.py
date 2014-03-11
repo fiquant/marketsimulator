@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
+from marketsim.gen._out.strategy.side._signalstrategy import SignalStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["-", "CrossingAverages"])
-class CrossingAverages_FloatFloatFloatIOrderBook(SideStrategy):
+class CrossingAverages_FloatFloatFloatIOrderBook(SignalStrategy):
     """ 
     """ 
     def __init__(self, alpha_1 = None, alpha_2 = None, threshold = None, book = None):
@@ -52,6 +52,11 @@ class CrossingAverages_FloatFloatFloatIOrderBook(SideStrategy):
     def Alpha_2(self):
         from marketsim.gen._out.strategy.side._alpha_2 import Alpha_2
         return Alpha_2(self)
+    
+    @property
+    def Signal_Value(self):
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value
+        return Signal_Value(self)
     
     @property
     def Alpha_1(self):

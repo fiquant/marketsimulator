@@ -131,6 +131,64 @@ Definitions:
 | | | | | | | - List:
 | | | | | - false
 | | | | - Interface:
+| | | | | - SignalStrategy
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - Some:
+| | | | | | - List:
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - SideStrategy
+| | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | | - FunDef:
+| | | | | | | - Side
+| | | | | | | - List:
+| | | | | | | - Some:
+| | | | | | | | - IfThenElse:
+| | | | | | | | | - Condition:
+| | | | | | | | | | - Greater
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - Signal_Value
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - threshold
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - side
+| | | | | | | | | | | | - Buy
+| | | | | | | | | | - List:
+| | | | | | | | | - IfThenElse:
+| | | | | | | | | | - Condition:
+| | | | | | | | | | | - Less
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - Signal_Value
+| | | | | | | | | | | - BinOp:
+| | | | | | | | | | | | - Sub
+| | | | | | | | | | | | - IntLit:
+| | | | | | | | | | | | | - 0
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - threshold
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Sell
+| | | | | | | | | | | - List:
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - side
+| | | | | | | | | | | | | - Nothing
+| | | | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - true
+| | | | - Interface:
 | | | | | - Signal
 | | | | | - Generics:
 | | | | | | - List:
@@ -162,59 +220,16 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - SignalStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - S_Side
-| | | | | | | - List:
-| | | | | | | - Some:
-| | | | | | | | - IfThenElse:
-| | | | | | | | | - Condition:
-| | | | | | | | | | - Greater
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - source
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - threshold
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - side
-| | | | | | | | | | | | - Buy
-| | | | | | | | | | - List:
-| | | | | | | | | - IfThenElse:
-| | | | | | | | | | - Condition:
-| | | | | | | | | | | - Less
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - source
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
-| | | | | | | | | | | | - IntLit:
-| | | | | | | | | | | | | - 0
-| | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - threshold
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Sell
-| | | | | | | | | | | - List:
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - side
-| | | | | | | | | | | | | - Nothing
-| | | | | | | | | | | - List:
-| | | | | | | - None
-| | | | | | | - None
-| | | | | | | - List:
-| | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Signal_Value
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - Var:
-| | | | | | | | | - S_Side
+| | | | | | | | | - source
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:
@@ -258,37 +273,29 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - SignalStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Signal_Value
 | | | | | | | - List:
 | | | | | | | - Some:
 | | | | | | | | - MemberAccess:
 | | | | | | | | | - MemberAccess:
 | | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - Derivative
+| | | | | | | | | | | - EW
 | | | | | | | | | | | - List:
-| | | | | | | | | | - Signal
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - threshold
-| | | | | | | | | - S_Side
+| | | | | | | | | - Derivative
 | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - None
@@ -341,50 +348,42 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - SignalStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Signal_Value
 | | | | | | | - List:
 | | | | | | | - Some:
-| | | | | | | | - MemberAccess:
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
 | | | | | | | | | - MemberAccess:
-| | | | | | | | | | - BinOp:
-| | | | | | | | | | | - Sub
+| | | | | | | | | | - MemberAccess:
 | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha_1
-| | | | | | | | | | | | - Avg
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
 | | | | | | | | | | | | - List:
-| | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - book
-| | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - EW
-| | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | - alpha_2
-| | | | | | | | | | | | - Avg
-| | | | | | | | | | | | - List:
-| | | | | | | | | | - Signal
+| | | | | | | | | | | - EW
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha_1
+| | | | | | | | | | - Avg
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - threshold
-| | | | | | | | | - S_Side
-| | | | | | | | | - List:
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - book
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - EW
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha_2
+| | | | | | | | | | - Avg
+| | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:
@@ -641,51 +640,37 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - SideStrategy
+| | | | | | | | | - SignalStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:
 | | | | | | - FunDef:
-| | | | | | | - Side
+| | | | | | | - Signal_Value
 | | | | | | | - List:
 | | | | | | | - Some:
-| | | | | | | | - MemberAccess:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - Signal
-| | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 50.0
-| | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | - MemberAccess:
-| | | | | | | | | | | | | | | - FunCall:
-| | | | | | | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | | | | - orderbook
-| | | | | | | | | | | | | | | | | | - OfTrader
-| | | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - MidPrice
-| | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | - RSI
+| | | | | | | | - BinOp:
+| | | | | | | | | - Sub
+| | | | | | | | | - FloatLit:
+| | | | | | | | | | - 50.0
+| | | | | | | | | - MemberAccess:
+| | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | - MemberAccess:
+| | | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | | | | - List:
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - timeframe
-| | | | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | | | | - alpha
-| | | | | | | | | | | | | - Value
+| | | | | | | | | | | | | | | - orderbook
+| | | | | | | | | | | | | | | - OfTrader
 | | | | | | | | | | | | | - List:
-| | | | | | | | | | | - BinOp:
-| | | | | | | | | | | | - Sub
-| | | | | | | | | | | | - FloatLit:
-| | | | | | | | | | | | | - 50.0
+| | | | | | | | | | | | - MidPrice
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | - RSI
+| | | | | | | | | | | - List:
 | | | | | | | | | | | | - Var:
-| | | | | | | | | | | | | - threshold
-| | | | | | | | | - S_Side
-| | | | | | | | | - List:
+| | | | | | | | | | | | | - timeframe
+| | | | | | | | | | | | - Var:
+| | | | | | | | | | | | | - alpha
+| | | | | | | | | | - Value
+| | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - None
 | | | | | | | - List:

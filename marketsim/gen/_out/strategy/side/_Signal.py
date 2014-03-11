@@ -1,8 +1,8 @@
 from marketsim import registry
-from marketsim.gen._out.strategy.side._sidestrategy import SideStrategy
+from marketsim.gen._out.strategy.side._signalstrategy import SignalStrategy
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["-", "Signal"])
-class Signal_FloatFloat(SideStrategy):
+class Signal_FloatFloat(SignalStrategy):
     """ 
     """ 
     def __init__(self, source = None, threshold = None):
@@ -45,9 +45,9 @@ class Signal_FloatFloat(SideStrategy):
         return Source(self)
     
     @property
-    def S_Side(self):
-        from marketsim.gen._out.strategy.side._s_side import S_Side
-        return S_Side(self)
+    def Signal_Value(self):
+        from marketsim.gen._out.strategy.side._signal_value import Signal_Value
+        return Signal_Value(self)
     
     pass
 Signal = Signal_FloatFloat
