@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
 from marketsim import context
-@registry.expose(["Price function", "TwoSides"])
+@registry.expose(["Price function", "MarketMaker"])
 class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
     """ 
     """ 
@@ -26,7 +26,7 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         'x' : MarketMaker
     }
     def __repr__(self):
-        return "TwoSides(%(x)s)" % self.__dict__
+        return "MarketMaker(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -61,7 +61,7 @@ from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketdata import MarketData
 from marketsim import context
-@registry.expose(["Price function", "TwoSides"])
+@registry.expose(["Price function", "MarketData"])
 class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
     """ 
     """ 
@@ -85,7 +85,7 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
         'x' : MarketData
     }
     def __repr__(self):
-        return "TwoSides(%(x)s)" % self.__dict__
+        return "MarketData(%(x)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

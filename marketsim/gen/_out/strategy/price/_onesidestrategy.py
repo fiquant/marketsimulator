@@ -6,7 +6,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSideStrategy"])
+@registry.expose(["Price function", "LiquidityProviderSide"])
 class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderIObservableSide(ISingleAssetStrategy):
     """ 
     """ 
@@ -40,7 +40,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         'side' : IObservableSide
     }
     def __repr__(self):
-        return "OneSideStrategy(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % self.__dict__
+        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -76,7 +76,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSideStrategy"])
+@registry.expose(["Price function", "LiquidityProviderSide"])
 class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide(ISingleAssetStrategy):
     """ 
     """ 
@@ -110,7 +110,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         'side' : IFunctionSide
     }
     def __repr__(self):
-        return "OneSideStrategy(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % self.__dict__
+        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

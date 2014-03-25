@@ -33,6 +33,9 @@ object strategy extends gen.PythonGenerator
 
         override def alias = super.alias match {
             case "Strategy" => className
+            case "TwoSides" => className
+            case "OneSide" => className + "Side"
+            case "OneSideStrategy" => className + "Side"
             case x => x
         }
 

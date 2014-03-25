@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSide"])
+@registry.expose(["Price function", "MarketMakerSide"])
 class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy):
     """ 
     """ 
@@ -33,7 +33,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         'sign' : float
     }
     def __repr__(self):
-        return "OneSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
+        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -85,7 +85,7 @@ from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSide"])
+@registry.expose(["Price function", "MarketDataSide"])
 class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     """ 
     """ 
@@ -114,7 +114,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         'sign' : float
     }
     def __repr__(self):
-        return "OneSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
+        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -160,7 +160,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSide"])
+@registry.expose(["Price function", "MarketMakerSide"])
 class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     """ 
     """ 
@@ -189,7 +189,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         'sign' : float
     }
     def __repr__(self):
-        return "OneSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
+        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -240,7 +240,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Price function", "OneSide"])
+@registry.expose(["Price function", "MarketDataSide"])
 class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
     """ 
     """ 
@@ -269,7 +269,7 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         'sign' : float
     }
     def __repr__(self):
-        return "OneSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
+        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
