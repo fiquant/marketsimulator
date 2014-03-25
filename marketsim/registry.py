@@ -134,7 +134,7 @@ class Registry(object):
             fields = {}
             for p in rtti.properties(v):
                 x = getattr(v, p.name)
-                if type(x) == int or type(x) == float or type(x) == str:
+                if context.primitive(type(x)):
                     # we'd better to check here also that this field is "mutable"
                     fields[p.name] = x
             if fields != {}:
@@ -147,7 +147,7 @@ class Registry(object):
                 saved = self._id2savedfields[k]
                 for p in rtti.properties(v):
                     x = getattr(v, p.name)
-                    if type(x) == int or type(x) == float or type(x) == str:
+                    if context.primitive(type(x)):
                         # we'd better to check here also that this field is "mutable"
                         if x != saved[p.name]:
                             changes.append((k, p.name, x))
@@ -279,10 +279,10 @@ class Registry(object):
         
     def _dumpPropertyValue(self, constraint, value, parent):
         typ = type(value)
-        if typ is int or typ is float or typ is bool:
-            return value
         if typ is str:
             return "#"+value if len(value) and value[0]=="#" else value
+        if context.primitive(typ):
+            return value
         if typ is list:
             elementType = constraint.elementType if type(constraint) == meta.listOf else None
             return [self._dumpPropertyValue(elementType, x, parent) for x in value]
@@ -404,7 +404,7 @@ class Registry(object):
         return types, constraints
 
     def objectConstraint(self, constraint):
-        if constraint in [str, int, float, bool]:
+        if context.primitive(constraint):
             return False
         
         if type(constraint) in [meta.listOf]:

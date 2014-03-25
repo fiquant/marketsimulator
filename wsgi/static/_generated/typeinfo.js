@@ -37,6 +37,18 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion": {
+        "castsTo": [
+            "marketsim.gen._out._idifferentiable.IDifferentiable",
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.strategy.side._noise.Noise_Float": {
         "castsTo": [
             "marketsim.gen._out.strategy.side._noise.Noise_Float"
@@ -305,6 +317,20 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading": {
+        "castsTo": [
+            "marketsim.gen._out._ievent.IEvent",
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
+            "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
+            "marketsim.gen._out._iobservable._iobservableobject.IObservableobject"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.veusz._graph.Graph_String": {
         "castsTo": [
             "marketsim.gen._out._igraph.IGraph"
@@ -376,15 +402,6 @@ var typeinfo = {
         "properties": {
             "x": {
                 "type": "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.gen._out.strategy.side._book.Book_strategysideMeanReversion": {
-        "castsTo": [],
-        "properties": {
-            "x": {
-                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -499,20 +516,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook": {
-        "castsTo": [
-            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
-        ],
-        "properties": {
-            "book": {
-                "type": "marketsim.gen._out._iorderbook.IOrderBook"
-            },
-            "fv": {
-                "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook": {
         "castsTo": [
             "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook"
@@ -590,7 +593,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>and if it is considered as good, sends orders</p>\n</div>\n"
     },
     "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_": {
         "castsTo": [
@@ -705,6 +708,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideFundamentalValue": {
+        "castsTo": [
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.ops._equal.Equal_FloatFloat": {
         "castsTo": [
             "marketsim.gen._out._ievent.IEvent",
@@ -811,6 +825,20 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat": {
+        "castsTo": [
+            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
+        ],
+        "properties": {
+            "bookToDependOn": {
+                "type": "marketsim.gen._out._iorderbook.IOrderBook"
+            },
+            "factor": {
+                "type": "_parseFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.order._curried._price_limit.price_Limit_SideFloat": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
@@ -843,6 +871,28 @@ var typeinfo = {
         "properties": {
             "x": {
                 "type": "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.gen._out.strategy.side._book.book_strategysideMeanReversion": {
+        "castsTo": [
+            "marketsim.gen._out._iorderbook.IOrderBook"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideRSIbis": {
+        "castsTo": [
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -1037,7 +1087,7 @@ var typeinfo = {
         "castsTo": [],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -1266,17 +1316,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.gen._out.strategy.side._s_side.S_Side_strategysideSignal": {
-        "castsTo": [
-            "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
-        ],
-        "properties": {
-            "x": {
-                "type": "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.gen._out.side._buy.Buy_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
@@ -1425,7 +1464,7 @@ var typeinfo = {
         "castsTo": [],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -1469,15 +1508,6 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Maintains two order queues for orders of different sides</p>\n</div>\n"
-    },
-    "marketsim.gen._out.strategy.side._book.Book_strategysidePairTrading": {
-        "castsTo": [],
-        "properties": {
-            "x": {
-                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat": {
         "castsTo": [
@@ -1606,7 +1636,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -1995,6 +2025,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._book.book_strategysidePairTrading": {
+        "castsTo": [
+            "marketsim.gen._out._iorderbook.IOrderBook"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.ops._greater.Greater_FloatFloat": {
         "castsTo": [
             "marketsim.gen._out._ievent.IEvent",
@@ -2069,6 +2110,17 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+    },
+    "marketsim.gen._out.strategy.side._book.book_strategysideFundamentalValue": {
+        "castsTo": [
+            "marketsim.gen._out._iorderbook.IOrderBook"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.gen._out.math.random._lognormvariate.lognormvariate_FloatFloat": {
         "castsTo": [
@@ -2385,20 +2437,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear": {
-        "castsTo": [
-            "marketsim.gen._out._ievent.IEvent",
-            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
-            "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
-            "marketsim.gen._out._iobservable._iobservableobject.IObservableobject"
-        ],
-        "properties": {
-            "x": {
-                "type": "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.gen._out.strategy.price._twosides.TwoSides_strategypriceMarketData": {
         "castsTo": [
             "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
@@ -2510,6 +2548,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float": {
+        "castsTo": [
+            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
+        ],
+        "properties": {
+            "alpha": {
+                "type": "_parseFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat": {
         "castsTo": [
             "marketsim.gen._out._ievent.IEvent",
@@ -2550,6 +2599,17 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             },
             "x": {
+                "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
+    "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float": {
+        "castsTo": [
+            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
+        ],
+        "properties": {
+            "fv": {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
@@ -2685,7 +2745,7 @@ var typeinfo = {
         "castsTo": [],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -2704,25 +2764,16 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Returns None is <em>queue</em> is empty</p>\n</div>\n"
     },
-    "marketsim.gen._out.strategy.side._fv_side.FV_Side_strategysideFundamentalValue": {
+    "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear": {
         "castsTo": [
             "marketsim.gen._out._ievent.IEvent",
-            "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide",
-            "marketsim.gen._out._iobservable._iobservableobject.IObservableobject",
-            "marketsim.gen._out._iobservable._iobservableside.IObservableSide"
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
+            "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
+            "marketsim.gen._out._iobservable._iobservableobject.IObservableobject"
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
-    "marketsim.gen._out.strategy.side._book.Book_strategysideFundamentalValue": {
-        "castsTo": [],
-        "properties": {
-            "x": {
-                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -2801,7 +2852,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -3266,7 +3317,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -3487,19 +3538,13 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n</div>\n"
     },
-    "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook": {
+    "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideCrossingAverages": {
         "castsTo": [
-            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
         ],
         "properties": {
-            "book": {
-                "type": "marketsim.gen._out._iorderbook.IOrderBook"
-            },
-            "bookToDependOn": {
-                "type": "marketsim.gen._out._iorderbook.IOrderBook"
-            },
-            "factor": {
-                "type": "_parseFloat"
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -3653,7 +3698,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
             },
             "eventGen": {
                 "type": "marketsim.gen._out._ievent.IEvent"
@@ -3737,7 +3782,7 @@ var typeinfo = {
         "castsTo": [],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
             }
         },
         "description": "<div class=\"document\">\n</div>\n"
@@ -3880,20 +3925,6 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Can be considered as a particular case of Array strategy</p>\n</div>\n"
     },
-    "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook": {
-        "castsTo": [
-            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
-        ],
-        "properties": {
-            "alpha": {
-                "type": "_parseFloat"
-            },
-            "book": {
-                "type": "marketsim.gen._out._iorderbook.IOrderBook"
-            }
-        },
-        "description": "<div class=\"document\">\n</div>\n"
-    },
     "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat": {
         "castsTo": [
             "marketsim.gen._out._ievent.IEvent",
@@ -3957,7 +3988,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
             },
             "eventGen": {
                 "type": "marketsim.gen._out._ievent.IEvent"
@@ -4423,7 +4454,7 @@ var typeinfo = {
         ],
         "properties": {
             "x": {
-                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
+                "type": "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
             },
             "eventGen": {
                 "type": "marketsim.gen._out._ievent.IEvent"
@@ -4591,6 +4622,17 @@ var typeinfo = {
             }
         },
         "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+    },
+    "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideTrendFollower": {
+        "castsTo": [
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
     },
     "marketsim.gen._out.math._derivative.Derivative_IDifferentiable": {
         "castsTo": [
@@ -4833,6 +4875,17 @@ var typeinfo = {
         },
         "description": "<div class=\"document\">\n<p>Exceptional cases follow Annex F of the C99 standard as far as possible.\nIn particular, <tt class=\"docutils literal\">pow(1.0, x)</tt> and <tt class=\"docutils literal\">pow(x, 0.0)</tt> always return 1.0,\neven when <em>x</em> is a zero or a NaN.\nIf both <em>x</em> and <em>y</em> are finite, <em>x</em> is negative, and <em>y</em> is not an integer then\n<tt class=\"docutils literal\">pow(x, y)</tt> is undefined, and raises <tt class=\"docutils literal\">ValueError</tt>.</p>\n</div>\n"
     },
+    "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideSignal": {
+        "castsTo": [
+            "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
+        ],
+        "properties": {
+            "x": {
+                "type": "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
+            }
+        },
+        "description": "<div class=\"document\">\n</div>\n"
+    },
     "marketsim.gen._out.orderbook._link.Link_IObservableFloat": {
         "castsTo": [
             "marketsim.gen._out._ilink.ILink"
@@ -4890,522 +4943,6 @@ var interfaces = [
         []
     ],
     [
-        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat",
-        [
-            "marketsim.gen._out.order._curried._sideprice_floatingprice.sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._sideprice_peg.sideprice_Peg_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._sideprice_stoploss.sideprice_StopLoss_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_withexpiry.sideprice_WithExpiry_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_iceberg.sideprice_Iceberg_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_limit.sideprice_Limit_Float",
-            "marketsim.gen._out.order._curried._sideprice_immediateorcancel.sideprice_ImmediateOrCancel_SideFloatIObservableIOrder"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservablebool.IObservablebool",
-        [
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
-            "marketsim.gen._out._observabletrue.observableTrue_",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
-            "marketsim.gen._out._observablefalse.observableFalse_",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat",
-        [
-            "marketsim.gen._out.order._curried._price_iceberg.price_Iceberg_FloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._signedvolume_limitsigned.signedVolume_LimitSigned_Float",
-            "marketsim.gen._out.order._curried._price_limit.price_Limit_SideFloat",
-            "marketsim.gen._out.order._curried._price_withexpiry.price_WithExpiry_FloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._price_floatingprice.price_FloatingPrice_FloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._price_stoploss.price_StopLoss_FloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._signedvolume_marketsigned.signedVolume_MarketSigned_",
-            "marketsim.gen._out.order._curried._price_immediateorcancel.price_ImmediateOrCancel_FloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._price_peg.price_Peg_FloatIObservableIOrder"
-        ]
-    ],
-    [
-        "marketsim.gen._out._isingleassettrader.ISingleAssetTrader",
-        [
-            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
-            "marketsim.gen._out.trader._singleproxy.SingleProxy_"
-        ]
-    ],
-    [
-        {
-            "elementType": "_parseFloat"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._iaccount.IAccount",
-        [
-            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
-            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
-            "marketsim.gen._out.strategy.account._virtualmarket.VirtualMarket_ISingleAssetStrategy",
-            "marketsim.gen._out.strategy.account._real.Real_ISingleAssetStrategy"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._ew.EW_IObservableFloatFloat",
-        [
-            "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat",
-        [
-            "marketsim.gen._out.strategy.weight.array._array_identityl.array_IdentityL_",
-            "marketsim.gen._out.strategy.weight.array._array_choosethebest.array_ChooseTheBest_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iorderqueue.IOrderQueue",
-        [
-            "marketsim.gen._out.orderbook._queue.Queue_IOrderBookSide",
-            "marketsim.gen._out.orderbook._bids.Bids_IOrderBook",
-            "marketsim.gen._out.orderbook._asks.Asks_IOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat",
-        [
-            "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
-        [
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
-            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
-            "marketsim.gen._out._constant.constant_Int",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
-            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
-            "marketsim.gen._out.math.random._gammavariate.gammavariate_FloatFloat",
-            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
-            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
-            "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
-            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out._constant.constant_Float",
-            "marketsim.gen._out._const.const_Int",
-            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out._const.const_Float",
-            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
-            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._normalvariate.normalvariate_FloatFloat",
-            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
-            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
-            "marketsim.gen._out.math._logreturns.LogReturns_IObservableFloatFloat",
-            "marketsim.gen._out._test.in1.in2._f.F_Float",
-            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
-            "marketsim.gen._out.math._var.Var_mathCumulative",
-            "marketsim.gen._out.strategy.weight._unit.Unit_IAccount",
-            "marketsim.gen._out.math._sqrt.Sqrt_Float",
-            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
-            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
-            "marketsim.gen._out.trader._balance.Balance_IAccount",
-            "marketsim.gen._out.strategy.weight._traderefficiencytrend.TraderEfficiencyTrend_IAccountFloat",
-            "marketsim.gen._out.math._min.Min_FloatFloat",
-            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
-            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
-            "marketsim.gen._out.math.random._uniform.uniform_FloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
-            "marketsim.gen._out.math._var.Var_mathMoving",
-            "marketsim.gen._out.strategy.weight._identityf.IdentityF_Float",
-            "marketsim.gen._out.strategy.weight._traderefficiency.TraderEfficiency_IAccount",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
-            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
-            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
-            "marketsim.gen._out.math.random._expovariate.expovariate_Float",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._triangular.triangular_FloatFloatFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
-            "marketsim.gen._out.math._value.Value_mathRSI",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
-            "marketsim.gen._out.math._avg.Avg_mathCumulative",
-            "marketsim.gen._out.math._avg.Avg_mathMoving",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
-            "marketsim.gen._out._null.null_",
-            "marketsim.gen._out.math.random._paretovariate.paretovariate_Float",
-            "marketsim.gen._out.orderbook._weightedprice.WeightedPrice_IOrderQueueFloat",
-            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
-            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
-            "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_",
-            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
-            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
-            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
-            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
-            "marketsim.gen._out.ops._div.Div_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._raw.Raw_mathRSI",
-            "marketsim.gen._out.math._avg.Avg_mathEW",
-            "marketsim.gen._out.math._derivative.Derivative_IDifferentiable",
-            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
-            "marketsim.gen._out.trader._efficiencytrend.EfficiencyTrend_IAccountFloat",
-            "marketsim.gen._out.strategy.weight._score.Score_IAccount",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.weight._clamp0.Clamp0_Float",
-            "marketsim.gen._out.math.random._betavariate.betavariate_FloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
-            "marketsim.gen._out.trader._position.Position_IAccount",
-            "marketsim.gen._out.observable._quote.Quote_StringStringString",
-            "marketsim.gen._out.math._stddev.StdDev_mathMoving",
-            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
-            "marketsim.gen._out.math._atan.Atan_Float",
-            "marketsim.gen._out.orderbook._ticksize.TickSize_IOrderBook",
-            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
-            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
-            "marketsim.gen._out._test.overloading._hh.hh_",
-            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
-            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
-            "marketsim.gen._out.math.random._weibullvariate.weibullvariate_FloatFloat",
-            "marketsim.gen._out.strategy.weight._atanpow.AtanPow_FloatFloat",
-            "marketsim.gen._out.math._max.Max_FloatFloat",
-            "marketsim.gen._out.math._exp.Exp_Float",
-            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
-            "marketsim.gen._out.math._stddev.StdDev_mathEW",
-            "marketsim.gen._out.ops._add.Add_FloatFloat",
-            "marketsim.gen._out.math._var.Var_mathEW",
-            "marketsim.gen._out._test.overloading._h.h_",
-            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
-            "marketsim.gen._out.math.random._vonmisesvariate.vonmisesvariate_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
-            "marketsim.gen._out.math._stddev.StdDev_mathCumulative",
-            "marketsim.gen._out.math._sqr.Sqr_Float",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._lognormvariate.lognormvariate_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
-            "marketsim.gen._out.math._pow.Pow_FloatFloat",
-            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
-            "marketsim.gen._out.math._value.Value_mathmacd",
-            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
-            "marketsim.gen._out.math._log.Log_Float",
-            "marketsim.gen._out.math._histogram.Histogram_mathmacdFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy",
-        [
-            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketDataSideFloat",
-            "marketsim.gen._out.strategy.price._onesidestrategy.OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide",
-            "marketsim.gen._out.strategy.price._strategy.Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder",
-            "marketsim.gen._out.strategy._canceller.Canceller_Float",
-            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketDataIObservableSideFloat",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysidePairTradingIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy._combine.Combine_ISingleAssetStrategyISingleAssetStrategy",
-            "marketsim.gen._out.strategy.price._twosides.TwoSides_strategypriceMarketData",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionRSI_linearFloatIObservableIOrder",
-            "marketsim.gen._out.strategy._suspendable.Suspendable_ISingleAssetStrategyBoolean",
-            "marketsim.gen._out.strategy.price._twosides.TwoSides_strategypriceMarketMaker",
-            "marketsim.gen._out.strategy._choosethebest.ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideFundamentalValueIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy._generic.Generic_IObservableIOrderIEvent",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideMeanReversionIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy.price._onesidestrategy.OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderIObservableSide",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideNoiseIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketMakerSideFloat",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideTrendFollowerIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionBollinger_linearFloatIObservableIOrder",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideRSIbisIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy._tradeifprofitable.TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat",
-            "marketsim.gen._out.strategy._multiarmedbandit.MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat",
-            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideSignalIEventSideIObservableIOrder",
-            "marketsim.gen._out.strategy._empty.Empty_",
-            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketMakerIObservableSideFloat",
-            "marketsim.gen._out.strategy._array.Array_ListISingleAssetStrategy"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder",
-        [
-            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
-            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
-            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._market.Market_SideFloat",
-            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
-            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
-            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
-            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
-            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
-            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
-            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._iorderbook.IOrderBook",
-        [
-            "marketsim.gen._out.orderbook._local.Local_StringFloatIntListITimeSerie",
-            "marketsim.gen._out.orderbook._remote.Remote_IOrderBookITwoWayLinkListITimeSerie",
-            "marketsim.gen._out.orderbook._oftrader.OfTrader_IAccount",
-            "marketsim.gen._out.orderbook._proxy.Proxy_"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat",
-        [
-            "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat",
-        [
-            "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook",
-        [
-            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_FloatIOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy",
-        [
-            "marketsim.gen._out.strategy.account.inner._inner_virtualmarket.inner_VirtualMarket_",
-            "marketsim.gen._out.strategy.account.inner._inner_real.inner_Real_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ilink.ILink",
-        [
-            "marketsim.gen._out.orderbook._link.Link_IObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook",
-        [
-            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_FloatIOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool",
-        [
-            "marketsim.gen._out._true.true_",
-            "marketsim.gen._out._observabletrue.observableTrue_",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatFloat",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
-            "marketsim.gen._out._false.false_",
-            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
-            "marketsim.gen._out._observablefalse.observableFalse_",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide",
-        [
-            "marketsim.gen._out.order._curried._side_price_floatingprice.side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._side_price_withexpiry.side_price_WithExpiry_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_immediateorcancel.side_price_ImmediateOrCancel_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_price_peg.side_price_Peg_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_price_stoploss.side_price_StopLoss_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_iceberg.side_price_Iceberg_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_limit.side_price_Limit_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat",
-        [
-            "marketsim.gen._out.strategy.weight.f._f_clamp0.f_Clamp0_",
-            "marketsim.gen._out.strategy.weight.f._f_atanpow.f_AtanPow_Float",
-            "marketsim.gen._out.strategy.weight.f._f_identityf.f_IdentityF_"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._noise.Noise_Float",
-        [
-            "marketsim.gen._out.strategy.side._noise.Noise_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out._itimeserie.ITimeSerie",
-        [
-            "marketsim.gen._out._timeserie.TimeSerie_IObservableAnyIGraphIntInt",
-            "marketsim.gen._out._volumelevels.volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat",
-        [
-            "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook",
-        [
-            "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out._igraph.IGraph",
-        [
-            "marketsim.js.Graph",
-            "marketsim.gen._out.veusz._graph.Graph_String"
-        ]
-    ],
-    [
-        "_parseFloat",
-        []
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._isingleassettrader.ISingleAssetTrader"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._idifferentiable.IDifferentiable",
-        [
-            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
-            "marketsim.gen._out.math._avg.Avg_mathCumulative",
-            "marketsim.gen._out.math._avg.Avg_mathMoving",
-            "marketsim.gen._out.math._avg.Avg_mathEW"
-        ]
-    ],
-    [
-        "marketsim.gen._out._imultiassetstrategy.IMultiAssetStrategy",
-        [
-            "marketsim.gen._out.strategy._arbitrage.Arbitrage_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._itrader.ITrader",
-        [
-            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
-            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
-            "marketsim.gen._out.trader._multiasset.MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._igraph.IGraph"
-        },
-        []
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._itrader.ITrader"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide",
-        [
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
-            "marketsim.gen._out.side._buy.Buy_",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.strategy.side._s_side.S_Side_strategysideSignal",
-            "marketsim.gen._out.side._observablesell.observableSell_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideRSIbis",
-            "marketsim.gen._out.strategy.side._fv_side.FV_Side_strategysideFundamentalValue",
-            "marketsim.gen._out.side._sell.Sell_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideNoise",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideSignal",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion",
-            "marketsim.gen._out.side._observablebuy.observableBuy_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideCrossingAverages",
-            "marketsim.gen._out.side._observablenothing.observableNothing_",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
-            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
-            "marketsim.gen._out.side._nothing.Nothing_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideTrendFollower",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat",
-        [
-            "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat",
-        [
-            "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._itimeserie.ITimeSerie"
-        },
-        []
-    ],
-    [
         "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
         [
             "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
@@ -5420,6 +4957,7 @@ var interfaces = [
             "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
             "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
             "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
             "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
             "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
             "marketsim.gen._out.math._exp.Exp_Float",
@@ -5495,9 +5033,207 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out._ifunction._ifunctionivolumelevels.IFunctionIVolumeLevels",
+        "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide",
         [
-            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt"
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
+            "marketsim.gen._out.side._buy.Buy_",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.side._observablesell.observableSell_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideRSIbis",
+            "marketsim.gen._out.side._sell.Sell_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideNoise",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideSignal",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion",
+            "marketsim.gen._out.side._observablebuy.observableBuy_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideCrossingAverages",
+            "marketsim.gen._out.side._observablenothing.observableNothing_",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
+            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
+            "marketsim.gen._out.side._nothing.Nothing_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideTrendFollower",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide"
+        ]
+    ],
+    [
+        "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat",
+        [
+            "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat",
+        [
+            "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat",
+        [
+            "marketsim.gen._out.strategy.weight.f._f_clamp0.f_Clamp0_",
+            "marketsim.gen._out.strategy.weight.f._f_atanpow.f_AtanPow_Float",
+            "marketsim.gen._out.strategy.weight.f._f_identityf.f_IdentityF_"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._itimeserie.ITimeSerie"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
+        [
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
+            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
+            "marketsim.gen._out._constant.constant_Int",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
+            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion",
+            "marketsim.gen._out.math.random._gammavariate.gammavariate_FloatFloat",
+            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
+            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
+            "marketsim.gen._out.ops._negate.Negate_Float",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
+            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out._constant.constant_Float",
+            "marketsim.gen._out._const.const_Int",
+            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out._const.const_Float",
+            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
+            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._normalvariate.normalvariate_FloatFloat",
+            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
+            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
+            "marketsim.gen._out.math._logreturns.LogReturns_IObservableFloatFloat",
+            "marketsim.gen._out._test.in1.in2._f.F_Float",
+            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
+            "marketsim.gen._out.math._var.Var_mathCumulative",
+            "marketsim.gen._out.strategy.weight._unit.Unit_IAccount",
+            "marketsim.gen._out.math._sqrt.Sqrt_Float",
+            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
+            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
+            "marketsim.gen._out.trader._balance.Balance_IAccount",
+            "marketsim.gen._out.strategy.weight._traderefficiencytrend.TraderEfficiencyTrend_IAccountFloat",
+            "marketsim.gen._out.math._min.Min_FloatFloat",
+            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
+            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
+            "marketsim.gen._out.math.random._uniform.uniform_FloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
+            "marketsim.gen._out.math._var.Var_mathMoving",
+            "marketsim.gen._out.strategy.weight._identityf.IdentityF_Float",
+            "marketsim.gen._out.strategy.weight._traderefficiency.TraderEfficiency_IAccount",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
+            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
+            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
+            "marketsim.gen._out.math.random._expovariate.expovariate_Float",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._triangular.triangular_FloatFloatFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
+            "marketsim.gen._out.math._value.Value_mathRSI",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
+            "marketsim.gen._out.math._avg.Avg_mathCumulative",
+            "marketsim.gen._out.math._avg.Avg_mathMoving",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
+            "marketsim.gen._out._null.null_",
+            "marketsim.gen._out.math.random._paretovariate.paretovariate_Float",
+            "marketsim.gen._out.orderbook._weightedprice.WeightedPrice_IOrderQueueFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideRSIbis",
+            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
+            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
+            "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_",
+            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
+            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
+            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
+            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideFundamentalValue",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
+            "marketsim.gen._out.ops._div.Div_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._raw.Raw_mathRSI",
+            "marketsim.gen._out.math._avg.Avg_mathEW",
+            "marketsim.gen._out.math._derivative.Derivative_IDifferentiable",
+            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
+            "marketsim.gen._out.trader._efficiencytrend.EfficiencyTrend_IAccountFloat",
+            "marketsim.gen._out.strategy.weight._score.Score_IAccount",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.strategy.weight._clamp0.Clamp0_Float",
+            "marketsim.gen._out.math.random._betavariate.betavariate_FloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
+            "marketsim.gen._out.trader._position.Position_IAccount",
+            "marketsim.gen._out.observable._quote.Quote_StringStringString",
+            "marketsim.gen._out.math._stddev.StdDev_mathMoving",
+            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
+            "marketsim.gen._out.math._atan.Atan_Float",
+            "marketsim.gen._out.orderbook._ticksize.TickSize_IOrderBook",
+            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
+            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
+            "marketsim.gen._out._test.overloading._hh.hh_",
+            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideTrendFollower",
+            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
+            "marketsim.gen._out.math.random._weibullvariate.weibullvariate_FloatFloat",
+            "marketsim.gen._out.strategy.weight._atanpow.AtanPow_FloatFloat",
+            "marketsim.gen._out.math._max.Max_FloatFloat",
+            "marketsim.gen._out.math._exp.Exp_Float",
+            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
+            "marketsim.gen._out.math._stddev.StdDev_mathEW",
+            "marketsim.gen._out.ops._add.Add_FloatFloat",
+            "marketsim.gen._out.math._var.Var_mathEW",
+            "marketsim.gen._out._test.overloading._h.h_",
+            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
+            "marketsim.gen._out.math.random._vonmisesvariate.vonmisesvariate_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
+            "marketsim.gen._out.math._stddev.StdDev_mathCumulative",
+            "marketsim.gen._out.math._sqr.Sqr_Float",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._lognormvariate.lognormvariate_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
+            "marketsim.gen._out.math._pow.Pow_FloatFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideSignal",
+            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
+            "marketsim.gen._out.math._value.Value_mathmacd",
+            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideCrossingAverages",
+            "marketsim.gen._out.math._log.Log_Float",
+            "marketsim.gen._out.math._histogram.Histogram_mathmacdFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook",
+        [
+            "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook"
         ]
     ],
     [
@@ -5514,7 +5250,7 @@ var interfaces = [
             "marketsim.gen._out.side._observablesell.observableSell_",
             "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
             "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.strategy.side._fv_side.FV_Side_strategysideFundamentalValue",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
             "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
             "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
             "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
@@ -5546,10 +5282,10 @@ var interfaces = [
             "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
             "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
             "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
             "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat",
             "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
             "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
             "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
             "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
             "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
@@ -5644,24 +5380,21 @@ var interfaces = [
         ]
     ],
     [
-        {
-            "elementType": "marketsim.gen._out._iorderbook.IOrderBook"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount",
+        "marketsim.gen._out._iorderbook.IOrderBook",
         [
-            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiency.trader_TraderEfficiency_",
-            "marketsim.gen._out.strategy.weight.trader._trader_score.trader_Score_",
-            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend.trader_TraderEfficiencyTrend_Float",
-            "marketsim.gen._out.strategy.weight.trader._trader_unit.trader_Unit_"
+            "marketsim.gen._out.strategy.side._book.book_strategysidePairTrading",
+            "marketsim.gen._out.orderbook._local.Local_StringFloatIntListITimeSerie",
+            "marketsim.gen._out.strategy.side._book.book_strategysideMeanReversion",
+            "marketsim.gen._out.orderbook._oftrader.OfTrader_IAccount",
+            "marketsim.gen._out.strategy.side._book.book_strategysideFundamentalValue",
+            "marketsim.gen._out.orderbook._remote.Remote_IOrderBookITwoWayLinkListITimeSerie",
+            "marketsim.gen._out.orderbook._proxy.Proxy_"
         ]
     ],
     [
-        "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat",
+        "marketsim.gen._out._ifunction._ifunctionivolumelevels.IFunctionIVolumeLevels",
         [
-            "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
+            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt"
         ]
     ],
     [
@@ -5674,7 +5407,6 @@ var interfaces = [
             "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
             "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
             "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
-            "marketsim.gen._out.strategy.side._fv_side.FV_Side_strategysideFundamentalValue",
             "marketsim.gen._out.side._observablesell.observableSell_",
             "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
             "marketsim.gen._out.ops._condition.Condition_BooleanSideSide",
@@ -5685,15 +5417,18 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat",
+        "marketsim.gen._out._ilink.ILink",
         [
-            "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat"
+            "marketsim.gen._out.orderbook._link.Link_IObservableFloat"
         ]
     ],
     [
-        "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook",
+        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount",
         [
-            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloatIOrderBook"
+            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiency.trader_TraderEfficiency_",
+            "marketsim.gen._out.strategy.weight.trader._trader_score.trader_Score_",
+            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend.trader_TraderEfficiencyTrend_Float",
+            "marketsim.gen._out.strategy.weight.trader._trader_unit.trader_Unit_"
         ]
     ],
     [
@@ -5703,9 +5438,36 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out._itwowaylink.ITwoWayLink",
+        "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat",
         [
-            "marketsim.gen._out.orderbook._twowaylink.TwoWayLink_ILinkILink"
+            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._isingleassettrader.ISingleAssetTrader",
+        [
+            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
+            "marketsim.gen._out.trader._singleproxy.SingleProxy_"
+        ]
+    ],
+    [
+        "marketsim.gen._out._itrader.ITrader",
+        [
+            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
+            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
+            "marketsim.gen._out.trader._multiasset.MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float",
+        [
+            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat",
+        [
+            "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat"
         ]
     ],
     [
@@ -5723,10 +5485,126 @@ var interfaces = [
         ]
     ],
     [
-        "identity",
+        "marketsim.gen._out._iobservable._iobservablebool.IObservablebool",
         [
-            "marketsim.gen._out._test.in1.in2._s2.S2_",
-            "marketsim.gen._out._test.in1.in2._s1.S1_String"
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
+            "marketsim.gen._out._observabletrue.observableTrue_",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
+            "marketsim.gen._out._observablefalse.observableFalse_",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._isingleassettrader.ISingleAssetTrader"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out.math._ew.EW_IObservableFloatFloat",
+        [
+            "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._igraph.IGraph",
+        [
+            "marketsim.js.Graph",
+            "marketsim.gen._out.veusz._graph.Graph_String"
+        ]
+    ],
+    [
+        "_parseFloat",
+        []
+    ],
+    [
+        "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat",
+        [
+            "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat",
+        [
+            "marketsim.gen._out.order._curried._sideprice_floatingprice.sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._sideprice_peg.sideprice_Peg_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._sideprice_stoploss.sideprice_StopLoss_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_withexpiry.sideprice_WithExpiry_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_iceberg.sideprice_Iceberg_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_limit.sideprice_Limit_Float",
+            "marketsim.gen._out.order._curried._sideprice_immediateorcancel.sideprice_ImmediateOrCancel_SideFloatIObservableIOrder"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat",
+        [
+            "marketsim.gen._out.order._curried._price_iceberg.price_Iceberg_FloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._signedvolume_limitsigned.signedVolume_LimitSigned_Float",
+            "marketsim.gen._out.order._curried._price_limit.price_Limit_SideFloat",
+            "marketsim.gen._out.order._curried._price_withexpiry.price_WithExpiry_FloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._price_floatingprice.price_FloatingPrice_FloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._price_stoploss.price_StopLoss_FloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._signedvolume_marketsigned.signedVolume_MarketSigned_",
+            "marketsim.gen._out.order._curried._price_immediateorcancel.price_ImmediateOrCancel_FloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._price_peg.price_Peg_FloatIObservableIOrder"
+        ]
+    ],
+    [
+        "marketsim.gen._out._itwowaylink.ITwoWayLink",
+        [
+            "marketsim.gen._out.orderbook._twowaylink.TwoWayLink_ILinkILink"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder",
+        [
+            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
+            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
+            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._market.Market_SideFloat",
+            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
+            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
+            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
+            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
+            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
+            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
+            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iaccount.IAccount",
+        [
+            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
+            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
+            "marketsim.gen._out.strategy.account._virtualmarket.VirtualMarket_ISingleAssetStrategy",
+            "marketsim.gen._out.strategy.account._real.Real_ISingleAssetStrategy"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat",
+        [
+            "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat"
         ]
     ],
     [
@@ -5736,9 +5614,168 @@ var interfaces = [
         ]
     ],
     [
+        "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat",
+        [
+            "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat",
+        [
+            "marketsim.gen._out.strategy.weight.array._array_identityl.array_IdentityL_",
+            "marketsim.gen._out.strategy.weight.array._array_choosethebest.array_ChooseTheBest_"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._itrader.ITrader"
+        },
+        []
+    ],
+    [
         "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook",
         [
             "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook"
+        ]
+    ],
+    [
+        "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy",
+        [
+            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketDataSideFloat",
+            "marketsim.gen._out.strategy.price._onesidestrategy.OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide",
+            "marketsim.gen._out.strategy.price._strategy.Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder",
+            "marketsim.gen._out.strategy._canceller.Canceller_Float",
+            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketDataIObservableSideFloat",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysidePairTradingIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy._combine.Combine_ISingleAssetStrategyISingleAssetStrategy",
+            "marketsim.gen._out.strategy.price._twosides.TwoSides_strategypriceMarketData",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionRSI_linearFloatIObservableIOrder",
+            "marketsim.gen._out.strategy._suspendable.Suspendable_ISingleAssetStrategyBoolean",
+            "marketsim.gen._out.strategy.price._twosides.TwoSides_strategypriceMarketMaker",
+            "marketsim.gen._out.strategy._choosethebest.ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideFundamentalValueIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy._generic.Generic_IObservableIOrderIEvent",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideMeanReversionIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy.price._onesidestrategy.OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderIObservableSide",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideNoiseIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketMakerSideFloat",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideTrendFollowerIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionBollinger_linearFloatIObservableIOrder",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideRSIbisIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy._tradeifprofitable.TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat",
+            "marketsim.gen._out.strategy._multiarmedbandit.MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat",
+            "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideSignalIEventSideIObservableIOrder",
+            "marketsim.gen._out.strategy._empty.Empty_",
+            "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketMakerIObservableSideFloat",
+            "marketsim.gen._out.strategy._array.Array_ListISingleAssetStrategy"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook",
+        [
+            "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool",
+        [
+            "marketsim.gen._out._true.true_",
+            "marketsim.gen._out._observabletrue.observableTrue_",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatFloat",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
+            "marketsim.gen._out._false.false_",
+            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
+            "marketsim.gen._out._observablefalse.observableFalse_",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
+        ]
+    ],
+    [
+        {
+            "elementType": "_parseFloat"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy",
+        [
+            "marketsim.gen._out.strategy.account.inner._inner_virtualmarket.inner_VirtualMarket_",
+            "marketsim.gen._out.strategy.account.inner._inner_real.inner_Real_"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iorderqueue.IOrderQueue",
+        [
+            "marketsim.gen._out.orderbook._queue.Queue_IOrderBookSide",
+            "marketsim.gen._out.orderbook._bids.Bids_IOrderBook",
+            "marketsim.gen._out.orderbook._asks.Asks_IOrderBook"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._noise.Noise_Float",
+        [
+            "marketsim.gen._out.strategy.side._noise.Noise_Float"
+        ]
+    ],
+    [
+        "marketsim.gen._out._itimeserie.ITimeSerie",
+        [
+            "marketsim.gen._out._timeserie.TimeSerie_IObservableAnyIGraphIntInt",
+            "marketsim.gen._out._volumelevels.volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._iorderbook.IOrderBook"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out._idifferentiable.IDifferentiable",
+        [
+            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
+            "marketsim.gen._out.math._avg.Avg_mathCumulative",
+            "marketsim.gen._out.math._avg.Avg_mathMoving",
+            "marketsim.gen._out.math._avg.Avg_mathEW",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide",
+        [
+            "marketsim.gen._out.order._curried._side_price_floatingprice.side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._side_price_withexpiry.side_price_WithExpiry_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_immediateorcancel.side_price_ImmediateOrCancel_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_price_peg.side_price_Peg_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_price_stoploss.side_price_StopLoss_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_iceberg.side_price_Iceberg_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_limit.side_price_Limit_Float"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float",
+        [
+            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
         ]
     ],
     [
@@ -5755,7 +5792,7 @@ var interfaces = [
             "marketsim.gen._out.side._observablesell.observableSell_",
             "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
             "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.strategy.side._fv_side.FV_Side_strategysideFundamentalValue",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
             "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
             "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
             "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
@@ -5787,10 +5824,10 @@ var interfaces = [
             "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
             "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
             "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
             "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat",
             "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
             "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
             "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
             "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
             "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
@@ -5887,9 +5924,34 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook",
+        {
+            "elementType": "marketsim.gen._out._igraph.IGraph"
+        },
+        []
+    ],
+    [
+        "identity",
         [
-            "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook"
+            "marketsim.gen._out._test.in1.in2._s2.S2_",
+            "marketsim.gen._out._test.in1.in2._s1.S1_String"
+        ]
+    ],
+    [
+        "marketsim.gen._out._imultiassetstrategy.IMultiAssetStrategy",
+        [
+            "marketsim.gen._out.strategy._arbitrage.Arbitrage_"
+        ]
+    ],
+    [
+        "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat",
+        [
+            "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat",
+        [
+            "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
         ]
     ]
 ]

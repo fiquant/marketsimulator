@@ -159,7 +159,8 @@ def typecheck(constraint, obj):
          if type(obj) != int:
              throw()
     elif constraint == float:
-         if type(obj) not in [float, int]:
+         import context
+         if not context.is_float(type(obj)):
              throw()
     elif 'check_constraint' in dir(constraint):
         constraint.check_constraint(obj)

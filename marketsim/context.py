@@ -10,6 +10,12 @@ from marketsim import rtti
 
 debug = False
 
+def is_float(typ):
+    if has_numpy:
+        if typ is numpy.float64:
+            return True
+    return typ is int or typ is float
+
 def primitive(typ):
     if has_numpy:
         if typ is numpy.float64:
