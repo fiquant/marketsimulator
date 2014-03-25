@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionflo
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Volume function", "Strategy"])
+@registry.expose(["Volume function", "RSI_linear"])
 class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -30,7 +30,7 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(orderFactory)s)" % self.__dict__
+        return "RSI_linear(%(x)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -64,7 +64,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
-@registry.expose(["Volume function", "Strategy"])
+@registry.expose(["Volume function", "Bollinger_linear"])
 class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -91,7 +91,7 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(orderFactory)s)" % self.__dict__
+        return "Bollinger_linear(%(x)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -4,7 +4,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.side._noise import Noise
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "Noise"])
 class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -35,7 +35,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "Noise(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -70,7 +70,7 @@ from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "MeanReversion"])
 class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -101,7 +101,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "MeanReversion(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -136,7 +136,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "RSIbis"])
 class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -167,7 +167,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "RSIbis(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -202,7 +202,7 @@ from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "FundamentalValue"])
 class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -233,7 +233,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "FundamentalValue(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -268,7 +268,7 @@ from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "TrendFollower"])
 class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -299,7 +299,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "TrendFollower(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -334,7 +334,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "CrossingAverages"])
 class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -365,7 +365,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "CrossingAverages(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -400,7 +400,7 @@ from marketsim.gen._out.strategy.side._signal import Signal
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "Signal"])
 class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -431,7 +431,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "Signal(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -466,7 +466,7 @@ from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
 from marketsim import context
-@registry.expose(["Side function", "Strategy"])
+@registry.expose(["Side function", "PairTrading"])
 class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
@@ -497,7 +497,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Strategy(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "PairTrading(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

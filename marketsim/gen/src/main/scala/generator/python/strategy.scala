@@ -24,6 +24,18 @@ object strategy extends gen.PythonGenerator
                 ImportFrom("event", "marketsim") |||
                 ImportFrom("_", "marketsim")
 
+        def className =
+            parameters.head.p.ty.unOptionalize match {
+                case t : TypesBound.Interface => t.decl.name
+                case a : TypesBound.Alias => a.decl.name
+                case _ => throw new Exception(s"First argument for a strategy $name must be a user defined type")
+            }
+
+        override def alias = super.alias match {
+            case "Strategy" => className
+            case x => x
+        }
+
         def myBase = Typed.topLevel.ISingleAssetStrategy
 
         override def base_class_list = myBase :: Nil
