@@ -32,6 +32,8 @@ package object gen
         processTypes(p, new File(dst_dir), new File(idx_dir))
 
         processUsedTypes(new File(dst_dir))
+
+        //println(Typed.topLevel.intrinsics mkString crlf)
     }
 
     def printWriter(dst_dir : File, filename : String) =

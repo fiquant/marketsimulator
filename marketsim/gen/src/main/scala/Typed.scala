@@ -502,7 +502,17 @@ package object Typed
         def observableImplOf(t : TypesBound.Base) =
             TypesBound.Interface(Observable, t :: Nil)
 
-        
+        var intrinsics = Map.empty[String, List[String]]
+
+        def addIntrinsic(name : String, parameter_names : List[String]) {
+            intrinsics get name match {
+                case None =>
+                    intrinsics = intrinsics updated (name, parameter_names)
+                case Some(ps) =>
+                    if (ps != parameter_names)
+                        throw new Exception(s"Class that use intrinsic '$name' must have same parameter names but $ps != $parameter_names")
+            }
+        }
     }
 
     private var topLevelInstance = Option.empty[TopLevelPackage]
