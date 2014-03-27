@@ -54,8 +54,8 @@ package object base {
         def repr = s"%($name)s"
         def call = s"self.$name"
 
-        def setter = stop
-        def getter = stop
+        def setter : Code = stop
+        def getter : Code = stop
 
         def accessors = getter | setter
     }
@@ -239,6 +239,16 @@ package object base {
         def observe_args = true
 
         lazy val IEvent = Typed.topLevel.getScalarBound("IEvent")
+
+//        override def setter =
+//            super.setter | (
+//            if (observe_args)
+//                if (p.ty canCastTo TypesBound.Optional(IEvent)) {
+//                    Setter(p.name,
+//                        s"event.subscribe(self.$name, self.fire, self)" |||
+//                        ImportFrom("event", "marketsim"))
+//                } else ""
+//            else "")
 
         override def assign : Code =
             super.assign | (

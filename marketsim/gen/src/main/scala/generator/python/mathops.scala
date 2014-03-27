@@ -3,15 +3,6 @@ import predef._
 
 object mathops extends gen.PythonGenerator
 {
-    case class Parameter(p : Typed.Parameter) extends base.SubscribeParameter
-    {
-        def nullable =
-            s"$name = self.$name()" |
-            s"if $name is None: return None"
-
-        override def call = name
-
-    }
 
     case class Import(args : List[String], f : Typed.Function)
             extends base.Intrinsic
@@ -25,8 +16,16 @@ object mathops extends gen.PythonGenerator
                     " form (implementation_function)" + "\r\n" + "In function " + f)
 
         override val impl_function = args(0)
-        def mkParam(p : Typed.Parameter) = mathops.Parameter(p)
-        type Parameter = mathops.Parameter
+        def mkParam(p : Typed.Parameter) = Parameter(p)
+
+        case class Parameter(p : Typed.Parameter) extends base.SubscribeParameter
+        {
+            def nullable =
+                s"$name = self.$name()" |
+                s"if $name is None: return None"
+
+            override def call = name
+        }
 
         val impl_module = "math"
 
