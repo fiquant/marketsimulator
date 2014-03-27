@@ -26,7 +26,7 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
         'down' : ILink
     }
     def __repr__(self):
-        return "TwoWayLink(%(up)s, %(down)s)" % self.__dict__
+        return "TwoWayLink(%(up)s, %(down)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def TwoWayLink(up = None,down = None): 
     from marketsim.gen._out._ilink import ILink

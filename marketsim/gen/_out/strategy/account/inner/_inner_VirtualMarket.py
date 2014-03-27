@@ -19,7 +19,7 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
         
     }
     def __repr__(self):
-        return "inner_VirtualMarket" % self.__dict__
+        return "inner_VirtualMarket" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

@@ -4,6 +4,8 @@ from marketsim.gen._out.side._sell import Sell
 
 from marketsim.gen._out._constant import constant
 
+from marketsim.gen._out._intrinsic_base.orderbook.volume_levels import VolumeLevels_Base
+
 class VolumeLevels_Impl(object):
 
     def __init__(self):

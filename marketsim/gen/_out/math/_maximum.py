@@ -25,7 +25,7 @@ class Maximum_mathMoving(Observablefloat,Max_Impl):
         'x' : Moving
     }
     def __repr__(self):
-        return "Maximum(%(x)s)" % self.__dict__
+        return "Maximum(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Maximum(x = None): 
     from marketsim.gen._out.math._moving import Moving

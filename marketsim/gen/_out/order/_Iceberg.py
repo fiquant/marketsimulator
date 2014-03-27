@@ -34,7 +34,7 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         'lotSize' : IFunctionfloat
     }
     def __repr__(self):
-        return "Iceberg(%(proto)s, %(lotSize)s)" % self.__dict__
+        return "Iceberg(%(proto)s, %(lotSize)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.iceberg import Order_Impl

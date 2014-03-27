@@ -22,7 +22,7 @@ class After_Float(IEvent,After_Impl):
         'delay' : IFunctionfloat
     }
     def __repr__(self):
-        return "After(%(delay)s)" % self.__dict__
+        return "After(%(delay)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def After(delay = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

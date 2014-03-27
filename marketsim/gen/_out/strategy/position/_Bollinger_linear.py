@@ -26,7 +26,7 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(DesiredPositionSt
         'trader' : ISingleAssetTrader
     }
     def __repr__(self):
-        return "Bollinger_linear(%(alpha)s, %(k)s, %(trader)s)" % self.__dict__
+        return "Bollinger_linear(%(alpha)s, %(k)s, %(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

@@ -27,7 +27,7 @@ class Position_strategypositionRSI_linear(Observablefloat):
         'x' : RSI_linear
     }
     def __repr__(self):
-        return "Position(%(x)s)" % self.__dict__
+        return "Position(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -85,7 +85,7 @@ class Position_strategypositionBollinger_linear(Observablefloat):
         'x' : Bollinger_linear
     }
     def __repr__(self):
-        return "Position(%(x)s)" % self.__dict__
+        return "Position(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

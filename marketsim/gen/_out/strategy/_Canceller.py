@@ -23,7 +23,7 @@ class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
         'cancellationIntervalDistr' : IFunctionfloat
     }
     def __repr__(self):
-        return "Canceller(%(cancellationIntervalDistr)s)" % self.__dict__
+        return "Canceller(%(cancellationIntervalDistr)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Canceller(cancellationIntervalDistr = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

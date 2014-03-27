@@ -17,7 +17,7 @@ class paretovariate_Float(IFunctionfloat):
         'Alpha' : float
     }
     def __repr__(self):
-        return "paretovariate(%(Alpha)s)" % self.__dict__
+        return "paretovariate(%(Alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import random

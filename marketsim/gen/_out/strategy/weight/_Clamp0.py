@@ -26,7 +26,7 @@ class Clamp0_Float(IFunctionfloat):
         'f' : IFunctionfloat
     }
     def __repr__(self):
-        return "Clamp0(%(f)s)" % self.__dict__
+        return "Clamp0(%(f)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

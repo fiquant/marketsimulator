@@ -33,7 +33,7 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
         'volumeCount' : int
     }
     def __repr__(self):
-        return "VolumeLevels(%(queue)s)" % self.__dict__
+        return "VolumeLevels(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

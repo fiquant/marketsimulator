@@ -31,7 +31,7 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
         'timeframe' : float
     }
     def __repr__(self):
-        return "Candles_{%(source)s}" % self.__dict__
+        return "Candles_{%(source)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def CandleSticks(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

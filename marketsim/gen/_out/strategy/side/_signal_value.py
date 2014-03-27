@@ -22,7 +22,7 @@ class Signal_Value_strategysideRSIbis(IFunctionfloat):
         'x' : RSIbis
     }
     def __repr__(self):
-        return "Signal_Value(%(x)s)" % self.__dict__
+        return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -78,7 +78,7 @@ class Signal_Value_strategysideTrendFollower(IFunctionfloat):
         'x' : TrendFollower
     }
     def __repr__(self):
-        return "Signal_Value(%(x)s)" % self.__dict__
+        return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -132,7 +132,7 @@ class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
         'x' : CrossingAverages
     }
     def __repr__(self):
-        return "Signal_Value(%(x)s)" % self.__dict__
+        return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -187,7 +187,7 @@ class Signal_Value_strategysideSignal(IFunctionfloat):
         'x' : Signal
     }
     def __repr__(self):
-        return "Signal_Value(%(x)s)" % self.__dict__
+        return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

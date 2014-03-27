@@ -19,7 +19,7 @@ class Alpha_strategypositionRSI_linear(object):
         'x' : RSI_linear
     }
     def __repr__(self):
-        return "Alpha(%(x)s)" % self.__dict__
+        return "Alpha(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):
@@ -46,7 +46,7 @@ class Alpha_strategypositionBollinger_linear(object):
         'x' : Bollinger_linear
     }
     def __repr__(self):
-        return "Alpha(%(x)s)" % self.__dict__
+        return "Alpha(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

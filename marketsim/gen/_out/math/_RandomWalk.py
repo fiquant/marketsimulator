@@ -35,7 +35,7 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
         'name' : str
     }
     def __repr__(self):
-        return "%(name)s" % self.__dict__
+        return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

@@ -22,7 +22,7 @@ class TraderEfficiency_IAccount(IFunctionfloat):
         'trader' : IAccount
     }
     def __repr__(self):
-        return "TraderEfficiency(%(trader)s)" % self.__dict__
+        return "TraderEfficiency(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

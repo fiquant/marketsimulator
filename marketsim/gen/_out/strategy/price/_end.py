@@ -19,7 +19,7 @@ class End_strategypriceMarketData(object):
         'x' : MarketData
     }
     def __repr__(self):
-        return "End(%(x)s)" % self.__dict__
+        return "End(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

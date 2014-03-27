@@ -22,7 +22,7 @@ class Side_strategysideNoise(IFunctionSide):
         'x' : Noise
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -83,7 +83,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         'x' : MeanReversion
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -143,7 +143,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         'x' : RSIbis
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -207,7 +207,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         'x' : FundamentalValue
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -267,7 +267,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         'x' : TrendFollower
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -324,7 +324,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         'x' : CrossingAverages
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -381,7 +381,7 @@ class Side_strategysideSignal(IFunctionSide):
         'x' : Signal
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -445,7 +445,7 @@ class Side_strategysidePairTrading(ObservableSide):
         'x' : PairTrading
     }
     def __repr__(self):
-        return "Side(%(x)s)" % self.__dict__
+        return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -24,7 +24,7 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         'alpha' : float
     }
     def __repr__(self):
-        return "Price_{%(alpha)s}^{%(queue)s}" % self.__dict__
+        return "Price_{%(alpha)s}^{%(queue)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

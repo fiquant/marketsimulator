@@ -22,7 +22,7 @@ class TickSize_IOrderBook(IFunctionfloat,TickSize_Impl):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "TickSize(%(book)s)" % self.__dict__
+        return "TickSize(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def TickSize(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

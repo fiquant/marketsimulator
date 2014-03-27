@@ -19,7 +19,7 @@ class constant_Int(IFunctionint):
         'x' : int
     }
     def __repr__(self):
-        return "C=%(x)s" % self.__dict__
+        return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -65,7 +65,7 @@ class constant_Float(IFunctionfloat):
         'x' : float
     }
     def __repr__(self):
-        return "C=%(x)s" % self.__dict__
+        return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

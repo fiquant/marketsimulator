@@ -2,6 +2,8 @@ from marketsim.gen._out._timeserie import TimeSerie
 from marketsim import event, _, types, context
 from marketsim.gen._out._side import Side
 
+from marketsim.gen._out._intrinsic_base.trader.classes import SingleAsset_Base, MultiAsset_Base
+
 class Holder_Impl(object):
 
     def __init__(self):
@@ -77,7 +79,7 @@ class Base_Impl(Holder_Impl):
         if isinstance(order, IOrder):
             self.on_order_sent.fire(order)
 
-class SingleAsset_Impl(Base_Impl):
+class SingleAsset_Impl(Base_Impl, SingleAsset_Base):
     """ A trader that trades a single asset on a single market.
 
         Parameters:
@@ -126,7 +128,7 @@ class SingleAsset_Impl(Base_Impl):
     def send(self, order, unused = None):
         Base_Impl.send(self, self.orderBook, order)
 
-class MultiAsset_Impl(Base_Impl):
+class MultiAsset_Impl(Base_Impl, MultiAsset_Base):
 
     def __init__(self):
         Base_Impl.__init__(self)

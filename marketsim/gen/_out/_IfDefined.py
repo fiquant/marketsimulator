@@ -29,7 +29,7 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         'elsePart' : IObservablefloat
     }
     def __repr__(self):
-        return "If def(%(x)s) else %(elsePart)s" % self.__dict__
+        return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -89,7 +89,7 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         'elsePart' : IObservablefloat
     }
     def __repr__(self):
-        return "If def(%(x)s) else %(elsePart)s" % self.__dict__
+        return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -149,7 +149,7 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         'elsePart' : IFunctionfloat
     }
     def __repr__(self):
-        return "If def(%(x)s) else %(elsePart)s" % self.__dict__
+        return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -207,7 +207,7 @@ class IfDefined_FloatFloat(Observablefloat):
         'elsePart' : IFunctionfloat
     }
     def __repr__(self):
-        return "If def(%(x)s) else %(elsePart)s" % self.__dict__
+        return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

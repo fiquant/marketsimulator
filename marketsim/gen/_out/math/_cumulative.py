@@ -20,7 +20,7 @@ class Cumulative_IObservableFloat(IStatDomain):
         'source' : IObservablefloat
     }
     def __repr__(self):
-        return "Cumulative(%(source)s)" % self.__dict__
+        return "Cumulative(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

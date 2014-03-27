@@ -25,7 +25,7 @@ class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
         'queue' : IOrderQueue
     }
     def __repr__(self):
-        return "LastTradeVolume(%(queue)s)" % self.__dict__
+        return "LastTradeVolume(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def LastTradeVolume(queue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

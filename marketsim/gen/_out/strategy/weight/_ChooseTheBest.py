@@ -20,7 +20,7 @@ class ChooseTheBest_ListFloat(IFunctionlistOffloat,ChooseTheBest_Impl):
         'array' : listOf(float)
     }
     def __repr__(self):
-        return "ChooseTheBest(%(array)s)" % self.__dict__
+        return "ChooseTheBest(%(array)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def ChooseTheBest(array = None): 
     from marketsim import listOf

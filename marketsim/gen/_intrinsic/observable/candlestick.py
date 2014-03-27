@@ -3,7 +3,9 @@ from marketsim import _, event, context
 from marketsim.gen._out._constant import constant
 from marketsim.ops._all import CandleStick
 
-class CandleSticks_Impl(object):
+from marketsim.gen._out._intrinsic_base.observable.candlestick import CandleSticks_Base
+
+class CandleSticks_Impl(CandleSticks_Base):
 
     def __init__(self):
         self._event = event.subscribe(self.source, _(self)._update, self)

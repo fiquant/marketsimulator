@@ -37,7 +37,7 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
         'volume' : IFunctionfloat
     }
     def __repr__(self):
-        return "Limit(%(side)s, %(price)s, %(volume)s)" % self.__dict__
+        return "Limit(%(side)s, %(price)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.limit import Order_Impl

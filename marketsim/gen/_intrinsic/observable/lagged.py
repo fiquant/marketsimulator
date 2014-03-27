@@ -2,7 +2,9 @@ from marketsim import  event, _
 
 import fold
 
-class Lagged_Impl(fold.Last):
+from marketsim.gen._out._intrinsic_base.observable.lagged import Lagged_Base
+
+class Lagged_Impl(fold.Last, Lagged_Base):
 
     def __init__(self):
         self.reset()

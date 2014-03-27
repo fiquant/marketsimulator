@@ -19,7 +19,7 @@ class Sell_(IFunctionSide):
         
     }
     def __repr__(self):
-        return "Sell" % self.__dict__
+        return "Sell" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

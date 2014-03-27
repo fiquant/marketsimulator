@@ -8,6 +8,7 @@ import errno
 import math
 import __main__
 
+from marketsim.gen._out._intrinsic_base.veusz import Graph_Base
 
 def ensure_dir(path):
     """ Ensures that directory given 'path' exists
@@ -194,7 +195,7 @@ class VolumeLevelProxy(object):
         return self._source.label + '{' + str(self._source.source.dataSource.volumes[self._idx]) + '}' 
         
     
-class Graph_Impl(object):
+class Graph_Impl(Graph_Base):
     """ Represents a single Veusz graph
     """
     

@@ -29,7 +29,7 @@ class Add_IObservableFloatIObservableFloat(Observablefloat,Add_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}+{%(y)s})" % self.__dict__
+        return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -64,7 +64,7 @@ class Add_FloatIObservableFloat(Observablefloat,Add_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}+{%(y)s})" % self.__dict__
+        return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -99,7 +99,7 @@ class Add_IObservableFloatFloat(Observablefloat,Add_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}+{%(y)s})" % self.__dict__
+        return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -131,7 +131,7 @@ class Add_FloatFloat(Observablefloat,Add_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}+{%(y)s})" % self.__dict__
+        return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Add(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

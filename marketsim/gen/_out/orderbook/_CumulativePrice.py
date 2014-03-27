@@ -35,7 +35,7 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
         'depth' : IFunctionfloat
     }
     def __repr__(self):
-        return "CumulativePrice(%(book)s, %(depth)s)" % self.__dict__
+        return "CumulativePrice(%(book)s, %(depth)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def CumulativePrice(book = None,depth = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

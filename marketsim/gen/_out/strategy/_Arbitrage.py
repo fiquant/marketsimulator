@@ -21,7 +21,7 @@ class Arbitrage_(IMultiAssetStrategy,Arbitrage_Impl):
         
     }
     def __repr__(self):
-        return "Arbitrage" % self.__dict__
+        return "Arbitrage" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Arbitrage(): 
     from marketsim import rtti

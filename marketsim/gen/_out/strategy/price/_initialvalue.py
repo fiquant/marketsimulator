@@ -19,7 +19,7 @@ class InitialValue_strategypriceLiquidityProvider(object):
         'x' : LiquidityProvider
     }
     def __repr__(self):
-        return "InitialValue(%(x)s)" % self.__dict__
+        return "InitialValue(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

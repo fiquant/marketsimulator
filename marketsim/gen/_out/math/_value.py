@@ -22,7 +22,7 @@ class Value_mathRSI(IFunctionfloat):
         'x' : RSI
     }
     def __repr__(self):
-        return "Value(%(x)s)" % self.__dict__
+        return "Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -75,7 +75,7 @@ class Value_mathmacd(IFunctionfloat):
         'x' : macd
     }
     def __repr__(self):
-        return "Value(%(x)s)" % self.__dict__
+        return "Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

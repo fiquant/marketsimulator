@@ -26,7 +26,7 @@ class side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat(IFunct
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
-        return "price_FloatingPrice(%(proto)s, %(floatingPrice)s)" % self.__dict__
+        return "price_FloatingPrice(%(proto)s, %(floatingPrice)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

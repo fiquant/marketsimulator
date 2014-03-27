@@ -29,7 +29,7 @@ class Score_IAccount(IFunctionfloat,Score_Impl):
         'trader' : IAccount
     }
     def __repr__(self):
-        return "Score(%(trader)s)" % self.__dict__
+        return "Score(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Score(trader = None): 
     from marketsim.gen._out._iaccount import IAccount

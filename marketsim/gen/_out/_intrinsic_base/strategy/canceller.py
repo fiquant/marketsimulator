@@ -1,2 +1,9 @@
 class Canceller_Base(object):
-    pass
+    @property
+    def cancellationIntervalDistr(self):
+        return self.__cancellationIntervalDistr
+    
+    @cancellationIntervalDistr.setter
+    def cancellationIntervalDistr(self, value):
+        self.__cancellationIntervalDistr = value
+    

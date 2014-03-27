@@ -26,7 +26,7 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         'x' : MarketMaker
     }
     def __repr__(self):
-        return "MarketMaker(%(x)s)" % self.__dict__
+        return "MarketMaker(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -85,7 +85,7 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
         'x' : MarketData
     }
     def __repr__(self):
-        return "MarketData(%(x)s)" % self.__dict__
+        return "MarketData(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

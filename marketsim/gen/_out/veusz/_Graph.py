@@ -19,7 +19,7 @@ class Graph_String(IGraph,Graph_Impl):
         'name' : str
     }
     def __repr__(self):
-        return "Graph(%(name)s)" % self.__dict__
+        return "Graph(%(name)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Graph(name = None): 
     from marketsim import rtti

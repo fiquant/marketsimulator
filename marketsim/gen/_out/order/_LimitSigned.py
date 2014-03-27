@@ -32,7 +32,7 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         'price' : IFunctionfloat
     }
     def __repr__(self):
-        return "LimitSigned(%(signedVolume)s, %(price)s)" % self.__dict__
+        return "LimitSigned(%(signedVolume)s, %(price)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._out._side import Side

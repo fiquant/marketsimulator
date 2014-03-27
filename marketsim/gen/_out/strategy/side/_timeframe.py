@@ -19,7 +19,7 @@ class Timeframe_strategysideRSIbis(object):
         'x' : RSIbis
     }
     def __repr__(self):
-        return "Timeframe(%(x)s)" % self.__dict__
+        return "Timeframe(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

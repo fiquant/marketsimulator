@@ -22,7 +22,7 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
         'x' : Cumulative
     }
     def __repr__(self):
-        return "Avg(%(x)s)" % self.__dict__
+        return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
@@ -48,7 +48,7 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
         'x' : EW
     }
     def __repr__(self):
-        return "Avg(%(x)s)" % self.__dict__
+        return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
@@ -74,7 +74,7 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         'x' : Moving
     }
     def __repr__(self):
-        return "Avg(%(x)s)" % self.__dict__
+        return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Avg(x = None): 
     from marketsim.gen._out.math._cumulative import Cumulative

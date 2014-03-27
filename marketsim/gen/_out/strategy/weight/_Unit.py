@@ -27,7 +27,7 @@ class Unit_IAccount(IFunctionfloat):
         'trader' : IAccount
     }
     def __repr__(self):
-        return "Unit(%(trader)s)" % self.__dict__
+        return "Unit(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

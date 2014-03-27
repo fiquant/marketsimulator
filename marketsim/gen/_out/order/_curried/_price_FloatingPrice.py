@@ -26,7 +26,7 @@ class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObser
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
-        return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % self.__dict__
+        return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

@@ -23,7 +23,7 @@ class signedVolume_LimitSigned_Float(IFunctionIObservableIOrder_from_IFunctionfl
         'price' : IFunctionfloat
     }
     def __repr__(self):
-        return "LimitSigned(%(price)s)" % self.__dict__
+        return "LimitSigned(%(price)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, signedVolume = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

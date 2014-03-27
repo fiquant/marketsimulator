@@ -26,7 +26,7 @@ class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
         'side' : IFunctionSide
     }
     def __repr__(self):
-        return "Queue(%(book)s, %(side)s)" % self.__dict__
+        return "Queue(%(book)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Queue(book = None,side = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

@@ -25,7 +25,7 @@ class price_ImmediateOrCancel_FloatIObservableIOrder(IFunctionIObservableIOrder_
         'proto' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
-        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

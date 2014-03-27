@@ -25,7 +25,7 @@ class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
         'array' : listOf(float)
     }
     def __repr__(self):
-        return "IdentityL(%(array)s)" % self.__dict__
+        return "IdentityL(%(array)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def IdentityL(array = None): 
     from marketsim import listOf

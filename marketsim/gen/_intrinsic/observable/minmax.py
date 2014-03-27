@@ -2,8 +2,9 @@ from marketsim import event, _
 
 import fold
 
+from marketsim.gen._out._intrinsic_base.observable.minmax import Max_Base, Min_Base
 
-class Min_Impl(fold.Last):
+class Min_Impl(fold.Last, Min_Base):
     
     def __init__(self):
         event.subscribe(self.source, _(self)._update, self)
@@ -42,7 +43,7 @@ class Min_Impl(fold.Last):
         self._x = x
         self.fire(self)
         
-class Max_Impl(fold.Last):
+class Max_Impl(fold.Last, Max_Base):
     
     def __init__(self):
         event.subscribe(self.source, _(self)._update, self)

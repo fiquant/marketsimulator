@@ -27,7 +27,7 @@ class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOr
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
-        return "StopLoss(%(proto)s, %(maxloss)s)" % self.__dict__
+        return "StopLoss(%(proto)s, %(maxloss)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None,price = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

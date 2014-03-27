@@ -23,7 +23,7 @@ class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
         'x' : IDifferentiable
     }
     def __repr__(self):
-        return "\\frac{d%(x)s}{dt}" % self.__dict__
+        return "\\frac{d%(x)s}{dt}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Derivative(x = None): 
     from marketsim.gen._out._idifferentiable import IDifferentiable

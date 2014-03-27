@@ -17,7 +17,7 @@ class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
         
     }
     def __repr__(self):
-        return "inner_Real" % self.__dict__
+        return "inner_Real" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

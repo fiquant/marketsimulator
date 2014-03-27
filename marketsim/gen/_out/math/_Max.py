@@ -29,7 +29,7 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "max{%(x)s, %(y)s}" % self.__dict__
+        return "max{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -88,7 +88,7 @@ class Max_FloatIObservableFloat(Observablefloat):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "max{%(x)s, %(y)s}" % self.__dict__
+        return "max{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -147,7 +147,7 @@ class Max_IObservableFloatFloat(Observablefloat):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "max{%(x)s, %(y)s}" % self.__dict__
+        return "max{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -204,7 +204,7 @@ class Max_FloatFloat(Observablefloat):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "max{%(x)s, %(y)s}" % self.__dict__
+        return "max{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -37,7 +37,7 @@ class FixedBudget_SideFloat(ObservableIOrder,IObservableIOrder):
         'budget' : IFunctionfloat
     }
     def __repr__(self):
-        return "FixedBudget(%(side)s, %(budget)s)" % self.__dict__
+        return "FixedBudget(%(side)s, %(budget)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.fixed_budget import Order_Impl

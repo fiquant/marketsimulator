@@ -1,4 +1,6 @@
 from marketsim import bind, meta, context, types, _
+
+from marketsim.gen._out._intrinsic_base.event import Every_Base, After_Base
             
 class Event_Impl(object):
     """ Multicast event
@@ -213,7 +215,7 @@ def subscribe_if_observable(source, target):
     if isinstance(source, IEvent):
         subscribe(source, _(target).fire, target)
 
-class Every_Impl(Event_Impl):
+class Every_Impl(Event_Impl, Every_Base):
     """ Represents a repeating action. 
     
         Parameters:
@@ -244,7 +246,7 @@ class Every_Impl(Event_Impl):
     def cancel(self):
         self._cancelled = True
  
-class After_Impl(Event_Impl):
+class After_Impl(Event_Impl, After_Base):
 
     def __init__(self):
         Event_Impl.__init__(self)

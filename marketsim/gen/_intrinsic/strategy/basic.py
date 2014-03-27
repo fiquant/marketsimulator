@@ -1,5 +1,7 @@
 from marketsim import types,  event
 
+from marketsim.gen._out._intrinsic_base.strategy.basic import Empty_Base
+
 class Base(object):
     
     def bind(self, context):
@@ -31,5 +33,5 @@ class MultiAssetStrategy(Base):
         Base.__init__(self)
         self.on_order_created = event.Event()
 
-class Empty_Impl(Strategy):
+class Empty_Impl(Strategy, Empty_Base):
     pass

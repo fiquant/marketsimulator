@@ -35,7 +35,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Noise(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "Noise(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -101,7 +101,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "MeanReversion(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "MeanReversion(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -167,7 +167,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "RSIbis(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "RSIbis(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -233,7 +233,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "FundamentalValue(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "FundamentalValue(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -299,7 +299,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "TrendFollower(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "TrendFollower(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -365,7 +365,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "CrossingAverages(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "CrossingAverages(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -431,7 +431,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "Signal(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "Signal(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -497,7 +497,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSide
     }
     def __repr__(self):
-        return "PairTrading(%(x)s, %(eventGen)s, %(orderFactory)s)" % self.__dict__
+        return "PairTrading(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

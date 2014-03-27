@@ -22,7 +22,7 @@ class EW_IObservableFloatFloat(IStatDomain):
         'alpha' : float
     }
     def __repr__(self):
-        return "EW_{%(alpha)s}(%(source)s)" % self.__dict__
+        return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

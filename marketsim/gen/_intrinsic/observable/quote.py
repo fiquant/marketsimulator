@@ -2,7 +2,9 @@ from marketsim import  event, _
 
 from marketsim.gen._out._constant import constant
 
-class Quote_Impl(object):
+from marketsim.gen._out._intrinsic_base.observable.quote import Quote_Base
+
+class Quote_Impl(Quote_Base):
 
     def __init__(self):
         self._quotes = None

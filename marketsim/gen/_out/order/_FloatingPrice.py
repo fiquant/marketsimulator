@@ -34,7 +34,7 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
         'floatingPrice' : IObservablefloat
     }
     def __repr__(self):
-        return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % self.__dict__
+        return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     
 def FloatingPrice(proto = None,floatingPrice = None): 

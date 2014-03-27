@@ -1,5 +1,7 @@
 from basic import Strategy
 
+from marketsim.gen._out._intrinsic_base.strategy.generic import Generic_Base
+
 class Generic_Impl(Strategy):
      
     def __init__(self):                

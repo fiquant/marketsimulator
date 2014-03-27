@@ -23,7 +23,7 @@ class uniform_FloatFloat(IFunctionfloat):
         'High' : float
     }
     def __repr__(self):
-        return "uniform(%(Low)s, %(High)s)" % self.__dict__
+        return "uniform(%(Low)s, %(High)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import random

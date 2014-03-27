@@ -66,6 +66,11 @@ package object base {
         "@property" |
         s"def $name(self):" |> withImports(body) | ""
 
+    def Getter(name : String, body : Code) = Prop(name, body)
+
+    def Setter(name : String, body : Code) =
+        s"@$name.setter" |
+        s"def $name(self, value):" |> withImports(body) | ""
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
@@ -113,7 +118,7 @@ package object base {
 
         def properties = "_properties = {" |> property_fields | "}"
 
-        def repr_body : Code = s"""return "$label_tmpl" % self.__dict__"""
+        def repr_body : Code = s"""return "$label_tmpl" % { name : getattr(self, name) for name in self._properties.iterkeys() }"""
 
         def repr = Def("__repr__", "", repr_body)
 

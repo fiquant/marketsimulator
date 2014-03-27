@@ -1,5 +1,7 @@
 from marketsim import bind, event, _
 
+from marketsim.gen._out._intrinsic_base.observable.minmax_eps import MaxEpsilon_Base, MinEpsilon_Base
+
 class Base(object):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
@@ -39,14 +41,14 @@ class Base(object):
         return {}
 
 
-class MaxEpsilon_Impl(Base):
+class MaxEpsilon_Impl(Base, MaxEpsilon_Base):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
     _sign = +1
     _predicate = event.GreaterThan
     _label = "Max"
 
-class MinEpsilon_Impl(Base):
+class MinEpsilon_Impl(Base, MinEpsilon_Base):
     """ Observable that fires if underlying source value becomes less than previous minimum minus some epsilon
     """
 

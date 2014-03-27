@@ -2,6 +2,8 @@ from queue import Queue
 from base import BookBase
 from marketsim.gen._out._side import Side
 
+from marketsim.gen._out._intrinsic_base.orderbook.local import Local_Base
+
 class Bids(Queue):
     """ Queue of limit orders buy
     """
@@ -29,7 +31,7 @@ class Asks(Queue):
 
     side = Side.Sell
 
-class Local_Impl(BookBase):
+class Local_Impl(BookBase, Local_Base):
     """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """

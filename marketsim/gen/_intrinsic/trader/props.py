@@ -4,6 +4,8 @@ from marketsim.gen._out._iaccount import IAccount
 
 from marketsim.gen._out.trader._singleproxy import SingleProxy
 
+from marketsim.gen._out._intrinsic_base.trader.props import Position_Base, Balance_Base, PendingVolume_Base
+
 class OnTraded(event.Event):
     """ Multicast event that is fired once a trade is done by *trader*
     """
@@ -29,7 +31,7 @@ class OnOrderMatched(event.Event):
     _properties = { 'trader' : IAccount }
 
 
-class Position_Impl(object):
+class Position_Impl(Position_Base):
     """ Returns trader's position (i.e. number of assets traded)
     """
 
@@ -43,7 +45,7 @@ class Position_Impl(object):
     def digits(self):
         return 0
 
-class Balance_Impl(object):
+class Balance_Impl(Balance_Base):
     """ Returns balance of the given *trader*
     """
 
@@ -83,7 +85,7 @@ class _PendingVolume_Impl(object): # should be int
     def __call__(self):
         return self._pendingVolume
 
-class PendingVolume_Impl(object):
+class PendingVolume_Impl(PendingVolume_Base):
 
     @property
     def _impl(self):

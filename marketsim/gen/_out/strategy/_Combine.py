@@ -23,7 +23,7 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
         'B' : ISingleAssetStrategy
     }
     def __repr__(self):
-        return "Combine(%(A)s, %(B)s)" % self.__dict__
+        return "Combine(%(A)s, %(B)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Combine(A = None,B = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy

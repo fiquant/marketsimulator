@@ -1,4 +1,6 @@
-class BestPrice_Impl(object):
+from marketsim.gen._out._intrinsic_base.orderbook.props import BestPrice_Base, TickSize_Base
+
+class BestPrice_Impl(BestPrice_Base):
 
     def bind(self, ctx):
         from marketsim import event, _, context
@@ -10,7 +12,7 @@ class BestPrice_Impl(object):
         return self.queue.bestPrice
 
 
-class TickSize_Impl(object):
+class TickSize_Impl(TickSize_Base):
 
     def __call__(self):
         return self.book.tickSize

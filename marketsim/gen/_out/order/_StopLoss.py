@@ -35,7 +35,7 @@ class StopLoss_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         'maxloss' : IFunctionfloat
     }
     def __repr__(self):
-        return "StopLoss(%(proto)s, %(maxloss)s)" % self.__dict__
+        return "StopLoss(%(proto)s, %(maxloss)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.stoploss import Order_Impl

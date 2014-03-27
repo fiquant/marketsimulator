@@ -24,7 +24,7 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
         'alpha' : float
     }
     def __repr__(self):
-        return "EfficiencyTrend(%(trader)s, %(alpha)s)" % self.__dict__
+        return "EfficiencyTrend(%(trader)s, %(alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

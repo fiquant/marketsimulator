@@ -22,7 +22,7 @@ class Every_Float(IEvent,Every_Impl):
         'intervalFunc' : IFunctionfloat
     }
     def __repr__(self):
-        return "Every(%(intervalFunc)s)" % self.__dict__
+        return "Every(%(intervalFunc)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Every(intervalFunc = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

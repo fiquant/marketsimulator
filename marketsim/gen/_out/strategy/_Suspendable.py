@@ -25,7 +25,7 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,Suspendable_I
         'predicate' : IFunctionbool
     }
     def __repr__(self):
-        return "Suspendable(%(inner)s, %(predicate)s)" % self.__dict__
+        return "Suspendable(%(inner)s, %(predicate)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Suspendable(inner = None,predicate = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy

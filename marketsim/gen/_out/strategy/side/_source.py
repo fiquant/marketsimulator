@@ -19,7 +19,7 @@ class Source_strategysideSignal(object):
         'x' : Signal
     }
     def __repr__(self):
-        return "Source(%(x)s)" % self.__dict__
+        return "Source(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

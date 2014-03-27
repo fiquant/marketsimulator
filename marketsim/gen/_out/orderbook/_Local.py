@@ -27,7 +27,7 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
         'timeseries' : listOf(ITimeSerie)
     }
     def __repr__(self):
-        return "%(name)s" % self.__dict__
+        return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None): 
     from marketsim.gen._out._itimeserie import ITimeSerie

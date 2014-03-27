@@ -17,7 +17,7 @@ class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
         
     }
     def __repr__(self):
-        return "f_IdentityF" % self.__dict__
+        return "f_IdentityF" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

@@ -19,7 +19,7 @@ class Empty_(ISingleAssetStrategy,Empty_Impl):
         
     }
     def __repr__(self):
-        return "Empty" % self.__dict__
+        return "Empty" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Empty(): 
     from marketsim import rtti

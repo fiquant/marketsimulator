@@ -22,7 +22,7 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
         'strategies' : listOf(ISingleAssetStrategy)
     }
     def __repr__(self):
-        return "Array(%(strategies)s)" % self.__dict__
+        return "Array(%(strategies)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Array(strategies = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy

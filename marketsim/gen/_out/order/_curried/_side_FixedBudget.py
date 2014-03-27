@@ -26,7 +26,7 @@ class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
         'budget' : IFunctionfloat
     }
     def __repr__(self):
-        return "FixedBudget(%(budget)s)" % self.__dict__
+        return "FixedBudget(%(budget)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

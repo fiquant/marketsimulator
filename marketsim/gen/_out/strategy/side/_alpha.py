@@ -19,7 +19,7 @@ class Alpha_strategysideMeanReversion(object):
         'x' : MeanReversion
     }
     def __repr__(self):
-        return "Alpha(%(x)s)" % self.__dict__
+        return "Alpha(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):
@@ -46,7 +46,7 @@ class Alpha_strategysideRSIbis(object):
         'x' : RSIbis
     }
     def __repr__(self):
-        return "Alpha(%(x)s)" % self.__dict__
+        return "Alpha(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):
@@ -73,7 +73,7 @@ class Alpha_strategysideTrendFollower(object):
         'x' : TrendFollower
     }
     def __repr__(self):
-        return "Alpha(%(x)s)" % self.__dict__
+        return "Alpha(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

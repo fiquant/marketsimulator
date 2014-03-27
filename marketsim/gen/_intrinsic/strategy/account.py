@@ -4,7 +4,9 @@ from marketsim.gen._out._side import Side
 from marketsim.gen._intrinsic.trader.props import OnOrderMatched
 from marketsim.gen._out.orderbook._oftrader import OfTrader
 
-class Account_Impl(object):
+from marketsim.gen._out._intrinsic_base.strategy.account import Account_Base, VirtualMarket_Base
+
+class Account_Impl(Account_Base):
     
     def __init__(self):
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
@@ -34,7 +36,7 @@ class Account_Impl(object):
     def onOrderCreated(self, order, source):
         order._strategy = source
 
-class VirtualMarket_Impl(object):
+class VirtualMarket_Impl(VirtualMarket_Base):
 
     def __init__(self):
         self._balance = 0

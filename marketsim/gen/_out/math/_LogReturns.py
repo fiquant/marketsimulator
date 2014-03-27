@@ -24,7 +24,7 @@ class LogReturns_IObservableFloatFloat(IFunctionfloat):
         'timeframe' : float
     }
     def __repr__(self):
-        return "LogReturns_{%(timeframe)s}(%(x)s)" % self.__dict__
+        return "LogReturns_{%(timeframe)s}(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

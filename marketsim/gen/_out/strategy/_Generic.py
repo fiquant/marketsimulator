@@ -27,7 +27,7 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
         'eventGen' : IEvent
     }
     def __repr__(self):
-        return "Generic(%(orderFactory)s, %(eventGen)s)" % self.__dict__
+        return "Generic(%(orderFactory)s, %(eventGen)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Generic(orderFactory = None,eventGen = None): 
     from marketsim.gen._out._iorder import IOrder

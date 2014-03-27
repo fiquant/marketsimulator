@@ -23,7 +23,7 @@ class Exp_Float(Observablefloat):
         'x' : IFunctionfloat
     }
     def __repr__(self):
-        return "e^{%(x)s}" % self.__dict__
+        return "e^{%(x)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import math

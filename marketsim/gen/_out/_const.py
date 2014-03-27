@@ -22,7 +22,7 @@ class const_Int(IObservableint,Constant_Impl):
         'x' : int
     }
     def __repr__(self):
-        return "C=%(x)s" % self.__dict__
+        return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -48,7 +48,7 @@ class const_Float(IObservablefloat,Constant_Impl):
         'x' : float
     }
     def __repr__(self):
-        return "C=%(x)s" % self.__dict__
+        return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def const(x = None): 
     from marketsim import rtti

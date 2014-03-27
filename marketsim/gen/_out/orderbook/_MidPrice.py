@@ -27,7 +27,7 @@ class MidPrice_IOrderBook(Observablefloat):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "MidPrice(%(book)s)" % self.__dict__
+        return "MidPrice(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

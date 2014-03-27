@@ -26,7 +26,7 @@ class Position_IAccount(Observableint,Position_Impl):
         'trader' : IAccount
     }
     def __repr__(self):
-        return "Position(%(trader)s)" % self.__dict__
+        return "Position(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Position(trader = None): 
     from marketsim.gen._out._iaccount import IAccount

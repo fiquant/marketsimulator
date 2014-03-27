@@ -30,7 +30,7 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
         '_smooth' : int
     }
     def __repr__(self):
-        return "%(source)s" % self.__dict__
+        return "%(source)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
     from marketsim.gen._out._iobservable._iobservableobject import IObservableobject

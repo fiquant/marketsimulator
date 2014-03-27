@@ -9,7 +9,9 @@ class LastTrade(object):
     def _impl(self):
         return self.queue.lastTrade
 
-class LastTradePrice_Impl(LastTrade):
+from marketsim.gen._out._intrinsic_base.orderbook.last_trade import LastTradePrice_Base, LastTradeVolume_Base
+
+class LastTradePrice_Impl(LastTrade, LastTradePrice_Base):
 
     def __call__(self):
         trade = self._impl()
@@ -19,7 +21,7 @@ class LastTradePrice_Impl(LastTrade):
     def label(self):
         return 'LastTradePrice_{' + self.queue.label + '}'
 
-class LastTradeVolume_Impl(LastTrade):
+class LastTradeVolume_Impl(LastTrade, LastTradeVolume_Base):
 
     def __call__(self):
         return self._impl()[1]

@@ -22,7 +22,7 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
         'x' : MeanReversion
     }
     def __repr__(self):
-        return "Fundamental_Value(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -75,7 +75,7 @@ class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
         'x' : FundamentalValue
     }
     def __repr__(self):
-        return "Fundamental_Value(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -129,7 +129,7 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
         'x' : PairTrading
     }
     def __repr__(self):
-        return "Fundamental_Value(%(x)s)" % self.__dict__
+        return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

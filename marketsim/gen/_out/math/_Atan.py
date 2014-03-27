@@ -23,7 +23,7 @@ class Atan_Float(Observablefloat):
         'x' : IFunctionfloat
     }
     def __repr__(self):
-        return "Atan(%(x)s)" % self.__dict__
+        return "Atan(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import math

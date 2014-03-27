@@ -19,7 +19,7 @@ class Fv_strategysideFundamentalValue(object):
         'x' : FundamentalValue
     }
     def __repr__(self):
-        return "Fv(%(x)s)" % self.__dict__
+        return "Fv(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

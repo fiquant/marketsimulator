@@ -17,7 +17,7 @@ class MeanReversion_Float(FundamentalValueStrategy):
         'alpha' : float
     }
     def __repr__(self):
-        return "MeanReversion(%(alpha)s)" % self.__dict__
+        return "MeanReversion(%(alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

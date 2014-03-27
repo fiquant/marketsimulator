@@ -29,7 +29,7 @@ class LessEqual_IObservableFloatIObservableFloat(Observablebool,LessEqual_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}<={%(y)s})" % self.__dict__
+        return "({%(x)s}<={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import LessEqual_Impl
@@ -64,7 +64,7 @@ class LessEqual_FloatIObservableFloat(Observablebool,LessEqual_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}<={%(y)s})" % self.__dict__
+        return "({%(x)s}<={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import LessEqual_Impl
@@ -99,7 +99,7 @@ class LessEqual_IObservableFloatFloat(Observablebool,LessEqual_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}<={%(y)s})" % self.__dict__
+        return "({%(x)s}<={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -131,7 +131,7 @@ class LessEqual_FloatFloat(Observablebool,LessEqual_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}<={%(y)s})" % self.__dict__
+        return "({%(x)s}<={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def LessEqual(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

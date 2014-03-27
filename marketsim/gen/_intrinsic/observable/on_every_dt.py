@@ -1,5 +1,7 @@
 from marketsim import event
 
+from marketsim.gen._out._intrinsic_base.observable.on_every_dt import OnEveryDt_Base
+
 class IndicatorBase(object):
     """ Observable that stores some scalar value and knows how to update it
 
@@ -27,7 +29,7 @@ class IndicatorBase(object):
 
 from marketsim.gen._out._constant import constant
 
-class OnEveryDt_Impl(IndicatorBase):
+class OnEveryDt_Impl(IndicatorBase, OnEveryDt_Base):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
@@ -37,37 +39,3 @@ class OnEveryDt_Impl(IndicatorBase):
         self._dataSource = self.x
         IndicatorBase.__init__(self)
         self._subscription = event.subscribe(event.Every(constant(self.dt)), self.fire, self)
-
-class Observable_Impl(object):
-    """ Creates an indicator that is updated regularly
-    interval - constant interval between updates
-    source - function to obtain indicator value
-    """
-    def __init__(self):
-        self._dataSource = self.x
-        self._subscription = event.subscribe(self.x, self.fire, self)
-
-    def schedule(self):
-        self.reset()
-
-    def __call__(self):
-        """ Returns current value
-        """
-        return self._dataSource()
-
-class ObservableSide_Impl(object):
-    """ Creates an indicator that is updated regularly
-    interval - constant interval between updates
-    source - function to obtain indicator value
-    """
-    def __init__(self):
-        self._dataSource = self.x
-        self._subscription = event.subscribe(self.x, self.fire, self)
-
-    def schedule(self):
-        self.reset()
-
-    def __call__(self):
-        """ Returns current value
-        """
-        return self._dataSource()

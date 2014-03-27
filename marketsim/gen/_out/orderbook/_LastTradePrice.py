@@ -25,7 +25,7 @@ class LastTradePrice_IOrderQueue(Observablefloat,LastTradePrice_Impl):
         'queue' : IOrderQueue
     }
     def __repr__(self):
-        return "LastTradePrice(%(queue)s)" % self.__dict__
+        return "LastTradePrice(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def LastTradePrice(queue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

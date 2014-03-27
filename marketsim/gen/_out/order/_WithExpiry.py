@@ -33,7 +33,7 @@ class WithExpiry_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         'expiry' : IFunctionfloat
     }
     def __repr__(self):
-        return "WithExpiry(%(proto)s, %(expiry)s)" % self.__dict__
+        return "WithExpiry(%(proto)s, %(expiry)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.with_expiry import Order_Impl

@@ -17,7 +17,7 @@ class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
         
     }
     def __repr__(self):
-        return "array_IdentityL" % self.__dict__
+        return "array_IdentityL" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, array = None):
         from marketsim.gen._out.strategy.weight._identityl import IdentityL_ListFloat as _strategy_weight_IdentityL_ListFloat

@@ -29,7 +29,7 @@ class AtanPow_FloatFloat(IFunctionfloat):
         'base' : float
     }
     def __repr__(self):
-        return "AtanPow(%(f)s, %(base)s)" % self.__dict__
+        return "AtanPow(%(f)s, %(base)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -24,7 +24,7 @@ class VirtualMarket_ISingleAssetStrategy(IAccount,VirtualMarket_Impl):
         'inner' : ISingleAssetStrategy
     }
     def __repr__(self):
-        return "VirtualMarket(%(inner)s)" % self.__dict__
+        return "VirtualMarket(%(inner)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def VirtualMarket(inner = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy

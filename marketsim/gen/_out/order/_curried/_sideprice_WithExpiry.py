@@ -25,7 +25,7 @@ class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableI
         'expiry' : IFunctionfloat
     }
     def __repr__(self):
-        return "WithExpiry(%(proto)s, %(expiry)s)" % self.__dict__
+        return "WithExpiry(%(proto)s, %(expiry)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None,price = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

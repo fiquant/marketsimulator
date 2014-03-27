@@ -26,7 +26,7 @@ class Negate_IObservableFloat(Observablefloat,Negate_Impl):
         'x' : IObservablefloat
     }
     def __repr__(self):
-        return "-%(x)s" % self.__dict__
+        return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -55,7 +55,7 @@ class Negate_Float(Observablefloat,Negate_Impl):
         'x' : IFunctionfloat
     }
     def __repr__(self):
-        return "-%(x)s" % self.__dict__
+        return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Negate(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

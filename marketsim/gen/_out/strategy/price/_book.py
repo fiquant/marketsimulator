@@ -19,7 +19,7 @@ class Book_strategypriceLiquidityProvider(object):
         'x' : LiquidityProvider
     }
     def __repr__(self):
-        return "Book(%(x)s)" % self.__dict__
+        return "Book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

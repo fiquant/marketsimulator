@@ -18,7 +18,7 @@ class MarketMaker_FloatFloat(object):
         'volume' : float
     }
     def __repr__(self):
-        return "MarketMaker(%(delta)s, %(volume)s)" % self.__dict__
+        return "MarketMaker(%(delta)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     def OneSide(self, side = None,sign = None):

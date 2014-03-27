@@ -1,6 +1,8 @@
 from marketsim import event, _
 
-class ToRecord_Impl(object):  # TODO: should the source be split into dataSource and eventSource?
+from marketsim.gen._out._intrinsic_base.timeserie import ToRecord_Base, VolumeLevels_Base
+
+class ToRecord_Impl(ToRecord_Base):  # TODO: should the source be split into dataSource and eventSource?
     
     def __init__(self):
         self.attributes = getattr(self.source, 'attributes', {})
@@ -72,7 +74,7 @@ class ToRecord_Impl(object):  # TODO: should the source be split into dataSource
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
 
-class VolumeLevels_Impl(ToRecord_Impl):
+class VolumeLevels_Impl(ToRecord_Impl, VolumeLevels_Base):
 
     @property
     def _volumes(self):

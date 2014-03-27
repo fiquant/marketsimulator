@@ -21,7 +21,7 @@ class observableTrue_(Observablebool,True_Impl):
         
     }
     def __repr__(self):
-        return "True" % self.__dict__
+        return "True" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def observableTrue(): 
     from marketsim import rtti

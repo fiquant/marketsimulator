@@ -3,6 +3,8 @@ from marketsim import types, getLabel
 def aux(name):
     return name[0:2] == "__" or name == '_processing'
 
+from marketsim.gen._out._intrinsic_base.trader.proxy import Single_Base
+
 class Base(object):
 
     def __init__(self):
@@ -46,7 +48,7 @@ class SingleProxyBase(Base):
         Base.__init__(self)
         self.__dict__['_alias'] = ["$(Trader)"]
 
-class Single_Impl(SingleProxyBase):
+class Single_Impl(SingleProxyBase, Single_Base):
 
     def bind(self, ctx):
         self._bind(ctx.trader)

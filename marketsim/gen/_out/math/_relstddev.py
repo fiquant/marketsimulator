@@ -27,7 +27,7 @@ class RelStdDev_mathCumulative(Observablefloat):
         'x' : Cumulative
     }
     def __repr__(self):
-        return "RelStdDev(%(x)s)" % self.__dict__
+        return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -85,7 +85,7 @@ class RelStdDev_mathEW(Observablefloat):
         'x' : EW
     }
     def __repr__(self):
-        return "RelStdDev(%(x)s)" % self.__dict__
+        return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -143,7 +143,7 @@ class RelStdDev_mathMoving(Observablefloat):
         'x' : Moving
     }
     def __repr__(self):
-        return "RelStdDev(%(x)s)" % self.__dict__
+        return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -17,7 +17,7 @@ class trader_Unit_(IFunctionIFunctionfloat_from_IAccount):
         
     }
     def __repr__(self):
-        return "trader_Unit" % self.__dict__
+        return "trader_Unit" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

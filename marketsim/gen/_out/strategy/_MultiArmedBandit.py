@@ -42,7 +42,7 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         'corrector' : IFunctionIFunctionlistOffloat_from_listOffloat
     }
     def __repr__(self):
-        return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % self.__dict__
+        return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
     from marketsim import rtti

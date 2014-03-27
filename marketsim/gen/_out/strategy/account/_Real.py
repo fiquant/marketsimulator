@@ -22,7 +22,7 @@ class Real_ISingleAssetStrategy(IAccount,Account_Impl):
         'inner' : ISingleAssetStrategy
     }
     def __repr__(self):
-        return "Real(%(inner)s)" % self.__dict__
+        return "Real(%(inner)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Real(inner = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy

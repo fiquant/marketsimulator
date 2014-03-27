@@ -23,7 +23,7 @@ class Link_IObservableFloat(ILink,Link_Impl):
         'latency' : IObservablefloat
     }
     def __repr__(self):
-        return "Link(%(latency)s)" % self.__dict__
+        return "Link(%(latency)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Link(latency = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

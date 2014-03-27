@@ -31,7 +31,7 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         'defaultValue' : IObservablefloat
     }
     def __repr__(self):
-        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
+        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -91,7 +91,7 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         'defaultValue' : IFunctionfloat
     }
     def __repr__(self):
-        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % self.__dict__
+        return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

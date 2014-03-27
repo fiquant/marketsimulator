@@ -3,7 +3,9 @@ from marketsim import _, ops, event
 from basic import Strategy
 from marketsim.gen._out._constant import constant
 
-class ChooseTheBest_Impl(Strategy):
+from marketsim.gen._out._intrinsic_base.strategy.choose_the_best import ChooseTheBest_Base
+
+class ChooseTheBest_Impl(Strategy, ChooseTheBest_Base):
     
     def __init__(self):
         Strategy.__init__(self)

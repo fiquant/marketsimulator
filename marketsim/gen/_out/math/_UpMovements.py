@@ -29,7 +29,7 @@ class UpMovements_IObservableFloatFloat(Observablefloat):
         'timeframe' : float
     }
     def __repr__(self):
-        return "Ups_{%(timeframe)s}(%(source)s)" % self.__dict__
+        return "Ups_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

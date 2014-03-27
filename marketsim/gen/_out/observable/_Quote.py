@@ -28,7 +28,7 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         'end' : str
     }
     def __repr__(self):
-        return "%(ticker)s" % self.__dict__
+        return "%(ticker)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Quote(ticker = None,start = None,end = None): 
     from marketsim import rtti

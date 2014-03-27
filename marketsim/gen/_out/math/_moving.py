@@ -22,7 +22,7 @@ class Moving_IObservableFloatFloat(IStatDomain):
         'timeframe' : float
     }
     def __repr__(self):
-        return "Moving_{%(timeframe)s}(%(source)s)" % self.__dict__
+        return "Moving_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

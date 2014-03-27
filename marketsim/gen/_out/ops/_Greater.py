@@ -29,7 +29,7 @@ class Greater_IObservableFloatIObservableFloat(Observablebool,Greater_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}>{%(y)s})" % self.__dict__
+        return "({%(x)s}>{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -64,7 +64,7 @@ class Greater_FloatIObservableFloat(Observablebool,Greater_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "({%(x)s}>{%(y)s})" % self.__dict__
+        return "({%(x)s}>{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -99,7 +99,7 @@ class Greater_IObservableFloatFloat(Observablebool,Greater_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}>{%(y)s})" % self.__dict__
+        return "({%(x)s}>{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -131,7 +131,7 @@ class Greater_FloatFloat(Observablebool,Greater_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "({%(x)s}>{%(y)s})" % self.__dict__
+        return "({%(x)s}>{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Greater(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

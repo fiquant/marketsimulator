@@ -23,7 +23,7 @@ class side_price_Limit_Float(IFunctionIFunctionIObservableIOrder_from_IFunctionf
         'volume' : IFunctionfloat
     }
     def __repr__(self):
-        return "price_Limit(%(volume)s)" % self.__dict__
+        return "price_Limit(%(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

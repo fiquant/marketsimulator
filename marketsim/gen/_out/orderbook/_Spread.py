@@ -27,7 +27,7 @@ class Spread_IOrderBook(Observablefloat):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Spread(%(book)s)" % self.__dict__
+        return "Spread(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

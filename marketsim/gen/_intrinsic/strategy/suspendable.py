@@ -2,7 +2,9 @@ from marketsim import (_, event)
 
 from basic import Strategy
 
-class Suspendable_Impl(Strategy):
+from marketsim.gen._out._intrinsic_base.strategy.suspendable import Suspendable_Base
+
+class Suspendable_Impl(Strategy, Suspendable_Base):
 
     def __init__(self):
         Strategy.__init__(self)

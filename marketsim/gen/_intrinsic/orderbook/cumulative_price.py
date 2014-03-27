@@ -4,7 +4,9 @@ from marketsim.gen._out._side import Side
 def sign(x):
     return 1 if x > 0 else -1 if x < 0 else 0
 
-class CumulativePrice_Impl(object):
+from marketsim.gen._out._intrinsic_base.orderbook.cumulative_price import CumulativePrice_Base
+
+class CumulativePrice_Impl(CumulativePrice_Base):
 
     def __init__(self):
         self.ask = self.book.Asks.BestPrice

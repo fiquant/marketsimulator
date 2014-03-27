@@ -30,7 +30,7 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
-        return "RSI_linear(%(x)s, %(orderFactory)s)" % self.__dict__
+        return "RSI_linear(%(x)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -91,7 +91,7 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
     def __repr__(self):
-        return "Bollinger_linear(%(x)s, %(orderFactory)s)" % self.__dict__
+        return "Bollinger_linear(%(x)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

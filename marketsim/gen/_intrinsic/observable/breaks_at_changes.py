@@ -1,6 +1,8 @@
 from marketsim import (event, _)
 
-class BreaksAtChanges_Impl(object):
+from marketsim.gen._out._intrinsic_base.observable.breaks_at_changes import BreaksAtChanges_Base
+
+class BreaksAtChanges_Impl(BreaksAtChanges_Base):
     
     def __init__(self):
         self._value = None

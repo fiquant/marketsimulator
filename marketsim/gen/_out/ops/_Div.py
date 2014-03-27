@@ -29,7 +29,7 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,Div_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "\\frac{%(x)s}{%(y)s}" % self.__dict__
+        return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -64,7 +64,7 @@ class Div_FloatIObservableFloat(Observablefloat,Div_Impl):
         'y' : IObservablefloat
     }
     def __repr__(self):
-        return "\\frac{%(x)s}{%(y)s}" % self.__dict__
+        return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -99,7 +99,7 @@ class Div_IObservableFloatFloat(Observablefloat,Div_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "\\frac{%(x)s}{%(y)s}" % self.__dict__
+        return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -131,7 +131,7 @@ class Div_FloatFloat(Observablefloat,Div_Impl):
         'y' : IFunctionfloat
     }
     def __repr__(self):
-        return "\\frac{%(x)s}{%(y)s}" % self.__dict__
+        return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Div(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

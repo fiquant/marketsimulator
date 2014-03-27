@@ -22,7 +22,7 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
         'x' : Cumulative
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -48,7 +48,7 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
         'x' : EW
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -74,7 +74,7 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
         'x' : Moving
     }
     def __repr__(self):
-        return "Var(%(x)s)" % self.__dict__
+        return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Var(x = None): 
     from marketsim.gen._out.math._cumulative import Cumulative

@@ -22,7 +22,7 @@ class Asks_IOrderBook(IOrderQueue,Asks_Impl):
         'book' : IOrderBook
     }
     def __repr__(self):
-        return "Asks(%(book)s)" % self.__dict__
+        return "Asks(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Asks(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

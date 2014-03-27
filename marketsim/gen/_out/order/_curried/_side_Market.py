@@ -21,7 +21,7 @@ class side_Market_Float(IFunctionIObservableIOrder_from_IFunctionSide):
         'volume' : IFunctionfloat
     }
     def __repr__(self):
-        return "Market(%(volume)s)" % self.__dict__
+        return "Market(%(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

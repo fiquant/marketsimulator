@@ -22,7 +22,7 @@ class book_strategysideMeanReversion(IOrderBook):
         'x' : MeanReversion
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -71,7 +71,7 @@ class book_strategysideFundamentalValue(IOrderBook):
         'x' : FundamentalValue
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -120,7 +120,7 @@ class book_strategysidePairTrading(IOrderBook):
         'x' : PairTrading
     }
     def __repr__(self):
-        return "book(%(x)s)" % self.__dict__
+        return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -178,7 +178,7 @@ class Book_strategysideTrendFollower(object):
         'x' : TrendFollower
     }
     def __repr__(self):
-        return "Book(%(x)s)" % self.__dict__
+        return "Book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):
@@ -205,7 +205,7 @@ class Book_strategysideCrossingAverages(object):
         'x' : CrossingAverages
     }
     def __repr__(self):
-        return "Book(%(x)s)" % self.__dict__
+        return "Book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     @property
     def dereference(self):

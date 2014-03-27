@@ -27,7 +27,7 @@ class O_IObservableFloat(Observablefloat):
         'x' : IObservablefloat
     }
     def __repr__(self):
-        return "O(%(x)s)" % self.__dict__
+        return "O(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

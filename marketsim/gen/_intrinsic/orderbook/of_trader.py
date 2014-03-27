@@ -2,6 +2,8 @@ from marketsim import types
 from marketsim.gen._out.trader._singleproxy import SingleProxy
 from marketsim import getLabel
 
+from marketsim.gen._out._intrinsic_base.orderbook.of_trader import OfTrader_Base, Proxy_Base
+
 class Base(object):
 
     _properties = {}
@@ -18,7 +20,7 @@ class Base(object):
     def __repr__(self):
         return self.__str__()
 
-class OfTrader_Impl(Base):
+class OfTrader_Impl(Base, OfTrader_Base):
 
     def __init__(self):
         self._alias = ["$(TraderAsset)"] if type(self.Trader) == SingleProxy else ['OfTrader']
@@ -31,7 +33,7 @@ class OfTrader_Impl(Base):
         except AttributeError:
             return None
 
-class Proxy_Impl(Base):
+class Proxy_Impl(Base, Proxy_Base):
 
     def __init__(self):
         self._impl = None

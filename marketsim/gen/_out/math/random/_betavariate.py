@@ -21,7 +21,7 @@ class betavariate_FloatFloat(IFunctionfloat):
         'Beta' : float
     }
     def __repr__(self):
-        return "betavariate(%(Alpha)s, %(Beta)s)" % self.__dict__
+        return "betavariate(%(Alpha)s, %(Beta)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import random

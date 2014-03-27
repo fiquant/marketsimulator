@@ -33,7 +33,7 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         'performance' : IFunctionIFunctionfloat_from_IAccount
     }
     def __repr__(self):
-        return "TradeIfProfitable(%(inner)s, %(account)s, %(performance)s)" % self.__dict__
+        return "TradeIfProfitable(%(inner)s, %(account)s, %(performance)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

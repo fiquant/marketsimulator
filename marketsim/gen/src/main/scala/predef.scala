@@ -77,8 +77,8 @@ package object predef {
 
     object Code
     {
-        def from(lst : List[Code], sep : Code = nl) : Code = lst match {
-            case Nil => stop
+        def from(lst : List[Code], sep : Code = nl, default : Code = stop) : Code = lst match {
+            case Nil => default
             case x :: Nil => x
             case x :: tl => new Combine(new Combine(x, sep), from(tl, sep))
         }

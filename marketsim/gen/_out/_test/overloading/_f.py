@@ -18,7 +18,7 @@ class f_Int(IFunctionint):
         'x' : IFunctionint
     }
     def __repr__(self):
-        return "f(%(x)s)" % self.__dict__
+        return "f(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -61,7 +61,7 @@ class f_Float(IFunctionfloat):
         'x' : IFunctionfloat
     }
     def __repr__(self):
-        return "f(%(x)s)" % self.__dict__
+        return "f(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

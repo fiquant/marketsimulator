@@ -2,7 +2,9 @@ from marketsim import event, _
 
 from basic import Strategy
 
-class Combine_Impl(Strategy):
+from marketsim.gen._out._intrinsic_base.strategy.combine import Combine_Base, Array_Base
+
+class Combine_Impl(Strategy, Combine_Base):
     
     def __init__(self):
         Strategy.__init__(self)
@@ -13,7 +15,7 @@ class Combine_Impl(Strategy):
         for s in [self.A, self.B]:
             s.dispose()
 
-class Array_Impl(Strategy):
+class Array_Impl(Strategy, Array_Base):
 
     def __init__(self):
         Strategy.__init__(self)

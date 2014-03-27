@@ -2,6 +2,8 @@ from marketsim import types, bind, _
 from base import BookBase
 from queue import BestPrice, LastTrade
 
+from marketsim.gen._out._intrinsic_base.orderbook.remote import Remote_Base
+
 class Queue(object):
     
     def __init__(self, queue, book, link):
@@ -45,7 +47,7 @@ class Queue(object):
     def empty(self):
         return self._best is None
     
-class Remote_Impl(BookBase):
+class Remote_Impl(BookBase, Remote_Base):
     """ Represent an *orderbook* from point of view of a remote trader connected
     to the market by means of a *link* that introduces some latency in information propagation
     """

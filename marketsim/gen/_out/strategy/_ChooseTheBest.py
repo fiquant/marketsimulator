@@ -33,7 +33,7 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         'performance' : IFunctionIFunctionfloat_from_IAccount
     }
     def __repr__(self):
-        return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % self.__dict__
+        return "ChooseTheBest(%(strategies)s, %(account)s, %(performance)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def ChooseTheBest(strategies = None,account = None,performance = None): 
     from marketsim import rtti

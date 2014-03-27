@@ -19,7 +19,7 @@ class trader_Score_(IFunctionIFunctionfloat_from_IAccount):
         
     }
     def __repr__(self):
-        return "trader_Score" % self.__dict__
+        return "trader_Score" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

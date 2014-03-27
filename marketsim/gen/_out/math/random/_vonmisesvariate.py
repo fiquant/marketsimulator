@@ -19,7 +19,7 @@ class vonmisesvariate_FloatFloat(IFunctionfloat):
         'Kappa' : float
     }
     def __repr__(self):
-        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % self.__dict__
+        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         import random

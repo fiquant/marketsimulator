@@ -27,7 +27,7 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
         'signedVolume' : IFunctionfloat
     }
     def __repr__(self):
-        return "MarketSigned(%(signedVolume)s)" % self.__dict__
+        return "MarketSigned(%(signedVolume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._out._side import Side

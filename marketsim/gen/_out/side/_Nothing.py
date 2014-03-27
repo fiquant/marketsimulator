@@ -19,7 +19,7 @@ class Nothing_(IFunctionSide):
         
     }
     def __repr__(self):
-        return "Nothing" % self.__dict__
+        return "Nothing" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

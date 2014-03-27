@@ -34,7 +34,7 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         'depth' : IObservablefloat
     }
     def __repr__(self):
-        return "NaiveCumulativePrice(%(book)s, %(depth)s)" % self.__dict__
+        return "NaiveCumulativePrice(%(book)s, %(depth)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -103,7 +103,7 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         'depth' : IFunctionfloat
     }
     def __repr__(self):
-        return "NaiveCumulativePrice(%(book)s, %(depth)s)" % self.__dict__
+        return "NaiveCumulativePrice(%(book)s, %(depth)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

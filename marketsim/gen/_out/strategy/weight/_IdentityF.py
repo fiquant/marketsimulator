@@ -26,7 +26,7 @@ class IdentityF_Float(IFunctionfloat):
         'f' : IFunctionfloat
     }
     def __repr__(self):
-        return "IdentityF(%(f)s)" % self.__dict__
+        return "IdentityF(%(f)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

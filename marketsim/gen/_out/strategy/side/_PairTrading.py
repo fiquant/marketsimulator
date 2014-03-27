@@ -22,7 +22,7 @@ class PairTrading_IOrderBookFloat(FundamentalValueStrategy):
         'factor' : float
     }
     def __repr__(self):
-        return "PairTrading(%(bookToDependOn)s, %(factor)s)" % self.__dict__
+        return "PairTrading(%(bookToDependOn)s, %(factor)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 
     @property

@@ -1,6 +1,8 @@
 from marketsim import _,  event
 
-class RandomWalk_Impl(object):
+from marketsim.gen._out._intrinsic_base.observable.randomwalk import RandomWalk_Base
+
+class RandomWalk_Impl(RandomWalk_Base):
     """ A discrete signal with user-defined increments.
     
         Parameters:

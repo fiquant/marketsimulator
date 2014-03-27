@@ -17,7 +17,7 @@ class f_AtanPow_Float(IFunctionIFunctionfloat_from_IFunctionfloat):
         'base' : float
     }
     def __repr__(self):
-        return "f_AtanPow(%(base)s)" % self.__dict__
+        return "f_AtanPow(%(base)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

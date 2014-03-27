@@ -29,7 +29,7 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         'timeseries' : listOf(ITimeSerie)
     }
     def __repr__(self):
-        return "%(orderbook)s.name^remote" % self.__dict__
+        return "%(orderbook)s.name^remote" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
 def Remote(orderbook = None,link = None,timeseries = None): 
     from marketsim.gen._out._itimeserie import ITimeSerie

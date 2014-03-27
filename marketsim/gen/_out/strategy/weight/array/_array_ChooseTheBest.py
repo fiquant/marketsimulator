@@ -17,7 +17,7 @@ class array_ChooseTheBest_(IFunctionIFunctionlistOffloat_from_listOffloat):
         
     }
     def __repr__(self):
-        return "array_ChooseTheBest" % self.__dict__
+        return "array_ChooseTheBest" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, array = None):
         from marketsim.gen._out.strategy.weight._choosethebest import ChooseTheBest_ListFloat as _strategy_weight_ChooseTheBest_ListFloat

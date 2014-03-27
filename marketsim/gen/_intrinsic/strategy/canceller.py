@@ -1,7 +1,9 @@
 import random
 from marketsim import event, request, _, types
 
-class Canceller_Impl(object):
+from marketsim.gen._out._intrinsic_base.strategy.canceller import Canceller_Base
+
+class Canceller_Impl(Canceller_Base):
     """ Randomly cancels created orders in specific moments of time    
     """
     

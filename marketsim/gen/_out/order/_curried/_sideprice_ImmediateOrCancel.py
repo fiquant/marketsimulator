@@ -25,7 +25,7 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
         'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     }
     def __repr__(self):
-        return "ImmediateOrCancel(%(proto)s)" % self.__dict__
+        return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def __call__(self, side = None,price = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

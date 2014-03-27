@@ -19,7 +19,7 @@ class false_(IFunctionbool):
         
     }
     def __repr__(self):
-        return "False" % self.__dict__
+        return "False" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
