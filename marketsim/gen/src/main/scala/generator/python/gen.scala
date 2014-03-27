@@ -33,16 +33,46 @@ package object gen
 
         processUsedTypes(new File(dst_dir))
 
-        //println(Typed.topLevel.intrinsics mkString crlf)
+        generateIntrinsicBases(new File(dst_dir, "_intrinsic_base"))
     }
 
-    def printWriter(dst_dir : File, filename : String) =
+    def generateIntrinsicBases(dst_dir : File)
+    {
+        def fileFor(base : File, parts : List[String]) : File = {
+            ensure_dir(base)
+            parts match {
+                case Nil => throw new Exception("intrinsic module name cannot be empty")
+                case x :: Nil => new File(base, x.toLowerCase)
+                case x :: tl => fileFor(new File(base, x), tl)
+            }
+        }
+
+        Typed.topLevel.intrinsics foreach { case (name, parameter_names) =>
+
+            val parts = name split "\\."
+            val (moduleName, classNameArr) = parts.splitAt(parts.length - 1)
+            val className = classNameArr(0) replace ("Impl", "Base")
+            for (out <- managed(printWriterEx(fileFor(dst_dir, moduleName.toList))))
+            {
+                val s =
+                    s"class $className(object):" |>
+                        "pass"
+
+                out.println(s)
+            }
+        }
+    }
+
+    def printWriterEx(file : File) =
         new PrintWriter(
             new BufferedWriter(
                 new OutputStreamWriter(
                     new FileOutputStream(
-                        new File(dst_dir, filename.toLowerCase), true))),
+                        file, true))),
         true)
+
+    def printWriter(dst_dir : File, filename : String) =
+        printWriterEx(new File(dst_dir, filename.toLowerCase))
 
     def processUsedTypes(out_dir : File)
     {
