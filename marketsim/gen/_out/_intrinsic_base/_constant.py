@@ -1,8 +1,11 @@
 class _Null_Base(object):
     pass
+
 class _True_Base(object):
     pass
-class _Constant_Base(object):
+
+class Constant_Base(object):
     pass
+
 class _False_Base(object):
     pass

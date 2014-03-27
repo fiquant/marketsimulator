@@ -36,13 +36,18 @@ package object gen
         generateIntrinsicBases(new File(dst_dir, "_intrinsic_base"))
     }
 
+    def createInit(dir : File) {
+        for (out <- managed(printWriter(dir, "__init__.py"))) {}
+    }
+
     def generateIntrinsicBases(dst_dir : File)
     {
         def fileFor(base : File, parts : List[String]) : File = {
             ensure_dir(base)
+            createInit(base)
             parts match {
                 case Nil => throw new Exception("intrinsic module name cannot be empty")
-                case x :: Nil => new File(base, x.toLowerCase)
+                case x :: Nil => new File(base, x.toLowerCase + ".py")
                 case x :: tl => fileFor(new File(base, x), tl)
             }
         }

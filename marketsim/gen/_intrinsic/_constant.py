@@ -2,6 +2,8 @@ from marketsim import meta, constraints, types
 
 class _Empty_Impl(object): pass
 
+from marketsim.gen._out._intrinsic_base import _constant
+
 class _Constant_Impl(object):
     """ Constant function returning **value**.
     """
