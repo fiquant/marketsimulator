@@ -6,44 +6,43 @@ import predef._
 object order_factory_on_proto
         extends gen.PythonGenerator
 {
-    case class FactoryParameter(fac_cur   : FactoryBase,
-                                original  : FactoryBase,
-                                p         : Typed.Parameter)
-            extends order_factory_curried.ParameterBase
-    {
-        val proto = "proto"
-        val isProto = name == "proto"
-
-        val curried = fac_cur.curried
-
-        val prefix =
-            (curried map { _.name } mkString "") +
-            (if (original.prefix != "") "_" + original.prefix else "")
-
-        override def assign_if_none: predef.Code =
-            if (isProto) initializer match {
-                case Some(x) =>
-                    s" if $name is not None else " ||| x.asCode
-                case None => ""
-            } else super.assign_if_none
-
-        def call_args = curried map { _.name } mkString ","
-
-        override def call = if (isProto) s"$proto($call_args)" else name
-
-        def interface = fac_cur.interface
-
-        override def property = s"\'$name\' : " |||
-                (if (isProto) interface.asCode else ty)
-    }
-
     case class PartialFactory(args   : List[String],
                               x      : Typed.Function)
             extends FactoryBase
             with    order_factory_curried.Call
             with    order_factory_curried.DecoratedNameInX
     {
-        override type Parameter = FactoryParameter
+        case class Parameter(fac_cur   : FactoryBase,
+                             original  : FactoryBase,
+                             p         : Typed.Parameter)
+                extends order_factory_curried.ParameterBase
+        {
+            val proto = "proto"
+            val isProto = name == "proto"
+
+            val curried = fac_cur.curried
+
+            val prefix =
+                (curried map { _.name } mkString "") +
+                (if (original.prefix != "") "_" + original.prefix else "")
+
+            override def assign_if_none: predef.Code =
+                if (isProto) initializer match {
+                    case Some(x) =>
+                        s" if $name is not None else " ||| x.asCode
+                    case None => ""
+                } else super.assign_if_none
+
+            def call_args = curried map { _.name } mkString ","
+
+            override def call = if (isProto) s"$proto($call_args)" else name
+
+            def interface = fac_cur.interface
+
+            override def property = s"\'$name\' : " |||
+                    (if (isProto) interface.asCode else ty)
+        }
+
 
         val factory_of_curried = x.parameters find { _.name == "proto" } match {
             case Some(Typed.Parameter(_, _, Some(Typed.FunctionCall(Typed.FunctionRef(f), _)), _)) =>
@@ -55,7 +54,7 @@ object order_factory_on_proto
             case None => throw new Exception("Here should be a parameter with name proto")
             case _ => throw new Exception("Here should be a parameter with function call as initializer")
         }
-        def mkParam(p : Typed.Parameter) = FactoryParameter(factory_of_curried, original, p)
+        def mkParam(p : Typed.Parameter) = Parameter(factory_of_curried, original, p)
 
         override val curried = factory_of_curried.curried
 
