@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic._constant import _True_Impl
+from marketsim.gen._intrinsic._constant import True_Impl
 @registry.expose(["Basic", "observableTrue"])
-class observableTrue_(Observablebool,_True_Impl):
+class observableTrue_(Observablebool,True_Impl):
     """ 
     """ 
     def __init__(self):
@@ -11,7 +11,7 @@ class observableTrue_(Observablebool,_True_Impl):
         Observablebool.__init__(self)
         
         rtti.check_fields(self)
-        _True_Impl.__init__(self)
+        True_Impl.__init__(self)
     
     @property
     def label(self):

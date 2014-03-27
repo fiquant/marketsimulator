@@ -1,2 +1,2 @@
-class _Graph_Base(object):
+class Graph_Base(object):
     pass

@@ -194,7 +194,7 @@ class VolumeLevelProxy(object):
         return self._source.label + '{' + str(self._source.source.dataSource.volumes[self._idx]) + '}' 
         
     
-class _Graph_Impl(object):
+class Graph_Impl(object):
     """ Represents a single Veusz graph
     """
     

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._intrinsic.event import _After_Impl
+from marketsim.gen._intrinsic.event import After_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "After"])
-class After_Float(IEvent,_After_Impl):
+class After_Float(IEvent,After_Impl):
     """ 
     """ 
     def __init__(self, delay = None):
@@ -12,7 +12,7 @@ class After_Float(IEvent,_After_Impl):
         from marketsim import rtti
         self.delay = delay if delay is not None else deref_opt(_constant_Float(10.0))
         rtti.check_fields(self)
-        _After_Impl.__init__(self)
+        After_Impl.__init__(self)
     
     @property
     def label(self):

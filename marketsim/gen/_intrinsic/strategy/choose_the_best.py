@@ -3,7 +3,7 @@ from marketsim import _, ops, event
 from basic import Strategy
 from marketsim.gen._out._constant import constant
 
-class _ChooseTheBest_Impl(Strategy):
+class ChooseTheBest_Impl(Strategy):
     
     def __init__(self):
         Strategy.__init__(self)

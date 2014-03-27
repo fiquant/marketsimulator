@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._intrinsic.event import _Every_Impl
+from marketsim.gen._intrinsic.event import Every_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "Every"])
-class Every_Float(IEvent,_Every_Impl):
+class Every_Float(IEvent,Every_Impl):
     """ 
     """ 
     def __init__(self, intervalFunc = None):
@@ -12,7 +12,7 @@ class Every_Float(IEvent,_Every_Impl):
         from marketsim import rtti
         self.intervalFunc = intervalFunc if intervalFunc is not None else deref_opt(_math_random_expovariate_Float(1.0))
         rtti.check_fields(self)
-        _Every_Impl.__init__(self)
+        Every_Impl.__init__(self)
     
     @property
     def label(self):

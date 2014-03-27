@@ -41,17 +41,17 @@ class Queue(object):
     def __repr__(self):
         return self.__str__()
 
-class _Queue_Impl(Queue):
+class Queue_Impl(Queue):
 
     def __init__(self):
         Queue.__init__(self, self.side())
 
-class _Asks_Impl(Queue):
+class Asks_Impl(Queue):
 
     def __init__(self):
         Queue.__init__(self, Side.Sell)
 
-class _Bids_Impl(Queue):
+class Bids_Impl(Queue):
 
     def __init__(self):
         Queue.__init__(self, Side.Buy)

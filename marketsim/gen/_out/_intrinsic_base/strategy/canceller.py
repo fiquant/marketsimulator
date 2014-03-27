@@ -1,2 +1,2 @@
-class _Canceller_Base(object):
+class Canceller_Base(object):
     pass

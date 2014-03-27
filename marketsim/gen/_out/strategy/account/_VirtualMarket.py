@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._iaccount import IAccount
-from marketsim.gen._intrinsic.strategy.account import _VirtualMarket_Impl
+from marketsim.gen._intrinsic.strategy.account import VirtualMarket_Impl
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "VirtualMarket"])
-class VirtualMarket_ISingleAssetStrategy(IAccount,_VirtualMarket_Impl):
+class VirtualMarket_ISingleAssetStrategy(IAccount,VirtualMarket_Impl):
     """   how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
@@ -14,7 +14,7 @@ class VirtualMarket_ISingleAssetStrategy(IAccount,_VirtualMarket_Impl):
         from marketsim import rtti
         self.inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         rtti.check_fields(self)
-        _VirtualMarket_Impl.__init__(self)
+        VirtualMarket_Impl.__init__(self)
     
     @property
     def label(self):

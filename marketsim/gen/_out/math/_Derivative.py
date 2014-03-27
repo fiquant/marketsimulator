@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.observable.derivative import _Derivative_Impl
+from marketsim.gen._intrinsic.observable.derivative import Derivative_Impl
 from marketsim.gen._out._idifferentiable import IDifferentiable
 @registry.expose(["Basic", "Derivative"])
-class Derivative_IDifferentiable(IFunctionfloat,_Derivative_Impl):
+class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
     """  *x* should provide *derivative* member
     """ 
     def __init__(self, x = None):
@@ -13,7 +13,7 @@ class Derivative_IDifferentiable(IFunctionfloat,_Derivative_Impl):
         from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat())))
         rtti.check_fields(self)
-        _Derivative_Impl.__init__(self)
+        Derivative_Impl.__init__(self)
     
     @property
     def label(self):

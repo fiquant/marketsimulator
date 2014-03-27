@@ -1,2 +1,2 @@
-class _Remote_Base(object):
+class Remote_Base(object):
     pass

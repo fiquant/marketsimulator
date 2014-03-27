@@ -1,2 +1,2 @@
-class _Arbitrage_Base(object):
+class Arbitrage_Base(object):
     pass

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._observable._observableside import ObservableSide
-from marketsim.gen._intrinsic.side import _Sell_Impl
+from marketsim.gen._intrinsic.side import Sell_Impl
 @registry.expose(["Side", "observableSell"])
-class observableSell_(ObservableSide,_Sell_Impl):
+class observableSell_(ObservableSide,Sell_Impl):
     """ 
     """ 
     def __init__(self):
@@ -13,7 +13,7 @@ class observableSell_(ObservableSide,_Sell_Impl):
         ObservableSide.__init__(self)
         
         rtti.check_fields(self)
-        _Sell_Impl.__init__(self)
+        Sell_Impl.__init__(self)
     
     @property
     def label(self):

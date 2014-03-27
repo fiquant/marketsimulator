@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.canceller import _Canceller_Impl
+from marketsim.gen._intrinsic.strategy.canceller import Canceller_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Strategy", "Canceller"])
-class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
+class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
     """   and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders
     """ 
@@ -13,7 +13,7 @@ class Canceller_Float(ISingleAssetStrategy,_Canceller_Impl):
         from marketsim import rtti
         self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else deref_opt(_math_random_expovariate_Float(1.0))
         rtti.check_fields(self)
-        _Canceller_Impl.__init__(self)
+        Canceller_Impl.__init__(self)
     
     @property
     def label(self):

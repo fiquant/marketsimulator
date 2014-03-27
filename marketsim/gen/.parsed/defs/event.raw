@@ -44,7 +44,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - event._Every_Impl
+| | | | | | | | - event.Every_Impl
 | | | | - FunDef:
 | | | | | - After
 | | | | | - List:
@@ -79,7 +79,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - event._After_Impl
+| | | | | | | | - event.After_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

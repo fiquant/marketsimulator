@@ -50,7 +50,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.proxy._Queue_Impl
+| | | | | | | | - orderbook.proxy.Queue_Impl
 | | | | - FunDef:
 | | | | | - Asks
 | | | | | - List:
@@ -90,7 +90,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.proxy._Asks_Impl
+| | | | | | | | - orderbook.proxy.Asks_Impl
 | | | | - FunDef:
 | | | | | - Bids
 | | | | | - List:
@@ -130,7 +130,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.proxy._Bids_Impl
+| | | | | | | | - orderbook.proxy.Bids_Impl
 | | | | - FunDef:
 | | | | | - BestPrice
 | | | | | - List:
@@ -168,7 +168,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.props._BestPrice_Impl
+| | | | | | | | - orderbook.props.BestPrice_Impl
 | | | | - FunDef:
 | | | | | - LastPrice
 | | | | | - List:
@@ -206,7 +206,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.last_price._LastPrice_Impl
+| | | | | | | | - orderbook.last_price.LastPrice_Impl
 | | | | - FunDef:
 | | | | | - LastTradePrice
 | | | | | - List:
@@ -244,7 +244,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.last_trade._LastTradePrice_Impl
+| | | | | | | | - orderbook.last_trade.LastTradePrice_Impl
 | | | | - FunDef:
 | | | | | - LastTradeVolume
 | | | | | - List:
@@ -282,7 +282,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.last_trade._LastTradeVolume_Impl
+| | | | | | | | - orderbook.last_trade.LastTradeVolume_Impl
 | | | | - FunDef:
 | | | | | - SafeSidePrice
 | | | | | - List:
@@ -440,7 +440,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.props._TickSize_Impl
+| | | | | | | | - orderbook.props.TickSize_Impl
 | | | | - FunDef:
 | | | | | - Spread
 | | | | | - List:

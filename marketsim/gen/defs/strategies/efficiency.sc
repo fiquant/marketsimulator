@@ -4,7 +4,7 @@ package strategy.account
      *  Associated with a strategy account that tracks
      *  how orders sent by the strategy have been actually traded
      */
-    @python.intrinsic("strategy.account._Account_Impl")
+    @python.intrinsic("strategy.account.Account_Impl")
     @curried("inner")
     def Real(/** strategy to track */
              inner : Optional[ISingleAssetStrategy] = Empty()) : IAccount
@@ -15,7 +15,7 @@ package strategy.account
      *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
      *  but we want evaluate in any case would it be profitable or not)
      */
-    @python.intrinsic("strategy.account._VirtualMarket_Impl")
+    @python.intrinsic("strategy.account.VirtualMarket_Impl")
     @curried("inner")
     def VirtualMarket(  /** strategy to track */
                         inner : Optional[ISingleAssetStrategy] = Empty()) : IAccount
@@ -82,7 +82,7 @@ package strategy.weight
       *
       * TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
       */
-    @python.intrinsic("strategy.weight._Score_Impl")
+    @python.intrinsic("strategy.weight.Score_Impl")
     @curried("trader")
     def Score(  /** account in question */
                 trader : IAccount = trader.SingleProxy()) : IFunction[Float]
@@ -120,7 +120,7 @@ package strategy.weight
     /**
      *   Identity function for an array of floats
      */
-    @python.intrinsic("strategy.weight._Identity_Impl")
+    @python.intrinsic("strategy.weight.Identity_Impl")
     @curried("array")
     def IdentityL(array : Optional[List[Float]] = []) : IFunction[List[Float]]
 
@@ -128,7 +128,7 @@ package strategy.weight
      *  Function returning an array of length *len(array)*
      *  having 1 at the index of the maximal element and 0 are at the rest
      */
-    @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
+    @python.intrinsic("strategy.weight.ChooseTheBest_Impl")
     @curried("array")
     def ChooseTheBest(array : Optional[List[Float]] = []) : IFunction[List[Float]]
 }

@@ -1,10 +1,10 @@
+from marketsim.gen._intrinsic.timeserie import ToRecord_Impl
 from marketsim.gen._out._itimeserie import ITimeSerie
-from marketsim.gen._intrinsic.timeserie import _ToRecord_Impl
 from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 from marketsim.gen._out._igraph import IGraph
 from marketsim import registry
 @registry.expose(["Basic", "TimeSerie"])
-class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,_ToRecord_Impl):
+class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
     """   Used to specify what data should be collected about order books and traders
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
@@ -17,7 +17,7 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,_ToRecord_Impl):
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 4
         self._smooth = _smooth if _smooth is not None else 1
         rtti.check_fields(self)
-        _ToRecord_Impl.__init__(self)
+        ToRecord_Impl.__init__(self)
     
     @property
     def label(self):

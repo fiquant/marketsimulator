@@ -1,2 +1,2 @@
-class _Derivative_Base(object):
+class Derivative_Base(object):
     pass

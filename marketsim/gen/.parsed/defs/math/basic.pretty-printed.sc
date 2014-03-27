@@ -72,7 +72,7 @@ package math() {@category = "Log/Pow"
         /** Function returning first derivative on time of *x*
          * *x* should provide *derivative* member
          */
-        @python.intrinsic("observable.derivative._Derivative_Impl")
+        @python.intrinsic("observable.derivative.Derivative_Impl")
         @label = "\\frac{d%(x)s}{dt}"
         def Derivative(x = math.Avg(.math.EW()) : IDifferentiable) : () => Float
     }

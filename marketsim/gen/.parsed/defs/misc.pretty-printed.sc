@@ -10,7 +10,7 @@ package () {
     // defined at defs\misc.sc: 9.5
     /** Trivial observable always returning *x*
      */
-    @python.intrinsic.observable("_constant._Constant_Impl")
+    @python.intrinsic.observable("_constant.Constant_Impl")
     @label = "C=%(x)s"
     @trivialObservable = "true"
     def const(x = 1.0) : IObservable[Float]
@@ -24,7 +24,7 @@ package () {
     // defined at defs\misc.sc: 23.5
     /** Trivial observable always returning *x*
      */
-    @python.intrinsic.observable("_constant._Constant_Impl")
+    @python.intrinsic.observable("_constant.Constant_Impl")
     @label = "C=%(x)s"
     @trivialObservable = "true"
     def const(x = 1) : IObservable[Int]
@@ -44,21 +44,21 @@ package () {
     // defined at defs\misc.sc: 43.5
     /** Trivial observable always returning *True*
      */
-    @python.intrinsic.observable("_constant._True_Impl")
+    @python.intrinsic.observable("_constant.True_Impl")
     @label = "True"
     def observableTrue() : IObservable[Boolean]
     
     // defined at defs\misc.sc: 50.5
     /** Trivial observable always returning *False*
      */
-    @python.intrinsic.observable("_constant._False_Impl")
+    @python.intrinsic.observable("_constant.False_Impl")
     @label = "False"
     def observableFalse() : IObservable[Boolean]
     
     // defined at defs\misc.sc: 57.5
     /** Trivial observable always returning *undefined* or *None* value
      */
-    @python.intrinsic("_constant._Null_Impl")
+    @python.intrinsic("_constant.Null_Impl")
     def null() : () => Float
     
     // defined at defs\misc.sc: 63.5

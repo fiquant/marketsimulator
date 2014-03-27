@@ -79,7 +79,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - observable.randomwalk._RandomWalk_Impl
+| | | | | | | | - observable.randomwalk.RandomWalk_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s

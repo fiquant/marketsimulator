@@ -52,7 +52,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.account._Account_Impl
+| | | | | | | | - strategy.account.Account_Impl
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -104,7 +104,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.account._VirtualMarket_Impl
+| | | | | | | | - strategy.account.VirtualMarket_Impl
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -435,7 +435,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.weight._Score_Impl
+| | | | | | | | - strategy.weight.Score_Impl
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -651,7 +651,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.weight._Identity_Impl
+| | | | | | | | - strategy.weight.Identity_Impl
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
@@ -712,7 +712,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.weight._ChooseTheBest_Impl
+| | | | | | | | - strategy.weight.ChooseTheBest_Impl
 | | | | | | - Annotation:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:

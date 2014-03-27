@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Equal_Impl
+from marketsim.gen._intrinsic.ops import Equal_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Equal"])
-class Equal_IObservableFloatIObservableFloat(Observablebool,_Equal_Impl):
+class Equal_IObservableFloatIObservableFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class Equal_IObservableFloatIObservableFloat(Observablebool,_Equal_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Equal_Impl.__init__(self)
+        Equal_Impl.__init__(self)
     
     @property
     def label(self):
@@ -33,11 +33,11 @@ class Equal_IObservableFloatIObservableFloat(Observablebool,_Equal_Impl):
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Equal_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _Equal_Impl
 @registry.expose(["Ops", "Equal"])
-class Equal_FloatIObservableFloat(Observablebool,_Equal_Impl):
+class Equal_FloatIObservableFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class Equal_FloatIObservableFloat(Observablebool,_Equal_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Equal_Impl.__init__(self)
+        Equal_Impl.__init__(self)
     
     @property
     def label(self):
@@ -68,11 +68,11 @@ class Equal_FloatIObservableFloat(Observablebool,_Equal_Impl):
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Equal_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _Equal_Impl
 @registry.expose(["Ops", "Equal"])
-class Equal_IObservableFloatFloat(Observablebool,_Equal_Impl):
+class Equal_IObservableFloatFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class Equal_IObservableFloatFloat(Observablebool,_Equal_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Equal_Impl.__init__(self)
+        Equal_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class Equal_IObservableFloatFloat(Observablebool,_Equal_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Equal_Impl
+from marketsim.gen._intrinsic.ops import Equal_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Equal"])
-class Equal_FloatFloat(Observablebool,_Equal_Impl):
+class Equal_FloatFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class Equal_FloatFloat(Observablebool,_Equal_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Equal_Impl.__init__(self)
+        Equal_Impl.__init__(self)
     
     @property
     def label(self):

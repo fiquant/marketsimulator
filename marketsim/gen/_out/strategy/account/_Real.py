@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._iaccount import IAccount
-from marketsim.gen._intrinsic.strategy.account import _Account_Impl
+from marketsim.gen._intrinsic.strategy.account import Account_Impl
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "Real"])
-class Real_ISingleAssetStrategy(IAccount,_Account_Impl):
+class Real_ISingleAssetStrategy(IAccount,Account_Impl):
     """   how orders sent by the strategy have been actually traded
     """ 
     def __init__(self, inner = None):
@@ -12,7 +12,7 @@ class Real_ISingleAssetStrategy(IAccount,_Account_Impl):
         from marketsim import rtti
         self.inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         rtti.check_fields(self)
-        _Account_Impl.__init__(self)
+        Account_Impl.__init__(self)
     
     @property
     def label(self):

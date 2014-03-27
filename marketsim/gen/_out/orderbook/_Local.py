@@ -1,10 +1,10 @@
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._intrinsic.orderbook.local import _Local_Impl
+from marketsim.gen._intrinsic.orderbook.local import Local_Impl
 from marketsim import listOf
 from marketsim import registry
 @registry.expose(["Asset", "Local"])
-class Local_StringFloatIntListITimeSerie(IOrderBook,_Local_Impl):
+class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
     """  Maintains two order queues for orders of different sides
     """ 
     def __init__(self, name = None, tickSize = None, _digitsToShow = None, timeseries = None):
@@ -14,7 +14,7 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,_Local_Impl):
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 2
         self.timeseries = timeseries if timeseries is not None else []
         rtti.check_fields(self)
-        _Local_Impl.__init__(self)
+        Local_Impl.__init__(self)
     
     @property
     def label(self):

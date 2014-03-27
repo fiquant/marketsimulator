@@ -29,7 +29,7 @@ class Asks(Queue):
 
     side = Side.Sell
 
-class _Local_Impl(BookBase):
+class Local_Impl(BookBase):
     """ Order book for a single asset in a market.
     Maintains two order queues for orders of different sides
     """

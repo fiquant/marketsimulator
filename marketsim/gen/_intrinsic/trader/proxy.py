@@ -46,7 +46,7 @@ class SingleProxyBase(Base):
         Base.__init__(self)
         self.__dict__['_alias'] = ["$(Trader)"]
 
-class _Single_Impl(SingleProxyBase):
+class Single_Impl(SingleProxyBase):
 
     def bind(self, ctx):
         self._bind(ctx.trader)

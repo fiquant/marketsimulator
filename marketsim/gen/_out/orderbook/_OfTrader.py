@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._intrinsic.orderbook.of_trader import _OfTrader_Impl
+from marketsim.gen._intrinsic.orderbook.of_trader import OfTrader_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Asset", "OfTrader"])
-class OfTrader_IAccount(IOrderBook,_OfTrader_Impl):
+class OfTrader_IAccount(IOrderBook,OfTrader_Impl):
     """ 
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
@@ -13,7 +13,7 @@ class OfTrader_IAccount(IOrderBook,_OfTrader_Impl):
         from marketsim import rtti
         self.Trader = Trader if Trader is not None else deref_opt(_trader_SingleProxy_())
         rtti.check_fields(self)
-        _OfTrader_Impl.__init__(self)
+        OfTrader_Impl.__init__(self)
     
     @property
     def label(self):

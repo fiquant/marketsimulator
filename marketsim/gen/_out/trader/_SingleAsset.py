@@ -1,11 +1,11 @@
 from marketsim.gen._out._itimeserie import ITimeSerie
-from marketsim.gen._intrinsic.trader.classes import _SingleAsset_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+from marketsim.gen._intrinsic.trader.classes import SingleAsset_Impl
 from marketsim import listOf
 
-class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(ISingleAssetTrader,_SingleAsset_Impl):
+class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(ISingleAssetTrader,SingleAsset_Impl):
     """ 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
@@ -19,7 +19,7 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
         self.PnL = PnL if PnL is not None else 0.0
         self.timeseries = timeseries if timeseries is not None else []
         rtti.check_fields(self)
-        _SingleAsset_Impl.__init__(self)
+        SingleAsset_Impl.__init__(self)
     
     @property
     def label(self):

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.combine import _Array_Impl
+from marketsim.gen._intrinsic.strategy.combine import Array_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "Array"])
-class Array_ListISingleAssetStrategy(ISingleAssetStrategy,_Array_Impl):
+class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
     """ 
     """ 
     def __init__(self, strategies = None):
@@ -12,7 +12,7 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,_Array_Impl):
         from marketsim import rtti
         self.strategies = strategies if strategies is not None else [deref_opt(_strategy_Empty_())]
         rtti.check_fields(self)
-        _Array_Impl.__init__(self)
+        Array_Impl.__init__(self)
     
     @property
     def label(self):

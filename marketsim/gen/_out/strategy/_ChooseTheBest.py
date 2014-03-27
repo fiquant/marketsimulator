@@ -1,11 +1,11 @@
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._intrinsic.strategy.choose_the_best import ChooseTheBest_Impl
 from marketsim import listOf
 from marketsim import registry
-from marketsim.gen._intrinsic.strategy.choose_the_best import _ChooseTheBest_Impl
 @registry.expose(["Strategy", "ChooseTheBest"])
-class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy,_ChooseTheBest_Impl):
+class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy,ChooseTheBest_Impl):
     """  In some moments of time the most effective strategy
      is chosen and made running; other strategies are suspended.
      It can be considered as a particular case for MultiArmedBandit strategy with
@@ -21,7 +21,7 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         self.account = account if account is not None else deref_opt(_strategy_account_inner_inner_VirtualMarket_())
         self.performance = performance if performance is not None else deref_opt(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float())
         rtti.check_fields(self)
-        _ChooseTheBest_Impl.__init__(self)
+        ChooseTheBest_Impl.__init__(self)
     
     @property
     def label(self):

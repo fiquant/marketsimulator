@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _GreaterEqual_Impl
+from marketsim.gen._intrinsic.ops import GreaterEqual_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "GreaterEqual"])
-class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,_GreaterEqual_Impl):
+class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,_GreaterEqual
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _GreaterEqual_Impl.__init__(self)
+        GreaterEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -31,13 +31,13 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,_GreaterEqual
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _GreaterEqual_Impl
+from marketsim.gen._intrinsic.ops import GreaterEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 @registry.expose(["Ops", "GreaterEqual"])
-class GreaterEqual_FloatIObservableFloat(Observablebool,_GreaterEqual_Impl):
+class GreaterEqual_FloatIObservableFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,_GreaterEqual_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _GreaterEqual_Impl.__init__(self)
+        GreaterEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -66,13 +66,13 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,_GreaterEqual_Impl):
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _GreaterEqual_Impl
+from marketsim.gen._intrinsic.ops import GreaterEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 @registry.expose(["Ops", "GreaterEqual"])
-class GreaterEqual_IObservableFloatFloat(Observablebool,_GreaterEqual_Impl):
+class GreaterEqual_IObservableFloatFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,_GreaterEqual_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _GreaterEqual_Impl.__init__(self)
+        GreaterEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,_GreaterEqual_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _GreaterEqual_Impl
+from marketsim.gen._intrinsic.ops import GreaterEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "GreaterEqual"])
-class GreaterEqual_FloatFloat(Observablebool,_GreaterEqual_Impl):
+class GreaterEqual_FloatFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class GreaterEqual_FloatFloat(Observablebool,_GreaterEqual_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _GreaterEqual_Impl.__init__(self)
+        GreaterEqual_Impl.__init__(self)
     
     @property
     def label(self):

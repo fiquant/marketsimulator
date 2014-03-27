@@ -1,10 +1,10 @@
 from marketsim import meta, constraints, types
 
-class _Empty_Impl(object): pass
+class Empty_Impl(object): pass
 
 from marketsim.gen._out._intrinsic_base import _constant
 
-class _Constant_Impl(object):
+class Constant_Impl(object):
     """ Constant function returning **value**.
     """
 
@@ -31,18 +31,18 @@ class _Constant_Impl(object):
     def label(self):
         return str(self.x)
 
-class _True_Impl(object):
+class True_Impl(object):
 
     def __call__(self):
         return True
 
-class _False_Impl(object):
+class False_Impl(object):
 
     def __call__(self):
         return False
 
 
-class _Null_Impl(object):
+class Null_Impl(object):
     """ Constant function returning None.
     """
 

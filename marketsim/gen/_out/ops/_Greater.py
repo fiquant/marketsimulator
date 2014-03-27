@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Greater_Impl
+from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Greater"])
-class Greater_IObservableFloatIObservableFloat(Observablebool,_Greater_Impl):
+class Greater_IObservableFloatIObservableFloat(Observablebool,Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class Greater_IObservableFloatIObservableFloat(Observablebool,_Greater_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Greater_Impl.__init__(self)
+        Greater_Impl.__init__(self)
     
     @property
     def label(self):
@@ -31,13 +31,13 @@ class Greater_IObservableFloatIObservableFloat(Observablebool,_Greater_Impl):
     def __repr__(self):
         return "({%(x)s}>{%(y)s})" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Greater_Impl
+from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 @registry.expose(["Ops", "Greater"])
-class Greater_FloatIObservableFloat(Observablebool,_Greater_Impl):
+class Greater_FloatIObservableFloat(Observablebool,Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class Greater_FloatIObservableFloat(Observablebool,_Greater_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Greater_Impl.__init__(self)
+        Greater_Impl.__init__(self)
     
     @property
     def label(self):
@@ -66,13 +66,13 @@ class Greater_FloatIObservableFloat(Observablebool,_Greater_Impl):
     def __repr__(self):
         return "({%(x)s}>{%(y)s})" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Greater_Impl
+from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 @registry.expose(["Ops", "Greater"])
-class Greater_IObservableFloatFloat(Observablebool,_Greater_Impl):
+class Greater_IObservableFloatFloat(Observablebool,Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class Greater_IObservableFloatFloat(Observablebool,_Greater_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Greater_Impl.__init__(self)
+        Greater_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class Greater_IObservableFloatFloat(Observablebool,_Greater_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Greater_Impl
+from marketsim.gen._intrinsic.ops import Greater_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Greater"])
-class Greater_FloatFloat(Observablebool,_Greater_Impl):
+class Greater_FloatFloat(Observablebool,Greater_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class Greater_FloatFloat(Observablebool,_Greater_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Greater_Impl.__init__(self)
+        Greater_Impl.__init__(self)
     
     @property
     def label(self):

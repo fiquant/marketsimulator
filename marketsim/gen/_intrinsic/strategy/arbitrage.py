@@ -6,7 +6,7 @@ from marketsim.gen._out.order._limit import Limit
 
 from basic import MultiAssetStrategy
 
-class _Arbitrage_Impl(MultiAssetStrategy):
+class Arbitrage_Impl(MultiAssetStrategy):
 
     def __init__(self):
         """ Initializes trader by order books for the asset from different markets

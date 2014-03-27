@@ -3,7 +3,7 @@ package strategy
     /**
      *  Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
-    @python.intrinsic("strategy.suspendable._Suspendable_Impl")
+    @python.intrinsic("strategy.suspendable.Suspendable_Impl")
     def Suspendable(
         /** wrapped strategy */
         inner       = Empty(),
@@ -36,7 +36,7 @@ package strategy
      * These weights are used to choose randomly a strategy to run for the next quant of time.
      * All other strategies are suspended
      */
-    @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
+    @python.intrinsic("strategy.multiarmed_bandit.MultiarmedBandit2_Impl")
     def MultiArmedBandit(
             /** original strategies that can be suspended */
             strategies = [Empty()],
@@ -59,7 +59,7 @@ package strategy
      * It can be considered as a particular case for MultiArmedBandit strategy with
      * *corrector* parameter set to *chooseTheBest*
      */
-    @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
+    @python.intrinsic("strategy.choose_the_best.ChooseTheBest_Impl")
     def ChooseTheBest(
             /** original strategies that can be suspended */
             strategies = [Empty()],

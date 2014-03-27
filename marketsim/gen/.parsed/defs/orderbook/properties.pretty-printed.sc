@@ -4,48 +4,48 @@ package orderbook() {
     // defined at defs\orderbook\properties.sc: 4.5
     /** Returns order queue of order *book* for trade *side*
      */
-    @python.intrinsic("orderbook.proxy._Queue_Impl")
+    @python.intrinsic("orderbook.proxy.Queue_Impl")
     def Queue(book = OfTrader(),
               side = side.Sell()) : IOrderQueue
     
     // defined at defs\orderbook\properties.sc: 10.5
     /** Returns sell side order queue for *book*
      */
-    @python.intrinsic("orderbook.proxy._Asks_Impl")
+    @python.intrinsic("orderbook.proxy.Asks_Impl")
     def Asks(book = OfTrader()) = Queue(book,side.Sell())
     
     // defined at defs\orderbook\properties.sc: 16.5
     /** Returns buy side order queue for *book*
      */
-    @python.intrinsic("orderbook.proxy._Bids_Impl")
+    @python.intrinsic("orderbook.proxy.Bids_Impl")
     def Bids(book = OfTrader()) = Queue(book,side.Buy())
     
     // defined at defs\orderbook\properties.sc: 22.5
     /** Returns best order price of *queue*
      *  Returns None is *queue* is empty
      */
-    @python.intrinsic("orderbook.props._BestPrice_Impl")
+    @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
     
     // defined at defs\orderbook\properties.sc: 29.5
     /** Returns last defined price at *queue*
      *  Returns None is *queue* has been always empty
      */
-    @python.intrinsic("orderbook.last_price._LastPrice_Impl")
+    @python.intrinsic("orderbook.last_price.LastPrice_Impl")
     def LastPrice(queue = Asks()) : IObservable[Price]
     
     // defined at defs\orderbook\properties.sc: 36.5
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
-    @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradePrice_Impl")
     def LastTradePrice(queue = Asks()) : IObservable[Price]
     
     // defined at defs\orderbook\properties.sc: 43.5
     /** Returns volume of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
-    @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradeVolume_Impl")
     def LastTradeVolume(queue = Asks()) : IObservable[Volume]
     
     // defined at defs\orderbook\properties.sc: 50.5
@@ -66,7 +66,7 @@ package orderbook() {
     // defined at defs\orderbook\properties.sc: 74.5
     /** Returns tick size for the order *book*
      */
-    @python.intrinsic("orderbook.props._TickSize_Impl")
+    @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book = OfTrader()) : () => Price
     
     // defined at defs\orderbook\properties.sc: 80.5

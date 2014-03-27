@@ -1,4 +1,4 @@
-class _VirtualMarket_Base(object):
+class Account_Base(object):
     pass
-class _Account_Base(object):
+class VirtualMarket_Base(object):
     pass

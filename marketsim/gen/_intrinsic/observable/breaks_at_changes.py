@@ -1,6 +1,6 @@
 from marketsim import (event, _)
 
-class _BreaksAtChanges_Impl(object):
+class BreaksAtChanges_Impl(object):
     
     def __init__(self):
         self._value = None

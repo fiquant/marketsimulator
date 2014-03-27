@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Sub_Impl
+from marketsim.gen._intrinsic.ops import Sub_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Sub"])
-class Sub_IObservableFloatIObservableFloat(Observablefloat,_Sub_Impl):
+class Sub_IObservableFloatIObservableFloat(Observablefloat,Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class Sub_IObservableFloatIObservableFloat(Observablefloat,_Sub_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Sub_Impl.__init__(self)
+        Sub_Impl.__init__(self)
     
     @property
     def label(self):
@@ -34,10 +34,10 @@ class Sub_IObservableFloatIObservableFloat(Observablefloat,_Sub_Impl):
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _Sub_Impl
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._intrinsic.ops import Sub_Impl
 @registry.expose(["Ops", "Sub"])
-class Sub_FloatIObservableFloat(Observablefloat,_Sub_Impl):
+class Sub_FloatIObservableFloat(Observablefloat,Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class Sub_FloatIObservableFloat(Observablefloat,_Sub_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Sub_Impl.__init__(self)
+        Sub_Impl.__init__(self)
     
     @property
     def label(self):
@@ -69,10 +69,10 @@ class Sub_FloatIObservableFloat(Observablefloat,_Sub_Impl):
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _Sub_Impl
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._intrinsic.ops import Sub_Impl
 @registry.expose(["Ops", "Sub"])
-class Sub_IObservableFloatFloat(Observablefloat,_Sub_Impl):
+class Sub_IObservableFloatFloat(Observablefloat,Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class Sub_IObservableFloatFloat(Observablefloat,_Sub_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Sub_Impl.__init__(self)
+        Sub_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class Sub_IObservableFloatFloat(Observablefloat,_Sub_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Sub_Impl
+from marketsim.gen._intrinsic.ops import Sub_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Sub"])
-class Sub_FloatFloat(Observablefloat,_Sub_Impl):
+class Sub_FloatFloat(Observablefloat,Sub_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class Sub_FloatFloat(Observablefloat,_Sub_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Sub_Impl.__init__(self)
+        Sub_Impl.__init__(self)
     
     @property
     def label(self):

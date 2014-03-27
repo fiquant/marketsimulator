@@ -94,7 +94,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - trader.classes._SingleAsset_Impl
+| | | | | | | | - trader.classes.SingleAsset_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
@@ -186,7 +186,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - trader.classes._MultiAsset_Impl
+| | | | | | | | - trader.classes.MultiAsset_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
@@ -212,7 +212,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - trader.proxy._Single_Impl
+| | | | | | | | - trader.proxy.Single_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - N/A

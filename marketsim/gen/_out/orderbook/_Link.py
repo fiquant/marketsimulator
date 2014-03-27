@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._ilink import ILink
-from marketsim.gen._intrinsic.orderbook.link import _Link_Impl
+from marketsim.gen._intrinsic.orderbook.link import Link_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Asset", "Link"])
-class Link_IObservableFloat(ILink,_Link_Impl):
+class Link_IObservableFloat(ILink,Link_Impl):
     """  (normally between a trader and a market).
      Ensures that sending packets via a link preserves their order.
     """ 
@@ -13,7 +13,7 @@ class Link_IObservableFloat(ILink,_Link_Impl):
         from marketsim import rtti
         self.latency = latency if latency is not None else deref_opt(_const_Float(0.001))
         rtti.check_fields(self)
-        _Link_Impl.__init__(self)
+        Link_Impl.__init__(self)
     
     @property
     def label(self):

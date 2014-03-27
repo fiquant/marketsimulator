@@ -5,17 +5,17 @@ def identityL():
     raise Exception('Cannot find suitable overload for identityL('++')')
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionlistoffloat import IFunctionlistOffloat
-from marketsim.gen._intrinsic.strategy.weight import _Identity_Impl
+from marketsim.gen._intrinsic.strategy.weight import Identity_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
-class IdentityL_ListFloat(IFunctionlistOffloat,_Identity_Impl):
+class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
     """ 
     """ 
     def __init__(self, array = None):
         from marketsim import rtti
         self.array = array if array is not None else []
         rtti.check_fields(self)
-        _Identity_Impl.__init__(self)
+        Identity_Impl.__init__(self)
     
     @property
     def label(self):

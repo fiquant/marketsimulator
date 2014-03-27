@@ -1,2 +1,2 @@
-class _Suspendable_Base(object):
+class Suspendable_Base(object):
     pass

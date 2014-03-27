@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.observable.randomwalk import _RandomWalk_Impl
+from marketsim.gen._intrinsic.observable.randomwalk import RandomWalk_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "RandomWalk"])
-class RandomWalk_FloatFloatFloatString(Observablefloat,_RandomWalk_Impl):
+class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
@@ -22,7 +22,7 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,_RandomWalk_Impl):
         self.name = name if name is not None else "-random-"
         
         rtti.check_fields(self)
-        _RandomWalk_Impl.__init__(self)
+        RandomWalk_Impl.__init__(self)
     
     @property
     def label(self):

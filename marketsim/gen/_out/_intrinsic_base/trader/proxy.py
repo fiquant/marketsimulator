@@ -1,2 +1,2 @@
-class _Single_Base(object):
+class Single_Base(object):
     pass

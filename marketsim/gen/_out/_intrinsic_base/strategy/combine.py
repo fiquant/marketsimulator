@@ -1,4 +1,4 @@
-class _Combine_Base(object):
+class Array_Base(object):
     pass
-class _Array_Base(object):
+class Combine_Base(object):
     pass

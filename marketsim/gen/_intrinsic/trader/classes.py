@@ -2,7 +2,7 @@ from marketsim.gen._out._timeserie import TimeSerie
 from marketsim import event, _, types, context
 from marketsim.gen._out._side import Side
 
-class _Holder_Impl(object):
+class Holder_Impl(object):
 
     def __init__(self):
         if type(self.timeseries) is dict:
@@ -12,14 +12,14 @@ class _Holder_Impl(object):
         ts = TimeSerie(source, graph)
         self.timeseries.append(ts)
 
-class _Base_Impl(_Holder_Impl):
+class Base_Impl(Holder_Impl):
     """ Base class for traders.
     Responsible for bookkeeping P&L of the trader and
     maintaining on_order_sent and on_traded events
     """
 
     def __init__(self):
-        _Holder_Impl.__init__(self)
+        Holder_Impl.__init__(self)
         # event to be fired when an order has been sent
         self.on_order_sent = event.Event()
         # event to be fired when an order issued by the trader has been matched
@@ -77,7 +77,7 @@ class _Base_Impl(_Holder_Impl):
         if isinstance(order, IOrder):
             self.on_order_sent.fire(order)
 
-class _SingleAsset_Impl(_Base_Impl):
+class SingleAsset_Impl(Base_Impl):
     """ A trader that trades a single asset on a single market.
 
         Parameters:
@@ -96,7 +96,7 @@ class _SingleAsset_Impl(_Base_Impl):
     """
 
     def __init__(self):
-        _Base_Impl.__init__(self)
+        Base_Impl.__init__(self)
         self._subscription = event.subscribe(self.strategy.on_order_created, _(self).send, self)
         self._alias = [self.label]
 
@@ -112,7 +112,7 @@ class _SingleAsset_Impl(_Base_Impl):
         """
         dVolume = volume if order.side == Side.Buy else -volume
         self.amount += dVolume
-        _Base_Impl.onOrderMatched(self, order, price, volume)
+        Base_Impl.onOrderMatched(self, order, price, volume)
 
 
     @property
@@ -124,12 +124,12 @@ class _SingleAsset_Impl(_Base_Impl):
         return self.orderBook._digitsToShow
 
     def send(self, order, unused = None):
-        _Base_Impl.send(self, self.orderBook, order)
+        Base_Impl.send(self, self.orderBook, order)
 
-class _MultiAsset_Impl(_Base_Impl):
+class MultiAsset_Impl(Base_Impl):
 
     def __init__(self):
-        _Base_Impl.__init__(self)
+        Base_Impl.__init__(self)
         self._alias = [self.label]
         for t in self._traders:
             t.on_traded += self.on_traded.fire

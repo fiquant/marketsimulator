@@ -69,7 +69,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.local._Local_Impl
+| | | | | | | | - orderbook.local.Local_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(name)s
@@ -133,7 +133,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.remote._Remote_Impl
+| | | | | | | | - orderbook.remote.Remote_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - %(orderbook)s.name^remote
@@ -174,7 +174,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.link._Link_Impl
+| | | | | | | | - orderbook.link.Link_Impl
 | | | | - FunDef:
 | | | | | - TwoWayLink
 | | | | | - List:
@@ -221,7 +221,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.link._TwoWayLink_Impl
+| | | | | | | | - orderbook.link.TwoWayLink_Impl
 | | | | - FunDef:
 | | | | | - OfTrader
 | | | | | - List:
@@ -262,7 +262,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.of_trader._OfTrader_Impl
+| | | | | | | | - orderbook.of_trader.OfTrader_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - N/A
@@ -292,7 +292,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - orderbook.of_trader._Proxy_Impl
+| | | | | | | | - orderbook.of_trader.Proxy_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - N/A

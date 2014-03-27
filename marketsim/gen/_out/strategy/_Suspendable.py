@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.suspendable import _Suspendable_Impl
+from marketsim.gen._intrinsic.strategy.suspendable import Suspendable_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 @registry.expose(["Strategy", "Suspendable"])
-class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,_Suspendable_Impl):
+class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,Suspendable_Impl):
     """ 
     """ 
     def __init__(self, inner = None, predicate = None):
@@ -14,7 +14,7 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,_Suspendable_
         self.inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         self.predicate = predicate if predicate is not None else deref_opt(_true_())
         rtti.check_fields(self)
-        _Suspendable_Impl.__init__(self)
+        Suspendable_Impl.__init__(self)
     
     @property
     def label(self):

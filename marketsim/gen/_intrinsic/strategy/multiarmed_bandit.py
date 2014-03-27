@@ -5,7 +5,7 @@ from basic import Strategy
 import random, bisect
 from marketsim.gen._out._constant import constant
 
-class _MultiarmedBandit2_Impl(Strategy):
+class MultiarmedBandit2_Impl(Strategy):
     
     def __init__(self):
         Strategy.__init__(self)

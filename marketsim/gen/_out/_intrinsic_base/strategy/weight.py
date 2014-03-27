@@ -1,6 +1,6 @@
-class _ChooseTheBest_Base(object):
+class Identity_Base(object):
     pass
-class _Score_Base(object):
+class Score_Base(object):
     pass
-class _Identity_Base(object):
+class ChooseTheBest_Base(object):
     pass

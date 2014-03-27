@@ -1,2 +1,2 @@
-class _Local_Base(object):
+class Local_Base(object):
     pass

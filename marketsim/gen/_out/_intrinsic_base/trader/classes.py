@@ -1,4 +1,4 @@
-class _MultiAsset_Base(object):
+class SingleAsset_Base(object):
     pass
-class _SingleAsset_Base(object):
+class MultiAsset_Base(object):
     pass

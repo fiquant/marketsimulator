@@ -1,2 +1,2 @@
-class _Empty_Base(object):
+class Empty_Base(object):
     pass

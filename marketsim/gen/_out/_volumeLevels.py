@@ -1,10 +1,10 @@
+from marketsim.gen._intrinsic.timeserie import VolumeLevels_Impl
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
 from marketsim.gen._out._igraph import IGraph
-from marketsim.gen._intrinsic.timeserie import _VolumeLevels_Impl
 from marketsim import listOf
 
-class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevels_Impl):
+class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels_Impl):
     """  Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
@@ -18,7 +18,7 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,_VolumeLevel
         self._volumes = _volumes if _volumes is not None else [30.0]
         self._isBuy = _isBuy if _isBuy is not None else 1
         rtti.check_fields(self)
-        _VolumeLevels_Impl.__init__(self)
+        VolumeLevels_Impl.__init__(self)
     
     @property
     def label(self):

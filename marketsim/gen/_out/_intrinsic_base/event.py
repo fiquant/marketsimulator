@@ -1,4 +1,4 @@
-class _Every_Base(object):
+class After_Base(object):
     pass
-class _After_Base(object):
+class Every_Base(object):
     pass

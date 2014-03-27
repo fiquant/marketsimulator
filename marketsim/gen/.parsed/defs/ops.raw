@@ -47,7 +47,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._Negate_Impl
+| | | | | | | | - ops.Negate_Impl
 | | | | - FunDef:
 | | | | | - Div
 | | | | | - List:
@@ -99,7 +99,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - ops._Div_Impl
+| | | | | | | | - ops.Div_Impl
 | | | | - PackageDef:
 | | | | | - None
 | | | | | - List:
@@ -156,7 +156,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Mul_Impl
+| | | | | | | | | | | - ops.Mul_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Add
 | | | | | | | | - List:
@@ -208,7 +208,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Add_Impl
+| | | | | | | | | | | - ops.Add_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Sub
 | | | | | | | | - List:
@@ -260,7 +260,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Sub_Impl
+| | | | | | | | | | | - ops.Sub_Impl
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -330,7 +330,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | | | | | - ops.Condition_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Condition
 | | | | | | | | - List:
@@ -387,7 +387,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Condition_Impl
+| | | | | | | | | | | - ops.Condition_Impl
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
@@ -450,7 +450,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Equal_Impl
+| | | | | | | | | | | - ops.Equal_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - NotEqual
 | | | | | | | | - List:
@@ -502,7 +502,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._NotEqual_Impl
+| | | | | | | | | | | - ops.NotEqual_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Less
 | | | | | | | | - List:
@@ -554,7 +554,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Less_Impl
+| | | | | | | | | | | - ops.Less_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - Greater
 | | | | | | | | - List:
@@ -606,7 +606,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._Greater_Impl
+| | | | | | | | | | | - ops.Greater_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - LessEqual
 | | | | | | | | - List:
@@ -658,7 +658,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._LessEqual_Impl
+| | | | | | | | | | | - ops.LessEqual_Impl
 | | | | | | | - FunDef:
 | | | | | | | | - GreaterEqual
 | | | | | | | | - List:
@@ -710,7 +710,7 @@ Definitions:
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
-| | | | | | | | | | | - ops._GreaterEqual_Impl
+| | | | | | | | | | | - ops.GreaterEqual_Impl
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label

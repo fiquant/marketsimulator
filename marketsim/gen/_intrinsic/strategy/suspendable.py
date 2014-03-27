@@ -2,7 +2,7 @@ from marketsim import (_, event)
 
 from basic import Strategy
 
-class _Suspendable_Impl(Strategy):
+class Suspendable_Impl(Strategy):
 
     def __init__(self):
         Strategy.__init__(self)

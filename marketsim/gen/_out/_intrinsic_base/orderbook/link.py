@@ -1,4 +1,4 @@
-class _Link_Base(object):
+class TwoWayLink_Base(object):
     pass
-class _TwoWayLink_Base(object):
+class Link_Base(object):
     pass

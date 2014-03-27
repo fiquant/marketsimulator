@@ -18,7 +18,7 @@ class Base(object):
     def __repr__(self):
         return self.__str__()
 
-class _OfTrader_Impl(Base):
+class OfTrader_Impl(Base):
 
     def __init__(self):
         self._alias = ["$(TraderAsset)"] if type(self.Trader) == SingleProxy else ['OfTrader']
@@ -31,7 +31,7 @@ class _OfTrader_Impl(Base):
         except AttributeError:
             return None
 
-class _Proxy_Impl(Base):
+class Proxy_Impl(Base):
 
     def __init__(self):
         self._impl = None

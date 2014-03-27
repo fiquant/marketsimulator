@@ -1,16 +1,16 @@
 from marketsim.gen._out._side import Side
 
-class _Sell_Impl(object):
+class Sell_Impl(object):
 
     def __call__(self):
         return Side.Sell
 
-class _Buy_Impl(object):
+class Buy_Impl(object):
 
     def __call__(self):
         return Side.Buy
 
-class _None_Impl(object):
+class None_Impl(object):
 
     def __call__(self):
         return None

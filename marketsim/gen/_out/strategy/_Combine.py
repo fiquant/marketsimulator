@@ -1,8 +1,8 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.combine import _Combine_Impl
+from marketsim.gen._intrinsic.strategy.combine import Combine_Impl
 @registry.expose(["Strategy", "Combine"])
-class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,_Combine_Impl):
+class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Combine_Impl):
     """   Can be considered as a particular case of Array strategy
     """ 
     def __init__(self, A = None, B = None):
@@ -12,7 +12,7 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,_Com
         self.A = A if A is not None else deref_opt(_strategy_Empty_())
         self.B = B if B is not None else deref_opt(_strategy_Empty_())
         rtti.check_fields(self)
-        _Combine_Impl.__init__(self)
+        Combine_Impl.__init__(self)
     
     @property
     def label(self):

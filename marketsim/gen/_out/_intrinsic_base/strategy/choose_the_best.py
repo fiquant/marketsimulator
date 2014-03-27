@@ -1,2 +1,2 @@
-class _ChooseTheBest_Base(object):
+class ChooseTheBest_Base(object):
     pass

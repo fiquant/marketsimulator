@@ -1,4 +1,4 @@
-class _BestPrice_Base(object):
+class TickSize_Base(object):
     pass
-class _TickSize_Base(object):
+class BestPrice_Base(object):
     pass

@@ -77,7 +77,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - _constant._Constant_Impl
+| | | | | | | | - _constant.Constant_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
@@ -156,7 +156,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - _constant._Constant_Impl
+| | | | | | | | - _constant.Constant_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - C=%(x)s
@@ -248,7 +248,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - _constant._True_Impl
+| | | | | | | | - _constant.True_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - True
@@ -279,7 +279,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - _constant._False_Impl
+| | | | | | | | - _constant.False_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - False
@@ -306,7 +306,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - _constant._Null_Impl
+| | | | | | | | - _constant.Null_Impl
 | | | | - FunDef:
 | | | | | - IfDefined
 | | | | | - List:

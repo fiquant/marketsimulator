@@ -1,4 +1,4 @@
-class _BestPrice_Impl(object):
+class BestPrice_Impl(object):
 
     def bind(self, ctx):
         from marketsim import event, _, context
@@ -10,7 +10,7 @@ class _BestPrice_Impl(object):
         return self.queue.bestPrice
 
 
-class _TickSize_Impl(object):
+class TickSize_Impl(object):
 
     def __call__(self):
         return self.book.tickSize

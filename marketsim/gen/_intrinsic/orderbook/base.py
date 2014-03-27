@@ -4,14 +4,14 @@ ORDER_PROCESSING_TIME = 1e-8
 
 from queue import LastTrade
 
-from ..trader.classes import _Holder_Impl
+from ..trader.classes import Holder_Impl
 
-class BookBase(_Holder_Impl):
+class BookBase(Holder_Impl):
 
     def __init__(self, bids, asks):
         """ Initializes empty order book with given tick size
         """
-        _Holder_Impl.__init__(self)
+        Holder_Impl.__init__(self)
         self._bids = bids
         self._asks = asks
         # queues indexed by their side

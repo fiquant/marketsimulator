@@ -1,10 +1,10 @@
+from marketsim.gen._intrinsic.orderbook.proxy import Queue_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
-from marketsim.gen._intrinsic.orderbook.proxy import _Queue_Impl
 @registry.expose(["Asset", "Queue"])
-class Queue_IOrderBookSide(IOrderQueue,_Queue_Impl):
+class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
     """ 
     """ 
     def __init__(self, book = None, side = None):
@@ -15,7 +15,7 @@ class Queue_IOrderBookSide(IOrderQueue,_Queue_Impl):
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.side = side if side is not None else deref_opt(_side_Sell_())
         rtti.check_fields(self)
-        _Queue_Impl.__init__(self)
+        Queue_Impl.__init__(self)
     
     @property
     def label(self):

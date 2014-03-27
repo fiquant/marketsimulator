@@ -5,7 +5,7 @@ package strategy
      *  Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
-    @python.intrinsic("strategy.generic._Generic_Impl")
+    @python.intrinsic("strategy.generic.Generic_Impl")
     @method = "Strategy"
     def Generic(/** order factory function*/
                 orderFactory = order.Limit(),
@@ -16,14 +16,14 @@ package strategy
      *  Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
-    @python.intrinsic("strategy.combine._Combine_Impl")
+    @python.intrinsic("strategy.combine.Combine_Impl")
     def Combine(A = Empty(),
                 B = Empty()) : ISingleAssetStrategy
 
     /**
      *  Creates a strategy combining an array of strategies
      */
-    @python.intrinsic("strategy.combine._Array_Impl")
+    @python.intrinsic("strategy.combine.Array_Impl")
     def Array(/** strategies to combine */
               strategies = [Empty()]) : ISingleAssetStrategy
 
@@ -32,14 +32,14 @@ package strategy
      *  and in some moments of time it randomly chooses an order and cancels it
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
      */
-    @python.intrinsic("strategy.canceller._Canceller_Impl")
+    @python.intrinsic("strategy.canceller.Canceller_Impl")
     def Canceller(/** intervals between order cancellations */
                   cancellationIntervalDistr = math.random.expovariate(1.)) : ISingleAssetStrategy
 
     /**
      * Empty strategy doing nothing
      */
-    @python.intrinsic("strategy.basic._Empty_Impl")
+    @python.intrinsic("strategy.basic.Empty_Impl")
     def Empty() : ISingleAssetStrategy
 
     /**
@@ -48,6 +48,6 @@ package strategy
      * Once an ask at one venue becomes lower than a bid at another venue
      * it sends market sell and buy orders in order to exploit this arbitrage possibility
      */
-    @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
+    @python.intrinsic("strategy.arbitrage.Arbitrage_Impl")
     def Arbitrage() : IMultiAssetStrategy
 }

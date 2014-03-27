@@ -1,6 +1,6 @@
 from basic import Strategy
 
-class _Generic_Impl(Strategy):    
+class Generic_Impl(Strategy):
      
     def __init__(self):                
         Strategy.__init__(self)

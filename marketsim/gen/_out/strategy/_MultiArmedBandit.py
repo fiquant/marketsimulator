@@ -3,11 +3,11 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat 
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.multiarmed_bandit import _MultiarmedBandit2_Impl
 from marketsim import listOf
 from marketsim import registry
+from marketsim.gen._intrinsic.strategy.multiarmed_bandit import MultiarmedBandit2_Impl
 @registry.expose(["Strategy", "MultiArmedBandit"])
-class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(ISingleAssetStrategy,_MultiarmedBandit2_Impl):
+class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(ISingleAssetStrategy,MultiarmedBandit2_Impl):
     """  In some moments of time the efficiency of the strategies is evaluated
      These efficiencies are mapped into weights using *weight* and *normilizer*
      functions per every strategy and *corrector* for the whole collection of weights
@@ -28,7 +28,7 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         self.normalizer = normalizer if normalizer is not None else deref_opt(_strategy_weight_f_f_AtanPow_Float())
         self.corrector = corrector if corrector is not None else deref_opt(_strategy_weight_array_array_IdentityL_())
         rtti.check_fields(self)
-        _MultiarmedBandit2_Impl.__init__(self)
+        MultiarmedBandit2_Impl.__init__(self)
     
     @property
     def label(self):

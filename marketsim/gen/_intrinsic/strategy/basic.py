@@ -31,5 +31,5 @@ class MultiAssetStrategy(Base):
         Base.__init__(self)
         self.on_order_created = event.Event()
 
-class _Empty_Impl(Strategy):
+class Empty_Impl(Strategy):
     pass

@@ -3,7 +3,7 @@ from marketsim import event, _
 from marketsim.gen._out.trader._efficiency import Efficiency
 from marketsim.gen._out.observable._oneverydt import OnEveryDt
 
-class _Score_Impl(object):
+class Score_Impl(object):
 
     def __init__(self):
         self._efficiency = Efficiency(self.trader)
@@ -23,7 +23,7 @@ class _Score_Impl(object):
     def __call__(self):
         return self._score
 
-class _ChooseTheBest_Impl(object):
+class ChooseTheBest_Impl(object):
 
     def __call__(self):
         mw = max(self.array)
@@ -36,7 +36,7 @@ class _ChooseTheBest_Impl(object):
 
         return weights
 
-class _Identity_Impl(object):
+class Identity_Impl(object):
 
     def __call__(self):
         return self.array

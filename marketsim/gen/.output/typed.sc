@@ -4,7 +4,7 @@ package side {
     /** Observable always equal to Buy side
      */
     
-    @python.intrinsic.observable("side._Buy_Impl")
+    @python.intrinsic.observable("side.Buy_Impl")
     def observableBuy() : .IObservable[.Side]
     
     /** Function always returning None of type Side
@@ -22,13 +22,13 @@ package side {
     /** Observable always equal to None of type Side
      */
     
-    @python.intrinsic.observable("side._None_Impl")
+    @python.intrinsic.observable("side.None_Impl")
     def observableNothing() : .IObservable[.Side]
     
     /** Observable always equal to Sell side
      */
     
-    @python.intrinsic.observable("side._Sell_Impl")
+    @python.intrinsic.observable("side.Sell_Impl")
     def observableSell() : .IObservable[.Side]
     
     /** Function always returning Sell side
@@ -45,13 +45,13 @@ package event {
     /** Event that fires every *intervalFunc* moments of time
      */
     
-    @python.intrinsic("event._Every_Impl")
+    @python.intrinsic("event.Every_Impl")
     def Every(/** interval of time between two events */ intervalFunc : Optional[() => .Float] = .math.random.expovariate(1.0)) : .IEvent
     
     /** Event that once at *delay*
      */
     
-    @python.intrinsic("event._After_Impl")
+    @python.intrinsic("event.After_Impl")
     def After(/** when the event should be fired */ delay : Optional[() => .Float] = .constant(10.0)) : .IEvent
 }
 
@@ -169,7 +169,7 @@ package veusz {
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     
-    @python.intrinsic("veusz._Graph_Impl")
+    @python.intrinsic("veusz.Graph_Impl")
     def Graph(name : Optional[.String] = "graph") : .IGraph
 }
 
@@ -178,150 +178,150 @@ package veusz {
 package ops {
     @label = "-%(x)s"
     
-    @python.intrinsic.observable("ops._Negate_Impl")
+    @python.intrinsic.observable("ops.Negate_Impl")
     def Negate(x : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "-%(x)s"
     
-    @python.intrinsic.observable("ops._Negate_Impl")
+    @python.intrinsic.observable("ops.Negate_Impl")
     def Negate(x : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
-    @python.intrinsic.observable("ops._Add_Impl")
+    @python.intrinsic.observable("ops.Add_Impl")
     def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
-    @python.intrinsic.observable("ops._Add_Impl")
+    @python.intrinsic.observable("ops.Add_Impl")
     def Add(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
-    @python.intrinsic.observable("ops._Add_Impl")
+    @python.intrinsic.observable("ops.Add_Impl")
     def Add(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
     
-    @python.intrinsic.observable("ops._Add_Impl")
+    @python.intrinsic.observable("ops.Add_Impl")
     def Add(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Float] = .constant(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Float] = .constant(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Float] = .constant(1.0),
                   elsepart : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[.IObservable[.Side]] = .side.observableBuy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[.IObservable[.Side]] = .side.observableSell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Float] = .constant(1.0),
                   elsepart : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : () => .Side
@@ -329,248 +329,248 @@ package ops {
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
-    @python.intrinsic.observable("ops._Less_Impl")
+    @python.intrinsic.observable("ops.Less_Impl")
     def Less(x : Optional[.IObservable[.Float]] = .const(1.0),
              y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
-    @python.intrinsic.observable("ops._Less_Impl")
+    @python.intrinsic.observable("ops.Less_Impl")
     def Less(x : Optional[() => .Float] = .constant(1.0),
              y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
-    @python.intrinsic.observable("ops._Less_Impl")
+    @python.intrinsic.observable("ops.Less_Impl")
     def Less(x : Optional[.IObservable[.Float]] = .const(1.0),
              y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     
-    @python.intrinsic.observable("ops._Less_Impl")
+    @python.intrinsic.observable("ops.Less_Impl")
     def Less(x : Optional[() => .Float] = .constant(1.0),
              y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
-    @python.intrinsic.observable("ops._Mul_Impl")
+    @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
-    @python.intrinsic.observable("ops._Mul_Impl")
+    @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
-    @python.intrinsic.observable("ops._Mul_Impl")
+    @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
-    @python.intrinsic.observable("ops._Mul_Impl")
+    @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
-    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @python.intrinsic.observable("ops.NotEqual_Impl")
     def NotEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                  y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
-    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @python.intrinsic.observable("ops.NotEqual_Impl")
     def NotEqual(x : Optional[() => .Float] = .constant(1.0),
                  y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
-    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @python.intrinsic.observable("ops.NotEqual_Impl")
     def NotEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                  y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
     
-    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @python.intrinsic.observable("ops.NotEqual_Impl")
     def NotEqual(x : Optional[() => .Float] = .constant(1.0),
                  y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
     
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @python.intrinsic.observable("ops.GreaterEqual_Impl")
     def GreaterEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                      y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
     
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @python.intrinsic.observable("ops.GreaterEqual_Impl")
     def GreaterEqual(x : Optional[() => .Float] = .constant(1.0),
                      y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
     
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @python.intrinsic.observable("ops.GreaterEqual_Impl")
     def GreaterEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                      y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
     
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @python.intrinsic.observable("ops.GreaterEqual_Impl")
     def GreaterEqual(x : Optional[() => .Float] = .constant(1.0),
                      y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
-    @python.intrinsic.observable("ops._Sub_Impl")
+    @python.intrinsic.observable("ops.Sub_Impl")
     def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
-    @python.intrinsic.observable("ops._Sub_Impl")
+    @python.intrinsic.observable("ops.Sub_Impl")
     def Sub(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
-    @python.intrinsic.observable("ops._Sub_Impl")
+    @python.intrinsic.observable("ops.Sub_Impl")
     def Sub(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
     
-    @python.intrinsic.observable("ops._Sub_Impl")
+    @python.intrinsic.observable("ops.Sub_Impl")
     def Sub(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "\\frac{%(x)s}{%(y)s}"
     
-    @python.intrinsic.observable("ops._Div_Impl")
+    @python.intrinsic.observable("ops.Div_Impl")
     def Div(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "\\frac{%(x)s}{%(y)s}"
     
-    @python.intrinsic.observable("ops._Div_Impl")
+    @python.intrinsic.observable("ops.Div_Impl")
     def Div(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     @label = "\\frac{%(x)s}{%(y)s}"
     
-    @python.intrinsic.observable("ops._Div_Impl")
+    @python.intrinsic.observable("ops.Div_Impl")
     def Div(x : Optional[.IObservable[.Float]] = .const(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
     @label = "\\frac{%(x)s}{%(y)s}"
     
-    @python.intrinsic.observable("ops._Div_Impl")
+    @python.intrinsic.observable("ops.Div_Impl")
     def Div(x : Optional[() => .Float] = .constant(1.0),
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
     
-    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @python.intrinsic.observable("ops.LessEqual_Impl")
     def LessEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                   y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
     
-    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @python.intrinsic.observable("ops.LessEqual_Impl")
     def LessEqual(x : Optional[() => .Float] = .constant(1.0),
                   y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
     
-    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @python.intrinsic.observable("ops.LessEqual_Impl")
     def LessEqual(x : Optional[.IObservable[.Float]] = .const(1.0),
                   y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
     
-    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @python.intrinsic.observable("ops.LessEqual_Impl")
     def LessEqual(x : Optional[() => .Float] = .constant(1.0),
                   y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
-    @python.intrinsic.observable("ops._Equal_Impl")
+    @python.intrinsic.observable("ops.Equal_Impl")
     def Equal(x : Optional[.IObservable[.Float]] = .const(1.0),
               y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
-    @python.intrinsic.observable("ops._Equal_Impl")
+    @python.intrinsic.observable("ops.Equal_Impl")
     def Equal(x : Optional[() => .Float] = .constant(1.0),
               y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
-    @python.intrinsic.observable("ops._Equal_Impl")
+    @python.intrinsic.observable("ops.Equal_Impl")
     def Equal(x : Optional[.IObservable[.Float]] = .const(1.0),
               y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
     
-    @python.intrinsic.observable("ops._Equal_Impl")
+    @python.intrinsic.observable("ops.Equal_Impl")
     def Equal(x : Optional[() => .Float] = .constant(1.0),
               y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
-    @python.intrinsic.observable("ops._Greater_Impl")
+    @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x : Optional[.IObservable[.Float]] = .const(1.0),
                 y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
-    @python.intrinsic.observable("ops._Greater_Impl")
+    @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x : Optional[() => .Float] = .constant(1.0),
                 y : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
-    @python.intrinsic.observable("ops._Greater_Impl")
+    @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x : Optional[.IObservable[.Float]] = .const(1.0),
                 y : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
     
-    @python.intrinsic.observable("ops._Greater_Impl")
+    @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x : Optional[() => .Float] = .constant(1.0),
                 y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
 }
@@ -1025,7 +1025,7 @@ package math {
      */
     @label = "%(name)s"
     
-    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    @python.intrinsic("observable.randomwalk.RandomWalk_Impl")
     def RandomWalk(/** initial value of the signal */ initialValue : Optional[.Float] = 0.0,
                    /** increment function */ deltaDistr : Optional[() => .Float] = .math.random.normalvariate(0.0,1.0),
                    /** intervals between signal updates */ intervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0),
@@ -1101,7 +1101,7 @@ package math {
      */
     @label = "\\frac{d%(x)s}{dt}"
     
-    @python.intrinsic("observable.derivative._Derivative_Impl")
+    @python.intrinsic("observable.derivative.Derivative_Impl")
     def Derivative(x : Optional[.IDifferentiable] = .math.Avg(.math.EW()) : .IDifferentiable) : () => .Float
     
     /** Absolute value for Relative Strength Index
@@ -2075,7 +2075,7 @@ package strategy {@category = "Side function"
          *  having 1 at the index of the maximal element and 0 are at the rest
          */
         
-        @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
+        @python.intrinsic("strategy.weight.ChooseTheBest_Impl")
         @curried("array")
         def ChooseTheBest(array : Optional[List[.Float]] = []) : () => List[.Float]
         
@@ -2095,7 +2095,7 @@ package strategy {@category = "Side function"
          * TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
          */
         
-        @python.intrinsic("strategy.weight._Score_Impl")
+        @python.intrinsic("strategy.weight.Score_Impl")
         @curried("trader")
         def Score(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : () => .Float
         
@@ -2137,7 +2137,7 @@ package strategy {@category = "Side function"
         /** Identity function for an array of floats
          */
         
-        @python.intrinsic("strategy.weight._Identity_Impl")
+        @python.intrinsic("strategy.weight.Identity_Impl")
         @curried("array")
         def IdentityL(array : Optional[List[.Float]] = []) : () => List[.Float]
         
@@ -2407,7 +2407,7 @@ package strategy {@category = "Side function"
          *  how orders sent by the strategy have been actually traded
          */
         
-        @python.intrinsic("strategy.account._Account_Impl")
+        @python.intrinsic("strategy.account.Account_Impl")
         @curried("inner")
         def Real(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
@@ -2417,7 +2417,7 @@ package strategy {@category = "Side function"
          *  but we want evaluate in any case would it be profitable or not)
          */
         
-        @python.intrinsic("strategy.account._VirtualMarket_Impl")
+        @python.intrinsic("strategy.account.VirtualMarket_Impl")
         @curried("inner")
         def VirtualMarket(/** strategy to track */ inner : Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
@@ -2430,7 +2430,7 @@ package strategy {@category = "Side function"
      *  Can be considered as a particular case of Array strategy
      */
     
-    @python.intrinsic("strategy.combine._Combine_Impl")
+    @python.intrinsic("strategy.combine.Combine_Impl")
     def Combine(A : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                 B : Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .ISingleAssetStrategy
     
@@ -2441,7 +2441,7 @@ package strategy {@category = "Side function"
      * *corrector* parameter set to *chooseTheBest*
      */
     
-    @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
+    @python.intrinsic("strategy.choose_the_best.ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Empty()],
                       /** function creating phantom strategy used for efficiency estimation */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance : Optional[.IAccount => (() => .Float)] = .strategy.weight.trader.trader_TraderEfficiencyTrend()) : .ISingleAssetStrategy
@@ -2449,7 +2449,7 @@ package strategy {@category = "Side function"
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
     
-    @python.intrinsic("strategy.suspendable._Suspendable_Impl")
+    @python.intrinsic("strategy.suspendable.Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                     /** predicate to evaluate */ predicate : Optional[() => .Boolean] = .true()) : .ISingleAssetStrategy
     
@@ -2459,7 +2459,7 @@ package strategy {@category = "Side function"
      * it sends market sell and buy orders in order to exploit this arbitrage possibility
      */
     
-    @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
+    @python.intrinsic("strategy.arbitrage.Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency
@@ -2478,13 +2478,13 @@ package strategy {@category = "Side function"
     /** Creates a strategy combining an array of strategies
      */
     
-    @python.intrinsic("strategy.combine._Array_Impl")
+    @python.intrinsic("strategy.combine.Array_Impl")
     def Array(/** strategies to combine */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Empty()]) : .ISingleAssetStrategy
     
     /** Empty strategy doing nothing
      */
     
-    @python.intrinsic("strategy.basic._Empty_Impl")
+    @python.intrinsic("strategy.basic.Empty_Impl")
     def Empty() : .ISingleAssetStrategy
     
     /** A composite strategy initialized with an array of strategies.
@@ -2495,7 +2495,7 @@ package strategy {@category = "Side function"
      * All other strategies are suspended
      */
     
-    @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
+    @python.intrinsic("strategy.multiarmed_bandit.MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies : Optional[List[.ISingleAssetStrategy]] = [.strategy.Empty()],
                          /** function creating a virtual account used
                            * to estimate efficiency of the strategy itself */ account : Optional[Optional[.ISingleAssetStrategy] => .IAccount] = .strategy.account.inner.inner_VirtualMarket(),
@@ -2510,7 +2510,7 @@ package strategy {@category = "Side function"
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
      */
     
-    @python.intrinsic("strategy.canceller._Canceller_Impl")
+    @python.intrinsic("strategy.canceller.Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr : Optional[() => .Float] = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
     
     /** Generic strategy that wakes up on events given by *eventGen*,
@@ -2518,7 +2518,7 @@ package strategy {@category = "Side function"
      */
     @method = "Strategy"
     
-    @python.intrinsic("strategy.generic._Generic_Impl")
+    @python.intrinsic("strategy.generic.Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : Optional[.IObservable[.IOrder]] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
 }
@@ -2558,7 +2558,7 @@ package trader {
      */
     @label = "N/A"
     
-    @python.intrinsic("trader.proxy._Single_Impl")
+    @python.intrinsic("trader.proxy.Single_Impl")
     def SingleProxy() : .ISingleAssetTrader
     
     /** A trader that trades different assets
@@ -2567,7 +2567,7 @@ package trader {
      */
     @label = "%(name)s"
     
-    @python.intrinsic("trader.classes._MultiAsset_Impl")
+    @python.intrinsic("trader.classes.MultiAsset_Impl")
     def MultiAsset(/** defines accounts for every asset to trade */ traders : Optional[List[.ISingleAssetTrader]] = [] : List[.ISingleAssetTrader],
                    /** multi asset strategy run by the trader */ strategy : Optional[.IMultiAssetStrategy] = .strategy.Arbitrage(),
                    name : Optional[.String] = "-trader-",
@@ -2591,7 +2591,7 @@ package trader {
      */
     @label = "%(name)s"
     
-    @python.intrinsic("trader.classes._SingleAsset_Impl")
+    @python.intrinsic("trader.classes.SingleAsset_Impl")
     def SingleAsset(/** order book for the asset being traded */ orderBook : .IOrderBook,
                     /** strategy run by the trader */ strategy : Optional[.ISingleAssetStrategy] = .strategy.Empty(),
                     name : Optional[.String] = "-trader-",
@@ -2609,7 +2609,7 @@ package orderbook {
      */
     @label = "N/A"
     
-    @python.intrinsic("orderbook.of_trader._Proxy_Impl")
+    @python.intrinsic("orderbook.of_trader.Proxy_Impl")
     def Proxy() : .IOrderBook
     
     /** Returns best price if defined, otherwise last price
@@ -2641,7 +2641,7 @@ package orderbook {
     /** Returns tick size for the order *book*
      */
     
-    @python.intrinsic("orderbook.props._TickSize_Impl")
+    @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Float
     
     /** MidPrice of order *book*
@@ -2653,7 +2653,7 @@ package orderbook {
     /** Returns sell side order queue for *book*
      */
     
-    @python.intrinsic("orderbook.proxy._Asks_Impl")
+    @python.intrinsic("orderbook.proxy.Asks_Impl")
     def Asks(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IOrderQueue
         	 = .orderbook.Queue(book,.side.Sell())
     
@@ -2661,13 +2661,13 @@ package orderbook {
      *  Returns None if there haven't been any trades
      */
     
-    @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradeVolume_Impl")
     def LastTradeVolume(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Int]
     
     /** Returns buy side order queue for *book*
      */
     
-    @python.intrinsic("orderbook.proxy._Bids_Impl")
+    @python.intrinsic("orderbook.proxy.Bids_Impl")
     def Bids(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .IOrderQueue
         	 = .orderbook.Queue(book,.side.Buy())
     
@@ -2675,7 +2675,7 @@ package orderbook {
      *  Returns None is *queue* is empty
      */
     
-    @python.intrinsic("orderbook.props._BestPrice_Impl")
+    @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Float]
     
     /** Represents latency in information propagation between two agents
@@ -2684,14 +2684,14 @@ package orderbook {
      * Holds two one-way links in opposite directions.
      */
     
-    @python.intrinsic("orderbook.link._TwoWayLink_Impl")
+    @python.intrinsic("orderbook.link.TwoWayLink_Impl")
     def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up : Optional[.ILink] = .orderbook.Link(),
                    /** Backward link (normally from a market to a trader)*/ down : Optional[.ILink] = .orderbook.Link()) : .ITwoWayLink
     
     /** Returns order queue of order *book* for trade *side*
      */
     
-    @python.intrinsic("orderbook.proxy._Queue_Impl")
+    @python.intrinsic("orderbook.proxy.Queue_Impl")
     def Queue(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
               side : Optional[() => .Side] = .side.Sell()) : .IOrderQueue
     
@@ -2702,7 +2702,7 @@ package orderbook {
     @label = "N/A"
     @method = "Orderbook"
     
-    @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
+    @python.intrinsic("orderbook.of_trader.OfTrader_Impl")
     def OfTrader(Trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IOrderBook
     
     /** Returns price for best orders of total volume *depth*
@@ -2732,7 +2732,7 @@ package orderbook {
      *  Returns None is *queue* has been always empty
      */
     
-    @python.intrinsic("orderbook.last_price._LastPrice_Impl")
+    @python.intrinsic("orderbook.last_price.LastPrice_Impl")
     def LastPrice(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Float]
     
     /** Order book for a single asset in a market.
@@ -2740,7 +2740,7 @@ package orderbook {
      */
     @label = "%(name)s"
     
-    @python.intrinsic("orderbook.local._Local_Impl")
+    @python.intrinsic("orderbook.local.Local_Impl")
     def Local(name : Optional[.String] = "-orderbook-",
               tickSize : Optional[.Float] = 0.01,
               _digitsToShow : Optional[.Int] = 2,
@@ -2751,7 +2751,7 @@ package orderbook {
      */
     @label = "%(orderbook)s.name^remote"
     
-    @python.intrinsic("orderbook.remote._Remote_Impl")
+    @python.intrinsic("orderbook.remote.Remote_Impl")
     def Remote(orderbook : Optional[.IOrderBook] = .orderbook.Local(),
                link : Optional[.ITwoWayLink] = .orderbook.TwoWayLink(),
                timeseries : Optional[List[.ITimeSerie]] = [] : List[.ITimeSerie]) : .IOrderBook
@@ -2783,7 +2783,7 @@ package orderbook {
      * Ensures that sending packets via a link preserves their order.
      */
     
-    @python.intrinsic("orderbook.link._Link_Impl")
+    @python.intrinsic("orderbook.link.Link_Impl")
     def Link(/** function called for each packet in order to determine
                * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.001)) : .ILink
     
@@ -2797,7 +2797,7 @@ package orderbook {
      *  Returns None if there haven't been any trades
      */
     
-    @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradePrice_Impl")
     def LastTradePrice(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Float]
 }
 
@@ -2809,7 +2809,7 @@ package observable {
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     
-    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic("observable.on_every_dt.OnEveryDt_Impl")
     def OnEveryDt(/** function to discretize */ x : Optional[() => .Float] = .constant(1.0),
                   /** time discretization step */ dt : Optional[.Float] = 1.0) : .IObservable[.Float]
     
@@ -2817,7 +2817,7 @@ package observable {
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
     
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    @python.intrinsic("observable.breaks_at_changes.BreaksAtChanges_Impl")
     def BreaksAtChanges(source : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
     /** Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
@@ -2921,14 +2921,14 @@ def false() : () => .Boolean
 @category = "Basic"
 @label = "True"
 
-@python.intrinsic.observable("_constant._True_Impl")
+@python.intrinsic.observable("_constant.True_Impl")
 def observableTrue() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
 
-@python.intrinsic("_constant._Null_Impl")
+@python.intrinsic("_constant.Null_Impl")
 def null() : () => .Float
 
 /** Time serie to store and render it after on a graph
@@ -2937,7 +2937,7 @@ def null() : () => .Float
 @category = "Basic"
 @label = "%(source)s"
 
-@python.intrinsic("timeserie._ToRecord_Impl")
+@python.intrinsic("timeserie.ToRecord_Impl")
 def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[Any],
               graph : Optional[.IGraph] = .veusz.Graph(),
               _digitsToShow : Optional[.Int] = 4,
@@ -2948,7 +2948,7 @@ def TimeSerie(source : Optional[.IObservable[Any]] = .const(0.0) : .IObservable[
 @category = "Basic"
 @label = "False"
 
-@python.intrinsic.observable("_constant._False_Impl")
+@python.intrinsic.observable("_constant.False_Impl")
 def observableFalse() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *x*
@@ -2957,7 +2957,7 @@ def observableFalse() : .IObservable[.Boolean]
 @label = "C=%(x)s"
 @trivialObservable = "true"
 
-@python.intrinsic.observable("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant.Constant_Impl")
 def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 
 /** Trivial observable always returning *x*
@@ -2966,7 +2966,7 @@ def const(x : Optional[.Int] = 1) : .IObservable[.Int]
 @label = "C=%(x)s"
 @trivialObservable = "true"
 
-@python.intrinsic.observable("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant.Constant_Impl")
 def const(x : Optional[.Float] = 1.0) : .IObservable[.Float]
 
 /** Observable returning at the end of every *timeframe*
@@ -3037,7 +3037,7 @@ def IfDefined(x : Optional[() => .Float] = .constant(1.0),
 @category = "Basic"
 @label = "%(source)s"
 
-@python.intrinsic("timeserie._VolumeLevels_Impl")
+@python.intrinsic("timeserie.VolumeLevels_Impl")
 def volumeLevels(source : () => .IVolumeLevels,
                  graph : Optional[.IGraph] = .veusz.Graph(),
                  _digitsToShow : Optional[.Int] = 4,

@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._iorderqueue import IOrderQueue
-from marketsim.gen._intrinsic.orderbook.proxy import _Bids_Impl
+from marketsim.gen._intrinsic.orderbook.proxy import Bids_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "Bids"])
-class Bids_IOrderBook(IOrderQueue,_Bids_Impl):
+class Bids_IOrderBook(IOrderQueue,Bids_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -12,7 +12,7 @@ class Bids_IOrderBook(IOrderQueue,_Bids_Impl):
         from marketsim import rtti
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         rtti.check_fields(self)
-        _Bids_Impl.__init__(self)
+        Bids_Impl.__init__(self)
     
     @property
     def label(self):

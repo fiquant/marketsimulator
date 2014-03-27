@@ -1,4 +1,4 @@
-class _LastTradePrice_Base(object):
+class LastTradeVolume_Base(object):
     pass
-class _LastTradeVolume_Base(object):
+class LastTradePrice_Base(object):
     pass

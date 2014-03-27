@@ -1,6 +1,6 @@
-class _Bids_Base(object):
+class Asks_Base(object):
     pass
-class _Asks_Base(object):
+class Queue_Base(object):
     pass
-class _Queue_Base(object):
+class Bids_Base(object):
     pass

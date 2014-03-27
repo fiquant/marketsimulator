@@ -27,7 +27,7 @@ class IndicatorBase(object):
 
 from marketsim.gen._out._constant import constant
 
-class _OnEveryDt_Impl(IndicatorBase):
+class OnEveryDt_Impl(IndicatorBase):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
@@ -38,7 +38,7 @@ class _OnEveryDt_Impl(IndicatorBase):
         IndicatorBase.__init__(self)
         self._subscription = event.subscribe(event.Every(constant(self.dt)), self.fire, self)
 
-class _Observable_Impl(object):
+class Observable_Impl(object):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value
@@ -55,7 +55,7 @@ class _Observable_Impl(object):
         """
         return self._dataSource()
 
-class _ObservableSide_Impl(object):
+class ObservableSide_Impl(object):
     """ Creates an indicator that is updated regularly
     interval - constant interval between updates
     source - function to obtain indicator value

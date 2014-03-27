@@ -4,7 +4,7 @@ package observable() {
     // defined at defs\observable.sc: 4.5
     /** Discretizes function *x* at even time steps *dt*
      */
-    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic("observable.on_every_dt.OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     def OnEveryDt(/** function to discretize */ x = constant(1.0),
@@ -24,6 +24,6 @@ package observable() {
     /** Observable listening to *source*
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    @python.intrinsic("observable.breaks_at_changes.BreaksAtChanges_Impl")
     def BreaksAtChanges(source = const(1.0)) : IObservable[Float]
 }

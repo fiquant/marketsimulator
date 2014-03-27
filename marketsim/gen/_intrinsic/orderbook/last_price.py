@@ -2,7 +2,7 @@ from marketsim import ops, event, _
 
 from marketsim.gen._out.orderbook._bestprice import BestPrice
 
-class _LastPrice_Impl(object):
+class LastPrice_Impl(object):
 
     def __init__(self):
         self._price = BestPrice(self.queue)

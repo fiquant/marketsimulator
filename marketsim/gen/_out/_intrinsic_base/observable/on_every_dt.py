@@ -1,2 +1,2 @@
-class _OnEveryDt_Base(object):
+class OnEveryDt_Base(object):
     pass

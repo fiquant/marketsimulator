@@ -213,7 +213,7 @@ def subscribe_if_observable(source, target):
     if isinstance(source, IEvent):
         subscribe(source, _(target).fire, target)
 
-class _Every_Impl(Event_Impl):
+class Every_Impl(Event_Impl):
     """ Represents a repeating action. 
     
         Parameters:
@@ -244,7 +244,7 @@ class _Every_Impl(Event_Impl):
     def cancel(self):
         self._cancelled = True
  
-class _After_Impl(Event_Impl):
+class After_Impl(Event_Impl):
 
     def __init__(self):
         Event_Impl.__init__(self)

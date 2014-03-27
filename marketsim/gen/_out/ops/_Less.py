@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._intrinsic.ops import Less_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Less"])
-class Less_IObservableFloatIObservableFloat(Observablebool,_Less_Impl):
+class Less_IObservableFloatIObservableFloat(Observablebool,Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class Less_IObservableFloatIObservableFloat(Observablebool,_Less_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Less_Impl.__init__(self)
+        Less_Impl.__init__(self)
     
     @property
     def label(self):
@@ -33,11 +33,11 @@ class Less_IObservableFloatIObservableFloat(Observablebool,_Less_Impl):
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Less_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._intrinsic.ops import Less_Impl
 @registry.expose(["Ops", "Less"])
-class Less_FloatIObservableFloat(Observablebool,_Less_Impl):
+class Less_FloatIObservableFloat(Observablebool,Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class Less_FloatIObservableFloat(Observablebool,_Less_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Less_Impl.__init__(self)
+        Less_Impl.__init__(self)
     
     @property
     def label(self):
@@ -68,11 +68,11 @@ class Less_FloatIObservableFloat(Observablebool,_Less_Impl):
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Less_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._intrinsic.ops import Less_Impl
 @registry.expose(["Ops", "Less"])
-class Less_IObservableFloatFloat(Observablebool,_Less_Impl):
+class Less_IObservableFloatFloat(Observablebool,Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class Less_IObservableFloatFloat(Observablebool,_Less_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Less_Impl.__init__(self)
+        Less_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class Less_IObservableFloatFloat(Observablebool,_Less_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _Less_Impl
+from marketsim.gen._intrinsic.ops import Less_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Less"])
-class Less_FloatFloat(Observablebool,_Less_Impl):
+class Less_FloatFloat(Observablebool,Less_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class Less_FloatFloat(Observablebool,_Less_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Less_Impl.__init__(self)
+        Less_Impl.__init__(self)
     
     @property
     def label(self):

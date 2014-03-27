@@ -1,4 +1,4 @@
-class _Negate_Impl(object):
+class Negate_Impl(object):
 
     def __call__(self):
         x = self.x()
@@ -12,31 +12,31 @@ class Base(object):
         return self.apply(x,y) if x is not None and y is not None else None
 
 
-class _Div_Impl(Base):
+class Div_Impl(Base):
 
     @staticmethod
     def apply(x, y):
         return  x / y if y != 0.0 else None
 
-class _Mul_Impl(Base):
+class Mul_Impl(Base):
 
     @staticmethod
     def apply(x, y):
         return  x * y
 
-class _Add_Impl(Base):
+class Add_Impl(Base):
 
     @staticmethod
     def apply(x, y):
         return  x + y
 
-class _Sub_Impl(Base):
+class Sub_Impl(Base):
 
     @staticmethod
     def apply(x, y):
         return  x - y
 
-class _Condition_Impl(object):
+class Condition_Impl(object):
 
     def __call__(self):
         c = self.cond()
@@ -44,7 +44,7 @@ class _Condition_Impl(object):
 
 from marketsim.gen._out._side import Side
 
-class _Conditional_Base(object):
+class Conditional_Base(object):
 
     def __call__(self):
         x = self.x()
@@ -55,37 +55,37 @@ class _Conditional_Base(object):
         from marketsim.gen._out.ops._condition import Condition
         return Condition(self, ifpart, elsepart)
 
-class _Equal_Impl(_Conditional_Base):
+class Equal_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):
         return x == y
 
-class _NotEqual_Impl(_Conditional_Base):
+class NotEqual_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):
         return x != y
 
-class _Less_Impl(_Conditional_Base):
+class Less_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):
         return x < y
 
-class _Greater_Impl(_Conditional_Base):
+class Greater_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):
         return x > y
 
-class _LessEqual_Impl(_Conditional_Base):
+class LessEqual_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):
         return x <= y
 
-class _GreaterEqual_Impl(_Conditional_Base):
+class GreaterEqual_Impl(Conditional_Base):
 
     @staticmethod
     def apply(x, y):

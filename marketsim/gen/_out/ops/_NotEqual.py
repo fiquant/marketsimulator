@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _NotEqual_Impl
+from marketsim.gen._intrinsic.ops import NotEqual_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "NotEqual"])
-class NotEqual_IObservableFloatIObservableFloat(Observablebool,_NotEqual_Impl):
+class NotEqual_IObservableFloatIObservableFloat(Observablebool,NotEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class NotEqual_IObservableFloatIObservableFloat(Observablebool,_NotEqual_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _NotEqual_Impl.__init__(self)
+        NotEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -31,13 +31,13 @@ class NotEqual_IObservableFloatIObservableFloat(Observablebool,_NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % self.__dict__
     
+from marketsim.gen._intrinsic.ops import NotEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _NotEqual_Impl
 @registry.expose(["Ops", "NotEqual"])
-class NotEqual_FloatIObservableFloat(Observablebool,_NotEqual_Impl):
+class NotEqual_FloatIObservableFloat(Observablebool,NotEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class NotEqual_FloatIObservableFloat(Observablebool,_NotEqual_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _NotEqual_Impl.__init__(self)
+        NotEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -66,13 +66,13 @@ class NotEqual_FloatIObservableFloat(Observablebool,_NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % self.__dict__
     
+from marketsim.gen._intrinsic.ops import NotEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
-from marketsim.gen._intrinsic.ops import _NotEqual_Impl
 @registry.expose(["Ops", "NotEqual"])
-class NotEqual_IObservableFloatFloat(Observablebool,_NotEqual_Impl):
+class NotEqual_IObservableFloatFloat(Observablebool,NotEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class NotEqual_IObservableFloatFloat(Observablebool,_NotEqual_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _NotEqual_Impl.__init__(self)
+        NotEqual_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class NotEqual_IObservableFloatFloat(Observablebool,_NotEqual_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import _NotEqual_Impl
+from marketsim.gen._intrinsic.ops import NotEqual_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "NotEqual"])
-class NotEqual_FloatFloat(Observablebool,_NotEqual_Impl):
+class NotEqual_FloatFloat(Observablebool,NotEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class NotEqual_FloatFloat(Observablebool,_NotEqual_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _NotEqual_Impl.__init__(self)
+        NotEqual_Impl.__init__(self)
     
     @property
     def label(self):

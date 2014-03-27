@@ -1,2 +1,2 @@
-class _LastPrice_Base(object):
+class LastPrice_Base(object):
     pass

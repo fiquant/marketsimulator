@@ -1,15 +1,15 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._intrinsic.strategy.basic import _Empty_Impl
+from marketsim.gen._intrinsic.strategy.basic import Empty_Impl
 @registry.expose(["Strategy", "Empty"])
-class Empty_(ISingleAssetStrategy,_Empty_Impl):
+class Empty_(ISingleAssetStrategy,Empty_Impl):
     """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        _Empty_Impl.__init__(self)
+        Empty_Impl.__init__(self)
     
     @property
     def label(self):

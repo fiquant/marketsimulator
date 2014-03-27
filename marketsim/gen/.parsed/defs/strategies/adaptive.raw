@@ -51,7 +51,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.suspendable._Suspendable_Impl
+| | | | | | | | - strategy.suspendable.Suspendable_Impl
 | | | | - FunDef:
 | | | | | - TradeIfProfitable
 | | | | | - List:
@@ -213,7 +213,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.multiarmed_bandit._MultiarmedBandit2_Impl
+| | | | | | | | - strategy.multiarmed_bandit.MultiarmedBandit2_Impl
 | | | | - FunDef:
 | | | | | - ChooseTheBest
 | | | | | - List:
@@ -276,7 +276,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.choose_the_best._ChooseTheBest_Impl
+| | | | | | | | - strategy.choose_the_best.ChooseTheBest_Impl
 | | - List:
 | | - List:
 | | - false

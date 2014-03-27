@@ -1,6 +1,6 @@
 from marketsim import event, _
 
-class _ToRecord_Impl(object):  # TODO: should the source be split into dataSource and eventSource?
+class ToRecord_Impl(object):  # TODO: should the source be split into dataSource and eventSource?
     
     def __init__(self):
         self.attributes = getattr(self.source, 'attributes', {})
@@ -72,7 +72,7 @@ class _ToRecord_Impl(object):  # TODO: should the source be split into dataSourc
     def drop(self): # later a more sophisticated protocol would be introduced
         self._data = []
 
-class _VolumeLevels_Impl(_ToRecord_Impl):
+class VolumeLevels_Impl(ToRecord_Impl):
 
     @property
     def _volumes(self):

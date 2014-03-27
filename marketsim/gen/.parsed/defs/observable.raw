@@ -55,7 +55,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - observable.on_every_dt._OnEveryDt_Impl
+| | | | | | | | - observable.on_every_dt.OnEveryDt_Impl
 | | | | | | - Attribute:
 | | | | | | | - label
 | | | | | | | - [%(x)s]_dt=%(dt)s
@@ -156,7 +156,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - observable.breaks_at_changes._BreaksAtChanges_Impl
+| | | | | | | | - observable.breaks_at_changes.BreaksAtChanges_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

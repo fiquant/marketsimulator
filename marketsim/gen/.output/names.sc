@@ -4,7 +4,7 @@ package side
 {
     /** Observable always equal to Buy side
      */
-    @python.intrinsic.observable("side._Buy_Impl")
+    @python.intrinsic.observable("side.Buy_Impl")
     def observableBuy() : .IObservable[.Side]
     
     /** Function always returning None of type Side
@@ -17,12 +17,12 @@ package side
     
     /** Observable always equal to None of type Side
      */
-    @python.intrinsic.observable("side._None_Impl")
+    @python.intrinsic.observable("side.None_Impl")
     def observableNothing() : .IObservable[.Side]
     
     /** Observable always equal to Sell side
      */
-    @python.intrinsic.observable("side._Sell_Impl")
+    @python.intrinsic.observable("side.Sell_Impl")
     def observableSell() : .IObservable[.Side]
     
     /** Function always returning Sell side
@@ -37,12 +37,12 @@ package event
 {
     /** Event that fires every *intervalFunc* moments of time
      */
-    @python.intrinsic("event._Every_Impl")
+    @python.intrinsic("event.Every_Impl")
     def Every(/** interval of time between two events */ intervalFunc = .math.random.expovariate(1.0)) : .IEvent
     
     /** Event that once at *delay*
      */
-    @python.intrinsic("event._After_Impl")
+    @python.intrinsic("event.After_Impl")
     def After(/** when the event should be fired */ delay = .constant(10.0)) : .IEvent
     
 }
@@ -137,7 +137,7 @@ package veusz
 {
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
-    @python.intrinsic("veusz._Graph_Impl")
+    @python.intrinsic("veusz.Graph_Impl")
     def Graph(name = "graph") : .IGraph
     
 }
@@ -146,77 +146,77 @@ package veusz
 package ops
 {
     @label = "-%(x)s"
-    @python.intrinsic.observable("ops._Negate_Impl")
+    @python.intrinsic.observable("ops.Negate_Impl")
     def Negate(x = .constant(1.0)) : .IFunction[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "+"
-    @python.intrinsic.observable("ops._Add_Impl")
+    @python.intrinsic.observable("ops.Add_Impl")
     def Add(x = .constant(1.0),
             y = .constant(1.0)) : .IFunction[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond = .true(),
                   ifpart = .constant(1.0),
                   elsepart = .constant(1.0)) : .IFunction[.Float]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
-    @python.intrinsic.observable("ops._Condition_Impl")
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond = .true(),
                   ifpart = .side.Sell(),
                   elsepart = .side.Buy()) : .IFunction[.Side]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
-    @python.intrinsic.observable("ops._Less_Impl")
+    @python.intrinsic.observable("ops.Less_Impl")
     def Less(x = .constant(1.0),
              y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
-    @python.intrinsic.observable("ops._Mul_Impl")
+    @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x = .constant(1.0),
             y = .constant(1.0)) : .IFunction[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<>"
-    @python.intrinsic.observable("ops._NotEqual_Impl")
+    @python.intrinsic.observable("ops.NotEqual_Impl")
     def NotEqual(x = .constant(1.0),
                  y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">="
-    @python.intrinsic.observable("ops._GreaterEqual_Impl")
+    @python.intrinsic.observable("ops.GreaterEqual_Impl")
     def GreaterEqual(x = .constant(1.0),
                      y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "-"
-    @python.intrinsic.observable("ops._Sub_Impl")
+    @python.intrinsic.observable("ops.Sub_Impl")
     def Sub(x = .constant(1.0),
             y = .constant(1.0)) : .IFunction[.Float]
     
     @label = "\\frac{%(x)s}{%(y)s}"
-    @python.intrinsic.observable("ops._Div_Impl")
+    @python.intrinsic.observable("ops.Div_Impl")
     def Div(x = .constant(1.0),
             y = .constant(1.0)) : .IFunction[.Float]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<="
-    @python.intrinsic.observable("ops._LessEqual_Impl")
+    @python.intrinsic.observable("ops.LessEqual_Impl")
     def LessEqual(x = .constant(1.0),
                   y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "=="
-    @python.intrinsic.observable("ops._Equal_Impl")
+    @python.intrinsic.observable("ops.Equal_Impl")
     def Equal(x = .constant(1.0),
               y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = ">"
-    @python.intrinsic.observable("ops._Greater_Impl")
+    @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x = .constant(1.0),
                 y = .constant(1.0)) : .IFunction[.Boolean]
     
@@ -491,7 +491,7 @@ package math
     
     /** A discrete signal with user-defined increments.
      */
-    @python.intrinsic("observable.randomwalk._RandomWalk_Impl")
+    @python.intrinsic("observable.randomwalk.RandomWalk_Impl")
     @label = "%(name)s"
     def RandomWalk(/** initial value of the signal */ initialValue = 0.0,
                    /** increment function */ deltaDistr = .math.random.normalvariate(0.0,1.0),
@@ -542,7 +542,7 @@ package math
     /** Function returning first derivative on time of *x*
      * *x* should provide *derivative* member
      */
-    @python.intrinsic("observable.derivative._Derivative_Impl")
+    @python.intrinsic("observable.derivative.Derivative_Impl")
     @label = "\\frac{d%(x)s}{dt}"
     def Derivative(x = .math.Avg(.math.EW()) : .IDifferentiable) : () => .Float
     
@@ -1273,7 +1273,7 @@ package strategy
         /** Function returning an array of length *len(array)*
          *  having 1 at the index of the maximal element and 0 are at the rest
          */
-        @python.intrinsic("strategy.weight._ChooseTheBest_Impl")
+        @python.intrinsic("strategy.weight.ChooseTheBest_Impl")
         @curried("array")
         def ChooseTheBest(array : .Optional[.List[.Float]] = []) : .IFunction[.List[.Float]]
         
@@ -1292,7 +1292,7 @@ package strategy
          *
          * TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
          */
-        @python.intrinsic("strategy.weight._Score_Impl")
+        @python.intrinsic("strategy.weight.Score_Impl")
         @curried("trader")
         def Score(/** account in question */ trader : .IAccount = .trader.SingleProxy()) : .IFunction[.Float]
         
@@ -1325,7 +1325,7 @@ package strategy
         
         /** Identity function for an array of floats
          */
-        @python.intrinsic("strategy.weight._Identity_Impl")
+        @python.intrinsic("strategy.weight.Identity_Impl")
         @curried("array")
         def IdentityL(array : .Optional[.List[.Float]] = []) : .IFunction[.List[.Float]]
         
@@ -1428,7 +1428,7 @@ package strategy
         /** Associated with a strategy account that tracks
          *  how orders sent by the strategy have been actually traded
          */
-        @python.intrinsic("strategy.account._Account_Impl")
+        @python.intrinsic("strategy.account.Account_Impl")
         @curried("inner")
         def Real(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
@@ -1437,7 +1437,7 @@ package strategy
          *  (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
          *  but we want evaluate in any case would it be profitable or not)
          */
-        @python.intrinsic("strategy.account._VirtualMarket_Impl")
+        @python.intrinsic("strategy.account.VirtualMarket_Impl")
         @curried("inner")
         def VirtualMarket(/** strategy to track */ inner : .Optional[.ISingleAssetStrategy] = .strategy.Empty()) : .IAccount
         
@@ -1450,7 +1450,7 @@ package strategy
     /** Creates a strategy combining two strategies
      *  Can be considered as a particular case of Array strategy
      */
-    @python.intrinsic("strategy.combine._Combine_Impl")
+    @python.intrinsic("strategy.combine.Combine_Impl")
     def Combine(A = .strategy.Empty(),
                 B = .strategy.Empty()) : .ISingleAssetStrategy
     
@@ -1460,14 +1460,14 @@ package strategy
      * It can be considered as a particular case for MultiArmedBandit strategy with
      * *corrector* parameter set to *chooseTheBest*
      */
-    @python.intrinsic("strategy.choose_the_best._ChooseTheBest_Impl")
+    @python.intrinsic("strategy.choose_the_best.ChooseTheBest_Impl")
     def ChooseTheBest(/** original strategies that can be suspended */ strategies = [.strategy.Empty()],
                       /** function creating phantom strategy used for efficiency estimation */ account = .strategy.account.virtualMarket(),
                       /** function estimating is the strategy efficient or not */ performance = .strategy.weight.efficiencyTrend()) : .ISingleAssetStrategy
     
     /** Strategy that wraps another strategy and passes its orders only if *predicate* is true
      */
-    @python.intrinsic("strategy.suspendable._Suspendable_Impl")
+    @python.intrinsic("strategy.suspendable.Suspendable_Impl")
     def Suspendable(/** wrapped strategy */ inner = .strategy.Empty(),
                     /** predicate to evaluate */ predicate = .true()) : .ISingleAssetStrategy
     
@@ -1476,7 +1476,7 @@ package strategy
      * Once an ask at one venue becomes lower than a bid at another venue
      * it sends market sell and buy orders in order to exploit this arbitrage possibility
      */
-    @python.intrinsic("strategy.arbitrage._Arbitrage_Impl")
+    @python.intrinsic("strategy.arbitrage.Arbitrage_Impl")
     def Arbitrage() : .IMultiAssetStrategy
     
     /** Adaptive strategy that evaluates *inner* strategy efficiency
@@ -1492,12 +1492,12 @@ package strategy
     
     /** Creates a strategy combining an array of strategies
      */
-    @python.intrinsic("strategy.combine._Array_Impl")
+    @python.intrinsic("strategy.combine.Array_Impl")
     def Array(/** strategies to combine */ strategies = [.strategy.Empty()]) : .ISingleAssetStrategy
     
     /** Empty strategy doing nothing
      */
-    @python.intrinsic("strategy.basic._Empty_Impl")
+    @python.intrinsic("strategy.basic.Empty_Impl")
     def Empty() : .ISingleAssetStrategy
     
     /** A composite strategy initialized with an array of strategies.
@@ -1507,7 +1507,7 @@ package strategy
      * These weights are used to choose randomly a strategy to run for the next quant of time.
      * All other strategies are suspended
      */
-    @python.intrinsic("strategy.multiarmed_bandit._MultiarmedBandit2_Impl")
+    @python.intrinsic("strategy.multiarmed_bandit.MultiarmedBandit2_Impl")
     def MultiArmedBandit(/** original strategies that can be suspended */ strategies = [.strategy.Empty()],
                          /** function creating a virtual account used
                            * to estimate efficiency of the strategy itself */ account = .strategy.account.virtualMarket(),
@@ -1521,13 +1521,13 @@ package strategy
      *  and in some moments of time it randomly chooses an order and cancels it
      *  Note: a similar effect can be obtained using order.WithExpiry meta orders
      */
-    @python.intrinsic("strategy.canceller._Canceller_Impl")
+    @python.intrinsic("strategy.canceller.Canceller_Impl")
     def Canceller(/** intervals between order cancellations */ cancellationIntervalDistr = .math.random.expovariate(1.0)) : .ISingleAssetStrategy
     
     /** Generic strategy that wakes up on events given by *eventGen*,
      *  creates an order via *orderFactory* and sends the order to the market using its trader
      */
-    @python.intrinsic("strategy.generic._Generic_Impl")
+    @python.intrinsic("strategy.generic.Generic_Impl")
     @method = "Strategy"
     def Generic(/** order factory function*/ orderFactory = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen = .event.Every()) : .ISingleAssetStrategy
@@ -1561,7 +1561,7 @@ package trader
     /** Phantom trader that is used to refer to the current trader
      *  (normally it is used to define trader properties and strategies)
      */
-    @python.intrinsic("trader.proxy._Single_Impl")
+    @python.intrinsic("trader.proxy.Single_Impl")
     @label = "N/A"
     def SingleProxy() : .ISingleAssetTrader
     
@@ -1569,7 +1569,7 @@ package trader
      *  It can be considered as a composition of single asset traders and multi asset strategies
      *  At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
      */
-    @python.intrinsic("trader.classes._MultiAsset_Impl")
+    @python.intrinsic("trader.classes.MultiAsset_Impl")
     @label = "%(name)s"
     def MultiAsset(/** defines accounts for every asset to trade */ traders = [] : .List[.ISingleAssetTrader],
                    /** multi asset strategy run by the trader */ strategy = .strategy.Arbitrage(),
@@ -1589,7 +1589,7 @@ package trader
     
     /** A trader that trades a single asset on a single market
      */
-    @python.intrinsic("trader.classes._SingleAsset_Impl")
+    @python.intrinsic("trader.classes.SingleAsset_Impl")
     @label = "%(name)s"
     def SingleAsset(/** order book for the asset being traded */ orderBook : .IOrderBook,
                     /** strategy run by the trader */ strategy = .strategy.Empty(),
@@ -1607,7 +1607,7 @@ package orderbook
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
      */
-    @python.intrinsic("orderbook.of_trader._Proxy_Impl")
+    @python.intrinsic("orderbook.of_trader.Proxy_Impl")
     @label = "N/A"
     def Proxy() : .IOrderBook
     
@@ -1626,7 +1626,7 @@ package orderbook
     
     /** Returns tick size for the order *book*
      */
-    @python.intrinsic("orderbook.props._TickSize_Impl")
+    @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book = .orderbook.OfTrader()) : () => .Price
     
     /** MidPrice of order *book*
@@ -1635,24 +1635,24 @@ package orderbook
     
     /** Returns sell side order queue for *book*
      */
-    @python.intrinsic("orderbook.proxy._Asks_Impl")
+    @python.intrinsic("orderbook.proxy.Asks_Impl")
     def Asks(book = .orderbook.OfTrader()) = .orderbook.Queue(book,.side.Sell())
     
     /** Returns volume of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
-    @python.intrinsic("orderbook.last_trade._LastTradeVolume_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradeVolume_Impl")
     def LastTradeVolume(queue = .orderbook.Asks()) : .IObservable[.Volume]
     
     /** Returns buy side order queue for *book*
      */
-    @python.intrinsic("orderbook.proxy._Bids_Impl")
+    @python.intrinsic("orderbook.proxy.Bids_Impl")
     def Bids(book = .orderbook.OfTrader()) = .orderbook.Queue(book,.side.Buy())
     
     /** Returns best order price of *queue*
      *  Returns None is *queue* is empty
      */
-    @python.intrinsic("orderbook.props._BestPrice_Impl")
+    @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue = .orderbook.Asks()) : .IObservable[.Price]
     
     /** Represents latency in information propagation between two agents
@@ -1660,13 +1660,13 @@ package orderbook
      * Ensures that sending packets via links preserves their order.
      * Holds two one-way links in opposite directions.
      */
-    @python.intrinsic("orderbook.link._TwoWayLink_Impl")
+    @python.intrinsic("orderbook.link.TwoWayLink_Impl")
     def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up = .orderbook.Link(),
                    /** Backward link (normally from a market to a trader)*/ down = .orderbook.Link()) : .ITwoWayLink
     
     /** Returns order queue of order *book* for trade *side*
      */
-    @python.intrinsic("orderbook.proxy._Queue_Impl")
+    @python.intrinsic("orderbook.proxy.Queue_Impl")
     def Queue(book = .orderbook.OfTrader(),
               side = .side.Sell()) : .IOrderQueue
     
@@ -1674,7 +1674,7 @@ package orderbook
      *
      *  May be used only in objects that are held by traders (so it is used in trader properties and strategies)
      */
-    @python.intrinsic("orderbook.of_trader._OfTrader_Impl")
+    @python.intrinsic("orderbook.of_trader.OfTrader_Impl")
     @label = "N/A"
     @method = "Orderbook"
     def OfTrader(Trader = .trader.SingleProxy() : .IAccount) : .IOrderBook
@@ -1703,13 +1703,13 @@ package orderbook
     /** Returns last defined price at *queue*
      *  Returns None is *queue* has been always empty
      */
-    @python.intrinsic("orderbook.last_price._LastPrice_Impl")
+    @python.intrinsic("orderbook.last_price.LastPrice_Impl")
     def LastPrice(queue = .orderbook.Asks()) : .IObservable[.Price]
     
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides
      */
-    @python.intrinsic("orderbook.local._Local_Impl")
+    @python.intrinsic("orderbook.local.Local_Impl")
     @label = "%(name)s"
     def Local(name = "-orderbook-",
               tickSize = 0.01,
@@ -1719,7 +1719,7 @@ package orderbook
     /** Represent an *orderbook* from point of view of a remote trader connected
      * to the market by means of a *link* that introduces some latency in information propagation
      */
-    @python.intrinsic("orderbook.remote._Remote_Impl")
+    @python.intrinsic("orderbook.remote.Remote_Impl")
     @label = "%(orderbook)s.name^remote"
     def Remote(orderbook = .orderbook.Local(),
                link = .orderbook.TwoWayLink(),
@@ -1738,7 +1738,7 @@ package orderbook
      * (normally between a trader and a market).
      * Ensures that sending packets via a link preserves their order.
      */
-    @python.intrinsic("orderbook.link._Link_Impl")
+    @python.intrinsic("orderbook.link.Link_Impl")
     def Link(/** function called for each packet in order to determine
                * when it will appear at the end point*/ latency = .const(0.001)) : .ILink
     
@@ -1749,7 +1749,7 @@ package orderbook
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
-    @python.intrinsic("orderbook.last_trade._LastTradePrice_Impl")
+    @python.intrinsic("orderbook.last_trade.LastTradePrice_Impl")
     def LastTradePrice(queue = .orderbook.Asks()) : .IObservable[.Price]
     
 }
@@ -1759,7 +1759,7 @@ package observable
 {
     /** Discretizes function *x* at even time steps *dt*
      */
-    @python.intrinsic("observable.on_every_dt._OnEveryDt_Impl")
+    @python.intrinsic("observable.on_every_dt.OnEveryDt_Impl")
     @label = "[%(x)s]_dt=%(dt)s"
     @observe_args = "no"
     def OnEveryDt(/** function to discretize */ x = .constant(1.0),
@@ -1777,7 +1777,7 @@ package observable
     /** Observable listening to *source*
      *  When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
      */
-    @python.intrinsic("observable.breaks_at_changes._BreaksAtChanges_Impl")
+    @python.intrinsic("observable.breaks_at_changes.BreaksAtChanges_Impl")
     def BreaksAtChanges(source = .const(1.0)) : .IObservable[.Float]
     
 }
@@ -1865,21 +1865,21 @@ def false() = .observableFalse() : .IFunction[.Boolean]
 /** Trivial observable always returning *True*
  */
 @category = "Basic"
-@python.intrinsic.observable("_constant._True_Impl")
+@python.intrinsic.observable("_constant.True_Impl")
 @label = "True"
 def observableTrue() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *undefined* or *None* value
  */
 @category = "Basic"
-@python.intrinsic("_constant._Null_Impl")
+@python.intrinsic("_constant.Null_Impl")
 def null() : () => .Float
 
 /** Time serie to store and render it after on a graph
  *  Used to specify what data should be collected about order books and traders
  */
 @category = "Basic"
-@python.intrinsic("timeserie._ToRecord_Impl")
+@python.intrinsic("timeserie.ToRecord_Impl")
 @label = "%(source)s"
 def TimeSerie(source = .const(0.0) : .IObservable[.Any],
               graph = .veusz.Graph(),
@@ -1889,14 +1889,14 @@ def TimeSerie(source = .const(0.0) : .IObservable[.Any],
 /** Trivial observable always returning *False*
  */
 @category = "Basic"
-@python.intrinsic.observable("_constant._False_Impl")
+@python.intrinsic.observable("_constant.False_Impl")
 @label = "False"
 def observableFalse() : .IObservable[.Boolean]
 
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
-@python.intrinsic.observable("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant.Constant_Impl")
 @label = "C=%(x)s"
 @trivialObservable = "true"
 def const(x = 1.0) : .IObservable[.Float]
@@ -1904,7 +1904,7 @@ def const(x = 1.0) : .IObservable[.Float]
 /** Trivial observable always returning *x*
  */
 @category = "Basic"
-@python.intrinsic.observable("_constant._Constant_Impl")
+@python.intrinsic.observable("_constant.Constant_Impl")
 @label = "C=%(x)s"
 @trivialObservable = "true"
 def const(x = 1) : .IObservable[.Int]
@@ -1937,7 +1937,7 @@ def IfDefined(x = .constant(1.0),
  * Level of volume V is a price at which cumulative volume of better orders is V
  */
 @category = "Basic"
-@python.intrinsic("timeserie._VolumeLevels_Impl")
+@python.intrinsic("timeserie.VolumeLevels_Impl")
 @label = "%(source)s"
 def volumeLevels(source : .IFunction[.IVolumeLevels],
                  graph = .veusz.Graph(),

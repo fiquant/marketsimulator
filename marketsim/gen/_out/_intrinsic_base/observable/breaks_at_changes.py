@@ -1,2 +1,2 @@
-class _BreaksAtChanges_Base(object):
+class BreaksAtChanges_Base(object):
     pass

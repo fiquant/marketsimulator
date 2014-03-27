@@ -5,10 +5,10 @@ def score():
     raise Exception('Cannot find suitable overload for score('++')')
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.strategy.weight import _Score_Impl
+from marketsim.gen._intrinsic.strategy.weight import Score_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Strategy", "Score"])
-class Score_IAccount(IFunctionfloat,_Score_Impl):
+class Score_IAccount(IFunctionfloat,Score_Impl):
     """  Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
@@ -19,7 +19,7 @@ class Score_IAccount(IFunctionfloat,_Score_Impl):
         from marketsim import rtti
         self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         rtti.check_fields(self)
-        _Score_Impl.__init__(self)
+        Score_Impl.__init__(self)
     
     @property
     def label(self):

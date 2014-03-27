@@ -1,2 +1,2 @@
-class _RandomWalk_Base(object):
+class RandomWalk_Base(object):
     pass

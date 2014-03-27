@@ -122,7 +122,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - side._Sell_Impl
+| | | | | | | | - side.Sell_Impl
 | | | | - FunDef:
 | | | | | - observableBuy
 | | | | | - List:
@@ -150,7 +150,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - side._Buy_Impl
+| | | | | | | | - side.Buy_Impl
 | | | | - FunDef:
 | | | | | - observableNothing
 | | | | | - List:
@@ -178,7 +178,7 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | | | - observable
 | | | | | | | - List:
-| | | | | | | | - side._None_Impl
+| | | | | | | | - side.None_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

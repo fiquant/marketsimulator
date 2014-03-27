@@ -9,7 +9,7 @@ class LastTrade(object):
     def _impl(self):
         return self.queue.lastTrade
 
-class _LastTradePrice_Impl(LastTrade):
+class LastTradePrice_Impl(LastTrade):
 
     def __call__(self):
         trade = self._impl()
@@ -19,7 +19,7 @@ class _LastTradePrice_Impl(LastTrade):
     def label(self):
         return 'LastTradePrice_{' + self.queue.label + '}'
 
-class _LastTradeVolume_Impl(LastTrade):
+class LastTradeVolume_Impl(LastTrade):
 
     def __call__(self):
         return self._impl()[1]

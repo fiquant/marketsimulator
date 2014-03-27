@@ -396,7 +396,7 @@ Definitions:
 | | | | | | | | | | | | - python
 | | | | | | | | | | | | - intrinsic
 | | | | | | | | | | - List:
-| | | | | | | | | | | - observable.derivative._Derivative_Impl
+| | | | | | | | | | | - observable.derivative.Derivative_Impl
 | | | | | | | | | - Attribute:
 | | | | | | | | | | - label
 | | | | | | | | | | - \\frac{d%(x)s}{dt}

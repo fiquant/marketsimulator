@@ -54,7 +54,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.generic._Generic_Impl
+| | | | | | | | - strategy.generic.Generic_Impl
 | | | | | | - Attribute:
 | | | | | | | - method
 | | | | | | | - Strategy
@@ -100,7 +100,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.combine._Combine_Impl
+| | | | | | | | - strategy.combine.Combine_Impl
 | | | | - FunDef:
 | | | | | - Array
 | | | | | - List:
@@ -135,7 +135,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.combine._Array_Impl
+| | | | | | | | - strategy.combine.Array_Impl
 | | | | - FunDef:
 | | | | | - Canceller
 | | | | | - List:
@@ -174,7 +174,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.canceller._Canceller_Impl
+| | | | | | | | - strategy.canceller.Canceller_Impl
 | | | | - FunDef:
 | | | | | - Empty
 | | | | | - List:
@@ -196,7 +196,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.basic._Empty_Impl
+| | | | | | | | - strategy.basic.Empty_Impl
 | | | | - FunDef:
 | | | | | - Arbitrage
 | | | | | - List:
@@ -221,7 +221,7 @@ Definitions:
 | | | | | | | | | - python
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
-| | | | | | | | - strategy.arbitrage._Arbitrage_Impl
+| | | | | | | | - strategy.arbitrage.Arbitrage_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

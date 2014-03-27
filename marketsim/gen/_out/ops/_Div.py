@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Div_Impl
+from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Div"])
-class Div_IObservableFloatIObservableFloat(Observablefloat,_Div_Impl):
+class Div_IObservableFloatIObservableFloat(Observablefloat,Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -18,7 +18,7 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,_Div_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Div_Impl.__init__(self)
+        Div_Impl.__init__(self)
     
     @property
     def label(self):
@@ -31,13 +31,13 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,_Div_Impl):
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % self.__dict__
     
+from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.ops import _Div_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Div"])
-class Div_FloatIObservableFloat(Observablefloat,_Div_Impl):
+class Div_FloatIObservableFloat(Observablefloat,Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -53,7 +53,7 @@ class Div_FloatIObservableFloat(Observablefloat,_Div_Impl):
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
-        _Div_Impl.__init__(self)
+        Div_Impl.__init__(self)
     
     @property
     def label(self):
@@ -66,13 +66,13 @@ class Div_FloatIObservableFloat(Observablefloat,_Div_Impl):
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % self.__dict__
     
+from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.ops import _Div_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Div"])
-class Div_IObservableFloatFloat(Observablefloat,_Div_Impl):
+class Div_IObservableFloatFloat(Observablefloat,Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -88,7 +88,7 @@ class Div_IObservableFloatFloat(Observablefloat,_Div_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Div_Impl.__init__(self)
+        Div_Impl.__init__(self)
     
     @property
     def label(self):
@@ -103,10 +103,10 @@ class Div_IObservableFloatFloat(Observablefloat,_Div_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Div_Impl
+from marketsim.gen._intrinsic.ops import Div_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Div"])
-class Div_FloatFloat(Observablefloat,_Div_Impl):
+class Div_FloatFloat(Observablefloat,Div_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
@@ -120,7 +120,7 @@ class Div_FloatFloat(Observablefloat,_Div_Impl):
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Div_Impl.__init__(self)
+        Div_Impl.__init__(self)
     
     @property
     def label(self):

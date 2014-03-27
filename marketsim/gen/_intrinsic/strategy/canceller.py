@@ -1,7 +1,7 @@
 import random
 from marketsim import event, request, _, types
 
-class _Canceller_Impl(object):
+class Canceller_Impl(object):
     """ Randomly cancels created orders in specific moments of time    
     """
     

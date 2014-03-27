@@ -1,6 +1,6 @@
-class _Buy_Base(object):
+class Sell_Base(object):
     pass
-class _None_Base(object):
+class Buy_Base(object):
     pass
-class _Sell_Base(object):
+class None_Base(object):
     pass

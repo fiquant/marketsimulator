@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Negate_Impl
+from marketsim.gen._intrinsic.ops import Negate_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Negate"])
-class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
+class Negate_IObservableFloat(Observablefloat,Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -16,7 +16,7 @@ class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.x, self.fire, self)
         rtti.check_fields(self)
-        _Negate_Impl.__init__(self)
+        Negate_Impl.__init__(self)
     
     @property
     def label(self):
@@ -30,10 +30,10 @@ class Negate_IObservableFloat(Observablefloat,_Negate_Impl):
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
-from marketsim.gen._intrinsic.ops import _Negate_Impl
+from marketsim.gen._intrinsic.ops import Negate_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Ops", "Negate"])
-class Negate_Float(Observablefloat,_Negate_Impl):
+class Negate_Float(Observablefloat,Negate_Impl):
     """ 
     """ 
     def __init__(self, x = None):
@@ -45,7 +45,7 @@ class Negate_Float(Observablefloat,_Negate_Impl):
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Negate_Impl.__init__(self)
+        Negate_Impl.__init__(self)
     
     @property
     def label(self):

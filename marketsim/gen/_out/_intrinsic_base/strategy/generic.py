@@ -1,2 +1,2 @@
-class _Generic_Base(object):
+class Generic_Base(object):
     pass

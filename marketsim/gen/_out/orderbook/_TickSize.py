@@ -1,9 +1,9 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.orderbook.props import _TickSize_Impl
+from marketsim.gen._intrinsic.orderbook.props import TickSize_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "TickSize"])
-class TickSize_IOrderBook(IFunctionfloat,_TickSize_Impl):
+class TickSize_IOrderBook(IFunctionfloat,TickSize_Impl):
     """ 
     """ 
     def __init__(self, book = None):
@@ -12,7 +12,7 @@ class TickSize_IOrderBook(IFunctionfloat,_TickSize_Impl):
         from marketsim import rtti
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         rtti.check_fields(self)
-        _TickSize_Impl.__init__(self)
+        TickSize_Impl.__init__(self)
     
     @property
     def label(self):

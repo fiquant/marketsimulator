@@ -1,11 +1,11 @@
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._out._itwowaylink import ITwoWayLink
-from marketsim.gen._intrinsic.orderbook.remote import _Remote_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
+from marketsim.gen._intrinsic.orderbook.remote import Remote_Impl
 from marketsim import listOf
 from marketsim import registry
 @registry.expose(["Asset", "Remote"])
-class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,_Remote_Impl):
+class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
     """  to the market by means of a *link* that introduces some latency in information propagation
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
@@ -17,7 +17,7 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,_Remote_Impl):
         self.link = link if link is not None else deref_opt(_orderbook_TwoWayLink_ILinkILink())
         self.timeseries = timeseries if timeseries is not None else []
         rtti.check_fields(self)
-        _Remote_Impl.__init__(self)
+        Remote_Impl.__init__(self)
     
     @property
     def label(self):

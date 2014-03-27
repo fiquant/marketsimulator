@@ -1,10 +1,10 @@
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observablefloat,_Condition_Impl):
+class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -22,7 +22,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -36,14 +36,14 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,_Condition_Impl):
+class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -63,7 +63,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -77,13 +77,13 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,_Condition_Impl):
+class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -101,7 +101,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,_Conditi
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -115,14 +115,14 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,_Conditi
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,_Condition_Impl):
+class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -141,7 +141,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,_Conditi
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -155,14 +155,14 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,_Conditi
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,_Condition_Impl):
+class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -181,7 +181,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,_Conditi
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -195,14 +195,14 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,_Conditi
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanIObservableSideIObservableSide(ObservableSide,_Condition_Impl):
+class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -222,7 +222,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,_Condition_
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -236,7 +236,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,_Condition_
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -244,7 +244,7 @@ from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanSideIObservableSide(ObservableSide,_Condition_Impl):
+class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -264,7 +264,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,_Condition_
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -278,7 +278,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,_Condition_
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
@@ -286,7 +286,7 @@ from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanIObservableSideSide(ObservableSide,_Condition_Impl):
+class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -306,7 +306,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,_Condition_
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -320,14 +320,14 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,_Condition_
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanFloatIObservableFloat(Observablefloat,_Condition_Impl):
+class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -346,7 +346,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -360,14 +360,14 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanIObservableFloatFloat(Observablefloat,_Condition_Impl):
+class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -386,7 +386,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -400,13 +400,13 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanFloatFloat(Observablefloat,_Condition_Impl):
+class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -424,7 +424,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -438,7 +438,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
@@ -446,7 +446,7 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanSideIObservableSide(ObservableSide,_Condition_Impl):
+class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -466,7 +466,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
         event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -480,7 +480,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
@@ -488,7 +488,7 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanIObservableSideSide(ObservableSide,_Condition_Impl):
+class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -508,7 +508,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -522,14 +522,14 @@ class Condition_BooleanIObservableSideSide(ObservableSide,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_IObservableBooleanSideSide(ObservableSide,_Condition_Impl):
+class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -549,7 +549,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -563,13 +563,13 @@ class Condition_IObservableBooleanSideSide(ObservableSide,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanFloatFloat(Observablefloat,_Condition_Impl):
+class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -586,7 +586,7 @@ class Condition_BooleanFloatFloat(Observablefloat,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
@@ -600,14 +600,14 @@ class Condition_BooleanFloatFloat(Observablefloat,_Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % self.__dict__
     
-from marketsim.gen._intrinsic.ops import _Condition_Impl
+from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import registry
 from marketsim.gen._out._observable._observableside import ObservableSide
 @registry.expose(["Ops", "Condition"])
-class Condition_BooleanSideSide(ObservableSide,_Condition_Impl):
+class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
@@ -626,7 +626,7 @@ class Condition_BooleanSideSide(ObservableSide,_Condition_Impl):
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
         
         rtti.check_fields(self)
-        _Condition_Impl.__init__(self)
+        Condition_Impl.__init__(self)
     
     @property
     def label(self):
