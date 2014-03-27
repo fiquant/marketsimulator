@@ -17,8 +17,6 @@ object order_factory_curried
         override def call = name
     }
 
-    case class FactoryParameter(p : Typed.Parameter) extends ParameterBase
-
     def lookupOriginal(args   : List[String],
                        f      : Typed.Function) =
     {
@@ -84,8 +82,10 @@ object order_factory_curried
             with    Call
             with    DecoratedNameInX
     {
-        override type Parameter = FactoryParameter
-        def mkParam(p : Typed.Parameter) = FactoryParameter(p)
+        case class Parameter(p : Typed.Parameter) extends ParameterBase
+
+        def mkParam(p : Typed.Parameter) = Parameter(p)
+
         override val curried = f.parameters filter { p => !(x.parameters contains p) }
 
         override def factoryName = (curried map { _.name } mkString "") + "_" + original.factoryName
