@@ -22,6 +22,8 @@ class side_price_Peg_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOr
     _properties = {
         'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
     }
+    
+    
     def __repr__(self):
         return "price_Peg(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -28,6 +28,10 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         'x' : IObservablefloat,
         'elsePart' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -88,6 +92,10 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         'x' : IFunctionfloat,
         'elsePart' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -148,6 +156,10 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         'x' : IObservablefloat,
         'elsePart' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -206,6 +218,10 @@ class IfDefined_FloatFloat(Observablefloat):
         'x' : IFunctionfloat,
         'elsePart' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "If def(%(x)s) else %(elsePart)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

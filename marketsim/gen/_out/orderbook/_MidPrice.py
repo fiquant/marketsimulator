@@ -26,6 +26,8 @@ class MidPrice_IOrderBook(Observablefloat):
     _properties = {
         'book' : IOrderBook
     }
+    
+    
     def __repr__(self):
         return "MidPrice(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

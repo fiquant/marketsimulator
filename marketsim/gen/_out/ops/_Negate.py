@@ -25,6 +25,8 @@ class Negate_IObservableFloat(Observablefloat,Negate_Impl):
     _properties = {
         'x' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -54,6 +56,8 @@ class Negate_Float(Observablefloat,Negate_Impl):
     _properties = {
         'x' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -18,6 +18,8 @@ class Alpha_2_strategysideCrossingAverages(object):
     _properties = {
         'x' : CrossingAverages
     }
+    
+    
     def __repr__(self):
         return "Alpha_2(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

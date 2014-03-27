@@ -23,6 +23,12 @@ class TrendFollower_FloatFloatIOrderBook(SignalStrategy):
         'threshold' : float,
         'book' : IOrderBook
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "TrendFollower(%(alpha)s, %(threshold)s, %(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

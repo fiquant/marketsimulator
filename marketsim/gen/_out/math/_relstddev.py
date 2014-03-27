@@ -26,6 +26,8 @@ class RelStdDev_mathCumulative(Observablefloat):
     _properties = {
         'x' : Cumulative
     }
+    
+    
     def __repr__(self):
         return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -84,6 +86,8 @@ class RelStdDev_mathEW(Observablefloat):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -142,6 +146,8 @@ class RelStdDev_mathMoving(Observablefloat):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "RelStdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

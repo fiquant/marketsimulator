@@ -18,6 +18,7 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "inner_VirtualMarket" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

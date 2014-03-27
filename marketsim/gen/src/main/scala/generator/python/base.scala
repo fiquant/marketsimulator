@@ -53,6 +53,11 @@ package object base {
         def property = s"\'$name\' : " ||| ty
         def repr = s"%($name)s"
         def call = s"self.$name"
+
+        def setter = stop
+        def getter = stop
+
+        def accessors = getter | setter
     }
 
     def Def(name : String, args : Code, body : Code) = {
@@ -101,6 +106,7 @@ package object base {
         def property_fields = join_fields({ _.property }, comma + nl)
         def repr_fields = join_fields({ _.repr })
         def call_fields = join_fields({ _.call })
+        def accessors = join_fields({ _.accessors }, nl)
 
         def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
@@ -126,7 +132,7 @@ package object base {
         def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
-        def body = doc | init | label | properties | repr
+        def body = doc | init | label | properties | accessors | repr
     }
 
     trait DocString extends Printer {

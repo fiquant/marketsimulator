@@ -18,6 +18,8 @@ class Threshold_strategysideRSIbis(object):
     _properties = {
         'x' : RSIbis
     }
+    
+    
     def __repr__(self):
         return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -45,6 +47,8 @@ class Threshold_strategysideTrendFollower(object):
     _properties = {
         'x' : TrendFollower
     }
+    
+    
     def __repr__(self):
         return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -72,6 +76,8 @@ class Threshold_strategysideCrossingAverages(object):
     _properties = {
         'x' : CrossingAverages
     }
+    
+    
     def __repr__(self):
         return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -99,6 +105,8 @@ class Threshold_strategysideSignal(object):
     _properties = {
         'x' : Signal
     }
+    
+    
     def __repr__(self):
         return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -18,6 +18,8 @@ class Source_mathMoving(object):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "Moving_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -45,6 +47,8 @@ class Source_mathEW(object):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -72,6 +76,8 @@ class Source_mathmacd(object):
     _properties = {
         'x' : macd
     }
+    
+    
     def __repr__(self):
         return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -99,6 +105,8 @@ class Source_mathRSI(object):
     _properties = {
         'x' : RSI
     }
+    
+    
     def __repr__(self):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -126,6 +134,8 @@ class Source_mathCumulative(object):
     _properties = {
         'x' : Cumulative
     }
+    
+    
     def __repr__(self):
         return "Source(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

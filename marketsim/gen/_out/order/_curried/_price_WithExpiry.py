@@ -24,6 +24,10 @@ class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_fr
         'proto' : IFunctionIObservableIOrder_from_IFunctionfloat,
         'expiry' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "WithExpiry(%(proto)s, %(expiry)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

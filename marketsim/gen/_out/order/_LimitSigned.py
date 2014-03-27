@@ -31,6 +31,10 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         'signedVolume' : IFunctionfloat,
         'price' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "LimitSigned(%(signedVolume)s, %(price)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

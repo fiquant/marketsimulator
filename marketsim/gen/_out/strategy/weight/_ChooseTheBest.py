@@ -19,6 +19,8 @@ class ChooseTheBest_ListFloat(IFunctionlistOffloat,ChooseTheBest_Impl):
     _properties = {
         'array' : listOf(float)
     }
+    
+    
     def __repr__(self):
         return "ChooseTheBest(%(array)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

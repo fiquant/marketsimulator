@@ -18,6 +18,8 @@ class Delta_strategypriceMarketMaker(object):
     _properties = {
         'x' : MarketMaker
     }
+    
+    
     def __repr__(self):
         return "Delta(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -45,6 +47,8 @@ class Delta_strategypriceMarketData(object):
     _properties = {
         'x' : MarketData
     }
+    
+    
     def __repr__(self):
         return "Delta(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -32,6 +32,18 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
         '_volumes' : listOf(float),
         '_isBuy' : int
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(source)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

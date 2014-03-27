@@ -25,6 +25,12 @@ class Histogram_mathmacdFloatFloat(IFunctionfloat):
         'timeframe' : float,
         'step' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "Histogram^{%(timeframe)s}_{%(step)s}(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

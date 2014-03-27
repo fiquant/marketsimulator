@@ -25,6 +25,10 @@ class side_price_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObse
         'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide,
         'lotSize' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "price_Iceberg(%(proto)s, %(lotSize)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -29,6 +29,14 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
         '_digitsToShow' : int,
         '_smooth' : int
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(source)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -26,6 +26,8 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     _properties = {
         'signedVolume' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "MarketSigned(%(signedVolume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

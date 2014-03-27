@@ -26,6 +26,10 @@ class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOr
         'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'maxloss' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "StopLoss(%(proto)s, %(maxloss)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

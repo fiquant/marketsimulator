@@ -30,6 +30,10 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
         'x' : Cumulative,
         'epsilon' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Max_{\\epsilon}(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

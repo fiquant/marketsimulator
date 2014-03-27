@@ -17,6 +17,8 @@ class g_Int(IFunctionint):
     _properties = {
         'x' : IFunctionint
     }
+    
+    
     def __repr__(self):
         return "g(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

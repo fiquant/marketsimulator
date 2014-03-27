@@ -22,6 +22,8 @@ class Link_IObservableFloat(ILink,Link_Impl):
     _properties = {
         'latency' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "Link(%(latency)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

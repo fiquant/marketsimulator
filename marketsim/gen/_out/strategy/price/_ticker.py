@@ -18,6 +18,8 @@ class Ticker_strategypriceMarketData(object):
     _properties = {
         'x' : MarketData
     }
+    
+    
     def __repr__(self):
         return "Ticker(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

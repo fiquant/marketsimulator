@@ -28,6 +28,10 @@ class UpMovements_IObservableFloatFloat(Observablefloat):
         'source' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Ups_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

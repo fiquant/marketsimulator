@@ -28,6 +28,10 @@ class Sub_IObservableFloatIObservableFloat(Observablefloat,Sub_Impl):
         'x' : IObservablefloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}-{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -63,6 +67,10 @@ class Sub_FloatIObservableFloat(Observablefloat,Sub_Impl):
         'x' : IFunctionfloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}-{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -98,6 +106,10 @@ class Sub_IObservableFloatFloat(Observablefloat,Sub_Impl):
         'x' : IObservablefloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}-{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -130,6 +142,10 @@ class Sub_FloatFloat(Observablefloat,Sub_Impl):
         'x' : IFunctionfloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}-{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -26,6 +26,14 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
         '_digitsToShow' : int,
         'timeseries' : listOf(ITimeSerie)
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

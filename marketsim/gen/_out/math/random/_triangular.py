@@ -25,6 +25,12 @@ class triangular_FloatFloatFloat(IFunctionfloat):
         'High' : float,
         'Mode' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "triangular(%(Low)s, %(High)s, %(Mode)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

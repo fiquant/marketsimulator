@@ -19,6 +19,8 @@ class FundamentalValue_Float(FundamentalValueStrategy):
     _properties = {
         'fv' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "FundamentalValue(%(fv)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

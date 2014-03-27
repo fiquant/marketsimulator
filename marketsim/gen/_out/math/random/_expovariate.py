@@ -17,6 +17,8 @@ class expovariate_Float(IFunctionfloat):
     _properties = {
         'Lambda' : float
     }
+    
+    
     def __repr__(self):
         return "expovariate(%(Lambda)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

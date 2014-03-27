@@ -21,6 +21,8 @@ class Side_strategysideNoise(IFunctionSide):
     _properties = {
         'x' : Noise
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -82,6 +84,8 @@ class Side_strategysideMeanReversion(ObservableSide):
     _properties = {
         'x' : MeanReversion
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -142,6 +146,8 @@ class Side_strategysideRSIbis(IFunctionSide):
     _properties = {
         'x' : RSIbis
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -206,6 +212,8 @@ class Side_strategysideFundamentalValue(ObservableSide):
     _properties = {
         'x' : FundamentalValue
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -266,6 +274,8 @@ class Side_strategysideTrendFollower(IFunctionSide):
     _properties = {
         'x' : TrendFollower
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -323,6 +333,8 @@ class Side_strategysideCrossingAverages(IFunctionSide):
     _properties = {
         'x' : CrossingAverages
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -380,6 +392,8 @@ class Side_strategysideSignal(IFunctionSide):
     _properties = {
         'x' : Signal
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -444,6 +458,8 @@ class Side_strategysidePairTrading(ObservableSide):
     _properties = {
         'x' : PairTrading
     }
+    
+    
     def __repr__(self):
         return "Side(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

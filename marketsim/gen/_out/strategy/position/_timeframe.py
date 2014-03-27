@@ -18,6 +18,8 @@ class Timeframe_strategypositionRSI_linear(object):
     _properties = {
         'x' : RSI_linear
     }
+    
+    
     def __repr__(self):
         return "Timeframe(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

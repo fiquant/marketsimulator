@@ -18,6 +18,8 @@ class Fv_strategysideFundamentalValue(object):
     _properties = {
         'x' : FundamentalValue
     }
+    
+    
     def __repr__(self):
         return "Fv(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

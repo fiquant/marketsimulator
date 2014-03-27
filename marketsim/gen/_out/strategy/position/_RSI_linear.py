@@ -27,6 +27,14 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(DesiredPositionStr
         'timeframe' : float,
         'trader' : ISingleAssetTrader
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

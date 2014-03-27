@@ -19,6 +19,7 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
         
     }
     
+    
 def SingleProxy(): 
     from marketsim import rtti
     return SingleProxy_()

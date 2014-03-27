@@ -25,6 +25,10 @@ class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
         'book' : IOrderBook,
         'side' : IFunctionSide
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

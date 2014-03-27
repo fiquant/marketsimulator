@@ -25,6 +25,8 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
     _properties = {
         'source' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "BreaksAtChanges(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

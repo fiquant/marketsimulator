@@ -24,6 +24,8 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "Minimum(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

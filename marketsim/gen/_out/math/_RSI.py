@@ -22,6 +22,12 @@ class RSI_IObservableFloatFloatFloat(object):
         'timeframe' : float,
         'alpha' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

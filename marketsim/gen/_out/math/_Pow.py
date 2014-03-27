@@ -30,6 +30,10 @@ class Pow_FloatFloat(Observablefloat):
         'base' : IFunctionfloat,
         'power' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "%(base)s^{%(power)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

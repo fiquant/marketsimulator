@@ -34,6 +34,14 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
         'intervalDistr' : IFunctionfloat,
         'name' : str
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

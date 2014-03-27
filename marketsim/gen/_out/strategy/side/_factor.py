@@ -18,6 +18,8 @@ class Factor_strategysidePairTrading(object):
     _properties = {
         'x' : PairTrading
     }
+    
+    
     def __repr__(self):
         return "Factor(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

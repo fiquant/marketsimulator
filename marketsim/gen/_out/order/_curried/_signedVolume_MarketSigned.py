@@ -17,6 +17,7 @@ class signedVolume_MarketSigned_(IFunctionIObservableIOrder_from_IFunctionfloat)
     _properties = {
         
     }
+    
     def __repr__(self):
         return "MarketSigned" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -28,6 +28,10 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,GreaterEqual_
         'x' : IObservablefloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -63,6 +67,10 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,GreaterEqual_Impl):
         'x' : IFunctionfloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -98,6 +106,10 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,GreaterEqual_Impl):
         'x' : IObservablefloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -130,6 +142,10 @@ class GreaterEqual_FloatFloat(Observablebool,GreaterEqual_Impl):
         'x' : IFunctionfloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "({%(x)s}>={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

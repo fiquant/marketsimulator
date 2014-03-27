@@ -24,6 +24,8 @@ class LastPrice_IOrderQueue(Observablefloat,LastPrice_Impl):
     _properties = {
         'queue' : IOrderQueue
     }
+    
+    
     def __repr__(self):
         return "LastPrice(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

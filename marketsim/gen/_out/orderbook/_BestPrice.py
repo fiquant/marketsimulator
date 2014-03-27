@@ -24,6 +24,8 @@ class BestPrice_IOrderQueue(Observablefloat,BestPrice_Impl):
     _properties = {
         'queue' : IOrderQueue
     }
+    
+    
     def __repr__(self):
         return "BestPrice(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

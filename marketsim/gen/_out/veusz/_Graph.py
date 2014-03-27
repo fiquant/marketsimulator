@@ -18,6 +18,8 @@ class Graph_String(IGraph,Graph_Impl):
     _properties = {
         'name' : str
     }
+    
+    
     def __repr__(self):
         return "Graph(%(name)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

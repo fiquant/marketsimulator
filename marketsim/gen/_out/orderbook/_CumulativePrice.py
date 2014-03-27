@@ -34,6 +34,10 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
         'book' : IOrderBook,
         'depth' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "CumulativePrice(%(book)s, %(depth)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

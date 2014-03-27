@@ -21,6 +21,8 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
     _properties = {
         'x' : Cumulative
     }
+    
+    
     def __repr__(self):
         return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -47,6 +49,8 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -73,6 +77,8 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "Avg(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -26,6 +26,8 @@ class Sqr_IObservableFloat(Observablefloat):
     _properties = {
         'x' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "{%(x)s}^2" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -80,6 +82,8 @@ class Sqr_Float(Observablefloat):
     _properties = {
         'x' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "{%(x)s}^2" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

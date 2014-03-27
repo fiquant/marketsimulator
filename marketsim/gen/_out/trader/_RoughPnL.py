@@ -26,6 +26,8 @@ class RoughPnL_IAccount(Observablefloat):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "RoughPnL(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

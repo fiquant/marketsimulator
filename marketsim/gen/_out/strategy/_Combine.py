@@ -22,6 +22,10 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
         'A' : ISingleAssetStrategy,
         'B' : ISingleAssetStrategy
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Combine(%(A)s, %(B)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

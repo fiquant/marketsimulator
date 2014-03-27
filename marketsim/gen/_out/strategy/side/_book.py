@@ -21,6 +21,8 @@ class book_strategysideMeanReversion(IOrderBook):
     _properties = {
         'x' : MeanReversion
     }
+    
+    
     def __repr__(self):
         return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -70,6 +72,8 @@ class book_strategysideFundamentalValue(IOrderBook):
     _properties = {
         'x' : FundamentalValue
     }
+    
+    
     def __repr__(self):
         return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -119,6 +123,8 @@ class book_strategysidePairTrading(IOrderBook):
     _properties = {
         'x' : PairTrading
     }
+    
+    
     def __repr__(self):
         return "book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -177,6 +183,8 @@ class Book_strategysideTrendFollower(object):
     _properties = {
         'x' : TrendFollower
     }
+    
+    
     def __repr__(self):
         return "Book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -204,6 +212,8 @@ class Book_strategysideCrossingAverages(object):
     _properties = {
         'x' : CrossingAverages
     }
+    
+    
     def __repr__(self):
         return "Book(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

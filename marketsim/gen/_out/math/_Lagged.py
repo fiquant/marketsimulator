@@ -28,6 +28,10 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
         'source' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Lagged_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

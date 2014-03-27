@@ -41,6 +41,16 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         'normalizer' : IFunctionIFunctionfloat_from_IFunctionfloat,
         'corrector' : IFunctionIFunctionlistOffloat_from_listOffloat
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

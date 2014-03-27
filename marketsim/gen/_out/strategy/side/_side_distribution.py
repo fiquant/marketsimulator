@@ -18,6 +18,8 @@ class Side_distribution_strategysideNoise(object):
     _properties = {
         'x' : Noise
     }
+    
+    
     def __repr__(self):
         return "Side_distribution(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -18,6 +18,8 @@ class InitialValue_strategypriceLiquidityProvider(object):
     _properties = {
         'x' : LiquidityProvider
     }
+    
+    
     def __repr__(self):
         return "InitialValue(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

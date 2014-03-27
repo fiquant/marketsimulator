@@ -24,6 +24,10 @@ class side_Limit_FloatFloat(IFunctionIObservableIOrder_from_IFunctionSide):
         'price' : IFunctionfloat,
         'volume' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Limit(%(price)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

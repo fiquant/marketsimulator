@@ -20,6 +20,8 @@ class side_Market_Float(IFunctionIObservableIOrder_from_IFunctionSide):
     _properties = {
         'volume' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Market(%(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

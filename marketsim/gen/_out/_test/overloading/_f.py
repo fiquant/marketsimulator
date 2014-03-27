@@ -17,6 +17,8 @@ class f_Int(IFunctionint):
     _properties = {
         'x' : IFunctionint
     }
+    
+    
     def __repr__(self):
         return "f(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -60,6 +62,8 @@ class f_Float(IFunctionfloat):
     _properties = {
         'x' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "f(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

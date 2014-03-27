@@ -16,6 +16,8 @@ class f_AtanPow_Float(IFunctionIFunctionfloat_from_IFunctionfloat):
     _properties = {
         'base' : float
     }
+    
+    
     def __repr__(self):
         return "f_AtanPow(%(base)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

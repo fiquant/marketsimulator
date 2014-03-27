@@ -28,6 +28,12 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         'link' : ITwoWayLink,
         'timeseries' : listOf(ITimeSerie)
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(orderbook)s.name^remote" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

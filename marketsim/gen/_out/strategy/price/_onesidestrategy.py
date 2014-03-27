@@ -39,6 +39,14 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'side' : IObservableSide
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -109,6 +117,14 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         'orderFactory' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat,
         'side' : IFunctionSide
     }
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

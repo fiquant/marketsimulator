@@ -17,6 +17,7 @@ class S2_(str):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "S2" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

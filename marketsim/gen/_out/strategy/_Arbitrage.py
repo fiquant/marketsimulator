@@ -20,6 +20,7 @@ class Arbitrage_(IMultiAssetStrategy,Arbitrage_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "Arbitrage" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

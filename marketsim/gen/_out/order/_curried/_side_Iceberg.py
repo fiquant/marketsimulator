@@ -25,6 +25,10 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IF
         'proto' : IFunctionIObservableIOrder_from_IFunctionSide,
         'lotSize' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Iceberg(%(proto)s, %(lotSize)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

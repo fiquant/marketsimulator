@@ -24,6 +24,8 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
     _properties = {
         'proto' : IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

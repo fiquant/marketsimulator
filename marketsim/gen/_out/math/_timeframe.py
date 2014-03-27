@@ -18,6 +18,8 @@ class Timeframe_mathMoving(object):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "Moving_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -45,6 +47,8 @@ class Timeframe_mathRSI(object):
     _properties = {
         'x' : RSI
     }
+    
+    
     def __repr__(self):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

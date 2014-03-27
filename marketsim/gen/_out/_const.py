@@ -21,6 +21,8 @@ class const_Int(IObservableint,Constant_Impl):
     _properties = {
         'x' : int
     }
+    
+    
     def __repr__(self):
         return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -47,6 +49,8 @@ class const_Float(IObservablefloat,Constant_Impl):
     _properties = {
         'x' : float
     }
+    
+    
     def __repr__(self):
         return "C=%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

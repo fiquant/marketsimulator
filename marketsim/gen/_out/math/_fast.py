@@ -18,6 +18,8 @@ class Fast_mathmacd(object):
     _properties = {
         'x' : macd
     }
+    
+    
     def __repr__(self):
         return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

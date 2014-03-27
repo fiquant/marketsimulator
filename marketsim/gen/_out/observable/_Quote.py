@@ -27,6 +27,12 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         'start' : str,
         'end' : str
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(ticker)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

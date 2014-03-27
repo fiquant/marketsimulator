@@ -21,6 +21,8 @@ class Real_ISingleAssetStrategy(IAccount,Account_Impl):
     _properties = {
         'inner' : ISingleAssetStrategy
     }
+    
+    
     def __repr__(self):
         return "Real(%(inner)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

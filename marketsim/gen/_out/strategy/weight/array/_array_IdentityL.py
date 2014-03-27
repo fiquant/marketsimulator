@@ -16,6 +16,7 @@ class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "array_IdentityL" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

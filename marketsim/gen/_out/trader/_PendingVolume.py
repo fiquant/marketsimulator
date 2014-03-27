@@ -24,6 +24,8 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "PendingVolume(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -32,6 +32,12 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         'side' : IObservableSide,
         'sign' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -113,6 +119,12 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         'side' : IObservableSide,
         'sign' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -188,6 +200,12 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         'side' : IFunctionSide,
         'sign' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -268,6 +286,12 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         'side' : IFunctionSide,
         'sign' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

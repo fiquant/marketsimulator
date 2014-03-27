@@ -22,6 +22,7 @@ class observableBuy_(ObservableSide,Buy_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "observableBuy" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

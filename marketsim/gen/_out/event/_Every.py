@@ -21,6 +21,8 @@ class Every_Float(IEvent,Every_Impl):
     _properties = {
         'intervalFunc' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Every(%(intervalFunc)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

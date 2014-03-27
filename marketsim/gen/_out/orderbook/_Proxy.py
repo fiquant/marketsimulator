@@ -20,6 +20,7 @@ class Proxy_(IOrderBook,Proxy_Impl):
         
     }
     
+    
 def Proxy(): 
     from marketsim import rtti
     return Proxy_()

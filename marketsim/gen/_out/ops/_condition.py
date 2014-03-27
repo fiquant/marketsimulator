@@ -33,6 +33,12 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         'ifpart' : IObservablefloat,
         'elsepart' : IObservablefloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -74,6 +80,12 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         'ifpart' : IObservableSide,
         'elsepart' : IObservableSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -112,6 +124,12 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         'ifpart' : IObservablefloat,
         'elsepart' : IObservablefloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -152,6 +170,12 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         'ifpart' : IFunctionfloat,
         'elsepart' : IObservablefloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -192,6 +216,12 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         'ifpart' : IObservablefloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -233,6 +263,12 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         'ifpart' : IObservableSide,
         'elsepart' : IObservableSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -275,6 +311,12 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         'ifpart' : IFunctionSide,
         'elsepart' : IObservableSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -317,6 +359,12 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         'ifpart' : IObservableSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -357,6 +405,12 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         'ifpart' : IFunctionfloat,
         'elsepart' : IObservablefloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -397,6 +451,12 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         'ifpart' : IObservablefloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -435,6 +495,12 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         'ifpart' : IFunctionfloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -477,6 +543,12 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         'ifpart' : IFunctionSide,
         'elsepart' : IObservableSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -519,6 +591,12 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         'ifpart' : IObservableSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -560,6 +638,12 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         'ifpart' : IFunctionSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -597,6 +681,12 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         'ifpart' : IFunctionfloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -637,6 +727,12 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         'ifpart' : IFunctionSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

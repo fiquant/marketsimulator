@@ -20,6 +20,10 @@ class betavariate_FloatFloat(IFunctionfloat):
         'Alpha' : float,
         'Beta' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "betavariate(%(Alpha)s, %(Beta)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

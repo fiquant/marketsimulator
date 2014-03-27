@@ -26,6 +26,8 @@ class DesiredPosition_strategypositionRSI_linear(Observablefloat):
     _properties = {
         'x' : RSI_linear
     }
+    
+    
     def __repr__(self):
         return "DesiredPosition(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -91,6 +93,8 @@ class DesiredPosition_strategypositionBollinger_linear(Observablefloat):
     _properties = {
         'x' : Bollinger_linear
     }
+    
+    
     def __repr__(self):
         return "DesiredPosition(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

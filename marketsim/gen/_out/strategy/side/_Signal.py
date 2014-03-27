@@ -21,6 +21,10 @@ class Signal_FloatFloat(SignalStrategy):
         'source' : IFunctionfloat,
         'threshold' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Signal(%(source)s, %(threshold)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

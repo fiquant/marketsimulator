@@ -23,6 +23,10 @@ class LogReturns_IObservableFloatFloat(IFunctionfloat):
         'x' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "LogReturns_{%(timeframe)s}(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

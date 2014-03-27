@@ -24,6 +24,8 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrder_fr
     _properties = {
         'proto' : IFunctionIObservableIOrder_from_IFunctionSide
     }
+    
+    
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

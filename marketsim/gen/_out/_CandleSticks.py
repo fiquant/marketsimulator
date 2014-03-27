@@ -30,6 +30,10 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
         'source' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Candles_{%(source)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

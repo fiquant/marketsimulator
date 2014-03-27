@@ -18,6 +18,7 @@ class false_(IFunctionbool):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "False" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

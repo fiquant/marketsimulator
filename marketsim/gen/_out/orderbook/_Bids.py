@@ -21,6 +21,8 @@ class Bids_IOrderBook(IOrderQueue,Bids_Impl):
     _properties = {
         'book' : IOrderBook
     }
+    
+    
     def __repr__(self):
         return "Bids(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

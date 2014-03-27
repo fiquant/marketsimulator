@@ -21,6 +21,10 @@ class lognormvariate_FloatFloat(IFunctionfloat):
         'Mu' : float,
         'Sigma' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "lognormvariate(%(Mu)s, %(Sigma)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

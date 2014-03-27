@@ -22,6 +22,8 @@ class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
     _properties = {
         'cancellationIntervalDistr' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Canceller(%(cancellationIntervalDistr)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

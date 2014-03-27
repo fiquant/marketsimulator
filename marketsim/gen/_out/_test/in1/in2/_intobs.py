@@ -23,6 +23,7 @@ class IntObs_(Observableint):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "IntObs" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

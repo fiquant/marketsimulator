@@ -18,6 +18,7 @@ class Empty_(ISingleAssetStrategy,Empty_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "Empty" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

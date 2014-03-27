@@ -22,6 +22,8 @@ class Atan_Float(Observablefloat):
     _properties = {
         'x' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Atan(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

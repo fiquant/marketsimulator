@@ -16,6 +16,8 @@ class paretovariate_Float(IFunctionfloat):
     _properties = {
         'Alpha' : float
     }
+    
+    
     def __repr__(self):
         return "paretovariate(%(Alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

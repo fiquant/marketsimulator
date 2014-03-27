@@ -21,6 +21,8 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
     _properties = {
         'x' : MeanReversion
     }
+    
+    
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -74,6 +76,8 @@ class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
     _properties = {
         'x' : FundamentalValue
     }
+    
+    
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -128,6 +132,8 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
     _properties = {
         'x' : PairTrading
     }
+    
+    
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

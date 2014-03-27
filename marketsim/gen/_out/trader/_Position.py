@@ -25,6 +25,8 @@ class Position_IAccount(Observableint,Position_Impl):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "Position(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -18,6 +18,8 @@ class Alpha_mathEW(object):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -45,6 +47,8 @@ class Alpha_mathRSI(object):
     _properties = {
         'x' : RSI
     }
+    
+    
     def __repr__(self):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

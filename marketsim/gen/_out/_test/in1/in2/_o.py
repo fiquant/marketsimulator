@@ -26,6 +26,8 @@ class O_IObservableFloat(Observablefloat):
     _properties = {
         'x' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "O(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

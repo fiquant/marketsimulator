@@ -17,6 +17,10 @@ class MarketMaker_FloatFloat(object):
         'delta' : float,
         'volume' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "MarketMaker(%(delta)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

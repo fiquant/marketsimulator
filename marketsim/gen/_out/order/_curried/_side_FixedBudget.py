@@ -25,6 +25,8 @@ class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
     _properties = {
         'budget' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "FixedBudget(%(budget)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

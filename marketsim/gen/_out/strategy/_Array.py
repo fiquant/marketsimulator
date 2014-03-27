@@ -21,6 +21,8 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
     _properties = {
         'strategies' : listOf(ISingleAssetStrategy)
     }
+    
+    
     def __repr__(self):
         return "Array(%(strategies)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

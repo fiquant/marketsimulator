@@ -28,6 +28,10 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,Div_Impl):
         'x' : IObservablefloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -63,6 +67,10 @@ class Div_FloatIObservableFloat(Observablefloat,Div_Impl):
         'x' : IFunctionfloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -98,6 +106,10 @@ class Div_IObservableFloatFloat(Observablefloat,Div_Impl):
         'x' : IObservablefloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -130,6 +142,10 @@ class Div_FloatFloat(Observablefloat,Div_Impl):
         'x' : IFunctionfloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

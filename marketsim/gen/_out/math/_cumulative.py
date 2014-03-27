@@ -19,6 +19,8 @@ class Cumulative_IObservableFloat(IStatDomain):
     _properties = {
         'source' : IObservablefloat
     }
+    
+    
     def __repr__(self):
         return "Cumulative(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -24,6 +24,10 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from
         'proto' : IFunctionIObservableIOrder_from_IFunctionSide,
         'expiry' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "WithExpiry(%(proto)s, %(expiry)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

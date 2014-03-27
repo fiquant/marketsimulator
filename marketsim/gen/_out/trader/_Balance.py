@@ -24,6 +24,8 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "Balance(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

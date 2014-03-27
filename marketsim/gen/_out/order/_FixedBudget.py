@@ -36,6 +36,10 @@ class FixedBudget_SideFloat(ObservableIOrder,IObservableIOrder):
         'side' : IFunctionSide,
         'budget' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "FixedBudget(%(side)s, %(budget)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

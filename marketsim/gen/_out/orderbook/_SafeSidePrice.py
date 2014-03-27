@@ -30,6 +30,10 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         'queue' : IOrderQueue,
         'defaultValue' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -90,6 +94,10 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         'queue' : IOrderQueue,
         'defaultValue' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

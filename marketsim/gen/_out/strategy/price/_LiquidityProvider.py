@@ -24,6 +24,12 @@ class LiquidityProvider_FloatFloatIOrderBook(object):
         'priceDistr' : IFunctionfloat,
         'book' : IOrderBook
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "LiquidityProvider(%(initialValue)s, %(priceDistr)s, %(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

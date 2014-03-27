@@ -23,6 +23,10 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         'queue' : IOrderQueue,
         'alpha' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Price_{%(alpha)s}^{%(queue)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

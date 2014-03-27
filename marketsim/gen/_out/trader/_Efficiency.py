@@ -26,6 +26,8 @@ class Efficiency_IAccount(Observablefloat):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "Efficiency(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

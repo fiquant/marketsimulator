@@ -28,6 +28,10 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         'x' : IObservablefloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -87,6 +91,10 @@ class Min_FloatIObservableFloat(Observablefloat):
         'x' : IFunctionfloat,
         'y' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -146,6 +154,10 @@ class Min_IObservableFloatFloat(Observablefloat):
         'x' : IObservablefloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -203,6 +215,10 @@ class Min_FloatFloat(Observablefloat):
         'x' : IFunctionfloat,
         'y' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -20,6 +20,7 @@ class observableTrue_(Observablebool,True_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "True" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

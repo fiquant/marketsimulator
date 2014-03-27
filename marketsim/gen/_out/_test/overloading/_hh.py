@@ -18,6 +18,7 @@ class hh_(IFunctionfloat):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "hh" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

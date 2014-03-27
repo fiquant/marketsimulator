@@ -23,6 +23,10 @@ class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
         'trader' : IAccount,
         'alpha' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "TraderEfficiencyTrend(%(trader)s, %(alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

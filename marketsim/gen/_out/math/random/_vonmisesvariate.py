@@ -18,6 +18,10 @@ class vonmisesvariate_FloatFloat(IFunctionfloat):
         'Mu' : float,
         'Kappa' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

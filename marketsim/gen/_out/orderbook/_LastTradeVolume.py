@@ -24,6 +24,8 @@ class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
     _properties = {
         'queue' : IOrderQueue
     }
+    
+    
     def __repr__(self):
         return "LastTradeVolume(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -19,6 +19,8 @@ class Noise_Float(SideStrategy):
     _properties = {
         'side_distribution' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Noise(%(side_distribution)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

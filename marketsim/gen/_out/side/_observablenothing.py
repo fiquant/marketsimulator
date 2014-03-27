@@ -22,6 +22,7 @@ class observableNothing_(ObservableSide,None_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "observableNothing" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

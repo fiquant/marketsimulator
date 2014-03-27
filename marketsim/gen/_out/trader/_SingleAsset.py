@@ -33,6 +33,18 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
         'PnL' : float,
         'timeseries' : listOf(ITimeSerie)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

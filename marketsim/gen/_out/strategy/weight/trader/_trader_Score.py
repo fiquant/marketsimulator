@@ -18,6 +18,7 @@ class trader_Score_(IFunctionIFunctionfloat_from_IAccount):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "trader_Score" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

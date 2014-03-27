@@ -18,6 +18,8 @@ class Source_strategysideSignal(object):
     _properties = {
         'x' : Signal
     }
+    
+    
     def __repr__(self):
         return "Source(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

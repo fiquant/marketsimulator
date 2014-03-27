@@ -21,6 +21,8 @@ class After_Float(IEvent,After_Impl):
     _properties = {
         'delay' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "After(%(delay)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

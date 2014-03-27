@@ -22,6 +22,10 @@ class uniform_FloatFloat(IFunctionfloat):
         'Low' : float,
         'High' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "uniform(%(Low)s, %(High)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

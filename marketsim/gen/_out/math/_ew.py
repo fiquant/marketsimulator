@@ -21,6 +21,10 @@ class EW_IObservableFloatFloat(IStatDomain):
         'source' : IObservablefloat,
         'alpha' : float
     }
+    
+    
+    
+    
     def __repr__(self):
         return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -21,6 +21,8 @@ class StdDev_mathCumulative(IFunctionfloat):
     _properties = {
         'x' : Cumulative
     }
+    
+    
     def __repr__(self):
         return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -71,6 +73,8 @@ class StdDev_mathEW(IFunctionfloat):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -121,6 +125,8 @@ class StdDev_mathMoving(IFunctionfloat):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

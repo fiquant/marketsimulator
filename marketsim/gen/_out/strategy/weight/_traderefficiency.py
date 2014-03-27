@@ -21,6 +21,8 @@ class TraderEfficiency_IAccount(IFunctionfloat):
     _properties = {
         'trader' : IAccount
     }
+    
+    
     def __repr__(self):
         return "TraderEfficiency(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

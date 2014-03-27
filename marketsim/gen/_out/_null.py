@@ -18,6 +18,7 @@ class null_(IFunctionfloat,Null_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "null" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

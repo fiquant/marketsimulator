@@ -24,6 +24,10 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,Suspendable_I
         'inner' : ISingleAssetStrategy,
         'predicate' : IFunctionbool
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Suspendable(%(inner)s, %(predicate)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

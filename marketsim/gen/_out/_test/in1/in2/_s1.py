@@ -17,6 +17,8 @@ class S1_String(str):
     _properties = {
         'y' : str
     }
+    
+    
     def __repr__(self):
         return "S1(%(y)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

@@ -25,6 +25,8 @@ class Clamp0_Float(IFunctionfloat):
     _properties = {
         'f' : IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Clamp0(%(f)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

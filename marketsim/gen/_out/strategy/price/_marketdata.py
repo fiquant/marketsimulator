@@ -23,6 +23,16 @@ class MarketData_StringStringStringFloatFloat(object):
         'delta' : float,
         'volume' : float
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MarketData(%(ticker)s, %(start)s, %(end)s, %(delta)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

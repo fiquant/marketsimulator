@@ -22,6 +22,8 @@ class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
     _properties = {
         'x' : IDifferentiable
     }
+    
+    
     def __repr__(self):
         return "\\frac{d%(x)s}{dt}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

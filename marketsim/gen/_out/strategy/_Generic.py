@@ -26,6 +26,10 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
         'orderFactory' : IObservableIOrder,
         'eventGen' : IEvent
     }
+    
+    
+    
+    
     def __repr__(self):
         return "Generic(%(orderFactory)s, %(eventGen)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

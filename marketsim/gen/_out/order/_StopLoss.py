@@ -34,6 +34,10 @@ class StopLoss_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         'proto' : IObservableIOrder,
         'maxloss' : IFunctionfloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "StopLoss(%(proto)s, %(maxloss)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

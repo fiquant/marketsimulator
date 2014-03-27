@@ -21,6 +21,8 @@ class Raw_mathRSI(IFunctionfloat):
     _properties = {
         'x' : RSI
     }
+    
+    
     def __repr__(self):
         return "Raw(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

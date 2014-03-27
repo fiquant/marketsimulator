@@ -18,6 +18,8 @@ class BookToDependOn_strategysidePairTrading(object):
     _properties = {
         'x' : PairTrading
     }
+    
+    
     def __repr__(self):
         return "BookToDependOn(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

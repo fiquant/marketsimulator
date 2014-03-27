@@ -21,6 +21,8 @@ class Value_mathRSI(IFunctionfloat):
     _properties = {
         'x' : RSI
     }
+    
+    
     def __repr__(self):
         return "Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -74,6 +76,8 @@ class Value_mathmacd(IFunctionfloat):
     _properties = {
         'x' : macd
     }
+    
+    
     def __repr__(self):
         return "Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

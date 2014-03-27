@@ -32,6 +32,12 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
         'volumeDelta' : float,
         'volumeCount' : int
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "VolumeLevels(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

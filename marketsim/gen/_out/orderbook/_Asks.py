@@ -21,6 +21,8 @@ class Asks_IOrderBook(IOrderQueue,Asks_Impl):
     _properties = {
         'book' : IOrderBook
     }
+    
+    
     def __repr__(self):
         return "Asks(%(book)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

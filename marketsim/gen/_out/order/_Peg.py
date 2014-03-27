@@ -28,6 +28,8 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     _properties = {
         'proto' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
+    
+    
     def __repr__(self):
         return "Peg(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

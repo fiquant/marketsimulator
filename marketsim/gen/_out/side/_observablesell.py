@@ -22,6 +22,7 @@ class observableSell_(ObservableSide,Sell_Impl):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "observableSell" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

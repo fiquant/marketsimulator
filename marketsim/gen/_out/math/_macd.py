@@ -22,6 +22,12 @@ class macd_IObservableFloatFloatFloat(object):
         'slow' : float,
         'fast' : float
     }
+    
+    
+    
+    
+    
+    
     def __repr__(self):
         return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

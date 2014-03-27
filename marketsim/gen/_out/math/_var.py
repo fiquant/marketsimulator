@@ -21,6 +21,8 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
     _properties = {
         'x' : Cumulative
     }
+    
+    
     def __repr__(self):
         return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -47,6 +49,8 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
     _properties = {
         'x' : EW
     }
+    
+    
     def __repr__(self):
         return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -73,6 +77,8 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
     _properties = {
         'x' : Moving
     }
+    
+    
     def __repr__(self):
         return "Var(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

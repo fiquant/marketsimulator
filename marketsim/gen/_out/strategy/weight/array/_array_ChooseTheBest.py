@@ -16,6 +16,7 @@ class array_ChooseTheBest_(IFunctionIFunctionlistOffloat_from_listOffloat):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "array_ChooseTheBest" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

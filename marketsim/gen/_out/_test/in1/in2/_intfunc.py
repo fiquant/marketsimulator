@@ -18,6 +18,7 @@ class IntFunc_(IFunctionint):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "IntFunc" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

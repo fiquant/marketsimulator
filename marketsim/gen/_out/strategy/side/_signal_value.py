@@ -21,6 +21,8 @@ class Signal_Value_strategysideRSIbis(IFunctionfloat):
     _properties = {
         'x' : RSIbis
     }
+    
+    
     def __repr__(self):
         return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -77,6 +79,8 @@ class Signal_Value_strategysideTrendFollower(IFunctionfloat):
     _properties = {
         'x' : TrendFollower
     }
+    
+    
     def __repr__(self):
         return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -131,6 +135,8 @@ class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
     _properties = {
         'x' : CrossingAverages
     }
+    
+    
     def __repr__(self):
         return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
@@ -186,6 +192,8 @@ class Signal_Value_strategysideSignal(IFunctionfloat):
     _properties = {
         'x' : Signal
     }
+    
+    
     def __repr__(self):
         return "Signal_Value(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

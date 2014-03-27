@@ -18,6 +18,7 @@ class Nothing_(IFunctionSide):
     _properties = {
         
     }
+    
     def __repr__(self):
         return "Nothing" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     

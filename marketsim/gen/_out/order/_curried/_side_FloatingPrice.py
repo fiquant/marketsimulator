@@ -26,6 +26,10 @@ class side_FloatingPrice_SideFloatIObservableIOrderIObservableFloat(IFunctionIOb
         'proto' : IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide,
         'floatingPrice' : IObservablefloat
     }
+    
+    
+    
+    
     def __repr__(self):
         return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
     
