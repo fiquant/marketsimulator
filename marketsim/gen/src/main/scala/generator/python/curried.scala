@@ -20,7 +20,7 @@ object curried
     object after_typing
         extends gen.PythonGenerator
     {
-        import order_factory_curried.{FactoryParameter, lookupOriginal}
+        import order_factory_curried.lookupOriginal
 
         case class Curried(args   : List[String],
                            f  : Typed.Function)
@@ -32,8 +32,9 @@ object curried
         {
             val original = lookupOriginal(args, f)
 
-            override type Parameter = FactoryParameter
-            def mkParam(p : Typed.Parameter) = FactoryParameter(p)
+            case class Parameter(p : Typed.Parameter) extends order_factory_curried.ParameterBase
+
+            def mkParam(p : Typed.Parameter) = Parameter(p)
 
             val curried = original.parameters filter { p => !(f.parameters contains p) }
             val curried_parameters =  curried map mkParam
