@@ -1,18 +1,16 @@
 class LastTradeVolume_Base(object):
-    @property
-    def queue(self):
+    def get_queue(self):
         return self.__queue
     
-    @queue.setter
-    def queue(self, value):
+    def set_queue(self, value):
         self.__queue = value
     
+    queue = property(get_queue, set_queue)
 class LastTradePrice_Base(object):
-    @property
-    def queue(self):
+    def get_queue(self):
         return self.__queue
     
-    @queue.setter
-    def queue(self, value):
+    def set_queue(self, value):
         self.__queue = value
     
+    queue = property(get_queue, set_queue)

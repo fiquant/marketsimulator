@@ -1,9 +1,8 @@
 class Graph_Base(object):
-    @property
-    def name(self):
+    def get_name(self):
         return self.__name
     
-    @name.setter
-    def name(self, value):
+    def set_name(self, value):
         self.__name = value
     
+    name = property(get_name, set_name)

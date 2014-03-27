@@ -23,6 +23,8 @@ object intrinsic_observable extends gen.PythonGenerator
                 with    base.SubscribeParameter
         {
             override def observe_args = self.observe_args
+
+            def intrinsic_base = implementation_class
         }
 
         def mkParam(p : Typed.Parameter) = new Parameter_(p)

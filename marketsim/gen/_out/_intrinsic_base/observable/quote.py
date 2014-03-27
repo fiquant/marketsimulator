@@ -1,25 +1,22 @@
 class Quote_Base(object):
-    @property
-    def ticker(self):
+    def get_ticker(self):
         return self.__ticker
     
-    @ticker.setter
-    def ticker(self, value):
+    def set_ticker(self, value):
         self.__ticker = value
     
-    @property
-    def start(self):
+    ticker = property(get_ticker, set_ticker)
+    def get_start(self):
         return self.__start
     
-    @start.setter
-    def start(self, value):
+    def set_start(self, value):
         self.__start = value
     
-    @property
-    def end(self):
+    start = property(get_start, set_start)
+    def get_end(self):
         return self.__end
     
-    @end.setter
-    def end(self, value):
+    def set_end(self, value):
         self.__end = value
     
+    end = property(get_end, set_end)

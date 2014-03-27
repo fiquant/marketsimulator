@@ -1,17 +1,15 @@
 class Suspendable_Base(object):
-    @property
-    def inner(self):
+    def get_inner(self):
         return self.__inner
     
-    @inner.setter
-    def inner(self, value):
+    def set_inner(self, value):
         self.__inner = value
     
-    @property
-    def predicate(self):
+    inner = property(get_inner, set_inner)
+    def get_predicate(self):
         return self.__predicate
     
-    @predicate.setter
-    def predicate(self, value):
+    def set_predicate(self, value):
         self.__predicate = value
     
+    predicate = property(get_predicate, set_predicate)

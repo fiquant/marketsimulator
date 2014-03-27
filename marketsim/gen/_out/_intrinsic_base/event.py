@@ -1,18 +1,16 @@
 class After_Base(object):
-    @property
-    def delay(self):
+    def get_delay(self):
         return self.__delay
     
-    @delay.setter
-    def delay(self, value):
+    def set_delay(self, value):
         self.__delay = value
     
+    delay = property(get_delay, set_delay)
 class Every_Base(object):
-    @property
-    def intervalFunc(self):
+    def get_intervalFunc(self):
         return self.__intervalFunc
     
-    @intervalFunc.setter
-    def intervalFunc(self, value):
+    def set_intervalFunc(self, value):
         self.__intervalFunc = value
     
+    intervalFunc = property(get_intervalFunc, set_intervalFunc)

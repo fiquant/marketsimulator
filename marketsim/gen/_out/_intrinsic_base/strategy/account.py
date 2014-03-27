@@ -1,18 +1,16 @@
 class Account_Base(object):
-    @property
-    def inner(self):
+    def get_inner(self):
         return self.__inner
     
-    @inner.setter
-    def inner(self, value):
+    def set_inner(self, value):
         self.__inner = value
     
+    inner = property(get_inner, set_inner)
 class VirtualMarket_Base(object):
-    @property
-    def inner(self):
+    def get_inner(self):
         return self.__inner
     
-    @inner.setter
-    def inner(self, value):
+    def set_inner(self, value):
         self.__inner = value
     
+    inner = property(get_inner, set_inner)

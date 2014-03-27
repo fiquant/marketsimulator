@@ -1,90 +1,79 @@
 class SingleAsset_Base(object):
-    @property
-    def orderBook(self):
+    def get_orderBook(self):
         return self.__orderBook
     
-    @orderBook.setter
-    def orderBook(self, value):
+    def set_orderBook(self, value):
         self.__orderBook = value
     
-    @property
-    def strategy(self):
+    orderBook = property(get_orderBook, set_orderBook)
+    def get_strategy(self):
         return self.__strategy
     
-    @strategy.setter
-    def strategy(self, value):
+    def set_strategy(self, value):
         self.__strategy = value
     
-    @property
-    def name(self):
+    strategy = property(get_strategy, set_strategy)
+    def get_name(self):
         return self.__name
     
-    @name.setter
-    def name(self, value):
+    def set_name(self, value):
         self.__name = value
     
-    @property
-    def amount(self):
+    name = property(get_name, set_name)
+    def get_amount(self):
         return self.__amount
     
-    @amount.setter
-    def amount(self, value):
+    def set_amount(self, value):
         self.__amount = value
     
-    @property
-    def PnL(self):
+    amount = property(get_amount, set_amount)
+    def get_PnL(self):
         return self.__PnL
     
-    @PnL.setter
-    def PnL(self, value):
+    def set_PnL(self, value):
         self.__PnL = value
     
-    @property
-    def timeseries(self):
+    PnL = property(get_PnL, set_PnL)
+    def get_timeseries(self):
         return self.__timeseries
     
-    @timeseries.setter
-    def timeseries(self, value):
+    def set_timeseries(self, value):
         self.__timeseries = value
     
+    timeseries = property(get_timeseries, set_timeseries)
 class MultiAsset_Base(object):
-    @property
-    def traders(self):
+    def get_traders(self):
         return self.__traders
     
-    @traders.setter
-    def traders(self, value):
+    def set_traders(self, value):
         self.__traders = value
     
-    @property
-    def strategy(self):
+    traders = property(get_traders, set_traders)
+    def get_strategy(self):
         return self.__strategy
     
-    @strategy.setter
-    def strategy(self, value):
+    def set_strategy(self, value):
         self.__strategy = value
     
-    @property
-    def name(self):
+    strategy = property(get_strategy, set_strategy)
+    def get_name(self):
         return self.__name
     
-    @name.setter
-    def name(self, value):
+    def set_name(self, value):
         self.__name = value
     
-    @property
-    def PnL(self):
+    name = property(get_name, set_name)
+    def get_PnL(self):
         return self.__PnL
     
-    @PnL.setter
-    def PnL(self, value):
+    def set_PnL(self, value):
         self.__PnL = value
     
-    @property
-    def timeseries(self):
+    PnL = property(get_PnL, set_PnL)
+    def get_timeseries(self):
         return self.__timeseries
     
-    @timeseries.setter
-    def timeseries(self, value):
+    def set_timeseries(self, value):
         self.__timeseries = value
     
+    timeseries = property(get_timeseries, set_timeseries)

@@ -1,204 +1,180 @@
 class Div_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class NotEqual_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class LessEqual_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class GreaterEqual_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Negate_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
+    x = property(get_x, set_x)
 class Less_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Sub_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Add_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Greater_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Condition_Base(object):
-    @property
-    def cond(self):
+    def get_cond(self):
         return self.__cond
     
-    @cond.setter
-    def cond(self, value):
+    def set_cond(self, value):
         self.__cond = value
     
-    @property
-    def ifpart(self):
+    cond = property(get_cond, set_cond)
+    def get_ifpart(self):
         return self.__ifpart
     
-    @ifpart.setter
-    def ifpart(self, value):
+    def set_ifpart(self, value):
         self.__ifpart = value
     
-    @property
-    def elsepart(self):
+    ifpart = property(get_ifpart, set_ifpart)
+    def get_elsepart(self):
         return self.__elsepart
     
-    @elsepart.setter
-    def elsepart(self, value):
+    def set_elsepart(self, value):
         self.__elsepart = value
     
+    elsepart = property(get_elsepart, set_elsepart)
 class Equal_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)
 class Mul_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def y(self):
+    x = property(get_x, set_x)
+    def get_y(self):
         return self.__y
     
-    @y.setter
-    def y(self, value):
+    def set_y(self, value):
         self.__y = value
     
+    y = property(get_y, set_y)

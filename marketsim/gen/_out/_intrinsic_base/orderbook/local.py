@@ -1,33 +1,29 @@
 class Local_Base(object):
-    @property
-    def name(self):
+    def get_name(self):
         return self.__name
     
-    @name.setter
-    def name(self, value):
+    def set_name(self, value):
         self.__name = value
     
-    @property
-    def tickSize(self):
+    name = property(get_name, set_name)
+    def get_tickSize(self):
         return self.__tickSize
     
-    @tickSize.setter
-    def tickSize(self, value):
+    def set_tickSize(self, value):
         self.__tickSize = value
     
-    @property
-    def _digitsToShow(self):
+    tickSize = property(get_tickSize, set_tickSize)
+    def get__digitsToShow(self):
         return self.___digitsToShow
     
-    @_digitsToShow.setter
-    def _digitsToShow(self, value):
+    def set__digitsToShow(self, value):
         self.___digitsToShow = value
     
-    @property
-    def timeseries(self):
+    _digitsToShow = property(get__digitsToShow, set__digitsToShow)
+    def get_timeseries(self):
         return self.__timeseries
     
-    @timeseries.setter
-    def timeseries(self, value):
+    def set_timeseries(self, value):
         self.__timeseries = value
     
+    timeseries = property(get_timeseries, set_timeseries)

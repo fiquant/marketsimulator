@@ -1,17 +1,15 @@
 class Generic_Base(object):
-    @property
-    def orderFactory(self):
+    def get_orderFactory(self):
         return self.__orderFactory
     
-    @orderFactory.setter
-    def orderFactory(self, value):
+    def set_orderFactory(self, value):
         self.__orderFactory = value
     
-    @property
-    def eventGen(self):
+    orderFactory = property(get_orderFactory, set_orderFactory)
+    def get_eventGen(self):
         return self.__eventGen
     
-    @eventGen.setter
-    def eventGen(self, value):
+    def set_eventGen(self, value):
         self.__eventGen = value
     
+    eventGen = property(get_eventGen, set_eventGen)

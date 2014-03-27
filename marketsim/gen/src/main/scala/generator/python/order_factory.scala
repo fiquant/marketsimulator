@@ -8,30 +8,6 @@ object order_factory
         extends gen.PythonGenerator
         with    Typed.BeforeTyping
 {
-    case class Parameter(p : Typed.Parameter)
-            extends base.Parameter
-            with    base.SubscribeParameter
-    {
-        def check_none_aux(name : String) : Code = name match {
-            case "volume" =>
-                s"if abs($name) < 1: return None" |
-                s"$name = int($name)"
-            case "signedVolume" =>
-                s"side = "||| Typed.topLevel.Side.asCode |||".Buy if signedVolume > 0 else Side.Sell" |
-                s"volume = abs(signedVolume)" |
-                check_none_aux("volume")
-
-            case _ => ""
-        }
-
-        def nullable =
-            s"$name = self.$name()" |
-            s"if $name is None: return None" |
-            check_none_aux(name)
-
-        override def call = name
-    }
-
     abstract class FactoryBase
         extends base.Printer
         with    base.DocString
@@ -71,8 +47,33 @@ object order_factory
                     "\r\n" + "In function " + f)
         }
 
-        def mkParam(p : Typed.Parameter) = order_factory.Parameter(p)
-        type Parameter = order_factory.Parameter
+        case class Parameter(p : Typed.Parameter)
+                extends base.Parameter
+                with    base.SubscribeParameter
+        {
+            def check_none_aux(name : String) : Code = name match {
+                case "volume" =>
+                    s"if abs($name) < 1: return None" |
+                    s"$name = int($name)"
+                case "signedVolume" =>
+                    s"side = "||| Typed.topLevel.Side.asCode |||".Buy if signedVolume > 0 else Side.Sell" |
+                    s"volume = abs(signedVolume)" |
+                    check_none_aux("volume")
+
+                case _ => ""
+            }
+
+            def intrinsic_base = implementation_class
+
+            def nullable =
+                s"$name = self.$name()" |
+                s"if $name is None: return None" |
+                check_none_aux(name)
+
+            override def call = name
+        }
+
+        def mkParam(p : Typed.Parameter) = Parameter(p)
 
         def impl = TypesBound.ImplementationClass(implementation_class, implementation_module)
 

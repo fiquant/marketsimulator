@@ -1,41 +1,36 @@
 class MultiarmedBandit2_Base(object):
-    @property
-    def strategies(self):
+    def get_strategies(self):
         return self.__strategies
     
-    @strategies.setter
-    def strategies(self, value):
+    def set_strategies(self, value):
         self.__strategies = value
     
-    @property
-    def account(self):
+    strategies = property(get_strategies, set_strategies)
+    def get_account(self):
         return self.__account
     
-    @account.setter
-    def account(self, value):
+    def set_account(self, value):
         self.__account = value
     
-    @property
-    def weight(self):
+    account = property(get_account, set_account)
+    def get_weight(self):
         return self.__weight
     
-    @weight.setter
-    def weight(self, value):
+    def set_weight(self, value):
         self.__weight = value
     
-    @property
-    def normalizer(self):
+    weight = property(get_weight, set_weight)
+    def get_normalizer(self):
         return self.__normalizer
     
-    @normalizer.setter
-    def normalizer(self, value):
+    def set_normalizer(self, value):
         self.__normalizer = value
     
-    @property
-    def corrector(self):
+    normalizer = property(get_normalizer, set_normalizer)
+    def get_corrector(self):
         return self.__corrector
     
-    @corrector.setter
-    def corrector(self, value):
+    def set_corrector(self, value):
         self.__corrector = value
     
+    corrector = property(get_corrector, set_corrector)

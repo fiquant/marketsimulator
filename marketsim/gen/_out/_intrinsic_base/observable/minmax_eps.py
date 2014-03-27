@@ -1,34 +1,30 @@
 class MinEpsilon_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def epsilon(self):
+    x = property(get_x, set_x)
+    def get_epsilon(self):
         return self.__epsilon
     
-    @epsilon.setter
-    def epsilon(self, value):
+    def set_epsilon(self, value):
         self.__epsilon = value
     
+    epsilon = property(get_epsilon, set_epsilon)
 class MaxEpsilon_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def epsilon(self):
+    x = property(get_x, set_x)
+    def get_epsilon(self):
         return self.__epsilon
     
-    @epsilon.setter
-    def epsilon(self, value):
+    def set_epsilon(self, value):
         self.__epsilon = value
     
+    epsilon = property(get_epsilon, set_epsilon)

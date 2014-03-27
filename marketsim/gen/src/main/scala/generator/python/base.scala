@@ -71,11 +71,14 @@ package object base {
         "@property" |
         s"def $name(self):" |> withImports(body) | ""
 
-    def Getter(name : String, body : Code) = Prop(name, body)
+    def Getter(name : String, body : Code) = Def("get_" + name, "", body)
 
-    def Setter(name : String, body : Code) =
-        s"@$name.setter" |
-        s"def $name(self, value):" |> withImports(body) | ""
+    def Setter(name : String, body : Code) = Def("set_" + name, "value", body)
+
+    def Property(name : String, getter_body : Code, setter_body : Code) =
+        Getter(name, getter_body) |
+        Setter(name, setter_body) |
+        s"$name = property(get_$name, set_$name)"
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
@@ -237,6 +240,8 @@ package object base {
     trait SubscribeParameter extends Parameter
     {
         def observe_args = true
+
+        def intrinsic_base : String
 
         lazy val IEvent = Typed.topLevel.getScalarBound("IEvent")
 

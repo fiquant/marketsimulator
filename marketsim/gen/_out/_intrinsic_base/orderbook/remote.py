@@ -1,25 +1,22 @@
 class Remote_Base(object):
-    @property
-    def orderbook(self):
+    def get_orderbook(self):
         return self.__orderbook
     
-    @orderbook.setter
-    def orderbook(self, value):
+    def set_orderbook(self, value):
         self.__orderbook = value
     
-    @property
-    def link(self):
+    orderbook = property(get_orderbook, set_orderbook)
+    def get_link(self):
         return self.__link
     
-    @link.setter
-    def link(self, value):
+    def set_link(self, value):
         self.__link = value
     
-    @property
-    def timeseries(self):
+    link = property(get_link, set_link)
+    def get_timeseries(self):
         return self.__timeseries
     
-    @timeseries.setter
-    def timeseries(self, value):
+    def set_timeseries(self, value):
         self.__timeseries = value
     
+    timeseries = property(get_timeseries, set_timeseries)

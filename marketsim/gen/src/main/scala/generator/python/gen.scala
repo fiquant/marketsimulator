@@ -62,8 +62,7 @@ package object gen
                 val s =
                     s"class $className(object):" |>
                         Code.from(parameter_names map { p =>
-                            base.Getter(p, s"return self.__$p" ) |
-                            base.Setter(p, s"self.__$p = value")
+                            base.Property(p, s"return self.__$p", s"self.__$p = value")
                         },
                         default = "pass")
 

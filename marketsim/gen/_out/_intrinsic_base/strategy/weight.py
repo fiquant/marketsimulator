@@ -1,27 +1,24 @@
 class Identity_Base(object):
-    @property
-    def array(self):
+    def get_array(self):
         return self.__array
     
-    @array.setter
-    def array(self, value):
+    def set_array(self, value):
         self.__array = value
     
+    array = property(get_array, set_array)
 class Score_Base(object):
-    @property
-    def trader(self):
+    def get_trader(self):
         return self.__trader
     
-    @trader.setter
-    def trader(self, value):
+    def set_trader(self, value):
         self.__trader = value
     
+    trader = property(get_trader, set_trader)
 class ChooseTheBest_Base(object):
-    @property
-    def array(self):
+    def get_array(self):
         return self.__array
     
-    @array.setter
-    def array(self, value):
+    def set_array(self, value):
         self.__array = value
     
+    array = property(get_array, set_array)

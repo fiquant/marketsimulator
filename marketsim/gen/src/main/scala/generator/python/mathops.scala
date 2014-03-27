@@ -24,6 +24,8 @@ object mathops extends gen.PythonGenerator
                 s"$name = self.$name()" |
                 s"if $name is None: return None"
 
+            def intrinsic_base = impl_function
+
             override def call = name
         }
 

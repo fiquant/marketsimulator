@@ -1,35 +1,31 @@
 class Asks_Base(object):
-    @property
-    def book(self):
+    def get_book(self):
         return self.__book
     
-    @book.setter
-    def book(self, value):
+    def set_book(self, value):
         self.__book = value
     
+    book = property(get_book, set_book)
 class Queue_Base(object):
-    @property
-    def book(self):
+    def get_book(self):
         return self.__book
     
-    @book.setter
-    def book(self, value):
+    def set_book(self, value):
         self.__book = value
     
-    @property
-    def side(self):
+    book = property(get_book, set_book)
+    def get_side(self):
         return self.__side
     
-    @side.setter
-    def side(self, value):
+    def set_side(self, value):
         self.__side = value
     
+    side = property(get_side, set_side)
 class Bids_Base(object):
-    @property
-    def book(self):
+    def get_book(self):
         return self.__book
     
-    @book.setter
-    def book(self, value):
+    def set_book(self, value):
         self.__book = value
     
+    book = property(get_book, set_book)

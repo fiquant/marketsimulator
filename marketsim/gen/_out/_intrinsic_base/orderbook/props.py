@@ -1,18 +1,16 @@
 class TickSize_Base(object):
-    @property
-    def book(self):
+    def get_book(self):
         return self.__book
     
-    @book.setter
-    def book(self, value):
+    def set_book(self, value):
         self.__book = value
     
+    book = property(get_book, set_book)
 class BestPrice_Base(object):
-    @property
-    def queue(self):
+    def get_queue(self):
         return self.__queue
     
-    @queue.setter
-    def queue(self, value):
+    def set_queue(self, value):
         self.__queue = value
     
+    queue = property(get_queue, set_queue)

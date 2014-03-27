@@ -1,26 +1,23 @@
 class TwoWayLink_Base(object):
-    @property
-    def up(self):
+    def get_up(self):
         return self.__up
     
-    @up.setter
-    def up(self, value):
+    def set_up(self, value):
         self.__up = value
     
-    @property
-    def down(self):
+    up = property(get_up, set_up)
+    def get_down(self):
         return self.__down
     
-    @down.setter
-    def down(self, value):
+    def set_down(self, value):
         self.__down = value
     
+    down = property(get_down, set_down)
 class Link_Base(object):
-    @property
-    def latency(self):
+    def get_latency(self):
         return self.__latency
     
-    @latency.setter
-    def latency(self, value):
+    def set_latency(self, value):
         self.__latency = value
     
+    latency = property(get_latency, set_latency)

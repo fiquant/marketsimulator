@@ -1,17 +1,15 @@
 class OnEveryDt_Base(object):
-    @property
-    def x(self):
+    def get_x(self):
         return self.__x
     
-    @x.setter
-    def x(self, value):
+    def set_x(self, value):
         self.__x = value
     
-    @property
-    def dt(self):
+    x = property(get_x, set_x)
+    def get_dt(self):
         return self.__dt
     
-    @dt.setter
-    def dt(self, value):
+    def set_dt(self, value):
         self.__dt = value
     
+    dt = property(get_dt, set_dt)

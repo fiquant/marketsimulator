@@ -1,33 +1,29 @@
 class RandomWalk_Base(object):
-    @property
-    def initialValue(self):
+    def get_initialValue(self):
         return self.__initialValue
     
-    @initialValue.setter
-    def initialValue(self, value):
+    def set_initialValue(self, value):
         self.__initialValue = value
     
-    @property
-    def deltaDistr(self):
+    initialValue = property(get_initialValue, set_initialValue)
+    def get_deltaDistr(self):
         return self.__deltaDistr
     
-    @deltaDistr.setter
-    def deltaDistr(self, value):
+    def set_deltaDistr(self, value):
         self.__deltaDistr = value
     
-    @property
-    def intervalDistr(self):
+    deltaDistr = property(get_deltaDistr, set_deltaDistr)
+    def get_intervalDistr(self):
         return self.__intervalDistr
     
-    @intervalDistr.setter
-    def intervalDistr(self, value):
+    def set_intervalDistr(self, value):
         self.__intervalDistr = value
     
-    @property
-    def name(self):
+    intervalDistr = property(get_intervalDistr, set_intervalDistr)
+    def get_name(self):
         return self.__name
     
-    @name.setter
-    def name(self, value):
+    def set_name(self, value):
         self.__name = value
     
+    name = property(get_name, set_name)

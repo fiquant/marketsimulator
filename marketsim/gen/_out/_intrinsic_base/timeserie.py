@@ -1,82 +1,72 @@
 class ToRecord_Base(object):
-    @property
-    def source(self):
+    def get_source(self):
         return self.__source
     
-    @source.setter
-    def source(self, value):
+    def set_source(self, value):
         self.__source = value
     
-    @property
-    def graph(self):
+    source = property(get_source, set_source)
+    def get_graph(self):
         return self.__graph
     
-    @graph.setter
-    def graph(self, value):
+    def set_graph(self, value):
         self.__graph = value
     
-    @property
-    def _digitsToShow(self):
+    graph = property(get_graph, set_graph)
+    def get__digitsToShow(self):
         return self.___digitsToShow
     
-    @_digitsToShow.setter
-    def _digitsToShow(self, value):
+    def set__digitsToShow(self, value):
         self.___digitsToShow = value
     
-    @property
-    def _smooth(self):
+    _digitsToShow = property(get__digitsToShow, set__digitsToShow)
+    def get__smooth(self):
         return self.___smooth
     
-    @_smooth.setter
-    def _smooth(self, value):
+    def set__smooth(self, value):
         self.___smooth = value
     
+    _smooth = property(get__smooth, set__smooth)
 class VolumeLevels_Base(object):
-    @property
-    def source(self):
+    def get_source(self):
         return self.__source
     
-    @source.setter
-    def source(self, value):
+    def set_source(self, value):
         self.__source = value
     
-    @property
-    def graph(self):
+    source = property(get_source, set_source)
+    def get_graph(self):
         return self.__graph
     
-    @graph.setter
-    def graph(self, value):
+    def set_graph(self, value):
         self.__graph = value
     
-    @property
-    def _digitsToShow(self):
+    graph = property(get_graph, set_graph)
+    def get__digitsToShow(self):
         return self.___digitsToShow
     
-    @_digitsToShow.setter
-    def _digitsToShow(self, value):
+    def set__digitsToShow(self, value):
         self.___digitsToShow = value
     
-    @property
-    def _smooth(self):
+    _digitsToShow = property(get__digitsToShow, set__digitsToShow)
+    def get__smooth(self):
         return self.___smooth
     
-    @_smooth.setter
-    def _smooth(self, value):
+    def set__smooth(self, value):
         self.___smooth = value
     
-    @property
-    def _volumes(self):
+    _smooth = property(get__smooth, set__smooth)
+    def get__volumes(self):
         return self.___volumes
     
-    @_volumes.setter
-    def _volumes(self, value):
+    def set__volumes(self, value):
         self.___volumes = value
     
-    @property
-    def _isBuy(self):
+    _volumes = property(get__volumes, set__volumes)
+    def get__isBuy(self):
         return self.___isBuy
     
-    @_isBuy.setter
-    def _isBuy(self, value):
+    def set__isBuy(self, value):
         self.___isBuy = value
     
+    _isBuy = property(get__isBuy, set__isBuy)

@@ -1,26 +1,23 @@
 class Array_Base(object):
-    @property
-    def strategies(self):
+    def get_strategies(self):
         return self.__strategies
     
-    @strategies.setter
-    def strategies(self, value):
+    def set_strategies(self, value):
         self.__strategies = value
     
+    strategies = property(get_strategies, set_strategies)
 class Combine_Base(object):
-    @property
-    def A(self):
+    def get_A(self):
         return self.__A
     
-    @A.setter
-    def A(self, value):
+    def set_A(self, value):
         self.__A = value
     
-    @property
-    def B(self):
+    A = property(get_A, set_A)
+    def get_B(self):
         return self.__B
     
-    @B.setter
-    def B(self, value):
+    def set_B(self, value):
         self.__B = value
     
+    B = property(get_B, set_B)

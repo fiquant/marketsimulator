@@ -1,17 +1,15 @@
 class CumulativePrice_Base(object):
-    @property
-    def book(self):
+    def get_book(self):
         return self.__book
     
-    @book.setter
-    def book(self, value):
+    def set_book(self, value):
         self.__book = value
     
-    @property
-    def depth(self):
+    book = property(get_book, set_book)
+    def get_depth(self):
         return self.__depth
     
-    @depth.setter
-    def depth(self, value):
+    def set_depth(self, value):
         self.__depth = value
     
+    depth = property(get_depth, set_depth)

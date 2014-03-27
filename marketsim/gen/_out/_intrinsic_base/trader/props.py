@@ -1,27 +1,24 @@
 class PendingVolume_Base(object):
-    @property
-    def trader(self):
+    def get_trader(self):
         return self.__trader
     
-    @trader.setter
-    def trader(self, value):
+    def set_trader(self, value):
         self.__trader = value
     
+    trader = property(get_trader, set_trader)
 class Balance_Base(object):
-    @property
-    def trader(self):
+    def get_trader(self):
         return self.__trader
     
-    @trader.setter
-    def trader(self, value):
+    def set_trader(self, value):
         self.__trader = value
     
+    trader = property(get_trader, set_trader)
 class Position_Base(object):
-    @property
-    def trader(self):
+    def get_trader(self):
         return self.__trader
     
-    @trader.setter
-    def trader(self, value):
+    def set_trader(self, value):
         self.__trader = value
     
+    trader = property(get_trader, set_trader)
