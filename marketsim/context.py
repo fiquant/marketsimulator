@@ -148,18 +148,13 @@ class Binder(Base):
     def hasContext(self, obj):
         return 'updateContext' in dir(obj)
     
-    def hasDefinitions(self, obj):
-        return '_definitions' in dir(obj)
-    
-    def enter(self, obj):   
+    def enter(self, obj):
         def push():
             self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
 
-        if self.hasContext(obj) or self.hasDefinitions(obj):
-            push()
-
         if self.hasContext(obj):
-            methods_visited = set()    
+            push()
+            methods_visited = set()
             for base in reversed(inspect.getmro(type(obj))):
                 if 'updateContext' in dir(base):
                     method = getattr(base, 'updateContext') 
@@ -167,12 +162,8 @@ class Binder(Base):
                         obj.updateContext(self)
                         methods_visited.add(method)
             
-        if self.hasDefinitions(obj):
-            for name, value in obj._definitions.iteritems():
-                self.context[name] = value
-            
     def exit(self, obj):
-        if self.hasContext(obj) or self.hasDefinitions(obj):
+        if self.hasContext(obj):
             self.__dict__['_context'].pop()
             
     _method = 'bind'
@@ -234,9 +225,6 @@ class Inserter(Base):
             if not primitive(p.type):
                 yield getattr(obj, p.name)
         
-        for v in getattr(obj, '_definitions', {}).itervalues():
-            yield v
-    
     def enter(self, obj):
         self.reg.insert(obj)
     

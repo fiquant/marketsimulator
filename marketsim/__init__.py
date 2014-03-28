@@ -48,12 +48,6 @@ def getLabel(x):
     return x.label
 
 
-def defs(obj, vs):
-    if '_definitions' not in dir(obj):
-        obj._definitions = {}
-    obj._definitions.update(vs)
-    return obj
-
 class Binder(object):
     
     def __init__(self, target, args):

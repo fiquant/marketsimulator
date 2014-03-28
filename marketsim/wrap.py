@@ -4,9 +4,7 @@ class Base(object):
 
     def __init__(self):
         self.impl = self.getImpl()
-        if 'getDefinitions' in dir(self):
-            self.impl._definitions = self.getDefinitions()
-                
+
     def __call__(self):
         return self.impl()
     
@@ -15,8 +13,6 @@ class Base(object):
     
     def reset(self):
         self.impl = self.getImpl()
-        if 'getDefinitions' in dir(self):
-            self.impl._definitions = self.getDefinitions()
         ctx = getattr(self, '_ctx', None)
         if ctx:
             context.bind(self.impl, ctx)

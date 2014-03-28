@@ -460,10 +460,7 @@ class Registry(object):
             if props is None:
                 props = {}
                 
-            definitions = dict([( k, self._dumpPropertyValue("", v, obj))\
-                                    for k,v in getattr(obj, '_definitions', {}).iteritems()])
-            
-            return [ctor, props, alias, definitions]
+            return [ctor, props, alias, {}]
         
         return impl(self._id2obj.get(Id))
     

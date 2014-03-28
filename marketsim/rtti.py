@@ -115,10 +115,6 @@ def is_object(obj):
 
 def children(obj, logger):
     
-    for name, value in getattr(obj, '_definitions', {}).iteritems():
-        logger('$(' + name + ')')
-        yield value
-    
     for propname in internals(obj):
         logger(propname)
         yield getattr(obj, propname)
