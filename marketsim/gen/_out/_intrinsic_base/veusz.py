@@ -1,8 +1,12 @@
 class Graph_Base(object):
     def get_name(self):
-        return self.__name
+        return self._back_name
     
     def set_name(self, value):
-        self.__name = value
+        self._back_name = value
+        self.on_name_set(value)
     
     name = property(get_name, set_name)
+    def on_name_set(self, value):
+        pass
+    

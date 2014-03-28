@@ -314,7 +314,7 @@ def run(name, constructor, only_veusz):
         world._reset()
         context.reset(root)
 
-        if False and config.runTwoTimes:
+        if config.runTwoTimes:
             world.workTill(500)
             veusz.render(name, non_empty_graphs)
 

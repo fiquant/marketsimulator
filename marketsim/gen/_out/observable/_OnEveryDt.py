@@ -13,9 +13,7 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
-        
         self.dt = dt if dt is not None else 1.0
-        
         rtti.check_fields(self)
         OnEveryDt_Impl.__init__(self)
     
@@ -27,6 +25,8 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
         'x' : IFunctionfloat,
         'dt' : float
     }
+    
+    
     
     
     

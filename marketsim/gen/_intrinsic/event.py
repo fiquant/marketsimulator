@@ -165,14 +165,14 @@ class Subscription(object):
     
     @event.setter
     def event(self, value):
-        self._event -= self._listener
-        self._event = value
-        self._event += self._listener
-        
+        self.switchTo(value)
+
     def switchTo(self, newEvent):
-        self._event -= self._listener
-        self._event = newEvent
-        self._event += self._listener
+        if newEvent is not self._event:
+            if self._event is not None:
+                self._event -= self._listener
+            self._event = newEvent
+            self._event += self._listener
         
     def bind(self, context):
         self._event += self._listener
@@ -210,6 +210,14 @@ def subscribe(event, listener, target = None, ctx = None):
         context.bind(subscription, ctx)
             
     return subscription
+
+def subscribe_field(obj, field_name, source):
+    subscription_name = "_subscription_" + field_name
+    if hasattr(obj, subscription_name):
+        getattr(obj, subscription_name).switchTo(source)
+    else:
+        setattr(obj, subscription_name,
+                subscribe(getattr(obj, field_name), obj.fire, obj))
 
 def subscribe_if_observable(source, target):
     if isinstance(source, IEvent):

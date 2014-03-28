@@ -13,7 +13,6 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
-        
         rtti.check_fields(self)
         Balance_Impl.__init__(self)
     
@@ -24,6 +23,7 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
     _properties = {
         'trader' : IAccount
     }
+    
     
     
     def __repr__(self):

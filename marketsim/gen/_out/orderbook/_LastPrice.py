@@ -13,7 +13,6 @@ class LastPrice_IOrderQueue(Observablefloat,LastPrice_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
-        
         rtti.check_fields(self)
         LastPrice_Impl.__init__(self)
     
@@ -24,6 +23,7 @@ class LastPrice_IOrderQueue(Observablefloat,LastPrice_Impl):
     _properties = {
         'queue' : IOrderQueue
     }
+    
     
     
     def __repr__(self):

@@ -1,22 +1,34 @@
 class VolumeLevels_Base(object):
     def get_queue(self):
-        return self.__queue
+        return self._back_queue
     
     def set_queue(self, value):
-        self.__queue = value
+        self._back_queue = value
+        self.on_queue_set(value)
     
     queue = property(get_queue, set_queue)
+    def on_queue_set(self, value):
+        pass
+    
     def get_volumeDelta(self):
-        return self.__volumeDelta
+        return self._back_volumeDelta
     
     def set_volumeDelta(self, value):
-        self.__volumeDelta = value
+        self._back_volumeDelta = value
+        self.on_volumeDelta_set(value)
     
     volumeDelta = property(get_volumeDelta, set_volumeDelta)
+    def on_volumeDelta_set(self, value):
+        pass
+    
     def get_volumeCount(self):
-        return self.__volumeCount
+        return self._back_volumeCount
     
     def set_volumeCount(self, value):
-        self.__volumeCount = value
+        self._back_volumeCount = value
+        self.on_volumeCount_set(value)
     
     volumeCount = property(get_volumeCount, set_volumeCount)
+    def on_volumeCount_set(self, value):
+        pass
+    

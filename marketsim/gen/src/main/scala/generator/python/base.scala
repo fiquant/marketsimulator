@@ -245,22 +245,13 @@ package object base {
 
         lazy val IEvent = Typed.topLevel.getScalarBound("IEvent")
 
-//        override def setter =
-//            super.setter | (
-//            if (observe_args)
-//                if (p.ty canCastTo TypesBound.Optional(IEvent)) {
-//                    Setter(p.name,
-//                        s"event.subscribe(self.$name, self.fire, self)" |||
-//                        ImportFrom("event", "marketsim"))
-//                } else ""
-//            else "")
-
-        override def assign : Code =
-            super.assign | (
+        override def setter =
+            super.setter | (
             if (observe_args)
                 if (p.ty canCastTo TypesBound.Optional(IEvent)) {
-                    s"event.subscribe(self.$name, self.fire, self)" |||
-                    ImportFrom("event", "marketsim")
+                    base.Def(s"on_${name}_set", "value",
+                                    s"event.subscribe_field(self, '$name', value)" |||
+                                    ImportFrom("event", "marketsim"))
                 } else ""
             else "")
     }

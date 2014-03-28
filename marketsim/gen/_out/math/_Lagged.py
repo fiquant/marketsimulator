@@ -7,16 +7,13 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
     """   so Lagged(x, dt)(t0+dt) == x(t0)
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
+        from marketsim import deref_opt
+        from marketsim import rtti
         Observablefloat.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0
-        
         rtti.check_fields(self)
         Lagged_Impl.__init__(self)
     
@@ -28,6 +25,11 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
         'source' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    def on_source_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'source', value)
     
     
     

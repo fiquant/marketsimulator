@@ -1,4 +1,4 @@
-from marketsim.gen._out._intrinsic_base.ops import (Negate_Base, Div_Base, Mul_Base, Add_Base, Sub_Base,
+from marketsim.gen._out._intrinsic_base.ops import (Negate_Base, Div_Base, Mul_Base, Add_Base, Sub_Base, Condition_Base,
                                                          Less_Base, LessEqual_Base, Greater_Base,
                                                          GreaterEqual_Base, Equal_Base, NotEqual_Base)
 
@@ -40,7 +40,7 @@ class Sub_Impl(Base, Sub_Base):
     def apply(x, y):
         return  x - y
 
-class Condition_Impl(object):
+class Condition_Impl(Condition_Base):
 
     def __call__(self):
         c = self.cond()

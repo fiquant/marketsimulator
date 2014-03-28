@@ -18,9 +18,7 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         ObservableIOrder.__init__(self)
         self.side = side if side is not None else deref_opt(_side_Sell_())
-        
         self.volume = volume if volume is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
     
     @property
@@ -31,6 +29,8 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
         'side' : IFunctionSide,
         'volume' : IFunctionfloat
     }
+    
+    
     
     
     

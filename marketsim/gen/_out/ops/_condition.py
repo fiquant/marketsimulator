@@ -13,14 +13,10 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         from marketsim import rtti
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -35,9 +31,21 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
     
     
     
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -59,15 +67,11 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._side import Side
-        from marketsim import event
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -82,9 +86,21 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
     
     
     
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -104,14 +120,10 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -129,6 +141,15 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
     
     
     
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -150,14 +171,10 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -172,9 +189,18 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
     
     
     
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -196,14 +222,10 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -218,6 +240,15 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
     
     
     
@@ -242,15 +273,11 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._true import true_ as _true_
-        from marketsim import event
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -268,6 +295,15 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
     
     
     
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -290,15 +326,11 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._side import Side
-        from marketsim import event
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -313,9 +345,18 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
     
     
     
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -339,14 +380,10 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._side import Side
-        from marketsim import event
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -361,6 +398,15 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
     }
     
     
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
     
     
     
@@ -385,14 +431,10 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -410,6 +452,12 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     
     
     
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -431,14 +479,10 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -453,6 +497,12 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     }
     
     
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
     
     
     
@@ -475,14 +525,10 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         from marketsim import rtti
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -495,6 +541,12 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         'ifpart' : IFunctionfloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
     
     
     
@@ -522,15 +574,11 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._true import true_ as _true_
-        from marketsim import event
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        event.subscribe(self.elsepart, self.fire, self)
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -548,6 +596,12 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
     
     
     
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -571,14 +625,10 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out._side import Side
         from marketsim.gen._out._true import true_ as _true_
-        from marketsim import event
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
-        event.subscribe(self.ifpart, self.fire, self)
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -593,6 +643,12 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     }
     
     
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
     
     
     
@@ -618,14 +674,10 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim.gen._out._side import Side
-        from marketsim import event
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
-        event.subscribe(self.cond, self.fire, self)
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -638,6 +690,12 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         'ifpart' : IFunctionSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
     
     
     
@@ -664,11 +722,8 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         from marketsim.gen._out._true import true_ as _true_
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -681,6 +736,9 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         'ifpart' : IFunctionfloat,
         'elsepart' : IFunctionfloat
     }
+    
+    
+    
     
     
     
@@ -710,11 +768,8 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         from marketsim.gen._out._true import true_ as _true_
         ObservableSide.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
-        
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
-        
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        
         rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
@@ -727,6 +782,9 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         'ifpart' : IFunctionSide,
         'elsepart' : IFunctionSide
     }
+    
+    
+    
     
     
     

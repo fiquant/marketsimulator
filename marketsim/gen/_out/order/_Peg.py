@@ -18,7 +18,6 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
         from marketsim import rtti
         Factory_Impl.__init__(self)
         self.proto = proto if proto is not None else deref_opt(_order__curried_price_Limit_SideFloat())
-        
         rtti.check_fields(self)
     
     @property
@@ -28,6 +27,7 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     _properties = {
         'proto' : IFunctionIObservableIOrder_from_IFunctionfloat
     }
+    
     
     
     def __repr__(self):

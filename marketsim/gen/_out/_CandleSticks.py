@@ -12,13 +12,10 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
         from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim.gen._out._observable._observableicandlestick import ObservableICandleStick
-        from marketsim import event
         from marketsim.gen._out._icandlestick import ICandleStick
         ObservableICandleStick.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.source, self.fire, self)
         self.timeframe = timeframe if timeframe is not None else 10.0
-        
         rtti.check_fields(self)
         CandleSticks_Impl.__init__(self)
     
@@ -30,6 +27,11 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
         'source' : IObservablefloat,
         'timeframe' : float
     }
+    
+    
+    def on_source_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'source', value)
     
     
     

@@ -13,7 +13,6 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_Moving_IObservableFloatFloat())
-        
         rtti.check_fields(self)
         Min_Impl.__init__(self)
     
@@ -24,6 +23,7 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
     _properties = {
         'x' : Moving
     }
+    
     
     
     def __repr__(self):

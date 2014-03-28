@@ -177,7 +177,7 @@ class Binder(Base):
             
     _method = 'bind'
      
-    def do(self, method, obj):       
+    def do(self, method, obj):
         method(obj, self)
 
         

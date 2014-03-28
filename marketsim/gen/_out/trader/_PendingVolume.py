@@ -13,7 +13,6 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
         from marketsim import rtti
         Observableint.__init__(self)
         self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
-        
         rtti.check_fields(self)
         PendingVolume_Impl.__init__(self)
     
@@ -24,6 +23,7 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     _properties = {
         'trader' : IAccount
     }
+    
     
     
     def __repr__(self):

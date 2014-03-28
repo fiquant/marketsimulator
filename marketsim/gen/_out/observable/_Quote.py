@@ -10,11 +10,8 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.ticker = ticker if ticker is not None else "^GSPC"
-        
         self.start = start if start is not None else "2001-1-1"
-        
         self.end = end if end is not None else "2010-1-1"
-        
         rtti.check_fields(self)
         Quote_Impl.__init__(self)
     
@@ -27,6 +24,9 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         'start' : str,
         'end' : str
     }
+    
+    
+    
     
     
     

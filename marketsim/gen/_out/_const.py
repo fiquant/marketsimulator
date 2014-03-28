@@ -10,7 +10,6 @@ class const_Int(IObservableint,Constant_Impl):
         from marketsim import rtti
         IObservableint.__init__(self)
         self.x = x if x is not None else 1
-        
         rtti.check_fields(self)
         Constant_Impl.__init__(self)
     
@@ -21,6 +20,7 @@ class const_Int(IObservableint,Constant_Impl):
     _properties = {
         'x' : int
     }
+    
     
     
     def __repr__(self):
@@ -38,7 +38,6 @@ class const_Float(IObservablefloat,Constant_Impl):
         from marketsim import rtti
         IObservablefloat.__init__(self)
         self.x = x if x is not None else 1.0
-        
         rtti.check_fields(self)
         Constant_Impl.__init__(self)
     
@@ -49,6 +48,7 @@ class const_Float(IObservablefloat,Constant_Impl):
     _properties = {
         'x' : float
     }
+    
     
     
     def __repr__(self):

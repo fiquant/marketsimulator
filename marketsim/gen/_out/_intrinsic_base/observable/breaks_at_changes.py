@@ -1,8 +1,12 @@
 class BreaksAtChanges_Base(object):
     def get_source(self):
-        return self.__source
+        return self._back_source
     
     def set_source(self, value):
-        self.__source = value
+        self._back_source = value
+        self.on_source_set(value)
     
     source = property(get_source, set_source)
+    def on_source_set(self, value):
+        pass
+    

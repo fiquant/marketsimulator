@@ -16,9 +16,7 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_Cumulative_IObservableFloat())
-        
         self.epsilon = epsilon if epsilon is not None else deref_opt(_constant_Float(0.01))
-        
         rtti.check_fields(self)
         MaxEpsilon_Impl.__init__(self)
     
@@ -30,6 +28,8 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
         'x' : Cumulative,
         'epsilon' : IFunctionfloat
     }
+    
+    
     
     
     

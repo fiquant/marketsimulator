@@ -18,9 +18,7 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         ObservableIOrder.__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else deref_opt(_constant_Float(1.0))
-        
         self.price = price if price is not None else deref_opt(_constant_Float(100.0))
-        
         rtti.check_fields(self)
     
     @property
@@ -31,6 +29,8 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         'signedVolume' : IFunctionfloat,
         'price' : IFunctionfloat
     }
+    
+    
     
     
     

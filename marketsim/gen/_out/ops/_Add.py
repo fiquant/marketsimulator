@@ -7,16 +7,13 @@ class Add_IObservableFloatIObservableFloat(Observablefloat,Add_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
+        from marketsim import deref_opt
+        from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         Add_Impl.__init__(self)
     
@@ -30,7 +27,15 @@ class Add_IObservableFloatIObservableFloat(Observablefloat,Add_Impl):
     }
     
     
+    def on_x_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'x', value)
     
+    
+    
+    def on_y_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'y', value)
     
     def __repr__(self):
         return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -50,12 +55,9 @@ class Add_FloatIObservableFloat(Observablefloat,Add_Impl):
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
-        
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.y, self.fire, self)
         rtti.check_fields(self)
         Add_Impl.__init__(self)
     
@@ -70,6 +72,11 @@ class Add_FloatIObservableFloat(Observablefloat,Add_Impl):
     
     
     
+    
+    
+    def on_y_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'y', value)
     
     def __repr__(self):
         return "({%(x)s}+{%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
@@ -89,12 +96,9 @@ class Add_IObservableFloatFloat(Observablefloat,Add_Impl):
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.x, self.fire, self)
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Add_Impl.__init__(self)
     
@@ -106,6 +110,11 @@ class Add_IObservableFloatFloat(Observablefloat,Add_Impl):
         'x' : IObservablefloat,
         'y' : IFunctionfloat
     }
+    
+    
+    def on_x_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'x', value)
     
     
     
@@ -128,9 +137,7 @@ class Add_FloatFloat(Observablefloat,Add_Impl):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
-        
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
         Add_Impl.__init__(self)
     
@@ -142,6 +149,8 @@ class Add_FloatFloat(Observablefloat,Add_Impl):
         'x' : IFunctionfloat,
         'y' : IFunctionfloat
     }
+    
+    
     
     
     

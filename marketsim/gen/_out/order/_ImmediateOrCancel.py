@@ -18,10 +18,8 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
         from marketsim.gen._out._observable._observableiorder import ObservableIOrder
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
-        from marketsim import event
         ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else deref_opt(_order_Limit_SideFloatFloat())
-        event.subscribe(self.proto, self.fire, self)
         rtti.check_fields(self)
     
     @property
@@ -32,6 +30,10 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
         'proto' : IObservableIOrder
     }
     
+    
+    def on_proto_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'proto', value)
     
     def __repr__(self):
         return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }

@@ -17,12 +17,9 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import event
         ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else deref_opt(_order_Limit_SideFloatFloat())
-        event.subscribe(self.proto, self.fire, self)
         self.lotSize = lotSize if lotSize is not None else deref_opt(_constant_Float(10.0))
-        
         rtti.check_fields(self)
     
     @property
@@ -33,6 +30,11 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         'proto' : IObservableIOrder,
         'lotSize' : IFunctionfloat
     }
+    
+    
+    def on_proto_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'proto', value)
     
     
     

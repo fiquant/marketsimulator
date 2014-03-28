@@ -12,7 +12,6 @@ class Sqrt_Float(Observablefloat):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
     
     @property
@@ -22,6 +21,7 @@ class Sqrt_Float(Observablefloat):
     _properties = {
         'x' : IFunctionfloat
     }
+    
     
     
     def __repr__(self):

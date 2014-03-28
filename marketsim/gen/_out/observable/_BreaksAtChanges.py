@@ -7,14 +7,12 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
     """   When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     """ 
     def __init__(self, source = None):
-        from marketsim import deref_opt
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import event
+        from marketsim import deref_opt
+        from marketsim import rtti
         Observablefloat.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
-        event.subscribe(self.source, self.fire, self)
         rtti.check_fields(self)
         BreaksAtChanges_Impl.__init__(self)
     
@@ -26,6 +24,10 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
         'source' : IObservablefloat
     }
     
+    
+    def on_source_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'source', value)
     
     def __repr__(self):
         return "BreaksAtChanges(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }

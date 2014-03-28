@@ -15,11 +15,8 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         ObservableIVolumeLevels.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
-        
         self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
-        
         self.volumeCount = volumeCount if volumeCount is not None else 10
-        
         rtti.check_fields(self)
         VolumeLevels_Impl.__init__(self)
     
@@ -32,6 +29,9 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
         'volumeDelta' : float,
         'volumeCount' : int
     }
+    
+    
+    
     
     
     

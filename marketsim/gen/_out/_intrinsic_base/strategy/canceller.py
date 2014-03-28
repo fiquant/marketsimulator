@@ -1,8 +1,12 @@
 class Canceller_Base(object):
     def get_cancellationIntervalDistr(self):
-        return self.__cancellationIntervalDistr
+        return self._back_cancellationIntervalDistr
     
     def set_cancellationIntervalDistr(self, value):
-        self.__cancellationIntervalDistr = value
+        self._back_cancellationIntervalDistr = value
+        self.on_cancellationIntervalDistr_set(value)
     
     cancellationIntervalDistr = property(get_cancellationIntervalDistr, set_cancellationIntervalDistr)
+    def on_cancellationIntervalDistr_set(self, value):
+        pass
+    

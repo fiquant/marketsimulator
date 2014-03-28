@@ -99,8 +99,16 @@ class SingleAsset_Impl(Base_Impl, SingleAsset_Base):
 
     def __init__(self):
         Base_Impl.__init__(self)
-        self._subscription = event.subscribe(self.strategy.on_order_created, _(self).send, self)
         self._alias = [self.label]
+
+    def on_strategy_set(self, value):
+        if hasattr(self, '_subscription'):
+            self._subscription.switchTo(value.on_order_created)
+        else:
+            self._subscription = event.subscribe(self.strategy.on_order_created, _(self).send, self)
+
+    def bind(self, ctx):
+        pass
 
     def reset(self):
         self.amount = 0

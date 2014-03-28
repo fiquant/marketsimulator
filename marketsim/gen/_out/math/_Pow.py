@@ -17,9 +17,7 @@ class Pow_FloatFloat(Observablefloat):
         from marketsim import rtti
         Observablefloat.__init__(self)
         self.base = base if base is not None else deref_opt(_constant_Float(1.0))
-        
         self.power = power if power is not None else deref_opt(_constant_Float(1.0))
-        
         rtti.check_fields(self)
     
     @property
@@ -30,6 +28,8 @@ class Pow_FloatFloat(Observablefloat):
         'base' : IFunctionfloat,
         'power' : IFunctionfloat
     }
+    
+    
     
     
     

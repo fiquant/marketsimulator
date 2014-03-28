@@ -2,9 +2,13 @@ class Proxy_Base(object):
     pass
 class OfTrader_Base(object):
     def get_Trader(self):
-        return self.__Trader
+        return self._back_Trader
     
     def set_Trader(self, value):
-        self.__Trader = value
+        self._back_Trader = value
+        self.on_Trader_set(value)
     
     Trader = property(get_Trader, set_Trader)
+    def on_Trader_set(self, value):
+        pass
+    

@@ -14,13 +14,9 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
         from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
         Observablefloat.__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
-        
         self.deltaDistr = deltaDistr if deltaDistr is not None else deref_opt(_math_random_normalvariate_FloatFloat(0.0,1.0))
-        
         self.intervalDistr = intervalDistr if intervalDistr is not None else deref_opt(_math_random_expovariate_Float(1.0))
-        
         self.name = name if name is not None else "-random-"
-        
         rtti.check_fields(self)
         RandomWalk_Impl.__init__(self)
     
@@ -34,6 +30,10 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
         'intervalDistr' : IFunctionfloat,
         'name' : str
     }
+    
+    
+    
+    
     
     
     
