@@ -80,7 +80,7 @@ package object gen
         true)
 
     def printWriter(dst_dir : File, filename : String) =
-        printWriterEx(new File(dst_dir, filename.toLowerCase))
+        printWriterEx(new File(dst_dir.toString.toLowerCase, filename.toLowerCase))
 
     def processUsedTypes(out_dir : File)
     {
