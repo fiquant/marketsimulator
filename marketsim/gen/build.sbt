@@ -9,6 +9,8 @@ resolvers ++= Seq(
     "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 )
 
+resolvers += Resolver.sonatypeRepo("public")
+
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.2.0"
 
 libraryDependencies += "com.jsuereth" % "scala-arm_2.10" % "1.3"
