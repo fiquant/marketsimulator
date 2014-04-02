@@ -2,6 +2,8 @@ name := "pygen"
 
 version := "0.1"
 
+scalaVersion := "2.10.2"
+
 resolvers ++= Seq(
     "Sonatype OSS Releases"  at "http://oss.sonatype.org/content/repositories/releases/",
     "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
@@ -10,8 +12,6 @@ resolvers ++= Seq(
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.2.0"
 
 resolvers += Resolver.sonatypeRepo("public")
-
-scalaVersion := "2.10.2"
 
 libraryDependencies += "com.jsuereth" % "scala-arm_2.10" % "1.3"
 
