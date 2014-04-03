@@ -258,7 +258,7 @@ package object base {
 
     trait IntrinsicBaseClass extends Printer
     {
-        Typed.topLevel.addIntrinsic(args(0), parameters map { _.name })
+        Typed.topLevel.addIntrinsic(args(0), parameters map { _.p })
     }
 
 

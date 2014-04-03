@@ -52,7 +52,7 @@ package object gen
             }
         }
 
-        Typed.topLevel.intrinsics foreach { case (name, parameter_names) =>
+        Typed.topLevel.intrinsics foreach { case (name, parameters) =>
 
             val parts = name split "\\."
             val (moduleName, classNameArr) = parts.splitAt(parts.length - 1)
@@ -61,12 +61,12 @@ package object gen
             {
                 val s =
                     s"class $className(object):" |>
-                        Code.from(parameter_names map { p =>
-                            base.Property(p,
-                                s"return self._back_$p",
-                                s"self._back_$p = value" |
-                                s"self.on_${p}_set(value)") |
-                            base.Def(s"on_${p}_set", "value", "pass")
+                        Code.from(parameters map { p =>
+                            base.Property(p.name,
+                                s"return self._back_${p.name}",
+                                s"self._back_${p.name} = value" |
+                                s"self.on_${p.name}_set(value)") |
+                            base.Def(s"on_${p.name}_set", "value", "pass")
                         },
                         default = "pass")
 

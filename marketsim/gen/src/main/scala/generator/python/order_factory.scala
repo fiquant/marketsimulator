@@ -48,7 +48,7 @@ object order_factory
         }
 
         if (is_factory_intrinsic)
-            Typed.topLevel.addIntrinsic(args(0), parameters map { _.name })
+            Typed.topLevel.addIntrinsic(args(0), parameters map { _.p })
 
         case class Parameter(p : Typed.Parameter)
                 extends base.Parameter

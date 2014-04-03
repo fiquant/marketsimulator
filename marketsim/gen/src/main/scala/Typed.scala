@@ -355,6 +355,7 @@ package object Typed
     def getMethodName(scope : NameTable.Scope, f : AST.FunDef) =
         scope tryGetAttributeFor (f, "method") getOrElse f.name
 
+    case class ParameterOfIntrinsic(name : String, primitive : Boolean)
 
     class TopLevelPackage
             extends Package
@@ -491,6 +492,10 @@ package object Typed
         lazy val (unbound_boolean,   boolean_, booleanFunc, booleanObservable) = genType("Boolean")
         lazy val (unbound_side,      side_, sideFunc, sideObservable) = genType("Side")
 
+        def primitiveTypes = List(float_, string_, int_, boolean_)
+
+        def isPrimitive(t : TypesBound.Base) = primitiveTypes contains t
+
         lazy val IOrderGenerator = getScalarBound("IOrderGenerator")
         lazy val ISingleAssetStrategy = getScalarBound("ISingleAssetStrategy")
         lazy val Side = getScalarBound("Side")
@@ -502,15 +507,19 @@ package object Typed
         def observableImplOf(t : TypesBound.Base) =
             TypesBound.Interface(Observable, t :: Nil)
 
-        var intrinsics = Map.empty[String, List[String]]
+        var intrinsics = Map.empty[String, List[ParameterOfIntrinsic]]
 
-        def addIntrinsic(name : String, parameter_names : List[String]) {
+        def makeParameterOfIntrinsic(p : Parameter) =
+            ParameterOfIntrinsic(p.name, isPrimitive(p.ty.unOptionalize))
+
+        def addIntrinsic(name : String, parameters : List[Parameter]) {
+            val ip = parameters map makeParameterOfIntrinsic
             intrinsics get name match {
                 case None =>
-                    intrinsics = intrinsics updated (name, parameter_names)
+                    intrinsics = intrinsics updated (name, ip)
                 case Some(ps) =>
-                    if (ps != parameter_names)
-                        throw new Exception(s"Class that use intrinsic '$name' must have same parameter names but $ps != $parameter_names")
+                    if (ps != ip)
+                        throw new Exception(s"Class that use intrinsic '$name' must have same parameter names but $ps != $ip")
             }
         }
     }
