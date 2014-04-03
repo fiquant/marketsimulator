@@ -36,8 +36,9 @@ class Order_Impl(_meta.OwnsSingleOrder):
 from marketsim.gen._out._constant import constant
 
 from marketsim.event import Event_Impl
+from marketsim.gen._out._intrinsic_base.order.meta.floating_price import Factory_Base
 
-class Factory_Impl(Event_Impl):
+class Factory_Impl(Event_Impl, Factory_Base):
     
     def __call__(self):
         proto = self.proto(constant(0))()

@@ -24,9 +24,10 @@ def Peg(order):
     return FloatingPrice(order, price)
 
 from marketsim.event import Event_Impl
+from marketsim.gen._out._intrinsic_base.order.meta.peg import Factory_Base
 
 # unfortunately we cannot use _floating_price.Factory since price function depends on the order side 
-class Factory_Impl(Event_Impl):
+class Factory_Impl(Event_Impl, Factory_Base):
     
     def __call__(self):
         from marketsim.gen._out._constant import constant

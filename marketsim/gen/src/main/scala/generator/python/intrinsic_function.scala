@@ -16,12 +16,11 @@ object intrinsic_function extends gen.PythonGenerator
             with    base.Alias
             with    base.DecoratedName
             with    base.IntrinsicEx
+            with    base.IntrinsicBaseClass
     {
         override def repr = if (label_tmpl.toString != "N/A") super.repr else ""
 
         override def call_body = ""  // TODO: remove from the base class
-
-        Typed.topLevel.addIntrinsic(args(0), parameters map { _.name })
     }
 
     trait BaseClass_Intrinsic extends Common

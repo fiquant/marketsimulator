@@ -47,6 +47,9 @@ object order_factory
                     "\r\n" + "In function " + f)
         }
 
+        if (is_factory_intrinsic)
+            Typed.topLevel.addIntrinsic(args(0), parameters map { _.name })
+
         case class Parameter(p : Typed.Parameter)
                 extends base.Parameter
                 with    base.SubscribeParameter

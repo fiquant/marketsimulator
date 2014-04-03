@@ -256,6 +256,11 @@ package object base {
             else "")
     }
 
+    trait IntrinsicBaseClass extends Printer
+    {
+        Typed.topLevel.addIntrinsic(args(0), parameters map { _.name })
+    }
+
 
     object python extends gen.PythonGenerator
     {
