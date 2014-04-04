@@ -127,7 +127,7 @@ package object base {
 
         def properties = "_properties = {" |> property_fields | "}"
 
-        def repr_body : Code = s"""return "$label_tmpl" % { name : getattr(self, name) for name in self._properties.iterkeys() }"""
+        def repr_body : Code = s"""return "$label_tmpl" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])"""
 
         def repr = Def("__repr__", "", repr_body)
 
