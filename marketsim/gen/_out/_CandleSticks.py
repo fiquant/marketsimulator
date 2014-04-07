@@ -1,18 +1,18 @@
+from marketsim import registry
 from marketsim.gen._out._observable._observableicandlestick import ObservableICandleStick
-from marketsim.gen._out._icandlestick import ICandleStick
 from marketsim.gen._intrinsic.observable.candlestick import CandleSticks_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim import registry
+from marketsim.gen._out._icandlestick import ICandleStick
 @registry.expose(["Basic", "CandleSticks"])
 class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Impl):
     """  open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
-        from marketsim import deref_opt
-        from marketsim import rtti
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim.gen._out._observable._observableicandlestick import ObservableICandleStick
+        from marketsim import rtti
         from marketsim.gen._out._icandlestick import ICandleStick
+        from marketsim.gen._out._observable._observableicandlestick import ObservableICandleStick
+        from marketsim import deref_opt
         ObservableICandleStick.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
         self.timeframe = timeframe if timeframe is not None else 10.0
@@ -37,7 +37,7 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
     
     
     def __repr__(self):
-        return "Candles_{%(source)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Candles_{%(source)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def CandleSticks(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

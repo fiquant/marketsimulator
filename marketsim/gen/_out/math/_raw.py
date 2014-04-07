@@ -39,15 +39,15 @@ class Raw_mathRSI(IFunctionfloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
-        from marketsim import deref_opt
-        from marketsim.gen._out.math._timeframe import Timeframe_mathRSI as _math_Timeframe_mathRSI
-        from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements_IObservableFloatFloat
         from marketsim.gen._out.math._alpha import Alpha_mathRSI as _math_Alpha_mathRSI
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
         from marketsim.gen._out.ops._div import Div_FloatFloat as _ops_Div_FloatFloat
         from marketsim.gen._out.math._downmovements import DownMovements_IObservableFloatFloat as _math_DownMovements_IObservableFloatFloat
+        from marketsim.gen._out.math._upmovements import UpMovements_IObservableFloatFloat as _math_UpMovements_IObservableFloatFloat
         from marketsim.gen._out.math._source import Source_mathRSI as _math_Source_mathRSI
+        from marketsim.gen._out.math._timeframe import Timeframe_mathRSI as _math_Timeframe_mathRSI
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim import deref_opt
         return deref_opt(_ops_Div_FloatFloat(deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_math_UpMovements_IObservableFloatFloat(deref_opt(_math_Source_mathRSI(self.x)),deref_opt(_math_Timeframe_mathRSI(self.x)))),deref_opt(_math_Alpha_mathRSI(self.x)))))),deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_math_DownMovements_IObservableFloatFloat(deref_opt(_math_Source_mathRSI(self.x)),deref_opt(_math_Timeframe_mathRSI(self.x)))),deref_opt(_math_Alpha_mathRSI(self.x))))))))
     
     def __getattr__(self, name):

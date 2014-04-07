@@ -420,13 +420,13 @@ package math
     def Max(x = .constant(1.0),
             y = .constant(1.0)) = if x>y then x else y
     
+    @category = "RSI"
+    def Value(x = .math.RSI()) = 100.0-100.0/(1.0+x~>Raw)
+    
     /** Moving average convergence/divergence
      */
     @category = "MACD"
     def Value(x = .math.macd()) = x~>Source~>EW(2.0/(x~>Fast+1))~>Avg-x~>Source~>EW(2.0/(x~>Slow+1))~>Avg
-    
-    @category = "RSI"
-    def Value(x = .math.RSI()) = 100.0-100.0/(1.0+x~>Raw)
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -1740,7 +1740,7 @@ package orderbook
      */
     @python.intrinsic("orderbook.link.Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency = .const(0.0010)) : .ILink
+               * when it will appear at the end point*/ latency = .const(0.001)) : .ILink
     
     /** Spread of order *book*
      */

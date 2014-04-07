@@ -13,7 +13,7 @@ object mathops extends gen.PythonGenerator
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
-                    " form (implementation_function)" + "\r\n" + "In function " + f)
+                    " form (implementation_function)" + crlf + "In function " + f)
 
         override val impl_function = args(0)
         def mkParam(p : Typed.Parameter) = Parameter(p)

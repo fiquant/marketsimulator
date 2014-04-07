@@ -1,21 +1,21 @@
+from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import registry
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Market"])
 class Market_SideFloat(ObservableIOrder,IObservableIOrder):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None, volume = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._iorder import IOrder
-        from marketsim import rtti
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+        from marketsim import deref_opt
         ObservableIOrder.__init__(self)
         self.side = side if side is not None else deref_opt(_side_Sell_())
         self.volume = volume if volume is not None else deref_opt(_constant_Float(1.0))
@@ -36,7 +36,7 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
     
     
     def __repr__(self):
-        return "Market(%(side)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Market(%(side)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.market import Order_Impl

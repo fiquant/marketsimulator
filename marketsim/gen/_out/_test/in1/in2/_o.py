@@ -7,12 +7,12 @@ class O_IObservableFloat(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import _
-        from marketsim import rtti
-        from marketsim import event
         from marketsim.gen._out._test.in1.in2._intobs import IntObs_ as __test_in1_in2_IntObs_
+        from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(__test_in1_in2_IntObs_())
         rtti.check_fields(self)

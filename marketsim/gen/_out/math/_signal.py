@@ -47,11 +47,11 @@ class Signal_mathmacdFloatFloat(IDifferentiable):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
-        from marketsim import deref_opt
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim.gen._out.math._value import Value_mathmacd as _math_Value_mathmacd
+        from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
         from marketsim.gen._out.observable._oneverydt import OnEveryDt_FloatFloat as _observable_OnEveryDt_FloatFloat
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim import deref_opt
         return deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_observable_OnEveryDt_FloatFloat(deref_opt(_math_Value_mathmacd(self.x)),self.step)),(2/((self.timeframe+1)))))))
     
     def __getattr__(self, name):

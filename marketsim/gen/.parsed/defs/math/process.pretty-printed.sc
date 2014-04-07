@@ -1,6 +1,6 @@
 
 package math() {
-    // defined at defs/math/process.sc: 3.5
+    // defined at defs\math\process.sc: 3.5
     /** A discrete signal with user-defined increments.
      */
     @python.intrinsic("observable.randomwalk.RandomWalk_Impl")

@@ -37,7 +37,7 @@ package object predef {
 
     val indent = new Indent()
 
-    def crlf = "\r\n" + indent.get
+    def crlf = "\n" + indent.get
 
 
 

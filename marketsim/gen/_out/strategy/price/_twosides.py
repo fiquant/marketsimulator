@@ -7,11 +7,11 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.strategy.price._marketmaker import MarketMaker_FloatFloat as _strategy_price_MarketMaker_FloatFloat
+        from marketsim import _
         from marketsim import event
+        from marketsim.gen._out.strategy.price._marketmaker import MarketMaker_FloatFloat as _strategy_price_MarketMaker_FloatFloat
+        from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_price_MarketMaker_FloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -43,11 +43,11 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
-        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.strategy.price._oneside import OneSide_strategypriceMarketMakerSideFloat as _strategy_price_OneSide_strategypriceMarketMakerSideFloat
+        from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
+        from marketsim import deref_opt
         return deref_opt(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(deref_opt(_strategy_price_OneSide_strategypriceMarketMakerSideFloat(self.x,deref_opt(_side_Sell_()),1.0)),deref_opt(_strategy_price_OneSide_strategypriceMarketMakerSideFloat(self.x,deref_opt(_side_Buy_()),-1.0))))
     
     def __getattr__(self, name):
@@ -68,11 +68,11 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
-        from marketsim import _
         from marketsim import rtti
+        from marketsim import _
         from marketsim import event
+        from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_price_MarketData_StringStringStringFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
@@ -104,11 +104,11 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.strategy.price._oneside import OneSide_strategypriceMarketDataSideFloat as _strategy_price_OneSide_strategypriceMarketDataSideFloat
+        from marketsim import deref_opt
         return deref_opt(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(deref_opt(_strategy_price_OneSide_strategypriceMarketDataSideFloat(self.x,deref_opt(_side_Sell_()),1.0)),deref_opt(_strategy_price_OneSide_strategypriceMarketDataSideFloat(self.x,deref_opt(_side_Buy_()),-1.0))))
     
     def __getattr__(self, name):

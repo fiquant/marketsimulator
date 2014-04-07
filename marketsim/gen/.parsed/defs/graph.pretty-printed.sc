@@ -1,7 +1,7 @@
 @category = "Basic"
 
 package () {
-    // defined at defs/graph.sc: 4.5
+    // defined at defs\graph.sc: 4.5
     /** Observable returning at the end of every *timeframe*
      * open/close/min/max price, its average and standard deviation
      */
@@ -10,7 +10,7 @@ package () {
     def CandleSticks(/** observable data source considered as asset price */ source = const(1.0),
                      /** size of timeframe */ timeframe = 10.0) : IObservable[ICandleStick]
     
-    // defined at defs/graph.sc: 15.5
+    // defined at defs\graph.sc: 15.5
     /** Time serie to store and render it after on a graph
      *  Used to specify what data should be collected about order books and traders
      */
@@ -21,7 +21,7 @@ package () {
                   _digitsToShow = 4,
                   _smooth = 1) : ITimeSerie
     
-    // defined at defs/graph.sc: 26.5
+    // defined at defs\graph.sc: 26.5
     /** Time serie holding volume levels of an asset
      * Level of volume V is a price at which cumulative volume of better orders is V
      */
@@ -37,7 +37,7 @@ package () {
 @category = "N/A"
 
 package veusz() {
-    // defined at defs/graph.sc: 45.5
+    // defined at defs\graph.sc: 45.5
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     @python.intrinsic("veusz.Graph_Impl")

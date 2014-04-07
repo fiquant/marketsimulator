@@ -1,8 +1,8 @@
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim import registry
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "LimitSigned"])
 class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
     """ 
@@ -11,11 +11,11 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, signedVolume = None, price = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+        from marketsim import deref_opt
         ObservableIOrder.__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else deref_opt(_constant_Float(1.0))
         self.price = price if price is not None else deref_opt(_constant_Float(100.0))
@@ -36,7 +36,7 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
     
     
     def __repr__(self):
-        return "LimitSigned(%(signedVolume)s, %(price)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "LimitSigned(%(signedVolume)s, %(price)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._out._side import Side

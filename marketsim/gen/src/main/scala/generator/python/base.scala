@@ -198,7 +198,7 @@ package object base {
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $name should have 1 arguments in" +
-                    " form (implementation_class)" + "\r\n" + "In function " + f)
+                    " form (implementation_class)" + crlf + "In function " + f)
 
         val last_dot_idx = args(0).lastIndexOf(".")
         val implementation_module =args(0).substring(0, last_dot_idx)

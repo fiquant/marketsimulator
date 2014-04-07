@@ -115,11 +115,11 @@ class Threshold_strategysideSignal(object):
         return self.x.threshold
     
 def Threshold(x = None): 
+    from marketsim.gen._out.strategy.side._rsibis import RSIbis
     from marketsim import rtti
+    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
     from marketsim.gen._out.strategy.side._signal import Signal
     from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-    from marketsim.gen._out.strategy.side._rsibis import RSIbis
-    from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
     if x is None or rtti.can_be_casted(x, RSIbis):
         return Threshold_strategysideRSIbis(x)
     if x is None or rtti.can_be_casted(x, TrendFollower):

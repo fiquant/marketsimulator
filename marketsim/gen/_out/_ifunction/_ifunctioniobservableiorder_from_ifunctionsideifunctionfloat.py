@@ -1,11 +1,11 @@
-from marketsim.gen._out._ifunction._ifunctionievent_from_ifunctionsideifunctionfloat import IFunctionIEvent_from_IFunctionSideIFunctionfloat
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._iorder import IOrder
-from marketsim import meta
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim.gen._out._ifunction._ifunctionobject_from_ifunctionsideifunctionfloat import IFunctionobject_from_IFunctionSideIFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionifunctioniorder_from_ifunctionsideifunctionfloat import IFunctionIFunctionIOrder_from_IFunctionSideIFunctionfloat
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+from marketsim.gen._out._ifunction._ifunctionievent_from_ifunctionsideifunctionfloat import IFunctionIEvent_from_IFunctionSideIFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._ifunction._ifunctionobject_from_ifunctionsideifunctionfloat import IFunctionobject_from_IFunctionSideIFunctionfloat
+from marketsim.gen._out._iorder import IOrder
+from marketsim import meta
 #((() => .Side),(() => .Float)) => .IObservable[.IOrder]
 class IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat(object):
     _types = [meta.function((IFunctionSide,IFunctionfloat,),IObservableIOrder)]

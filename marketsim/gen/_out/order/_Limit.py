@@ -1,9 +1,9 @@
+from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import registry
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "Limit"])
 class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
     """ 
@@ -12,12 +12,12 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
       it remains in an order book waiting to be matched with another order.
     """ 
     def __init__(self, side = None, price = None, volume = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._iorder import IOrder
-        from marketsim import rtti
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
+        from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+        from marketsim import deref_opt
         ObservableIOrder.__init__(self)
         self.side = side if side is not None else deref_opt(_side_Sell_())
         self.price = price if price is not None else deref_opt(_constant_Float(100.0))
@@ -43,7 +43,7 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
     
     
     def __repr__(self):
-        return "Limit(%(side)s, %(price)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Limit(%(side)s, %(price)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.limit import Order_Impl

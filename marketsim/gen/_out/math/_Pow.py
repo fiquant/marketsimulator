@@ -35,7 +35,7 @@ class Pow_FloatFloat(Observablefloat):
     
     
     def __repr__(self):
-        return "%(base)s^{%(power)s}" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "%(base)s^{%(power)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         import math

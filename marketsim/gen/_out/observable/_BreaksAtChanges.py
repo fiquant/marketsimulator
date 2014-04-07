@@ -30,7 +30,7 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
         event.subscribe_field(self, 'source', value)
     
     def __repr__(self):
-        return "BreaksAtChanges(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "BreaksAtChanges(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def BreaksAtChanges(source = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

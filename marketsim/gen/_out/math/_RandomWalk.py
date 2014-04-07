@@ -7,11 +7,11 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     """ 
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import rtti
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import rtti
         from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         self.deltaDistr = deltaDistr if deltaDistr is not None else deref_opt(_math_random_normalvariate_FloatFloat(0.0,1.0))
@@ -43,7 +43,7 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     
     
     def __repr__(self):
-        return "%(name)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "%(name)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

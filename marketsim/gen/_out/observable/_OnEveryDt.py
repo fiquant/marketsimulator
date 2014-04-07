@@ -32,7 +32,7 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
     
     
     def __repr__(self):
-        return "[%(x)s]_dt=%(dt)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "[%(x)s]_dt=%(dt)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def OnEveryDt(x = None,dt = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

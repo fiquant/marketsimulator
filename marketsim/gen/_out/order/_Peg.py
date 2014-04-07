@@ -1,8 +1,8 @@
-from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
-from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
-from marketsim.gen._out._iorder import IOrder
 from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
+from marketsim.gen._out._iorder import IOrder
 @registry.expose(["Order", "Peg"])
 class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     """ 
@@ -31,7 +31,7 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
     
     
     def __repr__(self):
-        return "Peg(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Peg(%(proto)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     
 def Peg(proto = None): 

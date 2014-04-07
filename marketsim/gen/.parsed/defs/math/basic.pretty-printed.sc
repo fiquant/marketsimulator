@@ -3,14 +3,14 @@
 package math() {@category = "Log/Pow"
     
     package () {
-        // defined at defs/math/basic.sc: 7.5
+        // defined at defs\math\basic.sc: 7.5
         /** Square of *x*
          */
         @python.observable()
         @label = "{%(x)s}^2"
         def Sqr(x = constant(1.0)) = x*x
         
-        // defined at defs/math/basic.sc: 14.5
+        // defined at defs\math\basic.sc: 14.5
         /** Exponent of *x*
          *
          */
@@ -18,7 +18,7 @@ package math() {@category = "Log/Pow"
         @label = "e^{%(x)s}"
         def Exp(x = constant(1.0)) : () => Float
         
-        // defined at defs/math/basic.sc: 21.5
+        // defined at defs\math\basic.sc: 21.5
         /** Natural logarithm of *x* (to base e)
          *
          */
@@ -26,7 +26,7 @@ package math() {@category = "Log/Pow"
         @label = "log(%(x)s)"
         def Log(x = constant(1.0)) : () => Float
         
-        // defined at defs/math/basic.sc: 28.5
+        // defined at defs\math\basic.sc: 28.5
         /** Square root of *x*
          *
          */
@@ -34,7 +34,7 @@ package math() {@category = "Log/Pow"
         @label = "\\sqrt{%(x)s}"
         def Sqrt(x = constant(1.0)) : () => Float
         
-        // defined at defs/math/basic.sc: 35.5
+        // defined at defs\math\basic.sc: 35.5
         /** Return *x* raised to the power *y*.
          *
          * Exceptional cases follow Annex F of the C99 standard as far as possible.
@@ -50,7 +50,7 @@ package math() {@category = "Log/Pow"
     }
     
     package () {
-        // defined at defs/math/basic.sc: 49.5
+        // defined at defs\math\basic.sc: 49.5
         /** Function returning minimum of two functions *x* and *y*.
          * If *x* or/and *y* are observables, *Min* is also observable
          */
@@ -59,7 +59,7 @@ package math() {@category = "Log/Pow"
         def Min(x = constant(1.0),
                 y = constant(1.0)) = if x<y then x else y
         
-        // defined at defs/math/basic.sc: 57.5
+        // defined at defs\math\basic.sc: 57.5
         /** Function returning maximum of two functions *x* and *y*.
          * If *x* or/and *y* are observables, *Min* is also observable
          */
@@ -68,7 +68,7 @@ package math() {@category = "Log/Pow"
         def Max(x = constant(1.0),
                 y = constant(1.0)) = if x>y then x else y
         
-        // defined at defs/math/basic.sc: 65.5
+        // defined at defs\math\basic.sc: 65.5
         /** Function returning first derivative on time of *x*
          * *x* should provide *derivative* member
          */
@@ -79,7 +79,7 @@ package math() {@category = "Log/Pow"
     @category = "Trigonometric"
     
     package () {
-        // defined at defs/math/basic.sc: 76.5
+        // defined at defs\math\basic.sc: 76.5
         /** Arc tangent of x, in radians.
          *
          */

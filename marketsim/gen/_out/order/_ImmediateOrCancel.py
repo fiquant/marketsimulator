@@ -13,11 +13,11 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
       either it is cancelled (and consequently never stored in the order queue).
     """ 
     def __init__(self, proto = None):
-        from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
+        from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+        from marketsim import deref_opt
         ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else deref_opt(_order_Limit_SideFloatFloat())
         rtti.check_fields(self)
@@ -36,7 +36,7 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
         event.subscribe_field(self, 'proto', value)
     
     def __repr__(self):
-        return "ImmediateOrCancel(%(proto)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "ImmediateOrCancel(%(proto)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.ioc import Order_Impl

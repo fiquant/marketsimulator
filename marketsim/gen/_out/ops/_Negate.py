@@ -30,7 +30,7 @@ class Negate_IObservableFloat(Observablefloat,Negate_Impl):
         event.subscribe_field(self, 'x', value)
     
     def __repr__(self):
-        return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "-%(x)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -61,7 +61,7 @@ class Negate_Float(Observablefloat,Negate_Impl):
     
     
     def __repr__(self):
-        return "-%(x)s" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "-%(x)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def Negate(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

@@ -38,23 +38,23 @@ class Equal_IObservableFloatIObservableFloat(Observablebool,Equal_Impl):
         event.subscribe_field(self, 'y', value)
     
     def __repr__(self):
-        return "({%(x)s}=={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import Equal_Impl
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Equal_Impl
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Equal"])
 class Equal_FloatIObservableFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import deref_opt
-        from marketsim import rtti
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import deref_opt
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
@@ -79,23 +79,23 @@ class Equal_FloatIObservableFloat(Observablebool,Equal_Impl):
         event.subscribe_field(self, 'y', value)
     
     def __repr__(self):
-        return "({%(x)s}=={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._observable._observablebool import Observablebool
-from marketsim.gen._intrinsic.ops import Equal_Impl
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._intrinsic.ops import Equal_Impl
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Ops", "Equal"])
 class Equal_IObservableFloatFloat(Observablebool,Equal_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import deref_opt
-        from marketsim import rtti
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import deref_opt
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
@@ -120,7 +120,7 @@ class Equal_IObservableFloatFloat(Observablebool,Equal_Impl):
     
     
     def __repr__(self):
-        return "({%(x)s}=={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -156,7 +156,7 @@ class Equal_FloatFloat(Observablebool,Equal_Impl):
     
     
     def __repr__(self):
-        return "({%(x)s}=={%(y)s})" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def Equal(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

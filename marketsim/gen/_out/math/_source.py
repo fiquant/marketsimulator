@@ -144,11 +144,11 @@ class Source_mathCumulative(object):
         return self.x.source
     
 def Source(x = None): 
-    from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim import rtti
-    from marketsim.gen._out.math._rsi import RSI
     from marketsim.gen._out.math._macd import macd
     from marketsim.gen._out.math._moving import Moving
+    from marketsim.gen._out.math._rsi import RSI
+    from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim.gen._out.math._ew import EW
     if x is None or rtti.can_be_casted(x, Moving):
         return Source_mathMoving(x)

@@ -1,19 +1,19 @@
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iorder import IOrder
-from marketsim import registry
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "MarketSigned"])
 class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     """ 
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, signedVolume = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
-        from marketsim.gen._out._iorder import IOrder
         from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._observable._observableiorder import ObservableIOrder
+        from marketsim import deref_opt
         ObservableIOrder.__init__(self)
         self.signedVolume = signedVolume if signedVolume is not None else deref_opt(_constant_Float(1.0))
         rtti.check_fields(self)
@@ -29,7 +29,7 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     
     
     def __repr__(self):
-        return "MarketSigned(%(signedVolume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketSigned(%(signedVolume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         from marketsim.gen._out._side import Side

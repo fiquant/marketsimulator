@@ -40,11 +40,11 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
     
     def getImpl(self):
         from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
-        from marketsim import deref_opt
-        from marketsim.gen._out.strategy.side._book import book_strategysideMeanReversion as _strategy_side_book_strategysideMeanReversion
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim.gen._out.strategy.side._alpha import Alpha_strategysideMeanReversion as _strategy_side_Alpha_strategysideMeanReversion
+        from marketsim.gen._out.strategy.side._book import book_strategysideMeanReversion as _strategy_side_book_strategysideMeanReversion
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim import deref_opt
         return deref_opt(_math_Avg_mathEW(deref_opt(_math_EW_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_book_strategysideMeanReversion(self.x)))),deref_opt(_strategy_side_Alpha_strategysideMeanReversion(self.x))))))
     
     def __getattr__(self, name):
@@ -113,12 +113,12 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import _
-        from marketsim import rtti
-        from marketsim import event
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
+        from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
         rtti.check_fields(self)
@@ -150,12 +150,12 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.side._factor import Factor_strategysidePairTrading as _strategy_side_Factor_strategysidePairTrading
-        from marketsim import deref_opt
+        from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
         from marketsim.gen._out.orderbook._midprice import MidPrice_IOrderBook as _orderbook_MidPrice_IOrderBook
         from marketsim.gen._out.strategy.side._booktodependon import BookToDependOn_strategysidePairTrading as _strategy_side_BookToDependOn_strategysidePairTrading
         from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim.gen._out.ops._mul import Mul_IObservableFloatFloat as _ops_Mul_IObservableFloatFloat
+        from marketsim.gen._out.strategy.side._factor import Factor_strategysidePairTrading as _strategy_side_Factor_strategysidePairTrading
+        from marketsim import deref_opt
         return deref_opt(_ops_Mul_IObservableFloatFloat(deref_opt(_orderbook_MidPrice_IOrderBook(deref_opt(_strategy_side_BookToDependOn_strategysidePairTrading(self.x)))),deref_opt(_constant_Float(deref_opt(_strategy_side_Factor_strategysidePairTrading(self.x))))))
     
     def __getattr__(self, name):

@@ -879,17 +879,17 @@ package math {
             y : Optional[() => .Float] = .constant(1.0)) : () => .Float
         	 = .ops.Condition(.ops.Greater(x,y),x,y)
     
+    @category = "RSI"
+    
+    def Value(x : Optional[.math.RSI] = .math.RSI()) : () => .Float
+        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.Raw(x))))
+    
     /** Moving average convergence/divergence
      */
     @category = "MACD"
     
     def Value(x : Optional[.math.macd] = .math.macd()) : () => .Float
         	 = .ops.Sub(.math.Avg(.math.EW(.math.Source(x),2.0/(.math.Fast(x)+1))),.math.Avg(.math.EW(.math.Source(x),2.0/(.math.Slow(x)+1))))
-    
-    @category = "RSI"
-    
-    def Value(x : Optional[.math.RSI] = .math.RSI()) : () => .Float
-        	 = .ops.Sub(.constant(100.0),.ops.Div(.constant(100.0),.ops.Add(.constant(1.0),.math.Raw(x))))
     
     /** Returns positive movements of some observable *source* with lag *timeframe*
      */
@@ -2785,7 +2785,7 @@ package orderbook {
     
     @python.intrinsic("orderbook.link.Link_Impl")
     def Link(/** function called for each packet in order to determine
-               * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.0010)) : .ILink
+               * when it will appear at the end point*/ latency : Optional[.IObservable[.Float]] = .const(0.001)) : .ILink
     
     /** Spread of order *book*
      */

@@ -1,6 +1,6 @@
 
 package math.random() {
-    // defined at defs/math/random.sc: 3.1
+    // defined at defs\math\random.sc: 3.1
     /** Beta distribution
      *
      * Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -10,7 +10,7 @@ package math.random() {
     def betavariate(Alpha = 1.0,
                     Beta = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 11.1
+    // defined at defs\math\random.sc: 11.1
     /** Exponential distribution
      *
      *  Returned values range from 0 to positive infinity
@@ -18,7 +18,7 @@ package math.random() {
     @python.random()
     def expovariate(/** |lambda| is 1.0 divided by the desired mean. It should be greater zero.*/ Lambda = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 18.1
+    // defined at defs\math\random.sc: 18.1
     /** Uniform distribution
      *
      * Return a random floating point number *N* such that
@@ -30,7 +30,7 @@ package math.random() {
     def uniform(Low = -10.0,
                 High = 10.0) : () => Float
     
-    // defined at defs/math/random.sc: 28.1
+    // defined at defs\math\random.sc: 28.1
     /** Triangular distribution
      *
      * Return a random floating point number *N* such that *low* <= *N* <= *high* and
@@ -44,7 +44,7 @@ package math.random() {
                    High = 1.0,
                    Mode = 0.5) : () => Float
     
-    // defined at defs/math/random.sc: 39.1
+    // defined at defs\math\random.sc: 39.1
     /** Gamma distribution
      *
      *  Conditions on the parameters are |alpha| > 0 and |beta| > 0.
@@ -59,7 +59,7 @@ package math.random() {
     def gammavariate(Alpha = 1.0,
                      Beta = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 52.1
+    // defined at defs\math\random.sc: 52.1
     /** Log normal distribution
      *
      * If you take the natural logarithm of this distribution,
@@ -70,14 +70,14 @@ package math.random() {
     def lognormvariate(Mu = 0.0,
                        Sigma = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 61.1
+    // defined at defs\math\random.sc: 61.1
     /** Normal distribution
      */
     @python.random()
     def normalvariate(/** |mu| is the mean                  */ Mu = 0.0,
                       /** |sigma| is the standard deviation */ Sigma = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 67.1
+    // defined at defs\math\random.sc: 67.1
     /** Von Mises distribution
      */
     @python.random()
@@ -86,13 +86,13 @@ package math.random() {
                           *      If |kappa| is equal to zero, this distribution reduces
                           *      to a uniform random angle over the range 0 to 2|pi|        */ Kappa = 0.0) : () => Float
     
-    // defined at defs/math/random.sc: 75.1
+    // defined at defs\math\random.sc: 75.1
     /** Pareto distribution
      */
     @python.random()
     def paretovariate(/** |alpha| is the shape parameter*/ Alpha = 1.0) : () => Float
     
-    // defined at defs/math/random.sc: 80.1
+    // defined at defs\math\random.sc: 80.1
     /** Weibull distribution
      */
     @python.random()

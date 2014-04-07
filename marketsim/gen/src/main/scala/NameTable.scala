@@ -2,7 +2,7 @@ import syntax.scala.Printer.{typed => pp}
 import predef.ScPrintable
 import scala.collection.immutable._
 import Typed.AfterTyping
-
+import predef.crlf
 package object NameTable {
 
     case class Scope(name       : String = "_root_",
@@ -56,7 +56,7 @@ package object NameTable {
                     types = types updated (t.name, t)
                 case Some(x) =>
                     if (x != t)
-                        throw new Exception(s"Trying to replace type member $x\r\n by $t\r\n at $qualifiedNameAnon" )
+                        throw new Exception(s"Trying to replace type member $x$crlf by $t$crlf at $qualifiedNameAnon" )
             }
         }
 
@@ -76,11 +76,11 @@ package object NameTable {
 
         private def check_name_is_unique(name : String, e : Any) {
             if ((functions contains name) && functions(name) != e)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + functions(name) + "\r\n" + e)
+                throw new Exception(s"Duplicate definition for $name:" + crlf + functions(name) + crlf + e)
             if ((types contains name) && types(name) != e)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + types(name) + "\r\n" + e)
+                throw new Exception(s"Duplicate definition for $name:" + crlf + types(name) + crlf + e)
             if (packages contains name)
-                throw new Exception(s"Duplicate definition for $name:\r\n" + packages(name) + "\r\n" + e)
+                throw new Exception(s"Duplicate definition for $name:" + crlf + packages(name) + crlf + e)
         }
 
         def getAttribute(name : String) : Option[String] =
@@ -542,7 +542,7 @@ package object NameTable {
         try {
             p foreach { create(_, Nil, impl) }
 
-            println("\r\n\tclass desugaring")
+            println(crlf + "class desugaring")
             impl.desugarClasses()
 
             println("\tremoving anonymous packages")

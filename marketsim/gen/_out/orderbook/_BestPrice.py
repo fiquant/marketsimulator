@@ -27,7 +27,7 @@ class BestPrice_IOrderQueue(Observablefloat,BestPrice_Impl):
     
     
     def __repr__(self):
-        return "BestPrice(%(queue)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "BestPrice(%(queue)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def BestPrice(queue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue

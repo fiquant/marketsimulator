@@ -1,22 +1,22 @@
-from marketsim.gen._out._ievent import IEvent
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
-from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
 from marketsim import registry
+from marketsim.gen._out._ievent import IEvent
 from marketsim import context
+from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Price function", "LiquidityProvider"])
 class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, x = None, eventGen = None, orderFactory = None):
-        from marketsim import deref_opt
-        from marketsim import _
-        from marketsim import rtti
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
+        from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
         from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_FloatFloatIOrderBook as _strategy_price_LiquidityProvider_FloatFloatIOrderBook
         from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float
-        from marketsim import event
+        from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_price_LiquidityProvider_FloatFloatIOrderBook())
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_sideprice_Limit_Float())
@@ -56,11 +56,11 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim import deref_opt
-        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.strategy._combine import Combine_ISingleAssetStrategyISingleAssetStrategy as _strategy_Combine_ISingleAssetStrategyISingleAssetStrategy
+        from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.strategy.price._onesidestrategy import OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide as _strategy_price_OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide
+        from marketsim import deref_opt
         return deref_opt(_strategy_Combine_ISingleAssetStrategyISingleAssetStrategy(deref_opt(_strategy_price_OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide(self.x,self.eventGen,self.orderFactory,deref_opt(_side_Sell_()))),deref_opt(_strategy_price_OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrderSide(self.x,self.eventGen,self.orderFactory,deref_opt(_side_Buy_())))))
     
     def __getattr__(self, name):

@@ -1,19 +1,19 @@
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
-from marketsim.gen._out.math._cumulative import Cumulative
 from marketsim import registry
+from marketsim.gen._intrinsic.observable.minmax_eps import MaxEpsilon_Impl
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["Statistics", "MaxEpsilon"])
 class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
     """ 
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
     def __init__(self, x = None, epsilon = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import rtti
-        from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_Cumulative_IObservableFloat())
         self.epsilon = epsilon if epsilon is not None else deref_opt(_constant_Float(0.01))

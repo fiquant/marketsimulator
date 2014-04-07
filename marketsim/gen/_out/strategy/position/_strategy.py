@@ -1,19 +1,19 @@
+from marketsim import registry
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
-from marketsim import registry
 from marketsim import context
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Volume function", "RSI_linear"])
 class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, x = None, orderFactory = None):
+        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
+        from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
         from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
         from marketsim import deref_opt
-        from marketsim import _
-        from marketsim import rtti
-        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
-        from marketsim import event
         self.x = x if x is not None else deref_opt(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader())
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
         rtti.check_fields(self)
@@ -63,22 +63,22 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
-from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim import registry
-from marketsim import context
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
+from marketsim import context
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Volume function", "Bollinger_linear"])
 class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, x = None, orderFactory = None):
-        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
-        from marketsim import deref_opt
-        from marketsim import _
         from marketsim import rtti
+        from marketsim import _
         from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
         from marketsim import event
+        from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
+        from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader())
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
         rtti.check_fields(self)

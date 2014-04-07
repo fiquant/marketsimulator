@@ -7,12 +7,12 @@ class RelStdDev_mathCumulative(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import _
         from marketsim import rtti
-        from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
+        from marketsim import _
         from marketsim import event
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_Cumulative_IObservableFloat())
         rtti.check_fields(self)
@@ -44,12 +44,12 @@ class RelStdDev_mathCumulative(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim import deref_opt
-        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.math._stddev import StdDev_mathCumulative as _math_StdDev_mathCumulative
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math._source import Source_mathCumulative as _math_Source_mathCumulative
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.math._avg import Avg_mathCumulative as _math_Avg_mathCumulative
+        from marketsim import deref_opt
         return deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_ops_Sub_IObservableFloatFloat(deref_opt(_math_Source_mathCumulative(self.x)),deref_opt(_math_Avg_mathCumulative(self.x)))),deref_opt(_math_StdDev_mathCumulative(self.x))))
     
     def __getattr__(self, name):
@@ -67,12 +67,12 @@ class RelStdDev_mathEW(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import _
-        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim import rtti
+        from marketsim import _
         from marketsim import event
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_EW_IObservableFloatFloat())
         rtti.check_fields(self)
@@ -105,11 +105,11 @@ class RelStdDev_mathEW(Observablefloat):
     
     def getImpl(self):
         from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW
-        from marketsim import deref_opt
-        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math._source import Source_mathEW as _math_Source_mathEW
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
         from marketsim.gen._out.math._stddev import StdDev_mathEW as _math_StdDev_mathEW
+        from marketsim import deref_opt
         return deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_ops_Sub_IObservableFloatFloat(deref_opt(_math_Source_mathEW(self.x)),deref_opt(_math_Avg_mathEW(self.x)))),deref_opt(_math_StdDev_mathEW(self.x))))
     
     def __getattr__(self, name):
@@ -127,12 +127,12 @@ class RelStdDev_mathMoving(Observablefloat):
     """ 
     """ 
     def __init__(self, x = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import _
-        from marketsim import rtti
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat
+        from marketsim import rtti
+        from marketsim import _
         from marketsim import event
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim import deref_opt
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_math_Moving_IObservableFloatFloat())
         rtti.check_fields(self)
@@ -164,12 +164,12 @@ class RelStdDev_mathMoving(Observablefloat):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim import deref_opt
-        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
-        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
         from marketsim.gen._out.math._source import Source_mathMoving as _math_Source_mathMoving
         from marketsim.gen._out.math._stddev import StdDev_mathMoving as _math_StdDev_mathMoving
         from marketsim.gen._out.math._avg import Avg_mathMoving as _math_Avg_mathMoving
+        from marketsim.gen._out.ops._sub import Sub_IObservableFloatFloat as _ops_Sub_IObservableFloatFloat
+        from marketsim.gen._out.ops._div import Div_IObservableFloatFloat as _ops_Div_IObservableFloatFloat
+        from marketsim import deref_opt
         return deref_opt(_ops_Div_IObservableFloatFloat(deref_opt(_ops_Sub_IObservableFloatFloat(deref_opt(_math_Source_mathMoving(self.x)),deref_opt(_math_Avg_mathMoving(self.x)))),deref_opt(_math_StdDev_mathMoving(self.x))))
     
     def __getattr__(self, name):

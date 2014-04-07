@@ -1,8 +1,8 @@
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
-from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import registry
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
 @registry.expose(["Asset", "CumulativePrice"])
 class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     """ 
@@ -13,11 +13,11 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
       Positive *depth* correponds to will sell assets
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim import deref_opt
-        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim import rtti
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import deref_opt
+        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         Observablefloat.__init__(self)
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.depth = depth if depth is not None else deref_opt(_constant_Float(1.0))
@@ -39,7 +39,7 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     
     
     def __repr__(self):
-        return "CumulativePrice(%(book)s, %(depth)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "CumulativePrice(%(book)s, %(depth)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def CumulativePrice(book = None,depth = None): 
     from marketsim.gen._out._iorderbook import IOrderBook

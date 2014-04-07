@@ -36,7 +36,7 @@ object order_factory
     {
         if (args.length != 1)
             throw new Exception(s"Annotation $factoryName should have 1 arguments in" +
-                    " form (...Order_Impl or ...Factory_Impl)" + "\r\n" + "In function " + f)
+                    " form (...Order_Impl or ...Factory_Impl)" + crlf + "In function " + f)
 
         val impl_module = implementation_module
 
@@ -44,7 +44,7 @@ object order_factory
             case "Order_Impl" => false
             case "Factory_Impl" => true
             case _ => throw new Exception("Implementation class should be either Order_Impl or Factory_Impl" +
-                    "\r\n" + "In function " + f)
+                    crlf + "In function " + f)
         }
 
         if (is_factory_intrinsic)

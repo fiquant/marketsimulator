@@ -1,3 +1,5 @@
+import predef.crlf
+
 package object Typer
 {
     trait TypingExprCtx
@@ -71,7 +73,7 @@ package object Typer
                     }
                     catch {
                         case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '$name' from ${source.qualifiedName}:\r\n" + ex.getMessage, ex)
+                            throw new Exception(s"$crlf When typing '$name' from ${source.qualifiedName}:$crlf" + ex.getMessage, ex)
                     }
                 }
                 val ps = source.packages.values flatMap { p => Processor(p).collectMethods() }
@@ -98,7 +100,7 @@ package object Typer
                     }
                     catch {
                         case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '${source qualifyName t.name}':\r\n" + ex.getMessage, ex)
+                            throw new Exception(s"$crlf When typing '${source qualifyName t.name}':$crlf" + ex.getMessage, ex)
                     }
 
                 }
@@ -126,7 +128,7 @@ package object Typer
                     }
                     catch {
                         case ex : Exception =>
-                            throw new Exception(s"\r\nWhen typing '$name' from ${source.qualifiedName}:\r\n" + ex.getMessage, ex)
+                            throw new Exception(s"$crlf When typing '$name' from ${source.qualifiedName}:$crlf" + ex.getMessage, ex)
                     }
                 }
 
@@ -510,7 +512,7 @@ package object Typer
             }
             catch {
                 case e: Exception =>
-                    throw new Exception(s"When typing parameter '${p.name}'\r\n" + e.toString, e)
+                    throw new Exception(s"When typing parameter '${p.name}'$crlf" + e.toString, e)
             }
         }
 

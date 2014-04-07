@@ -27,7 +27,7 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
     
     
     def __repr__(self):
-        return "Balance(%(trader)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Balance(%(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def Balance(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
