@@ -313,4 +313,5 @@ def index():
         _load(latest_workspace_for_user())
     return render_template('index.html')
 
-app.run(debug=True, use_reloader=False, threaded=True, port=80)
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=False, threaded=True, port=80)
