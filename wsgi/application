@@ -3,22 +3,6 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__) or '.')
-if os.path.exists(os.path.join(os.environ['OPENSHIFT_HOMEDIR'], "python-2.6")):
-    PY_DIR = os.path.join(os.environ['OPENSHIFT_HOMEDIR'], "python-2.6")
-else:
-    PY_DIR = os.path.join(os.environ['OPENSHIFT_HOMEDIR'], "python")
-
-
-virtenv = PY_DIR + '/virtenv/'
-
-PY_CACHE = os.path.join(virtenv, 'lib', '2.6', 'site-packages')
-
-os.environ['PYTHON_EGG_CACHE'] = os.path.join(PY_CACHE)
-virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
-
-try:
-    execfile(virtualenv, dict(__file__=virtualenv))
-except IOError:
-    pass
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)) or '.')
 
 from flaskapp import app as application
