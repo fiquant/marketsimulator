@@ -20,7 +20,7 @@ class null_(IFunctionfloat,Null_Impl):
     }
     
     def __repr__(self):
-        return "null" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "null" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def null(): 
     from marketsim import rtti

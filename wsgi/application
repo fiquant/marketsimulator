@@ -5,4 +5,27 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__) or '.')
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)) or '.')
 
+sys.stdout = sys.stderr
+
 from flaskapp import app as application
+
+application.debug = True
+
+class Debugger:
+
+    def __init__(self, object):
+        self.__object = object
+
+    def __call__(self, *args, **kwargs):
+        import traceback
+
+        try:
+            return self.__object(*args, **kwargs)
+        except:
+            pass
+            #traceback.print_exc(file=sys.stderr)
+
+#application = Debugger(application)
+
+from werkzeug.debug import DebuggedApplication
+application = DebuggedApplication(application, evalex=True)

@@ -272,7 +272,9 @@ def run(world, timeout, limitTime):
 
 @app.route('/update', methods=['POST'])
 def update():
+
     w = current_user_workspace()
+    print "update...",w.world.currentTime, 
     
     parsed = request_parsed()
 
@@ -296,7 +298,9 @@ def update():
         run(w.world, timeout, limitTime)
         save_current_workspace()
 
-    return changes(w)
+    result = changes(w)
+    print "->", w.world.currentTime
+    return result
 
 @app.route('/stop', methods=['POST'])
 def stop():

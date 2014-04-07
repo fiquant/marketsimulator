@@ -41,7 +41,7 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
     
     
     def __repr__(self):
-        return "LiquidityProvider(%(x)s, %(eventGen)s, %(orderFactory)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "LiquidityProvider(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

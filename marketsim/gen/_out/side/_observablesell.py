@@ -24,7 +24,7 @@ class observableSell_(ObservableSide,Sell_Impl):
     }
     
     def __repr__(self):
-        return "observableSell" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "observableSell" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def observableSell(): 
     from marketsim import rtti

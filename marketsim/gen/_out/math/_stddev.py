@@ -24,7 +24,7 @@ class StdDev_mathCumulative(IFunctionfloat):
     
     
     def __repr__(self):
-        return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "StdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -76,7 +76,7 @@ class StdDev_mathEW(IFunctionfloat):
     
     
     def __repr__(self):
-        return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "StdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -128,7 +128,7 @@ class StdDev_mathMoving(IFunctionfloat):
     
     
     def __repr__(self):
-        return "StdDev(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "StdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

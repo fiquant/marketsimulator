@@ -21,7 +21,7 @@ class End_strategypriceMarketData(object):
     
     
     def __repr__(self):
-        return "End(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "End(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

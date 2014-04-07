@@ -21,7 +21,7 @@ class Timeframe_mathMoving(object):
     
     
     def __repr__(self):
-        return "Moving_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Moving_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -50,7 +50,7 @@ class Timeframe_mathRSI(object):
     
     
     def __repr__(self):
-        return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

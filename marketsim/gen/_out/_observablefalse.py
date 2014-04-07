@@ -22,7 +22,7 @@ class observableFalse_(Observablebool,False_Impl):
     }
     
     def __repr__(self):
-        return "False" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "False" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def observableFalse(): 
     from marketsim import rtti

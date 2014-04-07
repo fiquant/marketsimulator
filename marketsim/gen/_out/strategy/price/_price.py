@@ -35,7 +35,7 @@ class Price_strategypriceLiquidityProviderSide(Observablefloat):
     
     
     def __repr__(self):
-        return "Price(%(x)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Price(%(x)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

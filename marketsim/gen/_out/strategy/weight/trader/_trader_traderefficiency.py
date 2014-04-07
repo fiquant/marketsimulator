@@ -18,7 +18,7 @@ class trader_TraderEfficiency_(IFunctionIFunctionfloat_from_IAccount):
     }
     
     def __repr__(self):
-        return "trader_TraderEfficiency" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "trader_TraderEfficiency" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

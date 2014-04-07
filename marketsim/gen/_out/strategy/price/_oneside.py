@@ -39,7 +39,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
     
     
     def __repr__(self):
-        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -126,7 +126,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     
     
     def __repr__(self):
-        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -207,7 +207,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     
     
     def __repr__(self):
-        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -293,7 +293,7 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
     
     
     def __repr__(self):
-        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

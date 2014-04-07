@@ -23,7 +23,7 @@ class weibullvariate_FloatFloat(IFunctionfloat):
     
     
     def __repr__(self):
-        return "weibullvariate(%(Alpha)s, %(Beta)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "weibullvariate(%(Alpha)s, %(Beta)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         import random

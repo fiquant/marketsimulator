@@ -20,7 +20,7 @@ class S1_String(str):
     
     
     def __repr__(self):
-        return "S1(%(y)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "S1(%(y)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -19,7 +19,7 @@ class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloat_from_IAccount):
     
     
     def __repr__(self):
-        return "trader_TraderEfficiencyTrend(%(alpha)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "trader_TraderEfficiencyTrend(%(alpha)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

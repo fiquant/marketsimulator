@@ -26,7 +26,7 @@ class EW_IObservableFloatFloat(IStatDomain):
     
     
     def __repr__(self):
-        return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "EW_{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 
     @property

@@ -32,7 +32,7 @@ class triangular_FloatFloatFloat(IFunctionfloat):
     
     
     def __repr__(self):
-        return "triangular(%(Low)s, %(High)s, %(Mode)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "triangular(%(Low)s, %(High)s, %(Mode)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         import random

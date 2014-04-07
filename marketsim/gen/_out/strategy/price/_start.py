@@ -21,7 +21,7 @@ class Start_strategypriceMarketData(object):
     
     
     def __repr__(self):
-        return "Start(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Start(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

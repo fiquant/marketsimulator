@@ -21,7 +21,7 @@ class BookToDependOn_strategysidePairTrading(object):
     
     
     def __repr__(self):
-        return "BookToDependOn(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "BookToDependOn(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

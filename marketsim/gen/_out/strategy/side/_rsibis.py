@@ -27,7 +27,7 @@ class RSIbis_FloatFloatFloat(SignalStrategy):
     
     
     def __repr__(self):
-        return "RSIbis(%(alpha)s, %(timeframe)s, %(threshold)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "RSIbis(%(alpha)s, %(timeframe)s, %(threshold)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 
     @property

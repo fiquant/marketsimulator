@@ -27,7 +27,7 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
     
     
     def __repr__(self):
-        return "Minimum(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Minimum(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def Minimum(x = None): 
     from marketsim.gen._out.math._moving import Moving
