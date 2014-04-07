@@ -24,7 +24,7 @@ class C_ICandleStickInt(object):
     
     
     def __repr__(self):
-        return "C(%(x)s, %(p)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "C(%(x)s, %(p)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

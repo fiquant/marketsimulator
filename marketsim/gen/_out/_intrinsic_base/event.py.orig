@@ -1,0 +1,42 @@
+<<<<<<< HEAD
+class After_Base(object):
+    def get_delay(self):
+        return self._back_delay
+    
+    def set_delay(self, value):
+        self._back_delay = value
+        self.on_delay_set(value)
+    
+    delay = property(get_delay, set_delay)
+    def on_delay_set(self, value):
+        pass
+    
+class Every_Base(object):
+    def get_intervalFunc(self):
+        return self._back_intervalFunc
+    
+    def set_intervalFunc(self, value):
+        self._back_intervalFunc = value
+        self.on_intervalFunc_set(value)
+    
+=======
+class After_Base(object):
+    def get_delay(self):
+        return self.__delay
+    
+    def set_delay(self, value):
+        self.__delay = value
+    
+    delay = property(get_delay, set_delay)
+class Every_Base(object):
+    def get_intervalFunc(self):
+        return self.__intervalFunc
+    
+    def set_intervalFunc(self, value):
+        self.__intervalFunc = value
+    
+>>>>>>> 4bd930aec5e343ede476463b5fa8d4b183bbbd61
+    intervalFunc = property(get_intervalFunc, set_intervalFunc)
+    def on_intervalFunc_set(self, value):
+        pass
+    

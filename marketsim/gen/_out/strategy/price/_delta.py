@@ -21,7 +21,7 @@ class Delta_strategypriceMarketMaker(object):
     
     
     def __repr__(self):
-        return "Delta(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Delta(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -50,7 +50,7 @@ class Delta_strategypriceMarketData(object):
     
     
     def __repr__(self):
-        return "Delta(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Delta(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

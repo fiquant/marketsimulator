@@ -48,7 +48,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
     
     
     def __repr__(self):
-        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -126,7 +126,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
     
     
     def __repr__(self):
-        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

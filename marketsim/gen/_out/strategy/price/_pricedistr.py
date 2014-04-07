@@ -21,7 +21,7 @@ class PriceDistr_strategypriceLiquidityProvider(object):
     
     
     def __repr__(self):
-        return "PriceDistr(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "PriceDistr(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

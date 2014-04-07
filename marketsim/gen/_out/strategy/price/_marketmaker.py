@@ -22,7 +22,7 @@ class MarketMaker_FloatFloat(object):
     
     
     def __repr__(self):
-        return "MarketMaker(%(delta)s, %(volume)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MarketMaker(%(delta)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 
     def OneSide(self, side = None,sign = None):

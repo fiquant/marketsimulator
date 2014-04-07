@@ -24,7 +24,7 @@ class observableNothing_(ObservableSide,None_Impl):
     }
     
     def __repr__(self):
-        return "observableNothing" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "observableNothing" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def observableNothing(): 
     from marketsim import rtti

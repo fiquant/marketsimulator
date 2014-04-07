@@ -23,7 +23,7 @@ class F_Float(IFunctionfloat):
     
     
     def __repr__(self):
-        return "F(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "F(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -32,7 +32,7 @@ class Signal_mathmacdFloatFloat(IDifferentiable):
     
     
     def __repr__(self):
-        return "Signal^{%(timeframe)s}_{%(step)s}(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Signal^{%(timeframe)s}_{%(step)s}(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -21,7 +21,7 @@ class Trader_strategypositionRSI_linear(object):
     
     
     def __repr__(self):
-        return "Trader(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Trader(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -50,7 +50,7 @@ class Trader_strategypositionBollinger_linear(object):
     
     
     def __repr__(self):
-        return "Trader(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Trader(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

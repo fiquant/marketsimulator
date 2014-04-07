@@ -29,7 +29,7 @@ class O_IObservableFloat(Observablefloat):
     
     
     def __repr__(self):
-        return "O(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "O(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

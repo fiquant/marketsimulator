@@ -23,7 +23,7 @@ class vonmisesvariate_FloatFloat(IFunctionfloat):
     
     
     def __repr__(self):
-        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "vonmisesvariate(%(Mu)s, %(Kappa)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         import random

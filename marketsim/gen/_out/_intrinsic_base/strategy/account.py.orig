@@ -1,0 +1,42 @@
+<<<<<<< HEAD
+class Account_Base(object):
+    def get_inner(self):
+        return self._back_inner
+    
+    def set_inner(self, value):
+        self._back_inner = value
+        self.on_inner_set(value)
+    
+    inner = property(get_inner, set_inner)
+    def on_inner_set(self, value):
+        pass
+    
+class VirtualMarket_Base(object):
+    def get_inner(self):
+        return self._back_inner
+    
+    def set_inner(self, value):
+        self._back_inner = value
+        self.on_inner_set(value)
+    
+=======
+class Account_Base(object):
+    def get_inner(self):
+        return self.__inner
+    
+    def set_inner(self, value):
+        self.__inner = value
+    
+    inner = property(get_inner, set_inner)
+class VirtualMarket_Base(object):
+    def get_inner(self):
+        return self.__inner
+    
+    def set_inner(self, value):
+        self.__inner = value
+    
+>>>>>>> 4bd930aec5e343ede476463b5fa8d4b183bbbd61
+    inner = property(get_inner, set_inner)
+    def on_inner_set(self, value):
+        pass
+    

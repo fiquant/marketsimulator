@@ -21,7 +21,7 @@ class Threshold_strategysideRSIbis(object):
     
     
     def __repr__(self):
-        return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Threshold(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -50,7 +50,7 @@ class Threshold_strategysideTrendFollower(object):
     
     
     def __repr__(self):
-        return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Threshold(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -79,7 +79,7 @@ class Threshold_strategysideCrossingAverages(object):
     
     
     def __repr__(self):
-        return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Threshold(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -108,7 +108,7 @@ class Threshold_strategysideSignal(object):
     
     
     def __repr__(self):
-        return "Threshold(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Threshold(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

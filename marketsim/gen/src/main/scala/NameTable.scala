@@ -1,6 +1,5 @@
 import syntax.scala.Printer.{typed => pp}
 import predef.ScPrintable
-import shapeless.syntax.typeable._
 import scala.collection.immutable._
 import Typed.AfterTyping
 

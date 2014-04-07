@@ -48,7 +48,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -103,7 +103,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
@@ -152,7 +152,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -203,7 +203,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -254,7 +254,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -306,7 +306,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -359,7 +359,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -412,7 +412,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -460,7 +460,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -508,7 +508,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -554,7 +554,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -604,7 +604,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         event.subscribe_field(self, 'elsepart', value)
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -654,7 +654,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -703,7 +703,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Condition_Impl
@@ -746,7 +746,7 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 from marketsim.gen._intrinsic.ops import Condition_Impl
 from marketsim.gen._out._side import Side
@@ -792,7 +792,7 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
     
     
     def __repr__(self):
-        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
 def Condition(cond = None,ifpart = None,elsepart = None): 
     from marketsim.gen._out._iobservable._iobservableside import IObservableSide

@@ -25,7 +25,7 @@ class IntObs_(Observableint):
     }
     
     def __repr__(self):
-        return "IntObs" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "IntObs" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

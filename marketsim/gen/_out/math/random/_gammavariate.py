@@ -30,7 +30,7 @@ class gammavariate_FloatFloat(IFunctionfloat):
     
     
     def __repr__(self):
-        return "gammavariate(%(Alpha)s, %(Beta)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "gammavariate(%(Alpha)s, %(Beta)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def __call__(self, *args, **kwargs):
         import random

@@ -21,7 +21,7 @@ class Fast_mathmacd(object):
     
     
     def __repr__(self):
-        return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

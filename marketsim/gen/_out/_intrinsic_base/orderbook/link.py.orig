@@ -1,0 +1,60 @@
+<<<<<<< HEAD
+class TwoWayLink_Base(object):
+    def get_up(self):
+        return self._back_up
+    
+    def set_up(self, value):
+        self._back_up = value
+        self.on_up_set(value)
+    
+    up = property(get_up, set_up)
+    def on_up_set(self, value):
+        pass
+    
+    def get_down(self):
+        return self._back_down
+    
+    def set_down(self, value):
+        self._back_down = value
+        self.on_down_set(value)
+    
+    down = property(get_down, set_down)
+    def on_down_set(self, value):
+        pass
+    
+class Link_Base(object):
+    def get_latency(self):
+        return self._back_latency
+    
+    def set_latency(self, value):
+        self._back_latency = value
+        self.on_latency_set(value)
+    
+=======
+class TwoWayLink_Base(object):
+    def get_up(self):
+        return self.__up
+    
+    def set_up(self, value):
+        self.__up = value
+    
+    up = property(get_up, set_up)
+    def get_down(self):
+        return self.__down
+    
+    def set_down(self, value):
+        self.__down = value
+    
+    down = property(get_down, set_down)
+class Link_Base(object):
+    def get_latency(self):
+        return self.__latency
+    
+    def set_latency(self, value):
+        self.__latency = value
+    
+>>>>>>> 4bd930aec5e343ede476463b5fa8d4b183bbbd61
+    latency = property(get_latency, set_latency)
+    def on_latency_set(self, value):
+        pass
+    

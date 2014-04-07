@@ -20,7 +20,7 @@ class g_Int(IFunctionint):
     
     
     def __repr__(self):
-        return "g(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "g(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

@@ -21,7 +21,7 @@ class Source_mathMoving(object):
     
     
     def __repr__(self):
-        return "Moving_{%(timeframe)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Moving_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -50,7 +50,7 @@ class Source_mathEW(object):
     
     
     def __repr__(self):
-        return "EW_{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "EW_{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -79,7 +79,7 @@ class Source_mathmacd(object):
     
     
     def __repr__(self):
-        return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -108,7 +108,7 @@ class Source_mathRSI(object):
     
     
     def __repr__(self):
-        return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):
@@ -137,7 +137,7 @@ class Source_mathCumulative(object):
     
     
     def __repr__(self):
-        return "Source(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Source(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

@@ -21,7 +21,7 @@ class Factor_strategysidePairTrading(object):
     
     
     def __repr__(self):
-        return "Factor(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Factor(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     @property
     def dereference(self):

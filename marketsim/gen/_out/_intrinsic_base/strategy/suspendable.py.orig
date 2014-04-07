@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+class Suspendable_Base(object):
+    def get_inner(self):
+        return self._back_inner
+    
+    def set_inner(self, value):
+        self._back_inner = value
+        self.on_inner_set(value)
+    
+    inner = property(get_inner, set_inner)
+    def on_inner_set(self, value):
+        pass
+    
+    def get_predicate(self):
+        return self._back_predicate
+    
+    def set_predicate(self, value):
+        self._back_predicate = value
+        self.on_predicate_set(value)
+    
+=======
+class Suspendable_Base(object):
+    def get_inner(self):
+        return self.__inner
+    
+    def set_inner(self, value):
+        self.__inner = value
+    
+    inner = property(get_inner, set_inner)
+    def get_predicate(self):
+        return self.__predicate
+    
+    def set_predicate(self, value):
+        self.__predicate = value
+    
+>>>>>>> 4bd930aec5e343ede476463b5fa8d4b183bbbd61
+    predicate = property(get_predicate, set_predicate)
+    def on_predicate_set(self, value):
+        pass
+    

@@ -1,0 +1,42 @@
+<<<<<<< HEAD
+class TickSize_Base(object):
+    def get_book(self):
+        return self._back_book
+    
+    def set_book(self, value):
+        self._back_book = value
+        self.on_book_set(value)
+    
+    book = property(get_book, set_book)
+    def on_book_set(self, value):
+        pass
+    
+class BestPrice_Base(object):
+    def get_queue(self):
+        return self._back_queue
+    
+    def set_queue(self, value):
+        self._back_queue = value
+        self.on_queue_set(value)
+    
+=======
+class TickSize_Base(object):
+    def get_book(self):
+        return self.__book
+    
+    def set_book(self, value):
+        self.__book = value
+    
+    book = property(get_book, set_book)
+class BestPrice_Base(object):
+    def get_queue(self):
+        return self.__queue
+    
+    def set_queue(self, value):
+        self.__queue = value
+    
+>>>>>>> 4bd930aec5e343ede476463b5fa8d4b183bbbd61
+    queue = property(get_queue, set_queue)
+    def on_queue_set(self, value):
+        pass
+    

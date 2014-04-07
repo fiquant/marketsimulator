@@ -24,7 +24,7 @@ class Raw_mathRSI(IFunctionfloat):
     
     
     def __repr__(self):
-        return "Raw(%(x)s)" % { name : getattr(self, name) for name in self._properties.iterkeys() }
+        return "Raw(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
