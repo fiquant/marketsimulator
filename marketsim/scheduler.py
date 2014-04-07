@@ -128,7 +128,7 @@ class Scheduler(object):
         
         dt = time.clock() - t0
         
-        return stat(steps, steps / dt, dt)
+        return stat(steps, steps / dt if dt > 0 else -1, dt)
 
     def advance(self, dt):
         """ Makes the scheduler work 'dt' moments of time more
