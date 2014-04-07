@@ -112,6 +112,7 @@ class SingleAsset_Impl(Base_Impl, SingleAsset_Base):
 
     def reset(self):
         self.amount = 0
+        self.on_strategy_set(self.strategy)
 
     _internals = ['orderBook'] # hack in order to make it processed first
 

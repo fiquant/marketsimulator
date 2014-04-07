@@ -9,6 +9,10 @@ object intrinsic_function extends gen.PythonGenerator
     import base.{Def, Prop}
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
+    {
+//        override def setter =
+//            super.setter | "context.reset(self)" ||| ImportFrom("context", "marketsim")
+    }
 
     abstract class Common(val args : List[String], val f : Typed.Function)
             extends base.Printer

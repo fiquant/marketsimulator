@@ -192,6 +192,9 @@ class Registry(object):
         # except: 
 
         setattr(obj, propname, value)
+        if hasattr(obj, "reset"):
+            print "reset"
+            obj.reset()
 
     def _convert(self, dst_properties, k, v):
         
@@ -348,6 +351,11 @@ class Registry(object):
                     print err
                     print '    at ', repr(obj), '.', p.name
                     #rtti.typecheck(p.type, getattr(obj, p.name))
+                except Exception, err:
+                    print err
+                    print '    at ', repr(obj), '.', p.name
+                    rtti.typecheck(p.type, getattr(obj, p.name))
+
 
     def getUsedTypes(self):
         types = set()
