@@ -5,7 +5,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "Iceberg"])
 class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
-    """ 
+    """ Factory creating iceberg orders
+    
+    
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
       thus maximum lot size volume is visible at the market at any moment.

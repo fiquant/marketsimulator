@@ -5,7 +5,9 @@ from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl
 from marketsim.gen._out._iorder import IOrder
 @registry.expose(["Order", "Peg"])
 class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
-    """ 
+    """ Factory creating Peg orders
+    
+    
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
       It implies that if several peg orders are sent to the same order queue

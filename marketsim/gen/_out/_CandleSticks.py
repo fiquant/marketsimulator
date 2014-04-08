@@ -5,7 +5,9 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim.gen._out._icandlestick import ICandleStick
 @registry.expose(["Basic", "CandleSticks"])
 class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Impl):
-    """  open/close/min/max price, its average and standard deviation
+    """ Observable returning at the end of every *timeframe*
+    
+     open/close/min/max price, its average and standard deviation
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const_Float

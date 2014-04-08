@@ -140,7 +140,8 @@ package object base {
 
     trait DocString extends Printer {
         def docstring  = f.docstring match {
-            case Some(d) => d.detailed
+            case Some(d) =>
+                (d.brief  :: "" :: d.detailed)
             case None => Nil
         }
     }

@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "uniform"])
 class uniform_FloatFloat(IFunctionfloat):
-    """ 
+    """ Uniform distribution
+    
+    
      Return a random floating point number *N* such that
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
      The end-point value *b* may or may not be included in the range depending on

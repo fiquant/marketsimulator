@@ -4,7 +4,8 @@ from marketsim.gen._intrinsic.event import Every_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "Every"])
 class Every_Float(IEvent,Every_Impl):
-    """ 
+    """ Event that fires every *intervalFunc* moments of time
+    
     """ 
     def __init__(self, intervalFunc = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float

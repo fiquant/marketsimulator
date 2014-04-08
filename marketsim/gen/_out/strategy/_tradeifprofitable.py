@@ -5,7 +5,9 @@ from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "TradeIfProfitable"])
 class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy):
-    """   and if it is considered as good, sends orders
+    """ Adaptive strategy that evaluates *inner* strategy efficiency
+    
+      and if it is considered as good, sends orders
     """ 
     def __init__(self, inner = None, account = None, performance = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_

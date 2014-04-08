@@ -3,7 +3,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Log/Pow", "Exp"])
 class Exp_Float(Observablefloat):
-    """ 
+    """ Exponent of *x*
+    
+    
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

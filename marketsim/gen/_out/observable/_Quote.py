@@ -3,7 +3,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.observable.quote import Quote_Impl
 @registry.expose(["Basic", "Quote"])
 class Quote_StringStringString(Observablefloat,Quote_Impl):
-    """   and follows the price in scale 1 model unit of time = 1 real day
+    """ Observable that downloads closing prices for every day from *start* to *end* for asset given by *ticker*
+    
+      and follows the price in scale 1 model unit of time = 1 real day
     """ 
     def __init__(self, ticker = None, start = None, end = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

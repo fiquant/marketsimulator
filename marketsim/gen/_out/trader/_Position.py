@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.trader.props import Position_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "Position"])
 class Position_IAccount(Observableint,Position_Impl):
-    """   It is negative if trader has sold more assets than has bought and
+    """ Returns position of the trader
+    
+      It is negative if trader has sold more assets than has bought and
       positive otherwise
     """ 
     def __init__(self, trader = None):

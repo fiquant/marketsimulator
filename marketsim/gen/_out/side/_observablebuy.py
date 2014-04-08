@@ -4,7 +4,8 @@ from marketsim.gen._out._observable._observableside import ObservableSide
 from marketsim.gen._intrinsic.side import Buy_Impl
 @registry.expose(["Side", "observableBuy"])
 class observableBuy_(ObservableSide,Buy_Impl):
-    """ 
+    """ Observable always equal to Buy side
+    
     """ 
     def __init__(self):
         from marketsim.gen._out._side import Side

@@ -9,7 +9,8 @@ from marketsim.gen._intrinsic.strategy.weight import Identity_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "IdentityL"])
 class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
-    """ 
+    """ Identity function for an array of floats
+    
     """ 
     def __init__(self, array = None):
         from marketsim import rtti

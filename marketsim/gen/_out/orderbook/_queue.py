@@ -5,7 +5,8 @@ from marketsim.gen._intrinsic.orderbook.proxy import Queue_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "Queue"])
 class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
-    """ 
+    """ Returns order queue of order *book* for trade *side*
+    
     """ 
     def __init__(self, book = None, side = None):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount

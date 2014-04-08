@@ -4,7 +4,9 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "Max"])
 class Max_IObservableFloatIObservableFloat(Observablefloat):
-    """  If *x* or/and *y* are observables, *Min* is also observable
+    """ Function returning maximum of two functions *x* and *y*.
+    
+     If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -66,7 +68,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Max"])
 class Max_FloatIObservableFloat(Observablefloat):
-    """  If *x* or/and *y* are observables, *Min* is also observable
+    """ Function returning maximum of two functions *x* and *y*.
+    
+     If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -129,7 +133,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Max"])
 class Max_IObservableFloatFloat(Observablefloat):
-    """  If *x* or/and *y* are observables, *Min* is also observable
+    """ Function returning maximum of two functions *x* and *y*.
+    
+     If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -191,7 +197,9 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "Max"])
 class Max_FloatFloat(Observablefloat):
-    """  If *x* or/and *y* are observables, *Min* is also observable
+    """ Function returning maximum of two functions *x* and *y*.
+    
+     If *x* or/and *y* are observables, *Min* is also observable
     """ 
     def __init__(self, x = None, y = None):
         from marketsim import rtti

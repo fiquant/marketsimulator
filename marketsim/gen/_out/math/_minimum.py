@@ -4,7 +4,8 @@ from marketsim.gen._intrinsic.observable.minmax import Min_Impl
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["Statistics", "Minimum"])
 class Minimum_mathMoving(Observablefloat,Min_Impl):
-    """ 
+    """ Running minimum of a function
+    
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

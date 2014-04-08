@@ -4,7 +4,8 @@ from marketsim.gen._intrinsic.strategy.suspendable import Suspendable_Impl
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 @registry.expose(["Strategy", "Suspendable"])
 class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,Suspendable_Impl):
-    """ 
+    """ Strategy that wraps another strategy and passes its orders only if *predicate* is true
+    
     """ 
     def __init__(self, inner = None, predicate = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

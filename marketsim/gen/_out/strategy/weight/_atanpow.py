@@ -9,7 +9,8 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "AtanPow"])
 class AtanPow_FloatFloat(IFunctionfloat):
-    """ 
+    """ scaling function = atan(base^f(x))
+    
     """ 
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

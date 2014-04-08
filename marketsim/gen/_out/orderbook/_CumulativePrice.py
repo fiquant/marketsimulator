@@ -5,7 +5,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.orderbook.cumulative_price import CumulativePrice_Impl
 @registry.expose(["Asset", "CumulativePrice"])
 class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
-    """ 
+    """ Returns price for best orders of total volume *depth*
+    
+    
       In other words cumulative price corresponds to trader balance change
       if a market order of volume *depth* is completely matched
     

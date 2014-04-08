@@ -5,7 +5,9 @@ from marketsim import listOf
 from marketsim.gen._out._igraph import IGraph
 
 class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels_Impl):
-    """  Level of volume V is a price at which cumulative volume of better orders is V
+    """ Time serie holding volume levels of an asset
+    
+     Level of volume V is a price at which cumulative volume of better orders is V
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
         from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph_String

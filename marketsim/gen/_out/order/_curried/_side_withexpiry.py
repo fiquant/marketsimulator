@@ -3,7 +3,9 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
 class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSide):
-    """ 
+    """ Factory creating WithExpiry orders
+    
+    
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 

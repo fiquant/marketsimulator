@@ -9,7 +9,8 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Strategy", "Unit"])
 class Unit_IAccount(IFunctionfloat):
-    """ 
+    """ Unit function. Used to simulate uniform random choice of a strategy
+    
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

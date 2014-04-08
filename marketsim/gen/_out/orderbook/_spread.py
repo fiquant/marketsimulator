@@ -4,7 +4,8 @@ from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "Spread"])
 class Spread_IOrderBook(Observablefloat):
-    """ 
+    """ Spread of order *book*
+    
     """ 
     def __init__(self, book = None):
         from marketsim import rtti

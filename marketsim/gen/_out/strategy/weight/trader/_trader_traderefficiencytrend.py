@@ -2,7 +2,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 @registry.expose(["Strategy", "trader_TraderEfficiencyTrend"])
 class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloat_from_IAccount):
-    """ 
+    """ Returns first derivative of a moving average of the trader efficiency
+    
     """ 
     def __init__(self, alpha = None):
         from marketsim import rtti

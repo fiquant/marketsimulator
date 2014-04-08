@@ -6,7 +6,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "Limit"])
 class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
-    """ 
+    """ Factory creating limit orders
+    
+    
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.

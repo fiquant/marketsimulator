@@ -3,7 +3,8 @@ from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._intrinsic._constant import False_Impl
 @registry.expose(["Basic", "observableFalse"])
 class observableFalse_(Observablebool,False_Impl):
-    """ 
+    """ Trivial observable always returning *False*
+    
     """ 
     def __init__(self):
         from marketsim.gen._out._observable._observablebool import Observablebool

@@ -3,7 +3,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Trigonometric", "Atan"])
 class Atan_Float(Observablefloat):
-    """ 
+    """ Arc tangent of x, in radians.
+    
+    
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

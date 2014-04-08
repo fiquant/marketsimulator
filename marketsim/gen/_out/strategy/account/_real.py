@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.strategy.account import Account_Impl
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "Real"])
 class Real_ISingleAssetStrategy(IAccount,Account_Impl):
-    """   how orders sent by the strategy have been actually traded
+    """ Associated with a strategy account that tracks
+    
+      how orders sent by the strategy have been actually traded
     """ 
     def __init__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

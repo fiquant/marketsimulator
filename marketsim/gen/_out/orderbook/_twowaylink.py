@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.orderbook.link import TwoWayLink_Impl
 from marketsim.gen._out._ilink import ILink
 @registry.expose(["Asset", "TwoWayLink"])
 class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
-    """  (normally between a trader and a market).
+    """ Represents latency in information propagation between two agents
+    
+     (normally between a trader and a market).
      Ensures that sending packets via links preserves their order.
      Holds two one-way links in opposite directions.
     """ 

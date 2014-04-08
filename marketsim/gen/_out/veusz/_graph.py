@@ -3,7 +3,8 @@ from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._intrinsic.veusz import Graph_Impl
 @registry.expose(["N/A", "Graph"])
 class Graph_String(IGraph,Graph_Impl):
-    """ 
+    """ Graph to render at Veusz. Time series are added to it automatically in their constructor
+    
     """ 
     def __init__(self, name = None):
         from marketsim import rtti

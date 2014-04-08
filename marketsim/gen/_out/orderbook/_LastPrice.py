@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.orderbook.last_price import LastPrice_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "LastPrice"])
 class LastPrice_IOrderQueue(Observablefloat,LastPrice_Impl):
-    """   Returns None is *queue* has been always empty
+    """ Returns last defined price at *queue*
+    
+      Returns None is *queue* has been always empty
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

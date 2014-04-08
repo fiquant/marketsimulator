@@ -2,7 +2,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
 @registry.expose(["Strategy", "f_IdentityF"])
 class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
-    """ 
+    """ identity scaling = f(x)
+    
     """ 
     def __init__(self):
         from marketsim import rtti

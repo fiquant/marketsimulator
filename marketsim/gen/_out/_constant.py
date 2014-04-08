@@ -3,7 +3,8 @@ from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Int(IFunctionint):
-    """ 
+    """ Function always returning *x*
+    
     """ 
     def __init__(self, x = None):
         from marketsim import rtti
@@ -51,7 +52,8 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "constant"])
 class constant_Float(IFunctionfloat):
-    """ 
+    """ Function always returning *x*
+    
     """ 
     def __init__(self, x = None):
         from marketsim import rtti

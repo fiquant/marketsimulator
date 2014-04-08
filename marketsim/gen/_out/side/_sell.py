@@ -3,7 +3,8 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import context
 @registry.expose(["Side", "Sell"])
 class Sell_(IFunctionSide):
-    """ 
+    """ Function always returning Sell side
+    
     """ 
     def __init__(self):
         from marketsim import rtti

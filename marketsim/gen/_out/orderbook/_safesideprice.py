@@ -5,7 +5,9 @@ from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
-    """   and *defaultValue* if there haven't been any trades
+    """ Returns best price if defined, otherwise last price
+    
+      and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -69,7 +71,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "SafeSidePrice"])
 class SafeSidePrice_IOrderQueueFloat(Observablefloat):
-    """   and *defaultValue* if there haven't been any trades
+    """ Returns best price if defined, otherwise last price
+    
+      and *defaultValue* if there haven't been any trades
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim import rtti

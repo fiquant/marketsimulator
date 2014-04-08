@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "expovariate"])
 class expovariate_Float(IFunctionfloat):
-    """ 
+    """ Exponential distribution
+    
+    
       Returned values range from 0 to positive infinity
     """ 
     def __init__(self, Lambda = None):

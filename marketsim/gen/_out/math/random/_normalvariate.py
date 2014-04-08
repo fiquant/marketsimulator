@@ -2,7 +2,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "normalvariate"])
 class normalvariate_FloatFloat(IFunctionfloat):
-    """ 
+    """ Normal distribution
+    
     """ 
     def __init__(self, Mu = None, Sigma = None):
         from marketsim import rtti

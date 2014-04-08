@@ -3,7 +3,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Log/Pow", "Pow"])
 class Pow_FloatFloat(Observablefloat):
-    """ 
+    """ Return *x* raised to the power *y*.
+    
+    
      Exceptional cases follow Annex F of the C99 standard as far as possible.
      In particular, ``pow(1.0, x)`` and ``pow(x, 0.0)`` always return 1.0,
      even when *x* is a zero or a NaN.

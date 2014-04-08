@@ -2,7 +2,8 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 @registry.expose(["Strategy", "trader_Unit"])
 class trader_Unit_(IFunctionIFunctionfloat_from_IAccount):
-    """ 
+    """ Unit function. Used to simulate uniform random choice of a strategy
+    
     """ 
     def __init__(self):
         from marketsim import rtti

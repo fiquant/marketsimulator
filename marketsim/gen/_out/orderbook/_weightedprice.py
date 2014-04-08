@@ -4,7 +4,8 @@ from marketsim.gen._out._iorderqueue import IOrderQueue
 from marketsim import context
 @registry.expose(["Asset", "WeightedPrice"])
 class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
-    """ 
+    """ Returns moving average of trade prices weighted by their volumes
+    
     """ 
     def __init__(self, queue = None, alpha = None):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook

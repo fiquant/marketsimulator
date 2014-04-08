@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.orderbook.of_trader import OfTrader_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Asset", "OfTrader"])
 class OfTrader_IAccount(IOrderBook,OfTrader_Impl):
-    """ 
+    """ Phantom orderbook used to refer to the order book associated with a single asset trader
+    
+    
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
     """ 
     def __init__(self, Trader = None):

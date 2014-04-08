@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
 @registry.expose(["Order", "price_Peg"])
 class side_price_Peg_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide):
-    """ 
+    """ Factory creating Peg orders
+    
+    
       A peg order is a particular case of the floating price order
       with the price better at one tick than the best price of the order queue.
       It implies that if several peg orders are sent to the same order queue

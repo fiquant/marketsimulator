@@ -4,7 +4,8 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Strategy", "TraderEfficiencyTrend"])
 class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
-    """ 
+    """ Returns first derivative of a moving average of the trader efficiency
+    
     """ 
     def __init__(self, trader = None, alpha = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

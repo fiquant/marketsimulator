@@ -5,7 +5,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "WithExpiry"])
 class WithExpiry_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
-    """ 
+    """ Factory creating WithExpiry orders
+    
+    
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
     """ 

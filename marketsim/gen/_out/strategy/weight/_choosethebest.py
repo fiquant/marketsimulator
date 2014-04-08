@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.strategy.weight import ChooseTheBest_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "ChooseTheBest"])
 class ChooseTheBest_ListFloat(IFunctionlistOffloat,ChooseTheBest_Impl):
-    """   having 1 at the index of the maximal element and 0 are at the rest
+    """ Function returning an array of length *len(array)*
+    
+      having 1 at the index of the maximal element and 0 are at the rest
     """ 
     def __init__(self, array = None):
         from marketsim import rtti

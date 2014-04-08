@@ -4,7 +4,9 @@ from marketsim.gen._intrinsic.strategy.account import VirtualMarket_Impl
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "VirtualMarket"])
 class VirtualMarket_ISingleAssetStrategy(IAccount,VirtualMarket_Impl):
-    """   how it would be traded by sending request.evalMarketOrder
+    """ Associated with a strategy account that evaluates for every order sent by the strategy
+    
+      how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
     """ 

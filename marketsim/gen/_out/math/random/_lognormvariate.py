@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "lognormvariate"])
 class lognormvariate_FloatFloat(IFunctionfloat):
-    """ 
+    """ Log normal distribution
+    
+    
      If you take the natural logarithm of this distribution,
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
       |mu| can have any value, and |sigma| must be greater than zero.

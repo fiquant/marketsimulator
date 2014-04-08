@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "triangular"])
 class triangular_FloatFloatFloat(IFunctionfloat):
-    """ 
+    """ Triangular distribution
+    
+    
      Return a random floating point number *N* such that *low* <= *N* <= *high* and
            with the specified *mode* between those bounds.
            The *low* and *high* bounds default to zero and one.

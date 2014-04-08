@@ -6,7 +6,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "FixedBudget"])
 class FixedBudget_SideFloat(ObservableIOrder,IObservableIOrder):
-    """ 
+    """ Factory creating fixed budget orders
+    
+    
       Fixed budget order acts like a market order
       but the volume is implicitly given by a budget available for trades.
       Internally first it sends request.EvalVolumesForBudget

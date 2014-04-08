@@ -6,7 +6,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "Generic"])
 class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
-    """   creates an order via *orderFactory* and sends the order to the market using its trader
+    """ Generic strategy that wakes up on events given by *eventGen*,
+    
+      creates an order via *orderFactory* and sends the order to the market using its trader
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat

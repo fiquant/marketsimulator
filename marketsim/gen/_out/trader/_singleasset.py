@@ -6,7 +6,8 @@ from marketsim import listOf
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 
 class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(ISingleAssetTrader,SingleAsset_Impl):
-    """ 
+    """ A trader that trades a single asset on a single market
+    
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

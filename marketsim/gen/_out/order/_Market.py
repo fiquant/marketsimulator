@@ -6,7 +6,9 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "Market"])
 class Market_SideFloat(ObservableIOrder,IObservableIOrder):
-    """ 
+    """ Factory creating market orders
+    
+    
       Market order intructs buy or sell given volume immediately
     """ 
     def __init__(self, side = None, volume = None):

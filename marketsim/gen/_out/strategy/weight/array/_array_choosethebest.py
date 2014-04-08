@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
 @registry.expose(["Strategy", "array_ChooseTheBest"])
 class array_ChooseTheBest_(IFunctionIFunctionlistOffloat_from_listOffloat):
-    """   having 1 at the index of the maximal element and 0 are at the rest
+    """ Function returning an array of length *len(array)*
+    
+      having 1 at the index of the maximal element and 0 are at the rest
     """ 
     def __init__(self):
         from marketsim import rtti

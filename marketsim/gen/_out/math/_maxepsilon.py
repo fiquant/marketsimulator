@@ -5,7 +5,9 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["Statistics", "MaxEpsilon"])
 class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
-    """ 
+    """ Cumulative maximum of a function with positive tolerance.
+    
+    
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
     """ 
     def __init__(self, x = None, epsilon = None):

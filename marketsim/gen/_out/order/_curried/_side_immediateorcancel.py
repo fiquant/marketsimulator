@@ -2,7 +2,9 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 @registry.expose(["Order", "ImmediateOrCancel"])
 class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrder_from_IFunctionSide):
-    """ 
+    """ Factory creating Immediate-Or-Cancel orders
+    
+    
       Immediate-Or-Cancel order sends an underlying order to the market and
       immediately sends a cancel request for it.
       It allows to combine market and limit order behaviour:

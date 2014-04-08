@@ -3,7 +3,9 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
 class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
-    """ 
+    """ Factory creating StopLoss orders
+    
+    
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.
       It keeps track of position and balance change induced by trades of the underlying order and
       if losses from keeping the position exceed certain limit (given by maximum loss factor),

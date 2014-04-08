@@ -4,7 +4,9 @@ from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifu
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Order", "FloatingPrice"])
 class sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
-    """ 
+    """ Factory creating orders with floating price
+    
+    
       Floating price order is initialized by an order having a price and an observable that generates new prices.
       When the observable value changes the order is cancelled and
       a new order with new price is created and sent to the order book.

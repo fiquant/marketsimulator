@@ -8,7 +8,9 @@ from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy 
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "MultiArmedBandit"])
 class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloatFloatFloatListFloatListFloat(ISingleAssetStrategy,MultiarmedBandit2_Impl):
-    """  In some moments of time the efficiency of the strategies is evaluated
+    """ A composite strategy initialized with an array of strategies.
+    
+     In some moments of time the efficiency of the strategies is evaluated
      These efficiencies are mapped into weights using *weight* and *normilizer*
      functions per every strategy and *corrector* for the whole collection of weights
      These weights are used to choose randomly a strategy to run for the next quant of time.
