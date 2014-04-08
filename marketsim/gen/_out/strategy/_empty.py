@@ -5,6 +5,8 @@ from marketsim.gen._intrinsic.strategy.basic import Empty_Impl
 class Empty_(ISingleAssetStrategy,Empty_Impl):
     """ Empty strategy doing nothing
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

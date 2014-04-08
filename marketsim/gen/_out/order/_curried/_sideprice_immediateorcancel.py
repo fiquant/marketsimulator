@@ -11,6 +11,11 @@ class sideprice_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIObservabl
       the order is either executed immediately
       at price equal or better than given one
       either it is cancelled (and consequently never stored in the order queue).
+    
+    Parameters are:
+    
+    **proto**
+    	 factory for underlying orders 
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float

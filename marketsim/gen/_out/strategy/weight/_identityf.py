@@ -10,6 +10,10 @@ from marketsim import context
 class IdentityF_Float(IFunctionfloat):
     """ identity scaling = f(x)
     
+    
+    Parameters are:
+    
+    **f**
     """ 
     def __init__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

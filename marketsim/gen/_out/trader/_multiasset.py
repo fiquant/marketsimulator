@@ -11,6 +11,22 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
     
       It can be considered as a composition of single asset traders and multi asset strategies
       At the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets
+    
+    Parameters are:
+    
+    **traders**
+    	 defines accounts for every asset to trade 
+    
+    **strategy**
+    	 multi asset strategy run by the trader 
+    
+    **name**
+    
+    **PnL**
+    	 current trader balance (number of money units that it owns) 
+    
+    **timeseries**
+    	 defines what data should be gathered for the trader 
     """ 
     def __init__(self, traders = None, strategy = None, name = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._arbitrage import Arbitrage_ as _strategy_Arbitrage_

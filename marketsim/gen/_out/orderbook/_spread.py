@@ -6,6 +6,10 @@ from marketsim import context
 class Spread_IOrderBook(Observablefloat):
     """ Spread of order *book*
     
+    
+    Parameters are:
+    
+    **book**
     """ 
     def __init__(self, book = None):
         from marketsim import rtti

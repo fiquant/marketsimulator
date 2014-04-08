@@ -6,6 +6,10 @@ from marketsim import context
 class MidPrice_IOrderBook(Observablefloat):
     """ MidPrice of order *book*
     
+    
+    Parameters are:
+    
+    **book**
     """ 
     def __init__(self, book = None):
         from marketsim import rtti

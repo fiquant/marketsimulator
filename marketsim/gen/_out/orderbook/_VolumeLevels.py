@@ -8,6 +8,16 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
     """ Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
     
       Level of volume V is a price at which cumulative volume of better orders is V
+    
+    Parameters are:
+    
+    **queue**
+    
+    **volumeDelta**
+    	 distance between two volumes 
+    
+    **volumeCount**
+    	 number of volume levels to track 
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
         from marketsim import rtti

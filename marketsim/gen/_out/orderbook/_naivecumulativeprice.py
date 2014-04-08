@@ -11,6 +11,12 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
+    
+    Parameters are:
+    
+    **book**
+    
+    **depth**
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -86,6 +92,12 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
+    
+    Parameters are:
+    
+    **book**
+    
+    **depth**
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim import rtti

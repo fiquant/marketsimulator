@@ -6,6 +6,13 @@ from marketsim import context
 class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
     """ Returns *x* if defined and *elsePart* otherwise
     
+    
+    Parameters are:
+    
+    **x**
+    
+    **elsePart**
+    	 function to take values from when *x* is undefined 
     """ 
     def __init__(self, x = None, elsePart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -70,6 +77,13 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 class IfDefined_FloatIObservableFloat(Observablefloat):
     """ Returns *x* if defined and *elsePart* otherwise
     
+    
+    Parameters are:
+    
+    **x**
+    
+    **elsePart**
+    	 function to take values from when *x* is undefined 
     """ 
     def __init__(self, x = None, elsePart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -135,6 +149,13 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 class IfDefined_IObservableFloatFloat(Observablefloat):
     """ Returns *x* if defined and *elsePart* otherwise
     
+    
+    Parameters are:
+    
+    **x**
+    
+    **elsePart**
+    	 function to take values from when *x* is undefined 
     """ 
     def __init__(self, x = None, elsePart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -199,6 +220,13 @@ from marketsim import context
 class IfDefined_FloatFloat(Observablefloat):
     """ Returns *x* if defined and *elsePart* otherwise
     
+    
+    Parameters are:
+    
+    **x**
+    
+    **elsePart**
+    	 function to take values from when *x* is undefined 
     """ 
     def __init__(self, x = None, elsePart = None):
         from marketsim import rtti

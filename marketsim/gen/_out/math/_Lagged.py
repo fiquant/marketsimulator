@@ -7,6 +7,14 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
     """ Observable that adds a lag to an observable data source
     
       so Lagged(x, dt)(t0+dt) == x(t0)
+    
+    Parameters are:
+    
+    **source**
+    	 observable data source 
+    
+    **timeframe**
+    	 lag size 
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

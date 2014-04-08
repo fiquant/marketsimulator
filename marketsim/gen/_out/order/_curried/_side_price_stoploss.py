@@ -10,6 +10,14 @@ class side_price_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObs
       It keeps track of position and balance change induced by trades of the underlying order and
       if losses from keeping the position exceed certain limit (given by maximum loss factor),
       the meta order clears its position.
+    
+    Parameters are:
+    
+    **proto**
+    	 underlying orders to create 
+    
+    **maxloss**
+    	 maximal acceptable loss factor 
     """ 
     def __init__(self, proto = None, maxloss = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float

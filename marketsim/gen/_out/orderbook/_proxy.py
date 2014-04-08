@@ -7,6 +7,8 @@ class Proxy_(IOrderBook,Proxy_Impl):
     
     
       May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

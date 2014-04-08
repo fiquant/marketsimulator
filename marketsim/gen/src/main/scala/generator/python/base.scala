@@ -50,6 +50,8 @@ package object base {
                 case None => ""
             }
 
+        def comment = "" :: ("**" + p.name + "**") :: (p.comment map { "\t" + _ })
+
         def property = s"\'$name\' : " ||| ty
         def repr = s"%($name)s"
         def call = s"self.$name"
@@ -141,7 +143,7 @@ package object base {
     trait DocString extends Printer {
         def docstring  = f.docstring match {
             case Some(d) =>
-                (d.brief  :: "" :: d.detailed)
+                (d.brief  :: "" :: d.detailed) ++ ("" :: "Parameters are:" :: (parameters flatMap { _.comment }))
             case None => Nil
         }
     }

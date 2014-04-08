@@ -4,6 +4,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listofflo
 class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
     """ Identity function for an array of floats
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

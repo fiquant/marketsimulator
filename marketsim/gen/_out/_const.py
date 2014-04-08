@@ -5,6 +5,10 @@ from marketsim.gen._intrinsic._constant import Constant_Impl
 class const_Int(IObservableint,Constant_Impl):
     """ Trivial observable always returning *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._iobservable._iobservableint import IObservableint
@@ -34,6 +38,10 @@ from marketsim.gen._intrinsic._constant import Constant_Impl
 class const_Float(IObservablefloat,Constant_Impl):
     """ Trivial observable always returning *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

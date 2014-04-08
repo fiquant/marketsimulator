@@ -12,6 +12,17 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
      is chosen and made running; other strategies are suspended.
      It can be considered as a particular case for MultiArmedBandit strategy with
      *corrector* parameter set to *chooseTheBest*
+    
+    Parameters are:
+    
+    **strategies**
+    	 original strategies that can be suspended 
+    
+    **account**
+    	 function creating phantom strategy used for efficiency estimation 
+    
+    **performance**
+    	 function estimating is the strategy efficient or not 
     """ 
     def __init__(self, strategies = None, account = None, performance = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_

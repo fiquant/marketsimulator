@@ -8,6 +8,16 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
     """ Time serie to store and render it after on a graph
     
       Used to specify what data should be collected about order books and traders
+    
+    Parameters are:
+    
+    **source**
+    
+    **graph**
+    
+    **_digitsToShow**
+    
+    **_smooth**
     """ 
     def __init__(self, source = None, graph = None, _digitsToShow = None, _smooth = None):
         from marketsim.gen._out._const import const_Float as _const_Float

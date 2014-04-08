@@ -8,6 +8,12 @@ class lognormvariate_FloatFloat(IFunctionfloat):
      If you take the natural logarithm of this distribution,
       you'll get a normal distribution with mean |mu| and standard deviation |sigma|.
       |mu| can have any value, and |sigma| must be greater than zero.
+    
+    Parameters are:
+    
+    **Mu**
+    
+    **Sigma**
     """ 
     def __init__(self, Mu = None, Sigma = None):
         from marketsim import rtti

@@ -5,6 +5,8 @@ from marketsim import context
 class Nothing_(IFunctionSide):
     """ Function always returning None of type Side
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

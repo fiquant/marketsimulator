@@ -4,6 +4,14 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class weibullvariate_FloatFloat(IFunctionfloat):
     """ Weibull distribution
     
+    
+    Parameters are:
+    
+    **Alpha**
+    	 |alpha| is the scale parameter 
+    
+    **Beta**
+    	 |beta| is the shape parameter  
     """ 
     def __init__(self, Alpha = None, Beta = None):
         from marketsim import rtti

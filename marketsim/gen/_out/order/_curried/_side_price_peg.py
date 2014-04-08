@@ -9,6 +9,10 @@ class side_price_Peg_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOr
       with the price better at one tick than the best price of the order queue.
       It implies that if several peg orders are sent to the same order queue
       they start to race until being matched against the counterparty orders.
+    
+    Parameters are:
+    
+    **proto**
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float

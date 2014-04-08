@@ -4,6 +4,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import
 class trader_Unit_(IFunctionIFunctionfloat_from_IAccount):
     """ Unit function. Used to simulate uniform random choice of a strategy
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

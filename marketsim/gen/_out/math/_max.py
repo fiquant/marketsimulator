@@ -7,6 +7,12 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
     """ Function returning maximum of two functions *x* and *y*.
     
      If *x* or/and *y* are observables, *Min* is also observable
+    
+    Parameters are:
+    
+    **x**
+    
+    **y**
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -71,6 +77,12 @@ class Max_FloatIObservableFloat(Observablefloat):
     """ Function returning maximum of two functions *x* and *y*.
     
      If *x* or/and *y* are observables, *Min* is also observable
+    
+    Parameters are:
+    
+    **x**
+    
+    **y**
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -136,6 +148,12 @@ class Max_IObservableFloatFloat(Observablefloat):
     """ Function returning maximum of two functions *x* and *y*.
     
      If *x* or/and *y* are observables, *Min* is also observable
+    
+    Parameters are:
+    
+    **x**
+    
+    **y**
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -200,6 +218,12 @@ class Max_FloatFloat(Observablefloat):
     """ Function returning maximum of two functions *x* and *y*.
     
      If *x* or/and *y* are observables, *Min* is also observable
+    
+    Parameters are:
+    
+    **x**
+    
+    **y**
     """ 
     def __init__(self, x = None, y = None):
         from marketsim import rtti

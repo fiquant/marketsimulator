@@ -7,6 +7,10 @@ class BestPrice_IOrderQueue(Observablefloat,BestPrice_Impl):
     """ Returns best order price of *queue*
     
       Returns None is *queue* is empty
+    
+    Parameters are:
+    
+    **queue**
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

@@ -5,6 +5,8 @@ class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
     """ Associated with a strategy account that tracks
     
       how orders sent by the strategy have been actually traded
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

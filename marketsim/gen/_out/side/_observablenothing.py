@@ -6,6 +6,8 @@ from marketsim.gen._intrinsic.side import None_Impl
 class observableNothing_(ObservableSide,None_Impl):
     """ Observable always equal to None of type Side
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim.gen._out._side import Side

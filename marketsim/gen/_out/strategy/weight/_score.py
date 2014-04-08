@@ -14,6 +14,11 @@ class Score_IAccount(IFunctionfloat,Score_Impl):
      Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
+    
+    Parameters are:
+    
+    **trader**
+    	 account in question 
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

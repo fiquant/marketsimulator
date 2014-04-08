@@ -6,6 +6,10 @@ class Log_Float(Observablefloat):
     """ Natural logarithm of *x* (to base e)
     
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

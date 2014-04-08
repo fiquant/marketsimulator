@@ -10,6 +10,14 @@ class price_StopLoss_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from
       It keeps track of position and balance change induced by trades of the underlying order and
       if losses from keeping the position exceed certain limit (given by maximum loss factor),
       the meta order clears its position.
+    
+    Parameters are:
+    
+    **proto**
+    	 underlying orders to create 
+    
+    **maxloss**
+    	 maximal acceptable loss factor 
     """ 
     def __init__(self, proto = None, maxloss = None):
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat

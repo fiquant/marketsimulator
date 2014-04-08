@@ -7,6 +7,10 @@ class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
     """ Function returning first derivative on time of *x*
     
      *x* should provide *derivative* member
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._avg import Avg_mathEW as _math_Avg_mathEW

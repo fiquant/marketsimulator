@@ -4,6 +4,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat 
 class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
     """ identity scaling = f(x)
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

@@ -10,6 +10,11 @@ from marketsim import context
 class Clamp0_Float(IFunctionfloat):
     """ scaling function = max(0, f(x)) + 1
     
+    
+    Parameters are:
+    
+    **f**
+    	 function to scale 
     """ 
     def __init__(self, f = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

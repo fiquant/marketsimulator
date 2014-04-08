@@ -13,6 +13,11 @@ class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
       the order is either executed immediately
       at price equal or better than given one
       either it is cancelled (and consequently never stored in the order queue).
+    
+    Parameters are:
+    
+    **proto**
+    	 factory for underlying orders 
     """ 
     def __init__(self, proto = None):
         from marketsim import rtti

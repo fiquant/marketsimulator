@@ -6,6 +6,14 @@ from marketsim import context
 class DownMovements_IObservableFloatFloat(Observablefloat):
     """ Returns negative movements of some observable *source* with lag *timeframe*
     
+    
+    Parameters are:
+    
+    **source**
+    	 observable data source 
+    
+    **timeframe**
+    	 lag size 
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const_Float

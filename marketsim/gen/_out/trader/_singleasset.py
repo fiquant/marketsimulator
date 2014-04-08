@@ -8,6 +8,25 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(ISingleAssetTrader,SingleAsset_Impl):
     """ A trader that trades a single asset on a single market
     
+    
+    Parameters are:
+    
+    **orderBook**
+    	 order book for the asset being traded 
+    
+    **strategy**
+    	 strategy run by the trader 
+    
+    **name**
+    
+    **amount**
+    	 current position of the trader (number of assets that it owns) 
+    
+    **PnL**
+    	 current trader balance (number of money units that it owns) 
+    
+    **timeseries**
+    	 defines what data should be gathered for the trader 
     """ 
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

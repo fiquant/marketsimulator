@@ -9,6 +9,11 @@ class side_price_Limit_Float(IFunctionIFunctionIObservableIOrder_from_IFunctionf
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
+    
+    Parameters are:
+    
+    **volume**
+    	 function defining volume of orders to create 
     """ 
     def __init__(self, volume = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

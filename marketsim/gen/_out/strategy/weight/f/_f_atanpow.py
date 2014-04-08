@@ -4,6 +4,11 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat 
 class f_AtanPow_Float(IFunctionIFunctionfloat_from_IFunctionfloat):
     """ scaling function = atan(base^f(x))
     
+    
+    Parameters are:
+    
+    **base**
+    	 base for power function 
     """ 
     def __init__(self, base = None):
         from marketsim import rtti

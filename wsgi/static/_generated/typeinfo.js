@@ -35,7 +35,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence signal</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>timeframe</strong></dt>\n<dd>signal period</dd>\n<dt><strong>step</strong></dt>\n<dd>discretization step</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion": {
         "castsTo": [
@@ -82,7 +82,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared</p>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat": {
         "castsTo": [
@@ -99,7 +99,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n<p>by taking into account prices only for the best order</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns naive approximation of price for best orders of total volume <em>depth</em></p>\n<blockquote>\n<p>by taking into account prices only for the best order</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n<p><strong>depth</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionRSI_linearFloatIObservableIOrder": {
         "castsTo": [
@@ -127,7 +127,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating StopLoss orders</p>\n<blockquote>\nStopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>maxloss</strong></dt>\n<dd>maximal acceptable loss factor</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat": {
         "castsTo": [
@@ -144,7 +144,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n<p>In other words cumulative price corresponds to trader balance change\nif a market order of volume <em>depth</em> is completely matched</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns price for best orders of total volume <em>depth</em></p>\n<blockquote>\n<p>In other words cumulative price corresponds to trader balance change\nif a market order of volume <em>depth</em> is completely matched</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n<p><strong>depth</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_limit.side_Limit_FloatFloat": {
         "castsTo": [
@@ -158,7 +158,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>price</strong></dt>\n<dd>function defining price of orders to create</dd>\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat": {
         "castsTo": [
@@ -202,7 +202,7 @@ var typeinfo = {
                 "type": "identity"
             }
         },
-        "description": "<div class=\"document\">\n<p>It can be considered as a composition of single asset traders and multi asset strategies\nAt the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A trader that trades different assets</p>\n<blockquote>\nIt can be considered as a composition of single asset traders and multi asset strategies\nAt the moment there is no way to instruct a multi asset strategy to trade only on subset of the assets</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>traders</strong></dt>\n<dd>defines accounts for every asset to trade</dd>\n<dt><strong>strategy</strong></dt>\n<dd>multi asset strategy run by the trader</dd>\n</dl>\n<p><strong>name</strong></p>\n<dl class=\"docutils\">\n<dt><strong>PnL</strong></dt>\n<dd>current trader balance (number of money units that it owns)</dd>\n<dt><strong>timeseries</strong></dt>\n<dd>defines what data should be gathered for the trader</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideTrendFollowerIEventSideIObservableIOrder": {
         "castsTo": [
@@ -233,7 +233,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Square root of <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._observablefalse.observableFalse_": {
         "castsTo": [
@@ -243,7 +243,7 @@ var typeinfo = {
             "marketsim.gen._out._iobservable._iobservableobject.IObservableobject"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trivial observable always returning <em>False</em></p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.side._observablesell.observableSell_": {
         "castsTo": [
@@ -253,7 +253,7 @@ var typeinfo = {
             "marketsim.gen._out._iobservable._iobservableside.IObservableSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable always equal to Sell side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.trader._balance.Balance_IAccount": {
         "castsTo": [
@@ -267,7 +267,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Number of money owned by trader</p>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight._traderefficiencytrend.TraderEfficiencyTrend_IAccountFloat": {
         "castsTo": [
@@ -281,7 +281,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns first derivative of a moving average of the trader efficiency</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>trader</strong></dt>\n<dd>account in question</dd>\n<dt><strong>alpha</strong></dt>\n<dd>parameter alpha for the moving average</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._min.Min_FloatFloat": {
         "castsTo": [
@@ -298,7 +298,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning minimum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._min.Min_IObservableFloatFloat": {
         "castsTo": [
@@ -315,7 +315,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning minimum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading": {
         "castsTo": [
@@ -340,7 +340,7 @@ var typeinfo = {
                 "type": "identity"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Graph to render at Veusz. Time series are added to it automatically in their constructor</p>\n<p>Parameters are:</p>\n<p><strong>name</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._var.Var_mathMoving": {
         "castsTo": [
@@ -351,7 +351,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Simple moving variance</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight._identityl.IdentityL_ListFloat": {
         "castsTo": [],
@@ -362,7 +362,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Identity function for an array of floats</p>\n<p>Parameters are:</p>\n<p><strong>array</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._strategy.Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder": {
         "castsTo": [
@@ -386,7 +386,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>having 1 at the index of the maximal element and 0 are at the rest</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning an array of length <em>len(array)</em></p>\n<blockquote>\nhaving 1 at the index of the maximal element and 0 are at the rest</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._delta.Delta_strategypriceMarketMaker": {
         "castsTo": [],
@@ -432,7 +432,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>scaling function = max(0, f(x)) + 1</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>f</strong></dt>\n<dd>function to scale</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math.random._triangular.triangular_FloatFloatFloat": {
         "castsTo": [
@@ -449,7 +449,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<dl class=\"docutils\">\n<dt>Return a random floating point number <em>N</em> such that <em>low</em> &lt;= <em>N</em> &lt;= <em>high</em> and</dt>\n<dd>with the specified <em>mode</em> between those bounds.\nThe <em>low</em> and <em>high</em> bounds default to zero and one.\nThe <em>mode</em> argument defaults to the midpoint between the bounds,\ngiving a symmetric distribution.</dd>\n</dl>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Triangular distribution</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt>Return a random floating point number <em>N</em> such that <em>low</em> &lt;= <em>N</em> &lt;= <em>high</em> and</dt>\n<dd>with the specified <em>mode</em> between those bounds.\nThe <em>low</em> and <em>high</em> bounds default to zero and one.\nThe <em>mode</em> argument defaults to the midpoint between the bounds,\ngiving a symmetric distribution.</dd>\n</dl>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>Low</strong></p>\n<p><strong>High</strong></p>\n<p><strong>Mode</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear": {
         "castsTo": [
@@ -505,7 +505,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ievent.IEvent"
             }
         },
-        "description": "<div class=\"document\">\n<p>creates an order via <em>orderFactory</em> and sends the order to the market using its trader</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Generic strategy that wakes up on events given by <em>eventGen</em>,</p>\n<blockquote>\ncreates an order via <em>orderFactory</em> and sends the order to the market using its trader</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>orderFactory</strong></dt>\n<dd>order factory function</dd>\n<dt><strong>eventGen</strong></dt>\n<dd>Event source making the strategy to wake up</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._alpha_2.Alpha_2_strategysideCrossingAverages": {
         "castsTo": [],
@@ -565,7 +565,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n<p>by taking into account prices only for the best order</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns naive approximation of price for best orders of total volume <em>depth</em></p>\n<blockquote>\n<p>by taking into account prices only for the best order</p>\n<p>Negative <em>depth</em> correponds to will buy assets\nPositive <em>depth</em> correponds to will sell assets</p>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n<p><strong>depth</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_price_limit.side_price_Limit_Float": {
         "castsTo": [
@@ -576,7 +576,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy._tradeifprofitable.TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat": {
         "castsTo": [
@@ -593,7 +593,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>and if it is considered as good, sends orders</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Adaptive strategy that evaluates <em>inner</em> strategy efficiency</p>\n<blockquote>\nand if it is considered as good, sends orders</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>inner</strong></dt>\n<dd>wrapped strategy</dd>\n<dt><strong>account</strong></dt>\n<dd>defines how strategy trades are booked:\nactually traded amount or virtual market orders are\nused in order to estimate how the strategy would have traded\nif all its orders appeared at market</dd>\n<dt><strong>performance</strong></dt>\n<dd>given a trading account tells\nshould it be considered as effective or not</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_": {
         "castsTo": [
@@ -607,7 +607,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning <em>True</em></p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.ops._less.Less_FloatFloat": {
         "castsTo": [
@@ -678,7 +678,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>A peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Peg orders</p>\n<blockquote>\nA peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</blockquote>\n<p>Parameters are:</p>\n<p><strong>proto</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._max.Max_IObservableFloatFloat": {
         "castsTo": [
@@ -695,7 +695,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning maximum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side.Side_strategysideCrossingAverages": {
         "castsTo": [
@@ -754,14 +754,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Event that fires every <em>intervalFunc</em> moments of time</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>intervalFunc</strong></dt>\n<dd>interval of time between two events</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy._arbitrage.Arbitrage_": {
         "castsTo": [
             "marketsim.gen._out._imultiassetstrategy.IMultiAssetStrategy"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>It believes that these assets represent a single asset traded on different venues\nOnce an ask at one venue becomes lower than a bid at another venue\nit sends market sell and buy orders in order to exploit this arbitrage possibility</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Strategy for a multi asset trader.</p>\n<blockquote>\nIt believes that these assets represent a single asset traded on different venues\nOnce an ask at one venue becomes lower than a bid at another venue\nit sends market sell and buy orders in order to exploit this arbitrage possibility</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.trader._efficiencytrend.EfficiencyTrend_IAccountFloat": {
         "castsTo": [
@@ -775,7 +775,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns first derivative of a moving average of the trader efficiency</p>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n<p><strong>alpha</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat": {
         "castsTo": [
@@ -851,7 +851,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>side</strong></dt>\n<dd>function defining side of orders to create</dd>\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder": {
         "castsTo": [
@@ -864,7 +864,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>A peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Peg orders</p>\n<blockquote>\nA peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</blockquote>\n<p>Parameters are:</p>\n<p><strong>proto</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._threshold.Threshold_strategysideSignal": {
         "castsTo": [],
@@ -918,7 +918,7 @@ var typeinfo = {
                 "type": "identity"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A discrete signal with user-defined increments.</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>initialValue</strong></dt>\n<dd>initial value of the signal</dd>\n<dt><strong>deltaDistr</strong></dt>\n<dd>increment function</dd>\n<dt><strong>intervalDistr</strong></dt>\n<dd>intervals between signal updates</dd>\n</dl>\n<p><strong>name</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_price_immediateorcancel.side_price_ImmediateOrCancel_SideFloatIObservableIOrder": {
         "castsTo": [
@@ -929,7 +929,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Immediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Immediate-Or-Cancel orders</p>\n<blockquote>\nImmediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>factory for underlying orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._threshold.Threshold_strategysideTrendFollower": {
         "castsTo": [],
@@ -952,7 +952,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>scaling function = atan(base^f(x))</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>f</strong></dt>\n<dd>function to scale</dd>\n<dt><strong>base</strong></dt>\n<dd>base for power function</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat": {
         "castsTo": [
@@ -976,7 +976,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>how orders sent by the strategy have been actually traded</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Associated with a strategy account that tracks</p>\n<blockquote>\nhow orders sent by the strategy have been actually traded</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.math._stddev.StdDev_mathEW": {
         "castsTo": [
@@ -987,7 +987,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._source.Source_strategysideSignal": {
         "castsTo": [],
@@ -1027,7 +1027,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Von Mises distribution</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>Mu</strong></dt>\n<dd>\u03bc is the mean angle, expressed in radians between 0 and 2|pi|</dd>\n<dt><strong>Kappa</strong></dt>\n<dd><dl class=\"first last docutils\">\n<dt>\u03ba is the concentration parameter, which must be greater than or equal to zero.</dt>\n<dd>If \u03ba is equal to zero, this distribution reduces\nto a uniform random angle over the range 0 to 2|pi|</dd>\n</dl>\n</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._sqr.Sqr_Float": {
         "castsTo": [
@@ -1041,7 +1041,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Square of <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat": {
         "castsTo": [
@@ -1072,7 +1072,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Immediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Immediate-Or-Cancel orders</p>\n<blockquote>\nImmediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>factory for underlying orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._pricedistr.PriceDistr_strategypriceLiquidityProvider": {
         "castsTo": [],
@@ -1120,7 +1120,7 @@ var typeinfo = {
             "marketsim.gen._out._iobservable._iobservableside.IObservableSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable always equal to None of type Side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -1148,7 +1148,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat": {
         "castsTo": [
@@ -1165,7 +1165,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>so Lagged(x, dt)(t0+dt) == x(t0)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable that adds a lag to an observable data source</p>\n<blockquote>\nso Lagged(x, dt)(t0+dt) == x(t0)</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>source</strong></dt>\n<dd>observable data source</dd>\n<dt><strong>timeframe</strong></dt>\n<dd>lag size</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder": {
         "castsTo": [
@@ -1178,7 +1178,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder"
             }
         },
-        "description": "<div class=\"document\">\n<p>Immediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Immediate-Or-Cancel orders</p>\n<blockquote>\nImmediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>factory for underlying orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._bids.Bids_IOrderBook": {
         "castsTo": [
@@ -1189,7 +1189,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns buy side order queue for <em>book</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._avg.Avg_mathCumulative": {
         "castsTo": [
@@ -1201,7 +1201,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Cumulative average</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight.f._f_atanpow.f_AtanPow_Float": {
         "castsTo": [
@@ -1212,7 +1212,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>scaling function = atan(base^f(x))</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>base</strong></dt>\n<dd>base for power function</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._book.Book_strategysideCrossingAverages": {
         "castsTo": [],
@@ -1238,7 +1238,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>It fires updates only if <em>source</em> value becomes less than the old value minus <em>epsilon</em></p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Cumulative minimum of a function with positive tolerance.</p>\n<blockquote>\nIt fires updates only if <em>source</em> value becomes less than the old value minus <em>epsilon</em></blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>epsilon</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._source.Source_mathMoving": {
         "castsTo": [],
@@ -1261,7 +1261,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Iceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating iceberg orders</p>\n<blockquote>\nIceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>lotSize</strong></dt>\n<dd>maximal size of order to send</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat": {
         "castsTo": [
@@ -1289,7 +1289,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>A peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Peg orders</p>\n<blockquote>\nA peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</blockquote>\n<p>Parameters are:</p>\n<p><strong>proto</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount": {
         "castsTo": [
@@ -1303,7 +1303,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Cumulative volume of orders sent to the market but haven't matched yet</p>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._test.in1.in2._f.F_Float": {
         "castsTo": [
@@ -1321,7 +1321,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning Buy side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._threshold.Threshold_strategysideRSIbis": {
         "castsTo": [],
@@ -1344,7 +1344,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ilink.ILink"
             }
         },
-        "description": "<div class=\"document\">\n<p>(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Represents latency in information propagation between two agents</p>\n<blockquote>\n(normally between a trader and a market).\nEnsures that sending packets via links preserves their order.\nHolds two one-way links in opposite directions.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>up</strong></dt>\n<dd>Forward link (normally from a trader to a market)</dd>\n<dt><strong>down</strong></dt>\n<dd>Backward link (normally from a market to a trader)</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._sideprice_stoploss.sideprice_StopLoss_SideFloatIObservableIOrderFloat": {
         "castsTo": [
@@ -1358,7 +1358,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating StopLoss orders</p>\n<blockquote>\nStopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>maxloss</strong></dt>\n<dd>maximal acceptable loss factor</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._volume.Volume_strategypriceMarketMaker": {
         "castsTo": [],
@@ -1409,7 +1409,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>It takes into account only the best price of the order queue</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns traders naive approximation of trader eficiency.</p>\n<blockquote>\nIt takes into account only the best price of the order queue</blockquote>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math.random._uniform.uniform_FloatFloat": {
         "castsTo": [
@@ -1423,7 +1423,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Return a random floating point number <em>N</em> such that\n<em>a</em> &lt;= <em>N</em> &lt;= <em>b</em> for <em>a</em> &lt;= <em>b</em> and <em>b</em> &lt;= <em>N</em> &lt;= <em>a</em> for <em>b</em> &lt; <em>a</em>.\nThe end-point value <em>b</em> may or may not be included in the range depending on\nfloating-point rounding in the equation <em>a</em> + (<em>b</em>-<em>a</em>) * <em>random()</em>.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Uniform distribution</p>\n<blockquote>\nReturn a random floating point number <em>N</em> such that\n<em>a</em> &lt;= <em>N</em> &lt;= <em>b</em> for <em>a</em> &lt;= <em>b</em> and <em>b</em> &lt;= <em>N</em> &lt;= <em>a</em> for <em>b</em> &lt; <em>a</em>.\nThe end-point value <em>b</em> may or may not be included in the range depending on\nfloating-point rounding in the equation <em>a</em> + (<em>b</em>-<em>a</em>) * <em>random()</em>.</blockquote>\n<p>Parameters are:</p>\n<p><strong>Low</strong></p>\n<p><strong>High</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._test.in1.in2._s2.S2_": {
         "castsTo": [
@@ -1458,7 +1458,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>and in some moments of time it randomly chooses an order and cancels it\nNote: a similar effect can be obtained using order.WithExpiry meta orders</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Strategy that listens to all orders sent by a trader to the market</p>\n<blockquote>\nand in some moments of time it randomly chooses an order and cancels it\nNote: a similar effect can be obtained using order.WithExpiry meta orders</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>cancellationIntervalDistr</strong></dt>\n<dd>intervals between order cancellations</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._booktodependon.BookToDependOn_strategysidePairTrading": {
         "castsTo": [],
@@ -1484,7 +1484,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns <em>x</em> if defined and <em>elsePart</em> otherwise</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>elsePart</strong></dt>\n<dd>function to take values from when <em>x</em> is undefined</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._local.Local_StringFloatIntListITimeSerie": {
         "castsTo": [
@@ -1507,7 +1507,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n<p>Maintains two order queues for orders of different sides</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Order book for a single asset in a market.</p>\n<blockquote>\nMaintains two order queues for orders of different sides</blockquote>\n<p>Parameters are:</p>\n<p><strong>name</strong></p>\n<p><strong>tickSize</strong></p>\n<p><strong>_digitsToShow</strong></p>\n<p><strong>timeseries</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat": {
         "castsTo": [
@@ -1574,14 +1574,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>In some moments of time the most effective strategy\nis chosen and made running; other strategies are suspended.\nIt can be considered as a particular case for MultiArmedBandit strategy with\n<em>corrector</em> parameter set to <em>chooseTheBest</em></p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A composite strategy initialized with an array of strategies.</p>\n<blockquote>\nIn some moments of time the most effective strategy\nis chosen and made running; other strategies are suspended.\nIt can be considered as a particular case for MultiArmedBandit strategy with\n<em>corrector</em> parameter set to <em>chooseTheBest</em></blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>original strategies that can be suspended</dd>\n<dt><strong>account</strong></dt>\n<dd>function creating phantom strategy used for efficiency estimation</dd>\n<dt><strong>performance</strong></dt>\n<dd>function estimating is the strategy efficient or not</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.side._sell.Sell_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning Sell side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.ops._div.Div_IObservableFloatFloat": {
         "castsTo": [
@@ -1618,14 +1618,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Fixed budget order acts like a market order\nbut the volume is implicitly given by a budget available for trades.\nInternally first it sends request.EvalVolumesForBudget\nto estimate volumes and prices of orders to sent and\nthen sends a sequence of order.ImmediateOrCancel to be sure that\ncumulative price of trades to be done won't exceed the given budget.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating fixed budget orders</p>\n<blockquote>\nFixed budget order acts like a market order\nbut the volume is implicitly given by a budget available for trades.\nInternally first it sends request.EvalVolumesForBudget\nto estimate volumes and prices of orders to sent and\nthen sends a sequence of order.ImmediateOrCancel to be sure that\ncumulative price of trades to be done won't exceed the given budget.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>budget</strong></dt>\n<dd>function defining budget on which it may send orders at one time</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out._false.false_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning <em>False</em></p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion": {
         "castsTo": [
@@ -1666,7 +1666,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trivial observable always returning <em>undefined</em> or <em>None</em> value</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_floatingprice.side_FloatingPrice_SideFloatIObservableIOrderIObservableFloat": {
         "castsTo": [
@@ -1680,7 +1680,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating orders with floating price</p>\n<blockquote>\nFloating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>floatingPrice</strong></dt>\n<dd>observable defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat": {
         "castsTo": [
@@ -1721,7 +1721,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>identity scaling = f(x)</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat": {
         "castsTo": [
@@ -1738,7 +1738,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>and <em>defaultValue</em> if there haven't been any trades</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns best price if defined, otherwise last price</p>\n<blockquote>\nand <em>defaultValue</em> if there haven't been any trades</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n<dl class=\"docutils\">\n<dt><strong>defaultValue</strong></dt>\n<dd>price to be used if there haven't been any trades</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketDataSideFloat": {
         "castsTo": [
@@ -1771,7 +1771,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Market order intructs buy or sell given volume immediately</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating market orders</p>\n<blockquote>\nMarket order intructs buy or sell given volume immediately</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>side</strong></dt>\n<dd>function defining side of orders to create</dd>\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side_distribution.Side_distribution_strategysideNoise": {
         "castsTo": [],
@@ -1822,7 +1822,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns first derivative of a moving average of the trader efficiency</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>alpha</strong></dt>\n<dd>parameter alpha for the moving average</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -1869,7 +1869,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>WithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating WithExpiry orders</p>\n<blockquote>\nWithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>expiry</strong></dt>\n<dd>expiration period for orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._maximum.Maximum_mathMoving": {
         "castsTo": [
@@ -1883,7 +1883,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Running maximum of a function</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._book.Book_strategypriceLiquidityProvider": {
         "castsTo": [],
@@ -1906,7 +1906,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>WithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating WithExpiry orders</p>\n<blockquote>\nWithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>expiry</strong></dt>\n<dd>expiration period for orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._timeframe.Timeframe_strategypositionRSI_linear": {
         "castsTo": [],
@@ -1929,7 +1929,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating StopLoss orders</p>\n<blockquote>\nStopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>maxloss</strong></dt>\n<dd>maximal acceptable loss factor</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat": {
         "castsTo": [
@@ -1960,7 +1960,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>It is negative if trader has sold more assets than has bought and\npositive otherwise</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns position of the trader</p>\n<blockquote>\nIt is negative if trader has sold more assets than has bought and\npositive otherwise</blockquote>\n<p>Parameters are:</p>\n<p><strong>trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.observable._quote.Quote_StringStringString": {
         "castsTo": [
@@ -1980,7 +1980,7 @@ var typeinfo = {
                 "type": "identity"
             }
         },
-        "description": "<div class=\"document\">\n<p>and follows the price in scale 1 model unit of time = 1 real day</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable that downloads closing prices for every day from <em>start</em> to <em>end</em> for asset given by <em>ticker</em></p>\n<blockquote>\nand follows the price in scale 1 model unit of time = 1 real day</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>ticker</strong></dt>\n<dd>defines quotes to download</dd>\n<dt><strong>start</strong></dt>\n<dd>defines first day to download in form YYYY-MM-DD</dd>\n<dt><strong>end</strong></dt>\n<dd>defines last day to download in form YYYY-MM-DD</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._alpha_1.Alpha_1_strategysideCrossingAverages": {
         "castsTo": [],
@@ -2000,7 +2000,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._atan.Atan_Float": {
         "castsTo": [
@@ -2014,7 +2014,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Arc tangent of x, in radians.</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._book.Book_strategysideTrendFollower": {
         "castsTo": [],
@@ -2062,7 +2062,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns tick size for the order <em>book</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._timeframe.Timeframe_mathRSI": {
         "castsTo": [],
@@ -2109,7 +2109,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning maximum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._book.book_strategysideFundamentalValue": {
         "castsTo": [
@@ -2134,7 +2134,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<dl class=\"docutils\">\n<dt>If you take the natural logarithm of this distribution,</dt>\n<dd>you'll get a normal distribution with mean \u03bc and standard deviation \u03c3.\n\u03bc can have any value, and \u03c3 must be greater than zero.</dd>\n</dl>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Log normal distribution</p>\n<blockquote>\n<dl class=\"docutils\">\n<dt>If you take the natural logarithm of this distribution,</dt>\n<dd>you'll get a normal distribution with mean \u03bc and standard deviation \u03c3.\n\u03bc can have any value, and \u03c3 must be greater than zero.</dd>\n</dl>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>Mu</strong></p>\n<p><strong>Sigma</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._var.Var_mathEW": {
         "castsTo": [
@@ -2145,7 +2145,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving variance</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide": {
         "castsTo": [
@@ -2183,7 +2183,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>A peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Peg orders</p>\n<blockquote>\nA peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</blockquote>\n<p>Parameters are:</p>\n<p><strong>proto</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._stddev.StdDev_mathCumulative": {
         "castsTo": [
@@ -2194,7 +2194,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat": {
         "castsTo": [
@@ -2237,7 +2237,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns <em>x</em> if defined and <em>elsePart</em> otherwise</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>elsePart</strong></dt>\n<dd>function to take values from when <em>x</em> is undefined</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._mul.Mul_FloatFloat": {
         "castsTo": [
@@ -2279,7 +2279,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n<p>having 1 at the index of the maximal element and 0 are at the rest</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning an array of length <em>len(array)</em></p>\n<blockquote>\nhaving 1 at the index of the maximal element and 0 are at the rest</blockquote>\n<p>Parameters are:</p>\n<p><strong>array</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._source.Source_mathmacd": {
         "castsTo": [],
@@ -2299,7 +2299,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>A peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Peg orders</p>\n<blockquote>\nA peg order is a particular case of the floating price order\nwith the price better at one tick than the best price of the order queue.\nIt implies that if several peg orders are sent to the same order queue\nthey start to race until being matched against the counterparty orders.</blockquote>\n<p>Parameters are:</p>\n<p><strong>proto</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear": {
         "castsTo": [
@@ -2326,7 +2326,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Creates a strategy combining an array of strategies</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>strategies to combine</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._histogram.Histogram_mathmacdFloatFloat": {
         "castsTo": [
@@ -2343,7 +2343,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Moving average convergence/divergence histogram</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>timeframe</strong></dt>\n<dd>signal period</dd>\n<dt><strong>step</strong></dt>\n<dd>discretization step</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._relstddev.RelStdDev_mathEW": {
         "castsTo": [
@@ -2357,7 +2357,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Relative standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._constant.constant_Int": {
         "castsTo": [
@@ -2368,7 +2368,7 @@ var typeinfo = {
                 "type": "_parseInt"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat": {
         "castsTo": [
@@ -2409,7 +2409,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning None of type Side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat": {
         "castsTo": [
@@ -2463,7 +2463,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning minimum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._limit.Limit_SideFloatFloat": {
         "castsTo": [
@@ -2482,7 +2482,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>side</strong></dt>\n<dd>function defining side of orders to create</dd>\n<dt><strong>price</strong></dt>\n<dd>function defining price of orders to create</dd>\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out._constant.constant_Float": {
         "castsTo": [
@@ -2493,7 +2493,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function always returning <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._test.in1.in2._s1.S1_String": {
         "castsTo": [
@@ -2518,7 +2518,7 @@ var typeinfo = {
                 "type": "_parseInt"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trivial observable always returning <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._const.const_Float": {
         "castsTo": [
@@ -2532,7 +2532,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trivial observable always returning <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat": {
         "castsTo": [
@@ -2585,7 +2585,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>how orders sent by the strategy have been actually traded</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Associated with a strategy account that tracks</p>\n<blockquote>\nhow orders sent by the strategy have been actually traded</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>inner</strong></dt>\n<dd>strategy to track</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._div.Div_FloatIObservableFloat": {
         "castsTo": [
@@ -2624,7 +2624,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Unit function. Used to simulate uniform random choice of a strategy</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>trader</strong></dt>\n<dd>account in question</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._price_immediateorcancel.price_ImmediateOrCancel_FloatIObservableIOrder": {
         "castsTo": [
@@ -2635,7 +2635,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Immediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Immediate-Or-Cancel orders</p>\n<blockquote>\nImmediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>factory for underlying orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._oneside.OneSide_strategypriceMarketMakerIObservableSideFloat": {
         "castsTo": [
@@ -2689,7 +2689,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns <em>x</em> if defined and <em>elsePart</em> otherwise</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>elsePart</strong></dt>\n<dd>function to take values from when <em>x</em> is undefined</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat": {
         "castsTo": [
@@ -2719,7 +2719,7 @@ var typeinfo = {
             "marketsim.gen._out._iorderbook.IOrderBook"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>May be used only in objects held by orderbooks (so it is normally used in orderbook properties)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Phantom orderbook that is used to refer to the current order book</p>\n<blockquote>\nMay be used only in objects held by orderbooks (so it is normally used in orderbook properties)</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat": {
         "castsTo": [
@@ -2762,7 +2762,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderqueue.IOrderQueue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returns None is <em>queue</em> is empty</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns best order price of <em>queue</em></p>\n<blockquote>\nReturns None is <em>queue</em> is empty</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear": {
         "castsTo": [
@@ -2790,7 +2790,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderqueue.IOrderQueue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returns None if there haven't been any trades</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns price of the last trade at <em>queue</em></p>\n<blockquote>\nReturns None if there haven't been any trades</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._price_floatingprice.price_FloatingPrice_FloatIObservableIOrderIObservableFloat": {
         "castsTo": [
@@ -2804,7 +2804,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating orders with floating price</p>\n<blockquote>\nFloating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>floatingPrice</strong></dt>\n<dd>observable defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._avg.Avg_mathMoving": {
         "castsTo": [
@@ -2816,7 +2816,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Simple moving average</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.account._virtualmarket.VirtualMarket_ISingleAssetStrategy": {
         "castsTo": [
@@ -2827,7 +2827,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>how it would be traded by sending request.evalMarketOrder\n(note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market\nbut we want evaluate in any case would it be profitable or not)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Associated with a strategy account that evaluates for every order sent by the strategy</p>\n<blockquote>\nhow it would be traded by sending request.evalMarketOrder\n(note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market\nbut we want evaluate in any case would it be profitable or not)</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>inner</strong></dt>\n<dd>strategy to track</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._weightedprice.WeightedPrice_IOrderQueueFloat": {
         "castsTo": [
@@ -2841,7 +2841,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns moving average of trade prices weighted by their volumes</p>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n<dl class=\"docutils\">\n<dt><strong>alpha</strong></dt>\n<dd>parameter alpha for the moving average</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading": {
         "castsTo": [
@@ -2972,7 +2972,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>May be used only in objects that are held by traders (so it is used in trader properties and strategies)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Phantom orderbook used to refer to the order book associated with a single asset trader</p>\n<blockquote>\nMay be used only in objects that are held by traders (so it is used in trader properties and strategies)</blockquote>\n<p>Parameters are:</p>\n<p><strong>Trader</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -3022,7 +3022,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder"
             }
         },
-        "description": "<div class=\"document\">\n<p>StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating StopLoss orders</p>\n<blockquote>\nStopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>maxloss</strong></dt>\n<dd>maximal acceptable loss factor</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook": {
         "castsTo": [
@@ -3061,14 +3061,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out._igraph.IGraph"
             }
         },
-        "description": "<div class=\"document\">\n<p>Used to specify what data should be collected about order books and traders</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Time serie to store and render it after on a graph</p>\n<blockquote>\nUsed to specify what data should be collected about order books and traders</blockquote>\n<p>Parameters are:</p>\n<p><strong>source</strong></p>\n<p><strong>graph</strong></p>\n<p><strong>_digitsToShow</strong></p>\n<p><strong>_smooth</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight.trader._trader_score.trader_Score_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>Returns difference between them.</p>\n<p>TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Calculates how many times efficiency of trader went up and went down</p>\n<blockquote>\n<p>Returns difference between them.</p>\n<p>TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))</p>\n</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight._score.Score_IAccount": {
         "castsTo": [
@@ -3079,7 +3079,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returns difference between them.</p>\n<p>TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Calculates how many times efficiency of trader went up and went down</p>\n<blockquote>\n<p>Returns difference between them.</p>\n<p>TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))</p>\n</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>trader</strong></dt>\n<dd>account in question</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat": {
         "castsTo": [
@@ -3097,7 +3097,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>scaling function = max(0, f(x)) + 1</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._threshold.Threshold_strategysideCrossingAverages": {
         "castsTo": [],
@@ -3117,7 +3117,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside.IFunctionIObservableIOrder_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Immediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating Immediate-Or-Cancel orders</p>\n<blockquote>\nImmediate-Or-Cancel order sends an underlying order to the market and\nimmediately sends a cancel request for it.\nIt allows to combine market and limit order behaviour:\nthe order is either executed immediately\nat price equal or better than given one\neither it is cancelled (and consequently never stored in the order queue).</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>factory for underlying orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat": {
         "castsTo": [
@@ -3141,7 +3141,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Identity function for an array of floats</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -3165,7 +3165,7 @@ var typeinfo = {
             "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Empty strategy doing nothing</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._sideprice_limit.sideprice_Limit_Float": {
         "castsTo": [
@@ -3176,7 +3176,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat": {
         "castsTo": [
@@ -3193,7 +3193,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns positive movements of some observable <em>source</em> with lag <em>timeframe</em></p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>source</strong></dt>\n<dd>observable data source</dd>\n<dt><strong>timeframe</strong></dt>\n<dd>lag size</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._sqr.Sqr_IObservableFloat": {
         "castsTo": [
@@ -3207,7 +3207,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Square of <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_market.side_Market_Float": {
         "castsTo": [
@@ -3218,7 +3218,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Market order intructs buy or sell given volume immediately</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating market orders</p>\n<blockquote>\nMarket order intructs buy or sell given volume immediately</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>volume</strong></dt>\n<dd>function defining volume of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat": {
         "castsTo": [
@@ -3273,7 +3273,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Exponent of <em>x</em></p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._add.Add_FloatIObservableFloat": {
         "castsTo": [
@@ -3306,7 +3306,7 @@ var typeinfo = {
             "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue": {
         "castsTo": [
@@ -3351,7 +3351,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Strategy that wraps another strategy and passes its orders only if <em>predicate</em> is true</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>inner</strong></dt>\n<dd>wrapped strategy</dd>\n<dt><strong>predicate</strong></dt>\n<dd>predicate to evaluate</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat": {
         "castsTo": [
@@ -3388,7 +3388,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning maximum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._trader.Trader_strategypositionRSI_linear": {
         "castsTo": [],
@@ -3483,7 +3483,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning minimum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._strategy.Strategy_strategypositionBollinger_linearFloatIObservableIOrder": {
         "castsTo": [
@@ -3522,7 +3522,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount"
             }
         },
-        "description": "<div class=\"document\">\n<p>In some moments of time the efficiency of the strategies is evaluated\nThese efficiencies are mapped into weights using <em>weight</em> and <em>normilizer</em>\nfunctions per every strategy and <em>corrector</em> for the whole collection of weights\nThese weights are used to choose randomly a strategy to run for the next quant of time.\nAll other strategies are suspended</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A composite strategy initialized with an array of strategies.</p>\n<blockquote>\nIn some moments of time the efficiency of the strategies is evaluated\nThese efficiencies are mapped into weights using <em>weight</em> and <em>normilizer</em>\nfunctions per every strategy and <em>corrector</em> for the whole collection of weights\nThese weights are used to choose randomly a strategy to run for the next quant of time.\nAll other strategies are suspended</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>strategies</strong></dt>\n<dd>original strategies that can be suspended</dd>\n<dt><strong>account</strong></dt>\n<dd>function creating a virtual account used\nto estimate efficiency of the strategy itself</dd>\n<dt><strong>weight</strong></dt>\n<dd>function estimating is the strategy efficient or not</dd>\n<dt><strong>normalizer</strong></dt>\n<dd>function that maps trader efficiency to its weight\nthat will be used for random choice</dd>\n<dt><strong>corrector</strong></dt>\n<dd>given array of strategy weights corrects them.\nfor example it may set to 0 all weights except the maximal one</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving": {
         "castsTo": [
@@ -3536,7 +3536,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Relative standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideCrossingAverages": {
         "castsTo": [
@@ -3577,7 +3577,7 @@ var typeinfo = {
             "marketsim.gen._out._iobservable._iobservableobject.IObservableobject"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Trivial observable always returning <em>True</em></p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.math._source.Source_mathEW": {
         "castsTo": [],
@@ -3600,7 +3600,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.</p>\n<p>The probability distribution function is:</p>\n<pre class=\"literal-block\">\n          x ** (alpha - 1) * math.exp(-x / beta)\npdf(x) =  --------------------------------------\n             math.gamma(alpha) * beta ** alpha\n</pre>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Gamma distribution</p>\n<blockquote>\n<p>Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.</p>\n<p>The probability distribution function is:</p>\n<pre class=\"literal-block\">\n          x ** (alpha - 1) * math.exp(-x / beta)\npdf(x) =  --------------------------------------\n             math.gamma(alpha) * beta ** alpha\n</pre>\n</blockquote>\n<p>Parameters are:</p>\n<p><strong>Alpha</strong></p>\n<p><strong>Beta</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue": {
         "castsTo": [
@@ -3614,7 +3614,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderqueue.IOrderQueue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returns None is <em>queue</em> has been always empty</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns last defined price at <em>queue</em></p>\n<blockquote>\nReturns None is <em>queue</em> has been always empty</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._negate.Negate_Float": {
         "castsTo": [
@@ -3644,7 +3644,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder"
             }
         },
-        "description": "<div class=\"document\">\n<p>Iceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating iceberg orders</p>\n<blockquote>\nIceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>lotSize</strong></dt>\n<dd>maximal size of order to send</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._slow.Slow_mathmacd": {
         "castsTo": [],
@@ -3721,7 +3721,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Relative standard deviation</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._minimum.Minimum_mathMoving": {
         "castsTo": [
@@ -3735,7 +3735,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Running minimum of a function</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math.random._normalvariate.normalvariate_FloatFloat": {
         "castsTo": [
@@ -3749,7 +3749,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Normal distribution</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>Mu</strong></dt>\n<dd>\u03bc is the mean</dd>\n<dt><strong>Sigma</strong></dt>\n<dd>\u03c3 is the standard deviation</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat": {
         "castsTo": [
@@ -3765,7 +3765,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>signedVolume</strong></dt>\n<dd>signed volume</dd>\n<dt><strong>price</strong></dt>\n<dd>function defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._side.Side_strategysideNoise": {
         "castsTo": [
@@ -3799,7 +3799,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>When <em>source</em> changes it inserts <em>undefined</em> value and then immidiately becomes equal to <em>source</em> value</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable listening to <em>source</em></p>\n<blockquote>\nWhen <em>source</em> changes it inserts <em>undefined</em> value and then immidiately becomes equal to <em>source</em> value</blockquote>\n<p>Parameters are:</p>\n<p><strong>source</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt": {
         "castsTo": [
@@ -3818,7 +3818,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Level of volume V is a price at which cumulative volume of better orders is V</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]</p>\n<blockquote>\nLevel of volume V is a price at which cumulative volume of better orders is V</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n<dl class=\"docutils\">\n<dt><strong>volumeDelta</strong></dt>\n<dd>distance between two volumes</dd>\n<dt><strong>volumeCount</strong></dt>\n<dd>number of volume levels to track</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat": {
         "castsTo": [
@@ -3835,7 +3835,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns negative movements of some observable <em>source</em> with lag <em>timeframe</em></p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>source</strong></dt>\n<dd>observable data source</dd>\n<dt><strong>timeframe</strong></dt>\n<dd>lag size</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._var.Var_mathCumulative": {
         "castsTo": [
@@ -3846,14 +3846,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Cumulative variance</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.account.inner._inner_virtualmarket.inner_VirtualMarket_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>how it would be traded by sending request.evalMarketOrder\n(note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market\nbut we want evaluate in any case would it be profitable or not)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Associated with a strategy account that evaluates for every order sent by the strategy</p>\n<blockquote>\nhow it would be traded by sending request.evalMarketOrder\n(note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market\nbut we want evaluate in any case would it be profitable or not)</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook": {
         "castsTo": [
@@ -3867,7 +3867,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>MidPrice of order <em>book</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat": {
         "castsTo": [
@@ -3884,7 +3884,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Discretizes function <em>x</em> at even time steps <em>dt</em></p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>x</strong></dt>\n<dd>function to discretize</dd>\n<dt><strong>dt</strong></dt>\n<dd>time discretization step</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat": {
         "castsTo": [
@@ -3900,7 +3900,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating orders with floating price</p>\n<blockquote>\nFloating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>floatingPrice</strong></dt>\n<dd>observable defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._volume.Volume_strategypriceMarketData": {
         "castsTo": [],
@@ -3923,7 +3923,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
             }
         },
-        "description": "<div class=\"document\">\n<p>Can be considered as a particular case of Array strategy</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Creates a strategy combining two strategies</p>\n<blockquote>\nCan be considered as a particular case of Array strategy</blockquote>\n<p>Parameters are:</p>\n<p><strong>A</strong></p>\n<p><strong>B</strong></p>\n</div>\n"
     },
     "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat": {
         "castsTo": [
@@ -3938,7 +3938,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>open/close/min/max price, its average and standard deviation</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable returning at the end of every <em>timeframe</em></p>\n<blockquote>\nopen/close/min/max price, its average and standard deviation</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>source</strong></dt>\n<dd>observable data source considered as asset price</dd>\n<dt><strong>timeframe</strong></dt>\n<dd>size of timeframe</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide": {
         "castsTo": [
@@ -3969,7 +3969,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>identity scaling = f(x)</p>\n<p>Parameters are:</p>\n<p><strong>f</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight._traderefficiency.TraderEfficiency_IAccount": {
         "castsTo": [
@@ -3980,7 +3980,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iaccount.IAccount"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>trader</strong></dt>\n<dd>account in question</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._strategy.Strategy_strategysidePairTradingIEventSideIObservableIOrder": {
         "castsTo": [
@@ -4056,7 +4056,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returned values range from 0 to positive infinity</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Exponential distribution</p>\n<blockquote>\nReturned values range from 0 to positive infinity</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>Lambda</strong></dt>\n<dd>\u03bb is 1.0 divided by the desired mean. It should be greater zero.</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.trader._singleproxy.SingleProxy_": {
         "castsTo": [
@@ -4065,7 +4065,7 @@ var typeinfo = {
             "marketsim.gen._out._itrader.ITrader"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>(normally it is used to define trader properties and strategies)</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Phantom trader that is used to refer to the current trader</p>\n<blockquote>\n(normally it is used to define trader properties and strategies)</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out._volumelevels.volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt": {
         "castsTo": [
@@ -4097,14 +4097,14 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n<p>Level of volume V is a price at which cumulative volume of better orders is V</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Time serie holding volume levels of an asset</p>\n<blockquote>\nLevel of volume V is a price at which cumulative volume of better orders is V</blockquote>\n<p>Parameters are:</p>\n<p><strong>source</strong></p>\n<p><strong>graph</strong></p>\n<p><strong>_digitsToShow</strong></p>\n<p><strong>_smooth</strong></p>\n<p><strong>_volumes</strong></p>\n<p><strong>_isBuy</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.weight.trader._trader_unit.trader_Unit_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Unit function. Used to simulate uniform random choice of a strategy</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -4121,7 +4121,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns <em>x</em> if defined and <em>elsePart</em> otherwise</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<dl class=\"docutils\">\n<dt><strong>elsePart</strong></dt>\n<dd>function to take values from when <em>x</em> is undefined</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_stoploss.side_StopLoss_SideIObservableIOrderFloat": {
         "castsTo": [
@@ -4135,7 +4135,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside.IFunctionIObservableIOrder_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating StopLoss orders</p>\n<blockquote>\nStopLoss order is initialised by an underlying order and a maximal acceptable loss factor.\nIt keeps track of position and balance change induced by trades of the underlying order and\nif losses from keeping the position exceed certain limit (given by maximum loss factor),\nthe meta order clears its position.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>maxloss</strong></dt>\n<dd>maximal acceptable loss factor</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._alpha.Alpha_mathRSI": {
         "castsTo": [],
@@ -4158,7 +4158,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>WithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating WithExpiry orders</p>\n<blockquote>\nWithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>expiry</strong></dt>\n<dd>expiration period for orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._logreturns.LogReturns_IObservableFloatFloat": {
         "castsTo": [
@@ -4172,7 +4172,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Log returns</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>x</strong></dt>\n<dd>observable data source</dd>\n<dt><strong>timeframe</strong></dt>\n<dd>lag size</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._signedvolume_limitsigned.signedVolume_LimitSigned_Float": {
         "castsTo": [
@@ -4183,7 +4183,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Limit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating limit orders</p>\n<blockquote>\nLimit orders ask to buy or sell some asset at price better than some limit price.\nIf a limit order is not competely fulfilled\nit remains in an order book waiting to be matched with another order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>price</strong></dt>\n<dd>function defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat": {
         "castsTo": [
@@ -4214,7 +4214,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>WithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating WithExpiry orders</p>\n<blockquote>\nWithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>expiry</strong></dt>\n<dd>expiration period for orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideNoiseIEventSideIObservableIOrder": {
         "castsTo": [
@@ -4247,7 +4247,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Fixed budget order acts like a market order\nbut the volume is implicitly given by a budget available for trades.\nInternally first it sends request.EvalVolumesForBudget\nto estimate volumes and prices of orders to sent and\nthen sends a sequence of order.ImmediateOrCancel to be sure that\ncumulative price of trades to be done won't exceed the given budget.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating fixed budget orders</p>\n<blockquote>\nFixed budget order acts like a market order\nbut the volume is implicitly given by a budget available for trades.\nInternally first it sends request.EvalVolumesForBudget\nto estimate volumes and prices of orders to sent and\nthen sends a sequence of order.ImmediateOrCancel to be sure that\ncumulative price of trades to be done won't exceed the given budget.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>side</strong></dt>\n<dd>function defining side of orders to create</dd>\n<dt><strong>budget</strong></dt>\n<dd>function defining budget on which it may send orders at one time</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._marketsigned.MarketSigned_Float": {
         "castsTo": [
@@ -4260,7 +4260,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Market order intructs buy or sell given volume immediately</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating market orders</p>\n<blockquote>\nMarket order intructs buy or sell given volume immediately</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>signedVolume</strong></dt>\n<dd>signed volume</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._alpha.Alpha_mathEW": {
         "castsTo": [],
@@ -4280,7 +4280,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Pareto distribution</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>Alpha</strong></dt>\n<dd>\u03b1 is the shape parameter</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._alpha.Alpha_strategypositionRSI_linear": {
         "castsTo": [],
@@ -4303,7 +4303,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Spread of order <em>book</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._sub.Sub_FloatFloat": {
         "castsTo": [
@@ -4337,7 +4337,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>It fires updates only if <em>source</em> value becomes greater than the old value plus <em>epsilon</em></p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Cumulative maximum of a function with positive tolerance.</p>\n<blockquote>\nIt fires updates only if <em>source</em> value becomes greater than the old value plus <em>epsilon</em></blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>epsilon</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._trader.Trader_strategypositionBollinger_linear": {
         "castsTo": [],
@@ -4360,7 +4360,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderqueue.IOrderQueue"
             }
         },
-        "description": "<div class=\"document\">\n<p>Returns None if there haven't been any trades</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns volume of the last trade at <em>queue</em></p>\n<blockquote>\nReturns None if there haven't been any trades</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._initialvalue.InitialValue_strategypriceLiquidityProvider": {
         "castsTo": [],
@@ -4434,7 +4434,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Absolute value for Relative Strength Index</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math._avg.Avg_mathEW": {
         "castsTo": [
@@ -4446,7 +4446,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Exponentially weighted moving average</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._strategy.Strategy_strategysideMeanReversionIEventSideIObservableIOrder": {
         "castsTo": [
@@ -4486,7 +4486,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Conditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.\nReturned values range between 0 and 1.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Beta distribution</p>\n<blockquote>\nConditions on the parameters are \u03b1 &gt; 0 and \u03b2 &gt; 0.\nReturned values range between 0 and 1.</blockquote>\n<p>Parameters are:</p>\n<p><strong>Alpha</strong></p>\n<p><strong>Beta</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._alpha.Alpha_strategypositionBollinger_linear": {
         "castsTo": [],
@@ -4549,14 +4549,14 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>If <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning maximum of two functions <em>x</em> and <em>y</em>.</p>\n<blockquote>\nIf <em>x</em> or/and <em>y</em> are observables, <em>Min</em> is also observable</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n<p><strong>y</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._signedvolume_marketsigned.signedVolume_MarketSigned_": {
         "castsTo": [
             "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n<p>Market order intructs buy or sell given volume immediately</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating market orders</p>\n<blockquote>\nMarket order intructs buy or sell given volume immediately</blockquote>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie": {
         "castsTo": [
@@ -4586,7 +4586,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>A trader that trades a single asset on a single market</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>orderBook</strong></dt>\n<dd>order book for the asset being traded</dd>\n<dt><strong>strategy</strong></dt>\n<dd>strategy run by the trader</dd>\n</dl>\n<p><strong>name</strong></p>\n<dl class=\"docutils\">\n<dt><strong>amount</strong></dt>\n<dd>current position of the trader (number of assets that it owns)</dd>\n<dt><strong>PnL</strong></dt>\n<dd>current trader balance (number of money units that it owns)</dd>\n<dt><strong>timeseries</strong></dt>\n<dd>defines what data should be gathered for the trader</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_price_iceberg.side_price_Iceberg_SideFloatIObservableIOrderFloat": {
         "castsTo": [
@@ -4600,7 +4600,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Iceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating iceberg orders</p>\n<blockquote>\nIceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>lotSize</strong></dt>\n<dd>maximal size of order to send</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out._test.overloading._hh.hh_": {
         "castsTo": [
@@ -4621,7 +4621,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating orders with floating price</p>\n<blockquote>\nFloating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>floatingPrice</strong></dt>\n<dd>observable defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideTrendFollower": {
         "castsTo": [
@@ -4643,7 +4643,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._idifferentiable.IDifferentiable"
             }
         },
-        "description": "<div class=\"document\">\n<p><em>x</em> should provide <em>derivative</em> member</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Function returning first derivative on time of <em>x</em></p>\n<blockquote>\n<em>x</em> should provide <em>derivative</em> member</blockquote>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.math.random._weibullvariate.weibullvariate_FloatFloat": {
         "castsTo": [
@@ -4657,7 +4657,7 @@ var typeinfo = {
                 "type": "_parseFloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Weibull distribution</p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>Alpha</strong></dt>\n<dd>\u03b1 is the scale parameter</dd>\n<dt><strong>Beta</strong></dt>\n<dd>\u03b2 is the shape parameter</dd>\n</dl>\n</div>\n"
     },
     "marketsim.scheduler.Scheduler": {
         "castsTo": [],
@@ -4683,7 +4683,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>and <em>defaultValue</em> if there haven't been any trades</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns best price if defined, otherwise last price</p>\n<blockquote>\nand <em>defaultValue</em> if there haven't been any trades</blockquote>\n<p>Parameters are:</p>\n<p><strong>queue</strong></p>\n<dl class=\"docutils\">\n<dt><strong>defaultValue</strong></dt>\n<dd>price to be used if there haven't been any trades</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.event._after.After_Float": {
         "castsTo": [
@@ -4694,7 +4694,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Event that once at <em>delay</em></p>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>delay</strong></dt>\n<dd>when the event should be fired</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide": {
         "castsTo": [
@@ -4725,7 +4725,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Iceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating iceberg orders</p>\n<blockquote>\nIceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>lotSize</strong></dt>\n<dd>maximal size of order to send</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -4770,7 +4770,7 @@ var typeinfo = {
                 }
             }
         },
-        "description": "<div class=\"document\">\n<p>to the market by means of a <em>link</em> that introduces some latency in information propagation</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Represent an <em>orderbook</em> from point of view of a remote trader connected</p>\n<blockquote>\nto the market by means of a <em>link</em> that introduces some latency in information propagation</blockquote>\n<p>Parameters are:</p>\n<p><strong>orderbook</strong></p>\n<p><strong>link</strong></p>\n<p><strong>timeseries</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat": {
         "castsTo": [
@@ -4801,7 +4801,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionside.IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns order queue of order <em>book</em> for trade <em>side</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n<p><strong>side</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._sideprice_floatingprice.sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat": {
         "castsTo": [
@@ -4815,7 +4815,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Floating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating orders with floating price</p>\n<blockquote>\nFloating price order is initialized by an order having a price and an observable that generates new prices.\nWhen the observable value changes the order is cancelled and\na new order with new price is created and sent to the order book.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>floatingPrice</strong></dt>\n<dd>observable defining price of orders to create</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.strategy.position._bollinger_linear.Bollinger_linear_FloatIObservableFloatISingleAssetTrader": {
         "castsTo": [
@@ -4846,7 +4846,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside.IFunctionIObservableIOrder_from_IFunctionSide"
             }
         },
-        "description": "<div class=\"document\">\n<p>Iceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating iceberg orders</p>\n<blockquote>\nIceberg order is initialized by an underlying order and a lot size.\nIt sends consequently pieces of the underlying order of size equal or less to the lot size\nthus maximum lot size volume is visible at the market at any moment.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>lotSize</strong></dt>\n<dd>maximal size of order to send</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.side._observablebuy.observableBuy_": {
         "castsTo": [
@@ -4856,7 +4856,7 @@ var typeinfo = {
             "marketsim.gen._out._iobservable._iobservableside.IObservableSide"
         ],
         "properties": {},
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Observable always equal to Buy side</p>\n<p>Parameters are:</p>\n</div>\n"
     },
     "marketsim.gen._out.math._pow.Pow_FloatFloat": {
         "castsTo": [
@@ -4873,7 +4873,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>Exceptional cases follow Annex F of the C99 standard as far as possible.\nIn particular, <tt class=\"docutils literal\">pow(1.0, x)</tt> and <tt class=\"docutils literal\">pow(x, 0.0)</tt> always return 1.0,\neven when <em>x</em> is a zero or a NaN.\nIf both <em>x</em> and <em>y</em> are finite, <em>x</em> is negative, and <em>y</em> is not an integer then\n<tt class=\"docutils literal\">pow(x, y)</tt> is undefined, and raises <tt class=\"docutils literal\">ValueError</tt>.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Return <em>x</em> raised to the power <em>y</em>.</p>\n<blockquote>\nExceptional cases follow Annex F of the C99 standard as far as possible.\nIn particular, <tt class=\"docutils literal\">pow(1.0, x)</tt> and <tt class=\"docutils literal\">pow(x, 0.0)</tt> always return 1.0,\neven when <em>x</em> is a zero or a NaN.\nIf both <em>x</em> and <em>y</em> are finite, <em>x</em> is negative, and <em>y</em> is not an integer then\n<tt class=\"docutils literal\">pow(x, y)</tt> is undefined, and raises <tt class=\"docutils literal\">ValueError</tt>.</blockquote>\n<p>Parameters are:</p>\n<p><strong>base</strong></p>\n<p><strong>power</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideSignal": {
         "castsTo": [
@@ -4895,7 +4895,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>(normally between a trader and a market).\nEnsures that sending packets via a link preserves their order.</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Represents latency in information propagation from one agent to another one</p>\n<blockquote>\n(normally between a trader and a market).\nEnsures that sending packets via a link preserves their order.</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>latency</strong></dt>\n<dd>function called for each packet in order to determine\nwhen it will appear at the end point</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.order._curried._side_withexpiry.side_WithExpiry_SideIObservableIOrderFloat": {
         "castsTo": [
@@ -4909,7 +4909,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n<p>WithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</p>\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Factory creating WithExpiry orders</p>\n<blockquote>\nWithExpiry orders can be viewed as ImmediateOrCancel orders\nwhere cancel order is sent not immediately but after some delay</blockquote>\n<p>Parameters are:</p>\n<dl class=\"docutils\">\n<dt><strong>proto</strong></dt>\n<dd>underlying orders to create</dd>\n<dt><strong>expiry</strong></dt>\n<dd>expiration period for orders</dd>\n</dl>\n</div>\n"
     },
     "marketsim.gen._out.math._log.Log_Float": {
         "castsTo": [
@@ -4923,7 +4923,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Natural logarithm of <em>x</em> (to base e)</p>\n<p>Parameters are:</p>\n<p><strong>x</strong></p>\n</div>\n"
     },
     "marketsim.gen._out.orderbook._asks.Asks_IOrderBook": {
         "castsTo": [
@@ -4934,7 +4934,7 @@ var typeinfo = {
                 "type": "marketsim.gen._out._iorderbook.IOrderBook"
             }
         },
-        "description": "<div class=\"document\">\n</div>\n"
+        "description": "<div class=\"document\">\n<p>Returns sell side order queue for <em>book</em></p>\n<p>Parameters are:</p>\n<p><strong>book</strong></p>\n</div>\n"
     }
 }
 var interfaces = [
@@ -4943,16 +4943,174 @@ var interfaces = [
         []
     ],
     [
-        "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat",
+        "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
         [
-            "marketsim.gen._out.strategy.weight.array._array_identityl.array_IdentityL_",
-            "marketsim.gen._out.strategy.weight.array._array_choosethebest.array_ChooseTheBest_"
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
+            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
+            "marketsim.gen._out._constant.constant_Int",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
+            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion",
+            "marketsim.gen._out.math.random._gammavariate.gammavariate_FloatFloat",
+            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
+            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
+            "marketsim.gen._out.ops._negate.Negate_Float",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
+            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out._constant.constant_Float",
+            "marketsim.gen._out._const.const_Int",
+            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out._const.const_Float",
+            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
+            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._normalvariate.normalvariate_FloatFloat",
+            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
+            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
+            "marketsim.gen._out.math._logreturns.LogReturns_IObservableFloatFloat",
+            "marketsim.gen._out._test.in1.in2._f.F_Float",
+            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
+            "marketsim.gen._out.math._var.Var_mathCumulative",
+            "marketsim.gen._out.strategy.weight._unit.Unit_IAccount",
+            "marketsim.gen._out.math._sqrt.Sqrt_Float",
+            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
+            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
+            "marketsim.gen._out.trader._balance.Balance_IAccount",
+            "marketsim.gen._out.strategy.weight._traderefficiencytrend.TraderEfficiencyTrend_IAccountFloat",
+            "marketsim.gen._out.math._min.Min_FloatFloat",
+            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
+            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
+            "marketsim.gen._out.math.random._uniform.uniform_FloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
+            "marketsim.gen._out.math._var.Var_mathMoving",
+            "marketsim.gen._out.strategy.weight._identityf.IdentityF_Float",
+            "marketsim.gen._out.strategy.weight._traderefficiency.TraderEfficiency_IAccount",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
+            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
+            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
+            "marketsim.gen._out.math.random._expovariate.expovariate_Float",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._triangular.triangular_FloatFloatFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
+            "marketsim.gen._out.math._value.Value_mathRSI",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
+            "marketsim.gen._out.math._avg.Avg_mathCumulative",
+            "marketsim.gen._out.math._avg.Avg_mathMoving",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
+            "marketsim.gen._out._null.null_",
+            "marketsim.gen._out.math.random._paretovariate.paretovariate_Float",
+            "marketsim.gen._out.orderbook._weightedprice.WeightedPrice_IOrderQueueFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideRSIbis",
+            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
+            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
+            "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_",
+            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
+            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
+            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
+            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideFundamentalValue",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
+            "marketsim.gen._out.ops._div.Div_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._raw.Raw_mathRSI",
+            "marketsim.gen._out.math._avg.Avg_mathEW",
+            "marketsim.gen._out.math._derivative.Derivative_IDifferentiable",
+            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
+            "marketsim.gen._out.trader._efficiencytrend.EfficiencyTrend_IAccountFloat",
+            "marketsim.gen._out.strategy.weight._score.Score_IAccount",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.strategy.weight._clamp0.Clamp0_Float",
+            "marketsim.gen._out.math.random._betavariate.betavariate_FloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
+            "marketsim.gen._out.trader._position.Position_IAccount",
+            "marketsim.gen._out.observable._quote.Quote_StringStringString",
+            "marketsim.gen._out.math._stddev.StdDev_mathMoving",
+            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
+            "marketsim.gen._out.math._atan.Atan_Float",
+            "marketsim.gen._out.orderbook._ticksize.TickSize_IOrderBook",
+            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
+            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
+            "marketsim.gen._out._test.overloading._hh.hh_",
+            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideTrendFollower",
+            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
+            "marketsim.gen._out.math.random._weibullvariate.weibullvariate_FloatFloat",
+            "marketsim.gen._out.strategy.weight._atanpow.AtanPow_FloatFloat",
+            "marketsim.gen._out.math._max.Max_FloatFloat",
+            "marketsim.gen._out.math._exp.Exp_Float",
+            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
+            "marketsim.gen._out.math._stddev.StdDev_mathEW",
+            "marketsim.gen._out.ops._add.Add_FloatFloat",
+            "marketsim.gen._out.math._var.Var_mathEW",
+            "marketsim.gen._out._test.overloading._h.h_",
+            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
+            "marketsim.gen._out.math.random._vonmisesvariate.vonmisesvariate_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
+            "marketsim.gen._out.math._stddev.StdDev_mathCumulative",
+            "marketsim.gen._out.math._sqr.Sqr_Float",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.math.random._lognormvariate.lognormvariate_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
+            "marketsim.gen._out.math._pow.Pow_FloatFloat",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideSignal",
+            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
+            "marketsim.gen._out.math._value.Value_mathmacd",
+            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
+            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideCrossingAverages",
+            "marketsim.gen._out.math._log.Log_Float",
+            "marketsim.gen._out.math._histogram.Histogram_mathmacdFloatFloat"
         ]
     ],
     [
-        "marketsim.gen._out.strategy.position._bollinger_linear.Bollinger_linear_FloatIObservableFloatISingleAssetTrader",
+        "marketsim.gen._out._itwowaylink.ITwoWayLink",
         [
-            "marketsim.gen._out.strategy.position._bollinger_linear.Bollinger_linear_FloatIObservableFloatISingleAssetTrader"
+            "marketsim.gen._out.orderbook._twowaylink.TwoWayLink_ILinkILink"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iorderbook.IOrderBook",
+        [
+            "marketsim.gen._out.strategy.side._book.book_strategysidePairTrading",
+            "marketsim.gen._out.orderbook._local.Local_StringFloatIntListITimeSerie",
+            "marketsim.gen._out.strategy.side._book.book_strategysideMeanReversion",
+            "marketsim.gen._out.orderbook._oftrader.OfTrader_IAccount",
+            "marketsim.gen._out.strategy.side._book.book_strategysideFundamentalValue",
+            "marketsim.gen._out.orderbook._remote.Remote_IOrderBookITwoWayLinkListITimeSerie",
+            "marketsim.gen._out.orderbook._proxy.Proxy_"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside.IFunctionIObservableIOrder_from_IFunctionSide",
+        [
+            "marketsim.gen._out.order._curried._side_floatingprice.side_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._side_market.side_Market_Float",
+            "marketsim.gen._out.order._curried._side_peg.side_Peg_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_iceberg.side_Iceberg_SideIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_stoploss.side_StopLoss_SideIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_fixedbudget.side_FixedBudget_Float",
+            "marketsim.gen._out.order._curried._side_immediateorcancel.side_ImmediateOrCancel_SideIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_limit.side_Limit_FloatFloat",
+            "marketsim.gen._out.order._curried._side_withexpiry.side_WithExpiry_SideIObservableIOrderFloat"
         ]
     ],
     [
@@ -4983,42 +5141,21 @@ var interfaces = [
         ]
     ],
     [
-        {
-            "elementType": "_parseFloat"
-        },
-        []
+        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat",
+        [
+            "marketsim.gen._out.order._curried._sideprice_floatingprice.sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._sideprice_peg.sideprice_Peg_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._sideprice_stoploss.sideprice_StopLoss_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_withexpiry.sideprice_WithExpiry_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_iceberg.sideprice_Iceberg_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._sideprice_limit.sideprice_Limit_Float",
+            "marketsim.gen._out.order._curried._sideprice_immediateorcancel.sideprice_ImmediateOrCancel_SideFloatIObservableIOrder"
+        ]
     ],
     [
-        "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool",
+        "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat",
         [
-            "marketsim.gen._out._true.true_",
-            "marketsim.gen._out._observabletrue.observableTrue_",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatFloat",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
-            "marketsim.gen._out._false.false_",
-            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
-            "marketsim.gen._out._observablefalse.observableFalse_",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
+            "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
         ]
     ],
     [
@@ -5055,17 +5192,146 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside.IFunctionIObservableIOrder_from_IFunctionSide",
+        "marketsim.gen._out._iobservable._iobservableobject.IObservableobject",
         [
-            "marketsim.gen._out.order._curried._side_floatingprice.side_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._side_market.side_Market_Float",
-            "marketsim.gen._out.order._curried._side_peg.side_Peg_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_iceberg.side_Iceberg_SideIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_stoploss.side_StopLoss_SideIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_fixedbudget.side_FixedBudget_Float",
-            "marketsim.gen._out.order._curried._side_immediateorcancel.side_ImmediateOrCancel_SideIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_limit.side_Limit_FloatFloat",
-            "marketsim.gen._out.order._curried._side_withexpiry.side_WithExpiry_SideIObservableIOrderFloat"
+            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
+            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
+            "marketsim.gen._out._observabletrue.observableTrue_",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
+            "marketsim.gen._out.side._observablesell.observableSell_",
+            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
+            "marketsim.gen._out.ops._negate.Negate_Float",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
+            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
+            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
+            "marketsim.gen._out._const.const_Int",
+            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out._const.const_Float",
+            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
+            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
+            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
+            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
+            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
+            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
+            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt",
+            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
+            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat",
+            "marketsim.gen._out.math._sqrt.Sqrt_Float",
+            "marketsim.gen._out._observablefalse.observableFalse_",
+            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
+            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
+            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.trader._balance.Balance_IAccount",
+            "marketsim.gen._out.math._min.Min_FloatFloat",
+            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
+            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
+            "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
+            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
+            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
+            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
+            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion",
+            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
+            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
+            "marketsim.gen._out.order._market.Market_SideFloat",
+            "marketsim.gen._out.ops._div.Div_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
+            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
+            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
+            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
+            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
+            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
+            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
+            "marketsim.gen._out.trader._position.Position_IAccount",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.observable._quote.Quote_StringStringString",
+            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
+            "marketsim.gen._out.math._atan.Atan_Float",
+            "marketsim.gen._out.math._pow.Pow_FloatFloat",
+            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
+            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
+            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
+            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
+            "marketsim.gen._out.math._max.Max_FloatFloat",
+            "marketsim.gen._out.math._exp.Exp_Float",
+            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
+            "marketsim.gen._out.ops._add.Add_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
+            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._sqr.Sqr_Float",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide",
+            "marketsim.gen._out.side._observablebuy.observableBuy_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
+            "marketsim.gen._out.side._observablenothing.observableNothing_",
+            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
+            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
+            "marketsim.gen._out.math._log.Log_Float"
         ]
     ],
     [
@@ -5075,9 +5341,49 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook",
+        "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat",
         [
-            "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook"
+            "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat",
+        [
+            "marketsim.gen._out.strategy.weight.f._f_clamp0.f_Clamp0_",
+            "marketsim.gen._out.strategy.weight.f._f_atanpow.f_AtanPow_Float",
+            "marketsim.gen._out.strategy.weight.f._f_identityf.f_IdentityF_"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook",
+        [
+            "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook"
+        ]
+    ],
+    [
+        "marketsim.gen._out._igraph.IGraph",
+        [
+            "marketsim.js.Graph",
+            "marketsim.gen._out.veusz._graph.Graph_String"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iobservable._iobservableside.IObservableSide",
+        [
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
+            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
+            "marketsim.gen._out.side._observablesell.observableSell_",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
+            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide",
+            "marketsim.gen._out.side._observablebuy.observableBuy_",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
+            "marketsim.gen._out.side._observablenothing.observableNothing_",
+            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion"
         ]
     ],
     [
@@ -5085,6 +5391,321 @@ var interfaces = [
             "elementType": "marketsim.gen._out._igraph.IGraph"
         },
         []
+    ],
+    [
+        "marketsim.gen._out.math._ew.EW_IObservableFloatFloat",
+        [
+            "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._noise.Noise_Float",
+        [
+            "marketsim.gen._out.strategy.side._noise.Noise_Float"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat",
+        [
+            "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iobservable._iobservablebool.IObservablebool",
+        [
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
+            "marketsim.gen._out._observabletrue.observableTrue_",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
+            "marketsim.gen._out._observablefalse.observableFalse_",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
+        [
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
+            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
+            "marketsim.gen._out.math._max.Max_FloatFloat",
+            "marketsim.gen._out.trader._balance.Balance_IAccount",
+            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
+            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
+            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
+            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
+            "marketsim.gen._out.math._exp.Exp_Float",
+            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
+            "marketsim.gen._out.ops._negate.Negate_Float",
+            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
+            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
+            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
+            "marketsim.gen._out._const.const_Int",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
+            "marketsim.gen._out.ops._add.Add_FloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
+            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
+            "marketsim.gen._out.ops._div.Div_FloatFloat",
+            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
+            "marketsim.gen._out._const.const_Float",
+            "marketsim.gen._out.math._sqr.Sqr_Float",
+            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
+            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
+            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
+            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
+            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
+            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
+            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
+            "marketsim.gen._out.math._min.Min_FloatFloat",
+            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
+            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
+            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
+            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
+            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
+            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
+            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
+            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
+            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
+            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
+            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
+            "marketsim.gen._out.math._sqrt.Sqrt_Float",
+            "marketsim.gen._out.trader._position.Position_IAccount",
+            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
+            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
+            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.observable._quote.Quote_StringStringString",
+            "marketsim.gen._out.math._log.Log_Float",
+            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
+            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
+            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
+            "marketsim.gen._out.math._atan.Atan_Float",
+            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
+            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
+            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
+            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
+            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
+            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
+            "marketsim.gen._out.math._pow.Pow_FloatFloat",
+            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
+            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
+            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._itrader.ITrader"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide",
+        [
+            "marketsim.gen._out.order._curried._side_price_floatingprice.side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._curried._side_price_withexpiry.side_price_WithExpiry_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_immediateorcancel.side_price_ImmediateOrCancel_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_price_peg.side_price_Peg_SideFloatIObservableIOrder",
+            "marketsim.gen._out.order._curried._side_price_stoploss.side_price_StopLoss_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_iceberg.side_price_Iceberg_SideFloatIObservableIOrderFloat",
+            "marketsim.gen._out.order._curried._side_price_limit.side_price_Limit_Float"
+        ]
+    ],
+    [
+        {
+            "elementType": "_parseFloat"
+        },
+        []
+    ],
+    [
+        "_parseFloat",
+        []
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount",
+        [
+            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiency.trader_TraderEfficiency_",
+            "marketsim.gen._out.strategy.weight.trader._trader_score.trader_Score_",
+            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend.trader_TraderEfficiencyTrend_Float",
+            "marketsim.gen._out.strategy.weight.trader._trader_unit.trader_Unit_"
+        ]
+    ],
+    [
+        "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat",
+        [
+            "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat",
+        [
+            "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder",
+        [
+            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
+            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
+            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
+            "marketsim.gen._out.order._market.Market_SideFloat",
+            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
+            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
+            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
+            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
+            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
+            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
+            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._itimeserie.ITimeSerie"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat",
+        [
+            "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._isingleassettrader.ISingleAssetTrader",
+        [
+            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
+            "marketsim.gen._out.trader._singleproxy.SingleProxy_"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionivolumelevels.IFunctionIVolumeLevels",
+        [
+            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt"
+        ]
+    ],
+    [
+        "marketsim.gen._out._imultiassetstrategy.IMultiAssetStrategy",
+        [
+            "marketsim.gen._out.strategy._arbitrage.Arbitrage_"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float",
+        [
+            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionbool.IFunctionbool",
+        [
+            "marketsim.gen._out._true.true_",
+            "marketsim.gen._out._observabletrue.observableTrue_",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatFloat",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
+            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
+            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
+            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
+            "marketsim.gen._out._false.false_",
+            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
+            "marketsim.gen._out._observablefalse.observableFalse_",
+            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
+            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
+            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat.IFunctionIFunctionlistOffloat_from_listOffloat",
+        [
+            "marketsim.gen._out.strategy.weight.array._array_identityl.array_IdentityL_",
+            "marketsim.gen._out.strategy.weight.array._array_choosethebest.array_ChooseTheBest_"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float",
+        [
+            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._isingleassettrader.ISingleAssetTrader"
+        },
+        []
+    ],
+    [
+        "marketsim.gen._out._itimeserie.ITimeSerie",
+        [
+            "marketsim.gen._out._timeserie.TimeSerie_IObservableAnyIGraphIntInt",
+            "marketsim.gen._out._volumelevels.volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iaccount.IAccount",
+        [
+            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
+            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
+            "marketsim.gen._out.strategy.account._virtualmarket.VirtualMarket_ISingleAssetStrategy",
+            "marketsim.gen._out.strategy.account._real.Real_ISingleAssetStrategy"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook",
+        [
+            "marketsim.gen._out.strategy.side._crossingaverages.CrossingAverages_FloatFloatFloatIOrderBook"
+        ]
     ],
     [
         "marketsim.gen._out._ievent.IEvent",
@@ -5232,425 +5853,15 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out._iorderqueue.IOrderQueue",
-        [
-            "marketsim.gen._out.orderbook._queue.Queue_IOrderBookSide",
-            "marketsim.gen._out.orderbook._bids.Bids_IOrderBook",
-            "marketsim.gen._out.orderbook._asks.Asks_IOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservableside.IObservableSide",
-        [
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
-            "marketsim.gen._out.side._observablesell.observableSell_",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide",
-            "marketsim.gen._out.side._observablebuy.observableBuy_",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
-            "marketsim.gen._out.side._observablenothing.observableNothing_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat.IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat",
-        [
-            "marketsim.gen._out.order._curried._sideprice_floatingprice.sideprice_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._sideprice_peg.sideprice_Peg_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._sideprice_stoploss.sideprice_StopLoss_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_withexpiry.sideprice_WithExpiry_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_iceberg.sideprice_Iceberg_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._sideprice_limit.sideprice_Limit_Float",
-            "marketsim.gen._out.order._curried._sideprice_immediateorcancel.sideprice_ImmediateOrCancel_SideFloatIObservableIOrder"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat",
-        [
-            "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._ew.EW_IObservableFloatFloat",
-        [
-            "marketsim.gen._out.math._ew.EW_IObservableFloatFloat"
-        ]
-    ],
-    [
         {
-            "elementType": "marketsim.gen._out._itimeserie.ITimeSerie"
+            "elementType": "marketsim.gen._out._iorderbook.IOrderBook"
         },
         []
     ],
     [
-        "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat",
+        "marketsim.gen._out.strategy.position._bollinger_linear.Bollinger_linear_FloatIObservableFloatISingleAssetTrader",
         [
-            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook",
-        [
-            "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat",
-        [
-            "marketsim.gen._out.math._macd.macd_IObservableFloatFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float",
-        [
-            "marketsim.gen._out.strategy.side._meanreversion.MeanReversion_Float"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._itrader.ITrader"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._itimeserie.ITimeSerie",
-        [
-            "marketsim.gen._out._timeserie.TimeSerie_IObservableAnyIGraphIntInt",
-            "marketsim.gen._out._volumelevels.volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionfloat.IFunctionfloat",
-        [
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
-            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
-            "marketsim.gen._out._constant.constant_Int",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
-            "marketsim.gen._out.math._signal.Signal_mathmacdFloatFloat",
-            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideMeanReversion",
-            "marketsim.gen._out.math.random._gammavariate.gammavariate_FloatFloat",
-            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
-            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
-            "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
-            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out._constant.constant_Float",
-            "marketsim.gen._out._const.const_Int",
-            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out._const.const_Float",
-            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
-            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._normalvariate.normalvariate_FloatFloat",
-            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
-            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
-            "marketsim.gen._out.math._logreturns.LogReturns_IObservableFloatFloat",
-            "marketsim.gen._out._test.in1.in2._f.F_Float",
-            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
-            "marketsim.gen._out.math._var.Var_mathCumulative",
-            "marketsim.gen._out.strategy.weight._unit.Unit_IAccount",
-            "marketsim.gen._out.math._sqrt.Sqrt_Float",
-            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
-            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
-            "marketsim.gen._out.trader._balance.Balance_IAccount",
-            "marketsim.gen._out.strategy.weight._traderefficiencytrend.TraderEfficiencyTrend_IAccountFloat",
-            "marketsim.gen._out.math._min.Min_FloatFloat",
-            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
-            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
-            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
-            "marketsim.gen._out.math.random._uniform.uniform_FloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
-            "marketsim.gen._out.math._var.Var_mathMoving",
-            "marketsim.gen._out.strategy.weight._identityf.IdentityF_Float",
-            "marketsim.gen._out.strategy.weight._traderefficiency.TraderEfficiency_IAccount",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
-            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
-            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
-            "marketsim.gen._out.math.random._expovariate.expovariate_Float",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._triangular.triangular_FloatFloatFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
-            "marketsim.gen._out.math._value.Value_mathRSI",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
-            "marketsim.gen._out.math._avg.Avg_mathCumulative",
-            "marketsim.gen._out.math._avg.Avg_mathMoving",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
-            "marketsim.gen._out._null.null_",
-            "marketsim.gen._out.math.random._paretovariate.paretovariate_Float",
-            "marketsim.gen._out.orderbook._weightedprice.WeightedPrice_IOrderQueueFloat",
-            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideRSIbis",
-            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
-            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
-            "marketsim.gen._out._test.in1.in2._intfunc.IntFunc_",
-            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
-            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
-            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
-            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
-            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysideFundamentalValue",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
-            "marketsim.gen._out.ops._div.Div_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._raw.Raw_mathRSI",
-            "marketsim.gen._out.math._avg.Avg_mathEW",
-            "marketsim.gen._out.math._derivative.Derivative_IDifferentiable",
-            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
-            "marketsim.gen._out.trader._efficiencytrend.EfficiencyTrend_IAccountFloat",
-            "marketsim.gen._out.strategy.weight._score.Score_IAccount",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.weight._clamp0.Clamp0_Float",
-            "marketsim.gen._out.math.random._betavariate.betavariate_FloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
-            "marketsim.gen._out.trader._position.Position_IAccount",
-            "marketsim.gen._out.observable._quote.Quote_StringStringString",
-            "marketsim.gen._out.math._stddev.StdDev_mathMoving",
-            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
-            "marketsim.gen._out.math._atan.Atan_Float",
-            "marketsim.gen._out.orderbook._ticksize.TickSize_IOrderBook",
-            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
-            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
-            "marketsim.gen._out._test.overloading._hh.hh_",
-            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
-            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideTrendFollower",
-            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
-            "marketsim.gen._out.math.random._weibullvariate.weibullvariate_FloatFloat",
-            "marketsim.gen._out.strategy.weight._atanpow.AtanPow_FloatFloat",
-            "marketsim.gen._out.math._max.Max_FloatFloat",
-            "marketsim.gen._out.math._exp.Exp_Float",
-            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
-            "marketsim.gen._out.math._stddev.StdDev_mathEW",
-            "marketsim.gen._out.ops._add.Add_FloatFloat",
-            "marketsim.gen._out.math._var.Var_mathEW",
-            "marketsim.gen._out._test.overloading._h.h_",
-            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
-            "marketsim.gen._out.math.random._vonmisesvariate.vonmisesvariate_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
-            "marketsim.gen._out.math._stddev.StdDev_mathCumulative",
-            "marketsim.gen._out.math._sqr.Sqr_Float",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.math.random._lognormvariate.lognormvariate_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
-            "marketsim.gen._out.math._pow.Pow_FloatFloat",
-            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideSignal",
-            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
-            "marketsim.gen._out.math._value.Value_mathmacd",
-            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
-            "marketsim.gen._out.strategy.side._signal_value.Signal_Value_strategysideCrossingAverages",
-            "marketsim.gen._out.math._log.Log_Float",
-            "marketsim.gen._out.math._histogram.Histogram_mathmacdFloatFloat"
-        ]
-    ],
-    [
-        "_parseFloat",
-        []
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat",
-        [
-            "marketsim.gen._out.math._moving.Moving_IObservableFloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iorderbook.IOrderBook",
-        [
-            "marketsim.gen._out.strategy.side._book.book_strategysidePairTrading",
-            "marketsim.gen._out.orderbook._local.Local_StringFloatIntListITimeSerie",
-            "marketsim.gen._out.strategy.side._book.book_strategysideMeanReversion",
-            "marketsim.gen._out.orderbook._oftrader.OfTrader_IAccount",
-            "marketsim.gen._out.strategy.side._book.book_strategysideFundamentalValue",
-            "marketsim.gen._out.orderbook._remote.Remote_IOrderBookITwoWayLinkListITimeSerie",
-            "marketsim.gen._out.orderbook._proxy.Proxy_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._itwowaylink.ITwoWayLink",
-        [
-            "marketsim.gen._out.orderbook._twowaylink.TwoWayLink_ILinkILink"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionivolumelevels.IFunctionIVolumeLevels",
-        [
-            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservableobject.IObservableobject",
-        [
-            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
-            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
-            "marketsim.gen._out._observabletrue.observableTrue_",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
-            "marketsim.gen._out.side._observablesell.observableSell_",
-            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
-            "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
-            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
-            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
-            "marketsim.gen._out._const.const_Int",
-            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out._const.const_Float",
-            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
-            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
-            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
-            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
-            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
-            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
-            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._volumelevels.VolumeLevels_IOrderQueueFloatInt",
-            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
-            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat",
-            "marketsim.gen._out.math._sqrt.Sqrt_Float",
-            "marketsim.gen._out._observablefalse.observableFalse_",
-            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
-            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
-            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.trader._balance.Balance_IAccount",
-            "marketsim.gen._out.math._min.Min_FloatFloat",
-            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
-            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
-            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
-            "marketsim.gen._out._candlesticks.CandleSticks_IObservableFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
-            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
-            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableSideSide",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
-            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
-            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideMeanReversion",
-            "marketsim.gen._out.strategy.side._side.Side_strategysidePairTrading",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
-            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat",
-            "marketsim.gen._out.order._market.Market_SideFloat",
-            "marketsim.gen._out.ops._div.Div_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideSide",
-            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
-            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
-            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
-            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
-            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
-            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
-            "marketsim.gen._out.trader._position.Position_IAccount",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideIObservableSide",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.observable._quote.Quote_StringStringString",
-            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
-            "marketsim.gen._out.math._atan.Atan_Float",
-            "marketsim.gen._out.math._pow.Pow_FloatFloat",
-            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideIObservableSide",
-            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
-            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
-            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
-            "marketsim.gen._out.math._max.Max_FloatFloat",
-            "marketsim.gen._out.math._exp.Exp_Float",
-            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
-            "marketsim.gen._out.ops._add.Add_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanSideSide",
-            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._sqr.Sqr_Float",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableSideIObservableSide",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
-            "marketsim.gen._out.ops._condition.Condition_BooleanSideSide",
-            "marketsim.gen._out.side._observablebuy.observableBuy_",
-            "marketsim.gen._out.strategy.side._side.Side_strategysideFundamentalValue",
-            "marketsim.gen._out.side._observablenothing.observableNothing_",
-            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
-            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
-            "marketsim.gen._out.math._log.Log_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat",
-        [
-            "marketsim.gen._out.strategy.side._rsibis.RSIbis_FloatFloatFloat"
+            "marketsim.gen._out.strategy.position._bollinger_linear.Bollinger_linear_FloatIObservableFloatISingleAssetTrader"
         ]
     ],
     [
@@ -5659,64 +5870,6 @@ var interfaces = [
             "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
             "marketsim.gen._out.trader._singleproxy.SingleProxy_",
             "marketsim.gen._out.trader._multiasset.MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSerie"
-        ]
-    ],
-    [
-        "marketsim.gen._out._imultiassetstrategy.IMultiAssetStrategy",
-        [
-            "marketsim.gen._out.strategy._arbitrage.Arbitrage_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside.IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide",
-        [
-            "marketsim.gen._out.order._curried._side_price_floatingprice.side_price_FloatingPrice_SideFloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._curried._side_price_withexpiry.side_price_WithExpiry_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_immediateorcancel.side_price_ImmediateOrCancel_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_price_peg.side_price_Peg_SideFloatIObservableIOrder",
-            "marketsim.gen._out.order._curried._side_price_stoploss.side_price_StopLoss_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_iceberg.side_price_Iceberg_SideFloatIObservableIOrderFloat",
-            "marketsim.gen._out.order._curried._side_price_limit.side_price_Limit_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out._isingleassettrader.ISingleAssetTrader",
-        [
-            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
-            "marketsim.gen._out.trader._singleproxy.SingleProxy_"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader",
-        [
-            "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader"
-        ]
-    ],
-    [
-        "marketsim.gen._out._igraph.IGraph",
-        [
-            "marketsim.js.Graph",
-            "marketsim.gen._out.veusz._graph.Graph_String"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat",
-        [
-            "marketsim.gen._out.strategy.side._signal.Signal_FloatFloat"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._isingleassettrader.ISingleAssetTrader"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat.IFunctionIFunctionfloat_from_IFunctionfloat",
-        [
-            "marketsim.gen._out.strategy.weight.f._f_clamp0.f_Clamp0_",
-            "marketsim.gen._out.strategy.weight.f._f_atanpow.f_AtanPow_Float",
-            "marketsim.gen._out.strategy.weight.f._f_identityf.f_IdentityF_"
         ]
     ],
     [
@@ -5730,13 +5883,62 @@ var interfaces = [
         ]
     ],
     [
-        "marketsim.gen._out._iaccount.IAccount",
+        "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat",
         [
-            "marketsim.gen._out.trader._singleasset.SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie",
-            "marketsim.gen._out.trader._singleproxy.SingleProxy_",
-            "marketsim.gen._out.strategy.account._virtualmarket.VirtualMarket_ISingleAssetStrategy",
-            "marketsim.gen._out.strategy.account._real.Real_ISingleAssetStrategy"
+            "marketsim.gen._out.strategy.price._marketdata.MarketData_StringStringStringFloatFloat"
         ]
+    ],
+    [
+        "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat",
+        [
+            "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat",
+        [
+            "marketsim.gen._out.strategy.side._pairtrading.PairTrading_IOrderBookFloat"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader",
+        [
+            "marketsim.gen._out.strategy.position._rsi_linear.RSI_linear_FloatIObservableFloatFloatISingleAssetTrader"
+        ]
+    ],
+    [
+        "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook",
+        [
+            "marketsim.gen._out.strategy.price._liquidityprovider.LiquidityProvider_FloatFloatIOrderBook"
+        ]
+    ],
+    [
+        "identity",
+        [
+            "marketsim.gen._out._test.in1.in2._s2.S2_",
+            "marketsim.gen._out._test.in1.in2._s1.S1_String"
+        ]
+    ],
+    [
+        "marketsim.gen._out._iorderqueue.IOrderQueue",
+        [
+            "marketsim.gen._out.orderbook._queue.Queue_IOrderBookSide",
+            "marketsim.gen._out.orderbook._bids.Bids_IOrderBook",
+            "marketsim.gen._out.orderbook._asks.Asks_IOrderBook"
+        ]
+    ],
+    [
+        "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy",
+        [
+            "marketsim.gen._out.strategy.account.inner._inner_virtualmarket.inner_VirtualMarket_",
+            "marketsim.gen._out.strategy.account.inner._inner_real.inner_Real_"
+        ]
+    ],
+    [
+        {
+            "elementType": "marketsim.gen._out._isingleassetstrategy.ISingleAssetStrategy"
+        },
+        []
     ],
     [
         "marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat.IFunctionIObservableIOrder_from_IFunctionfloat",
@@ -5750,208 +5952,6 @@ var interfaces = [
             "marketsim.gen._out.order._curried._signedvolume_marketsigned.signedVolume_MarketSigned_",
             "marketsim.gen._out.order._curried._price_immediateorcancel.price_ImmediateOrCancel_FloatIObservableIOrder",
             "marketsim.gen._out.order._curried._price_peg.price_Peg_FloatIObservableIOrder"
-        ]
-    ],
-    [
-        {
-            "elementType": "marketsim.gen._out._iorderbook.IOrderBook"
-        },
-        []
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservablebool.IObservablebool",
-        [
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatIObservableFloat",
-            "marketsim.gen._out._observabletrue.observableTrue_",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._less.Less_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatFloat",
-            "marketsim.gen._out.ops._less.Less_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._greater.Greater_FloatIObservableFloat",
-            "marketsim.gen._out.ops._lessequal.LessEqual_FloatIObservableFloat",
-            "marketsim.gen._out.ops._notequal.NotEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_IObservableFloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_FloatIObservableFloat",
-            "marketsim.gen._out._observablefalse.observableFalse_",
-            "marketsim.gen._out.ops._greater.Greater_IObservableFloatFloat",
-            "marketsim.gen._out.ops._greaterequal.GreaterEqual_FloatFloat",
-            "marketsim.gen._out.ops._equal.Equal_IObservableFloatIObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservablefloat.IObservablefloat",
-        [
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathEW",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionRSI_linear",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueIObservableFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatFloat",
-            "marketsim.gen._out.math._max.Max_FloatIObservableFloat",
-            "marketsim.gen._out.math._max.Max_FloatFloat",
-            "marketsim.gen._out.trader._balance.Balance_IAccount",
-            "marketsim.gen._out.orderbook._lasttradevolume.LastTradeVolume_IOrderQueue",
-            "marketsim.gen._out.orderbook._spread.Spread_IOrderBook",
-            "marketsim.gen._out.orderbook._safesideprice.SafeSidePrice_IOrderQueueFloat",
-            "marketsim.gen._out.strategy.side._fundamental_value.Fundamental_Value_strategysidePairTrading",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_FloatIObservableFloat",
-            "marketsim.gen._out.math._exp.Exp_Float",
-            "marketsim.gen._out.ops._add.Add_FloatIObservableFloat",
-            "marketsim.gen._out.ops._negate.Negate_Float",
-            "marketsim.gen._out.ops._negate.Negate_IObservableFloat",
-            "marketsim.gen._out.ops._div.Div_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.math._min.Min_FloatIObservableFloat",
-            "marketsim.gen._out._test.in1.in2._o.O_IObservableFloat",
-            "marketsim.gen._out._const.const_Int",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.trader._efficiency.Efficiency_IAccount",
-            "marketsim.gen._out.ops._add.Add_FloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatFloat",
-            "marketsim.gen._out.math._minepsilon.MinEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatFloat",
-            "marketsim.gen._out.ops._div.Div_FloatFloat",
-            "marketsim.gen._out.math._lagged.Lagged_IObservableFloatFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatIObservableFloat",
-            "marketsim.gen._out._const.const_Float",
-            "marketsim.gen._out.math._sqr.Sqr_Float",
-            "marketsim.gen._out.ops._condition.Condition_BooleanIObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionBollinger_linear",
-            "marketsim.gen._out.math._randomwalk.RandomWalk_FloatFloatFloatString",
-            "marketsim.gen._out.orderbook._cumulativeprice.CumulativePrice_IOrderBookFloat",
-            "marketsim.gen._out.math._maximum.Maximum_mathMoving",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathCumulative",
-            "marketsim.gen._out.orderbook._midprice.MidPrice_IOrderBook",
-            "marketsim.gen._out.math._max.Max_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.ops._condition.Condition_IObservableBooleanFloatFloat",
-            "marketsim.gen._out.orderbook._lasttradeprice.LastTradePrice_IOrderQueue",
-            "marketsim.gen._out.math._min.Min_FloatFloat",
-            "marketsim.gen._out.observable._breaksatchanges.BreaksAtChanges_IObservableFloat",
-            "marketsim.gen._out._ifdefined.IfDefined_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.trader._roughpnl.RoughPnL_IAccount",
-            "marketsim.gen._out.math._max.Max_IObservableFloatFloat",
-            "marketsim.gen._out.math._sqr.Sqr_IObservableFloat",
-            "marketsim.gen._out.ops._div.Div_FloatIObservableFloat",
-            "marketsim.gen._out.math._downmovements.DownMovements_IObservableFloatFloat",
-            "marketsim.gen._out.orderbook._lastprice.LastPrice_IOrderQueue",
-            "marketsim.gen._out.orderbook._bestprice.BestPrice_IOrderQueue",
-            "marketsim.gen._out.trader._pendingvolume.PendingVolume_IAccount",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatIObservableFloat",
-            "marketsim.gen._out.math._minimum.Minimum_mathMoving",
-            "marketsim.gen._out.ops._sub.Sub_IObservableFloatFloat",
-            "marketsim.gen._out.math._sqrt.Sqrt_Float",
-            "marketsim.gen._out.trader._position.Position_IAccount",
-            "marketsim.gen._out.math._min.Min_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.strategy.position._desiredposition.DesiredPosition_strategypositionRSI_linear",
-            "marketsim.gen._out.observable._oneverydt.OnEveryDt_FloatFloat",
-            "marketsim.gen._out.ops._add.Add_IObservableFloatIObservableFloat",
-            "marketsim.gen._out.observable._quote.Quote_StringStringString",
-            "marketsim.gen._out.math._log.Log_Float",
-            "marketsim.gen._out.ops._sub.Sub_FloatIObservableFloat",
-            "marketsim.gen._out.math._relstddev.RelStdDev_mathMoving",
-            "marketsim.gen._out.ops._sub.Sub_FloatFloat",
-            "marketsim.gen._out.math._atan.Atan_Float",
-            "marketsim.gen._out.ops._condition.Condition_BooleanFloatFloat",
-            "marketsim.gen._out.math._min.Min_IObservableFloatFloat",
-            "marketsim.gen._out.ops._mul.Mul_FloatIObservableFloat",
-            "marketsim.gen._out.strategy.position._position.Position_strategypositionBollinger_linear",
-            "marketsim.gen._out.strategy.price._price.Price_strategypriceLiquidityProviderSide",
-            "marketsim.gen._out._test.in1.in2._intobs.IntObs_",
-            "marketsim.gen._out.math._pow.Pow_FloatFloat",
-            "marketsim.gen._out.math._upmovements.UpMovements_IObservableFloatFloat",
-            "marketsim.gen._out.math._maxepsilon.MaxEpsilon_mathCumulativeFloat",
-            "marketsim.gen._out.orderbook._naivecumulativeprice.NaiveCumulativePrice_IOrderBookIObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook",
-        [
-            "marketsim.gen._out.strategy.side._trendfollower.TrendFollower_FloatFloatIOrderBook"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._noise.Noise_Float",
-        [
-            "marketsim.gen._out.strategy.side._noise.Noise_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat",
-        [
-            "marketsim.gen._out.strategy.price._marketmaker.MarketMaker_FloatFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat",
-        [
-            "marketsim.gen._out.math._cumulative.Cumulative_IObservableFloat"
-        ]
-    ],
-    [
-        "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float",
-        [
-            "marketsim.gen._out.strategy.side._fundamentalvalue.FundamentalValue_Float"
-        ]
-    ],
-    [
-        "marketsim.gen._out._iobservable._iobservableiorder.IObservableIOrder",
-        [
-            "marketsim.gen._out.order._immediateorcancel.ImmediateOrCancel_IObservableIOrder",
-            "marketsim.gen._out.order._limitsigned.LimitSigned_FloatFloat",
-            "marketsim.gen._out.order._floatingprice.FloatingPrice_FloatIObservableIOrderIObservableFloat",
-            "marketsim.gen._out.order._market.Market_SideFloat",
-            "marketsim.gen._out.order._limit.Limit_SideFloatFloat",
-            "marketsim.gen._out.order._stoploss.StopLoss_IObservableIOrderFloat",
-            "marketsim.gen._out.order._fixedbudget.FixedBudget_SideFloat",
-            "marketsim.gen._out.order._marketsigned.MarketSigned_Float",
-            "marketsim.gen._out.order._peg.Peg_FloatIObservableIOrder",
-            "marketsim.gen._out.order._withexpiry.WithExpiry_IObservableIOrderFloat",
-            "marketsim.gen._out.order._iceberg.Iceberg_IObservableIOrderFloat"
-        ]
-    ],
-    [
-        "identity",
-        [
-            "marketsim.gen._out._test.in1.in2._s2.S2_",
-            "marketsim.gen._out._test.in1.in2._s1.S1_String"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount.IFunctionIFunctionfloat_from_IAccount",
-        [
-            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiency.trader_TraderEfficiency_",
-            "marketsim.gen._out.strategy.weight.trader._trader_score.trader_Score_",
-            "marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend.trader_TraderEfficiencyTrend_Float",
-            "marketsim.gen._out.strategy.weight.trader._trader_unit.trader_Unit_"
-        ]
-    ],
-    [
-        "marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy.IFunctionIAccount_from_ISingleAssetStrategy",
-        [
-            "marketsim.gen._out.strategy.account.inner._inner_virtualmarket.inner_VirtualMarket_",
-            "marketsim.gen._out.strategy.account.inner._inner_real.inner_Real_"
-        ]
-    ],
-    [
-        "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat",
-        [
-            "marketsim.gen._out.math._rsi.RSI_IObservableFloatFloatFloat"
         ]
     ]
 ]

@@ -6,6 +6,11 @@ from marketsim import context
 class TraderEfficiency_IAccount(IFunctionfloat):
     """ Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
     
+    
+    Parameters are:
+    
+    **trader**
+    	 account in question 
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

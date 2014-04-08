@@ -6,6 +6,10 @@ from marketsim.gen._out._iaccount import IAccount
 class Balance_IAccount(Observablefloat,Balance_Impl):
     """ Number of money owned by trader
     
+    
+    Parameters are:
+    
+    **trader**
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

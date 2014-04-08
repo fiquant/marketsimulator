@@ -6,6 +6,16 @@ from marketsim import context
 class Signal_mathmacdFloatFloat(IDifferentiable):
     """ Moving average convergence/divergence signal
     
+    
+    Parameters are:
+    
+    **x**
+    
+    **timeframe**
+    	 signal period 
+    
+    **step**
+    	 discretization step 
     """ 
     def __init__(self, x = None, timeframe = None, step = None):
         from marketsim.gen._out.math._macd import macd_IObservableFloatFloatFloat as _math_macd_IObservableFloatFloatFloat

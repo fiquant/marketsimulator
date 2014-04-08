@@ -12,6 +12,11 @@ class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
       to estimate volumes and prices of orders to sent and
       then sends a sequence of order.ImmediateOrCancel to be sure that
       cumulative price of trades to be done won't exceed the given budget.
+    
+    Parameters are:
+    
+    **budget**
+    	 function defining budget on which it may send orders at one time 
     """ 
     def __init__(self, budget = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

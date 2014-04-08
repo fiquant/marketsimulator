@@ -5,6 +5,10 @@ from marketsim.gen._intrinsic.veusz import Graph_Impl
 class Graph_String(IGraph,Graph_Impl):
     """ Graph to render at Veusz. Time series are added to it automatically in their constructor
     
+    
+    Parameters are:
+    
+    **name**
     """ 
     def __init__(self, name = None):
         from marketsim import rtti

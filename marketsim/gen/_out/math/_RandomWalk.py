@@ -6,6 +6,19 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     """ A discrete signal with user-defined increments.
     
+    
+    Parameters are:
+    
+    **initialValue**
+    	 initial value of the signal 
+    
+    **deltaDistr**
+    	 increment function 
+    
+    **intervalDistr**
+    	 intervals between signal updates 
+    
+    **name**
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float

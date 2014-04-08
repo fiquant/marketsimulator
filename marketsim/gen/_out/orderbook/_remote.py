@@ -9,6 +9,14 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
     """ Represent an *orderbook* from point of view of a remote trader connected
     
      to the market by means of a *link* that introduces some latency in information propagation
+    
+    Parameters are:
+    
+    **orderbook**
+    
+    **link**
+    
+    **timeseries**
     """ 
     def __init__(self, orderbook = None, link = None, timeseries = None):
         from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as _orderbook_Local_StringFloatIntListITimeSerie

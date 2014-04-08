@@ -4,6 +4,11 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import
 class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloat_from_IAccount):
     """ Returns first derivative of a moving average of the trader efficiency
     
+    
+    Parameters are:
+    
+    **alpha**
+    	 parameter alpha for the moving average 
     """ 
     def __init__(self, alpha = None):
         from marketsim import rtti

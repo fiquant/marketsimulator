@@ -6,6 +6,13 @@ from marketsim import context
 class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
     """ Returns moving average of trade prices weighted by their volumes
     
+    
+    Parameters are:
+    
+    **queue**
+    
+    **alpha**
+    	 parameter alpha for the moving average  
     """ 
     def __init__(self, queue = None, alpha = None):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook

@@ -7,6 +7,10 @@ class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
     """ Returns volume of the last trade at *queue*
     
       Returns None if there haven't been any trades
+    
+    Parameters are:
+    
+    **queue**
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out._observable._observableint import Observableint

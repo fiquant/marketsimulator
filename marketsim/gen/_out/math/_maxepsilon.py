@@ -9,6 +9,12 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
     
     
       It fires updates only if *source* value becomes greater than the old value plus *epsilon*
+    
+    Parameters are:
+    
+    **x**
+    
+    **epsilon**
     """ 
     def __init__(self, x = None, epsilon = None):
         from marketsim import rtti

@@ -9,6 +9,11 @@ class signedVolume_LimitSigned_Float(IFunctionIObservableIOrder_from_IFunctionfl
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
+    
+    Parameters are:
+    
+    **price**
+    	 function defining price of orders to create 
     """ 
     def __init__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

@@ -6,6 +6,14 @@ from marketsim import context
 class TraderEfficiencyTrend_IAccountFloat(IFunctionfloat):
     """ Returns first derivative of a moving average of the trader efficiency
     
+    
+    Parameters are:
+    
+    **trader**
+    	 account in question 
+    
+    **alpha**
+    	 parameter alpha for the moving average 
     """ 
     def __init__(self, trader = None, alpha = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

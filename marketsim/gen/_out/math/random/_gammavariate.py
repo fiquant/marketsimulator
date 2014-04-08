@@ -12,6 +12,12 @@ class gammavariate_FloatFloat(IFunctionfloat):
                    x ** (alpha - 1) * math.exp(-x / beta)
          pdf(x) =  --------------------------------------
                       math.gamma(alpha) * beta ** alpha
+    
+    Parameters are:
+    
+    **Alpha**
+    
+    **Beta**
     """ 
     def __init__(self, Alpha = None, Beta = None):
         from marketsim import rtti

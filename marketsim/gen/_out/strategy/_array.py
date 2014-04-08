@@ -6,6 +6,11 @@ from marketsim import listOf
 class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
     """ Creates a strategy combining an array of strategies
     
+    
+    Parameters are:
+    
+    **strategies**
+    	 strategies to combine 
     """ 
     def __init__(self, strategies = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

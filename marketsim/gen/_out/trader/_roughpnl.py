@@ -7,6 +7,10 @@ class RoughPnL_IAccount(Observablefloat):
     """ Returns traders naive approximation of trader eficiency.
     
       It takes into account only the best price of the order queue
+    
+    Parameters are:
+    
+    **trader**
     """ 
     def __init__(self, trader = None):
         from marketsim import rtti

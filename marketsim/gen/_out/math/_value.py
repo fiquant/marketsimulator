@@ -61,6 +61,10 @@ from marketsim import context
 class Value_mathmacd(IFunctionfloat):
     """ Moving average convergence/divergence
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._macd import macd_IObservableFloatFloatFloat as _math_macd_IObservableFloatFloatFloat

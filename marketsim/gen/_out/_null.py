@@ -5,6 +5,8 @@ from marketsim.gen._intrinsic._constant import Null_Impl
 class null_(IFunctionfloat,Null_Impl):
     """ Trivial observable always returning *undefined* or *None* value
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

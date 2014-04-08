@@ -6,6 +6,8 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
     """ Phantom trader that is used to refer to the current trader
     
       (normally it is used to define trader properties and strategies)
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

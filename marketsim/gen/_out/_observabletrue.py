@@ -5,6 +5,8 @@ from marketsim.gen._intrinsic._constant import True_Impl
 class observableTrue_(Observablebool,True_Impl):
     """ Trivial observable always returning *True*
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim.gen._out._observable._observablebool import Observablebool

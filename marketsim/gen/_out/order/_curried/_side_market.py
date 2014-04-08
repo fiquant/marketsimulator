@@ -7,6 +7,11 @@ class side_Market_Float(IFunctionIObservableIOrder_from_IFunctionSide):
     
     
       Market order intructs buy or sell given volume immediately
+    
+    Parameters are:
+    
+    **volume**
+    	 function defining volume of orders to create 
     """ 
     def __init__(self, volume = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

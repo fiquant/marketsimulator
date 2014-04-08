@@ -6,6 +6,8 @@ from marketsim.gen._intrinsic.side import Buy_Impl
 class observableBuy_(ObservableSide,Buy_Impl):
     """ Observable always equal to Buy side
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim.gen._out._side import Side

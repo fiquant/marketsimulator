@@ -11,6 +11,11 @@ from marketsim import context
 class Unit_IAccount(IFunctionfloat):
     """ Unit function. Used to simulate uniform random choice of a strategy
     
+    
+    Parameters are:
+    
+    **trader**
+    	 account in question 
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

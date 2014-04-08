@@ -8,6 +8,20 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
     """ Time serie holding volume levels of an asset
     
      Level of volume V is a price at which cumulative volume of better orders is V
+    
+    Parameters are:
+    
+    **source**
+    
+    **graph**
+    
+    **_digitsToShow**
+    
+    **_smooth**
+    
+    **_volumes**
+    
+    **_isBuy**
     """ 
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
         from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph_String

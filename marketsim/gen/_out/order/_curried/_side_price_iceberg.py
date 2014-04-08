@@ -9,6 +9,14 @@ class side_price_Iceberg_SideFloatIObservableIOrderFloat(IFunctionIFunctionIObse
       Iceberg order is initialized by an underlying order and a lot size.
       It sends consequently pieces of the underlying order of size equal or less to the lot size
       thus maximum lot size volume is visible at the market at any moment.
+    
+    Parameters are:
+    
+    **proto**
+    	 underlying orders to create 
+    
+    **lotSize**
+    	 maximal size of order to send 
     """ 
     def __init__(self, proto = None, lotSize = None):
         from marketsim.gen._out.order._curried._side_price_limit import side_price_Limit_Float as _order__curried_side_price_Limit_Float

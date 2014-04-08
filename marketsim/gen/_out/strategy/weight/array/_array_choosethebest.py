@@ -5,6 +5,8 @@ class array_ChooseTheBest_(IFunctionIFunctionlistOffloat_from_listOffloat):
     """ Function returning an array of length *len(array)*
     
       having 1 at the index of the maximal element and 0 are at the rest
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

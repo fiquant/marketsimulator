@@ -7,6 +7,8 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
       how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

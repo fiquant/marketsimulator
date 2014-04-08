@@ -6,6 +6,14 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
     """ Discretizes function *x* at even time steps *dt*
     
+    
+    Parameters are:
+    
+    **x**
+    	 function to discretize 
+    
+    **dt**
+    	 time discretization step 
     """ 
     def __init__(self, x = None, dt = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

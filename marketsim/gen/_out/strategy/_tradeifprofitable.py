@@ -8,6 +8,21 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     """ Adaptive strategy that evaluates *inner* strategy efficiency
     
       and if it is considered as good, sends orders
+    
+    Parameters are:
+    
+    **inner**
+    	 wrapped strategy 
+    
+    **account**
+    	 defines how strategy trades are booked:
+    	 actually traded amount or virtual market orders are
+    	 used in order to estimate how the strategy would have traded
+    	 if all its orders appeared at market 
+    
+    **performance**
+    	 given a trading account tells
+    	 should it be considered as effective or not 
     """ 
     def __init__(self, inner = None, account = None, performance = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_

@@ -9,6 +9,11 @@ class VirtualMarket_ISingleAssetStrategy(IAccount,VirtualMarket_Impl):
       how it would be traded by sending request.evalMarketOrder
       (note: orders sent by a strategy wrapped into an adaptive strategy may not come to the market
       but we want evaluate in any case would it be profitable or not)
+    
+    Parameters are:
+    
+    **inner**
+    	 strategy to track 
     """ 
     def __init__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

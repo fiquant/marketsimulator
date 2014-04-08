@@ -8,6 +8,11 @@ class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
     
       and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders
+    
+    Parameters are:
+    
+    **cancellationIntervalDistr**
+    	 intervals between order cancellations 
     """ 
     def __init__(self, cancellationIntervalDistr = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float

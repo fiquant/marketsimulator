@@ -10,6 +10,14 @@ class triangular_FloatFloatFloat(IFunctionfloat):
            The *low* and *high* bounds default to zero and one.
            The *mode* argument defaults to the midpoint between the bounds,
            giving a symmetric distribution.
+    
+    Parameters are:
+    
+    **Low**
+    
+    **High**
+    
+    **Mode**
     """ 
     def __init__(self, Low = None, High = None, Mode = None):
         from marketsim import rtti

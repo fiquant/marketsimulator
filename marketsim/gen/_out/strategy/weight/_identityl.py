@@ -11,6 +11,10 @@ from marketsim import listOf
 class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
     """ Identity function for an array of floats
     
+    
+    Parameters are:
+    
+    **array**
     """ 
     def __init__(self, array = None):
         from marketsim import rtti

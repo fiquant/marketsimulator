@@ -8,6 +8,13 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
     """ Returns best price if defined, otherwise last price
     
       and *defaultValue* if there haven't been any trades
+    
+    Parameters are:
+    
+    **queue**
+    
+    **defaultValue**
+    	 price to be used if there haven't been any trades 
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -74,6 +81,13 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
     """ Returns best price if defined, otherwise last price
     
       and *defaultValue* if there haven't been any trades
+    
+    Parameters are:
+    
+    **queue**
+    
+    **defaultValue**
+    	 price to be used if there haven't been any trades 
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim import rtti

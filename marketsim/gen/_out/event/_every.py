@@ -6,6 +6,11 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class Every_Float(IEvent,Every_Impl):
     """ Event that fires every *intervalFunc* moments of time
     
+    
+    Parameters are:
+    
+    **intervalFunc**
+    	 interval of time between two events 
     """ 
     def __init__(self, intervalFunc = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float

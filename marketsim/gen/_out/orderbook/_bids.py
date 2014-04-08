@@ -6,6 +6,10 @@ from marketsim.gen._out._iorderbook import IOrderBook
 class Bids_IOrderBook(IOrderQueue,Bids_Impl):
     """ Returns buy side order queue for *book*
     
+    
+    Parameters are:
+    
+    **book**
     """ 
     def __init__(self, book = None):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount

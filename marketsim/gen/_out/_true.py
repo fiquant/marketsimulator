@@ -5,6 +5,8 @@ from marketsim import context
 class true_(IFunctionbool):
     """ Function always returning *True*
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

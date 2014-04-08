@@ -6,6 +6,10 @@ from marketsim import context
 class StdDev_mathCumulative(IFunctionfloat):
     """ Standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
@@ -59,6 +63,10 @@ from marketsim import context
 class StdDev_mathEW(IFunctionfloat):
     """ Standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
@@ -112,6 +120,10 @@ from marketsim import context
 class StdDev_mathMoving(IFunctionfloat):
     """ Standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat

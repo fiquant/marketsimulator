@@ -11,6 +11,12 @@ class Pow_FloatFloat(Observablefloat):
      even when *x* is a zero or a NaN.
      If both *x* and *y* are finite, *x* is negative, and *y* is not an integer then
      ``pow(x, y)`` is undefined, and raises ``ValueError``.
+    
+    Parameters are:
+    
+    **base**
+    
+    **power**
     """ 
     def __init__(self, base = None, power = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

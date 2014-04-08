@@ -8,6 +8,12 @@ class Link_IObservableFloat(ILink,Link_Impl):
     
      (normally between a trader and a market).
      Ensures that sending packets via a link preserves their order.
+    
+    Parameters are:
+    
+    **latency**
+    	 function called for each packet in order to determine
+    	 when it will appear at the end point
     """ 
     def __init__(self, latency = None):
         from marketsim.gen._out._const import const_Float as _const_Float

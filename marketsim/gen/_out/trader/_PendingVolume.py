@@ -6,6 +6,10 @@ from marketsim.gen._out._iaccount import IAccount
 class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     """ Cumulative volume of orders sent to the market but haven't matched yet
     
+    
+    Parameters are:
+    
+    **trader**
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out._observable._observableint import Observableint

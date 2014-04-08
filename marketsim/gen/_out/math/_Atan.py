@@ -6,6 +6,10 @@ class Atan_Float(Observablefloat):
     """ Arc tangent of x, in radians.
     
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

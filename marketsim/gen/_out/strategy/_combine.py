@@ -6,6 +6,12 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
     """ Creates a strategy combining two strategies
     
       Can be considered as a particular case of Array strategy
+    
+    Parameters are:
+    
+    **A**
+    
+    **B**
     """ 
     def __init__(self, A = None, B = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

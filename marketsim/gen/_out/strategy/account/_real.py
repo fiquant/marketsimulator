@@ -7,6 +7,11 @@ class Real_ISingleAssetStrategy(IAccount,Account_Impl):
     """ Associated with a strategy account that tracks
     
       how orders sent by the strategy have been actually traded
+    
+    Parameters are:
+    
+    **inner**
+    	 strategy to track 
     """ 
     def __init__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_

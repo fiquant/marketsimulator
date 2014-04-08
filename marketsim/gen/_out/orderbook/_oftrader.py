@@ -8,6 +8,10 @@ class OfTrader_IAccount(IOrderBook,OfTrader_Impl):
     
     
       May be used only in objects that are held by traders (so it is used in trader properties and strategies)
+    
+    Parameters are:
+    
+    **Trader**
     """ 
     def __init__(self, Trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_

@@ -6,6 +6,10 @@ class Sqrt_Float(Observablefloat):
     """ Square root of *x*
     
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

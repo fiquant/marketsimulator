@@ -11,6 +11,14 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
       Limit orders ask to buy or sell some asset at price better than some limit price.
       If a limit order is not competely fulfilled
       it remains in an order book waiting to be matched with another order.
+    
+    Parameters are:
+    
+    **signedVolume**
+    	signed volume
+    
+    **price**
+    	 function defining price of orders to create 
     """ 
     def __init__(self, signedVolume = None, price = None):
         from marketsim import rtti

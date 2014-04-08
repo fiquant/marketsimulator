@@ -6,6 +6,10 @@ from marketsim.gen._out.math._cumulative import Cumulative
 class Var_mathCumulative(IFunctionfloat,Variance_Impl):
     """ Cumulative variance
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
@@ -35,6 +39,10 @@ from marketsim.gen._out.math._ew import EW
 class Var_mathEW(IFunctionfloat,EWMV_Impl):
     """ Exponentially weighted moving variance
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
@@ -64,6 +72,10 @@ from marketsim.gen._out.math._moving import Moving
 class Var_mathMoving(IFunctionfloat,MV_Impl):
     """ Simple moving variance
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat

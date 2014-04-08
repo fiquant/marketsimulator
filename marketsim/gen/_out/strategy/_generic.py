@@ -9,6 +9,14 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
     """ Generic strategy that wakes up on events given by *eventGen*,
     
       creates an order via *orderFactory* and sends the order to the market using its trader
+    
+    Parameters are:
+    
+    **orderFactory**
+    	 order factory function
+    
+    **eventGen**
+    	 Event source making the strategy to wake up
     """ 
     def __init__(self, orderFactory = None, eventGen = None):
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat

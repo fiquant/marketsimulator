@@ -4,6 +4,14 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class normalvariate_FloatFloat(IFunctionfloat):
     """ Normal distribution
     
+    
+    Parameters are:
+    
+    **Mu**
+    	 |mu| is the mean                  
+    
+    **Sigma**
+    	 |sigma| is the standard deviation 
     """ 
     def __init__(self, Mu = None, Sigma = None):
         from marketsim import rtti

@@ -11,6 +11,14 @@ from marketsim import context
 class AtanPow_FloatFloat(IFunctionfloat):
     """ scaling function = atan(base^f(x))
     
+    
+    Parameters are:
+    
+    **f**
+    	 function to scale 
+    
+    **base**
+    	 base for power function 
     """ 
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

@@ -12,6 +12,10 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
       with the price better at one tick than the best price of the order queue.
       It implies that if several peg orders are sent to the same order queue
       they start to race until being matched against the counterparty orders.
+    
+    Parameters are:
+    
+    **proto**
     """ 
     def __init__(self, proto = None):
         from marketsim.gen._intrinsic.order.meta.peg import Factory_Impl

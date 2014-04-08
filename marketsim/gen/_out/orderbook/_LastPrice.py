@@ -7,6 +7,10 @@ class LastPrice_IOrderQueue(Observablefloat,LastPrice_Impl):
     """ Returns last defined price at *queue*
     
       Returns None is *queue* has been always empty
+    
+    Parameters are:
+    
+    **queue**
     """ 
     def __init__(self, queue = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

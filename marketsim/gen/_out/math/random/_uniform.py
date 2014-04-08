@@ -9,6 +9,12 @@ class uniform_FloatFloat(IFunctionfloat):
      *a* <= *N* <= *b* for *a* <= *b* and *b* <= *N* <= *a* for *b* < *a*.
      The end-point value *b* may or may not be included in the range depending on
      floating-point rounding in the equation *a* + (*b*-*a*) * *random()*.
+    
+    Parameters are:
+    
+    **Low**
+    
+    **High**
     """ 
     def __init__(self, Low = None, High = None):
         from marketsim import rtti

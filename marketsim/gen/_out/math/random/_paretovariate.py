@@ -4,6 +4,11 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class paretovariate_Float(IFunctionfloat):
     """ Pareto distribution
     
+    
+    Parameters are:
+    
+    **Alpha**
+    	 |alpha| is the shape parameter
     """ 
     def __init__(self, Alpha = None):
         from marketsim import rtti

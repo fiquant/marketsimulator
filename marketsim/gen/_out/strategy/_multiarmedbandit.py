@@ -15,6 +15,26 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
      functions per every strategy and *corrector* for the whole collection of weights
      These weights are used to choose randomly a strategy to run for the next quant of time.
      All other strategies are suspended
+    
+    Parameters are:
+    
+    **strategies**
+    	 original strategies that can be suspended 
+    
+    **account**
+    	 function creating a virtual account used
+    	 to estimate efficiency of the strategy itself 
+    
+    **weight**
+    	 function estimating is the strategy efficient or not 
+    
+    **normalizer**
+    	 function that maps trader efficiency to its weight
+    	 that will be used for random choice 
+    
+    **corrector**
+    	 given array of strategy weights corrects them.
+    	 for example it may set to 0 all weights except the maximal one 
     """ 
     def __init__(self, strategies = None, account = None, weight = None, normalizer = None, corrector = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_

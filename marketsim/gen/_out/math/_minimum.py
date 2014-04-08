@@ -6,6 +6,10 @@ from marketsim.gen._out.math._moving import Moving
 class Minimum_mathMoving(Observablefloat,Min_Impl):
     """ Running minimum of a function
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

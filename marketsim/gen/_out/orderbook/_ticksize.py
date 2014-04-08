@@ -6,6 +6,10 @@ from marketsim.gen._out._iorderbook import IOrderBook
 class TickSize_IOrderBook(IFunctionfloat,TickSize_Impl):
     """ Returns tick size for the order *book*
     
+    
+    Parameters are:
+    
+    **book**
     """ 
     def __init__(self, book = None):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount

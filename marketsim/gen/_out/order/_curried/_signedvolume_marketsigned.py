@@ -6,6 +6,8 @@ class signedVolume_MarketSigned_(IFunctionIObservableIOrder_from_IFunctionfloat)
     
     
       Market order intructs buy or sell given volume immediately
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

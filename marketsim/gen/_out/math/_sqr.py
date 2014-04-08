@@ -6,6 +6,10 @@ from marketsim import context
 class Sqr_IObservableFloat(Observablefloat):
     """ Square of *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out._const import const_Float as _const_Float
@@ -63,6 +67,10 @@ from marketsim import context
 class Sqr_Float(Observablefloat):
     """ Square of *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim import rtti

@@ -4,6 +4,16 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class vonmisesvariate_FloatFloat(IFunctionfloat):
     """ Von Mises distribution
     
+    
+    Parameters are:
+    
+    **Mu**
+    	 |mu| is the mean angle, expressed in radians between 0 and 2|pi|
+    
+    **Kappa**
+    	 |kappa| is the concentration parameter, which must be greater than or equal to zero.
+    	      If |kappa| is equal to zero, this distribution reduces
+    	      to a uniform random angle over the range 0 to 2|pi|        
     """ 
     def __init__(self, Mu = None, Kappa = None):
         from marketsim import rtti

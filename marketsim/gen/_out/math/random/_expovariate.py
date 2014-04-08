@@ -6,6 +6,11 @@ class expovariate_Float(IFunctionfloat):
     
     
       Returned values range from 0 to positive infinity
+    
+    Parameters are:
+    
+    **Lambda**
+    	 |lambda| is 1.0 divided by the desired mean. It should be greater zero.
     """ 
     def __init__(self, Lambda = None):
         from marketsim import rtti

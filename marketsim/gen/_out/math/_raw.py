@@ -6,6 +6,10 @@ from marketsim import context
 class Raw_mathRSI(IFunctionfloat):
     """ Absolute value for Relative Strength Index
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._rsi import RSI_IObservableFloatFloatFloat as _math_RSI_IObservableFloatFloatFloat

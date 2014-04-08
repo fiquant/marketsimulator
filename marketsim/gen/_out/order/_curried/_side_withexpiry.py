@@ -8,6 +8,14 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from
     
      WithExpiry orders can be viewed as ImmediateOrCancel orders
      where cancel order is sent not immediately but after some delay
+    
+    Parameters are:
+    
+    **proto**
+    	 underlying orders to create 
+    
+    **expiry**
+    	 expiration period for orders 
     """ 
     def __init__(self, proto = None, expiry = None):
         from marketsim.gen._out.order._curried._side_limit import side_Limit_FloatFloat as _order__curried_side_Limit_FloatFloat

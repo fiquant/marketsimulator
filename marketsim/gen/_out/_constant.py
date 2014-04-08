@@ -5,6 +5,10 @@ from marketsim import context
 class constant_Int(IFunctionint):
     """ Function always returning *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim import rtti
@@ -54,6 +58,10 @@ from marketsim import context
 class constant_Float(IFunctionfloat):
     """ Function always returning *x*
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim import rtti

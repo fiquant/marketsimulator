@@ -9,6 +9,12 @@ class MinEpsilon_mathCumulativeFloat(Observablefloat,MinEpsilon_Impl):
     
     
       It fires updates only if *source* value becomes less than the old value minus *epsilon*
+    
+    Parameters are:
+    
+    **x**
+    
+    **epsilon**
     """ 
     def __init__(self, x = None, epsilon = None):
         from marketsim import rtti

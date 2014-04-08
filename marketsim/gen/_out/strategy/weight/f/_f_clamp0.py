@@ -4,6 +4,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat 
 class f_Clamp0_(IFunctionIFunctionfloat_from_IFunctionfloat):
     """ scaling function = max(0, f(x)) + 1
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

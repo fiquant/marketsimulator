@@ -6,6 +6,10 @@ from marketsim import context
 class RelStdDev_mathCumulative(Observablefloat):
     """ Relative standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim import rtti
@@ -67,6 +71,10 @@ from marketsim import context
 class RelStdDev_mathEW(Observablefloat):
     """ Relative standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim import rtti
@@ -128,6 +136,10 @@ from marketsim import context
 class RelStdDev_mathMoving(Observablefloat):
     """ Relative standard deviation
     
+    
+    Parameters are:
+    
+    **x**
     """ 
     def __init__(self, x = None):
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat

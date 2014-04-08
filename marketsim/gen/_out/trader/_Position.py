@@ -8,6 +8,10 @@ class Position_IAccount(Observableint,Position_Impl):
     
       It is negative if trader has sold more assets than has bought and
       positive otherwise
+    
+    Parameters are:
+    
+    **trader**
     """ 
     def __init__(self, trader = None):
         from marketsim.gen._out._observable._observableint import Observableint

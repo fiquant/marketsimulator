@@ -13,6 +13,12 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     
       Negative *depth* correponds to will buy assets
       Positive *depth* correponds to will sell assets
+    
+    Parameters are:
+    
+    **book**
+    
+    **depth**
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim import rtti

@@ -5,6 +5,8 @@ from marketsim import context
 class Buy_(IFunctionSide):
     """ Function always returning Buy side
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

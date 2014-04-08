@@ -8,6 +8,16 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
     """ Order book for a single asset in a market.
     
      Maintains two order queues for orders of different sides
+    
+    Parameters are:
+    
+    **name**
+    
+    **tickSize**
+    
+    **_digitsToShow**
+    
+    **timeseries**
     """ 
     def __init__(self, name = None, tickSize = None, _digitsToShow = None, timeseries = None):
         from marketsim import rtti

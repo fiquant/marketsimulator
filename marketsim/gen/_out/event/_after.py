@@ -6,6 +6,11 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 class After_Float(IEvent,After_Impl):
     """ Event that once at *delay*
     
+    
+    Parameters are:
+    
+    **delay**
+    	 when the event should be fired 
     """ 
     def __init__(self, delay = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

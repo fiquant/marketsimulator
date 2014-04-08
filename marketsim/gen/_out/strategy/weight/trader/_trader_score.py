@@ -7,6 +7,8 @@ class trader_Score_(IFunctionIFunctionfloat_from_IAccount):
      Returns difference between them.
     
      TODO: should be UpScore(timeframe, Efficiency(trader)) - DownScore(timeframe, Efficiency(trader))
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

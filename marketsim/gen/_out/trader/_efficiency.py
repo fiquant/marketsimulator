@@ -6,6 +6,10 @@ from marketsim import context
 class Efficiency_IAccount(Observablefloat):
     """ Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
     
+    
+    Parameters are:
+    
+    **trader**
     """ 
     def __init__(self, trader = None):
         from marketsim import rtti

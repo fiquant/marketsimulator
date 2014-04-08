@@ -7,6 +7,10 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
     """ Observable listening to *source*
     
       When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
+    
+    Parameters are:
+    
+    **source**
     """ 
     def __init__(self, source = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat

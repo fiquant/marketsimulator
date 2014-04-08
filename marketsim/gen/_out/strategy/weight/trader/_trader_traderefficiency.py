@@ -4,6 +4,8 @@ from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import
 class trader_TraderEfficiency_(IFunctionIFunctionfloat_from_IAccount):
     """ Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
     
+    
+    Parameters are:
     """ 
     def __init__(self):
         from marketsim import rtti

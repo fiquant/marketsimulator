@@ -9,6 +9,11 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     
     
       Market order intructs buy or sell given volume immediately
+    
+    Parameters are:
+    
+    **signedVolume**
+    	signed volume
     """ 
     def __init__(self, signedVolume = None):
         from marketsim import rtti
