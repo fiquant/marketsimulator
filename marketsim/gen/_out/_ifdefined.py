@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
-    """ Returns *x* if defined and *elsePart* otherwise
+    """ **Returns *x* if defined and *elsePart* otherwise**
     
     
     Parameters are:
@@ -75,7 +75,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatIObservableFloat(Observablefloat):
-    """ Returns *x* if defined and *elsePart* otherwise
+    """ **Returns *x* if defined and *elsePart* otherwise**
     
     
     Parameters are:
@@ -147,7 +147,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatFloat(Observablefloat):
-    """ Returns *x* if defined and *elsePart* otherwise
+    """ **Returns *x* if defined and *elsePart* otherwise**
     
     
     Parameters are:
@@ -218,7 +218,7 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatFloat(Observablefloat):
-    """ Returns *x* if defined and *elsePart* otherwise
+    """ **Returns *x* if defined and *elsePart* otherwise**
     
     
     Parameters are:

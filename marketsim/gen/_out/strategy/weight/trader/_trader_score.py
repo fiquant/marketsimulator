@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 @registry.expose(["Strategy", "trader_Score"])
 class trader_Score_(IFunctionIFunctionfloat_from_IAccount):
-    """ Calculates how many times efficiency of trader went up and went down
+    """ **Calculates how many times efficiency of trader went up and went down**
     
      Returns difference between them.
     

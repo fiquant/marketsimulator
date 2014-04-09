@@ -5,7 +5,7 @@ from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
 from marketsim.gen._out._igraph import IGraph
 @registry.expose(["Basic", "TimeSerie"])
 class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
-    """ Time serie to store and render it after on a graph
+    """ **Time serie to store and render it after on a graph**
     
       Used to specify what data should be collected about order books and traders
     

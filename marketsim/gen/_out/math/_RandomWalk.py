@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.randomwalk import RandomWalk_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "RandomWalk"])
 class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
-    """ A discrete signal with user-defined increments.
+    """ **A discrete signal with user-defined increments.**
     
     
     Parameters are:

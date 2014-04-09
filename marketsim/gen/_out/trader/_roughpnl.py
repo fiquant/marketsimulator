@@ -4,7 +4,7 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Trader", "RoughPnL"])
 class RoughPnL_IAccount(Observablefloat):
-    """ Returns traders naive approximation of trader eficiency.
+    """ **Returns traders naive approximation of trader eficiency.**
     
       It takes into account only the best price of the order queue
     

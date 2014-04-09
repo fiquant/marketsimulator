@@ -9,7 +9,7 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Strategy", "Unit"])
 class Unit_IAccount(IFunctionfloat):
-    """ Unit function. Used to simulate uniform random choice of a strategy
+    """ **Unit function. Used to simulate uniform random choice of a strategy**
     
     
     Parameters are:

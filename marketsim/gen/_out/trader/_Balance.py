@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.trader.props import Balance_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "Balance"])
 class Balance_IAccount(Observablefloat,Balance_Impl):
-    """ Number of money owned by trader
+    """ **Number of money owned by trader**
     
     
     Parameters are:

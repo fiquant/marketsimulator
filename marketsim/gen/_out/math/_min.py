@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "Min"])
 class Min_IObservableFloatIObservableFloat(Observablefloat):
-    """ Function returning minimum of two functions *x* and *y*.
+    """ **Function returning minimum of two functions *x* and *y*.**
     
      If *x* or/and *y* are observables, *Min* is also observable
     
@@ -74,7 +74,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Min"])
 class Min_FloatIObservableFloat(Observablefloat):
-    """ Function returning minimum of two functions *x* and *y*.
+    """ **Function returning minimum of two functions *x* and *y*.**
     
      If *x* or/and *y* are observables, *Min* is also observable
     
@@ -145,7 +145,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Min"])
 class Min_IObservableFloatFloat(Observablefloat):
-    """ Function returning minimum of two functions *x* and *y*.
+    """ **Function returning minimum of two functions *x* and *y*.**
     
      If *x* or/and *y* are observables, *Min* is also observable
     
@@ -215,7 +215,7 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Basic", "Min"])
 class Min_FloatFloat(Observablefloat):
-    """ Function returning minimum of two functions *x* and *y*.
+    """ **Function returning minimum of two functions *x* and *y*.**
     
      If *x* or/and *y* are observables, *Min* is also observable
     

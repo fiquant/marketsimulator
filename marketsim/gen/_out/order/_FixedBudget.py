@@ -6,7 +6,7 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 @registry.expose(["Order", "FixedBudget"])
 class FixedBudget_SideFloat(ObservableIOrder,IObservableIOrder):
-    """ Factory creating fixed budget orders
+    """ **Factory creating fixed budget orders**
     
     
       Fixed budget order acts like a market order

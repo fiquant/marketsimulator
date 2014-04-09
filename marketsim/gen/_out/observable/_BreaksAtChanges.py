@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.breaks_at_changes import BreaksAtChange
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "BreaksAtChanges"])
 class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
-    """ Observable listening to *source*
+    """ **Observable listening to *source***
     
       When *source* changes it inserts *undefined* value and then immidiately becomes equal to *source* value
     

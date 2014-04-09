@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.orderbook.props import TickSize_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "TickSize"])
 class TickSize_IOrderBook(IFunctionfloat,TickSize_Impl):
-    """ Returns tick size for the order *book*
+    """ **Returns tick size for the order *book***
     
     
     Parameters are:

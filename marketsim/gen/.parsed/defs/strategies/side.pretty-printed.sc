@@ -11,7 +11,7 @@ package strategy.side() {
     type Noise(side_distribution = math.random.uniform(0.0,1.0)) : SideStrategy
     {
         // defined at defs\strategies\side.sc: 16.9
-        def Side() = if side_distribution>0.5 then side.Sell() else side.Buy()
+        def Side() = if side_distribution>0.5 then side.Buy() else side.Sell()
     }
     
     abstract type SignalStrategy() : SideStrategy

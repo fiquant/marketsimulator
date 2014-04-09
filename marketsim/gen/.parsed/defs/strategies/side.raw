@@ -118,13 +118,13 @@ Definitions:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - side
-| | | | | | | | | | | | - Sell
+| | | | | | | | | | | | - Buy
 | | | | | | | | | | - List:
 | | | | | | | | | - FunCall:
 | | | | | | | | | | - QualifiedName:
 | | | | | | | | | | | - List:
 | | | | | | | | | | | | - side
-| | | | | | | | | | | | - Buy
+| | | | | | | | | | | | - Sell
 | | | | | | | | | | - List:
 | | | | | | | - None
 | | | | | | | - None

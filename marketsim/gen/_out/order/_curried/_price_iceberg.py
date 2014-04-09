@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionflo
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "Iceberg"])
 class price_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
-    """ Factory creating iceberg orders
+    """ **Factory creating iceberg orders**
     
     
       Iceberg order is initialized by an underlying order and a lot size.

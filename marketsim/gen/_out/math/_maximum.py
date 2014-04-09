@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.minmax import Max_Impl
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["Statistics", "Maximum"])
 class Maximum_mathMoving(Observablefloat,Max_Impl):
-    """ Running maximum of a function
+    """ **Running maximum of a function**
     
     
     Parameters are:

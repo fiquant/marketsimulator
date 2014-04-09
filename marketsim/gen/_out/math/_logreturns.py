@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "LogReturns"])
 class LogReturns_IObservableFloatFloat(IFunctionfloat):
-    """ Log returns
+    """ **Log returns**
     
     
     Parameters are:

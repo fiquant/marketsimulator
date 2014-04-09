@@ -46,7 +46,7 @@ class Side_strategysideNoise(IFunctionSide):
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out.ops._greater import Greater_FloatFloat as _ops_Greater_FloatFloat
         from marketsim import deref_opt
-        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Side_distribution_strategysideNoise(self.x)),deref_opt(_constant_Float(0.5)))),deref_opt(_side_Sell_()),deref_opt(_side_Buy_())))
+        return deref_opt(_ops_Condition_BooleanSideSide(deref_opt(_ops_Greater_FloatFloat(deref_opt(_strategy_side_Side_distribution_strategysideNoise(self.x)),deref_opt(_constant_Float(0.5)))),deref_opt(_side_Buy_()),deref_opt(_side_Sell_())))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

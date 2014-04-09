@@ -4,7 +4,7 @@ from marketsim.gen._out.math._cumulative import Cumulative
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathCumulative(Observablefloat):
-    """ Relative standard deviation
+    """ **Relative standard deviation**
     
     
     Parameters are:
@@ -69,7 +69,7 @@ from marketsim.gen._out.math._ew import EW
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathEW(Observablefloat):
-    """ Relative standard deviation
+    """ **Relative standard deviation**
     
     
     Parameters are:
@@ -134,7 +134,7 @@ from marketsim.gen._out.math._moving import Moving
 from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathMoving(Observablefloat):
-    """ Relative standard deviation
+    """ **Relative standard deviation**
     
     
     Parameters are:

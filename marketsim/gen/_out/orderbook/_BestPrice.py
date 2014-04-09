@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.orderbook.props import BestPrice_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "BestPrice"])
 class BestPrice_IOrderQueue(Observablefloat,BestPrice_Impl):
-    """ Returns best order price of *queue*
+    """ **Returns best order price of *queue***
     
       Returns None is *queue* is empty
     

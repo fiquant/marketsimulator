@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.moments.cmv import Variance_Impl
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["Statistics", "Var"])
 class Var_mathCumulative(IFunctionfloat,Variance_Impl):
-    """ Cumulative variance
+    """ **Cumulative variance**
     
     
     Parameters are:
@@ -37,7 +37,7 @@ from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
 from marketsim.gen._out.math._ew import EW
 @registry.expose(["Statistics", "Var"])
 class Var_mathEW(IFunctionfloat,EWMV_Impl):
-    """ Exponentially weighted moving variance
+    """ **Exponentially weighted moving variance**
     
     
     Parameters are:
@@ -70,7 +70,7 @@ from marketsim.gen._intrinsic.moments.mv import MV_Impl
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["Statistics", "Var"])
 class Var_mathMoving(IFunctionfloat,MV_Impl):
-    """ Simple moving variance
+    """ **Simple moving variance**
     
     
     Parameters are:

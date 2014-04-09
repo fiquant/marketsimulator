@@ -5,7 +5,7 @@ from marketsim.gen._intrinsic.orderbook.volume_levels import VolumeLevels_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "VolumeLevels"])
 class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl):
-    """ Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
+    """ **Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]**
     
       Level of volume V is a price at which cumulative volume of better orders is V
     

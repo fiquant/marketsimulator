@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.orderbook.proxy import Asks_Impl
 from marketsim.gen._out._iorderbook import IOrderBook
 @registry.expose(["Asset", "Asks"])
 class Asks_IOrderBook(IOrderQueue,Asks_Impl):
-    """ Returns sell side order queue for *book*
+    """ **Returns sell side order queue for *book***
     
     
     Parameters are:

@@ -3,7 +3,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.basic import Empty_Impl
 @registry.expose(["Strategy", "Empty"])
 class Empty_(ISingleAssetStrategy,Empty_Impl):
-    """ Empty strategy doing nothing
+    """ **Empty strategy doing nothing**
     
     
     Parameters are:

@@ -3,7 +3,7 @@ from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.combine import Combine_Impl
 @registry.expose(["Strategy", "Combine"])
 class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Combine_Impl):
-    """ Creates a strategy combining two strategies
+    """ **Creates a strategy combining two strategies**
     
       Can be considered as a particular case of Array strategy
     

@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.moments.cma import CMA_Impl
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["Statistics", "Avg"])
 class Avg_mathCumulative(IDifferentiable,CMA_Impl):
-    """ Cumulative average
+    """ **Cumulative average**
     
     
     Parameters are:
@@ -37,7 +37,7 @@ from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
 from marketsim.gen._out.math._ew import EW
 @registry.expose(["Statistics", "Avg"])
 class Avg_mathEW(IDifferentiable,EWMA_Impl):
-    """ Exponentially weighted moving average
+    """ **Exponentially weighted moving average**
     
     
     Parameters are:
@@ -70,7 +70,7 @@ from marketsim.gen._intrinsic.moments.ma import MA_Impl
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["Statistics", "Avg"])
 class Avg_mathMoving(IDifferentiable,MA_Impl):
-    """ Simple moving average
+    """ **Simple moving average**
     
     
     Parameters are:

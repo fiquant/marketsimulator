@@ -4,7 +4,7 @@ from marketsim.gen._out.math._rsi import RSI
 from marketsim import context
 @registry.expose(["RSI", "Raw"])
 class Raw_mathRSI(IFunctionfloat):
-    """ Absolute value for Relative Strength Index
+    """ **Absolute value for Relative Strength Index**
     
     
     Parameters are:

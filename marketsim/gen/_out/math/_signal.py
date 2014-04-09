@@ -4,7 +4,7 @@ from marketsim.gen._out.math._macd import macd
 from marketsim import context
 @registry.expose(["MACD", "Signal"])
 class Signal_mathmacdFloatFloat(IDifferentiable):
-    """ Moving average convergence/divergence signal
+    """ **Moving average convergence/divergence signal**
     
     
     Parameters are:

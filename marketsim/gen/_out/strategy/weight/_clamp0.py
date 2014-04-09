@@ -8,7 +8,7 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "Clamp0"])
 class Clamp0_Float(IFunctionfloat):
-    """ scaling function = max(0, f(x)) + 1
+    """ **scaling function = max(0, f(x)) + 1**
     
     
     Parameters are:

@@ -31,6 +31,8 @@ package object base {
     def withImports(code: => predef.Code) : Code =
         new WithoutImports((code.imports.toSet[Importable] map { _.repr + crlf } mkString "") + code)
 
+    def bold(s : String) = "**" + s + "**"
+
     abstract class Parameter {
 
         val p : Typed.Parameter
@@ -50,7 +52,7 @@ package object base {
                 case None => ""
             }
 
-        def comment = "" :: ("**" + p.name + "**") :: (p.comment map { "\t" + _ })
+        def comment = "" :: bold(p.name) :: (p.comment map { "\t" + _ })
 
         def property = s"\'$name\' : " ||| ty
         def repr = s"%($name)s"
@@ -143,7 +145,7 @@ package object base {
     trait DocString extends Printer {
         def docstring  = f.docstring match {
             case Some(d) =>
-                (d.brief  :: "" :: d.detailed) ++ ("" :: "Parameters are:" :: (parameters flatMap { _.comment }))
+                (bold(d.brief)  :: "" :: d.detailed) ++ ("" :: "Parameters are:" :: (parameters flatMap { _.comment }))
             case None => Nil
         }
     }

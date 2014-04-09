@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Basic", "DownMovements"])
 class DownMovements_IObservableFloatFloat(Observablefloat):
-    """ Returns negative movements of some observable *source* with lag *timeframe*
+    """ **Returns negative movements of some observable *source* with lag *timeframe***
     
     
     Parameters are:

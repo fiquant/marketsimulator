@@ -4,7 +4,7 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Trader", "EfficiencyTrend"])
 class EfficiencyTrend_IAccountFloat(IFunctionfloat):
-    """ Returns first derivative of a moving average of the trader efficiency
+    """ **Returns first derivative of a moving average of the trader efficiency**
     
     
     Parameters are:

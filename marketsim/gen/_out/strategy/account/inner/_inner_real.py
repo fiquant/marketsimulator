@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 @registry.expose(["Strategy", "inner_Real"])
 class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
-    """ Associated with a strategy account that tracks
+    """ **Associated with a strategy account that tracks**
     
       how orders sent by the strategy have been actually traded
     

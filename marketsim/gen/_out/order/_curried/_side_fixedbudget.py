@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "FixedBudget"])
 class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
-    """ Factory creating fixed budget orders
+    """ **Factory creating fixed budget orders**
     
     
       Fixed budget order acts like a market order

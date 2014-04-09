@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.orderbook.last_trade import LastTradeVolume_Impl
 from marketsim.gen._out._iorderqueue import IOrderQueue
 @registry.expose(["Asset", "LastTradeVolume"])
 class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
-    """ Returns volume of the last trade at *queue*
+    """ **Returns volume of the last trade at *queue***
     
       Returns None if there haven't been any trades
     

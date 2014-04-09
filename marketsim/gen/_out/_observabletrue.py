@@ -3,7 +3,7 @@ from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._intrinsic._constant import True_Impl
 @registry.expose(["Basic", "observableTrue"])
 class observableTrue_(Observablebool,True_Impl):
-    """ Trivial observable always returning *True*
+    """ **Trivial observable always returning *True***
     
     
     Parameters are:

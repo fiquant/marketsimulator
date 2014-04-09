@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.derivative import Derivative_Impl
 from marketsim.gen._out._idifferentiable import IDifferentiable
 @registry.expose(["Basic", "Derivative"])
 class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
-    """ Function returning first derivative on time of *x*
+    """ **Function returning first derivative on time of *x***
     
      *x* should provide *derivative* member
     

@@ -4,7 +4,7 @@ from marketsim.gen._out.math._cumulative import Cumulative
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev_mathCumulative(IFunctionfloat):
-    """ Standard deviation
+    """ **Standard deviation**
     
     
     Parameters are:
@@ -61,7 +61,7 @@ from marketsim.gen._out.math._ew import EW
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev_mathEW(IFunctionfloat):
-    """ Standard deviation
+    """ **Standard deviation**
     
     
     Parameters are:
@@ -118,7 +118,7 @@ from marketsim.gen._out.math._moving import Moving
 from marketsim import context
 @registry.expose(["Statistics", "StdDev"])
 class StdDev_mathMoving(IFunctionfloat):
-    """ Standard deviation
+    """ **Standard deviation**
     
     
     Parameters are:

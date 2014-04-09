@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
 @registry.expose(["Strategy", "array_IdentityL"])
 class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
-    """ Identity function for an array of floats
+    """ **Identity function for an array of floats**
     
     
     Parameters are:

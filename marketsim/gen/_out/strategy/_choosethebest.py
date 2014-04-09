@@ -6,7 +6,7 @@ from marketsim.gen._intrinsic.strategy.choose_the_best import ChooseTheBest_Impl
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "ChooseTheBest"])
 class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccountFloat(ISingleAssetStrategy,ChooseTheBest_Impl):
-    """ A composite strategy initialized with an array of strategies.
+    """ **A composite strategy initialized with an array of strategies.**
     
      In some moments of time the most effective strategy
      is chosen and made running; other strategies are suspended.

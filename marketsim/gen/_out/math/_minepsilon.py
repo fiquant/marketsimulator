@@ -5,7 +5,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["Statistics", "MinEpsilon"])
 class MinEpsilon_mathCumulativeFloat(Observablefloat,MinEpsilon_Impl):
-    """ Cumulative minimum of a function with positive tolerance.
+    """ **Cumulative minimum of a function with positive tolerance.**
     
     
       It fires updates only if *source* value becomes less than the old value minus *epsilon*

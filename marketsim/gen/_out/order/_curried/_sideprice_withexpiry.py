@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "WithExpiry"])
 class sideprice_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat):
-    """ Factory creating WithExpiry orders
+    """ **Factory creating WithExpiry orders**
     
     
      WithExpiry orders can be viewed as ImmediateOrCancel orders

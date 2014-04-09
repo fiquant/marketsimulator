@@ -4,7 +4,7 @@ from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import context
 @registry.expose(["Asset", "MidPrice"])
 class MidPrice_IOrderBook(Observablefloat):
-    """ MidPrice of order *book*
+    """ **MidPrice of order *book***
     
     
     Parameters are:

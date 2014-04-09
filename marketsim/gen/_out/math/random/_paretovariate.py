@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "paretovariate"])
 class paretovariate_Float(IFunctionfloat):
-    """ Pareto distribution
+    """ **Pareto distribution**
     
     
     Parameters are:

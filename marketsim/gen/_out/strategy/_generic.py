@@ -6,7 +6,7 @@ from marketsim.gen._out._iorder import IOrder
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Strategy", "Generic"])
 class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
-    """ Generic strategy that wakes up on events given by *eventGen*,
+    """ **Generic strategy that wakes up on events given by *eventGen*,**
     
       creates an order via *orderFactory* and sends the order to the market using its trader
     

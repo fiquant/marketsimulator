@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.strategy.combine import Array_Impl
 from marketsim import listOf
 @registry.expose(["Strategy", "Array"])
 class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
-    """ Creates a strategy combining an array of strategies
+    """ **Creates a strategy combining an array of strategies**
     
     
     Parameters are:

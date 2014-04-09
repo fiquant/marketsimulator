@@ -59,7 +59,7 @@ from marketsim.gen._out.math._macd import macd
 from marketsim import context
 @registry.expose(["MACD", "Value"])
 class Value_mathmacd(IFunctionfloat):
-    """ Moving average convergence/divergence
+    """ **Moving average convergence/divergence**
     
     
     Parameters are:

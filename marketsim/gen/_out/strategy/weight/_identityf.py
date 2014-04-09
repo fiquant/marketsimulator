@@ -8,7 +8,7 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Strategy", "IdentityF"])
 class IdentityF_Float(IFunctionfloat):
-    """ identity scaling = f(x)
+    """ **identity scaling = f(x)**
     
     
     Parameters are:

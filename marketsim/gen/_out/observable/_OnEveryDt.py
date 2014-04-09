@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.on_every_dt import OnEveryDt_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "OnEveryDt"])
 class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
-    """ Discretizes function *x* at even time steps *dt*
+    """ **Discretizes function *x* at even time steps *dt***
     
     
     Parameters are:

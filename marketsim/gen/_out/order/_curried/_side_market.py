@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "Market"])
 class side_Market_Float(IFunctionIObservableIOrder_from_IFunctionSide):
-    """ Factory creating market orders
+    """ **Factory creating market orders**
     
     
       Market order intructs buy or sell given volume immediately

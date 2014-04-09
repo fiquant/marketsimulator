@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 @registry.expose(["Strategy", "trader_TraderEfficiency"])
 class trader_TraderEfficiency_(IFunctionIFunctionfloat_from_IAccount):
-    """ Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+    """ **Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared**
     
     
     Parameters are:

@@ -9,7 +9,7 @@ from marketsim.gen._intrinsic.strategy.weight import Score_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Strategy", "Score"])
 class Score_IAccount(IFunctionfloat,Score_Impl):
-    """ Calculates how many times efficiency of trader went up and went down
+    """ **Calculates how many times efficiency of trader went up and went down**
     
      Returns difference between them.
     

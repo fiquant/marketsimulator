@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsid
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "StopLoss"])
 class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IFunctionSide):
-    """ Factory creating StopLoss orders
+    """ **Factory creating StopLoss orders**
     
     
       StopLoss order is initialised by an underlying order and a maximal acceptable loss factor.

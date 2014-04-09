@@ -4,7 +4,7 @@ from marketsim.gen._out._observable._observableside import ObservableSide
 from marketsim.gen._intrinsic.side import None_Impl
 @registry.expose(["Side", "observableNothing"])
 class observableNothing_(ObservableSide,None_Impl):
-    """ Observable always equal to None of type Side
+    """ **Observable always equal to None of type Side**
     
     
     Parameters are:

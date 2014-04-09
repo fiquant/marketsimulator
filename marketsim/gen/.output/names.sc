@@ -1147,7 +1147,7 @@ package strategy
         
         def book(x = .strategy.side.PairTrading()) = .orderbook.OfTrader()
         
-        def Side(x = .strategy.side.Noise()) = if x~>Side_distribution>0.5 then .side.Sell() else .side.Buy()
+        def Side(x = .strategy.side.Noise()) = if x~>Side_distribution>0.5 then .side.Buy() else .side.Sell()
         
         def Side(x = .strategy.side.MeanReversion()) = if x~>book~>Bids~>BestPrice>x~>Fundamental_Value then .side.Sell() else if x~>book~>Asks~>BestPrice<x~>Fundamental_Value then .side.Buy() else .side.Nothing()
         

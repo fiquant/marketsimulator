@@ -4,7 +4,7 @@ from marketsim.gen._out._observable._observableiorder import ObservableIOrder
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
 @registry.expose(["Order", "ImmediateOrCancel"])
 class ImmediateOrCancel_IObservableIOrder(ObservableIOrder,IObservableIOrder):
-    """ Factory creating Immediate-Or-Cancel orders
+    """ **Factory creating Immediate-Or-Cancel orders**
     
     
       Immediate-Or-Cancel order sends an underlying order to the market and

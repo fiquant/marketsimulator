@@ -5,7 +5,7 @@ from marketsim import listOf
 from marketsim.gen._out._igraph import IGraph
 
 class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels_Impl):
-    """ Time serie holding volume levels of an asset
+    """ **Time serie holding volume levels of an asset**
     
      Level of volume V is a price at which cumulative volume of better orders is V
     

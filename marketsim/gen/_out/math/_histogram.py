@@ -4,7 +4,7 @@ from marketsim.gen._out.math._macd import macd
 from marketsim import context
 @registry.expose(["MACD", "Histogram"])
 class Histogram_mathmacdFloatFloat(IFunctionfloat):
-    """ Moving average convergence/divergence histogram
+    """ **Moving average convergence/divergence histogram**
     
     
     Parameters are:

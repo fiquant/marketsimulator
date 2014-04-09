@@ -4,7 +4,7 @@ from marketsim.gen._out._observable._observableside import ObservableSide
 from marketsim.gen._intrinsic.side import Sell_Impl
 @registry.expose(["Side", "observableSell"])
 class observableSell_(ObservableSide,Sell_Impl):
-    """ Observable always equal to Sell side
+    """ **Observable always equal to Sell side**
     
     
     Parameters are:

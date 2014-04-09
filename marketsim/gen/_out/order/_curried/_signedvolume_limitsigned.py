@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionflo
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Order", "LimitSigned"])
 class signedVolume_LimitSigned_Float(IFunctionIObservableIOrder_from_IFunctionfloat):
-    """ Factory creating limit orders
+    """ **Factory creating limit orders**
     
     
       Limit orders ask to buy or sell some asset at price better than some limit price.

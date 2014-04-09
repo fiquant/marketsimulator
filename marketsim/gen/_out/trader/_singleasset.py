@@ -6,7 +6,7 @@ from marketsim import listOf
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 
 class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(ISingleAssetTrader,SingleAsset_Impl):
-    """ A trader that trades a single asset on a single market
+    """ **A trader that trades a single asset on a single market**
     
     
     Parameters are:

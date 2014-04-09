@@ -1829,7 +1829,7 @@ package strategy {@category = "Side function"
         
         
         def Side(x : Optional[.strategy.side.Noise] = .strategy.side.Noise()) : () => .Side
-            	 = .ops.Condition(.ops.Greater(.strategy.side.Side_distribution(x),.constant(0.5)),.side.Sell(),.side.Buy())
+            	 = .ops.Condition(.ops.Greater(.strategy.side.Side_distribution(x),.constant(0.5)),.side.Buy(),.side.Sell())
         
         
         def Side(x : Optional[.strategy.side.MeanReversion] = .strategy.side.MeanReversion()) : .IObservable[.Side]

@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "weibullvariate"])
 class weibullvariate_FloatFloat(IFunctionfloat):
-    """ Weibull distribution
+    """ **Weibull distribution**
     
     
     Parameters are:

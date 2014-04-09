@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.event import After_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Event", "After"])
 class After_Float(IEvent,After_Impl):
-    """ Event that once at *delay*
+    """ **Event that once at *delay***
     
     
     Parameters are:

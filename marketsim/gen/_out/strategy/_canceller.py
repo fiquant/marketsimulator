@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.strategy.canceller import Canceller_Impl
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Strategy", "Canceller"])
 class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
-    """ Strategy that listens to all orders sent by a trader to the market
+    """ **Strategy that listens to all orders sent by a trader to the market**
     
       and in some moments of time it randomly chooses an order and cancels it
       Note: a similar effect can be obtained using order.WithExpiry meta orders

@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.orderbook.link import Link_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Asset", "Link"])
 class Link_IObservableFloat(ILink,Link_Impl):
-    """ Represents latency in information propagation from one agent to another one
+    """ **Represents latency in information propagation from one agent to another one**
     
      (normally between a trader and a market).
      Ensures that sending packets via a link preserves their order.

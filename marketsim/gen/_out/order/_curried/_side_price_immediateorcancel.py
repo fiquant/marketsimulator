@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
 @registry.expose(["Order", "price_ImmediateOrCancel"])
 class side_price_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide):
-    """ Factory creating Immediate-Or-Cancel orders
+    """ **Factory creating Immediate-Or-Cancel orders**
     
     
       Immediate-Or-Cancel order sends an underlying order to the market and

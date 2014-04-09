@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "gammavariate"])
 class gammavariate_FloatFloat(IFunctionfloat):
-    """ Gamma distribution
+    """ **Gamma distribution**
     
     
       Conditions on the parameters are |alpha| > 0 and |beta| > 0.

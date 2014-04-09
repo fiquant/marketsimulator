@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "lognormvariate"])
 class lognormvariate_FloatFloat(IFunctionfloat):
-    """ Log normal distribution
+    """ **Log normal distribution**
     
     
      If you take the natural logarithm of this distribution,

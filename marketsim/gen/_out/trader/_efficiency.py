@@ -4,7 +4,7 @@ from marketsim.gen._out._iaccount import IAccount
 from marketsim import context
 @registry.expose(["Trader", "Efficiency"])
 class Efficiency_IAccount(Observablefloat):
-    """ Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
+    """ **Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared**
     
     
     Parameters are:

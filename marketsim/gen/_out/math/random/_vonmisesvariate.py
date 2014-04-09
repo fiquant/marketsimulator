@@ -2,7 +2,7 @@ from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "vonmisesvariate"])
 class vonmisesvariate_FloatFloat(IFunctionfloat):
-    """ Von Mises distribution
+    """ **Von Mises distribution**
     
     
     Parameters are:

@@ -4,7 +4,7 @@ from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
 class Sqr_IObservableFloat(Observablefloat):
-    """ Square of *x*
+    """ **Square of *x***
     
     
     Parameters are:
@@ -65,7 +65,7 @@ from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
 class Sqr_Float(Observablefloat):
-    """ Square of *x*
+    """ **Square of *x***
     
     
     Parameters are:

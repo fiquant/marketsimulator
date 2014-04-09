@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import context
 @registry.expose(["Side", "Nothing"])
 class Nothing_(IFunctionSide):
-    """ Function always returning None of type Side
+    """ **Function always returning None of type Side**
     
     
     Parameters are:

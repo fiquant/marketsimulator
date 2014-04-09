@@ -3,7 +3,7 @@ from marketsim.gen._out._imultiassetstrategy import IMultiAssetStrategy
 from marketsim.gen._intrinsic.strategy.arbitrage import Arbitrage_Impl
 @registry.expose(["Strategy", "Arbitrage"])
 class Arbitrage_(IMultiAssetStrategy,Arbitrage_Impl):
-    """ Strategy for a multi asset trader.
+    """ **Strategy for a multi asset trader.**
     
      It believes that these assets represent a single asset traded on different venues
      Once an ask at one venue becomes lower than a bid at another venue

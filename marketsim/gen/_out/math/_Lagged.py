@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.observable.lagged import Lagged_Impl
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Lagged"])
 class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
-    """ Observable that adds a lag to an observable data source
+    """ **Observable that adds a lag to an observable data source**
     
       so Lagged(x, dt)(t0+dt) == x(t0)
     

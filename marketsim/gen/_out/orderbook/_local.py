@@ -5,7 +5,7 @@ from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim import listOf
 @registry.expose(["Asset", "Local"])
 class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
-    """ Order book for a single asset in a market.
+    """ **Order book for a single asset in a market.**
     
      Maintains two order queues for orders of different sides
     

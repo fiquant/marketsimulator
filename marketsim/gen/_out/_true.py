@@ -3,7 +3,7 @@ from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim import context
 @registry.expose(["Basic", "true"])
 class true_(IFunctionbool):
-    """ Function always returning *True*
+    """ **Function always returning *True***
     
     
     Parameters are:

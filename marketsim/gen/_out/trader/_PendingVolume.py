@@ -4,7 +4,7 @@ from marketsim.gen._intrinsic.trader.props import PendingVolume_Impl
 from marketsim.gen._out._iaccount import IAccount
 @registry.expose(["Trader", "PendingVolume"])
 class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
-    """ Cumulative volume of orders sent to the market but haven't matched yet
+    """ **Cumulative volume of orders sent to the market but haven't matched yet**
     
     
     Parameters are:

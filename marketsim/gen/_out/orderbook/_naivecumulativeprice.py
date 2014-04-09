@@ -5,7 +5,7 @@ from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Asset", "NaiveCumulativePrice"])
 class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
-    """ Returns naive approximation of price for best orders of total volume *depth*
+    """ **Returns naive approximation of price for best orders of total volume *depth***
     
       by taking into account prices only for the best order
     
@@ -86,7 +86,7 @@ from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 @registry.expose(["Asset", "NaiveCumulativePrice"])
 class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
-    """ Returns naive approximation of price for best orders of total volume *depth*
+    """ **Returns naive approximation of price for best orders of total volume *depth***
     
       by taking into account prices only for the best order
     
