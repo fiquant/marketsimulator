@@ -111,6 +111,44 @@ class Base(object):
 
         self.dec()
 
+import collections
+
+class BindingContextEx(collections.Mapping):
+    """ Represents environment for model objects
+
+    Holds references to some outer objects (scheduler, trader in hand, orderbook in hand etc.)
+    This class is immutable so its instances can be easily shared.
+
+    """
+    def __init__(self, *args, **kwargs):
+        self._d = dict(*args, **kwargs)
+        self._hash = None
+
+    def updated(self, *args, **kwargs):
+        d = self._d.copy()
+        other = dict(*args, **kwargs)
+        d.update(other)
+        return BindingContextEx(d)
+
+    def __getattr__(self, item):
+        return self.__getitem__(item)
+
+    def __iter__(self):
+        return iter(self._d)
+
+    def __len__(self):
+        return len(self._d)
+
+    def __getitem__(self, key):
+        return self._d[key]
+
+    def __hash__(self):
+        if self._hash is None:
+            self._hash = 0
+            for pair in self.iteritems():
+                self._hash ^= hash(pair)
+        return self._hash
+
 class BindingContext(object):
 
     def __init__(self, context = None):
