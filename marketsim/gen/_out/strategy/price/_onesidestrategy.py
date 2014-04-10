@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
@@ -51,14 +52,16 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -89,6 +92,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._ievent import IEvent
@@ -141,14 +145,16 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         return "LiquidityProviderSide(%(x)s, %(eventGen)s, %(orderFactory)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

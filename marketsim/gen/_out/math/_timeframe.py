@@ -1,3 +1,4 @@
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["-", "Timeframe"])
@@ -24,17 +25,20 @@ class Timeframe_mathMoving(object):
         return "Moving_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.timeframe
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._rsi import RSI
 @registry.expose(["-", "Timeframe"])
@@ -61,11 +65,13 @@ class Timeframe_mathRSI(object):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

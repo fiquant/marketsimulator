@@ -1,3 +1,4 @@
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iaccount import IAccount
@@ -38,11 +39,13 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
         return "EfficiencyTrend(%(trader)s, %(alpha)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.trader.bindEx(self._ctx_ex)
+        self.trader.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

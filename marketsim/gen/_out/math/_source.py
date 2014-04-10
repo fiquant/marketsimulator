@@ -1,3 +1,4 @@
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._moving import Moving
 @registry.expose(["-", "Source"])
@@ -24,17 +25,20 @@ class Source_mathMoving(object):
         return "Moving_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.source
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._ew import EW
 @registry.expose(["-", "Source"])
@@ -61,17 +65,20 @@ class Source_mathEW(object):
         return "EW_{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.source
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._macd import macd
 @registry.expose(["-", "Source"])
@@ -98,17 +105,20 @@ class Source_mathmacd(object):
         return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.source
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._rsi import RSI
 @registry.expose(["-", "Source"])
@@ -135,17 +145,20 @@ class Source_mathRSI(object):
         return "RSIRaw_{%(timeframe)s}^{%(alpha)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.source
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.math._cumulative import Cumulative
 @registry.expose(["-", "Source"])
@@ -172,11 +185,13 @@ class Source_mathCumulative(object):
         return "Source(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

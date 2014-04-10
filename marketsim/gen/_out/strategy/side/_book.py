@@ -1,3 +1,4 @@
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
@@ -27,11 +28,13 @@ class book_strategysideMeanReversion(IOrderBook):
         return "book(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -58,6 +61,7 @@ class book_strategysideMeanReversion(IOrderBook):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
@@ -87,11 +91,13 @@ class book_strategysideFundamentalValue(IOrderBook):
         return "book(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -118,6 +124,7 @@ class book_strategysideFundamentalValue(IOrderBook):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
@@ -147,11 +154,13 @@ class book_strategysidePairTrading(IOrderBook):
         return "book(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -190,6 +199,7 @@ def book(x = None):
     if x is None or rtti.can_be_casted(x, PairTrading):
         return book_strategysidePairTrading(x)
     raise Exception('Cannot find suitable overload for book('+str(x) +':'+ str(type(x))+')')
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 @registry.expose(["-", "Book"])
@@ -216,17 +226,20 @@ class Book_strategysideTrendFollower(object):
         return "Book(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.book
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
 @registry.expose(["-", "Book"])
@@ -253,11 +266,13 @@ class Book_strategysideCrossingAverages(object):
         return "Book(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

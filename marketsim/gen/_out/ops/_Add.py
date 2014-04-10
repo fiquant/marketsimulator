@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.ops import Add_Impl
@@ -41,15 +42,18 @@ class Add_IObservableFloatIObservableFloat(Observablefloat,Add_Impl):
         return "({%(x)s}+{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
-        self.y.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.y.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -92,15 +96,18 @@ class Add_FloatIObservableFloat(Observablefloat,Add_Impl):
         return "({%(x)s}+{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
-        self.y.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.y.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -143,15 +150,18 @@ class Add_IObservableFloatFloat(Observablefloat,Add_Impl):
         return "({%(x)s}+{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
-        self.y.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.y.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.ops import Add_Impl
@@ -189,13 +199,15 @@ class Add_FloatFloat(Observablefloat,Add_Impl):
         return "({%(x)s}+{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
-        self.y.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.y.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Add(x = None,y = None): 

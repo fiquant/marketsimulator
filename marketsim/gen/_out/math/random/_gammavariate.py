@@ -1,3 +1,4 @@
+# generated with class generator.python.random$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Random", "gammavariate"])
@@ -41,9 +42,11 @@ class gammavariate_FloatFloat(IFunctionfloat):
         return "gammavariate(%(Alpha)s, %(Beta)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         
         delattr(self, '_processing_ex')

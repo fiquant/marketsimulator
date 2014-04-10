@@ -1,3 +1,4 @@
+# generated with class generator.python.constructor$Import
 from marketsim import registry
 from marketsim.gen._out.math._istatdomain import IStatDomain
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -29,11 +30,13 @@ class Moving_IObservableFloatFloat(IStatDomain):
         return "Moving_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.source.bindEx(self._ctx_ex)
+        self.source.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

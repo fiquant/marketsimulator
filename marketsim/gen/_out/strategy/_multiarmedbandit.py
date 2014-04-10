@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
@@ -77,16 +78,18 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        for x in self.strategies: x.bind(self._ctx_ex)
-        self.account.bindEx(self._ctx_ex)
-        self.weight.bindEx(self._ctx_ex)
-        self.normalizer.bindEx(self._ctx_ex)
-        self.corrector.bindEx(self._ctx_ex)
+        for x in self.strategies: x.bind_ex(self._ctx_ex)
+        self.account.bind_ex(self._ctx_ex)
+        self.weight.bind_ex(self._ctx_ex)
+        self.normalizer.bind_ex(self._ctx_ex)
+        self.corrector.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 

@@ -1,3 +1,4 @@
+# generated with class generator.python.order_factory_on_proto$PartialFactory
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctioniobservableiorder_from_ifunctionfloat_from_ifunctionside import IFunctionIFunctionIObservableIOrder_from_IFunctionfloat_from_IFunctionSide
 @registry.expose(["Order", "price_ImmediateOrCancel"])
@@ -37,11 +38,13 @@ class side_price_ImmediateOrCancel_SideFloatIObservableIOrder(IFunctionIFunction
         return "price_ImmediateOrCancel(%(proto)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.proto.bindEx(self._ctx_ex)
+        self.proto.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, side = None):

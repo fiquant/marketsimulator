@@ -1,3 +1,4 @@
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._noise import Noise
@@ -27,11 +28,13 @@ class Side_strategysideNoise(IFunctionSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -63,6 +66,7 @@ class Side_strategysideNoise(IFunctionSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim.gen._out._side import Side
@@ -99,11 +103,13 @@ class Side_strategysideMeanReversion(ObservableSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -141,6 +147,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
@@ -170,11 +177,13 @@ class Side_strategysideRSIbis(IFunctionSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -209,6 +218,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._side import Side
 from marketsim import context
@@ -245,11 +255,13 @@ class Side_strategysideFundamentalValue(ObservableSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -287,6 +299,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
@@ -316,11 +329,13 @@ class Side_strategysideTrendFollower(IFunctionSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -355,6 +370,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
@@ -384,11 +400,13 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -423,6 +441,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._signal import Signal
@@ -452,11 +471,13 @@ class Side_strategysideSignal(IFunctionSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -491,6 +512,7 @@ class Side_strategysideSignal(IFunctionSide):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._side import Side
 from marketsim import context
@@ -527,11 +549,13 @@ class Side_strategysidePairTrading(ObservableSide):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

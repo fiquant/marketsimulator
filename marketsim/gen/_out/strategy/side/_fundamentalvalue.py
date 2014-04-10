@@ -1,3 +1,4 @@
+# generated with class generator.python.constructor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._fundamentalvaluestrategy import FundamentalValueStrategy
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -25,11 +26,13 @@ class FundamentalValue_Float(FundamentalValueStrategy):
         return "FundamentalValue(%(fv)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.fv.bindEx(self._ctx_ex)
+        self.fv.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

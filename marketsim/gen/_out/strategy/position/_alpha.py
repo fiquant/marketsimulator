@@ -1,3 +1,4 @@
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
 @registry.expose(["-", "Alpha"])
@@ -24,17 +25,20 @@ class Alpha_strategypositionRSI_linear(object):
         return "Alpha(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
     def dereference(self):
         return self.x.alpha
     
+# generated with class generator.python.accessor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
 @registry.expose(["-", "Alpha"])
@@ -61,11 +65,13 @@ class Alpha_strategypositionBollinger_linear(object):
         return "Alpha(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

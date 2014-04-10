@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._intrinsic.strategy.combine import Combine_Impl
@@ -38,13 +39,15 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
         return "Combine(%(A)s, %(B)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.A.bindEx(self._ctx_ex)
-        self.B.bindEx(self._ctx_ex)
+        self.A.bind_ex(self._ctx_ex)
+        self.B.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Combine(A = None,B = None): 

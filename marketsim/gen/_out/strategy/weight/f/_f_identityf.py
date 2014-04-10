@@ -1,3 +1,4 @@
+# generated with class generator.python.curried$after_typing$Curried
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
 @registry.expose(["Strategy", "f_IdentityF"])
@@ -24,9 +25,11 @@ class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
         return "f_IdentityF" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         
         delattr(self, '_processing_ex')

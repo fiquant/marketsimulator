@@ -3,6 +3,7 @@ def score():
     from marketsim import rtti
     return _strategy_weight_trader_trader_Score_()
     raise Exception('Cannot find suitable overload for score('++')')
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.strategy.weight import Score_Impl
@@ -41,12 +42,14 @@ class Score_IAccount(IFunctionfloat,Score_Impl):
         return "Score(%(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.trader.bindEx(self._ctx_ex)
+        self.trader.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Score(trader = None): 

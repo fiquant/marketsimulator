@@ -290,6 +290,7 @@ def run(name, constructor, only_veusz):
         r.insert(root)
         r.pushAllReferences()
         context.bind(root, {'world' : world })
+        root.bind_ex(context.BindingContextEx({}))
 
         def checks():
             if not only_veusz and config.checkConsistency:
@@ -329,6 +330,9 @@ class Interlacing(IFunctionfloat):
     
     def bind(self, ctx):
         self._scheduler = ctx.world
+
+    def bind_ex(self, ctx):
+        pass
         
     def __call__(self):
         return int(self._scheduler.currentTime / self.timeframe) % 2 * 2 - 1

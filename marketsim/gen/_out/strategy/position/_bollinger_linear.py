@@ -1,3 +1,4 @@
+# generated with class generator.python.constructor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.position._desiredpositionstrategy import DesiredPositionStrategy
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -35,12 +36,14 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(DesiredPositionSt
         return "Bollinger_linear(%(alpha)s, %(k)s, %(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.k.bindEx(self._ctx_ex)
-        self.trader.bindEx(self._ctx_ex)
+        self.k.bind_ex(self._ctx_ex)
+        self.trader.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

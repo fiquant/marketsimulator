@@ -1,3 +1,4 @@
+# generated with class generator.python.order_factory$Factory
 from marketsim import registry
 from marketsim.gen._intrinsic.order.meta.floating_price import Factory_Impl
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
@@ -53,13 +54,15 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
         return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.proto.bindEx(self._ctx_ex)
-        self.floatingPrice.bindEx(self._ctx_ex)
+        self.proto.bind_ex(self._ctx_ex)
+        self.floatingPrice.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     

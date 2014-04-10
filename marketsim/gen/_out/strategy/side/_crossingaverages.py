@@ -1,3 +1,4 @@
+# generated with class generator.python.constructor$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._signalstrategy import SignalStrategy
 from marketsim.gen._out._iorderbook import IOrderBook
@@ -37,11 +38,13 @@ class CrossingAverages_FloatFloatFloatIOrderBook(SignalStrategy):
         return "CrossingAverages(%(alpha_1)s, %(alpha_2)s, %(threshold)s, %(book)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.book.bindEx(self._ctx_ex)
+        self.book.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

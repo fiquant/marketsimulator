@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._igraph import IGraph
 from marketsim.gen._intrinsic.veusz import Graph_Impl
@@ -29,9 +30,11 @@ class Graph_String(IGraph,Graph_Impl):
         return "Graph(%(name)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         

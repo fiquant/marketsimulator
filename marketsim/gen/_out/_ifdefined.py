@@ -1,3 +1,4 @@
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -44,12 +45,14 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         return "If def(%(x)s) else %(elsePart)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.elsePart.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.elsePart.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -78,6 +81,7 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -126,12 +130,14 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         return "If def(%(x)s) else %(elsePart)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.elsePart.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.elsePart.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -160,6 +166,7 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -208,12 +215,14 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         return "If def(%(x)s) else %(elsePart)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.elsePart.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.elsePart.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -242,6 +251,7 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -288,12 +298,14 @@ class IfDefined_FloatFloat(Observablefloat):
         return "If def(%(x)s) else %(elsePart)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.elsePart.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.elsePart.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

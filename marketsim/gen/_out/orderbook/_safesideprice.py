@@ -1,3 +1,4 @@
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -47,12 +48,14 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.queue.bindEx(self._ctx_ex)
-        self.defaultValue.bindEx(self._ctx_ex)
+        self.queue.bind_ex(self._ctx_ex)
+        self.defaultValue.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -81,6 +84,7 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim import context
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -130,12 +134,14 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         return "SafeSidePrice(%(queue)s, %(defaultValue)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.queue.bindEx(self._ctx_ex)
-        self.defaultValue.bindEx(self._ctx_ex)
+        self.queue.bind_ex(self._ctx_ex)
+        self.defaultValue.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

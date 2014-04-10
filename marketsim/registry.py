@@ -586,7 +586,13 @@ class Simulation(object):
     _properties = { 'traders'    : meta.listOf(ITrader),
                     'orderbooks' : meta.listOf(IOrderBook),
                     'graphs'     : meta.listOf(IGraph) }
-    
+
+    def bind_ex(self, ctx):
+        for t in self.traders: t.bind_ex(ctx)
+        for t in self.orderbooks: t.bind_ex(ctx)
+        for t in self.graphs: t.bind_ex(ctx)
+
+
     @property
     def traders(self):
         return self._traders

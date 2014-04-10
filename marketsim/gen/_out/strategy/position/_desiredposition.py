@@ -1,3 +1,4 @@
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
@@ -32,11 +33,13 @@ class DesiredPosition_strategypositionRSI_linear(Observablefloat):
         return "DesiredPosition(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -74,6 +77,7 @@ class DesiredPosition_strategypositionRSI_linear(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
@@ -108,11 +112,13 @@ class DesiredPosition_strategypositionBollinger_linear(Observablefloat):
         return "DesiredPosition(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

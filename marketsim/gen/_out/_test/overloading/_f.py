@@ -1,3 +1,4 @@
+# generated with class generator.python.function$Import
 from marketsim.gen._out._ifunction._ifunctionint import IFunctionint
 from marketsim import context
 
@@ -23,11 +24,13 @@ class f_Int(IFunctionint):
         return "f(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -52,6 +55,7 @@ class f_Int(IFunctionint):
         else:
             raise AttributeError
     
+# generated with class generator.python.function$Import
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
 
@@ -77,11 +81,13 @@ class f_Float(IFunctionfloat):
         return "f(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.cma import CMA_Impl
@@ -32,14 +33,17 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
         return "Avg(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.ewma import EWMA_Impl
@@ -74,14 +78,17 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
         return "Avg(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._intrinsic.moments.ma import MA_Impl
@@ -116,12 +123,14 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         return "Avg(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Avg(x = None): 

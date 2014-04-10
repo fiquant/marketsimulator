@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._itwowaylink import ITwoWayLink
 from marketsim.gen._intrinsic.orderbook.link import TwoWayLink_Impl
@@ -43,13 +44,15 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
         return "TwoWayLink(%(up)s, %(down)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.up.bindEx(self._ctx_ex)
-        self.down.bindEx(self._ctx_ex)
+        self.up.bind_ex(self._ctx_ex)
+        self.down.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def TwoWayLink(up = None,down = None): 

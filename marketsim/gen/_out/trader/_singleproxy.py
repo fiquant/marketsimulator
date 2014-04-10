@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
 from marketsim.gen._intrinsic.trader.proxy import Single_Impl
@@ -25,9 +26,11 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
     
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         

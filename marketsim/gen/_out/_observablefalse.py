@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._intrinsic._constant import False_Impl
@@ -28,9 +29,11 @@ class observableFalse_(Observablebool,False_Impl):
         return "False" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         

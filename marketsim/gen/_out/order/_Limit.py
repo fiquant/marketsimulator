@@ -1,3 +1,4 @@
+# generated with class generator.python.order_factory$Factory
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
@@ -59,14 +60,16 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
         return "Limit(%(side)s, %(price)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
-        self.price.bindEx(self._ctx_ex)
-        self.volume.bindEx(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
+        self.price.bind_ex(self._ctx_ex)
+        self.volume.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, *args, **kwargs):

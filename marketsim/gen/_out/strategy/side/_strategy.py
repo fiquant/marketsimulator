@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._noise import Noise
 from marketsim.gen._out._ievent import IEvent
@@ -44,13 +45,15 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         return "Noise(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -81,6 +84,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim.gen._out._ievent import IEvent
@@ -127,13 +131,15 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         return "MeanReversion(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -164,6 +170,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
@@ -210,13 +217,15 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         return "RSIbis(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -247,6 +256,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim import context
@@ -293,13 +303,15 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         return "FundamentalValue(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -330,6 +342,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim import context
@@ -376,13 +389,15 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         return "TrendFollower(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -413,6 +428,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim import context
@@ -459,13 +475,15 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         return "CrossingAverages(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -496,6 +514,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim.gen._out.strategy.side._signal import Signal
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
@@ -542,13 +561,15 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         return "Signal(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -579,6 +600,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim import context
@@ -625,13 +647,15 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         return "PairTrading(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

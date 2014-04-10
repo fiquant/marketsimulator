@@ -1,3 +1,4 @@
+# generated with class generator.python.curried$after_typing$Curried
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
 @registry.expose(["Strategy", "inner_Real"])
@@ -25,9 +26,11 @@ class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
         return "inner_Real" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         
         delattr(self, '_processing_ex')

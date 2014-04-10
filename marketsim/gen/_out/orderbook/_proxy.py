@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._intrinsic.orderbook.of_trader import Proxy_Impl
@@ -26,9 +27,11 @@ class Proxy_(IOrderBook,Proxy_Impl):
     
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         

@@ -1,3 +1,4 @@
+# generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._itimeserie import ITimeSerie
 from marketsim.gen._out._iorderbook import IOrderBook
@@ -48,14 +49,16 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         return "%(orderbook)s.name^remote" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
-        self.orderbook.bindEx(self._ctx_ex)
-        self.link.bindEx(self._ctx_ex)
-        for x in self.timeseries: x.bind(self._ctx_ex)
+        self.orderbook.bind_ex(self._ctx_ex)
+        self.link.bind_ex(self._ctx_ex)
+        for x in self.timeseries: x.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Remote(orderbook = None,link = None,timeseries = None): 

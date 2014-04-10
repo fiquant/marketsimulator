@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
@@ -37,12 +38,14 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         return "RSI_linear(%(x)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -73,6 +76,7 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
@@ -112,12 +116,14 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         return "Bollinger_linear(%(x)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

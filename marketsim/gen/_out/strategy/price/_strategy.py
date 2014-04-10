@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim import context
@@ -44,13 +45,15 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
         return "LiquidityProvider(%(x)s, %(eventGen)s, %(orderFactory)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.eventGen.bindEx(self._ctx_ex)
-        self.orderFactory.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.eventGen.bind_ex(self._ctx_ex)
+        self.orderFactory.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

@@ -25,13 +25,15 @@ package object base {
 
         def base_class_list : List[TypesBound.Base] = Nil
 
-        def code = withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
+        def code = ("# generated with " + getClass) | withImports(registration | s"class $name(" ||| base_classes ||| "):" |> body)
     }
 
     def withImports(code: => predef.Code) : Code =
         new WithoutImports((code.imports.toSet[Importable] map { _.repr + crlf } mkString "") + code)
 
     def bold(s : String) = "**" + s + "**"
+
+    def isPrimitive(t : TypesBound.Base) = Typed.topLevel isPrimitive t.unOptionalize
 
     abstract class Parameter {
 
@@ -64,10 +66,14 @@ package object base {
         def accessors = getter | setter
 
         def bindEx : Code = p.ty.unOptionalize match {
-            case TypesBound.List_(_) =>
-                s"for x in self.$name: x.bind(self.$ctx)"
-            case _ =>
-                s"self.$name.bindEx(self.$ctx)"
+            case TypesBound.List_(x) =>
+                if (!isPrimitive(x))
+                    s"for x in self.$name: x.$bind(self.$ctx)"
+                else
+                    stop
+            case x if !isPrimitive(x) =>
+                s"self.$name.$bind(self.$ctx)"
+            case _ => stop
         }
     }
 
@@ -94,6 +100,7 @@ package object base {
     val updateContext = "updateContext_ex"
     val bind = "bind_ex"
     val bindImpl = "bind_impl"
+    val bound = "_bound_ex"
     val processing = "_processing_ex"
     val ctx = "_ctx_ex"
 
@@ -120,7 +127,7 @@ package object base {
 
         lazy val parameters  = f.parameters map mkParam
 
-        lazy val parameters_non_primitive = parameters filter { p => !Typed.topLevel.isPrimitive(p.p.ty) }
+        lazy val parameters_non_primitive = parameters filterNot { p => isPrimitive(p.p.ty) }
 
         def init_fields = join_fields({ _.init })
         def init_raw_fields = join_fields({ _.init_raw })
@@ -144,8 +151,11 @@ package object base {
         }
 
         def bindEx_prologue =
-            s"if hasattr(self, '$processing'):" |> "raise Exception('cycle detected')" |
-            s"setattr(self, '$processing', True)"
+            s"if hasattr(self, '$bound'): return" |
+            s"self.$bound = True" |
+            s"if hasattr(self, '$processing'):" |>
+                "raise Exception('cycle detected')" |
+            s"self.$processing = True"
 
         def bindEx_epilogue : Code = s"delattr(self, '$processing')"
 
@@ -260,7 +270,7 @@ package object base {
 
         override def bindEx_body = bindEx_ctxCopy
 
-        override def bindEx_properties = super.bindEx_properties | s"self.impl.$bind(self.$ctx)"
+        override def bindEx_epilogue = s"self.impl.$bind(self.$ctx)" | super.bindEx_epilogue
 
         override def init_body =
             super.init_body |

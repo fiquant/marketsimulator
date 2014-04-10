@@ -1,3 +1,4 @@
+# generated with class generator.python.order_factory_on_proto$PartialFactory
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -42,12 +43,14 @@ class price_WithExpiry_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_fr
         return "WithExpiry(%(proto)s, %(expiry)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.proto.bindEx(self._ctx_ex)
-        self.expiry.bindEx(self._ctx_ex)
+        self.proto.bind_ex(self._ctx_ex)
+        self.expiry.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, price = None):

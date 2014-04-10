@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
@@ -31,11 +32,13 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         return "MarketMaker(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -68,6 +71,7 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketdata import MarketData
@@ -101,11 +105,13 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
         return "MarketData(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

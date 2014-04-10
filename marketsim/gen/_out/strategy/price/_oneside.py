@@ -1,3 +1,4 @@
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._side import Side
@@ -42,12 +43,14 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -95,6 +98,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._side import Side
@@ -139,12 +143,14 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -187,6 +193,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import context
@@ -230,12 +237,14 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -283,6 +292,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
+# generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim import context
@@ -326,12 +336,14 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
-        self.side.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
+        self.side.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

@@ -1,3 +1,4 @@
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._cumulative import Cumulative
@@ -37,11 +38,13 @@ class RelStdDev_mathCumulative(Observablefloat):
         return "RelStdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -72,6 +75,7 @@ class RelStdDev_mathCumulative(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._ew import EW
@@ -111,11 +115,13 @@ class RelStdDev_mathEW(Observablefloat):
         return "RelStdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -146,6 +152,7 @@ class RelStdDev_mathEW(Observablefloat):
         else:
             raise AttributeError
     
+# generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._moving import Moving
@@ -185,11 +192,13 @@ class RelStdDev_mathMoving(Observablefloat):
         return "RelStdDev(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         self._ctx_ex = ctx
-        self.x.bindEx(self._ctx_ex)
+        self.x.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

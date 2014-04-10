@@ -1,3 +1,4 @@
+# generated with class generator.python.constructor$Import
 from marketsim import registry
 @registry.expose(["-", "MarketMaker"])
 class MarketMaker_FloatFloat(object):
@@ -25,9 +26,11 @@ class MarketMaker_FloatFloat(object):
         return "MarketMaker(%(delta)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
-        setattr(self, '_processing_ex', True)
+        self._processing_ex = True
         
         
         delattr(self, '_processing_ex')
