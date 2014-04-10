@@ -43,6 +43,8 @@ class LiquidityProvider_FloatFloatIOrderBook(object):
         self._ctx_ex = ctx
         self.priceDistr.bind_ex(self._ctx_ex)
         self.book.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

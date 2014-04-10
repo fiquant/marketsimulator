@@ -37,6 +37,8 @@ class constant_Int(IFunctionint):
         self._processing_ex = True
         self._ctx_ex = ctx
         
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -102,6 +104,8 @@ class constant_Float(IFunctionfloat):
         self._processing_ex = True
         self._ctx_ex = ctx
         
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

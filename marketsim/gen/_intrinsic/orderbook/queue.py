@@ -33,6 +33,9 @@ class LastTrade(Observablefloat):
         self._lastTrade = value
         self.fire(self)
 
+    def bind_ex(self, ctx):
+        pass
+
     def _retranslate(self, source):
         self.set(source())
 
@@ -65,6 +68,9 @@ class Queue(object):
 
     def bind(self, ctx):
         self._scheduler = ctx.world
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
 
     @property
     def book(self):

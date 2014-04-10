@@ -289,8 +289,8 @@ def run(name, constructor, only_veusz):
         root = registry.Simulation(traders, list(ctx.books.itervalues()), ctx.graphs)
         r.insert(root)
         r.pushAllReferences()
-        context.bind(root, {'world' : world })
         root.bind_ex(context.BindingContextEx({}))
+        context.bind(root, {'world' : world })
 
         def checks():
             if not only_veusz and config.checkConsistency:

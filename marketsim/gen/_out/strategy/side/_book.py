@@ -35,6 +35,8 @@ class book_strategysideMeanReversion(IOrderBook):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -98,6 +100,8 @@ class book_strategysideFundamentalValue(IOrderBook):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -161,6 +165,8 @@ class book_strategysidePairTrading(IOrderBook):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -233,6 +239,8 @@ class Book_strategysideTrendFollower(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -273,6 +281,8 @@ class Book_strategysideCrossingAverages(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

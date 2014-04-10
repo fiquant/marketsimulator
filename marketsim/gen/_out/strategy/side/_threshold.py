@@ -32,6 +32,8 @@ class Threshold_strategysideRSIbis(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -72,6 +74,8 @@ class Threshold_strategysideTrendFollower(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -112,6 +116,8 @@ class Threshold_strategysideCrossingAverages(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -152,6 +158,8 @@ class Threshold_strategysideSignal(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

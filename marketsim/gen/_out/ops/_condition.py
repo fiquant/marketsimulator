@@ -58,10 +58,19 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -127,10 +136,19 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -190,10 +208,19 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -255,10 +282,19 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -320,10 +356,19 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -386,10 +431,19 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -453,10 +507,19 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -520,10 +583,19 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -582,10 +654,19 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -644,10 +725,19 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -704,10 +794,19 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -768,10 +867,19 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -832,10 +940,19 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -895,10 +1012,19 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -952,10 +1078,19 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -1012,10 +1147,19 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Condition(cond = None,ifpart = None,elsepart = None): 

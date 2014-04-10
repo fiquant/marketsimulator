@@ -14,6 +14,9 @@ class Event_Impl(object):
 
 #    _internals = ['_listeners']
 
+    def bind_ex(self, ctx):
+        pass
+
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
         """
@@ -177,6 +180,11 @@ class Subscription(object):
     def bind(self, context):
         self._event += self._listener
         self._subscribed = True
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+        self._event.bind_ex(ctx)
+        self.bind(ctx)
         
     def dispose(self):
         if self._subscribed:

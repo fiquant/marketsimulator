@@ -102,6 +102,10 @@ class CSV(object):
         self._source = source
         self._directory = directory
         self._custom_attr = attributes
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+        self._source.bind_ex(ctx)
         
     @property
     def source(self):
@@ -185,6 +189,10 @@ class VolumeLevelProxy(object):
     def __init__(self, source, idx):
         self._source = source
         self._idx = idx
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+        self._source.bind_ex(ctx)
         
     @property
     def data(self):

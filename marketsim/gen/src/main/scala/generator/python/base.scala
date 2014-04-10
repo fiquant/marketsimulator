@@ -103,6 +103,7 @@ package object base {
     val bound = "_bound_ex"
     val processing = "_processing_ex"
     val ctx = "_ctx_ex"
+    val subscriptions = "_subscriptions"
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
@@ -128,6 +129,8 @@ package object base {
         lazy val parameters  = f.parameters map mkParam
 
         lazy val parameters_non_primitive = parameters filterNot { p => isPrimitive(p.p.ty) }
+
+        lazy val parameters_events = parameters filter { p => p.p.ty canCastTo Typed.topLevel.IEvent }
 
         def init_fields = join_fields({ _.init })
         def init_raw_fields = join_fields({ _.init_raw })
@@ -165,7 +168,11 @@ package object base {
 
         def bindEx_properties = join_fields({ _.bindEx }, nl, parameters_non_primitive)
 
-        def bindEx = Def(bind, "ctx", bindEx_prologue | bindEx_body | bindEx_properties | bindEx_epilogue)
+        def bindEx_subscriptions : Code =
+            s"if hasattr(self, '$subscriptions'):" |>
+                s"for s in self.$subscriptions: s.$bind(self.$ctx)"
+
+        def bindEx = Def(bind, "ctx", bindEx_prologue  | bindEx_body | bindEx_properties | bindEx_subscriptions | bindEx_epilogue)
 
         def properties = "_properties = {" |> property_fields | "}"
 
@@ -247,8 +254,18 @@ package object base {
         val implementation_module =args(0).substring(0, last_dot_idx)
         val implementation_class  =args(0).substring(last_dot_idx + 1)
 
+        def bindEx_internals : Code =
+            s"if hasattr(self, '_internals'):" |>
+                    (s"for t in self._internals:" |>
+                            (s"v = getattr(self, t)" |
+                            (s"if type(v) in [list, set]:" |>
+                                    s"for w in v: w.$bind(self.$ctx)") |
+                            ("else:" |>
+                                    s"v.$bind(self.$ctx)")))
+
+
         override def bindEx_ctxCopy = s"self._ctx_ex = self.$updateContext(ctx) if hasattr(self, '$updateContext') else ctx"
-        override def bindEx_body = super.bindEx_body | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.$ctx)"
+        override def bindEx_body = bindEx_ctxCopy | bindEx_internals | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.$ctx)"
     }
 
     trait Bind extends Printer

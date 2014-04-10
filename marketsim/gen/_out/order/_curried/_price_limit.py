@@ -53,6 +53,8 @@ class price_Limit_SideFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
         self._ctx_ex = ctx
         self.side.bind_ex(self._ctx_ex)
         self.volume.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, price = None):

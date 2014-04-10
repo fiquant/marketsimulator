@@ -32,6 +32,8 @@ class Timeframe_strategypositionRSI_linear(object):
         self._processing_ex = True
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

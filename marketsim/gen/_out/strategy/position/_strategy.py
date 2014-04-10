@@ -46,6 +46,8 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
         self.orderFactory.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -124,6 +126,8 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         self._ctx_ex = ctx
         self.x.bind_ex(self._ctx_ex)
         self.orderFactory.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

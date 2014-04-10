@@ -60,9 +60,18 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.proto.bind_ex(self._ctx_ex)
         self.lotSize.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, *args, **kwargs):

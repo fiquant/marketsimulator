@@ -52,6 +52,8 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IF
         self._ctx_ex = ctx
         self.proto.bind_ex(self._ctx_ex)
         self.lotSize.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, side = None):

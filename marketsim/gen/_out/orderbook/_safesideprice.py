@@ -56,6 +56,8 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.queue.bind_ex(self._ctx_ex)
         self.defaultValue.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
@@ -142,6 +144,8 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         self._ctx_ex = ctx
         self.queue.bind_ex(self._ctx_ex)
         self.defaultValue.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     

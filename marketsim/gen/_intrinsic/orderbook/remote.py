@@ -19,6 +19,12 @@ class Queue(object):
     def reset(self):
         self._best = self._queue.best
         self._lastT = 0
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+        self.book.bind_ex(ctx)
+        self._link.bind_ex(ctx)
+
         
     @property
     def side(self):

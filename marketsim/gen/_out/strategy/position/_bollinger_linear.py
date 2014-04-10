@@ -44,6 +44,8 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(DesiredPositionSt
         self._ctx_ex = ctx
         self.k.bind_ex(self._ctx_ex)
         self.trader.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 
