@@ -53,7 +53,7 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None): 

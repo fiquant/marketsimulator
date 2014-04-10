@@ -72,7 +72,7 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 def SingleAsset(orderBook = None,strategy = None,name = None,amount = None,PnL = None,timeseries = None): 

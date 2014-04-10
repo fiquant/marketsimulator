@@ -494,7 +494,7 @@ package object Typed
 
         def primitiveTypes = List(float_, string_, int_, boolean_)
 
-        def isPrimitive(t : TypesBound.Base) = primitiveTypes contains t
+        def isPrimitive(t : TypesBound.Base) = primitiveTypes contains t.unOptionalize
 
         lazy val IOrderGenerator = getScalarBound("IOrderGenerator")
         lazy val ISingleAssetStrategy = getScalarBound("ISingleAssetStrategy")

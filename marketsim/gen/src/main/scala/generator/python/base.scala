@@ -107,6 +107,8 @@ package object base {
 
         lazy val parameters  = f.parameters map mkParam
 
+        lazy val parameters_non_primitive = parameters filter { p => Typed.topLevel.isPrimitive(p.p.ty) }
+
         def init_fields = join_fields({ _.init })
         def init_raw_fields = join_fields({ _.init_raw })
         def assign_fields = join_fields({ _.assign }, nl)
@@ -134,7 +136,7 @@ package object base {
 
         def bindEx_epilogue : Code = "delattr(self, '_processing_ex')"
 
-        def bindEx_body : Code = ""
+        def bindEx_body : Code = if (parameters_non_primitive.nonEmpty) "self._ctx_ex = ctx" else ""
 
         def bindEx = Def("bindEx", "ctx", bindEx_prologue | bindEx_body | bindEx_epilogue)
 

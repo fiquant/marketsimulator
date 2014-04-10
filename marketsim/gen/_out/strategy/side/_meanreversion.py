@@ -25,7 +25,7 @@ class MeanReversion_Float(FundamentalValueStrategy):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 

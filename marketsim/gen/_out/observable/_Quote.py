@@ -53,7 +53,7 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 def Quote(ticker = None,start = None,end = None): 

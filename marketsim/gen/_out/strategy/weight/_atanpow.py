@@ -48,7 +48,7 @@ class AtanPow_FloatFloat(IFunctionfloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

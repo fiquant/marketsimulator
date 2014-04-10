@@ -35,7 +35,7 @@ class const_Int(IObservableint,Constant_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -75,7 +75,7 @@ class const_Float(IObservablefloat,Constant_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
         delattr(self, '_processing_ex')
     
 def const(x = None): 
