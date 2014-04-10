@@ -30,6 +30,7 @@ class signedVolume_MarketSigned_(IFunctionIObservableIOrder_from_IFunctionfloat)
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
     def __call__(self, signedVolume = None):

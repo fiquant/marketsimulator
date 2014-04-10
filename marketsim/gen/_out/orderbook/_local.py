@@ -54,6 +54,7 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        for x in self.timeseries: x.bind(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None): 

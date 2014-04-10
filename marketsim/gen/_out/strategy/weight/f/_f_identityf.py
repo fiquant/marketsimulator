@@ -28,6 +28,7 @@ class f_IdentityF_(IFunctionIFunctionfloat_from_IFunctionfloat):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
     def __call__(self, f = None):

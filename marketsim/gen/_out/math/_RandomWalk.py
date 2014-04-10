@@ -64,6 +64,8 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.deltaDistr.bindEx(self._ctx_ex)
+        self.intervalDistr.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 

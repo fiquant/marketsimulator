@@ -80,7 +80,12 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        for x in self.strategies: x.bind(self._ctx_ex)
+        self.account.bindEx(self._ctx_ex)
+        self.weight.bindEx(self._ctx_ex)
+        self.normalizer.bindEx(self._ctx_ex)
+        self.corrector.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 

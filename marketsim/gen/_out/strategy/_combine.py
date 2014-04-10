@@ -41,7 +41,9 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.A.bindEx(self._ctx_ex)
+        self.B.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Combine(A = None,B = None): 

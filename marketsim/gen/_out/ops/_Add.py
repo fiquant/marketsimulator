@@ -44,7 +44,9 @@ class Add_IObservableFloatIObservableFloat(Observablefloat,Add_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -92,7 +94,9 @@ class Add_FloatIObservableFloat(Observablefloat,Add_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -140,7 +144,9 @@ class Add_IObservableFloatFloat(Observablefloat,Add_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -183,7 +189,9 @@ class Add_FloatFloat(Observablefloat,Add_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Add(x = None,y = None): 

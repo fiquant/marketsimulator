@@ -42,6 +42,7 @@ class EfficiencyTrend_IAccountFloat(IFunctionfloat):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.trader.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

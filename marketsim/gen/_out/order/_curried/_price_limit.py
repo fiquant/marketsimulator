@@ -47,7 +47,9 @@ class price_Limit_SideFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.side.bindEx(self._ctx_ex)
+        self.volume.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, price = None):

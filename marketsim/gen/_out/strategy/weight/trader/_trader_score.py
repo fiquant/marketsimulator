@@ -31,6 +31,7 @@ class trader_Score_(IFunctionIFunctionfloat_from_IAccount):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
     def __call__(self, trader = None):

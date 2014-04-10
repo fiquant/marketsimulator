@@ -52,6 +52,7 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.source.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Lagged(source = None,timeframe = None): 

@@ -73,6 +73,9 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.orderBook.bindEx(self._ctx_ex)
+        self.strategy.bindEx(self._ctx_ex)
+        for x in self.timeseries: x.bind(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def SingleAsset(orderBook = None,strategy = None,name = None,amount = None,PnL = None,timeseries = None): 

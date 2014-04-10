@@ -51,7 +51,10 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.orderbook.bindEx(self._ctx_ex)
+        self.link.bindEx(self._ctx_ex)
+        for x in self.timeseries: x.bind(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Remote(orderbook = None,link = None,timeseries = None): 

@@ -27,7 +27,8 @@ class End_strategypriceMarketData(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

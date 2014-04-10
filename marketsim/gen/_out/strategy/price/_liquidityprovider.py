@@ -38,6 +38,8 @@ class LiquidityProvider_FloatFloatIOrderBook(object):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.priceDistr.bindEx(self._ctx_ex)
+        self.book.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

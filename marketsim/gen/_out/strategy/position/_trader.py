@@ -27,7 +27,8 @@ class Trader_strategypositionRSI_linear(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -63,7 +64,8 @@ class Trader_strategypositionBollinger_linear(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

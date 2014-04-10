@@ -41,7 +41,8 @@ class side_FixedBudget_Float(IFunctionIObservableIOrder_from_IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.budget.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, side = None):

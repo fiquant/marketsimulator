@@ -46,6 +46,8 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.side.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -140,6 +142,8 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.side.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -228,6 +232,8 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.side.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -321,6 +327,8 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.side.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

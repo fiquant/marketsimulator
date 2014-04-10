@@ -69,6 +69,9 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        for x in self.traders: x.bind(self._ctx_ex)
+        self.strategy.bindEx(self._ctx_ex)
+        for x in self.timeseries: x.bind(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries = None): 

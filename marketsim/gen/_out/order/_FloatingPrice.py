@@ -56,7 +56,9 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.proto.bindEx(self._ctx_ex)
+        self.floatingPrice.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     

@@ -27,7 +27,8 @@ class Source_mathMoving(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -63,7 +64,8 @@ class Source_mathEW(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -99,7 +101,8 @@ class Source_mathmacd(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -135,7 +138,8 @@ class Source_mathRSI(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -171,7 +175,8 @@ class Source_mathCumulative(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

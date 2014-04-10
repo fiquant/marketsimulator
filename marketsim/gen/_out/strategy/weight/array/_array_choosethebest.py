@@ -29,6 +29,7 @@ class array_ChooseTheBest_(IFunctionIFunctionlistOffloat_from_listOffloat):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
     def __call__(self, array = None):

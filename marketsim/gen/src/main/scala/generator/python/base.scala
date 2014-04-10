@@ -62,6 +62,13 @@ package object base {
         def getter : Code = stop
 
         def accessors = getter | setter
+
+        def bindEx : Code = p.ty.unOptionalize match {
+            case TypesBound.List_(_) =>
+                s"for x in self.$name: x.bind(self._ctx_ex)"
+            case _ =>
+                s"self.$name.bindEx(self._ctx_ex)"
+        }
     }
 
     def Def(name : String, args : Code, body : Code) = {
@@ -107,7 +114,7 @@ package object base {
 
         lazy val parameters  = f.parameters map mkParam
 
-        lazy val parameters_non_primitive = parameters filter { p => Typed.topLevel.isPrimitive(p.p.ty) }
+        lazy val parameters_non_primitive = parameters filter { p => !Typed.topLevel.isPrimitive(p.p.ty) }
 
         def init_fields = join_fields({ _.init })
         def init_raw_fields = join_fields({ _.init_raw })
@@ -136,9 +143,11 @@ package object base {
 
         def bindEx_epilogue : Code = "delattr(self, '_processing_ex')"
 
-        def bindEx_body : Code = if (parameters_non_primitive.nonEmpty) "self._ctx_ex = ctx" else ""
+        def bindEx_ctxCopy : Code = if (parameters_non_primitive.nonEmpty) "self._ctx_ex = ctx" else ""
 
-        def bindEx = Def("bindEx", "ctx", bindEx_prologue | bindEx_body | bindEx_epilogue)
+        def bindEx_properties = join_fields({ _.bindEx }, nl, parameters_non_primitive)
+
+        def bindEx = Def("bindEx", "ctx", bindEx_prologue | bindEx_ctxCopy | bindEx_properties | bindEx_epilogue)
 
         def properties = "_properties = {" |> property_fields | "}"
 

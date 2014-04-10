@@ -57,6 +57,8 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.source.bindEx(self._ctx_ex)
+        self.graph.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 

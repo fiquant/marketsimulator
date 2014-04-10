@@ -47,7 +47,10 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -126,7 +129,10 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -205,7 +211,10 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -284,7 +293,10 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -363,7 +375,10 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -442,7 +457,10 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -521,7 +539,10 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -600,7 +621,10 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.eventGen.bindEx(self._ctx_ex)
+        self.orderFactory.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

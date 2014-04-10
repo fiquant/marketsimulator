@@ -30,7 +30,8 @@ class Value_mathRSI(IFunctionfloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -97,7 +98,8 @@ class Value_mathmacd(IFunctionfloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

@@ -30,7 +30,8 @@ class book_strategysideMeanReversion(IOrderBook):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -88,7 +89,8 @@ class book_strategysideFundamentalValue(IOrderBook):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -146,7 +148,8 @@ class book_strategysidePairTrading(IOrderBook):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -213,7 +216,8 @@ class Book_strategysideTrendFollower(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property
@@ -249,7 +253,8 @@ class Book_strategysideCrossingAverages(object):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     @property

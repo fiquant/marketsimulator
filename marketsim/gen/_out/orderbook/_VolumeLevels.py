@@ -58,6 +58,7 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.queue.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 

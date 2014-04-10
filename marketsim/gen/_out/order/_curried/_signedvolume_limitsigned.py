@@ -38,7 +38,8 @@ class signedVolume_LimitSigned_Float(IFunctionIObservableIOrder_from_IFunctionfl
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.price.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, signedVolume = None):

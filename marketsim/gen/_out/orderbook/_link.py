@@ -39,7 +39,8 @@ class Link_IObservableFloat(ILink,Link_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.latency.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Link(latency = None): 

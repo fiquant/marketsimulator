@@ -35,7 +35,8 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -75,7 +76,8 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -115,7 +117,8 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Avg(x = None): 

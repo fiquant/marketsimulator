@@ -28,7 +28,8 @@ class Noise_Float(SideStrategy):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.side_distribution.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

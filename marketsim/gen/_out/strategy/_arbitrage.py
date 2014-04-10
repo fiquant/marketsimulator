@@ -33,6 +33,7 @@ class Arbitrage_(IMultiAssetStrategy,Arbitrage_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
 def Arbitrage(): 

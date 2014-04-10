@@ -46,7 +46,9 @@ class price_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.proto.bindEx(self._ctx_ex)
+        self.lotSize.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, price = None):

@@ -44,7 +44,9 @@ class LessEqual_IObservableFloatIObservableFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -92,7 +94,9 @@ class LessEqual_FloatIObservableFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -140,7 +144,9 @@ class LessEqual_IObservableFloatFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -183,7 +189,9 @@ class LessEqual_FloatFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def LessEqual(x = None,y = None): 

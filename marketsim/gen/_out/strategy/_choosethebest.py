@@ -58,7 +58,10 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        for x in self.strategies: x.bind(self._ctx_ex)
+        self.account.bindEx(self._ctx_ex)
+        self.performance.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def ChooseTheBest(strategies = None,account = None,performance = None): 

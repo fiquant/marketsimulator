@@ -44,7 +44,9 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,Div_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -92,7 +94,9 @@ class Div_FloatIObservableFloat(Observablefloat,Div_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -140,7 +144,9 @@ class Div_IObservableFloatFloat(Observablefloat,Div_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -183,7 +189,9 @@ class Div_FloatFloat(Observablefloat,Div_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.x.bindEx(self._ctx_ex)
+        self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Div(x = None,y = None): 

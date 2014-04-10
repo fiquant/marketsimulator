@@ -29,6 +29,7 @@ class inner_Real_(IFunctionIAccount_from_ISingleAssetStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        
         delattr(self, '_processing_ex')
     
     def __call__(self, inner = None):

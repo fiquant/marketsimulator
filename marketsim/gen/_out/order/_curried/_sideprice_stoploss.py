@@ -47,7 +47,9 @@ class sideprice_StopLoss_SideFloatIObservableIOrderFloat(IFunctionIObservableIOr
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.proto.bindEx(self._ctx_ex)
+        self.maxloss.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def __call__(self, side = None,price = None):

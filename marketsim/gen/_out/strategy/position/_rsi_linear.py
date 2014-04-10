@@ -43,6 +43,8 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(DesiredPositionStr
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.k.bindEx(self._ctx_ex)
+        self.trader.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

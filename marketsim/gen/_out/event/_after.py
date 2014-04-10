@@ -36,7 +36,8 @@ class After_Float(IEvent,After_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.delay.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def After(delay = None): 

@@ -38,7 +38,8 @@ class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        for x in self.array: x.bind(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def IdentityL(array = None): 

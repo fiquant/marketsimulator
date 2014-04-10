@@ -33,6 +33,7 @@ class PairTrading_IOrderBookFloat(FundamentalValueStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.bookToDependOn.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

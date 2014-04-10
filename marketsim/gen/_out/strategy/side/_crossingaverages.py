@@ -41,6 +41,7 @@ class CrossingAverages_FloatFloatFloatIOrderBook(SignalStrategy):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
+        self.book.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 

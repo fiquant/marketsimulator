@@ -39,7 +39,8 @@ class LastTradePrice_IOrderQueue(Observablefloat,LastTradePrice_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.queue.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def LastTradePrice(queue = None): 

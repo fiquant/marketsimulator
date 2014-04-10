@@ -54,7 +54,10 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -116,7 +119,10 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -172,7 +178,10 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -230,7 +239,10 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -288,7 +300,10 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -347,7 +362,10 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -407,7 +425,10 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -467,7 +488,10 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -522,7 +546,10 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -577,7 +604,10 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -630,7 +660,10 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -687,7 +720,10 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -744,7 +780,10 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -800,7 +839,10 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -850,7 +892,10 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 from marketsim import registry
@@ -903,7 +948,10 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        
+        self._ctx_ex = ctx
+        self.cond.bindEx(self._ctx_ex)
+        self.ifpart.bindEx(self._ctx_ex)
+        self.elsepart.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     
 def Condition(cond = None,ifpart = None,elsepart = None): 
