@@ -111,33 +111,41 @@ class Base(object):
 
         self.dec()
 
+class BindingContext(object):
 
-class Binder(Base):
-    
-    def __init__(self, context = None, indent = 0):
+    def __init__(self, context = None):
         self.__dict__['_context'] = [e.copy() for e in context]\
                                         if type(context) is list else\
                                     [context.copy()]\
                                         if context else\
                                     [{}]
-        Base.__init__(self, indent)
-        
+
     def clone(self):
         return Binder(self.__dict__['_context'])
-        
+
     @property
     def context(self):
         return self.__dict__['_context'][-1]
-        
+
     def __setattr__(self, item, value):
         self.context[item] = value
-        
+
     def __getattr__(self, item):
         if item[0:2] != '__':
             return self.context[item]
         else:
             raise AttributeError
+
+
+    def push(self):
+        self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
+
+class Binder(Base, BindingContext):
     
+    def __init__(self, context = None, indent = 0):
+        BindingContext.__init__(self, context)
+        Base.__init__(self, indent)
+
     def mark_visited(self, obj):
         if '_bound' not in dir(obj):
             obj._bound = True
@@ -149,11 +157,9 @@ class Binder(Base):
         return 'updateContext' in dir(obj)
     
     def enter(self, obj):
-        def push():
-            self.__dict__['_context'].append(dict(self.__dict__['_context'][-1]))
 
         if self.hasContext(obj):
-            push()
+            self.push()
             methods_visited = set()
             for base in reversed(inspect.getmro(type(obj))):
                 if 'updateContext' in dir(base):
