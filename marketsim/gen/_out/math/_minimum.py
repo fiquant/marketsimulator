@@ -34,11 +34,11 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
     def __repr__(self):
         return "Minimum(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.x.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
     

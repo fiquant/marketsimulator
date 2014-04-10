@@ -23,7 +23,7 @@ class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
     def __repr__(self):
         return "array_IdentityL" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

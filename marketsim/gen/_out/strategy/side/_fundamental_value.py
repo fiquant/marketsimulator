@@ -26,7 +26,7 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -89,7 +89,7 @@ class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -153,7 +153,7 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
     def __repr__(self):
         return "Fundamental_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

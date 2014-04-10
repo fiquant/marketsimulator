@@ -59,11 +59,11 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     def __repr__(self):
         return "%(name)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.deltaDistr.bindEx(self._ctx_ex)
         self.intervalDistr.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')

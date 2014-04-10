@@ -26,7 +26,7 @@ class Side_strategysideNoise(IFunctionSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -97,7 +97,7 @@ class Side_strategysideMeanReversion(ObservableSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -167,7 +167,7 @@ class Side_strategysideRSIbis(IFunctionSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -241,7 +241,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -311,7 +311,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -378,7 +378,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -445,7 +445,7 @@ class Side_strategysideSignal(IFunctionSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -519,7 +519,7 @@ class Side_strategysidePairTrading(ObservableSide):
     def __repr__(self):
         return "Side(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

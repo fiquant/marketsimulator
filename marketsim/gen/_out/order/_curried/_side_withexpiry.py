@@ -41,7 +41,7 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from
     def __repr__(self):
         return "WithExpiry(%(proto)s, %(expiry)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

@@ -44,7 +44,7 @@ class triangular_FloatFloatFloat(IFunctionfloat):
     def __repr__(self):
         return "triangular(%(Low)s, %(High)s, %(Mode)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

@@ -31,7 +31,7 @@ class const_Int(IObservableint,Constant_Impl):
     def __repr__(self):
         return "C=%(x)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -72,7 +72,7 @@ class const_Float(IObservablefloat,Constant_Impl):
     def __repr__(self):
         return "C=%(x)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

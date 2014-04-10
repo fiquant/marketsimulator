@@ -40,11 +40,11 @@ class NotEqual_IObservableFloatIObservableFloat(Observablebool,NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -90,11 +90,11 @@ class NotEqual_FloatIObservableFloat(Observablebool,NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -140,11 +140,11 @@ class NotEqual_IObservableFloatFloat(Observablebool,NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -185,11 +185,11 @@ class NotEqual_FloatFloat(Observablebool,NotEqual_Impl):
     def __repr__(self):
         return "({%(x)s}<>{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')

@@ -43,7 +43,7 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -123,7 +123,7 @@ class Min_FloatIObservableFloat(Observablefloat):
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -203,7 +203,7 @@ class Min_IObservableFloatFloat(Observablefloat):
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -281,7 +281,7 @@ class Min_FloatFloat(Observablefloat):
     def __repr__(self):
         return "min{%(x)s, %(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

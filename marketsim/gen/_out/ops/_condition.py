@@ -50,11 +50,11 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -115,11 +115,11 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -174,11 +174,11 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -235,11 +235,11 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -296,11 +296,11 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -358,11 +358,11 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -421,11 +421,11 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -484,11 +484,11 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -542,11 +542,11 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -600,11 +600,11 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -656,11 +656,11 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -716,11 +716,11 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -776,11 +776,11 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -835,11 +835,11 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -888,11 +888,11 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)
@@ -944,11 +944,11 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
     def __repr__(self):
         return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
-        self._ctx_ex = ctx
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
         self.cond.bindEx(self._ctx_ex)
         self.ifpart.bindEx(self._ctx_ex)
         self.elsepart.bindEx(self._ctx_ex)

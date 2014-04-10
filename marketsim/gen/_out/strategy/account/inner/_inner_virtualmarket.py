@@ -26,7 +26,7 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     def __repr__(self):
         return "inner_VirtualMarket" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

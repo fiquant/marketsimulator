@@ -26,7 +26,7 @@ class Signal_Value_strategysideRSIbis(IFunctionfloat):
     def __repr__(self):
         return "Signal_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -92,7 +92,7 @@ class Signal_Value_strategysideTrendFollower(IFunctionfloat):
     def __repr__(self):
         return "Signal_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -156,7 +156,7 @@ class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
     def __repr__(self):
         return "Signal_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -221,7 +221,7 @@ class Signal_Value_strategysideSignal(IFunctionfloat):
     def __repr__(self):
         return "Signal_Value(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

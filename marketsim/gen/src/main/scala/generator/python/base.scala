@@ -65,9 +65,9 @@ package object base {
 
         def bindEx : Code = p.ty.unOptionalize match {
             case TypesBound.List_(_) =>
-                s"for x in self.$name: x.bind(self._ctx_ex)"
+                s"for x in self.$name: x.bind(self.$ctx)"
             case _ =>
-                s"self.$name.bindEx(self._ctx_ex)"
+                s"self.$name.bindEx(self.$ctx)"
         }
     }
 
@@ -90,6 +90,11 @@ package object base {
         Getter(name, getter_body) |
         Setter(name, setter_body) |
         s"$name = property(get_$name, set_$name)"
+
+    val updateContext = "updateContext_ex"
+    val bind = "bind_ex"
+    val processing = "_processing_ex"
+    val ctx = "_ctx_ex"
 
     abstract class Printer extends Class {
         type Parameter <: base.Parameter
@@ -138,16 +143,18 @@ package object base {
         }
 
         def bindEx_prologue =
-            "if hasattr(self, '_processing_ex'):" |> "raise Exception('cycle detected')" |
-            "setattr(self, '_processing_ex', True)"
+            s"if hasattr(self, '$processing'):" |> "raise Exception('cycle detected')" |
+            s"setattr(self, '$processing', True)"
 
-        def bindEx_epilogue : Code = "delattr(self, '_processing_ex')"
+        def bindEx_epilogue : Code = s"delattr(self, '$processing')"
 
-        def bindEx_ctxCopy : Code = if (parameters_non_primitive.nonEmpty) "self._ctx_ex = ctx" else ""
+        def bindEx_ctxCopy : Code = s"self.$ctx = ctx"
+
+        def bindEx_body : Code = if (parameters_non_primitive.nonEmpty) bindEx_ctxCopy else ""
 
         def bindEx_properties = join_fields({ _.bindEx }, nl, parameters_non_primitive)
 
-        def bindEx = Def("bindEx", "ctx", bindEx_prologue | bindEx_ctxCopy | bindEx_properties | bindEx_epilogue)
+        def bindEx = Def(bind, "ctx", bindEx_prologue | bindEx_body | bindEx_properties | bindEx_epilogue)
 
         def properties = "_properties = {" |> property_fields | "}"
 
@@ -228,6 +235,8 @@ package object base {
         val last_dot_idx = args(0).lastIndexOf(".")
         val implementation_module =args(0).substring(0, last_dot_idx)
         val implementation_class  =args(0).substring(last_dot_idx + 1)
+
+        override def bindEx_ctxCopy = s"self._ctx_ex = self.$updateContext(ctx) if hasattr(self, '$updateContext') else ctx"
     }
 
     trait Bind extends Printer

@@ -27,7 +27,7 @@ class trader_TraderEfficiencyTrend_Float(IFunctionIFunctionfloat_from_IAccount):
     def __repr__(self):
         return "trader_TraderEfficiencyTrend(%(alpha)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

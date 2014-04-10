@@ -41,7 +41,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
     def __repr__(self):
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -137,7 +137,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     def __repr__(self):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -227,7 +227,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     def __repr__(self):
         return "MarketMakerSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
@@ -322,7 +322,7 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
     def __repr__(self):
         return "MarketDataSide(%(x)s, %(side)s, %(sign)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

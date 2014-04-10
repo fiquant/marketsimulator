@@ -43,7 +43,7 @@ class side_StopLoss_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_I
     def __repr__(self):
         return "StopLoss(%(proto)s, %(maxloss)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)

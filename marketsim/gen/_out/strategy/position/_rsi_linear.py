@@ -38,7 +38,7 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(DesiredPositionStr
     def __repr__(self):
         return "RSI_linear(%(alpha)s, %(k)s, %(timeframe)s, %(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
-    def bindEx(self, ctx):
+    def bind_ex(self, ctx):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
