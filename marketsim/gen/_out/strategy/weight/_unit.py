@@ -43,6 +43,7 @@ class Unit_IAccount(IFunctionfloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.trader.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

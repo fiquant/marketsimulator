@@ -69,6 +69,7 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         for x in self.traders: x.bind(self._ctx_ex)
         self.strategy.bindEx(self._ctx_ex)
         for x in self.timeseries: x.bind(self._ctx_ex)

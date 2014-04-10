@@ -45,6 +45,7 @@ class Mul_IObservableFloatIObservableFloat(Observablefloat,Mul_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -95,6 +96,7 @@ class Mul_FloatIObservableFloat(Observablefloat,Mul_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -145,6 +147,7 @@ class Mul_IObservableFloatFloat(Observablefloat,Mul_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -190,6 +193,7 @@ class Mul_FloatFloat(Observablefloat,Mul_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')

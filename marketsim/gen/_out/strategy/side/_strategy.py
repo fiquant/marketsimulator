@@ -51,6 +51,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -133,6 +134,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -215,6 +217,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -297,6 +300,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -379,6 +383,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -461,6 +466,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -543,6 +549,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -625,6 +632,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         self.x.bindEx(self._ctx_ex)
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

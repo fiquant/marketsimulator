@@ -34,6 +34,7 @@ class observableNothing_(ObservableSide,None_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         
         delattr(self, '_processing_ex')
     

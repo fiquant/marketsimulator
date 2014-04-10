@@ -42,6 +42,7 @@ class RelStdDev_mathCumulative(Observablefloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -115,6 +116,7 @@ class RelStdDev_mathEW(Observablefloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -188,6 +190,7 @@ class RelStdDev_mathMoving(Observablefloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

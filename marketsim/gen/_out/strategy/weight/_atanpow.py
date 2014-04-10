@@ -50,6 +50,7 @@ class AtanPow_FloatFloat(IFunctionfloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.f.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

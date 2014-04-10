@@ -50,6 +50,7 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.elsePart.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -131,6 +132,7 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.elsePart.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -212,6 +214,7 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.elsePart.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -291,6 +294,7 @@ class IfDefined_FloatFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.elsePart.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

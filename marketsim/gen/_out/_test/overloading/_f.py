@@ -28,6 +28,7 @@ class f_Int(IFunctionint):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -81,6 +82,7 @@ class f_Float(IFunctionfloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

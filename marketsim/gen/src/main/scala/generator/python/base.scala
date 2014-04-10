@@ -93,6 +93,7 @@ package object base {
 
     val updateContext = "updateContext_ex"
     val bind = "bind_ex"
+    val bindImpl = "bind_impl"
     val processing = "_processing_ex"
     val ctx = "_ctx_ex"
 
@@ -237,6 +238,7 @@ package object base {
         val implementation_class  =args(0).substring(last_dot_idx + 1)
 
         override def bindEx_ctxCopy = s"self._ctx_ex = self.$updateContext(ctx) if hasattr(self, '$updateContext') else ctx"
+        override def bindEx_body = super.bindEx_body | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.$ctx)"
     }
 
     trait Bind extends Printer
@@ -255,6 +257,10 @@ package object base {
         override def body = super.body | internals | call | reset | getImpl | getattr
 
         override def call_body = "return self.impl()"
+
+        override def bindEx_body = bindEx_ctxCopy
+
+        override def bindEx_properties = super.bindEx_properties | s"self.impl.$bind(self.$ctx)"
 
         override def init_body =
             super.init_body |

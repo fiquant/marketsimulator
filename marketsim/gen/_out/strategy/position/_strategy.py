@@ -43,6 +43,7 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -117,6 +118,7 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

@@ -53,6 +53,7 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.queue.bindEx(self._ctx_ex)
         self.defaultValue.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -135,6 +136,7 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         self._ctx_ex = ctx
         self.queue.bindEx(self._ctx_ex)
         self.defaultValue.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

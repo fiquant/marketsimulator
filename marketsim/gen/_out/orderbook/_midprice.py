@@ -42,6 +42,7 @@ class MidPrice_IOrderBook(Observablefloat):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.book.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

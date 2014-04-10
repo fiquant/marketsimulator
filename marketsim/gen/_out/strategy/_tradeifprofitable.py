@@ -66,6 +66,7 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         self.inner.bindEx(self._ctx_ex)
         self.account.bindEx(self._ctx_ex)
         self.performance.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

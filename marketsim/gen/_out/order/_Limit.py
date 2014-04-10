@@ -63,6 +63,7 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.side.bindEx(self._ctx_ex)
         self.price.bindEx(self._ctx_ex)
         self.volume.bindEx(self._ctx_ex)

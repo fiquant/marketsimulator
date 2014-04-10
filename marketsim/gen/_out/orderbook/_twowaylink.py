@@ -47,6 +47,7 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
             raise Exception('cycle detected')
         setattr(self, '_processing_ex', True)
         self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.up.bindEx(self._ctx_ex)
         self.down.bindEx(self._ctx_ex)
         delattr(self, '_processing_ex')

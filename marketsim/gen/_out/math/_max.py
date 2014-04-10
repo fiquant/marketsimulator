@@ -50,6 +50,7 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -130,6 +131,7 @@ class Max_FloatIObservableFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -210,6 +212,7 @@ class Max_IObservableFloatFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -288,6 +291,7 @@ class Max_FloatFloat(Observablefloat):
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
         self.y.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

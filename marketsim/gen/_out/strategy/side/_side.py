@@ -32,6 +32,7 @@ class Side_strategysideNoise(IFunctionSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -103,6 +104,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -173,6 +175,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -247,6 +250,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -317,6 +321,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -384,6 +389,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -451,6 +457,7 @@ class Side_strategysideSignal(IFunctionSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -525,6 +532,7 @@ class Side_strategysidePairTrading(ObservableSide):
         setattr(self, '_processing_ex', True)
         self._ctx_ex = ctx
         self.x.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):

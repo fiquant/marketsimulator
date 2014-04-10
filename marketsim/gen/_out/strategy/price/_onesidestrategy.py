@@ -59,6 +59,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
         self.side.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
@@ -148,6 +149,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.eventGen.bindEx(self._ctx_ex)
         self.orderFactory.bindEx(self._ctx_ex)
         self.side.bindEx(self._ctx_ex)
+        self.impl.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
     def bind(self, ctx):
