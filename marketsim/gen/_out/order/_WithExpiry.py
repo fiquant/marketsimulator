@@ -51,6 +51,13 @@ class WithExpiry_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
     def __repr__(self):
         return "WithExpiry(%(proto)s, %(expiry)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.meta.with_expiry import Order_Impl
         proto = self.proto()

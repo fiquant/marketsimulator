@@ -23,6 +23,13 @@ class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
     def __repr__(self):
         return "array_IdentityL" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, array = None):
         from marketsim.gen._out.strategy.weight._identityl import IdentityL_ListFloat as _strategy_weight_IdentityL_ListFloat
         array = array if array is not None else []

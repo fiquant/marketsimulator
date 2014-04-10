@@ -47,6 +47,13 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
     def __repr__(self):
         return "Lagged_{%(timeframe)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Lagged(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

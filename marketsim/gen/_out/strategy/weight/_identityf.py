@@ -35,6 +35,13 @@ class IdentityF_Float(IFunctionfloat):
     def __repr__(self):
         return "IdentityF(%(f)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     

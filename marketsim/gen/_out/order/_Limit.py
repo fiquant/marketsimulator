@@ -58,6 +58,13 @@ class Limit_SideFloatFloat(ObservableIOrder,IObservableIOrder):
     def __repr__(self):
         return "Limit(%(side)s, %(price)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, *args, **kwargs):
         from marketsim.gen._intrinsic.order.limit import Order_Impl
         side = self.side()

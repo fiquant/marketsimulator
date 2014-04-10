@@ -23,6 +23,13 @@ class Alpha_1_strategysideCrossingAverages(object):
     def __repr__(self):
         return "Alpha_1(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     @property
     def dereference(self):
         return self.x.alpha_1

@@ -76,6 +76,13 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
     def __repr__(self):
         return "MultiArmedBandit(%(strategies)s, %(account)s, %(weight)s, %(normalizer)s, %(corrector)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
     from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
     from marketsim import rtti

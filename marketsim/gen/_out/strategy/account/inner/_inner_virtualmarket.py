@@ -26,6 +26,13 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     def __repr__(self):
         return "inner_VirtualMarket" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, inner = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
         from marketsim import deref_opt

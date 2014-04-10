@@ -31,6 +31,13 @@ class macd_IObservableFloatFloatFloat(object):
     def __repr__(self):
         return "MACD_{%(fast)s}^{%(slow)s}(%(source)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 
     def Histogram(self, timeframe = None,step = None):
         from marketsim.gen._out.math._histogram import Histogram

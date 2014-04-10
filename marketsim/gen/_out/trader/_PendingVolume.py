@@ -34,6 +34,13 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
     def __repr__(self):
         return "PendingVolume(%(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def PendingVolume(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

@@ -31,6 +31,13 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
     def __repr__(self):
         return "Var(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.moments.ewmv import EWMV_Impl
@@ -64,6 +71,13 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
     def __repr__(self):
         return "Var(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.moments.mv import MV_Impl
@@ -96,6 +110,13 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
     
     def __repr__(self):
         return "Var(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 def Var(x = None): 
     from marketsim.gen._out.math._cumulative import Cumulative

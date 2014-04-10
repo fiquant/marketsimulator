@@ -52,6 +52,13 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
     def __repr__(self):
         return "FloatingPrice(%(proto)s, %(floatingPrice)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     
 def FloatingPrice(proto = None,floatingPrice = None): 
     from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat

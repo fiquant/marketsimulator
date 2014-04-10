@@ -63,6 +63,13 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
     def __repr__(self):
         return "%(source)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
     from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
     from marketsim.gen._out._igraph import IGraph

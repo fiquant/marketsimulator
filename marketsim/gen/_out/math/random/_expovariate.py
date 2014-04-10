@@ -29,6 +29,13 @@ class expovariate_Float(IFunctionfloat):
     def __repr__(self):
         return "expovariate(%(Lambda)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, *args, **kwargs):
         import random
         return random.expovariate(self.Lambda)

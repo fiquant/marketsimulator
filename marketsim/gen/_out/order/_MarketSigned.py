@@ -38,6 +38,13 @@ class MarketSigned_Float(ObservableIOrder,IObservableIOrder):
     def __repr__(self):
         return "MarketSigned(%(signedVolume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, *args, **kwargs):
         from marketsim.gen._out._side import Side
         from marketsim.gen._intrinsic.order.market import Order_Impl

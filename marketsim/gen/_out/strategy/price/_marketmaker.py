@@ -24,6 +24,13 @@ class MarketMaker_FloatFloat(object):
     def __repr__(self):
         return "MarketMaker(%(delta)s, %(volume)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 
     def OneSide(self, side = None,sign = None):
         from marketsim.gen._out.strategy.price._oneside import OneSide

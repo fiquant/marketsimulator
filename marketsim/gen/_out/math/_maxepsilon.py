@@ -45,6 +45,13 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
     def __repr__(self):
         return "Max_{\\epsilon}(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def MaxEpsilon(x = None,epsilon = None): 
     from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

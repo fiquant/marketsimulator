@@ -24,6 +24,13 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
     }
     
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def SingleProxy(): 
     from marketsim import rtti
     return SingleProxy_()

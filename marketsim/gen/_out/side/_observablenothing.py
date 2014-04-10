@@ -29,6 +29,13 @@ class observableNothing_(ObservableSide,None_Impl):
     def __repr__(self):
         return "observableNothing" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def observableNothing(): 
     from marketsim import rtti
     return observableNothing_()

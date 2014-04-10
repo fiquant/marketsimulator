@@ -31,6 +31,13 @@ class OfTrader_IAccount(IOrderBook,OfTrader_Impl):
     
     
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def OfTrader(Trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

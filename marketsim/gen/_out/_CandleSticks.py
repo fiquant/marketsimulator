@@ -49,6 +49,13 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
     def __repr__(self):
         return "Candles_{%(source)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def CandleSticks(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

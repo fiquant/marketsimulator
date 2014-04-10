@@ -41,6 +41,13 @@ class side_price_WithExpiry_SideFloatIObservableIOrderFloat(IFunctionIFunctionIO
     def __repr__(self):
         return "price_WithExpiry(%(proto)s, %(expiry)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim import deref_opt

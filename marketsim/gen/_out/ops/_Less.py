@@ -40,6 +40,13 @@ class Less_IObservableFloatIObservableFloat(Observablebool,Less_Impl):
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -80,6 +87,13 @@ class Less_FloatIObservableFloat(Observablebool,Less_Impl):
     
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -122,6 +136,13 @@ class Less_IObservableFloatFloat(Observablebool,Less_Impl):
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._intrinsic.ops import Less_Impl
@@ -157,6 +178,13 @@ class Less_FloatFloat(Observablebool,Less_Impl):
     
     def __repr__(self):
         return "({%(x)s}<{%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 def Less(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

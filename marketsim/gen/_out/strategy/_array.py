@@ -32,6 +32,13 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
     def __repr__(self):
         return "Array(%(strategies)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Array(strategies = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim import listOf

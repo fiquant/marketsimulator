@@ -39,6 +39,13 @@ class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
     def __repr__(self):
         return "Queue(%(book)s, %(side)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Queue(book = None,side = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide

@@ -53,6 +53,13 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
     def __repr__(self):
         return "VolumeLevels(%(queue)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue
     from marketsim import rtti

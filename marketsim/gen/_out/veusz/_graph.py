@@ -28,6 +28,13 @@ class Graph_String(IGraph,Graph_Impl):
     def __repr__(self):
         return "Graph(%(name)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Graph(name = None): 
     from marketsim import rtti
     if name is None or rtti.can_be_casted(name, str):

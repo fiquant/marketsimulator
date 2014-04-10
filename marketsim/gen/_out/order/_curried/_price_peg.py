@@ -33,6 +33,13 @@ class price_Peg_FloatIObservableIOrder(IFunctionIObservableIOrder_from_IFunction
     def __repr__(self):
         return "Peg(%(proto)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt

@@ -25,6 +25,13 @@ class Proxy_(IOrderBook,Proxy_Impl):
     }
     
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Proxy(): 
     from marketsim import rtti
     return Proxy_()

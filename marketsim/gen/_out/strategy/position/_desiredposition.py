@@ -31,6 +31,13 @@ class DesiredPosition_strategypositionRSI_linear(Observablefloat):
     def __repr__(self):
         return "DesiredPosition(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -97,6 +104,13 @@ class DesiredPosition_strategypositionBollinger_linear(Observablefloat):
     
     def __repr__(self):
         return "DesiredPosition(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

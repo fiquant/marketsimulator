@@ -40,6 +40,13 @@ class Div_IObservableFloatIObservableFloat(Observablefloat,Div_Impl):
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -80,6 +87,13 @@ class Div_FloatIObservableFloat(Observablefloat,Div_Impl):
     
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -122,6 +136,13 @@ class Div_IObservableFloatFloat(Observablefloat,Div_Impl):
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.ops import Div_Impl
@@ -157,6 +178,13 @@ class Div_FloatFloat(Observablefloat,Div_Impl):
     
     def __repr__(self):
         return "\\frac{%(x)s}{%(y)s}" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 def Div(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

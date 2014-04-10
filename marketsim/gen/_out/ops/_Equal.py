@@ -40,6 +40,13 @@ class Equal_IObservableFloatIObservableFloat(Observablebool,Equal_Impl):
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._intrinsic.ops import Equal_Impl
@@ -80,6 +87,13 @@ class Equal_FloatIObservableFloat(Observablebool,Equal_Impl):
     
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -122,6 +136,13 @@ class Equal_IObservableFloatFloat(Observablebool,Equal_Impl):
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
 from marketsim.gen._intrinsic.ops import Equal_Impl
@@ -157,6 +178,13 @@ class Equal_FloatFloat(Observablebool,Equal_Impl):
     
     def __repr__(self):
         return "({%(x)s}=={%(y)s})" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
     
 def Equal(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

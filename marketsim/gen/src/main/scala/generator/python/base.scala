@@ -128,6 +128,15 @@ package object base {
             case None => alias ||| (if (parameters.isEmpty) "" else s"($repr_fields)")
         }
 
+        def bindEx_prologue =
+            "if hasattr(self, '_processing_ex'):" |> "raise Exception('cycle detected')" |
+            "setattr(self, '_processing_ex', True)"
+
+        def bindEx_epilogue : Code = "delattr(self, '_processing_ex')"
+
+        def bindEx_body : Code = ""
+
+        def bindEx = Def("bindEx", "ctx", bindEx_prologue | bindEx_body | bindEx_epilogue)
 
         def properties = "_properties = {" |> property_fields | "}"
 
@@ -139,7 +148,7 @@ package object base {
         def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
-        def body = doc | init | label | properties | accessors | repr
+        def body = doc | init | label | properties | accessors | repr | bindEx
     }
 
     trait DocString extends Printer {

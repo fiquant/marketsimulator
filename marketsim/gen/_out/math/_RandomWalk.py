@@ -59,6 +59,13 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     def __repr__(self):
         return "%(name)s" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

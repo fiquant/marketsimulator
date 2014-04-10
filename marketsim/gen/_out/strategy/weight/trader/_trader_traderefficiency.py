@@ -23,6 +23,13 @@ class trader_TraderEfficiency_(IFunctionIFunctionfloat_from_IAccount):
     def __repr__(self):
         return "trader_TraderEfficiency" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
     def __call__(self, trader = None):
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import deref_opt

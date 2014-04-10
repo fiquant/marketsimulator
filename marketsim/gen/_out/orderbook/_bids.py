@@ -31,6 +31,13 @@ class Bids_IOrderBook(IOrderQueue,Bids_Impl):
     def __repr__(self):
         return "Bids(%(book)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
+    def bindEx(self, ctx):
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        setattr(self, '_processing_ex', True)
+        
+        delattr(self, '_processing_ex')
+    
 def Bids(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti
