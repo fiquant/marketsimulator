@@ -1356,6 +1356,11 @@ package strategy
         
         def TwoSides(x = .strategy.price.MarketData()) = .strategy.Combine(x~>OneSide(.side.Sell(),1.0),x~>OneSide(.side.Buy(),-1.0))
         
+        @python.intrinsic("strategy.ladder.OneSide_Impl")
+        def Ladder(orderFactory = .order.side_price.Limit(),
+                   initialSize = 10,
+                   side = .side.Sell()) : .ISingleAssetStrategy
+        
         def OneSide(x = .strategy.price.MarketMaker(),
                     side = .side.Sell(),
                     sign = 1.0) = .order.price.Limit(side,x~>Volume*1000)~>FloatingPrice(.orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+x~>Delta*sign)/.trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(x~>Volume)~>Strategy(.event.After(0.0))

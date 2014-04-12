@@ -14,3 +14,4 @@ from try_arbitrage import Arbitrage
 from try_rsi import RSI
 from try_market_data import MarketData
 from try_market_maker import MarketMaker
+from try_ladder import Ladder

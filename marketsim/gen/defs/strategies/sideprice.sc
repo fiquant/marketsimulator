@@ -35,6 +35,11 @@ package strategy.price
 
     }
 
+    @python.intrinsic("strategy.ladder.OneSide_Impl")
+    def Ladder(orderFactory = .order.side_price.Limit(),
+               initialSize  = 10,
+               side         = .side.Sell()) : ISingleAssetStrategy
+
     /**
      *  A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

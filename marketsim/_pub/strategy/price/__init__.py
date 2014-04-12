@@ -8,6 +8,8 @@ from marketsim.gen._out.strategy.price._twosides import TwoSides
 
 from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
 
+from marketsim.gen._out.strategy.price._ladder import Ladder
+
 from marketsim.gen._out.strategy.price._oneside import OneSide
 
 from marketsim.gen._out.strategy.price._price import Price

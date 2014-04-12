@@ -82,7 +82,7 @@ class Queue(object):
         """Notifies order queue listeners if the best order has changed
         """
         best = self.best
-        bestpv = None if best is None else (best.price, best.volumeUnmatched)
+        bestpv = None if best is None else (best.ticks, best.volumeUnmatched)
 
         if bestpv != self._lastBest:
             self._lastBest = bestpv
@@ -94,24 +94,29 @@ class Queue(object):
     def __repr__(self):
         return self.__str__()
 
+    def ticksToPrice(self, ticks):
+        return self.side.makePriceSigned(ticks * self._tickSize)
+
     def ticks(self, price):
         """ Corrects 'price' with respect to the tick size
         Returns signed integer number of ticks for the price
         and corrected unsigned order price
         """
-        ticks = int(math.ceil(self.side.makePriceSigned(price) / self._tickSize))
-        return (+ticks, self.side.makePriceSigned(ticks * self._tickSize))
+        ticks = int(math.floor(self.side.makePriceSigned(price) / self._tickSize + 0.5))
+        return +ticks, self.ticksToPrice(ticks)
 
     def push(self, order):
         """ Pushes 'order' into the queue.
         May correct limit price of the order with respect to the tick size
         May notify listeners about that the best order changed
         """
-        (ticks, correctedPrice) = self.ticks(order.price)
-        if order.price != correctedPrice:
-            # save corrected price in the order if needed
-            order.price = correctedPrice
-        heapq.heappush(self._elements, ((ticks, self._counter), order))
+        if order.ticks is None:
+            (ticks, correctedPrice) = self.ticks(order.price)
+            order.ticks = ticks
+            if order.price != correctedPrice:
+                # save corrected price in the order if needed
+                order.price = correctedPrice
+        heapq.heappush(self._elements, ((order.ticks, self._counter), order))
         self._counter += 1
         # notify listeners if the best order changed
         self.notifyIfBestChanged()

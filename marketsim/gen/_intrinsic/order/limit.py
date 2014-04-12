@@ -10,11 +10,20 @@ class Order_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
         price is a limit price on which order can be traded
         if there are no suitable orders, the limit order remains in the order book
         """
+        self._ticks = None
         HasSide.__init__(self, side)
         HasVolume.__init__(self, volume, volumeFilled)
         Cancellable.__init__(self)
         Default.__init__(self, owner)
         HasPrice.__init__(self, price)
+
+    @property
+    def ticks(self):
+        return self._ticks
+
+    @ticks.setter
+    def ticks(self, value):
+        self._ticks = value
         
     def copyTo(self, dst):
         HasSide.copyTo(self, dst)

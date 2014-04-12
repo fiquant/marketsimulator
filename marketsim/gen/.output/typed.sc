@@ -2207,6 +2207,12 @@ package strategy {@category = "Side function"
                               /** asset in question */ book : Optional[.IOrderBook] = .orderbook.OfTrader()) : .strategy.price.LiquidityProvider
         
         
+        @python.intrinsic("strategy.ladder.OneSide_Impl")
+        def Ladder(orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                   initialSize : Optional[.Int] = 10,
+                   side : Optional[() => .Side] = .side.Sell()) : .ISingleAssetStrategy
+        
+        
         def OneSide(x : Optional[.strategy.price.MarketMaker] = .strategy.price.MarketMaker(),
                     side : Optional[.IObservable[.Side]] = .side.observableSell(),
                     sign : Optional[.Float] = 1.0) : .ISingleAssetStrategy
