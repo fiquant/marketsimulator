@@ -23,35 +23,37 @@ package strategy.price() {
                initialSize = 10,
                side = .side.Sell()) : ISingleAssetStrategy
     
-    type ILadderStrategy : ISingleAssetStrategy
+    type ISuspendableStrategy : ISingleAssetStrategy
     
-    // defined at defs\strategies\sideprice.sc: 45.5
+    type ILadderStrategy : ISuspendableStrategy
+    
+    // defined at defs\strategies\sideprice.sc: 46.5
     @python.intrinsic("strategy.ladder.MarketMaker_Impl")
     def LadderMM(orderFactory = .order.side_price.Limit(),
                  initialSize = 10) : ILadderStrategy
     
-    // defined at defs\strategies\sideprice.sc: 49.5
+    // defined at defs\strategies\sideprice.sc: 50.5
     @python.intrinsic("strategy.ladder.Balancer_Impl")
     def LadderBalancer(inner = LadderMM(),
                        maximalSize = 20) : ILadderStrategy
     
     type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
     {
-        // defined at defs\strategies\sideprice.sc: 74.9
+        // defined at defs\strategies\sideprice.sc: 75.9
         def OneSide(side = side.Sell(),
                     sign = 1.0) = order.price.Limit(side,volume*1000)~>FloatingPrice(ticker~>Quote(start,end)+delta*sign~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(event.After(0.0))
         
-        // defined at defs\strategies\sideprice.sc: 81.9
+        // defined at defs\strategies\sideprice.sc: 82.9
         def TwoSides() = Combine(OneSide(side.Sell(),1.0),OneSide(side.Buy(),-1.0))
     }
     
     type MarketMaker(delta = 1.0,volume = 20.0)
     {
-        // defined at defs\strategies\sideprice.sc: 86.9
+        // defined at defs\strategies\sideprice.sc: 87.9
         def OneSide(side = side.Sell(),
                     sign = 1.0) = order.price.Limit(side,volume*1000)~>FloatingPrice(orderbook.OfTrader()~>Queue(side)~>SafeSidePrice(100+delta*sign)/trader.Position()~>Atan/1000~>Exp~>OnEveryDt(0.9)~>BreaksAtChanges)~>Iceberg(volume)~>Strategy(event.After(0.0))
         
-        // defined at defs\strategies\sideprice.sc: 95.9
+        // defined at defs\strategies\sideprice.sc: 96.9
         def TwoSides() = Combine(OneSide(side.Sell(),1.0),OneSide(side.Buy(),-1.0))
     }
 }

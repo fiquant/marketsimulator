@@ -2162,9 +2162,11 @@ package strategy {@category = "Side function"
     package price {
         type LiquidityProvider
         
-        type ILadderStrategy : ISingleAssetStrategy
+        type ILadderStrategy : ISuspendableStrategy
         
         type MarketData
+        
+        type ISuspendableStrategy : ISingleAssetStrategy
         
         type MarketMaker
         @category = "-"

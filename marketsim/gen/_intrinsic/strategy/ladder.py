@@ -19,10 +19,19 @@ class OneSide_Impl(Strategy, OneSide_Base):
         self._sign = 1 if Side.Sell == self.side() else -1
         self._orders = None
         self._size = self.initialSize
+        self._suspended = False
         event.subscribe(self._source, _(self)._wakeUp, self)
 
+    @property
+    def suspended(self):
+        return self._suspended
+
+    @suspended.setter
+    def suspended(self, value):
+        self._suspended = value
+
     def extend(self):
-        if self._orders:
+        if self._orders and not self.suspended:
             self._orders.appendleft(self._makeOrder(self._first.ticks - 1))
             self._send(self._first)
         self._size += 1
@@ -43,6 +52,10 @@ class OneSide_Impl(Strategy, OneSide_Base):
         return self._orders[len(self._orders) - 1]
 
     def _wakeUp(self, _):
+
+        if self.suspended:
+            return
+
         price = self._source()
 
         if price is not None:
@@ -92,6 +105,17 @@ class MarketMaker_Impl(Strategy, MarketMaker_Base):
         event.subscribe(self._seller.on_order_created, _(self)._send, self)
         event.subscribe(self._buyer.on_order_created, _(self)._send, self)
 
+    @property
+    def suspended(self):
+        assert self._seller.suspended == self._buyer.suspended
+        return self._seller.suspended
+
+    @suspended.setter
+    def suspended(self, value):
+        self._seller.suspended = value
+        self._buyer.suspended = value
+
+
     _internals = ['_seller', '_buyer']
 
     def dispose(self):
@@ -111,6 +135,14 @@ class Balancer_Impl(Strategy, Balancer_Base):
         return self.inner._seller
 
     @property
+    def suspended(self):
+        return self.inner.suspended
+
+    @suspended.setter
+    def suspended(self, value):
+        self.inner.suspended = value
+
+    @property
     def _buyer(self):
         return self.inner._buyer
 
@@ -118,7 +150,7 @@ class Balancer_Impl(Strategy, Balancer_Base):
         event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self, context)
 
     def _onOrderMatched(self, trader, order, price, volume):
-        if order.empty and hasattr(order, 'source'):
+        if order.empty and hasattr(order, 'source') and not self.suspended:
             if order.source == self._seller:
                 if self._buyer._size < self.maximalSize:
                     self._buyer.extend()

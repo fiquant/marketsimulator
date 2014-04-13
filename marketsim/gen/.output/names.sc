@@ -1348,9 +1348,11 @@ package strategy
         type LiquidityProvider(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,/** defines multipliers for current asset price when price of
           *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),/** asset in question */ book = .orderbook.OfTrader())
         
-        type ILadderStrategy : ISingleAssetStrategy
+        type ILadderStrategy : ISuspendableStrategy
         
         type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
+        
+        type ISuspendableStrategy : ISingleAssetStrategy
         
         type MarketMaker(delta = 1.0,volume = 20.0)
         

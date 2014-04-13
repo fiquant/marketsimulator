@@ -306,7 +306,7 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.OneSide_Impl
 | | | | - Interface:
-| | | | | - ILadderStrategy
+| | | | | - ISuspendableStrategy
 | | | | | - Generics:
 | | | | | | - List:
 | | | | | - None
@@ -315,6 +315,20 @@ Definitions:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
 | | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - Interface:
+| | | | | - ILadderStrategy
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISuspendableStrategy
 | | | | | | | - List:
 | | | | | - List:
 | | | | | - List:

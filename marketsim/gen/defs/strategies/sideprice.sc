@@ -40,7 +40,8 @@ package strategy.price
                initialSize  = 10,
                side         = .side.Sell()) : ISingleAssetStrategy
 
-    type ILadderStrategy : ISingleAssetStrategy
+    type ISuspendableStrategy : ISingleAssetStrategy
+    type ILadderStrategy : ISuspendableStrategy
 
     @python.intrinsic("strategy.ladder.MarketMaker_Impl")
     def LadderMM(orderFactory = .order.side_price.Limit(),
