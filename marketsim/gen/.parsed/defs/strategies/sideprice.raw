@@ -322,6 +322,13 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
+| | | | | | | - maximalSize
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 20
+| | | | | | | - List:
+| | | | | | - Parameter:
 | | | | | | | - initialSize
 | | | | | | | - None
 | | | | | | | - Some:

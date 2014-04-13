@@ -1383,6 +1383,7 @@ package strategy
         
         @python.intrinsic("strategy.ladder.MarketMaker_Impl")
         def LadderMM(orderFactory = .order.side_price.Limit(),
+                     maximalSize = 20,
                      initialSize = 10) : .ISingleAssetStrategy
         
     }

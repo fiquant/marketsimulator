@@ -2298,6 +2298,7 @@ package strategy {@category = "Side function"
         
         @python.intrinsic("strategy.ladder.MarketMaker_Impl")
         def LadderMM(orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                     maximalSize : Optional[.Int] = 20,
                      initialSize : Optional[.Int] = 10) : .ISingleAssetStrategy
         
         @category = "-"

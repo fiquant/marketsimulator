@@ -44,6 +44,17 @@ class MarketMaker_Base(object):
     def on_orderFactory_set(self, value):
         pass
     
+    def get_maximalSize(self):
+        return self._back_maximalSize
+    
+    def set_maximalSize(self, value):
+        self._back_maximalSize = value
+        self.on_maximalSize_set(value)
+    
+    maximalSize = property(get_maximalSize, set_maximalSize)
+    def on_maximalSize_set(self, value):
+        pass
+    
     def get_initialSize(self):
         return self._back_initialSize
     
