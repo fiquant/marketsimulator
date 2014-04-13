@@ -143,7 +143,7 @@ package object gen
                         val args = TypesBound.Tuple(f.args).asCode
 
                         val b =
-                            if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_))
+                            if (f.args.isEmpty && (f.ret == Typed.topLevel.float_ || f.ret == Typed.topLevel.int_ || f.ret == Typed.topLevel.boolean_))
                                 "Function_impl" ||| ImportFrom("Function_impl", "marketsim.types")
                             else
                                 TypesBound.Any_.asCode

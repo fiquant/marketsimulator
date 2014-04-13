@@ -3,9 +3,18 @@ import predef._
 
 object strategy extends gen.PythonGenerator
 {
-    import base.{Def, Prop}
+    import base.{Def, Prop, Setter}
 
     case class Parameter(p : Typed.Parameter) extends base.Parameter
+
+    trait Suspended extends base.Printer
+    {
+        def suspended =
+            Prop("suspended", "return self.inner.suspended") |
+            Setter("suspended", "self.inner.suspended = value")
+
+        override def body = super.body | suspended
+    }
 
     case class Import(args : List[String], f : Typed.Function)
             extends base.Printer
@@ -14,6 +23,7 @@ object strategy extends gen.PythonGenerator
             with    base.DecoratedName
             with    base.Bind
             with    base.HasImpl
+            with    Suspended
     {
         def mkParam(p : Typed.Parameter) = strategy.Parameter(p)
         type Parameter = strategy.Parameter

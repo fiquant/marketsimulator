@@ -91,5 +91,17 @@ package ops() {
         @python.intrinsic.observable("ops.GreaterEqual_Impl")
         def GreaterEqual(x = constant(1.0),
                          y = constant(1.0)) : IFunction[Boolean]
+        
+        // defined at defs\ops.sc: 74.9
+        @symbol = "and"
+        @python.intrinsic.observable("ops.And_Impl")
+        def And(x = true(),
+                y = true()) : IFunction[Boolean]
+        
+        // defined at defs\ops.sc: 78.9
+        @symbol = "or"
+        @python.intrinsic.observable("ops.Or_Impl")
+        def Or(x = true(),
+               y = true()) : IFunction[Boolean]
     }
 }

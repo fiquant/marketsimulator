@@ -20,6 +20,8 @@ from marketsim.gen._out.strategy.price._strategy import Strategy
 
 from marketsim.gen._out.strategy.price._stoploss import StopLoss
 
+from marketsim.gen._out.strategy.price._suspend import Suspend
+
 from marketsim.gen._out.strategy.price._book import Book
 
 from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh

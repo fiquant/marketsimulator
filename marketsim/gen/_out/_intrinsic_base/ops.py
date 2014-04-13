@@ -90,6 +90,29 @@ class GreaterEqual_Base(object):
     def on_y_set(self, value):
         pass
     
+class And_Base(object):
+    def get_x(self):
+        return self._back_x
+    
+    def set_x(self, value):
+        self._back_x = value
+        self.on_x_set(value)
+    
+    x = property(get_x, set_x)
+    def on_x_set(self, value):
+        pass
+    
+    def get_y(self):
+        return self._back_y
+    
+    def set_y(self, value):
+        self._back_y = value
+        self.on_y_set(value)
+    
+    y = property(get_y, set_y)
+    def on_y_set(self, value):
+        pass
+    
 class Negate_Base(object):
     def get_x(self):
         return self._back_x
@@ -100,6 +123,29 @@ class Negate_Base(object):
     
     x = property(get_x, set_x)
     def on_x_set(self, value):
+        pass
+    
+class Or_Base(object):
+    def get_x(self):
+        return self._back_x
+    
+    def set_x(self, value):
+        self._back_x = value
+        self.on_x_set(value)
+    
+    x = property(get_x, set_x)
+    def on_x_set(self, value):
+        pass
+    
+    def get_y(self):
+        return self._back_y
+    
+    def set_y(self, value):
+        self._back_y = value
+        self.on_y_set(value)
+    
+    y = property(get_y, set_y)
+    def on_y_set(self, value):
         pass
     
 class Less_Base(object):

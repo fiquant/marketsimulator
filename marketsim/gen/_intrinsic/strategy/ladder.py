@@ -73,6 +73,8 @@ class OneSide_Impl(Strategy, OneSide_Base):
                 if orderTicks == ticks or self._orderQueue.best.owner == self._first.owner:
                     pass
                 else:
+                    #from marketsim import scheduler
+                    #print scheduler.current().currentTime
                     if ticks > orderTicks:
                         while self._orders and self._first.ticks < ticks:
                             order = self._first
@@ -171,6 +173,7 @@ class Clearable_Impl(Strategy, Clearable_Base):
         self._balance = trader.Balance()
         self._position = trader.Position()
         self._pendingVolume = trader.PendingVolume()
+        self._internalSuspended = False
 
         event.subscribe(self.inner.on_order_created, _(self)._send, self)
         event.subscribe(self.predicate, _(self)._wakeUp, self)
@@ -182,12 +185,14 @@ class Clearable_Impl(Strategy, Clearable_Base):
         position = self._position()
         pending = self._pendingVolume()
         if position is not None and pending is not None:
+            self._internalSuspended = True
+            self.suspended = True
             p = position + pending
+            print "clear ", p
             if p > 0:
                 self._send(order.Market(side.Sell(), constant(p))())
             if p < 0:
                 self._send(order.Market(side.Buy(), constant(-p))())
-            self.suspended = True
 
     def _wakeUp(self, r):
         if not self.suspended and self.predicate():
@@ -197,9 +202,37 @@ class Clearable_Impl(Strategy, Clearable_Base):
 
     @property
     def suspended(self):
-        return self.inner.suspended
+        return self.inner.suspended or self._internalSuspended
 
     @suspended.setter
     def suspended(self, value):
-        self.inner.suspended = value
+        self.inner.suspended = value or self._internalSuspended
 
+from marketsim.gen._out._intrinsic_base.strategy.ladder import Suspend_Base
+
+class Suspend_Impl(Strategy, Suspend_Base):
+
+    def __init__(self):
+        Strategy.__init__(self)
+        event.subscribe(self.predicate, _(self)._wakeUp, self)
+        event.subscribe(self.inner.on_order_created, _(self)._send, self)
+        self._suspended = False
+
+    @property
+    def suspended(self):
+        return self._suspended
+
+    @suspended.setter
+    def suspended(self, value):
+        self._suspended = value
+        if self._suspended:
+            self.inner.suspended = True
+        elif not self.predicate():
+            self.inner.suspended = False
+
+    def _wakeUp(self, _):
+        if not self._suspended:
+            c = self.predicate()
+            if c is not None:
+                self.inner.suspended = c
+                #print self.inner.suspended

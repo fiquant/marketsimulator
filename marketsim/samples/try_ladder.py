@@ -1,7 +1,7 @@
 import sys
 sys.path.append(r'../..')
 
-from marketsim._pub import (trader, strategy, orderbook, order, event, const, side, constant, math)
+from marketsim._pub import (trader, strategy, orderbook, order, event, const, side, constant, math, CurrentTime)
 
 
 from common import expose, Constant
@@ -22,10 +22,14 @@ def Ladder(ctx):
             "liquidity"),
 
         ctx.makeTrader_A(
-            strategy.price.LadderMM(initialSize=2)
-                          .LadderBalancer(maximalSize=3)
-                          .StopLoss(lossFactor=constant(0.25)),
-            "ladder mm"
+            order.side_price.Limit(volume=const(1.))
+#                .sideprice_Iceberg(lotSize=const(1))
+                            .LadderMM(initialSize=10)
+                            .LadderBalancer(maximalSize=10)
+                            .StopLoss(lossFactor=constant(0.03))
+                            .Suspend(CurrentTime() < 30)
+                            .Suspend((300 < CurrentTime()).And(CurrentTime() < 400))
+            ,"ladder mm"
         ),
 
         ctx.makeTrader_A(strategy.side.Signal(linear_signal)

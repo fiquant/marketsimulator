@@ -1,21 +1,26 @@
-# generated with class generator.python.function$Import
+# generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 from marketsim import context
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Price function", "StopLoss"])
-class StopLoss_ISuspendableStrategyIObservableFloat(ISuspendableStrategy):
+class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, inner = None, lossFactor = None):
-        from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
-        from marketsim import deref_opt
         from marketsim.gen._out._const import const_Float as _const_Float
+        from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
         from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
+        from marketsim import deref_opt
         self.inner = inner if inner is not None else deref_opt(_strategy_price_LadderMM_SideFloatIObservableIOrderInt())
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_const_Float(0.2))
         rtti.check_fields(self)
         self.impl = self.getImpl()
+        self.on_order_created = event.Event()
+        event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
     def label(self):
@@ -59,13 +64,10 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISuspendableStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out._constant import constant_Int as _constant_Int
-        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
-        from marketsim.gen._out._currenttime import CurrentTime_ as _CurrentTime_
         from marketsim.gen._out.strategy.price._clearable import Clearable_ISuspendableStrategyBoolean as _strategy_price_Clearable_ISuspendableStrategyBoolean
         from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh_IObservableFloat as _strategy_price_isLossTooHigh_IObservableFloat
         from marketsim import deref_opt
-        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_IObservableFloat(self.lossFactor)) and deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_CurrentTime_()),deref_opt(_constant_Int(50))))))
+        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_IObservableFloat(self.lossFactor))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -73,24 +75,39 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISuspendableStrategy):
         else:
             raise AttributeError
     
-# generated with class generator.python.function$Import
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
+    
+# generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim import context
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Price function", "StopLoss"])
-class StopLoss_ISuspendableStrategyFloat(ISuspendableStrategy):
+class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
     """ 
     """ 
     def __init__(self, inner = None, lossFactor = None):
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
-        from marketsim import deref_opt
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import rtti
+        from marketsim import _
+        from marketsim import event
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim import deref_opt
         self.inner = inner if inner is not None else deref_opt(_strategy_price_LadderMM_SideFloatIObservableIOrderInt())
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_constant_Float(0.2))
         rtti.check_fields(self)
         self.impl = self.getImpl()
+        self.on_order_created = event.Event()
+        event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
     def label(self):
@@ -134,19 +151,26 @@ class StopLoss_ISuspendableStrategyFloat(ISuspendableStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh_Float as _strategy_price_isLossTooHigh_Float
-        from marketsim.gen._out._constant import constant_Int as _constant_Int
-        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
-        from marketsim.gen._out._currenttime import CurrentTime_ as _CurrentTime_
         from marketsim.gen._out.strategy.price._clearable import Clearable_ISuspendableStrategyBoolean as _strategy_price_Clearable_ISuspendableStrategyBoolean
+        from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh_Float as _strategy_price_isLossTooHigh_Float
         from marketsim import deref_opt
-        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_Float(self.lossFactor)) and deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_CurrentTime_()),deref_opt(_constant_Int(50))))))
+        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_Float(self.lossFactor))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
+    def _send(self, order, source):
+        self.on_order_created.fire(order, self)
     
 def StopLoss(inner = None,lossFactor = None): 
     from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy

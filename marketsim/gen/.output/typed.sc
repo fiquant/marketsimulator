@@ -411,6 +411,34 @@ package ops {
              y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "and"
+    
+    @python.intrinsic.observable("ops.And_Impl")
+    def And(x : Optional[.IObservable[.Boolean]] = .observableTrue(),
+            y : Optional[.IObservable[.Boolean]] = .observableTrue()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "and"
+    
+    @python.intrinsic.observable("ops.And_Impl")
+    def And(x : Optional[() => .Boolean] = .true(),
+            y : Optional[.IObservable[.Boolean]] = .observableTrue()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "and"
+    
+    @python.intrinsic.observable("ops.And_Impl")
+    def And(x : Optional[.IObservable[.Boolean]] = .observableTrue(),
+            y : Optional[() => .Boolean] = .true()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "and"
+    
+    @python.intrinsic.observable("ops.And_Impl")
+    def And(x : Optional[() => .Boolean] = .true(),
+            y : Optional[() => .Boolean] = .true()) : () => .Boolean
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     
     @python.intrinsic.observable("ops.Mul_Impl")
@@ -629,6 +657,34 @@ package ops {
     @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x : Optional[() => .Float] = .constant(1.0),
                 y : Optional[() => .Float] = .constant(1.0)) : () => .Boolean
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "or"
+    
+    @python.intrinsic.observable("ops.Or_Impl")
+    def Or(x : Optional[.IObservable[.Boolean]] = .observableTrue(),
+           y : Optional[.IObservable[.Boolean]] = .observableTrue()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "or"
+    
+    @python.intrinsic.observable("ops.Or_Impl")
+    def Or(x : Optional[() => .Boolean] = .true(),
+           y : Optional[.IObservable[.Boolean]] = .observableTrue()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "or"
+    
+    @python.intrinsic.observable("ops.Or_Impl")
+    def Or(x : Optional[.IObservable[.Boolean]] = .observableTrue(),
+           y : Optional[() => .Boolean] = .true()) : .IObservable[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "or"
+    
+    @python.intrinsic.observable("ops.Or_Impl")
+    def Or(x : Optional[() => .Boolean] = .true(),
+           y : Optional[() => .Boolean] = .true()) : () => .Boolean
 }
 
 @category = "Basic"
@@ -2311,12 +2367,17 @@ package strategy {@category = "Side function"
         
         def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
                      lossFactor : Optional[.IObservable[.Float]] = .const(0.2)) : .ISuspendableStrategy
-            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .ops.Greater(.CurrentTime(),.constant(50)))
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
         
         
         def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
                      lossFactor : Optional[() => .Float] = .constant(0.2)) : .ISuspendableStrategy
-            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .ops.Greater(.CurrentTime(),.constant(50)))
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+        
+        
+        @python.intrinsic("strategy.ladder.Suspend_Impl")
+        def Suspend(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                    predicate : Optional[() => .Boolean] = .false()) : .ISuspendableStrategy
         
         @category = "-"
         

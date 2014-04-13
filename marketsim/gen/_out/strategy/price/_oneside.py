@@ -97,6 +97,13 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -193,6 +200,13 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -295,6 +309,13 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -390,6 +411,13 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

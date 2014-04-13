@@ -180,6 +180,12 @@ package ops
              y = .constant(1.0)) : .IFunction[.Boolean]
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "and"
+    @python.intrinsic.observable("ops.And_Impl")
+    def And(x = .true(),
+            y = .true()) : .IFunction[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "*"
     @python.intrinsic.observable("ops.Mul_Impl")
     def Mul(x = .constant(1.0),
@@ -225,6 +231,12 @@ package ops
     @python.intrinsic.observable("ops.Greater_Impl")
     def Greater(x = .constant(1.0),
                 y = .constant(1.0)) : .IFunction[.Boolean]
+    
+    @label = "({%(x)s}{{symbol}}{%(y)s})"
+    @symbol = "or"
+    @python.intrinsic.observable("ops.Or_Impl")
+    def Or(x = .true(),
+           y = .true()) : .IFunction[.Boolean]
     
 }
 
@@ -1383,7 +1395,11 @@ package strategy
                      /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
         def StopLoss(inner = .strategy.price.LadderMM() : .ISuspendableStrategy,
-                     lossFactor = .constant(0.2)) = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .CurrentTime()>50)
+                     lossFactor = .constant(0.2)) = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+        
+        @python.intrinsic("strategy.ladder.Suspend_Impl")
+        def Suspend(inner = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                    predicate = .false()) : .ISuspendableStrategy
         
         def isLossTooHigh(lossFactor = .constant(0.2)) = if .trader.Position()>0 then .trader.PerSharePrice()>.orderbook.Asks()~>BestPrice/(1-lossFactor) else if .trader.Position()<0 then .trader.PerSharePrice()<.orderbook.Bids()~>BestPrice*(1-lossFactor) else .false()
         

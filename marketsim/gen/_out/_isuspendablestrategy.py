@@ -4,6 +4,10 @@ class ISuspendableStrategy(ISingleAssetStrategy):
         from marketsim.gen._out.strategy.price._clearable import Clearable
         return Clearable(self,predicate)
     
+    def Suspend(self, predicate = None):
+        from marketsim.gen._out.strategy.price._suspend import Suspend
+        return Suspend(self,predicate)
+    
     def StopLoss(self, lossFactor = None):
         from marketsim.gen._out.strategy.price._stoploss import StopLoss
         return StopLoss(self,lossFactor)

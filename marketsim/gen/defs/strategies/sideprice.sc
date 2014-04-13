@@ -35,6 +35,7 @@ package strategy.price
 
     }
 
+
     @python.intrinsic("strategy.ladder.OneSide_Impl")
     def Ladder(orderFactory = .order.side_price.Limit(),
                initialSize  = 10,
@@ -48,6 +49,10 @@ package strategy.price
     def LadderBalancer(inner        = LadderMM(),
                        maximalSize  = 20) : ILadderStrategy
 
+    @python.intrinsic("strategy.ladder.Suspend_Impl")
+    def Suspend(inner        = LadderMM() : ISuspendableStrategy,
+                predicate    = false()) : ISuspendableStrategy
+
     def isLossTooHigh(lossFactor = constant(0.2))
         = if trader.Position() > 0 then trader.PerSharePrice() > orderbook.Asks()~>BestPrice / (1 - lossFactor) else
           if trader.Position() < 0 then trader.PerSharePrice() < orderbook.Bids()~>BestPrice * (1 - lossFactor) else false()
@@ -59,7 +64,7 @@ package strategy.price
     def StopLoss(inner      = LadderMM() : ISuspendableStrategy,
                  lossFactor = constant(0.2))
 
-        = Clearable(inner, isLossTooHigh(lossFactor) and CurrentTime() > 50)
+        = Clearable(inner, isLossTooHigh(lossFactor))
 
     /**
      *  A Strategy that allows to drive the asset price based on historical market data

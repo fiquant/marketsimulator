@@ -381,6 +381,51 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.Balancer_Impl
 | | | | - FunDef:
+| | | | | - Suspend
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - LadderMM
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - ISuspendableStrategy
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - predicate
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - false
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISuspendableStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.ladder.Suspend_Impl
+| | | | - FunDef:
 | | | | | - isLossTooHigh
 | | | | | - List:
 | | | | | | - Parameter:
@@ -560,23 +605,13 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - inner
-| | | | | | | | - And:
-| | | | | | | | | - FunCall:
-| | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | - List:
-| | | | | | | | | | | | - isLossTooHigh
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Var:
-| | | | | | | | | | | | - lossFactor
-| | | | | | | | | - Condition:
-| | | | | | | | | | - Greater
-| | | | | | | | | | - FunCall:
-| | | | | | | | | | | - QualifiedName:
-| | | | | | | | | | | | - List:
-| | | | | | | | | | | | | - CurrentTime
-| | | | | | | | | | | - List:
-| | | | | | | | | | - IntLit:
-| | | | | | | | | | | - 50
+| | | | | | | | | | | - isLossTooHigh
+| | | | | | | | | - List:
+| | | | | | | | | | - Var:
+| | | | | | | | | | | - lossFactor
 | | | | | - None
 | | | | | - None
 | | | | | - List:

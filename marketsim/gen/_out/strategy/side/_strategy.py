@@ -83,6 +83,13 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -170,6 +177,13 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -259,6 +273,13 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -346,6 +367,13 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -435,6 +463,13 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -522,6 +557,13 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
@@ -611,6 +653,13 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -698,6 +747,13 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

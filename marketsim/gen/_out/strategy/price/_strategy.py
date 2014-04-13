@@ -85,6 +85,13 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     

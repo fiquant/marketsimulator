@@ -91,6 +91,13 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -185,6 +192,13 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

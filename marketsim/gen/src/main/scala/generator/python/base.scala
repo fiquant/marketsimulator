@@ -337,7 +337,7 @@ package object base {
                           (/** function to process         */ f     : Typed.Function) =
         {
             (if (TypesBound.isObservable(f.ret_type)) observable
-                else if (TypesBound.isStrategy(f.ret_type))
+                else if (f.ret_type canCastTo Typed.topLevel.ISingleAssetStrategy)
                     strategy
                 else
                     function).generatePython(args)(f)

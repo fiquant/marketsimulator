@@ -26,7 +26,10 @@ class Order_Impl(_meta.OwnsSingleOrder):
     def _tryToResend(self):
         """ Tries to send a real order to the order book
         """
-        self.send(self.proto.With(volume = min(self._lotSize, self.volumeUnmatched)))
+        order = self.proto.With(volume = min(self._lotSize, self.volumeUnmatched))
+        if hasattr(self, "source"): order.source = self.source
+        if hasattr(self, "ticks"): order.ticks = self.ticks
+        self.send(order)
 
     def startProcessing(self):
         """ Called when an order book tries to determine 

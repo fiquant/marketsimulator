@@ -1,5 +1,5 @@
 from marketsim.gen._out._intrinsic_base.ops import (Negate_Base, Div_Base, Mul_Base, Add_Base, Sub_Base, Condition_Base,
-                                                         Less_Base, LessEqual_Base, Greater_Base,
+                                                         Less_Base, LessEqual_Base, Greater_Base, And_Base, Or_Base,
                                                          GreaterEqual_Base, Equal_Base, NotEqual_Base)
 
 class Negate_Impl(Negate_Base):
@@ -15,6 +15,17 @@ class Base(object):
         y = self.y()
         return self.apply(x,y) if x is not None and y is not None else None
 
+class And_Impl(Base, And_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x and y
+
+class Or_Impl(Base, Or_Base):
+
+    @staticmethod
+    def apply(x, y):
+        return x or y
 
 class Div_Impl(Base, Div_Base):
 

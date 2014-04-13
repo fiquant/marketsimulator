@@ -75,6 +75,13 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         else:
             raise AttributeError
     
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
+    
     def _send(self, order, source):
         self.on_order_created.fire(order, self)
     
@@ -154,6 +161,13 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
             return getattr(self.impl, name)
         else:
             raise AttributeError
+    
+    @property
+    def suspended(self):
+        return self.inner.suspended
+    
+    def set_suspended(self, value):
+        self.inner.suspended = value
     
     def _send(self, order, source):
         self.on_order_created.fire(order, self)

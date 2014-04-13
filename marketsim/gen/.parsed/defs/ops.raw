@@ -766,6 +766,102 @@ Definitions:
 | | | | | | | | | | | | - observable
 | | | | | | | | | | - List:
 | | | | | | | | | | | - ops.GreaterEqual_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - And
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - y
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - symbol
+| | | | | | | | | | - and
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops.And_Impl
+| | | | | | | - FunDef:
+| | | | | | | | - Or
+| | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - x
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | | - Parameter:
+| | | | | | | | | | - y
+| | | | | | | | | | - None
+| | | | | | | | | | - Some:
+| | | | | | | | | | | - FunCall:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - true
+| | | | | | | | | | | | - List:
+| | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - Some:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IFunction
+| | | | | | | | | | - List:
+| | | | | | | | | | | - SimpleType:
+| | | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | | - List:
+| | | | | | | | | | | | | | - Boolean
+| | | | | | | | | | | | - List:
+| | | | | | | | - None
+| | | | | | | | - List:
+| | | | | | | | | - Attribute:
+| | | | | | | | | | - symbol
+| | | | | | | | | | - or
+| | | | | | | | | - Annotation:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - python
+| | | | | | | | | | | | - intrinsic
+| | | | | | | | | | | | - observable
+| | | | | | | | | | - List:
+| | | | | | | | | | | - ops.Or_Impl
 | | | | | - List:
 | | | | | | - Attribute:
 | | | | | | | - label
