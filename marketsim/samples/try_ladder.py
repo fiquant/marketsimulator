@@ -28,7 +28,7 @@ def Ladder(ctx):
                             .LadderBalancer(maximalSize=10)
                             .StopLoss(lossFactor=constant(0.03))
                             .Suspend(CurrentTime() < 30)
-                            .Suspend((300 < CurrentTime()).And(CurrentTime() < 400))
+                            .Suspend((300 < CurrentTime()).And(CurrentTime() < 350))
             ,"ladder mm"
         ),
 
