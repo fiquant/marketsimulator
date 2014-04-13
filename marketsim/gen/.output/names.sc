@@ -1348,6 +1348,8 @@ package strategy
         type LiquidityProvider(/** initial price which is taken if orderBook is empty */ initialValue = 100.0,/** defines multipliers for current asset price when price of
           *             order to create is calculated*/ priceDistr = .math.random.lognormvariate(0.0,0.1),/** asset in question */ book = .orderbook.OfTrader())
         
+        type ILadderStrategy : ISingleAssetStrategy
+        
         type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
         
         type MarketMaker(delta = 1.0,volume = 20.0)
@@ -1383,8 +1385,11 @@ package strategy
         
         @python.intrinsic("strategy.ladder.MarketMaker_Impl")
         def LadderMM(orderFactory = .order.side_price.Limit(),
-                     maximalSize = 20,
-                     initialSize = 10) : .ISingleAssetStrategy
+                     initialSize = 10) : .strategy.price.ILadderStrategy
+        
+        @python.intrinsic("strategy.ladder.Balancer_Impl")
+        def LadderBalancer(inner = .strategy.price.LadderMM(),
+                           maximalSize = 20) : .strategy.price.ILadderStrategy
         
     }
     

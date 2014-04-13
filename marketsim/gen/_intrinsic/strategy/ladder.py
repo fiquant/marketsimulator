@@ -26,7 +26,6 @@ class OneSide_Impl(Strategy, OneSide_Base):
             self._orders.appendleft(self._makeOrder(self._first.ticks - 1))
             self._send(self._first)
         self._size += 1
-        print self._size
 
     def _makeOrder(self, t):
         p = self._orderQueue.ticksToPrice(t)
@@ -93,6 +92,28 @@ class MarketMaker_Impl(Strategy, MarketMaker_Base):
         event.subscribe(self._seller.on_order_created, _(self)._send, self)
         event.subscribe(self._buyer.on_order_created, _(self)._send, self)
 
+    _internals = ['_seller', '_buyer']
+
+    def dispose(self):
+        for s in [self._seller, self._buyer]:
+            s.dispose()
+
+from marketsim.gen._out._intrinsic_base.strategy.ladder import Balancer_Base
+
+class Balancer_Impl(Strategy, Balancer_Base):
+
+    def __init__(self):
+        Strategy.__init__(self)
+        event.subscribe(self.inner.on_order_created, _(self)._send, self)
+
+    @property
+    def _seller(self):
+        return self.inner._seller
+
+    @property
+    def _buyer(self):
+        return self.inner._buyer
+
     def bind(self, context):
         event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self, context)
 
@@ -104,9 +125,3 @@ class MarketMaker_Impl(Strategy, MarketMaker_Base):
             if order.source == self._buyer:
                 if self._seller._size < self.maximalSize:
                     self._seller.extend()
-
-    _internals = ['_seller', '_buyer']
-
-    def dispose(self):
-        for s in [self._seller, self._buyer]:
-            s.dispose()

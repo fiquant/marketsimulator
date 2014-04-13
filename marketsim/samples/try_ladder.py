@@ -17,7 +17,7 @@ def Ladder(ctx):
             "liquidity"),
 
         ctx.makeTrader_A(
-            strategy.price.LadderMM(),
+            strategy.price.LadderMM().LadderBalancer(maximalSize=20),
             "ladder mm"
         )
     ]

@@ -32,16 +32,16 @@ class OneSide_Base(object):
     def on_side_set(self, value):
         pass
     
-class MarketMaker_Base(object):
-    def get_orderFactory(self):
-        return self._back_orderFactory
+class Balancer_Base(object):
+    def get_inner(self):
+        return self._back_inner
     
-    def set_orderFactory(self, value):
-        self._back_orderFactory = value
-        self.on_orderFactory_set(value)
+    def set_inner(self, value):
+        self._back_inner = value
+        self.on_inner_set(value)
     
-    orderFactory = property(get_orderFactory, set_orderFactory)
-    def on_orderFactory_set(self, value):
+    inner = property(get_inner, set_inner)
+    def on_inner_set(self, value):
         pass
     
     def get_maximalSize(self):
@@ -53,6 +53,18 @@ class MarketMaker_Base(object):
     
     maximalSize = property(get_maximalSize, set_maximalSize)
     def on_maximalSize_set(self, value):
+        pass
+    
+class MarketMaker_Base(object):
+    def get_orderFactory(self):
+        return self._back_orderFactory
+    
+    def set_orderFactory(self, value):
+        self._back_orderFactory = value
+        self.on_orderFactory_set(value)
+    
+    orderFactory = property(get_orderFactory, set_orderFactory)
+    def on_orderFactory_set(self, value):
         pass
     
     def get_initialSize(self):

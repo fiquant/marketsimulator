@@ -32,5 +32,7 @@ from marketsim.gen._out.strategy.price._initialvalue import InitialValue
 
 from marketsim.gen._out.strategy.price._laddermm import LadderMM
 
+from marketsim.gen._out.strategy.price._ladderbalancer import LadderBalancer
+
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
 

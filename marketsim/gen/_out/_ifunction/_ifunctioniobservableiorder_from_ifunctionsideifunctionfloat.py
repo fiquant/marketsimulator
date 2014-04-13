@@ -24,9 +24,9 @@ class IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat(object):
         from marketsim.gen._out.order._curried._sideprice_withexpiry import sideprice_WithExpiry
         return sideprice_WithExpiry(self,expiry)
     
-    def LadderMM(self, maximalSize = None,initialSize = None):
+    def LadderMM(self, initialSize = None):
         from marketsim.gen._out.strategy.price._laddermm import LadderMM
-        return LadderMM(self,maximalSize,initialSize)
+        return LadderMM(self,initialSize)
     
     def sideprice_Iceberg(self, lotSize = None):
         from marketsim.gen._out.order._curried._sideprice_iceberg import sideprice_Iceberg

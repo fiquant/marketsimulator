@@ -305,6 +305,20 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.OneSide_Impl
+| | | | - Interface:
+| | | | | - ILadderStrategy
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
 | | | | - FunDef:
 | | | | | - LadderMM
 | | | | | - List:
@@ -322,13 +336,6 @@ Definitions:
 | | | | | | | | | - List:
 | | | | | | | - List:
 | | | | | | - Parameter:
-| | | | | | | - maximalSize
-| | | | | | | - None
-| | | | | | | - Some:
-| | | | | | | | - IntLit:
-| | | | | | | | | - 20
-| | | | | | | - List:
-| | | | | | - Parameter:
 | | | | | | | - initialSize
 | | | | | | | - None
 | | | | | | | - Some:
@@ -340,7 +347,7 @@ Definitions:
 | | | | | | - SimpleType:
 | | | | | | | - QualifiedName:
 | | | | | | | | - List:
-| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | | | - ILadderStrategy
 | | | | | | | - List:
 | | | | | - None
 | | | | | - List:
@@ -351,6 +358,42 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.MarketMaker_Impl
+| | | | - FunDef:
+| | | | | - LadderBalancer
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - LadderMM
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - maximalSize
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 20
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ILadderStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.ladder.Balancer_Impl
 | | | | - Interface:
 | | | | | - MarketData
 | | | | | - Generics:

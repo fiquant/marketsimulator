@@ -2162,6 +2162,8 @@ package strategy {@category = "Side function"
     package price {
         type LiquidityProvider
         
+        type ILadderStrategy : ISingleAssetStrategy
+        
         type MarketData
         
         type MarketMaker
@@ -2298,8 +2300,12 @@ package strategy {@category = "Side function"
         
         @python.intrinsic("strategy.ladder.MarketMaker_Impl")
         def LadderMM(orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
-                     maximalSize : Optional[.Int] = 20,
-                     initialSize : Optional[.Int] = 10) : .ISingleAssetStrategy
+                     initialSize : Optional[.Int] = 10) : .strategy.price.ILadderStrategy
+        
+        
+        @python.intrinsic("strategy.ladder.Balancer_Impl")
+        def LadderBalancer(inner : Optional[.strategy.price.ILadderStrategy] = .strategy.price.LadderMM(),
+                           maximalSize : Optional[.Int] = 20) : .strategy.price.ILadderStrategy
         
         @category = "-"
         
