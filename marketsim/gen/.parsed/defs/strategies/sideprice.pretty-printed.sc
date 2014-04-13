@@ -23,19 +23,20 @@ package strategy.price() {
                initialSize = 10,
                side = .side.Sell()) : ISingleAssetStrategy
     
-    type ISuspendableStrategy : ISingleAssetStrategy
-    
-    type ILadderStrategy : ISuspendableStrategy
-    
-    // defined at defs\strategies\sideprice.sc: 46.5
+    // defined at defs\strategies\sideprice.sc: 43.5
     @python.intrinsic("strategy.ladder.MarketMaker_Impl")
     def LadderMM(orderFactory = .order.side_price.Limit(),
                  initialSize = 10) : ILadderStrategy
     
-    // defined at defs\strategies\sideprice.sc: 50.5
+    // defined at defs\strategies\sideprice.sc: 47.5
     @python.intrinsic("strategy.ladder.Balancer_Impl")
     def LadderBalancer(inner = LadderMM(),
                        maximalSize = 20) : ILadderStrategy
+    
+    // defined at defs\strategies\sideprice.sc: 51.5
+    @python.intrinsic("strategy.ladder.StopLoss_Impl")
+    def StopLoss(inner = LadderMM() : ISuspendableStrategy,
+                 lossFactor = constant(0.2)) : ISuspendableStrategy
     
     type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
     {

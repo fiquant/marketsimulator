@@ -40,9 +40,6 @@ package strategy.price
                initialSize  = 10,
                side         = .side.Sell()) : ISingleAssetStrategy
 
-    type ISuspendableStrategy : ISingleAssetStrategy
-    type ILadderStrategy : ISuspendableStrategy
-
     @python.intrinsic("strategy.ladder.MarketMaker_Impl")
     def LadderMM(orderFactory = .order.side_price.Limit(),
                  initialSize  = 10) : ILadderStrategy
@@ -51,6 +48,9 @@ package strategy.price
     def LadderBalancer(inner        = LadderMM(),
                        maximalSize  = 20) : ILadderStrategy
 
+    @python.intrinsic("strategy.ladder.StopLoss_Impl")
+    def StopLoss(inner      = LadderMM() : ISuspendableStrategy,
+                 lossFactor = constant(0.2)) : ISuspendableStrategy
 
     /**
      *  A Strategy that allows to drive the asset price based on historical market data

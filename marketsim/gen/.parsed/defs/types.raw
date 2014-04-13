@@ -330,6 +330,34 @@ Definitions:
 | | - List:
 | | - false
 | - Interface:
+| | - ISuspendableStrategy
+| | - Generics:
+| | | - List:
+| | - None
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ISingleAssetStrategy
+| | | | - List:
+| | - List:
+| | - List:
+| | - false
+| - Interface:
+| | - ILadderStrategy
+| | - Generics:
+| | | - List:
+| | - None
+| | - List:
+| | | - SimpleType:
+| | | | - QualifiedName:
+| | | | | - List:
+| | | | | | - ISuspendableStrategy
+| | | | - List:
+| | - List:
+| | - List:
+| | - false
+| - Interface:
 | | - IGraph
 | | - Generics:
 | | | - List:

@@ -2162,11 +2162,7 @@ package strategy {@category = "Side function"
     package price {
         type LiquidityProvider
         
-        type ILadderStrategy : ISuspendableStrategy
-        
         type MarketData
-        
-        type ISuspendableStrategy : ISingleAssetStrategy
         
         type MarketMaker
         @category = "-"
@@ -2256,6 +2252,11 @@ package strategy {@category = "Side function"
                      /** order factory function*/ orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit()) : .ISingleAssetStrategy
             	 = .strategy.Combine(.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Sell()),.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Buy()))
         
+        
+        @python.intrinsic("strategy.ladder.StopLoss_Impl")
+        def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                     lossFactor : Optional[() => .Float] = .constant(0.2)) : .ISuspendableStrategy
+        
         @category = "-"
         
         @python.accessor()
@@ -2302,12 +2303,12 @@ package strategy {@category = "Side function"
         
         @python.intrinsic("strategy.ladder.MarketMaker_Impl")
         def LadderMM(orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
-                     initialSize : Optional[.Int] = 10) : .strategy.price.ILadderStrategy
+                     initialSize : Optional[.Int] = 10) : .ILadderStrategy
         
         
         @python.intrinsic("strategy.ladder.Balancer_Impl")
-        def LadderBalancer(inner : Optional[.strategy.price.ILadderStrategy] = .strategy.price.LadderMM(),
-                           maximalSize : Optional[.Int] = 20) : .strategy.price.ILadderStrategy
+        def LadderBalancer(inner : Optional[.ILadderStrategy] = .strategy.price.LadderMM(),
+                           maximalSize : Optional[.Int] = 20) : .ILadderStrategy
         
         @category = "-"
         
@@ -2883,6 +2884,8 @@ type IOrderBook
 
 type IEvent
 
+type ILadderStrategy : ISuspendableStrategy
+
 type IMultiAssetStrategy
 
 type ITwoWayLink
@@ -2896,6 +2899,8 @@ type ISingleAssetStrategy
 type ISingleAssetTrader : IAccount, ITrader
 
 type IVolumeLevels
+
+type ISuspendableStrategy : ISingleAssetStrategy
 
 type List[T]
 

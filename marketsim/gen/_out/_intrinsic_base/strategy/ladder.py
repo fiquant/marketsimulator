@@ -32,6 +32,29 @@ class OneSide_Base(object):
     def on_side_set(self, value):
         pass
     
+class StopLoss_Base(object):
+    def get_inner(self):
+        return self._back_inner
+    
+    def set_inner(self, value):
+        self._back_inner = value
+        self.on_inner_set(value)
+    
+    inner = property(get_inner, set_inner)
+    def on_inner_set(self, value):
+        pass
+    
+    def get_lossFactor(self):
+        return self._back_lossFactor
+    
+    def set_lossFactor(self, value):
+        self._back_lossFactor = value
+        self.on_lossFactor_set(value)
+    
+    lossFactor = property(get_lossFactor, set_lossFactor)
+    def on_lossFactor_set(self, value):
+        pass
+    
 class Balancer_Base(object):
     def get_inner(self):
         return self._back_inner

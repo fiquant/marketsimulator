@@ -305,34 +305,6 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.OneSide_Impl
-| | | | - Interface:
-| | | | | - ISuspendableStrategy
-| | | | | - Generics:
-| | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - ISingleAssetStrategy
-| | | | | | | - List:
-| | | | | - List:
-| | | | | - List:
-| | | | | - false
-| | | | - Interface:
-| | | | | - ILadderStrategy
-| | | | | - Generics:
-| | | | | | - List:
-| | | | | - None
-| | | | | - List:
-| | | | | | - SimpleType:
-| | | | | | | - QualifiedName:
-| | | | | | | | - List:
-| | | | | | | | | - ISuspendableStrategy
-| | | | | | | - List:
-| | | | | - List:
-| | | | | - List:
-| | | | | - false
 | | | | - FunDef:
 | | | | | - LadderMM
 | | | | | - List:
@@ -408,6 +380,53 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.Balancer_Impl
+| | | | - FunDef:
+| | | | | - StopLoss
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - inner
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - LadderMM
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - ISuspendableStrategy
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - lossFactor
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - constant
+| | | | | | | | | - List:
+| | | | | | | | | | - FloatLit:
+| | | | | | | | | | | - 0.2
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISuspendableStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.ladder.StopLoss_Impl
 | | | | - Interface:
 | | | | | - MarketData
 | | | | | - Generics:

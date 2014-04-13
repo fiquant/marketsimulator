@@ -1,6 +1,6 @@
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
-from marketsim.gen._out.strategy.price._iladderstrategy import ILadderStrategy
+from marketsim.gen._out._iladderstrategy import ILadderStrategy
 from marketsim.gen._intrinsic.strategy.ladder import MarketMaker_Impl
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
 @registry.expose(["Price function", "LadderMM"])

@@ -55,6 +55,10 @@ type ISingleAssetStrategy
 
 type IMultiAssetStrategy
 
+type ISuspendableStrategy : ISingleAssetStrategy
+
+type ILadderStrategy : ISuspendableStrategy
+
 type IGraph
 
 type ITimeSerie
