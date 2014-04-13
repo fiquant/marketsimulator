@@ -2608,6 +2608,10 @@ package trader {
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Int]
     
+    
+    def PerSharePrice(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
+        	 = .ops.Sub(.constant(0),.ops.Div(.trader.Balance(trader),.trader.Position(trader)))
+    
     /** A trader that trades a single asset on a single market
      */
     @label = "%(name)s"

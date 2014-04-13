@@ -33,4 +33,9 @@ class IAccount(object):
         from marketsim.gen._out.trader._pendingvolume import PendingVolume
         return PendingVolume(self)
     
+    @property
+    def PerSharePrice(self):
+        from marketsim.gen._out.trader._pershareprice import PerSharePrice
+        return PerSharePrice(self)
+    
     pass

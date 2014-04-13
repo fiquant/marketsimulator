@@ -172,7 +172,7 @@ class StopLoss_Impl(Strategy, StopLoss_Base):
         self._balance = trader.Balance()
         self._position = trader.Position()
         self._pendingVolume = trader.PendingVolume()
-        self._pershareprice = self._balance / self._position
+        self._pershareprice = trader.PerSharePrice()
         self._askPrice = orderbook.Asks().BestPrice
         self._bidPrice = orderbook.Bids().BestPrice
 
@@ -200,7 +200,6 @@ class StopLoss_Impl(Strategy, StopLoss_Base):
         mean_price = self._pershareprice()
         position = self._position()
         if not self.suspended and mean_price is not None and position is not None:
-            mean_price = -mean_price
             if position > 0 and self._askPrice() and mean_price > self._askPrice() / (1 - self.lossFactor()):
                 self.clearPosition()
             if position < 0 and self._bidPrice() and mean_price < self._bidPrice() * (1 - self.lossFactor()):

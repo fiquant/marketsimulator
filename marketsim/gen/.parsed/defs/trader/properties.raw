@@ -97,6 +97,45 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - trader.props.Balance_Impl
 | | | | - FunDef:
+| | | | | - PerSharePrice
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - BinOp:
+| | | | | | | - Sub
+| | | | | | | - IntLit:
+| | | | | | | | - 0
+| | | | | | | - BinOp:
+| | | | | | | | - Div
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | | | | | - Balance
+| | | | | | | | | - List:
+| | | | | | | | - MemberAccess:
+| | | | | | | | | - Var:
+| | | | | | | | | | - trader
+| | | | | | | | | - Position
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - None
+| | | | | - List:
+| | | | - FunDef:
 | | | | | - PendingVolume
 | | | | | - List:
 | | | | | | - Parameter:

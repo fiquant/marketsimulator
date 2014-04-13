@@ -16,23 +16,26 @@ package trader() {
     def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
     
     // defined at defs\trader\properties.sc: 18.5
+    def PerSharePrice(trader = SingleProxy() : IAccount) = 0-trader~>Balance/trader~>Position
+    
+    // defined at defs\trader\properties.sc: 20.5
     /** Cumulative volume of orders sent to the market but haven't matched yet
      */
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader = SingleProxy() : IAccount) : IObservable[Volume]
     
-    // defined at defs\trader\properties.sc: 24.5
+    // defined at defs\trader\properties.sc: 26.5
     /** Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared
      */
     def Efficiency(trader = SingleProxy() : IAccount) = trader~>Balance+trader~>Orderbook~>CumulativePrice(trader~>Position)
     
-    // defined at defs\trader\properties.sc: 30.5
+    // defined at defs\trader\properties.sc: 32.5
     /** Returns traders naive approximation of trader eficiency.
      *  It takes into account only the best price of the order queue
      */
     def RoughPnL(trader = SingleProxy() : IAccount) = trader~>Balance+trader~>Orderbook~>NaiveCumulativePrice(trader~>Position)
     
-    // defined at defs\trader\properties.sc: 37.5
+    // defined at defs\trader\properties.sc: 39.5
     /** Returns first derivative of a moving average of the trader efficiency
      */
     def EfficiencyTrend(trader = SingleProxy() : IAccount,

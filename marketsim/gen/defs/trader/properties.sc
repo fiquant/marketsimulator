@@ -15,6 +15,8 @@ package trader
     @python.intrinsic("trader.props.Balance_Impl")
     def Balance(trader = SingleProxy() : IAccount) : IObservable[Price]
 
+    def PerSharePrice(trader = SingleProxy() : IAccount) = 0 - trader~>Balance / trader~>Position
+
     /**
      *  Cumulative volume of orders sent to the market but haven't matched yet
      */

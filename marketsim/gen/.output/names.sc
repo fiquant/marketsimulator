@@ -1604,6 +1604,8 @@ package trader
     @python.intrinsic("trader.props.PendingVolume_Impl")
     def PendingVolume(trader = .trader.SingleProxy() : .IAccount) : .IObservable[.Volume]
     
+    def PerSharePrice(trader = .trader.SingleProxy() : .IAccount) = 0-trader~>Balance/trader~>Position
+    
     /** A trader that trades a single asset on a single market
      */
     @python.intrinsic("trader.classes.SingleAsset_Impl")
