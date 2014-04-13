@@ -560,13 +560,23 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - Var:
 | | | | | | | | | - inner
-| | | | | | | | - FunCall:
-| | | | | | | | | - QualifiedName:
+| | | | | | | | - And:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - isLossTooHigh
 | | | | | | | | | | - List:
-| | | | | | | | | | | - isLossTooHigh
-| | | | | | | | | - List:
-| | | | | | | | | | - Var:
-| | | | | | | | | | | - lossFactor
+| | | | | | | | | | | - Var:
+| | | | | | | | | | | | - lossFactor
+| | | | | | | | | - Condition:
+| | | | | | | | | | - Greater
+| | | | | | | | | | - FunCall:
+| | | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | | - List:
+| | | | | | | | | | | | | - CurrentTime
+| | | | | | | | | | | - List:
+| | | | | | | | | | - IntLit:
+| | | | | | | | | | | - 50
 | | | | | - None
 | | | | | - None
 | | | | | - List:

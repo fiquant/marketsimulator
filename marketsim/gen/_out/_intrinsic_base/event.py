@@ -22,3 +22,5 @@ class Every_Base(object):
     def on_intervalFunc_set(self, value):
         pass
     
+class CurrentTime_Base(object):
+    pass

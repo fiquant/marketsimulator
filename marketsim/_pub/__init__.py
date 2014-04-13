@@ -4,6 +4,8 @@ from marketsim.gen._out._false import false
 
 from marketsim.gen._out._observabletrue import observableTrue
 
+from marketsim.gen._out._currenttime import CurrentTime
+
 from marketsim.gen._out._null import null
 
 from marketsim.gen._out._timeserie import TimeSerie

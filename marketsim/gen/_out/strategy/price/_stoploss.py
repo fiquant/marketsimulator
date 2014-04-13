@@ -59,10 +59,13 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISuspendableStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
+        from marketsim.gen._out._constant import constant_Int as _constant_Int
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
+        from marketsim.gen._out._currenttime import CurrentTime_ as _CurrentTime_
         from marketsim.gen._out.strategy.price._clearable import Clearable_ISuspendableStrategyBoolean as _strategy_price_Clearable_ISuspendableStrategyBoolean
         from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh_IObservableFloat as _strategy_price_isLossTooHigh_IObservableFloat
         from marketsim import deref_opt
-        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_IObservableFloat(self.lossFactor))))
+        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_IObservableFloat(self.lossFactor)) and deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_CurrentTime_()),deref_opt(_constant_Int(50))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:
@@ -131,10 +134,13 @@ class StopLoss_ISuspendableStrategyFloat(ISuspendableStrategy):
         if ctx: context.bind(self.impl, ctx)
     
     def getImpl(self):
-        from marketsim.gen._out.strategy.price._clearable import Clearable_ISuspendableStrategyBoolean as _strategy_price_Clearable_ISuspendableStrategyBoolean
         from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh_Float as _strategy_price_isLossTooHigh_Float
+        from marketsim.gen._out._constant import constant_Int as _constant_Int
+        from marketsim.gen._out.ops._greater import Greater_IObservableFloatFloat as _ops_Greater_IObservableFloatFloat
+        from marketsim.gen._out._currenttime import CurrentTime_ as _CurrentTime_
+        from marketsim.gen._out.strategy.price._clearable import Clearable_ISuspendableStrategyBoolean as _strategy_price_Clearable_ISuspendableStrategyBoolean
         from marketsim import deref_opt
-        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_Float(self.lossFactor))))
+        return deref_opt(_strategy_price_Clearable_ISuspendableStrategyBoolean(self.inner,deref_opt(_strategy_price_isLossTooHigh_Float(self.lossFactor)) and deref_opt(_ops_Greater_IObservableFloatFloat(deref_opt(_CurrentTime_()),deref_opt(_constant_Int(50))))))
     
     def __getattr__(self, name):
         if name[0:2] != '__' and self.impl:

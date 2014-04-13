@@ -73,6 +73,8 @@ package {
 
         if x <> null() then x else elsePart
 
+    @python.intrinsic("event.CurrentTime_Impl")
+    def CurrentTime() : IObservable[Float]
 }
 
 

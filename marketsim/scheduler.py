@@ -22,6 +22,8 @@ class Scheduler(object):
     def __init__(self, currentTime=0.0, startTime=None, timeScale='seconds'):
         self._reset(currentTime, startTime)
         self._timeScale = timeScale
+        from marketsim.gen._intrinsic.event import Event
+        self.on_clock = Event()
 
     def __enter__(self):
         global _instance
@@ -103,6 +105,7 @@ class Scheduler(object):
             ((actionTime,eid), eh) = heapq.heappop(self._elements)
             self.currentId = eid
             self._currentTime = actionTime
+            self.on_clock.fire(self)
             #print 't = ', actionTime
             eh()
             return True

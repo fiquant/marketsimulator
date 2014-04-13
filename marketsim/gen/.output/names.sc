@@ -1383,7 +1383,7 @@ package strategy
                      /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
         def StopLoss(inner = .strategy.price.LadderMM() : .ISuspendableStrategy,
-                     lossFactor = .constant(0.2)) = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+                     lossFactor = .constant(0.2)) = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .CurrentTime()>50)
         
         def isLossTooHigh(lossFactor = .constant(0.2)) = if .trader.Position()>0 then .trader.PerSharePrice()>.orderbook.Asks()~>BestPrice/(1-lossFactor) else if .trader.Position()<0 then .trader.PerSharePrice()<.orderbook.Bids()~>BestPrice*(1-lossFactor) else .false()
         
@@ -1902,6 +1902,10 @@ def false() = .observableFalse() : .IFunction[.Boolean]
 @python.intrinsic.observable("_constant.True_Impl")
 @label = "True"
 def observableTrue() : .IObservable[.Boolean]
+
+@category = "Basic"
+@python.intrinsic("event.CurrentTime_Impl")
+def CurrentTime() : .IObservable[.Float]
 
 /** Trivial observable always returning *undefined* or *None* value
  */

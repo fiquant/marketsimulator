@@ -59,7 +59,7 @@ package strategy.price
     def StopLoss(inner      = LadderMM() : ISuspendableStrategy,
                  lossFactor = constant(0.2))
 
-        = Clearable(inner, isLossTooHigh(lossFactor))
+        = Clearable(inner, isLossTooHigh(lossFactor) and CurrentTime() > 50)
 
     /**
      *  A Strategy that allows to drive the asset price based on historical market data

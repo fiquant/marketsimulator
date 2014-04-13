@@ -69,4 +69,8 @@ package () {
     @method = "getOrElse"
     def IfDefined(x = constant(1.0),
                   /** function to take values from when *x* is undefined */ elsePart = constant(1.0)) = if x<>null() then x else elsePart
+    
+    // defined at defs\misc.sc: 76.5
+    @python.intrinsic("event.CurrentTime_Impl")
+    def CurrentTime() : IObservable[Float]
 }

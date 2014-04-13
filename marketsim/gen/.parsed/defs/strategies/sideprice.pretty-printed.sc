@@ -43,7 +43,7 @@ package strategy.price() {
     
     // defined at defs\strategies\sideprice.sc: 59.5
     def StopLoss(inner = LadderMM() : ISuspendableStrategy,
-                 lossFactor = constant(0.2)) = Clearable(inner,isLossTooHigh(lossFactor))
+                 lossFactor = constant(0.2)) = Clearable(inner,isLossTooHigh(lossFactor) and CurrentTime()>50)
     
     type MarketData(/** Ticker of the asset */ ticker = "^GSPC",/** Start date in DD-MM-YYYY format */ start = "2001-1-1",/** End date in DD-MM-YYYY format */ end = "2010-1-1",/** Price difference between orders placed and underlying quotes */ delta = 1.0,/** Volume of Buy/Sell orders. Should be large compared to the volumes of other traders. */ volume = 1000.0)
     {

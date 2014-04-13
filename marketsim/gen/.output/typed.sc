@@ -2311,12 +2311,12 @@ package strategy {@category = "Side function"
         
         def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
                      lossFactor : Optional[.IObservable[.Float]] = .const(0.2)) : .ISuspendableStrategy
-            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .ops.Greater(.CurrentTime(),.constant(50)))
         
         
         def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
                      lossFactor : Optional[() => .Float] = .constant(0.2)) : .ISuspendableStrategy
-            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor) and .ops.Greater(.CurrentTime(),.constant(50)))
         
         @category = "-"
         
@@ -3026,6 +3026,11 @@ def false() : () => .Boolean
 
 @python.intrinsic.observable("_constant.True_Impl")
 def observableTrue() : .IObservable[.Boolean]
+
+@category = "Basic"
+
+@python.intrinsic("event.CurrentTime_Impl")
+def CurrentTime() : .IObservable[.Float]
 
 /** Trivial observable always returning *undefined* or *None* value
  */

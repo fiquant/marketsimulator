@@ -1,7 +1,8 @@
 from marketsim import bind, meta, context, types, _
 
 from marketsim.gen._out._intrinsic_base.event import Every_Base, After_Base
-            
+
+
 class Event_Impl(object):
     """ Multicast event
 
@@ -285,3 +286,13 @@ class After_Impl(Event_Impl, After_Base):
     def cancel(self):
         self._cancelled = True
  
+from marketsim.gen._out._intrinsic_base.event import CurrentTime_Base
+
+class CurrentTime_Impl(CurrentTime_Base):
+
+    def bind(self, ctx):
+        self.world = ctx.world
+        subscribe(self.world.on_clock, self.fire, self, ctx)
+
+    def __call__(self):
+        return self.world.currentTime if hasattr(self, "world") else None
