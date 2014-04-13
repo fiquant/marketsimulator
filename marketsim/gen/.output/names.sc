@@ -1381,6 +1381,10 @@ package strategy
                             /** order factory function*/ orderFactory = .order.side_price.Limit(),
                             /** side of orders to create */ side = .side.Sell()) = orderFactory(side,x~>Price(side))~>Strategy(eventGen)
         
+        @python.intrinsic("strategy.ladder.MarketMaker_Impl")
+        def LadderMM(orderFactory = .order.side_price.Limit(),
+                     initialSize = 10) : .ISingleAssetStrategy
+        
     }
     
     @category = "Volume function"

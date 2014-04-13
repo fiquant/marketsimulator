@@ -305,6 +305,45 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - strategy.ladder.OneSide_Impl
+| | | | - FunDef:
+| | | | | - LadderMM
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - orderFactory
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - 
+| | | | | | | | | | | - order
+| | | | | | | | | | | - side_price
+| | | | | | | | | | | - Limit
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - initialSize
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - IntLit:
+| | | | | | | | | - 10
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISingleAssetStrategy
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - strategy.ladder.MarketMaker_Impl
 | | | | - Interface:
 | | | | | - MarketData
 | | | | | - Generics:

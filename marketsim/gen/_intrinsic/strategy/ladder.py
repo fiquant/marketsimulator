@@ -1,15 +1,17 @@
 from marketsim.gen._out._intrinsic_base.strategy.ladder import OneSide_Base
 from basic import Strategy
+from marketsim import event, _, request
+from marketsim.gen._out._side import Side
+from marketsim.gen._out._constant import constant
+from marketsim.gen._out.orderbook._queue import Queue
+from marketsim.gen._out.orderbook._oftrader import OfTrader
+
+from collections import deque
 
 class OneSide_Impl(Strategy, OneSide_Base):
 
     def __init__(self):
         Strategy.__init__(self)
-        from marketsim.gen._out.orderbook._queue import Queue
-        from marketsim.gen._out.orderbook._oftrader import OfTrader
-        from marketsim.gen._out.orderbook._ticksize import TickSize
-        from marketsim import event, _
-        from marketsim.gen._out._side import Side
 
         self._book = OfTrader()
         self._orderQueue = Queue(self._book, side = self.side)
@@ -20,14 +22,11 @@ class OneSide_Impl(Strategy, OneSide_Base):
         event.subscribe(self._source, _(self)._wakeUp, self)
 
     def _wakeUp(self, _):
-        from marketsim.gen._out._constant import constant
-        from marketsim import request
         price = self._source()
 
         if price is not None:
             ticks, _ = self._orderQueue.ticks(price)
             if self._orders is None:
-                from collections import deque
                 self._orders = deque()
                 for i in range(0, self._size):
                     t = ticks + i
@@ -65,3 +64,23 @@ class OneSide_Impl(Strategy, OneSide_Base):
                             self._orders.appendleft(order)
                         for i in range(num_created):
                             self._send(self._orders[i])
+
+from marketsim.gen._out._intrinsic_base.strategy.ladder import MarketMaker_Base
+
+class MarketMaker_Impl(Strategy, MarketMaker_Base):
+
+    def __init__(self):
+        Strategy.__init__(self)
+        from marketsim._pub import strategy, side
+
+        self._seller = strategy.price.Ladder(self.orderFactory, self.initialSize, side.Sell())
+        self._buyer = strategy.price.Ladder(self.orderFactory, self.initialSize, side.Buy())
+
+        event.subscribe(self._seller.on_order_created, _(self)._send, self)
+        event.subscribe(self._buyer.on_order_created, _(self)._send, self)
+
+    _internals = ['_seller', '_buyer']
+
+    def dispose(self):
+        for s in [self._seller, self._buyer]:
+            s.dispose()

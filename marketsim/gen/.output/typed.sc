@@ -2295,6 +2295,11 @@ package strategy {@category = "Side function"
         @python.accessor()
         def InitialValue(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : .Float
         
+        
+        @python.intrinsic("strategy.ladder.MarketMaker_Impl")
+        def LadderMM(orderFactory : Optional[((() => .Side),(() => .Float)) => .IObservable[.IOrder]] = .order._curried.sideprice_Limit(),
+                     initialSize : Optional[.Int] = 10) : .ISingleAssetStrategy
+        
         @category = "-"
         
         @python.constructor()

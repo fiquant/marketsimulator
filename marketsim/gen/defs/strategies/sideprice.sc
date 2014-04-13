@@ -40,6 +40,10 @@ package strategy.price
                initialSize  = 10,
                side         = .side.Sell()) : ISingleAssetStrategy
 
+    @python.intrinsic("strategy.ladder.MarketMaker_Impl")
+    def LadderMM(orderFactory = .order.side_price.Limit(),
+                 initialSize  = 10) : ISingleAssetStrategy
+
     /**
      *  A Strategy that allows to drive the asset price based on historical market data
      *  by creating large volume orders for the given price.

@@ -17,13 +17,8 @@ def Ladder(ctx):
             "liquidity"),
 
         ctx.makeTrader_A(
-            strategy.price.Ladder(order.side_price.Limit(), side = side.Sell()),
-            "ladder sell"
-        ),
-
-        ctx.makeTrader_A(
-            strategy.price.Ladder(order.side_price.Limit(), side = side.Buy()),
-            "ladder buy"
+            strategy.price.LadderMM(),
+            "ladder mm"
         )
     ]
 
