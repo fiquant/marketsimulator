@@ -231,6 +231,13 @@ package ops {
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
     @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  elsepart : Optional[.IObservable[.Boolean]] = .observableFalse()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[.IObservable[.Float]] = .const(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
@@ -274,6 +281,27 @@ package ops {
     
     @python.intrinsic.observable("ops.Condition_Impl")
     def Condition(cond : Optional[() => .Boolean] = .true(),
+                  ifpart : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  elsepart : Optional[.IObservable[.Boolean]] = .observableFalse()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[() => .Boolean] = .true(),
+                  elsepart : Optional[.IObservable[.Boolean]] = .observableFalse()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  elsepart : Optional[() => .Boolean] = .false()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Float] = .constant(1.0),
                   elsepart : Optional[.IObservable[.Float]] = .const(1.0)) : .IObservable[.Float]
     
@@ -311,6 +339,27 @@ package ops {
     def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : .IObservable[.Side]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[() => .Boolean] = .true(),
+                  ifpart : Optional[() => .Boolean] = .true(),
+                  elsepart : Optional[.IObservable[.Boolean]] = .observableFalse()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[() => .Boolean] = .true(),
+                  ifpart : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  elsepart : Optional[() => .Boolean] = .false()) : .IObservable[.Boolean]
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[.IObservable[.Boolean]] = .observableTrue(),
+                  ifpart : Optional[() => .Boolean] = .true(),
+                  elsepart : Optional[() => .Boolean] = .false()) : .IObservable[.Boolean]
     
     @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
     
@@ -325,6 +374,13 @@ package ops {
     def Condition(cond : Optional[() => .Boolean] = .true(),
                   ifpart : Optional[() => .Side] = .side.Sell(),
                   elsepart : Optional[() => .Side] = .side.Buy()) : () => .Side
+    
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond : Optional[() => .Boolean] = .true(),
+                  ifpart : Optional[() => .Boolean] = .true(),
+                  elsepart : Optional[() => .Boolean] = .false()) : () => .Boolean
     
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
@@ -2253,14 +2309,27 @@ package strategy {@category = "Side function"
             	 = .strategy.Combine(.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Sell()),.strategy.price.OneSideStrategy(x,eventGen,orderFactory,.side.Buy()))
         
         
-        @python.intrinsic("strategy.ladder.StopLoss_Impl")
+        def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                     lossFactor : Optional[.IObservable[.Float]] = .const(0.2)) : .ISuspendableStrategy
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+        
+        
         def StopLoss(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
                      lossFactor : Optional[() => .Float] = .constant(0.2)) : .ISuspendableStrategy
+            	 = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
         
         @category = "-"
         
         @python.accessor()
         def Book(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider()) : .IOrderBook
+        
+        
+        def isLossTooHigh(lossFactor : Optional[.IObservable[.Float]] = .const(0.2)) : .IObservable[.Boolean]
+            	 = .ops.Condition(.ops.Greater(.trader.Position(),.constant(0)),.ops.Greater(.trader.PerSharePrice(),.ops.Div(.orderbook.BestPrice(.orderbook.Asks()),.ops.Sub(.constant(1),lossFactor))),.ops.Condition(.ops.Less(.trader.Position(),.constant(0)),.ops.Less(.trader.PerSharePrice(),.ops.Mul(.orderbook.BestPrice(.orderbook.Bids()),.ops.Sub(.constant(1),lossFactor))),.false()))
+        
+        
+        def isLossTooHigh(lossFactor : Optional[() => .Float] = .constant(0.2)) : .IObservable[.Boolean]
+            	 = .ops.Condition(.ops.Greater(.trader.Position(),.constant(0)),.ops.Greater(.trader.PerSharePrice(),.ops.Div(.orderbook.BestPrice(.orderbook.Asks()),.ops.Sub(.constant(1),lossFactor))),.ops.Condition(.ops.Less(.trader.Position(),.constant(0)),.ops.Less(.trader.PerSharePrice(),.ops.Mul(.orderbook.BestPrice(.orderbook.Bids()),.ops.Sub(.constant(1),lossFactor))),.false()))
         
         
         def OneSideStrategy(x : Optional[.strategy.price.LiquidityProvider] = .strategy.price.LiquidityProvider(),
@@ -2309,6 +2378,11 @@ package strategy {@category = "Side function"
         @python.intrinsic("strategy.ladder.Balancer_Impl")
         def LadderBalancer(inner : Optional[.ILadderStrategy] = .strategy.price.LadderMM(),
                            maximalSize : Optional[.Int] = 20) : .ILadderStrategy
+        
+        
+        @python.intrinsic("strategy.ladder.Clearable_Impl")
+        def Clearable(inner : Optional[.ISuspendableStrategy] = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                      predicate : Optional[() => .Boolean] = .false()) : .ISuspendableStrategy
         
         @category = "-"
         

@@ -46,41 +46,47 @@ package ops() {
         def Condition(cond = true(),
                       ifpart = side.Sell(),
                       elsepart = side.Buy()) : IFunction[Side]
+        
+        // defined at defs\ops.sc: 40.9
+        @python.intrinsic.observable("ops.Condition_Impl")
+        def Condition(cond = true(),
+                      ifpart = true(),
+                      elsepart = false()) : IFunction[Boolean]
     }
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     
     package () {
-        // defined at defs\ops.sc: 46.9
+        // defined at defs\ops.sc: 50.9
         @symbol = "=="
         @python.intrinsic.observable("ops.Equal_Impl")
         def Equal(x = constant(1.0),
                   y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 50.9
+        // defined at defs\ops.sc: 54.9
         @symbol = "<>"
         @python.intrinsic.observable("ops.NotEqual_Impl")
         def NotEqual(x = constant(1.0),
                      y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 54.9
+        // defined at defs\ops.sc: 58.9
         @symbol = "<"
         @python.intrinsic.observable("ops.Less_Impl")
         def Less(x = constant(1.0),
                  y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 58.9
+        // defined at defs\ops.sc: 62.9
         @symbol = ">"
         @python.intrinsic.observable("ops.Greater_Impl")
         def Greater(x = constant(1.0),
                     y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 62.9
+        // defined at defs\ops.sc: 66.9
         @symbol = "<="
         @python.intrinsic.observable("ops.LessEqual_Impl")
         def LessEqual(x = constant(1.0),
                       y = constant(1.0)) : IFunction[Boolean]
         
-        // defined at defs\ops.sc: 66.9
+        // defined at defs\ops.sc: 70.9
         @symbol = ">="
         @python.intrinsic.observable("ops.GreaterEqual_Impl")
         def GreaterEqual(x = constant(1.0),

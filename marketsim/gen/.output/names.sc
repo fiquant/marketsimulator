@@ -167,6 +167,12 @@ package ops
                   ifpart = .side.Sell(),
                   elsepart = .side.Buy()) : .IFunction[.Side]
     
+    @label = "(if %(cond)s then %(ifpart)s else %(elsepart)s)"
+    @python.intrinsic.observable("ops.Condition_Impl")
+    def Condition(cond = .true(),
+                  ifpart = .true(),
+                  elsepart = .false()) : .IFunction[.Boolean]
+    
     @label = "({%(x)s}{{symbol}}{%(y)s})"
     @symbol = "<"
     @python.intrinsic.observable("ops.Less_Impl")
@@ -1376,9 +1382,10 @@ package strategy
                      /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
                      /** order factory function*/ orderFactory = .order.side_price.Limit()) = .strategy.Combine(x~>OneSideStrategy(eventGen,orderFactory,.side.Sell()),x~>OneSideStrategy(eventGen,orderFactory,.side.Buy()))
         
-        @python.intrinsic("strategy.ladder.StopLoss_Impl")
         def StopLoss(inner = .strategy.price.LadderMM() : .ISuspendableStrategy,
-                     lossFactor = .constant(0.2)) : .ISuspendableStrategy
+                     lossFactor = .constant(0.2)) = .strategy.price.Clearable(inner,.strategy.price.isLossTooHigh(lossFactor))
+        
+        def isLossTooHigh(lossFactor = .constant(0.2)) = if .trader.Position()>0 then .trader.PerSharePrice()>.orderbook.Asks()~>BestPrice/(1-lossFactor) else if .trader.Position()<0 then .trader.PerSharePrice()<.orderbook.Bids()~>BestPrice*(1-lossFactor) else .false()
         
         def OneSideStrategy(x = .strategy.price.LiquidityProvider(),
                             /** Event source making the strategy to wake up*/ eventGen = .event.Every(.math.random.expovariate(1.0)),
@@ -1392,6 +1399,10 @@ package strategy
         @python.intrinsic("strategy.ladder.Balancer_Impl")
         def LadderBalancer(inner = .strategy.price.LadderMM(),
                            maximalSize = 20) : .ILadderStrategy
+        
+        @python.intrinsic("strategy.ladder.Clearable_Impl")
+        def Clearable(inner = .strategy.price.LadderMM() : .ISuspendableStrategy,
+                      predicate = .false()) : .ISuspendableStrategy
         
     }
     

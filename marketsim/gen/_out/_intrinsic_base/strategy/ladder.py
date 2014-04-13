@@ -32,7 +32,7 @@ class OneSide_Base(object):
     def on_side_set(self, value):
         pass
     
-class StopLoss_Base(object):
+class Clearable_Base(object):
     def get_inner(self):
         return self._back_inner
     
@@ -44,15 +44,15 @@ class StopLoss_Base(object):
     def on_inner_set(self, value):
         pass
     
-    def get_lossFactor(self):
-        return self._back_lossFactor
+    def get_predicate(self):
+        return self._back_predicate
     
-    def set_lossFactor(self, value):
-        self._back_lossFactor = value
-        self.on_lossFactor_set(value)
+    def set_predicate(self, value):
+        self._back_predicate = value
+        self.on_predicate_set(value)
     
-    lossFactor = property(get_lossFactor, set_lossFactor)
-    def on_lossFactor_set(self, value):
+    predicate = property(get_predicate, set_predicate)
+    def on_predicate_set(self, value):
         pass
     
 class Balancer_Base(object):

@@ -22,6 +22,8 @@ from marketsim.gen._out.strategy.price._stoploss import StopLoss
 
 from marketsim.gen._out.strategy.price._book import Book
 
+from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh
+
 from marketsim.gen._out.strategy.price._onesidestrategy import OneSideStrategy
 
 from marketsim.gen._out.strategy.price._end import End
@@ -35,6 +37,8 @@ from marketsim.gen._out.strategy.price._initialvalue import InitialValue
 from marketsim.gen._out.strategy.price._laddermm import LadderMM
 
 from marketsim.gen._out.strategy.price._ladderbalancer import LadderBalancer
+
+from marketsim.gen._out.strategy.price._clearable import Clearable
 
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
 

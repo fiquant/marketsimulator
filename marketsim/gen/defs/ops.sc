@@ -37,6 +37,10 @@ package ops
                       ifpart   = side.Sell(),
                       elsepart = side.Buy()) : IFunction[Side]
 
+        @python.intrinsic.observable("ops.Condition_Impl")
+        def Condition(cond     = true(),
+                      ifpart   = true(),
+                      elsepart = false()) : IFunction[Boolean]
     }
 
 

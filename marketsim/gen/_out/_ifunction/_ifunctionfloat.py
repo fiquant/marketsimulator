@@ -110,6 +110,11 @@ class IFunctionfloat(Function_impl):
         return side_price_Limit(self)
     
     @property
+    def isLossTooHigh(self):
+        from marketsim.gen._out.strategy.price._islosstoohigh import isLossTooHigh
+        return isLossTooHigh(self)
+    
+    @property
     def side_Market(self):
         from marketsim.gen._out.order._curried._side_market import side_Market
         return side_Market(self)

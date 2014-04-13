@@ -153,6 +153,80 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+@registry.expose(["Ops", "Condition"])
+class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import rtti
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_observableTrue_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IObservablebool,
+        'ifpart' : IObservablebool,
+        'elsepart' : IObservablebool
+    }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -557,6 +631,224 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         'cond' : IObservablebool,
         'ifpart' : IObservableSide,
         'elsepart' : IFunctionSide
+    }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_true_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IFunctionbool,
+        'ifpart' : IObservablebool,
+        'elsepart' : IObservablebool
+    }
+    
+    
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_observableTrue_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IObservablebool,
+        'ifpart' : IFunctionbool,
+        'elsepart' : IObservablebool
+    }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim.gen._out._false import false_ as _false_
+        from marketsim import rtti
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_observableTrue_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IObservablebool,
+        'ifpart' : IObservablebool,
+        'elsepart' : IFunctionbool
     }
     
     
@@ -1029,6 +1321,215 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_true_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IFunctionbool,
+        'ifpart' : IFunctionbool,
+        'elsepart' : IObservablebool
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    def on_elsepart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'elsepart', value)
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim.gen._out._false import false_ as _false_
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_true_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IFunctionbool,
+        'ifpart' : IObservablebool,
+        'elsepart' : IFunctionbool
+    }
+    
+    
+    
+    
+    
+    def on_ifpart_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'ifpart', value)
+    
+    
+    
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+@registry.expose(["Ops", "Condition"])
+class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim.gen._out._false import false_ as _false_
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_observableTrue_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IObservablebool,
+        'ifpart' : IFunctionbool,
+        'elsepart' : IFunctionbool
+    }
+    
+    
+    def on_cond_set(self, value):
+        from marketsim import event
+        event.subscribe_field(self, 'cond', value)
+    
+    
+    
+    
+    
+    
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -1162,6 +1663,71 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
     
+# generated with class generator.python.intrinsic_observable$Import
+from marketsim import registry
+from marketsim.gen._out._observable._observablebool import Observablebool
+from marketsim.gen._intrinsic.ops import Condition_Impl
+from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+@registry.expose(["Ops", "Condition"])
+class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
+    """ 
+    """ 
+    def __init__(self, cond = None, ifpart = None, elsepart = None):
+        from marketsim.gen._out._false import false_ as _false_
+        from marketsim import rtti
+        from marketsim.gen._out._true import true_ as _true_
+        from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim import deref_opt
+        Observablebool.__init__(self)
+        self.cond = cond if cond is not None else deref_opt(_true_())
+        self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
+        self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
+        rtti.check_fields(self)
+        Condition_Impl.__init__(self)
+    
+    @property
+    def label(self):
+        return repr(self)
+    
+    _properties = {
+        'cond' : IFunctionbool,
+        'ifpart' : IFunctionbool,
+        'elsepart' : IFunctionbool
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    def __repr__(self):
+        return "(if %(cond)s then %(ifpart)s else %(elsepart)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+    
+    def bind_ex(self, ctx):
+        if hasattr(self, '_bound_ex'): return
+        self._bound_ex = True
+        if hasattr(self, '_processing_ex'):
+            raise Exception('cycle detected')
+        self._processing_ex = True
+        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.bind_ex(self._ctx_ex)
+                else:
+                    v.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        self.cond.bind_ex(self._ctx_ex)
+        self.ifpart.bind_ex(self._ctx_ex)
+        self.elsepart.bind_ex(self._ctx_ex)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
+        delattr(self, '_processing_ex')
+    
 def Condition(cond = None,ifpart = None,elsepart = None): 
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -1179,6 +1745,10 @@ def Condition(cond = None,ifpart = None,elsepart = None):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservableSide):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservableSide):
                 return Condition_IObservableBooleanIObservableSideIObservableSide(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IObservablebool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IObservablebool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IObservablebool):
+                return Condition_IObservableBooleanIObservableBooleanIObservableBoolean(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunctionbool):
         if ifpart is None or rtti.can_be_casted(ifpart, IObservablefloat):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservablefloat):
@@ -1204,6 +1774,18 @@ def Condition(cond = None,ifpart = None,elsepart = None):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunctionSide):
                 return Condition_IObservableBooleanIObservableSideSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunctionbool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IObservablebool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IObservablebool):
+                return Condition_BooleanIObservableBooleanIObservableBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IObservablebool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunctionbool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IObservablebool):
+                return Condition_IObservableBooleanBooleanIObservableBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IObservablebool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IObservablebool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunctionbool):
+                return Condition_IObservableBooleanIObservableBooleanBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IFunctionbool):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunctionfloat):
             if elsepart is None or rtti.can_be_casted(elsepart, IObservablefloat):
                 return Condition_BooleanFloatIObservableFloat(cond,ifpart,elsepart)
@@ -1228,6 +1810,18 @@ def Condition(cond = None,ifpart = None,elsepart = None):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunctionSide):
                 return Condition_IObservableBooleanSideSide(cond,ifpart,elsepart)
     if cond is None or rtti.can_be_casted(cond, IFunctionbool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunctionbool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IObservablebool):
+                return Condition_BooleanBooleanIObservableBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IFunctionbool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IObservablebool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunctionbool):
+                return Condition_BooleanIObservableBooleanBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IObservablebool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunctionbool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunctionbool):
+                return Condition_IObservableBooleanBooleanBoolean(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IFunctionbool):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunctionfloat):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunctionfloat):
                 return Condition_BooleanFloatFloat(cond,ifpart,elsepart)
@@ -1235,4 +1829,8 @@ def Condition(cond = None,ifpart = None,elsepart = None):
         if ifpart is None or rtti.can_be_casted(ifpart, IFunctionSide):
             if elsepart is None or rtti.can_be_casted(elsepart, IFunctionSide):
                 return Condition_BooleanSideSide(cond,ifpart,elsepart)
+    if cond is None or rtti.can_be_casted(cond, IFunctionbool):
+        if ifpart is None or rtti.can_be_casted(ifpart, IFunctionbool):
+            if elsepart is None or rtti.can_be_casted(elsepart, IFunctionbool):
+                return Condition_BooleanBooleanBoolean(cond,ifpart,elsepart)
     raise Exception('Cannot find suitable overload for Condition('+str(cond) +':'+ str(type(cond))+','+str(ifpart) +':'+ str(type(ifpart))+','+str(elsepart) +':'+ str(type(elsepart))+')')

@@ -48,9 +48,18 @@ package strategy.price
     def LadderBalancer(inner        = LadderMM(),
                        maximalSize  = 20) : ILadderStrategy
 
-    @python.intrinsic("strategy.ladder.StopLoss_Impl")
+    def isLossTooHigh(lossFactor = constant(0.2))
+        = if trader.Position() > 0 then trader.PerSharePrice() > orderbook.Asks()~>BestPrice / (1 - lossFactor) else
+          if trader.Position() < 0 then trader.PerSharePrice() < orderbook.Bids()~>BestPrice * (1 - lossFactor) else false()
+
+    @python.intrinsic("strategy.ladder.Clearable_Impl")
+    def Clearable(inner      = LadderMM() : ISuspendableStrategy,
+                  predicate  = false()) : ISuspendableStrategy
+
     def StopLoss(inner      = LadderMM() : ISuspendableStrategy,
-                 lossFactor = constant(0.2)) : ISuspendableStrategy
+                 lossFactor = constant(0.2))
+
+        = Clearable(inner, isLossTooHigh(lossFactor))
 
     /**
      *  A Strategy that allows to drive the asset price based on historical market data

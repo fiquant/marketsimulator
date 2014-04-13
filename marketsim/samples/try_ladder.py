@@ -10,7 +10,7 @@ from common import expose, Constant
 def Ladder(ctx):
 
     const = constant
-    linear_signal = math.RandomWalk(initialValue=20,
+    linear_signal = math.RandomWalk(initialValue=10,
                                     deltaDistr=const(-.1),
                                     name="20-0.1t")
 
@@ -24,7 +24,7 @@ def Ladder(ctx):
         ctx.makeTrader_A(
             strategy.price.LadderMM(initialSize=2)
                           .LadderBalancer(maximalSize=3)
-                          .StopLoss(const(0.1)),
+                          .StopLoss(lossFactor=constant(0.25)),
             "ladder mm"
         ),
 

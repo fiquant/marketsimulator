@@ -27,7 +27,7 @@ class OneSide_Impl(Strategy, OneSide_Base):
 
     @suspended.setter
     def suspended(self, value):
-        if value and not self.suspended:
+        if value and self._orders:
             for o in self._orders:
                 self._send(request.Cancel(o))
             self._orders = None
@@ -161,28 +161,21 @@ class Balancer_Impl(Strategy, Balancer_Base):
                 if self._seller._size < self.maximalSize:
                     self._seller.extend()
 
-from marketsim.gen._out._intrinsic_base.strategy.ladder import StopLoss_Base
+from marketsim.gen._out._intrinsic_base.strategy.ladder import Clearable_Base
 
-class StopLoss_Impl(Strategy, StopLoss_Base):
+class Clearable_Impl(Strategy, Clearable_Base):
 
     def __init__(self):
         Strategy.__init__(self)
         from marketsim._pub import trader, orderbook
-        self._orderBook = OfTrader()
         self._balance = trader.Balance()
         self._position = trader.Position()
         self._pendingVolume = trader.PendingVolume()
-        self._pershareprice = trader.PerSharePrice()
-        self._askPrice = orderbook.Asks().BestPrice
-        self._bidPrice = orderbook.Bids().BestPrice
 
         event.subscribe(self.inner.on_order_created, _(self)._send, self)
+        event.subscribe(self.predicate, _(self)._wakeUp, self)
 
-        event.subscribe(self._position, _(self)._wakeUp, self)
-        event.subscribe(self._askPrice, _(self)._wakeUp, self)
-        event.subscribe(self._bidPrice, _(self)._wakeUp, self)
-
-    _internals = ['_pershareprice']
+    _internals = ["_position", "_pendingVolume"]
 
     def clearPosition(self):
         from marketsim._pub import order, side
@@ -197,13 +190,8 @@ class StopLoss_Impl(Strategy, StopLoss_Base):
             self.suspended = True
 
     def _wakeUp(self, r):
-        mean_price = self._pershareprice()
-        position = self._position()
-        if not self.suspended and mean_price is not None and position is not None:
-            if position > 0 and self._askPrice() and mean_price > self._askPrice() / (1 - self.lossFactor()):
-                self.clearPosition()
-            if position < 0 and self._bidPrice() and mean_price < self._bidPrice() * (1 - self.lossFactor()):
-                self.clearPosition()
+        if not self.suspended and self.predicate():
+            self.clearPosition()
 
 
 
