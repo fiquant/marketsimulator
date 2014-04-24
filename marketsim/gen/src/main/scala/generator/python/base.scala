@@ -264,7 +264,6 @@ package object base {
                                     s"v.$bind(self.$ctx)")))
 
 
-        override def bindEx_ctxCopy = s"self._ctx_ex = self.$updateContext(ctx) if hasattr(self, '$updateContext') else ctx"
         override def bindEx_body = bindEx_ctxCopy | bindEx_internals | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.$ctx)"
     }
 

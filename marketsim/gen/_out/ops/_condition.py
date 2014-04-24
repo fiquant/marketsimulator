@@ -57,7 +57,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -135,7 +135,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -209,7 +209,7 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -281,7 +281,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -355,7 +355,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -429,7 +429,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -504,7 +504,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -580,7 +580,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -656,7 +656,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -729,7 +729,7 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -802,7 +802,7 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -874,7 +874,7 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -945,7 +945,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1016,7 +1016,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1085,7 +1085,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1158,7 +1158,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1231,7 +1231,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1303,7 +1303,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1372,7 +1372,7 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1442,7 +1442,7 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1512,7 +1512,7 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1578,7 +1578,7 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1647,7 +1647,7 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -1712,7 +1712,7 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)

@@ -36,6 +36,10 @@ class Base_Impl(Holder_Impl):
         context.trader = self
         context.orderProcessor = self
 
+    def updateContext_ex(self, context):
+        context.trader = self
+        context.orderProcessor = self
+
     def bind(self, ctx):
         self._ctx = ctx.context.copy()
 

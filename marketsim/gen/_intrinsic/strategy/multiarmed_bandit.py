@@ -26,6 +26,10 @@ class MultiarmedBandit2_Impl(Strategy, MultiarmedBandit2_Base):
         context.parentTrader = context.trader
         context.strategies = self.strategies
 
+    def updateContext_ex(self, context):
+        context.parentTrader = context.trader
+        context.strategies = self.strategies
+
     def send(self, order, origin):
         if origin == self._current:
             self._send(order)

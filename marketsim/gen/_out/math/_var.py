@@ -38,7 +38,7 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -92,7 +92,7 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
@@ -146,7 +146,7 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)

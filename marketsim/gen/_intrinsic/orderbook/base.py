@@ -34,7 +34,10 @@ class BookBase(Holder_Impl):
         
     def updateContext(self, context):
         context.orderbook = self
-        
+
+    def updateContext_ex(self, context):
+        context.orderbook = self
+
     def reset(self):
         self._bids.reset()
         self._asks.reset()

@@ -83,7 +83,7 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = self.updateContext_ex(ctx) if hasattr(self, 'updateContext_ex') else ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
