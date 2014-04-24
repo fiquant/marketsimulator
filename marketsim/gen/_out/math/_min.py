@@ -50,7 +50,7 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -136,7 +136,7 @@ class Min_FloatIObservableFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -222,7 +222,7 @@ class Min_IObservableFloatFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -306,7 +306,7 @@ class Min_FloatFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):

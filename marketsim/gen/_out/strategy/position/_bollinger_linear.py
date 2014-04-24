@@ -41,7 +41,7 @@ class Bollinger_linear_FloatIObservableFloatISingleAssetTrader(DesiredPositionSt
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.k.bind_ex(self._ctx_ex)
         self.trader.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):

@@ -591,6 +591,7 @@ class Simulation(object):
         for t in self.traders: t.bind_ex(ctx)
         for t in self.orderbooks: t.bind_ex(ctx)
         for t in self.graphs: t.bind_ex(ctx)
+        self._bound_ex = True
 
 
     @property

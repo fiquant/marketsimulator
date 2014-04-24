@@ -55,7 +55,7 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.book.bind_ex(self._ctx_ex)
         self.depth.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -151,7 +151,7 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.book.bind_ex(self._ctx_ex)
         self.depth.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):

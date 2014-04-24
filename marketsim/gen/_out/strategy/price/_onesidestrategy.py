@@ -57,7 +57,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.eventGen.bind_ex(self._ctx_ex)
         self.orderFactory.bind_ex(self._ctx_ex)
@@ -159,7 +159,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.eventGen.bind_ex(self._ctx_ex)
         self.orderFactory.bind_ex(self._ctx_ex)

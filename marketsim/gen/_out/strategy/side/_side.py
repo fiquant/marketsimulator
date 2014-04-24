@@ -33,7 +33,7 @@ class Side_strategysideNoise(IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -110,7 +110,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -186,7 +186,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -266,7 +266,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -342,7 +342,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -415,7 +415,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -488,7 +488,7 @@ class Side_strategysideSignal(IFunctionSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
@@ -568,7 +568,7 @@ class Side_strategysidePairTrading(ObservableSide):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)

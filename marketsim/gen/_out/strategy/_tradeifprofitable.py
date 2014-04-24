@@ -65,7 +65,7 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.inner.bind_ex(self._ctx_ex)
         self.account.bind_ex(self._ctx_ex)
         self.performance.bind_ex(self._ctx_ex)

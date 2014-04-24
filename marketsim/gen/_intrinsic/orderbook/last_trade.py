@@ -2,8 +2,16 @@ class LastTrade(object):
 
     def bind(self, ctx):
         from marketsim import event, _, context
-        event.subscribe(self.queue.lastTrade, _(self).fire, self)
-        context.bind(self._subscriptions, ctx)
+        if hasattr(self, '_subscriptions'):
+            event.subscribe(self.queue.lastTrade, _(self).fire, self)
+            context.bind(self._subscriptions, ctx)
+
+    def bind_impl(self, ctx):
+        from marketsim import event, _, context
+        #event.subscribe(self.queue.lastTrade, _(self).fire, self)
+        #for x in self._subscriptions:
+        #    x.bind_ex(ctx)
+
 
     @property
     def _impl(self):

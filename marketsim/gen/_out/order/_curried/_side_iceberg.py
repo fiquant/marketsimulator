@@ -49,7 +49,7 @@ class side_Iceberg_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from_IF
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.proto.bind_ex(self._ctx_ex)
         self.lotSize.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):

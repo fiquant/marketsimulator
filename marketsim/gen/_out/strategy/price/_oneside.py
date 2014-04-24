@@ -48,7 +48,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.side.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -157,7 +157,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.side.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -260,7 +260,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.side.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
@@ -368,7 +368,7 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         self.side.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):

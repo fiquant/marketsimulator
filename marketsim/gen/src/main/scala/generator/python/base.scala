@@ -162,7 +162,7 @@ package object base {
 
         def bindEx_epilogue : Code = s"delattr(self, '$processing')"
 
-        def bindEx_ctxCopy : Code = s"self.$ctx = ctx"
+        def bindEx_ctxCopy : Code = s"self.$ctx = ctx.updatedFrom(self)"
 
         def bindEx_body : Code = if (parameters_non_primitive.nonEmpty) bindEx_ctxCopy else ""
 

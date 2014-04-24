@@ -111,6 +111,17 @@ class Base(object):
 
         self.dec()
 
+class BindingContextMutable(object):
+
+    def __init__(self, d):
+        self.__dict__['_d'] = d.copy()
+
+    def __getattr__(self, item):
+        return self.__dict__['_d'][item]
+
+    def __setattr__(self, key, value):
+        self.__dict__['_d'][key] = value
+
 import collections
 
 class BindingContextEx(collections.Mapping):
@@ -120,15 +131,16 @@ class BindingContextEx(collections.Mapping):
     This class is immutable so its instances can be easily shared.
 
     """
-    def __init__(self, *args, **kwargs):
-        self._d = dict(*args, **kwargs)
+    def __init__(self, d):
+        self._d = d.copy()
         self._hash = None
 
-    def updated(self, *args, **kwargs):
-        d = self._d.copy()
-        other = dict(*args, **kwargs)
-        d.update(other)
-        return BindingContextEx(d)
+    def updatedFrom(self, obj):
+        if hasattr(obj, 'updateContext_ex'):
+            dm = BindingContextMutable(self._d)
+            obj.updateContext_ex(dm)
+            return  BindingContextEx(dm.__dict__['_d'])
+        return self
 
     def __getattr__(self, item):
         return self.__getitem__(item)

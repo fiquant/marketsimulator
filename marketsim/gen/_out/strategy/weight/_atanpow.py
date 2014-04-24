@@ -51,7 +51,7 @@ class AtanPow_FloatFloat(IFunctionfloat):
         if hasattr(self, '_processing_ex'):
             raise Exception('cycle detected')
         self._processing_ex = True
-        self._ctx_ex = ctx
+        self._ctx_ex = ctx.updatedFrom(self)
         self.f.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
