@@ -12,8 +12,13 @@ class ToRecord_Impl(ToRecord_Base):  # TODO: should the source be split into dat
         self.reset()
         
     def bind(self, context):
-        self._sched = context.world
-        
+        if not hasattr(self, '_sched'):
+            self._sched = context.world
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_sched'):
+            self._sched = context.world
+
     @property
     def _digits(self):
         return self.source.digits if 'digits' in dir(self.source) else 4

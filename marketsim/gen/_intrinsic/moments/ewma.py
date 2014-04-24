@@ -32,7 +32,12 @@ class EWMA_Impl(fold.Last):
         return {}
 
     def bind(self, context):
-        self._scheduler = context.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
 
     def at(self, t):
         """ Returns value of the average at some time point t >= last update time

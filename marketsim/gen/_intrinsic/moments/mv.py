@@ -11,8 +11,13 @@ class MV_Impl(object):
         return  self.label
 
     def bind(self, ctx):
-        self._scheduler = ctx.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
         
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
+
     def __call__(self):
         return self.at(self._scheduler.currentTime)
         
