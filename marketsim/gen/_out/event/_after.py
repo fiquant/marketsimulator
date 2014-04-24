@@ -34,24 +34,24 @@ class After_Float(IEvent,After_Impl):
         return "After(%(delay)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
-        if hasattr(self, '_bound_ex'): return
-        self._bound_ex = True
-        if getattr(self, '_processing_ex', False):
+        if self.__dict__.get('_bound_ex', False): return
+        self.__dict__['_bound_ex'] = True
+        if self.__dict__.get('_processing_ex', False):
             raise Exception('cycle detected')
-        self._processing_ex = True
-        self._ctx_ex = ctx.updatedFrom(self)
+        self.__dict__['_processing_ex'] = True
+        self.__dict__['_ctx_ex'] = ctx.updatedFrom(self)
         if hasattr(self, '_internals'):
             for t in self._internals:
                 v = getattr(self, t)
                 if type(v) in [list, set]:
-                    for w in v: w.bind_ex(self._ctx_ex)
+                    for w in v: w.bind_ex(self.__dict__['_ctx_ex'])
                 else:
-                    v.bind_ex(self._ctx_ex)
+                    v.bind_ex(self.__dict__['_ctx_ex'])
         self.delay.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        self._processing_ex = False
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.__dict__['_processing_ex'] = False
     
 def After(delay = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

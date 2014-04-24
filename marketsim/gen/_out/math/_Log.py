@@ -35,16 +35,16 @@ class Log_Float(Observablefloat):
         return "log(%(x)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
-        if hasattr(self, '_bound_ex'): return
-        self._bound_ex = True
-        if getattr(self, '_processing_ex', False):
+        if self.__dict__.get('_bound_ex', False): return
+        self.__dict__['_bound_ex'] = True
+        if self.__dict__.get('_processing_ex', False):
             raise Exception('cycle detected')
-        self._processing_ex = True
-        self._ctx_ex = ctx.updatedFrom(self)
+        self.__dict__['_processing_ex'] = True
+        self.__dict__['_ctx_ex'] = ctx.updatedFrom(self)
         self.x.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        self._processing_ex = False
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.__dict__['_processing_ex'] = False
     
     def __call__(self, *args, **kwargs):
         import math

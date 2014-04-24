@@ -154,15 +154,15 @@ package object base {
         }
 
         def bindEx_prologue =
-            s"if hasattr(self, '$bound'): return" |
-            s"self.$bound = True" |
-            s"if getattr(self, '$processing', False):" |>
+            s"if self.__dict__.get('$bound', False): return" |
+            s"self.__dict__['$bound'] = True" |
+            s"if self.__dict__.get('$processing', False):" |>
                 "raise Exception('cycle detected')" |
-            s"self.$processing = True"
+            s"self.__dict__['$processing'] = True"
 
-        def bindEx_epilogue : Code = s"self.$processing = False"
+        def bindEx_epilogue : Code = s"self.__dict__['$processing'] = False"
 
-        def bindEx_ctxCopy : Code = s"self.$ctx = ctx.updatedFrom(self)"
+        def bindEx_ctxCopy : Code = s"self.__dict__['$ctx'] = ctx.updatedFrom(self)"
 
         def bindEx_body : Code = if (parameters_non_primitive.nonEmpty) bindEx_ctxCopy else ""
 
@@ -170,7 +170,7 @@ package object base {
 
         def bindEx_subscriptions : Code =
             s"if hasattr(self, '$subscriptions'):" |>
-                s"for s in self.$subscriptions: s.$bind(self.$ctx)"
+                s"for s in self.$subscriptions: s.$bind(self.__dict__['$ctx'])"
 
         def bindEx = Def(bind, "ctx", bindEx_prologue  | bindEx_body | bindEx_properties | bindEx_subscriptions | bindEx_epilogue)
 
@@ -259,13 +259,13 @@ package object base {
                     (s"for t in self._internals:" |>
                             (s"v = getattr(self, t)" |
                             (s"if type(v) in [list, set]:" |>
-                                    s"for w in v: w.$bind(self.$ctx)") |
+                                    s"for w in v: w.$bind(self.__dict__['$ctx'])") |
                             ("else:" |>
-                                    s"v.$bind(self.$ctx)")))
+                                    s"v.$bind(self.__dict__['$ctx'])")))
 
 
         override def bindEx_body = bindEx_ctxCopy | bindEx_internals
-        override def bindEx_properties = super.bindEx_properties | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.$ctx)"
+        override def bindEx_properties = super.bindEx_properties | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.__dict__['$ctx'])"
     }
 
     trait Bind extends Printer
@@ -287,7 +287,7 @@ package object base {
 
         override def bindEx_body = bindEx_ctxCopy
 
-        override def bindEx_epilogue = s"self.impl.$bind(self.$ctx)" | super.bindEx_epilogue
+        override def bindEx_epilogue = s"self.impl.$bind(self.__dict__['$ctx'])" | super.bindEx_epilogue
 
         override def init_body =
             super.init_body |
