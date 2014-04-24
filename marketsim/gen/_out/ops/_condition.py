@@ -54,7 +54,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -71,7 +71,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -132,7 +132,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -149,7 +149,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -206,7 +206,7 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -223,7 +223,7 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -278,7 +278,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -295,7 +295,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -352,7 +352,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -369,7 +369,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -426,7 +426,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -443,7 +443,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -501,7 +501,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -518,7 +518,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -577,7 +577,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -594,7 +594,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -653,7 +653,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -670,7 +670,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -726,7 +726,7 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -743,7 +743,7 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -799,7 +799,7 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -816,7 +816,7 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -871,7 +871,7 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -888,7 +888,7 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -942,7 +942,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -959,7 +959,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1013,7 +1013,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1030,7 +1030,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1082,7 +1082,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1099,7 +1099,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1155,7 +1155,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1172,7 +1172,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1228,7 +1228,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1245,7 +1245,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1300,7 +1300,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1317,7 +1317,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1369,7 +1369,7 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1386,7 +1386,7 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1439,7 +1439,7 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1456,7 +1456,7 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1509,7 +1509,7 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1526,7 +1526,7 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1575,7 +1575,7 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1592,7 +1592,7 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1644,7 +1644,7 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1661,7 +1661,7 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -1709,7 +1709,7 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -1726,7 +1726,7 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
         if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 def Condition(cond = None,ifpart = None,elsepart = None): 
     from marketsim import rtti

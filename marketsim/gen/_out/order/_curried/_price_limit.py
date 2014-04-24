@@ -47,7 +47,7 @@ class price_Limit_SideFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -55,7 +55,7 @@ class price_Limit_SideFloat(IFunctionIObservableIOrder_from_IFunctionfloat):
         self.volume.bind_ex(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def __call__(self, price = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float

@@ -30,7 +30,7 @@ class Side_strategysideNoise(IFunctionSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -38,7 +38,7 @@ class Side_strategysideNoise(IFunctionSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -107,7 +107,7 @@ class Side_strategysideMeanReversion(ObservableSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -115,7 +115,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -183,7 +183,7 @@ class Side_strategysideRSIbis(IFunctionSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -191,7 +191,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -263,7 +263,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -271,7 +271,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -339,7 +339,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -347,7 +347,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -412,7 +412,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -420,7 +420,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -485,7 +485,7 @@ class Side_strategysideSignal(IFunctionSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -493,7 +493,7 @@ class Side_strategysideSignal(IFunctionSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -565,7 +565,7 @@ class Side_strategysidePairTrading(ObservableSide):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -573,7 +573,7 @@ class Side_strategysidePairTrading(ObservableSide):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()

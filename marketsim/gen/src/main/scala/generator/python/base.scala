@@ -156,11 +156,11 @@ package object base {
         def bindEx_prologue =
             s"if hasattr(self, '$bound'): return" |
             s"self.$bound = True" |
-            s"if hasattr(self, '$processing'):" |>
+            s"if getattr(self, '$processing', False):" |>
                 "raise Exception('cycle detected')" |
             s"self.$processing = True"
 
-        def bindEx_epilogue : Code = s"delattr(self, '$processing')"
+        def bindEx_epilogue : Code = s"self.$processing = False"
 
         def bindEx_ctxCopy : Code = s"self.$ctx = ctx.updatedFrom(self)"
 

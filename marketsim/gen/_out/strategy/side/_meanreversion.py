@@ -25,14 +25,14 @@ class MeanReversion_Float(FundamentalValueStrategy):
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         
         
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
 
     @property

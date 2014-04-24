@@ -12,8 +12,8 @@ class Base(object):
         self.__dict__['_impl'] = None
 
     def _bind(self, impl):
-        assert self._impl is  None
-        self.__dict__['_impl'] = impl
+        if self._impl is  None:
+            self.__dict__['_impl'] = impl
 
     def __getattr__(self, name):
         if not aux(name) and self._impl:
@@ -51,4 +51,7 @@ class SingleProxyBase(Base):
 class Single_Impl(SingleProxyBase, Single_Base):
 
     def bind(self, ctx):
+        self._bind(ctx.trader)
+
+    def bind_impl(self, ctx):
         self._bind(ctx.trader)

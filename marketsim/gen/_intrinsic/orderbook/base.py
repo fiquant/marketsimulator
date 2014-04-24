@@ -28,7 +28,13 @@ class BookBase(Holder_Impl):
         self.reset()
         
     def bind(self, ctx):
-        self._scheduler = ctx.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
+
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
+
         
     _internals = ['_asks', '_bids']
         

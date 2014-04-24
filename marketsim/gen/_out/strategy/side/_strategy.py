@@ -47,7 +47,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -57,7 +57,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -142,7 +142,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -152,7 +152,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -237,7 +237,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -247,7 +247,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -332,7 +332,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -342,7 +342,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -427,7 +427,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -437,7 +437,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -522,7 +522,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -532,7 +532,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -617,7 +617,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -627,7 +627,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
@@ -712,7 +712,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
     def bind_ex(self, ctx):
         if hasattr(self, '_bound_ex'): return
         self._bound_ex = True
-        if hasattr(self, '_processing_ex'):
+        if getattr(self, '_processing_ex', False):
             raise Exception('cycle detected')
         self._processing_ex = True
         self._ctx_ex = ctx.updatedFrom(self)
@@ -722,7 +722,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         self.impl.bind_ex(self._ctx_ex)
-        delattr(self, '_processing_ex')
+        self._processing_ex = False
     
     def bind(self, ctx):
         self._ctx = ctx.clone()
