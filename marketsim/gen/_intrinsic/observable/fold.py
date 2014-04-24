@@ -10,7 +10,12 @@ class Last(object):
     """
 
     def bind(self, context):
-        self._scheduler = context.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
 
     def _update(self, _):
         self.update(self._scheduler.currentTime, self.source())

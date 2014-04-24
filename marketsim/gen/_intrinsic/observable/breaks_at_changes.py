@@ -9,8 +9,13 @@ class BreaksAtChanges_Impl(BreaksAtChanges_Base):
         event.subscribe(self.source, _(self)._clean, self)
         
     def bind(self, ctx):
-        self._scheduler = ctx.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
     
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
+
     def _clean(self, dummy):
         self._setup(None)
         self._scheduler.async(_(self, self.source())._setup)

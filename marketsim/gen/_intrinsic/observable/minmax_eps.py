@@ -19,7 +19,12 @@ class Base(object):
         self.x.source += self._handler
 
     def bind(self, ctx):
-        self._subscribe()
+        if not hasattr(self, '_handler'):
+            self._subscribe()
+
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_handler'):
+            self._subscribe()
 
     def __call__(self):
         return self.value
