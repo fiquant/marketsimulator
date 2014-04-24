@@ -289,7 +289,7 @@ def run(name, constructor, only_veusz):
         root = registry.Simulation(traders, list(ctx.books.itervalues()), ctx.graphs)
         r.insert(root)
         r.pushAllReferences()
-        root.bind_ex(context.BindingContextEx({}))
+        root.bind_ex(context.BindingContextEx({'world' : world }))
         context.bind(root, {'world' : world })
 
         def checks():

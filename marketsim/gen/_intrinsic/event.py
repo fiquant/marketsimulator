@@ -246,8 +246,15 @@ class Every_Impl(Event_Impl, Every_Base):
         self._cancelled = False
         
     def bind(self, context):
-        self._scheduler = context.world
-        self.schedule()
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+            self.schedule()
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+            self.schedule()
+
 
     def schedule(self):
         self._scheduler.scheduleAfter(self.intervalFunc(), _(self)._wakeUp)
@@ -270,8 +277,14 @@ class After_Impl(Event_Impl, After_Base):
         self._cancelled = False
         
     def bind(self, context):
-        self._scheduler = context.world
-        self.schedule()
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+            self.schedule()
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+            self.schedule()
 
     def schedule(self):
         self._scheduler.scheduleAfter(self.delay(), _(self)._wakeUp)
