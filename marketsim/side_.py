@@ -24,6 +24,9 @@ class _SellSide(Tag):
     id = 0
     
     _alias = ['Sell']
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
     
     @property
     def opposite(self):
@@ -53,6 +56,9 @@ class _BuySide(Tag):
 
     _alias = ['Buy']
     
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+
     @property
     def opposite(self):
         return Sell

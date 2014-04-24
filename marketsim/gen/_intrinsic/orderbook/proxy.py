@@ -24,6 +24,8 @@ class Queue(object):
     def __init__(self, side):
         self._side = side
 
+    _internals = ['_side']
+
     @property
     def _impl(self):
         try:

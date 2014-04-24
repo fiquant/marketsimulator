@@ -34,7 +34,7 @@ class LastTrade(Observablefloat):
         self.fire(self)
 
     def bind_ex(self, ctx):
-        pass
+        self._bound_ex = True
 
     def _retranslate(self, source):
         self.set(source())
