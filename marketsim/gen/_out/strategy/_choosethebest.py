@@ -69,10 +69,10 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         for x in self.strategies: x.bind_ex(self._ctx_ex)
         self.account.bind_ex(self._ctx_ex)
         self.performance.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')

@@ -64,9 +64,9 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.book.bind_ex(self._ctx_ex)
         self.depth.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')

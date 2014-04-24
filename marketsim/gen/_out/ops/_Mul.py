@@ -55,9 +55,9 @@ class Mul_IObservableFloatIObservableFloat(Observablefloat,Mul_Impl):
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -118,9 +118,9 @@ class Mul_FloatIObservableFloat(Observablefloat,Mul_Impl):
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -181,9 +181,9 @@ class Mul_IObservableFloatFloat(Observablefloat,Mul_Impl):
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
@@ -239,9 +239,9 @@ class Mul_FloatFloat(Observablefloat,Mul_Impl):
                     for w in v: w.bind_ex(self._ctx_ex)
                 else:
                     v.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         self.x.bind_ex(self._ctx_ex)
         self.y.bind_ex(self._ctx_ex)
+        if hasattr(self, 'bind_impl'): self.bind_impl(self._ctx_ex)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self._ctx_ex)
         delattr(self, '_processing_ex')
