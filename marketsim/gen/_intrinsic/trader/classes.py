@@ -76,10 +76,9 @@ class Base_Impl(Holder_Impl):
         After having the order sent notifies listeners about it
         """
         from marketsim.gen._out._iorder import IOrder
-        if not hasattr(order, 'bind_ex'):
-            print type(order)
         order.bind_ex(self._ctx_ex)
-        context.bind(order, self._ctx)
+        if hasattr(self, '_ctx'):
+            context.bind(order, self._ctx)
         if isinstance(order, IOrder):
             order = self._makeSubscribedTo(order)
         book.process(order)

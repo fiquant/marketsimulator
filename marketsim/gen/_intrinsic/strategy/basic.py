@@ -5,9 +5,19 @@ from marketsim.gen._out._intrinsic_base.strategy.basic import Empty_Base
 class Base(object):
     
     def bind(self, context):
-        self._trader = context.trader
-        self._scheduler = context.world
-        
+        if not hasattr(self, '_trader'):
+            self._trader = context.trader
+
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_trader'):
+            self._trader = context.trader
+
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = context.world
+
     @property
     def trader(self):
         return self._trader

@@ -109,7 +109,8 @@ class Arbitrage_Impl(MultiAssetStrategy, Arbitrage_Base):
     def _schedule(self, side, queue):
         self.inner(queue, side)
     
-    def bind(self, context):
+    def bind_impl(self, context):
+        MultiAssetStrategy.bind_impl(self, context)
         self._traders = [t for t in self._trader.traders]
         self._books = [t.orderBook for t in self._trader.traders]        
                         
@@ -119,6 +120,7 @@ class Arbitrage_Impl(MultiAssetStrategy, Arbitrage_Base):
                 event.subscribe(queue.bestPrice, 
                                 _(self, side)._schedule, 
                                 self, {})
+
                 if not queue.empty:
                     self._bests[side.id][queue.best.signedPrice] = queue
                     self._oldBests[queue] = queue.best.signedPrice

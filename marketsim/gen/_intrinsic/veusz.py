@@ -105,8 +105,7 @@ class CSV(object):
 
     def bind_ex(self, ctx):
         self._bound_ex = True
-        self._source.bind_ex(ctx)
-        
+
     @property
     def source(self):
         return self._source

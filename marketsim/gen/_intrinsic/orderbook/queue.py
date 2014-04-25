@@ -67,9 +67,12 @@ class Queue(object):
         self._lastBest = None       # pair (bestPrice, bestVolume)
 
     def bind(self, ctx):
-        self._scheduler = ctx.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
 
     def bind_ex(self, ctx):
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
         self._bound_ex = True
 
     @property

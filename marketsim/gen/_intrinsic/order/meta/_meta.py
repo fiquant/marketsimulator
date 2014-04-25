@@ -20,7 +20,7 @@ class Base(_base.Base):
         
     @property
     def world(self):
-        return self._ctx['world']
+        return self._ctx_ex.world
         
     @property
     def active(self):
@@ -32,7 +32,8 @@ class Base(_base.Base):
             if isinstance(order, IOrder):
                 order.owner = self
             order.bind_ex(self._ctx_ex)
-            context.bind(order, self._ctx)
+            if hasattr(self, '_ctx'):
+                context.bind(order, self._ctx)
             self._book.process(order)
         return order
     

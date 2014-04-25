@@ -232,7 +232,8 @@ class Binder(Base, BindingContext):
 
         
 def bind(obj, context = None): 
-    
+
+    return
     (context if type(context) is Binder else Binder(context)).apply(obj)
 
         
