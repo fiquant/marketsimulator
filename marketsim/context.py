@@ -143,7 +143,10 @@ class BindingContextEx(collections.Mapping):
         return self
 
     def __getattr__(self, item):
-        return self.__getitem__(item)
+        if item[0:2] != '__':
+            return self.__getitem__(item)
+        else:
+            raise AttributeError
 
     def __iter__(self):
         return iter(self._d)

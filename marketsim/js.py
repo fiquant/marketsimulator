@@ -6,6 +6,9 @@ class Graph(IGraph):
     
     def __init__(self, name=""):
         self.label = name
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
         
     @property
     def _alias(self):

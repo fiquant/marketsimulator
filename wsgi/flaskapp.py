@@ -63,7 +63,9 @@ def createSimulation(name='All'):
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
-        context.bind(myRegistry.get(root), { "world" : world })
+        #context.bind(myRegistry.get(root), { "world" : world })
+        from marketsim.context import BindingContextEx
+        myRegistry.get(root).bind_ex(BindingContextEx({ "world" : world }))
 
         if name != 'All':
             current_dir = current_user_dir()
