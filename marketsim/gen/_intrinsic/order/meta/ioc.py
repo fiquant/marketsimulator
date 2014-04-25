@@ -14,6 +14,10 @@ class Order_Impl(_meta.OwnsSingleOrder):
         'limitOrderFactory' tells how to create limit orders
         """
         _meta.OwnsSingleOrder.__init__(self, proto)
+
+    def bind_ex(self, ctx):
+        self._ctx_ex = ctx
+        self._bound_ex = True
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)

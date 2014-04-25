@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim import context
 @registry.expose(["Basic", "Max"])
 class Max_IObservableFloatIObservableFloat(Observablefloat):
     """ **Function returning maximum of two functions *x* and *y*.**
@@ -66,7 +65,10 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -84,9 +86,8 @@ class Max_IObservableFloatIObservableFloat(Observablefloat):
     
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "Max"])
 class Max_FloatIObservableFloat(Observablefloat):
@@ -152,7 +153,10 @@ class Max_FloatIObservableFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -170,10 +174,9 @@ class Max_FloatIObservableFloat(Observablefloat):
     
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "Max"])
 class Max_IObservableFloatFloat(Observablefloat):
     """ **Function returning maximum of two functions *x* and *y*.**
@@ -238,7 +241,10 @@ class Max_IObservableFloatFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -258,7 +264,6 @@ class Max_IObservableFloatFloat(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim import context
 @registry.expose(["Basic", "Max"])
 class Max_FloatFloat(Observablefloat):
     """ **Function returning maximum of two functions *x* and *y*.**
@@ -322,7 +327,10 @@ class Max_FloatFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -12,7 +12,12 @@ class Order_Impl(_meta.Base):
         self._proto = proto
         self._maxloss = maxloss
         self._stopLossOrder = None
-        
+
+    def bind_ex(self, ctx):
+        self._ctx_ex = ctx
+        self._proto.bind_ex(ctx)
+        self._bound_ex = True
+
     def startProcessing(self):
         from marketsim.gen._out._side import Side
         self._obsPrice = self.orderBook.Asks.BestPrice \
@@ -28,7 +33,9 @@ class Order_Impl(_meta.Base):
                             if self.side == Side.Sell else\
                           event.LessThan((1-self._maxloss) * price, _(self)._onPriceChanged)
                             
-                self._stopSubscription = event.subscribe(self._obsPrice, handler, self, self._ctx)
+                self._stopSubscription = event.subscribe(self._obsPrice, handler, self)
+                self._stopSubscription.bind_ex(self._ctx_ex)
+                self._stopSubscription.bind(self._ctx)
                 self.onMatchedWith(price, +volume)
         else:
             self.onMatchedWith(price, -volume)

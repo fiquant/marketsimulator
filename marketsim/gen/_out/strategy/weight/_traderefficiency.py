@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iaccount import IAccount
-from marketsim import context
 @registry.expose(["Strategy", "TraderEfficiency"])
 class TraderEfficiency_IAccount(IFunctionfloat):
     """ **Returns traders eficiency. Under efficiency we understand trader balance if trader position was cleared**
@@ -54,7 +53,10 @@ class TraderEfficiency_IAccount(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

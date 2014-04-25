@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out.strategy.side._noise import Noise
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Side function", "Noise"])
@@ -67,7 +66,10 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -97,7 +99,6 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
 from marketsim import registry
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Side function", "MeanReversion"])
@@ -162,7 +163,10 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -192,7 +196,6 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Side function", "RSIbis"])
@@ -257,7 +260,10 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -286,7 +292,6 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
 # generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -352,7 +357,10 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -381,7 +389,6 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
 # generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -447,7 +454,10 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -476,7 +486,6 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
 # generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -542,7 +551,10 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -572,7 +584,6 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
 from marketsim.gen._out.strategy.side._signal import Signal
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Side function", "Signal"])
@@ -637,7 +648,10 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -666,7 +680,6 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
 # generated with class generator.python.strategy$Import
 from marketsim import registry
 from marketsim.gen._out._ievent import IEvent
-from marketsim import context
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
@@ -732,7 +745,10 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

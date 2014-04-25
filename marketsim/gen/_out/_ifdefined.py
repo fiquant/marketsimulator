@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
     """ **Returns *x* if defined and *elsePart* otherwise**
@@ -66,7 +65,10 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -85,9 +87,8 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
     
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatIObservableFloat(Observablefloat):
@@ -153,7 +154,10 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -172,10 +176,9 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
     
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_IObservableFloatFloat(Observablefloat):
     """ **Returns *x* if defined and *elsePart* otherwise**
@@ -240,7 +243,10 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -261,7 +267,6 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim import context
 @registry.expose(["Basic", "IfDefined"])
 class IfDefined_FloatFloat(Observablefloat):
     """ **Returns *x* if defined and *elsePart* otherwise**
@@ -325,7 +330,10 @@ class IfDefined_FloatFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
-from marketsim import context
 @registry.expose(["Volume function", "Position"])
 class Position_strategypositionRSI_linear(Observablefloat):
     """ 
@@ -53,7 +52,10 @@ class Position_strategypositionRSI_linear(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -76,7 +78,6 @@ class Position_strategypositionRSI_linear(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
-from marketsim import context
 @registry.expose(["Volume function", "Position"])
 class Position_strategypositionBollinger_linear(Observablefloat):
     """ 
@@ -127,7 +128,10 @@ class Position_strategypositionBollinger_linear(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim import context
 @registry.expose(["Asset", "MidPrice"])
 class MidPrice_IOrderBook(Observablefloat):
     """ **MidPrice of order *book***
@@ -58,7 +57,10 @@ class MidPrice_IOrderBook(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

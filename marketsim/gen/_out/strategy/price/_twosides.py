@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
-from marketsim import context
 @registry.expose(["Price function", "MarketMaker"])
 class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
     """ 
@@ -52,7 +51,10 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -84,7 +86,6 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
 from marketsim import registry
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.price._marketdata import MarketData
-from marketsim import context
 @registry.expose(["Price function", "MarketData"])
 class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
     """ 
@@ -134,7 +135,10 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

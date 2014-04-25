@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._noise import Noise
-from marketsim import context
 @registry.expose(["Side function", "Side"])
 class Side_strategysideNoise(IFunctionSide):
     """ 
@@ -48,7 +47,10 @@ class Side_strategysideNoise(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -70,10 +72,9 @@ class Side_strategysideNoise(IFunctionSide):
     
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 from marketsim.gen._out._side import Side
-from marketsim import context
 from marketsim.gen._out._observable._observableside import ObservableSide
+from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
 @registry.expose(["Side function", "Side"])
 class Side_strategysideMeanReversion(ObservableSide):
     """ 
@@ -125,7 +126,10 @@ class Side_strategysideMeanReversion(ObservableSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -155,7 +159,6 @@ class Side_strategysideMeanReversion(ObservableSide):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
-from marketsim import context
 @registry.expose(["Side function", "Side"])
 class Side_strategysideRSIbis(IFunctionSide):
     """ 
@@ -201,7 +204,10 @@ class Side_strategysideRSIbis(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -227,7 +233,6 @@ class Side_strategysideRSIbis(IFunctionSide):
 # generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._side import Side
-from marketsim import context
 from marketsim.gen._out._observable._observableside import ObservableSide
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
 @registry.expose(["Side function", "Side"])
@@ -281,7 +286,10 @@ class Side_strategysideFundamentalValue(ObservableSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -311,7 +319,6 @@ class Side_strategysideFundamentalValue(ObservableSide):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
-from marketsim import context
 @registry.expose(["Side function", "Side"])
 class Side_strategysideTrendFollower(IFunctionSide):
     """ 
@@ -357,7 +364,10 @@ class Side_strategysideTrendFollower(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -384,7 +394,6 @@ class Side_strategysideTrendFollower(IFunctionSide):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-from marketsim import context
 @registry.expose(["Side function", "Side"])
 class Side_strategysideCrossingAverages(IFunctionSide):
     """ 
@@ -430,7 +439,10 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -457,7 +469,6 @@ class Side_strategysideCrossingAverages(IFunctionSide):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 from marketsim.gen._out.strategy.side._signal import Signal
-from marketsim import context
 @registry.expose(["Side function", "Side"])
 class Side_strategysideSignal(IFunctionSide):
     """ 
@@ -503,7 +514,10 @@ class Side_strategysideSignal(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -529,7 +543,6 @@ class Side_strategysideSignal(IFunctionSide):
 # generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._side import Side
-from marketsim import context
 from marketsim.gen._out._observable._observableside import ObservableSide
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
 @registry.expose(["Side function", "Side"])
@@ -583,7 +596,10 @@ class Side_strategysidePairTrading(ObservableSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

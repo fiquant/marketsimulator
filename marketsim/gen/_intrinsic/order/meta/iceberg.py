@@ -14,6 +14,12 @@ class Order_Impl(_meta.OwnsSingleOrder):
         """
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._lotSize = lotSize
+
+    def bind_ex(self, ctx):
+        self._ctx_ex = ctx
+        self.proto.bind_ex(ctx)
+        self._bound_ex = True
+
         
     def With(self, **kwargs):
         return Order_Impl(self.proto.With(**kwargs), self._lotSize)

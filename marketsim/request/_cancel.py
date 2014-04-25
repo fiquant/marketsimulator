@@ -8,6 +8,9 @@ class Cancel(object):
         self.callback = callback if callback is not None else _(self)._empty
         
     def _empty(self): pass
+
+    def bind_ex(self, ctx):
+        self._bound_ex = True
         
     def charge(self, price):
         self.on_charge.fire(price)

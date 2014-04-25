@@ -12,6 +12,14 @@ class Order_Impl(_meta.OwnsSingleOrder):
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._priceFunc = price
         event.subscribe(price, _(self)._update, self)
+
+    def bind_ex(self, ctx):
+        self._ctx_ex = ctx
+        self.proto.bind_ex(ctx)
+        self._priceFunc.bind_ex(ctx)
+        for x in self._subscriptions:
+            x.bind_ex(ctx)
+        self._bound_ex = True
         
     def With(self, **kwargs):
         return Order_Impl(self.proto.With(**kwargs), self._priceFunc)

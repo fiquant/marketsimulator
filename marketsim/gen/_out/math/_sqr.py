@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
 class Sqr_IObservableFloat(Observablefloat):
     """ **Square of *x***
@@ -58,7 +57,10 @@ class Sqr_IObservableFloat(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -77,7 +79,6 @@ class Sqr_IObservableFloat(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim import context
 @registry.expose(["Log/Pow", "Sqr"])
 class Sqr_Float(Observablefloat):
     """ **Square of *x***
@@ -133,7 +134,10 @@ class Sqr_Float(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

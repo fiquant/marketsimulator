@@ -294,10 +294,12 @@ package object base {
             "self.impl = self.getImpl()"
 
         def reset = Def("reset", "",
-            "self.impl = self.getImpl()" |
+            ("self.impl = self.getImpl()" |
+            "ctx_ex = getattr(self, '_ctx_ex', None)" |
+            "if ctx_ex: self.impl.bind_ex(ctx_ex)") |
             "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)") |||
-            ImportFrom("context", "marketsim")
+            "if ctx: context.bind(self.impl, ctx)" |||
+            ImportFrom("context", "marketsim"))
 
         def getattr = Def("__getattr__", "name",
             "if name[0:2] != '__' and self.impl:" |> "return getattr(self.impl, name)" |

@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._out.math._macd import macd
-from marketsim import context
 @registry.expose(["MACD", "Signal"])
 class Signal_mathmacdFloatFloat(IDifferentiable):
     """ **Moving average convergence/divergence signal**
@@ -67,7 +66,10 @@ class Signal_mathmacdFloatFloat(IDifferentiable):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -216,6 +216,9 @@ def subscribe(event, listener, target = None, ctx = None):
             target.dispose = bind.Callable(dispose, target)
             
     if ctx is not None:
+        if type(ctx) is dict:
+            from marketsim.context import BindingContextEx
+            subscription.bind_ex(BindingContextEx(ctx))
         context.bind(subscription, ctx)
             
     return subscription
@@ -304,8 +307,15 @@ from marketsim.gen._out._intrinsic_base.event import CurrentTime_Base
 class CurrentTime_Impl(CurrentTime_Base):
 
     def bind(self, ctx):
-        self.world = ctx.world
-        subscribe(self.world.on_clock, self.fire, self, ctx)
+        if not hasattr(self, "world"):
+            self.world = ctx.world
+            subscribe(self.world.on_clock, self.fire, self, ctx)
+
+    def bind_impl(self, ctx):
+        if not hasattr(self, "world"):
+            self.world = ctx.world
+            subscribe(self.world.on_clock, self.fire, self)
+            self._subscriptions[0].bind_ex(ctx)
 
     def __call__(self):
         return self.world.currentTime if hasattr(self, "world") else None

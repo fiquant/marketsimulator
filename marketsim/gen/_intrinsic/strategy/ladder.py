@@ -183,7 +183,12 @@ class Balancer_Impl(Strategy, Balancer_Base):
         return self.inner._buyer
 
     def bind(self, context):
-        event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self, context)
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self, context)
+
+    def bind_impl(self, context):
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self)
 
     def _onOrderMatched(self, trader, order, price, volume):
         # when our trader gets a notification about a trade done

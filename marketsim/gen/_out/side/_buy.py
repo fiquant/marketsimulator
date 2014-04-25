@@ -1,7 +1,6 @@
 # generated with class generator.python.function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import context
 @registry.expose(["Side", "Buy"])
 class Buy_(IFunctionSide):
     """ **Function always returning Buy side**
@@ -47,7 +46,10 @@ class Buy_(IFunctionSide):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

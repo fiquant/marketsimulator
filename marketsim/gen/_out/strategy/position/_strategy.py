@@ -1,9 +1,8 @@
 # generated with class generator.python.strategy$Import
 from marketsim import registry
+from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
 from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
-from marketsim import context
-from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Volume function", "RSI_linear"])
 class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
@@ -59,7 +58,10 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -87,10 +89,9 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
     
 # generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
-from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
-from marketsim import context
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
+from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
 @registry.expose(["Volume function", "Bollinger_linear"])
 class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAssetStrategy):
     """ 
@@ -146,7 +147,10 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

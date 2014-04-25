@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out._iaccount import IAccount
-from marketsim import context
 @registry.expose(["Trader", "RoughPnL"])
 class RoughPnL_IAccount(Observablefloat):
     """ **Returns traders naive approximation of trader eficiency.**
@@ -59,7 +58,10 @@ class RoughPnL_IAccount(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

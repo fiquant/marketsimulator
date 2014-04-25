@@ -17,6 +17,9 @@ class Order_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
         Default.__init__(self, owner)
         HasPrice.__init__(self, price)
 
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+
     @property
     def ticks(self):
         return self._ticks

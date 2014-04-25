@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
-from marketsim import context
 @registry.expose(["Side function", "Fundamental_Value"])
 class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
     """ 
@@ -48,7 +47,10 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -71,7 +73,6 @@ class Fundamental_Value_strategysideMeanReversion(IDifferentiable):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
-from marketsim import context
 @registry.expose(["Side function", "Fundamental_Value"])
 class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
     """ 
@@ -117,7 +118,10 @@ class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -136,7 +140,6 @@ class Fundamental_Value_strategysideFundamentalValue(IFunctionfloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
-from marketsim import context
 @registry.expose(["Side function", "Fundamental_Value"])
 class Fundamental_Value_strategysidePairTrading(Observablefloat):
     """ 
@@ -187,7 +190,10 @@ class Fundamental_Value_strategysidePairTrading(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

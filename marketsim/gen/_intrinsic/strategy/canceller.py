@@ -43,9 +43,16 @@ class Canceller_Impl(Canceller_Base):
     _internals = ['_myTrader']
 
     def bind(self, ctx):
-        event.subscribe(self._myTrader.on_order_sent, _(self).process, self, ctx)
-        event.subscribe(self._eventGen, _(self)._wakeUp, self, ctx)
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(self._myTrader.on_order_sent, _(self).process, self, ctx)
+            event.subscribe(self._eventGen, _(self)._wakeUp, self, ctx)
         
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(self._myTrader.on_order_sent, _(self).process, self)
+            event.subscribe(self._eventGen, _(self)._wakeUp, self)
+            self._bound_ex = True
+
     def process(self, order):
         """ Puts 'order' to future cancellation list
         """

@@ -1,7 +1,6 @@
 # generated with class generator.python.observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observableint import Observableint
-from marketsim import context
 @registry.expose(["internal tests", "IntObs"])
 class IntObs_(Observableint):
     """ 
@@ -49,7 +48,10 @@ class IntObs_(Observableint):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

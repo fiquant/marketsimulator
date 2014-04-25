@@ -1,9 +1,8 @@
 # generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
-from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
 @registry.expose(["Price function", "StopLoss"])
 class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
     """ 
@@ -59,7 +58,10 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -87,10 +89,9 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
     
 # generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim import context
-from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
-from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 @registry.expose(["Price function", "StopLoss"])
 class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
     """ 
@@ -146,7 +147,10 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

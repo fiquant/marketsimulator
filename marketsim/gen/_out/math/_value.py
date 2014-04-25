@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.math._rsi import RSI
-from marketsim import context
 @registry.expose(["RSI", "Value"])
 class Value_mathRSI(IFunctionfloat):
     """ 
@@ -48,7 +47,10 @@ class Value_mathRSI(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -71,7 +73,6 @@ class Value_mathRSI(IFunctionfloat):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.math._macd import macd
-from marketsim import context
 @registry.expose(["MACD", "Value"])
 class Value_mathmacd(IFunctionfloat):
     """ **Moving average convergence/divergence**
@@ -122,7 +123,10 @@ class Value_mathmacd(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

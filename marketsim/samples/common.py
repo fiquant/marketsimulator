@@ -329,10 +329,13 @@ class Interlacing(IFunctionfloat):
         self.phase = phase
     
     def bind(self, ctx):
-        self._scheduler = ctx.world
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
 
     def bind_ex(self, ctx):
-        pass
+        if not hasattr(self, '_scheduler'):
+            self._scheduler = ctx.world
+            self._bound_ex = True
         
     def __call__(self):
         return int(self._scheduler.currentTime / self.timeframe) % 2 * 2 - 1

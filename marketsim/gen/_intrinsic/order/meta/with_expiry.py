@@ -12,6 +12,11 @@ class Order_Impl(_meta.OwnsSingleOrder):
         """
         _meta.OwnsSingleOrder.__init__(self, proto)
         self._delay = delay
+
+    def bind_ex(self, ctx):
+        self.proto.bind_ex(ctx)
+        self._ctx_ex = ctx
+        self._bound_ex = True
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)

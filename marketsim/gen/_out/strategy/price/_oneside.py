@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._side import Side
-from marketsim import context
 from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Price function", "MarketMakerSide"])
@@ -64,7 +63,10 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -111,7 +113,6 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservableside import IObservableSide
 from marketsim.gen._out._side import Side
-from marketsim import context
 from marketsim.gen._out.strategy.price._marketdata import MarketData
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
 @registry.expose(["Price function", "MarketDataSide"])
@@ -173,7 +174,10 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -213,10 +217,9 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     
 # generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import context
-from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Price function", "MarketMakerSide"])
 class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     """ 
@@ -276,7 +279,10 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -321,10 +327,9 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     
 # generated with class generator.python.strategy$Import
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import context
-from marketsim.gen._out.strategy.price._marketdata import MarketData
 from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+from marketsim.gen._out.strategy.price._marketdata import MarketData
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Price function", "MarketDataSide"])
 class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
     """ 
@@ -384,7 +389,10 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

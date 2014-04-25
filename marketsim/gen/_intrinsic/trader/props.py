@@ -15,7 +15,15 @@ class OnTraded(event.Event):
         self.trader = trader if trader else SingleProxy()
 
     def bind(self, ctx):
-        event.subscribe(self.trader.on_traded, self.fire, self, ctx)
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(self.trader.on_traded, self.fire, self, ctx)
+
+    def bind_ex(self, ctx):
+        if not hasattr(self, '_subscriptions'):
+            self.trader.bind_ex(ctx)
+            event.subscribe(self.trader.on_traded, self.fire, self)
+            self._subscriptions[0].bind_ex(ctx)
+            self._bound_ex = True
 
 class OnOrderMatched(event.Event):
     """ Multicast event that is fired once a trade is done by *trader*
@@ -26,7 +34,15 @@ class OnOrderMatched(event.Event):
         self.trader = trader if trader else SingleProxy()
 
     def bind(self, ctx):
-        event.subscribe(self.trader.on_order_matched, self.fire, self, ctx)
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(self.trader.on_order_matched, self.fire, self, ctx)
+
+    def bind_ex(self, ctx):
+        if not hasattr(self, '_subscriptions'):
+            self.trader.bind_ex(ctx)
+            event.subscribe(self.trader.on_order_matched, self.fire, self)
+            self._subscriptions[0].bind_ex(ctx)
+            self._bound_ex = True
 
     _properties = { 'trader' : IAccount }
 
@@ -66,8 +82,18 @@ class _PendingVolume_Impl(object): # should be int
         self._pendingVolume = 0
 
     def bind(self, ctx):
-        event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self, ctx)
-        event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self, ctx)
+        if not hasattr(self, '_subscriptions'):
+            event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self, ctx)
+            event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self, ctx)
+
+    def bind_impl(self, ctx):
+        if not hasattr(self, '_subscriptions'):
+            self.trader.bind_ex(ctx)
+            event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self)
+            event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self)
+            for x in self._subscriptions:
+                x.bind_ex(ctx)
+            self._bound_ex = True
 
     def _onOrderSent(self, order):
         if 'volume' in dir(order):

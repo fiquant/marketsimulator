@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
-from marketsim import context
 @registry.expose(["Side function", "book"])
 class book_strategysideMeanReversion(IOrderBook):
     """ 
@@ -48,7 +47,10 @@ class book_strategysideMeanReversion(IOrderBook):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -67,7 +69,6 @@ class book_strategysideMeanReversion(IOrderBook):
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
-from marketsim import context
 @registry.expose(["Side function", "book"])
 class book_strategysideFundamentalValue(IOrderBook):
     """ 
@@ -113,7 +114,10 @@ class book_strategysideFundamentalValue(IOrderBook):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -132,7 +136,6 @@ class book_strategysideFundamentalValue(IOrderBook):
 from marketsim import registry
 from marketsim.gen._out._iorderbook import IOrderBook
 from marketsim.gen._out.strategy.side._pairtrading import PairTrading
-from marketsim import context
 @registry.expose(["Side function", "book"])
 class book_strategysidePairTrading(IOrderBook):
     """ 
@@ -178,7 +181,10 @@ class book_strategysidePairTrading(IOrderBook):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -208,8 +208,8 @@ class Binder(Base, BindingContext):
     
     def enter(self, obj):
 
-        #if not hasattr(obj, "_bound_ex"):
-        #    print 'Unbound object: ', obj
+        if not hasattr(obj, "_bound_ex"):
+            print 'Unbound object: ', obj
 
         if self.hasContext(obj):
             self.push()

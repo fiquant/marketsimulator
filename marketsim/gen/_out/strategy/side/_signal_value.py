@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._rsibis import RSIbis
-from marketsim import context
 @registry.expose(["Side function", "Signal_Value"])
 class Signal_Value_strategysideRSIbis(IFunctionfloat):
     """ 
@@ -48,7 +47,10 @@ class Signal_Value_strategysideRSIbis(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -74,7 +76,6 @@ class Signal_Value_strategysideRSIbis(IFunctionfloat):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
-from marketsim import context
 @registry.expose(["Side function", "Signal_Value"])
 class Signal_Value_strategysideTrendFollower(IFunctionfloat):
     """ 
@@ -120,7 +121,10 @@ class Signal_Value_strategysideTrendFollower(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -144,7 +148,6 @@ class Signal_Value_strategysideTrendFollower(IFunctionfloat):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
-from marketsim import context
 @registry.expose(["Side function", "Signal_Value"])
 class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
     """ 
@@ -190,7 +193,10 @@ class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -215,7 +221,6 @@ class Signal_Value_strategysideCrossingAverages(IFunctionfloat):
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 from marketsim.gen._out.strategy.side._signal import Signal
-from marketsim import context
 @registry.expose(["Side function", "Signal_Value"])
 class Signal_Value_strategysideSignal(IFunctionfloat):
     """ 
@@ -261,7 +266,10 @@ class Signal_Value_strategysideSignal(IFunctionfloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

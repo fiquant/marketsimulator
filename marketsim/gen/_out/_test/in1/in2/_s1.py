@@ -1,6 +1,5 @@
 # generated with class generator.python.function$Import
 from marketsim import registry
-from marketsim import context
 @registry.expose(["internal tests", "S1"])
 class S1_String(str):
     """ 
@@ -44,7 +43,10 @@ class S1_String(str):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

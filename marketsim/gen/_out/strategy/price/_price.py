@@ -1,9 +1,8 @@
 # generated with class generator.python.observable$Import
 from marketsim import registry
-from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
-from marketsim import context
-from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
 from marketsim.gen._out._observable._observablefloat import Observablefloat
+from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
+from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
 @registry.expose(["Price function", "Price"])
 class Price_strategypriceLiquidityProviderSide(Observablefloat):
     """ 
@@ -60,7 +59,10 @@ class Price_strategypriceLiquidityProviderSide(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     

@@ -2,7 +2,6 @@
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._cumulative import Cumulative
-from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathCumulative(Observablefloat):
     """ **Relative standard deviation**
@@ -58,7 +57,10 @@ class RelStdDev_mathCumulative(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -81,7 +83,6 @@ class RelStdDev_mathCumulative(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._ew import EW
-from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathEW(Observablefloat):
     """ **Relative standard deviation**
@@ -137,7 +138,10 @@ class RelStdDev_mathEW(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
@@ -160,7 +164,6 @@ class RelStdDev_mathEW(Observablefloat):
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._out.math._moving import Moving
-from marketsim import context
 @registry.expose(["Statistics", "RelStdDev"])
 class RelStdDev_mathMoving(Observablefloat):
     """ **Relative standard deviation**
@@ -216,7 +219,10 @@ class RelStdDev_mathMoving(Observablefloat):
         return self.impl()
     
     def reset(self):
+        from marketsim import context
         self.impl = self.getImpl()
+        ctx_ex = getattr(self, '_ctx_ex', None)
+        if ctx_ex: self.impl.bind_ex(ctx_ex)
         ctx = getattr(self, '_ctx', None)
         if ctx: context.bind(self.impl, ctx)
     
