@@ -1,0 +1,2 @@
+class IScheduler(object):
+    pass

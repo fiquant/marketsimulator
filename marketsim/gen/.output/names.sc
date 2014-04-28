@@ -35,6 +35,8 @@ package side
 @method = "N/A"
 package event
 {
+    type IScheduler
+    
     /** Event that fires every *intervalFunc* moments of time
      */
     @python.intrinsic("event.Every_Impl")
@@ -44,6 +46,12 @@ package event
      */
     @python.intrinsic("event.After_Impl")
     def After(/** when the event should be fired */ delay = .constant(10.0)) : .IEvent
+    
+    /** Scheduler that manages the future event set.
+     * Must be a singleton
+     */
+    @python.intrinsic("scheduler.Scheduler_Impl")
+    def Scheduler(currentTime = 0.0) : .event.IScheduler
     
 }
 

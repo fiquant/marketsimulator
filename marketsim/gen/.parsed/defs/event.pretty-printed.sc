@@ -13,4 +13,13 @@ package event() {
      */
     @python.intrinsic("event.After_Impl")
     def After(/** when the event should be fired */ delay = constant(10.0)) : IEvent
+    
+    type IScheduler
+    
+    // defined at defs\event.sc: 22.5
+    /** Scheduler that manages the future event set.
+     * Must be a singleton
+     */
+    @python.intrinsic("scheduler.Scheduler_Impl")
+    def Scheduler(currentTime = 0.0) : IScheduler
 }

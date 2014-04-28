@@ -80,6 +80,45 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - event.After_Impl
+| | | | - Interface:
+| | | | | - IScheduler
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - FunDef:
+| | | | | - Scheduler
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - currentTime
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FloatLit:
+| | | | | | | | | - 0.0
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IScheduler
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Scheduler that manages the future event set.
+| | | | | | | - List:
+| | | | | | | | -  Must be a singleton
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - scheduler.Scheduler_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

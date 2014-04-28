@@ -1,7 +1,9 @@
 import weakref, inspect, sys
 
-from marketsim import (constraints, exception, rtti, scheduler,
+from marketsim import (constraints, exception, rtti,
                        meta, utils, context)
+
+from marketsim.gen._intrinsic.scheduler import current as Scheduler
 
 from marketsim.gen._out._side import Side
 
@@ -123,7 +125,7 @@ class Registry(object):
     def reset(self):
         # it is a dirty hack and later we'll have to 
         # store complete object graph in the registry (not only properties)
-        scheduler.current()._reset()
+        Scheduler()._reset()
         for x in self._id2obj.itervalues():
             if 'reset' in dir(x):
                 x.reset()

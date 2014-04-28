@@ -4,7 +4,9 @@ sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
 from marketsim import (event, js, context,
-                       scheduler,  registry, translations, config)
+                       registry, translations, config)
+
+from marketsim.gen._out.event._scheduler import Scheduler
 
 from marketsim._pub import math, strategy, trader, order
 
@@ -23,7 +25,7 @@ predefined = simulations
 
 def createSimulation(name='All'):
     
-    with scheduler.create() as world:
+    with Scheduler() as world:
         
         myRegistry = registry.create()
     

@@ -2,12 +2,13 @@ import sys, itertools, pickle
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
-from marketsim import (_, scheduler, veusz, registry, config,
+from marketsim import (_, veusz, registry, config,
                        context, bind)
 
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 
+from marketsim.gen._out.event._scheduler import Scheduler
 
 from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
 
@@ -266,7 +267,7 @@ def orderBooksToRender(ctx, traders):
 runTwoTimes = True
 
 def run(name, constructor, only_veusz):
-    with scheduler.create() as world:
+    with Scheduler() as world:
         
         ctx = Context(world, veusz.Graph)
         traders = constructor(ctx)
