@@ -14,10 +14,7 @@ class Base(_base.Base):
     @orderBook.setter
     def orderBook(self, book):
         self._book = book
-        
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-        
+
     @property
     def world(self):
         return self._ctx_ex.world
@@ -32,8 +29,6 @@ class Base(_base.Base):
             if isinstance(order, IOrder):
                 order.owner = self
             order.bind_ex(self._ctx_ex)
-            if hasattr(self, '_ctx'):
-                context.bind(order, self._ctx)
             self._book.process(order)
         return order
     

@@ -50,8 +50,5 @@ class SingleProxyBase(Base):
 
 class Single_Impl(SingleProxyBase, Single_Base):
 
-    def bind(self, ctx):
-        self._bind(ctx.trader)
-
     def bind_impl(self, ctx):
         self._bind(ctx.trader)

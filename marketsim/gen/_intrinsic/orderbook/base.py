@@ -26,10 +26,6 @@ class BookBase(Holder_Impl):
         event.subscribe(self._bids.lastTrade, _(self.lastTrade)._retranslate, self)
         
         self.reset()
-        
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
 
     def bind_impl(self, ctx):
         if not hasattr(self, '_scheduler'):

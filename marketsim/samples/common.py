@@ -291,7 +291,6 @@ def run(name, constructor, only_veusz):
         r.insert(root)
         r.pushAllReferences()
         root.bind_ex(context.BindingContextEx({'world' : world }))
-        context.bind(root, {'world' : world })
 
         def checks():
             if not only_veusz and config.checkConsistency:
@@ -328,10 +327,6 @@ class Interlacing(IFunctionfloat):
     def __init__(self, phase = 1, timeframe = 10):
         self.timeframe = timeframe
         self.phase = phase
-    
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
 
     def bind_ex(self, ctx):
         if not hasattr(self, '_scheduler'):

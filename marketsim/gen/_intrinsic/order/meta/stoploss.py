@@ -35,7 +35,6 @@ class Order_Impl(_meta.Base):
                             
                 self._stopSubscription = event.subscribe(self._obsPrice, handler, self)
                 self._stopSubscription.bind_ex(self._ctx_ex)
-                self._stopSubscription.bind(self._ctx)
                 self.onMatchedWith(price, +volume)
         else:
             self.onMatchedWith(price, -volume)

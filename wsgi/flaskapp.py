@@ -65,7 +65,6 @@ def createSimulation(name='All'):
         myRegistry.insert(world)
         
         root = myRegistry.insert(registry.createSimulation(myRegistry))
-        #context.bind(myRegistry.get(root), { "world" : world })
         from marketsim.context import BindingContextEx
         myRegistry.get(root).bind_ex(BindingContextEx({ "world" : world }))
 
@@ -291,8 +290,7 @@ def update():
         for (Id, field, value) in parsed['updates']:
             w.registry.setAttr(Id, field, value)
             
-    context.bind(w.registry.get(w.root), { "world" : w.world })
-    save_state_before_changes(w.registry) 
+    save_state_before_changes(w.registry)
 
     save_current_workspace()
     

@@ -7,11 +7,7 @@ class BreaksAtChanges_Impl(BreaksAtChanges_Base):
     def __init__(self):
         self._value = None
         event.subscribe(self.source, _(self)._clean, self)
-        
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
-    
+
     def bind_impl(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world

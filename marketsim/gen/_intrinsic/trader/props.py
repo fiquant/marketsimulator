@@ -14,10 +14,6 @@ class OnTraded(event.Event):
         event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
 
-    def bind(self, ctx):
-        if not hasattr(self, '_subscriptions'):
-            event.subscribe(self.trader.on_traded, self.fire, self, ctx)
-
     def bind_ex(self, ctx):
         if not hasattr(self, '_subscriptions'):
             self.trader.bind_ex(ctx)
@@ -32,10 +28,6 @@ class OnOrderMatched(event.Event):
     def __init__(self, trader = None):
         event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
-
-    def bind(self, ctx):
-        if not hasattr(self, '_subscriptions'):
-            event.subscribe(self.trader.on_order_matched, self.fire, self, ctx)
 
     def bind_ex(self, ctx):
         if not hasattr(self, '_subscriptions'):
@@ -80,11 +72,6 @@ class _PendingVolume_Impl(object): # should be int
     def __init__(self, trader):
         self.trader = trader
         self._pendingVolume = 0
-
-    def bind(self, ctx):
-        if not hasattr(self, '_subscriptions'):
-            event.subscribe(self.trader.on_order_matched, _(self).onOrderMatched, self, ctx)
-            event.subscribe(self.trader.on_order_disposed, _(self).onOrderDisposed, self, ctx)
 
     def bind_impl(self, ctx):
         if not hasattr(self, '_subscriptions'):

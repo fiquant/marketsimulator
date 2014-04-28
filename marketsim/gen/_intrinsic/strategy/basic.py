@@ -3,13 +3,6 @@ from marketsim import types,  event
 from marketsim.gen._out._intrinsic_base.strategy.basic import Empty_Base
 
 class Base(object):
-    
-    def bind(self, context):
-        if not hasattr(self, '_trader'):
-            self._trader = context.trader
-
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = context.world
 
     def bind_impl(self, context):
         if not hasattr(self, '_trader'):

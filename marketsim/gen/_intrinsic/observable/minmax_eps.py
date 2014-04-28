@@ -18,10 +18,6 @@ class Base(object):
             self._handler = self._predicate(self.value + self._sign*self.epsilon(), self._handler)
         self.x.source += self._handler
 
-    def bind(self, ctx):
-        if not hasattr(self, '_handler'):
-            self._subscribe()
-
     def bind_impl(self, ctx):
         if not hasattr(self, '_handler'):
             self._subscribe()

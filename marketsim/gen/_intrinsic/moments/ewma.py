@@ -31,10 +31,6 @@ class EWMA_Impl(fold.Last):
     def attributes(self):
         return {}
 
-    def bind(self, context):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = context.world
-
     def bind_impl(self, context):
         if not hasattr(self, '_scheduler'):
             self._scheduler = context.world

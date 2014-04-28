@@ -177,14 +177,11 @@ class Subscription(object):
                 self._event -= self._listener
             self._event = newEvent
             self._event += self._listener
-        
-    def bind(self, context):
-        self._event += self._listener
-        self._subscribed = True
 
     def bind_ex(self, ctx):
         self._bound_ex = True
-        self.bind(ctx)
+        self._event += self._listener
+        self._subscribed = True
         self._event.bind_ex(ctx)
 
     def dispose(self):
@@ -219,8 +216,7 @@ def subscribe(event, listener, target = None, ctx = None):
         if type(ctx) is dict:
             from marketsim.context import BindingContextEx
             subscription.bind_ex(BindingContextEx(ctx))
-        context.bind(subscription, ctx)
-            
+
     return subscription
 
 def subscribe_field(obj, field_name, source):
@@ -248,11 +244,6 @@ class Every_Impl(Event_Impl, Every_Base):
         Event_Impl.__init__(self)
         self._cancelled = False
         
-    def bind(self, context):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = context.world
-            self.schedule()
-
     def bind_impl(self, context):
         if not hasattr(self, '_scheduler'):
             self._scheduler = context.world
@@ -279,11 +270,6 @@ class After_Impl(Event_Impl, After_Base):
         Event_Impl.__init__(self)
         self._cancelled = False
         
-    def bind(self, context):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = context.world
-            self.schedule()
-
     def bind_impl(self, context):
         if not hasattr(self, '_scheduler'):
             self._scheduler = context.world
@@ -305,11 +291,6 @@ class After_Impl(Event_Impl, After_Base):
 from marketsim.gen._out._intrinsic_base.event import CurrentTime_Base
 
 class CurrentTime_Impl(CurrentTime_Base):
-
-    def bind(self, ctx):
-        if not hasattr(self, "world"):
-            self.world = ctx.world
-            subscribe(self.world.on_clock, self.fire, self, ctx)
 
     def bind_impl(self, ctx):
         if not hasattr(self, "world"):

@@ -66,10 +66,6 @@ class Queue(object):
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
 
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
-
     def bind_ex(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world

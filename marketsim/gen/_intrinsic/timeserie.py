@@ -10,10 +10,6 @@ class ToRecord_Impl(ToRecord_Base):  # TODO: should the source be split into dat
         self._lastPoint = None
         self._event = event.subscribe(self.source, _(self)._wakeUp, self)
         self.reset()
-        
-    def bind(self, context):
-        if not hasattr(self, '_sched'):
-            self._sched = context.world
 
     def bind_impl(self, context):
         if not hasattr(self, '_sched'):

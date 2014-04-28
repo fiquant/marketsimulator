@@ -18,10 +18,6 @@ class Quote_Impl(Quote_Base):
             self._quotes = load(self.ticker, self.start, self.end)['Adj Close']
         return self._quotes
 
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
-
     def bind_impl(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world

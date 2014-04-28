@@ -40,9 +40,6 @@ class Base_Impl(Holder_Impl):
         context.trader = self
         context.orderProcessor = self
 
-    def bind(self, ctx):
-        self._ctx = ctx.context.copy()
-
     def reset(self):
         self.PnL = 0
 
@@ -112,9 +109,6 @@ class SingleAsset_Impl(Base_Impl, SingleAsset_Base):
             self._subscription.switchTo(value.on_order_created)
         else:
             self._subscription = event.subscribe(self.strategy.on_order_created, _(self).send, self)
-
-    def bind(self, ctx):
-        pass
 
     def reset(self):
         self.amount = 0

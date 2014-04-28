@@ -182,10 +182,6 @@ class Balancer_Impl(Strategy, Balancer_Base):
     def _buyer(self):
         return self.inner._buyer
 
-    def bind(self, context):
-        if not hasattr(self, '_subscriptions'):
-            event.subscribe(context.trader.on_order_matched, _(self)._onOrderMatched, self, context)
-
     def bind_impl(self, context):
         if not hasattr(self, '_subscriptions'):
             Strategy.bind_impl(self, context)

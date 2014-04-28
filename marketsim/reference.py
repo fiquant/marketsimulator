@@ -4,9 +4,10 @@ class Reference(object):
         self._impl = None
         self.name = name
         
-    def bind(self, ctx):
-        assert self._impl is  None
-        self._impl = getattr(ctx, self.name)
+    def bind_ex(self, ctx):
+        if self._impl is  None:
+            self._impl = getattr(ctx, self.name)
+            self._bound_ex = True
         #context.bind(self._impl, ctx)
         
     @property

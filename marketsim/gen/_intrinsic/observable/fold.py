@@ -9,10 +9,6 @@ class Last(object):
     creates a observable for a moving average with |alpha| = 0.15 of mid-price of asset *book_A*
     """
 
-    def bind(self, context):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = context.world
-
     def bind_impl(self, context):
         if not hasattr(self, '_scheduler'):
             self._scheduler = context.world

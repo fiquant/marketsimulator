@@ -43,10 +43,6 @@ class Proxy_Impl(Base, Proxy_Base):
     def label(self):
         return self._impl.label if self._impl else '$(OrderBook)'
 
-    def bind(self, ctx):
-        if self._impl is None:
-            self._impl = ctx.orderbook
-
     def bind_impl(self, ctx):
         if self._impl is None:
             self._impl = ctx.orderbook

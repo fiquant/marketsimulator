@@ -10,10 +10,6 @@ class MV_Impl(object):
     def __repr__(self):
         return  self.label
 
-    def bind(self, ctx):
-        if not hasattr(self, '_scheduler'):
-            self._scheduler = ctx.world
-        
     def bind_impl(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world

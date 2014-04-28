@@ -25,4 +25,7 @@ package event
      */
     @python.intrinsic("scheduler.Scheduler_Impl")
     def Scheduler(currentTime = 0.) : IScheduler
+
+    // we should have also defined Suscription
+    // but currently type system doesn't allow generic functions
 }
