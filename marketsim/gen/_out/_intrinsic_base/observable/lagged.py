@@ -21,3 +21,6 @@ class Lagged_Base(object):
     def on_timeframe_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

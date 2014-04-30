@@ -68,7 +68,7 @@ class WithExpiry_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.proto.bind_ex(self._ctx_ex)
         self.expiry.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -82,6 +82,9 @@ class WithExpiry_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         if expiry is None: return None
         
         return Order_Impl(proto, expiry)
+    
+    def bind_impl(self, ctx):
+        pass
     
 def WithExpiry(proto = None,expiry = None): 
     from marketsim.gen._out._iorder import IOrder

@@ -65,7 +65,7 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.side.bind_ex(self._ctx_ex)
         self.volume.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -80,6 +80,9 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
         if abs(volume) < 1: return None
         volume = int(volume)
         return Order_Impl(side, volume)
+    
+    def bind_impl(self, ctx):
+        pass
     
 def Market(side = None,volume = None): 
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide

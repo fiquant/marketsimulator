@@ -65,7 +65,7 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.signedVolume.bind_ex(self._ctx_ex)
         self.price.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -83,6 +83,9 @@ class LimitSigned_FloatFloat(ObservableIOrder,IObservableIOrder):
         if price is None: return None
         
         return Order_Impl(side, price, volume)
+    
+    def bind_impl(self, ctx):
+        pass
     
 def LimitSigned(signedVolume = None,price = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

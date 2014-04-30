@@ -47,6 +47,10 @@ object order_factory
                     crlf + "In function " + f)
         }
 
+        def bindImpl = base.Def("bind_impl", "ctx", "pass")
+
+        override def body = super.body | bindImpl
+
         if (is_factory_intrinsic)
             Typed.topLevel.addIntrinsic(args(0), parameters map { _.p })
 

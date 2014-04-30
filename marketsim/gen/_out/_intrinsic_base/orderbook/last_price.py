@@ -10,3 +10,6 @@ class LastPrice_Base(object):
     def on_queue_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

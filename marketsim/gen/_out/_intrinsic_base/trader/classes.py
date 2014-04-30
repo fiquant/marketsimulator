@@ -65,6 +65,9 @@ class SingleAsset_Base(object):
     def on_timeseries_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class MultiAsset_Base(object):
     def get_traders(self):
         return self._back_traders
@@ -119,5 +122,8 @@ class MultiAsset_Base(object):
     
     timeseries = property(get_timeseries, set_timeseries)
     def on_timeseries_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

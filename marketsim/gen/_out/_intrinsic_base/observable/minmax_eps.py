@@ -21,6 +21,9 @@ class MinEpsilon_Base(object):
     def on_epsilon_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class MaxEpsilon_Base(object):
     def get_x(self):
         return self._back_x
@@ -42,5 +45,8 @@ class MaxEpsilon_Base(object):
     
     epsilon = property(get_epsilon, set_epsilon)
     def on_epsilon_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

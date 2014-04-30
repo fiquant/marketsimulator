@@ -43,6 +43,9 @@ class ToRecord_Base(object):
     def on__smooth_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class VolumeLevels_Base(object):
     def get_source(self):
         return self._back_source
@@ -108,5 +111,8 @@ class VolumeLevels_Base(object):
     
     _isBuy = property(get__isBuy, set__isBuy)
     def on__isBuy_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

@@ -10,6 +10,9 @@ class Identity_Base(object):
     def on_array_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Score_Base(object):
     def get_trader(self):
         return self._back_trader
@@ -22,6 +25,9 @@ class Score_Base(object):
     def on_trader_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class ChooseTheBest_Base(object):
     def get_array(self):
         return self._back_array
@@ -32,5 +38,8 @@ class ChooseTheBest_Base(object):
     
     array = property(get_array, set_array)
     def on_array_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

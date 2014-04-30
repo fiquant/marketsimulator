@@ -10,6 +10,9 @@ class Array_Base(object):
     def on_strategies_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Combine_Base(object):
     def get_A(self):
         return self._back_A
@@ -31,5 +34,8 @@ class Combine_Base(object):
     
     B = property(get_B, set_B)
     def on_B_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

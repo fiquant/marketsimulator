@@ -10,3 +10,6 @@ class BreaksAtChanges_Base(object):
     def on_source_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

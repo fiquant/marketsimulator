@@ -265,7 +265,7 @@ package object base {
 
 
         override def bindEx_body = bindEx_ctxCopy | bindEx_internals
-        override def bindEx_properties = super.bindEx_properties | s"if hasattr(self, '$bindImpl'): self.$bindImpl(self.__dict__['$ctx'])"
+        override def bindEx_properties = super.bindEx_properties | s"self.$bindImpl(self.__dict__['$ctx'])"
     }
 
     trait Bind extends Printer

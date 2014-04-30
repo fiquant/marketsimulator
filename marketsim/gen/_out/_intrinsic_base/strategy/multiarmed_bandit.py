@@ -54,3 +54,6 @@ class MultiarmedBandit2_Base(object):
     def on_corrector_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

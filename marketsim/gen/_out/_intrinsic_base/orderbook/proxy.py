@@ -10,6 +10,9 @@ class Asks_Base(object):
     def on_book_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Queue_Base(object):
     def get_book(self):
         return self._back_book
@@ -33,6 +36,9 @@ class Queue_Base(object):
     def on_side_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Bids_Base(object):
     def get_book(self):
         return self._back_book
@@ -43,5 +49,8 @@ class Bids_Base(object):
     
     book = property(get_book, set_book)
     def on_book_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

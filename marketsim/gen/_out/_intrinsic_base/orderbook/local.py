@@ -43,3 +43,6 @@ class Local_Base(object):
     def on_timeseries_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

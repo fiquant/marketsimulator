@@ -10,6 +10,9 @@ class PendingVolume_Base(object):
     def on_trader_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Balance_Base(object):
     def get_trader(self):
         return self._back_trader
@@ -22,6 +25,9 @@ class Balance_Base(object):
     def on_trader_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Position_Base(object):
     def get_trader(self):
         return self._back_trader
@@ -32,5 +38,8 @@ class Position_Base(object):
     
     trader = property(get_trader, set_trader)
     def on_trader_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

@@ -55,11 +55,14 @@ class Peg_FloatIObservableIOrder(Factory_Impl,IObservableIOrder):
                 else:
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.proto.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    
+    def bind_impl(self, ctx):
+        pass
     
 def Peg(proto = None): 
     from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat

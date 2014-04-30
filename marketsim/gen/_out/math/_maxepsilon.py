@@ -62,7 +62,7 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.x.bind_ex(self._ctx_ex)
         self.epsilon.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False

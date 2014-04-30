@@ -6,7 +6,7 @@ from marketsim.gen._out._constant import constant
 
 from marketsim.gen._out._intrinsic_base.orderbook.volume_levels import VolumeLevels_Base
 
-class VolumeLevels_Impl(object):
+class VolumeLevels_Impl(VolumeLevels_Base):
 
     def __init__(self):
         event.subscribe(event.Every(constant(1)), self.fire, self)

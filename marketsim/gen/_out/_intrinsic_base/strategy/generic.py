@@ -21,3 +21,6 @@ class Generic_Base(object):
     def on_eventGen_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

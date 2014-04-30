@@ -69,11 +69,14 @@ class FloatingPrice_FloatIObservableIOrderIObservableFloat(Factory_Impl,IObserva
                     v.bind_ex(self.__dict__['_ctx_ex'])
         self.proto.bind_ex(self._ctx_ex)
         self.floatingPrice.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    
+    def bind_impl(self, ctx):
+        pass
     
 def FloatingPrice(proto = None,floatingPrice = None): 
     from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat

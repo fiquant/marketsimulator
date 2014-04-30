@@ -10,3 +10,6 @@ class Factory_Base(object):
     def on_proto_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

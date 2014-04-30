@@ -10,3 +10,6 @@ class Graph_Base(object):
     def on_name_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

@@ -10,6 +10,9 @@ class After_Base(object):
     def on_delay_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Every_Base(object):
     def get_intervalFunc(self):
         return self._back_intervalFunc
@@ -22,5 +25,11 @@ class Every_Base(object):
     def on_intervalFunc_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class CurrentTime_Base(object):
     pass
+    def bind_impl(self, ctx):
+        pass
+    

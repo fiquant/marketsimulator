@@ -32,6 +32,9 @@ class OneSide_Base(object):
     def on_side_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Suspend_Base(object):
     def get_inner(self):
         return self._back_inner
@@ -53,6 +56,9 @@ class Suspend_Base(object):
     
     predicate = property(get_predicate, set_predicate)
     def on_predicate_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class Clearable_Base(object):
@@ -78,6 +84,9 @@ class Clearable_Base(object):
     def on_predicate_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Balancer_Base(object):
     def get_inner(self):
         return self._back_inner
@@ -101,6 +110,9 @@ class Balancer_Base(object):
     def on_maximalSize_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class MarketMaker_Base(object):
     def get_orderFactory(self):
         return self._back_orderFactory
@@ -122,5 +134,8 @@ class MarketMaker_Base(object):
     
     initialSize = property(get_initialSize, set_initialSize)
     def on_initialSize_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

@@ -32,3 +32,6 @@ class ChooseTheBest_Base(object):
     def on_performance_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

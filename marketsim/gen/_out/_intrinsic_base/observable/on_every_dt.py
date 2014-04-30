@@ -21,3 +21,6 @@ class OnEveryDt_Base(object):
     def on_dt_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

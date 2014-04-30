@@ -21,6 +21,9 @@ class TwoWayLink_Base(object):
     def on_down_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Link_Base(object):
     def get_latency(self):
         return self._back_latency
@@ -31,5 +34,8 @@ class Link_Base(object):
     
     latency = property(get_latency, set_latency)
     def on_latency_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

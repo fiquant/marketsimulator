@@ -21,6 +21,9 @@ class Div_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class NotEqual_Base(object):
     def get_x(self):
         return self._back_x
@@ -42,6 +45,9 @@ class NotEqual_Base(object):
     
     y = property(get_y, set_y)
     def on_y_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class LessEqual_Base(object):
@@ -67,6 +73,9 @@ class LessEqual_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class GreaterEqual_Base(object):
     def get_x(self):
         return self._back_x
@@ -88,6 +97,9 @@ class GreaterEqual_Base(object):
     
     y = property(get_y, set_y)
     def on_y_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class And_Base(object):
@@ -113,6 +125,9 @@ class And_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Negate_Base(object):
     def get_x(self):
         return self._back_x
@@ -123,6 +138,9 @@ class Negate_Base(object):
     
     x = property(get_x, set_x)
     def on_x_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class Or_Base(object):
@@ -148,6 +166,9 @@ class Or_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Less_Base(object):
     def get_x(self):
         return self._back_x
@@ -169,6 +190,9 @@ class Less_Base(object):
     
     y = property(get_y, set_y)
     def on_y_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class Sub_Base(object):
@@ -194,6 +218,9 @@ class Sub_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Add_Base(object):
     def get_x(self):
         return self._back_x
@@ -217,6 +244,9 @@ class Add_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Greater_Base(object):
     def get_x(self):
         return self._back_x
@@ -238,6 +268,9 @@ class Greater_Base(object):
     
     y = property(get_y, set_y)
     def on_y_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     
 class Condition_Base(object):
@@ -274,6 +307,9 @@ class Condition_Base(object):
     def on_elsepart_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Equal_Base(object):
     def get_x(self):
         return self._back_x
@@ -297,6 +333,9 @@ class Equal_Base(object):
     def on_y_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Mul_Base(object):
     def get_x(self):
         return self._back_x
@@ -318,5 +357,8 @@ class Mul_Base(object):
     
     y = property(get_y, set_y)
     def on_y_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
         pass
     

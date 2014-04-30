@@ -68,7 +68,7 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -146,7 +146,7 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -220,7 +220,7 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -292,7 +292,7 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -366,7 +366,7 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -440,7 +440,7 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -515,7 +515,7 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -591,7 +591,7 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -667,7 +667,7 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -740,7 +740,7 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -813,7 +813,7 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -885,7 +885,7 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -956,7 +956,7 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1027,7 +1027,7 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1096,7 +1096,7 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1169,7 +1169,7 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1242,7 +1242,7 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1314,7 +1314,7 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1383,7 +1383,7 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1453,7 +1453,7 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1523,7 +1523,7 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1589,7 +1589,7 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1658,7 +1658,7 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
@@ -1723,7 +1723,7 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
         self.cond.bind_ex(self._ctx_ex)
         self.ifpart.bind_ex(self._ctx_ex)
         self.elsepart.bind_ex(self._ctx_ex)
-        if hasattr(self, 'bind_impl'): self.bind_impl(self.__dict__['_ctx_ex'])
+        self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False

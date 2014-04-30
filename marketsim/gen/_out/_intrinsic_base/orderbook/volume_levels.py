@@ -32,3 +32,6 @@ class VolumeLevels_Base(object):
     def on_volumeCount_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    

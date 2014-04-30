@@ -10,9 +10,21 @@ class Constant_Base(object):
     def on_x_set(self, value):
         pass
     
+    def bind_impl(self, ctx):
+        pass
+    
 class Null_Base(object):
     pass
+    def bind_impl(self, ctx):
+        pass
+    
 class False_Base(object):
     pass
+    def bind_impl(self, ctx):
+        pass
+    
 class True_Base(object):
     pass
+    def bind_impl(self, ctx):
+        pass
+    

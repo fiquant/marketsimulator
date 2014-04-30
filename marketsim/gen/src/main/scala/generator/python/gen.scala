@@ -61,14 +61,15 @@ package object gen
             {
                 val s =
                     s"class $className(object):" |>
-                        Code.from(parameters map { p =>
+                        (Code.from(parameters map { p =>
                             base.Property(p.name,
                                 s"return self._back_${p.name}",
                                 s"self._back_${p.name} = value" |
                                 s"self.on_${p.name}_set(value)") |
                             base.Def(s"on_${p.name}_set", "value", "pass")
                         },
-                        default = "pass")
+                        default = "pass") |
+                        base.Def("bind_impl", "ctx", "pass"))
 
                 out.println(s)
             }
