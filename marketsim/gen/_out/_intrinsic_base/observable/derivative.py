@@ -13,3 +13,6 @@ class Derivative_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    

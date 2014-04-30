@@ -68,6 +68,9 @@ class SingleAsset_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class MultiAsset_Base(object):
     def get_traders(self):
         return self._back_traders
@@ -125,5 +128,8 @@ class MultiAsset_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

@@ -24,6 +24,9 @@ class MinEpsilon_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class MaxEpsilon_Base(object):
     def get_x(self):
         return self._back_x
@@ -48,5 +51,8 @@ class MaxEpsilon_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

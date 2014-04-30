@@ -77,6 +77,27 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.reset_ex(generation)
+                else:
+                    v.reset_ex(generation)
+        for x in self.strategies: x.reset_ex(generation)
+        self.account.reset_ex(generation)
+        self.performance.reset_ex(generation)
+        self.reset()
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.__dict__['_processing_ex'] = False
+    
 def ChooseTheBest(strategies = None,account = None,performance = None): 
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy

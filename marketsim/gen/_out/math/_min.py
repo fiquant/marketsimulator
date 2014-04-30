@@ -57,6 +57,20 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        self.y.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -69,8 +83,7 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
@@ -145,6 +158,20 @@ class Min_FloatIObservableFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        self.y.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -157,8 +184,7 @@ class Min_FloatIObservableFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanFloatIObservableFloat as _ops_Condition_IObservableBooleanFloatIObservableFloat
@@ -233,6 +259,20 @@ class Min_IObservableFloatFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        self.y.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -245,8 +285,7 @@ class Min_IObservableFloatFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatFloat as _ops_Condition_IObservableBooleanIObservableFloatFloat
@@ -319,6 +358,20 @@ class Min_FloatFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        self.y.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -331,8 +384,7 @@ class Min_FloatFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_BooleanFloatFloat as _ops_Condition_BooleanFloatFloat

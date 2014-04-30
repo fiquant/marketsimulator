@@ -55,6 +55,19 @@ class side_WithExpiry_SideIObservableIOrderFloat(IFunctionIObservableIOrder_from
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.proto.reset_ex(generation)
+        self.expiry.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.__dict__['_processing_ex'] = False
+    
     def __call__(self, side = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim import deref_opt

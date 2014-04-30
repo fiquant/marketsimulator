@@ -62,6 +62,20 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.book.reset_ex(generation)
+        self.depth.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -74,8 +88,7 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.ops._condition import Condition_IObservableBooleanIObservableFloatIObservableFloat as _ops_Condition_IObservableBooleanIObservableFloatIObservableFloat
@@ -160,6 +173,20 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.book.reset_ex(generation)
+        self.depth.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -172,8 +199,7 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.orderbook._bestprice import BestPrice_IOrderQueue as _orderbook_BestPrice_IOrderQueue

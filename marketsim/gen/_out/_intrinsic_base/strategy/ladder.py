@@ -35,6 +35,9 @@ class OneSide_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Suspend_Base(object):
     def get_inner(self):
         return self._back_inner
@@ -59,6 +62,9 @@ class Suspend_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     
 class Clearable_Base(object):
@@ -87,6 +93,9 @@ class Clearable_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Balancer_Base(object):
     def get_inner(self):
         return self._back_inner
@@ -113,6 +122,9 @@ class Balancer_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class MarketMaker_Base(object):
     def get_orderFactory(self):
         return self._back_orderFactory
@@ -137,5 +149,8 @@ class MarketMaker_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

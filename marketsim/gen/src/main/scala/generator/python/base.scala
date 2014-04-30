@@ -75,6 +75,17 @@ package object base {
                 s"self.$name.$bind(self.$ctx)"
             case _ => stop
         }
+
+        def reset : Code = p.ty.unOptionalize match {
+            case TypesBound.List_(x) =>
+                if (!isPrimitive(x))
+                    s"for x in self.$name: x.reset_ex(generation)"
+                else
+                    stop
+            case x if !isPrimitive(x) =>
+                s"self.$name.reset_ex(generation)"
+            case _ => stop
+        }
     }
 
     def Def(name : String, args : Code, body : Code) = {
@@ -174,6 +185,25 @@ package object base {
 
         def bindEx = Def(bind, "ctx", bindEx_prologue  | bindEx_body | bindEx_properties | bindEx_subscriptions | bindEx_epilogue)
 
+        def resetEx_prologue =
+            s"if self.__dict__.get('_reset_generation_ex', -1) == generation: return" |
+            s"self.__dict__['_reset_generation_ex'] = generation" |
+            s"if self.__dict__.get('$processing', False):" |>
+                "raise Exception('cycle detected')" |
+            s"self.__dict__['$processing'] = True"
+
+        def resetEx_epilogue : Code = s"self.__dict__['$processing'] = False"
+
+        def resetEx_body : Code = stop
+
+        def resetEx_properties = join_fields({ _.reset }, nl, parameters_non_primitive)
+
+        def resetEx_subscriptions : Code =
+            s"if hasattr(self, '$subscriptions'):" |>
+                s"for s in self.$subscriptions: s.$bind(self.__dict__['$ctx'])"
+
+        def resetEx = Def("reset_ex", "generation", resetEx_prologue  | resetEx_body | resetEx_properties | resetEx_subscriptions | resetEx_epilogue)
+
         def properties = "_properties = {" |> property_fields | "}"
 
         def repr_body : Code = s"""return "$label_tmpl" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])"""
@@ -184,7 +214,7 @@ package object base {
         def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
-        def body = doc | init | label | properties | accessors | repr | bindEx
+        def body = doc | init | label | properties | accessors | repr | bindEx | resetEx
     }
 
     trait DocString extends Printer {
@@ -266,6 +296,19 @@ package object base {
 
         override def bindEx_body = bindEx_ctxCopy | bindEx_internals
         override def bindEx_properties = super.bindEx_properties | s"self.$bindImpl(self.__dict__['$ctx'])"
+
+        def resetEx_internals : Code =
+            s"if hasattr(self, '_internals'):" |>
+                    (s"for t in self._internals:" |>
+                            (s"v = getattr(self, t)" |
+                            (s"if type(v) in [list, set]:" |>
+                                    s"for w in v: w.reset_ex(generation)") |
+                            ("else:" |>
+                                    s"v.reset_ex(generation)")))
+
+
+        override def resetEx_body = resetEx_internals
+        override def resetEx_properties = super.resetEx_properties | s"self.reset()"
     }
 
     trait Bind extends Printer
@@ -289,6 +332,8 @@ package object base {
 
         override def bindEx_epilogue = s"self.impl.$bind(self.__dict__['$ctx'])" | super.bindEx_epilogue
 
+        override def resetEx_epilogue = s"self.impl.reset_ex(generation)" | super.resetEx_epilogue
+
         override def init_body =
             super.init_body |
             "self.impl = self.getImpl()"
@@ -297,8 +342,6 @@ package object base {
             ("self.impl = self.getImpl()" |
             "ctx_ex = getattr(self, '_ctx_ex', None)" |
             "if ctx_ex: self.impl.bind_ex(ctx_ex)") |
-            "ctx = getattr(self, '_ctx', None)" |
-            "if ctx: context.bind(self.impl, ctx)" |||
             ImportFrom("context", "marketsim"))
 
         def getattr = Def("__getattr__", "name",

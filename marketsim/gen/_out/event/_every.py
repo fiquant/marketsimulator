@@ -53,6 +53,25 @@ class Every_Float(IEvent,Every_Impl):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.reset_ex(generation)
+                else:
+                    v.reset_ex(generation)
+        self.intervalFunc.reset_ex(generation)
+        self.reset()
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.__dict__['_processing_ex'] = False
+    
 def Every(intervalFunc = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

@@ -69,7 +69,8 @@ package object gen
                             base.Def(s"on_${p.name}_set", "value", "pass")
                         },
                         default = "pass") |
-                        base.Def("bind_impl", "ctx", "pass"))
+                        base.Def("bind_impl", "ctx", "pass") |
+                        base.Def("reset", "", "pass"))
 
                 out.println(s)
             }

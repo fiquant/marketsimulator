@@ -13,6 +13,9 @@ class Max_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Min_Base(object):
     def get_x(self):
         return self._back_x
@@ -26,5 +29,8 @@ class Min_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

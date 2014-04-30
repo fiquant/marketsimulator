@@ -3,6 +3,9 @@ class Proxy_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class OfTrader_Base(object):
     def get_Trader(self):
         return self._back_Trader
@@ -16,5 +19,8 @@ class OfTrader_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

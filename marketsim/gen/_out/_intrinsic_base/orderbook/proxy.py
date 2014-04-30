@@ -13,6 +13,9 @@ class Asks_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Queue_Base(object):
     def get_book(self):
         return self._back_book
@@ -39,6 +42,9 @@ class Queue_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Bids_Base(object):
     def get_book(self):
         return self._back_book
@@ -52,5 +58,8 @@ class Bids_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

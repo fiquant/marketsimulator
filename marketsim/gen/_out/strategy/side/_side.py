@@ -39,6 +39,19 @@ class Side_strategysideNoise(IFunctionSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -51,8 +64,7 @@ class Side_strategysideNoise(IFunctionSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
@@ -118,6 +130,19 @@ class Side_strategysideMeanReversion(ObservableSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -130,8 +155,7 @@ class Side_strategysideMeanReversion(ObservableSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
@@ -196,6 +220,19 @@ class Side_strategysideRSIbis(IFunctionSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -208,8 +245,7 @@ class Side_strategysideRSIbis(IFunctionSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideRSIbis as _strategy_side_Threshold_strategysideRSIbis
@@ -278,6 +314,19 @@ class Side_strategysideFundamentalValue(ObservableSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -290,8 +339,7 @@ class Side_strategysideFundamentalValue(ObservableSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
@@ -356,6 +404,19 @@ class Side_strategysideTrendFollower(IFunctionSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -368,8 +429,7 @@ class Side_strategysideTrendFollower(IFunctionSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.strategy.side._threshold import Threshold_strategysideTrendFollower as _strategy_side_Threshold_strategysideTrendFollower
@@ -431,6 +491,19 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -443,8 +516,7 @@ class Side_strategysideCrossingAverages(IFunctionSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
@@ -506,6 +578,19 @@ class Side_strategysideSignal(IFunctionSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -518,8 +603,7 @@ class Side_strategysideSignal(IFunctionSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.strategy.side._signal_value import Signal_Value_strategysideSignal as _strategy_side_Signal_Value_strategysideSignal
@@ -588,6 +672,19 @@ class Side_strategysidePairTrading(ObservableSide):
         self.impl.bind_ex(self.__dict__['_ctx_ex'])
         self.__dict__['_processing_ex'] = False
     
+    def reset_ex(self, generation):
+        if self.__dict__.get('_reset_generation_ex', -1) == generation: return
+        self.__dict__['_reset_generation_ex'] = generation
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        
+        self.x.reset_ex(generation)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+        self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -600,8 +697,7 @@ class Side_strategysidePairTrading(ObservableSide):
         self.impl = self.getImpl()
         ctx_ex = getattr(self, '_ctx_ex', None)
         if ctx_ex: self.impl.bind_ex(ctx_ex)
-        ctx = getattr(self, '_ctx', None)
-        if ctx: context.bind(self.impl, ctx)
+        
     
     def getImpl(self):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_

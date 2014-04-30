@@ -46,6 +46,9 @@ class ToRecord_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class VolumeLevels_Base(object):
     def get_source(self):
         return self._back_source
@@ -114,5 +117,8 @@ class VolumeLevels_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

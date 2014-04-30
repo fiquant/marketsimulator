@@ -13,6 +13,9 @@ class Identity_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Score_Base(object):
     def get_trader(self):
         return self._back_trader
@@ -28,6 +31,9 @@ class Score_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class ChooseTheBest_Base(object):
     def get_array(self):
         return self._back_array
@@ -41,5 +47,8 @@ class ChooseTheBest_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

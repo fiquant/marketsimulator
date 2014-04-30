@@ -13,6 +13,9 @@ class Account_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class VirtualMarket_Base(object):
     def get_inner(self):
         return self._back_inner
@@ -26,5 +29,8 @@ class VirtualMarket_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

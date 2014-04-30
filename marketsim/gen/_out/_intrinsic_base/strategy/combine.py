@@ -13,6 +13,9 @@ class Array_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Combine_Base(object):
     def get_A(self):
         return self._back_A
@@ -37,5 +40,8 @@ class Combine_Base(object):
         pass
     
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     

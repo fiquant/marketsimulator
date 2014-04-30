@@ -13,9 +13,15 @@ class Constant_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class Null_Base(object):
     pass
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     
 class False_Base(object):
@@ -23,8 +29,14 @@ class False_Base(object):
     def bind_impl(self, ctx):
         pass
     
+    def reset(self):
+        pass
+    
 class True_Base(object):
     pass
     def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
         pass
     
