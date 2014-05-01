@@ -35,17 +35,6 @@ class Event_Impl(Event_Base):
                 x(*args)
 
 from marketsim.gen._out._ievent import IEvent
-class Event(Event_Impl, IEvent):
-    """ Multicast event
-
-    Keeps a set of callable listeners
-    """
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-
-    def reset_ex(self, generation):
-        self._reset_generation_ex = generation
-
 
 class Conditional_Impl(Event_Impl):
     
@@ -135,31 +124,6 @@ class LessThan(object):
     def __call__(self, *args):
         self.target(*args)
                 
-            
-
-class Array(Event):
-    
-    def __init__(self, events):
-        self._events = []
-        self.events = events
-        
-    _properties = { 'events' : meta.listOf(IEvent) }
-        
-    @property
-    def events(self):
-        return self._events
-    
-    @events.setter
-    def events(self, value):
-        for ev in self._events:
-            ev -= self.fire
-        self._events = value
-        for ev in self._events:
-            ev += self.fire
-            
-    def dispose(self):
-        for ev in self._events:
-            ev -= self.fire
 
 from marketsim.gen._out._intrinsic_base.event import Subscription_Base
                 
