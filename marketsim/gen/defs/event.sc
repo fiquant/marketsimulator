@@ -40,4 +40,9 @@ package event
     @python.intrinsic("event.Event_Impl")
     def Event() : IEvent
 
+    @python.intrinsic("event.GreaterThan_Impl")
+    def GreaterThan(bound : Float, target : Any) : Any
+
+    @python.intrinsic("event.LessThan_Impl")
+    def LessThan(bound : Float, target : Any) : Any
 }

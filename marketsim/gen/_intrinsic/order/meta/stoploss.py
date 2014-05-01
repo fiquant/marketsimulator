@@ -30,11 +30,13 @@ class Order_Impl(_meta.Base):
         
     def onOrderMatched(self, order, price, volume):
         from marketsim.gen._out._side import Side
+        from marketsim.gen._out.event._greaterthan import GreaterThan
+        from marketsim.gen._out.event._lessthan import LessThan
         if order is not self._stopLossOrder:
             if volume > 0:
-                handler = event.GreaterThan((1+self._maxloss) * price, _(self)._onPriceChanged)\
+                handler = GreaterThan((1+self._maxloss) * price, _(self)._onPriceChanged)\
                             if self.side == Side.Sell else\
-                          event.LessThan((1-self._maxloss) * price, _(self)._onPriceChanged)
+                          LessThan((1-self._maxloss) * price, _(self)._onPriceChanged)
                             
                 self._stopSubscription = event.subscribe(self._obsPrice, handler, self)
                 self._stopSubscription.bind_ex(self._ctx_ex)

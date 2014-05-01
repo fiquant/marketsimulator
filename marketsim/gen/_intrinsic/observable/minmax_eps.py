@@ -41,12 +41,18 @@ class Base(object):
     def attributes(self):
         return {}
 
+from marketsim.gen._out.event._greaterthan import GreaterThan
+from marketsim.gen._out.event._lessthan import LessThan
 
 class MaxEpsilon_Impl(Base, MaxEpsilon_Base):
     """ Observable that fires if underlying source value becomes greater previous maximum plus some epsilon
     """
     _sign = +1
-    _predicate = event.GreaterThan
+
+    @staticmethod
+    def _predicate(bound, target):
+        return GreaterThan(bound, target)
+
     _label = "Max"
 
 class MinEpsilon_Impl(Base, MinEpsilon_Base):
@@ -54,7 +60,11 @@ class MinEpsilon_Impl(Base, MinEpsilon_Base):
     """
 
     _sign = -1
-    _predicate = event.LessThan
+
+    @staticmethod
+    def _predicate(bound, target):
+        return LessThan(bound, target)
+
     _label = "Min"
 
 

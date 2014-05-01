@@ -39,4 +39,14 @@ package event() {
     // defined at defs\event.sc: 40.5
     @python.intrinsic("event.Event_Impl")
     def Event() : IEvent
+    
+    // defined at defs\event.sc: 43.5
+    @python.intrinsic("event.GreaterThan_Impl")
+    def GreaterThan(bound : Float,
+                    target : Any) : Any
+    
+    // defined at defs\event.sc: 46.5
+    @python.intrinsic("event.LessThan_Impl")
+    def LessThan(bound : Float,
+                 target : Any) : Any
 }

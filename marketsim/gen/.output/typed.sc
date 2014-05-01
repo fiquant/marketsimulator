@@ -45,6 +45,11 @@ package event {
     type IScheduler
     
     type ISubscription
+    
+    @python.intrinsic("event.GreaterThan_Impl")
+    def GreaterThan(bound : .Float,
+                    target : Any) : Any
+    
     /** Event that once at *delay*
      */
     
@@ -67,6 +72,11 @@ package event {
     
     @python.intrinsic("scheduler.currentScheduler_Impl")
     def Scheduler() : .event.IScheduler
+    
+    
+    @python.intrinsic("event.LessThan_Impl")
+    def LessThan(bound : .Float,
+                 target : Any) : Any
     
     
     @python.intrinsic("event.Subscription_Impl")

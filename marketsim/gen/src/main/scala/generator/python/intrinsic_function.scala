@@ -38,7 +38,7 @@ object intrinsic_function extends gen.PythonGenerator
 
         override def body = super.body | bindImpl | reset
 
-        override def base_class_list = implementationBase :: super.base_class_list
+        override def base_class_list = implementationBase :: (if (super.base_class_list != List(TypesBound.Any_)) super.base_class_list else Nil)
     }
 
 

@@ -208,6 +208,84 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - event.Event_Impl
+| | | | - FunDef:
+| | | | | - GreaterThan
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - bound
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - target
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Any
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - event.GreaterThan_Impl
+| | | | - FunDef:
+| | | | | - LessThan
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - bound
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - target
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Any
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - event.LessThan_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

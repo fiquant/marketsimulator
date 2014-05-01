@@ -53,6 +53,35 @@ class Subscription_Base(object):
     def reset(self):
         pass
     
+class GreaterThan_Base(object):
+    def get_bound(self):
+        return self._back_bound
+    
+    def set_bound(self, value):
+        self._back_bound = value
+        self.on_bound_set(value)
+    
+    bound = property(get_bound, set_bound)
+    def on_bound_set(self, value):
+        pass
+    
+    def get_target(self):
+        return self._back_target
+    
+    def set_target(self, value):
+        self._back_target = value
+        self.on_target_set(value)
+    
+    target = property(get_target, set_target)
+    def on_target_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
 class Every_Base(object):
     def get_intervalFunc(self):
         return self._back_intervalFunc
@@ -73,6 +102,35 @@ class Every_Base(object):
     
 class CurrentTime_Base(object):
     pass
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
+class LessThan_Base(object):
+    def get_bound(self):
+        return self._back_bound
+    
+    def set_bound(self, value):
+        self._back_bound = value
+        self.on_bound_set(value)
+    
+    bound = property(get_bound, set_bound)
+    def on_bound_set(self, value):
+        pass
+    
+    def get_target(self):
+        return self._back_target
+    
+    def set_target(self, value):
+        self._back_target = value
+        self.on_target_set(value)
+    
+    target = property(get_target, set_target)
+    def on_target_set(self, value):
+        pass
+    
     def bind_impl(self, ctx):
         pass
     
