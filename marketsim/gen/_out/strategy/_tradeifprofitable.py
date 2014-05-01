@@ -27,6 +27,7 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     def __init__(self, inner = None, account = None, performance = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
@@ -37,7 +38,8 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         self.performance = performance if performance is not None else deref_opt(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

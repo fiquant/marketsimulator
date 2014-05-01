@@ -23,13 +23,14 @@ class Base_Impl(Holder_Impl):
     def __init__(self):
         Holder_Impl.__init__(self)
         # event to be fired when an order has been sent
-        self.on_order_sent = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_order_sent = Event()
         # event to be fired when an order issued by the trader has been matched
-        self.on_order_matched = event.Event()
+        self.on_order_matched = Event()
         # event to be fired when an order issued by the trader has been cancelled
-        self.on_order_disposed = event.Event()
+        self.on_order_disposed = Event()
         # event to be fired when a trader's is traded; to be removed
-        self.on_traded = event.Event()
+        self.on_traded = Event()
         self.reset()
 
     def updateContext(self, context):

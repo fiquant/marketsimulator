@@ -11,6 +11,7 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._marketmaker import MarketMaker_FloatFloat as _strategy_price_MarketMaker_FloatFloat
@@ -20,7 +21,8 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         self.sign = sign if sign is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -136,6 +138,7 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim import deref_opt
@@ -144,7 +147,8 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         self.sign = sign if sign is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -253,6 +257,7 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._marketmaker import MarketMaker_FloatFloat as _strategy_price_MarketMaker_FloatFloat
@@ -262,7 +267,8 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         self.sign = sign if sign is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -377,6 +383,7 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim import deref_opt
@@ -385,7 +392,8 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         self.sign = sign if sign is not None else 1.0
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

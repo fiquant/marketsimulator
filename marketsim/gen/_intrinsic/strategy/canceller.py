@@ -38,7 +38,8 @@ class Canceller_Impl(Canceller_Base):
         self._eventGen = event.Every(self.cancellationIntervalDistr)
         self._myTrader = SingleProxy()
         self._book = OfTrader(self._myTrader)
-        self.on_order_created = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_order_created = Event()
         
     _internals = ['_myTrader']
 

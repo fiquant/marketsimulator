@@ -21,7 +21,7 @@ class Scheduler_Impl(Scheduler_Base):
     def __init__(self, currentTime=0.0, startTime=None, timeScale='seconds'):
         self._reset(currentTime, startTime)
         self._timeScale = timeScale
-        from marketsim.gen._intrinsic.event import Event
+        from marketsim.gen._out.event._event import Event
         self.on_clock = Event()
 
     def __enter__(self):

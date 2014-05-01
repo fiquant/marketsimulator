@@ -3,7 +3,7 @@ from marketsim import bind, meta, context, types, _
 from marketsim.gen._out._intrinsic_base.event import Every_Base, After_Base, Event_Base
 
 
-class Event_Impl(object):
+class Event_Impl(Event_Base):
     """ Multicast event
 
     Keeps a set of callable listeners
@@ -14,9 +14,6 @@ class Event_Impl(object):
         self.fire = bind.Method(self, '_fire_impl')
 
 #    _internals = ['_listeners']
-
-    def bind_impl(self, ctx):
-        pass
 
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
@@ -146,7 +143,7 @@ class Array(Event):
         self._events = []
         self.events = events
         
-    _properties = { 'events' : meta.listOf(Event) }
+    _properties = { 'events' : meta.listOf(IEvent) }
         
     @property
     def events(self):

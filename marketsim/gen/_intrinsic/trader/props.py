@@ -6,12 +6,14 @@ from marketsim.gen._out.trader._singleproxy import SingleProxy
 
 from marketsim.gen._out._intrinsic_base.trader.props import Position_Base, Balance_Base, PendingVolume_Base
 
-class OnTraded(event.Event):
+from marketsim.gen._out.event._event import Event_Impl
+
+class OnTraded(Event_Impl):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
     def __init__(self, trader = None):
-        event.Event.__init__(self)
+        Event_Impl.__init__(self)
         self.trader = trader if trader else SingleProxy()
 
     def reset_ex(self, generation):
@@ -26,12 +28,14 @@ class OnTraded(event.Event):
             self._subscriptions[0].bind_ex(ctx)
             self._bound_ex = True
 
-class OnOrderMatched(event.Event):
+from marketsim.gen._out.event._event import Event_Impl
+
+class OnOrderMatched(Event_Impl):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
     def __init__(self, trader = None):
-        event.Event.__init__(self)
+        Event_Impl.__init__(self)
         self.trader = trader if trader else SingleProxy()
 
     def reset_ex(self, generation):

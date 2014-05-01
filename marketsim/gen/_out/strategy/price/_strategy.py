@@ -12,6 +12,7 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_FloatFloatIOrderBook as _strategy_price_LiquidityProvider_FloatFloatIOrderBook
@@ -22,7 +23,8 @@ class Strategy_strategypriceLiquidityProviderIEventSideFloatIObservableIOrder(IS
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_sideprice_Limit_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

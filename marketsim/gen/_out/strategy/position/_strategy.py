@@ -10,6 +10,7 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
     def __init__(self, x = None, orderFactory = None):
         from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.order._curried._signedvolume_marketsigned import signedVolume_MarketSigned_ as _order__curried_signedVolume_MarketSigned_
@@ -18,7 +19,8 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -111,6 +113,7 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
     """ 
     def __init__(self, x = None, orderFactory = None):
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
         from marketsim import event
@@ -120,7 +123,8 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

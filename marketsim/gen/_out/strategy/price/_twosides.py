@@ -8,6 +8,7 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
     """ 
     def __init__(self, x = None):
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._marketmaker import MarketMaker_FloatFloat as _strategy_price_MarketMaker_FloatFloat
@@ -15,7 +16,8 @@ class TwoSides_strategypriceMarketMaker(ISingleAssetStrategy):
         self.x = x if x is not None else deref_opt(_strategy_price_MarketMaker_FloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -105,13 +107,15 @@ class TwoSides_strategypriceMarketData(ISingleAssetStrategy):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_price_MarketData_StringStringStringFloatFloat())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

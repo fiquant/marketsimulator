@@ -11,7 +11,8 @@ class Account_Impl(Account_Base):
     def __init__(self):
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
         event.subscribe(OnOrderMatched(), _(self)._onOrderMatched, self)
-        self.on_traded = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_traded = Event()
         self.orderBook = OfTrader()
         self._balance = 0
         self._position = 0
@@ -41,7 +42,8 @@ class VirtualMarket_Impl(VirtualMarket_Base):
     def __init__(self):
         self._balance = 0
         self._position = 0
-        self.on_traded = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_traded = Event()
         self.orderBook = OfTrader()
         event.subscribe(self.inner.on_order_created, _(self).onOrderCreated, self)
 

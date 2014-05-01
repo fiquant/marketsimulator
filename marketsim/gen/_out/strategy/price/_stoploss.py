@@ -11,6 +11,7 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim import deref_opt
@@ -18,7 +19,8 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_const_Float(0.2))
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -112,6 +114,7 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
     def __init__(self, inner = None, lossFactor = None):
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -120,7 +123,8 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_constant_Float(0.2))
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

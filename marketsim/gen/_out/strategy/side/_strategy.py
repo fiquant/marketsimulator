@@ -13,6 +13,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
         from marketsim.gen._out.strategy.side._noise import Noise_Float as _strategy_side_Noise_Float
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
@@ -22,7 +23,8 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -123,6 +125,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_Float as _strategy_side_MeanReversion_Float
@@ -133,7 +136,8 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -235,6 +239,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         from marketsim.gen._out.strategy.side._rsibis import RSIbis_FloatFloatFloat as _strategy_side_RSIbis_FloatFloatFloat
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
@@ -244,7 +249,8 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -345,6 +351,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_Float as _strategy_side_FundamentalValue_Float
         from marketsim import event
@@ -355,7 +362,8 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -456,6 +464,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.side._trendfollower import TrendFollower_FloatFloatIOrderBook as _strategy_side_TrendFollower_FloatFloatIOrderBook
@@ -466,7 +475,8 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -568,6 +578,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
         from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages_FloatFloatFloatIOrderBook as _strategy_side_CrossingAverages_FloatFloatFloatIOrderBook
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
@@ -577,7 +588,8 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -678,6 +690,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.side._signal import Signal_FloatFloat as _strategy_side_Signal_FloatFloat
@@ -688,7 +701,8 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -790,6 +804,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.order._curried._side_market import side_Market_Float as _order__curried_side_Market_Float
@@ -799,7 +814,8 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_side_Market_Float())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

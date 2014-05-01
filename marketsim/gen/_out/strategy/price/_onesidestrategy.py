@@ -15,6 +15,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_FloatFloatIOrderBook as _strategy_price_LiquidityProvider_FloatFloatIOrderBook
@@ -26,7 +27,8 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.side = side if side is not None else deref_opt(_side_observableSell_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property
@@ -134,6 +136,7 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import rtti
+        from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider_FloatFloatIOrderBook as _strategy_price_LiquidityProvider_FloatFloatIOrderBook
@@ -145,7 +148,8 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.side = side if side is not None else deref_opt(_side_Sell_())
         rtti.check_fields(self)
         self.impl = self.getImpl()
-        self.on_order_created = event.Event()
+        
+        self.on_order_created = Event()
         event.subscribe(self.impl.on_order_created, _(self)._send, self)
     
     @property

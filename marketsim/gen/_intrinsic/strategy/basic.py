@@ -22,7 +22,8 @@ class Strategy(Base):
     
     def __init__(self):
         Base.__init__(self)
-        self.on_order_created = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_order_created = Event()
 
     def _send(self, order, unused = None):
         self.on_order_created.fire(order, self)
@@ -37,7 +38,8 @@ class MultiAssetStrategy(Base):
     
     def __init__(self):
         Base.__init__(self)
-        self.on_order_created = event.Event()
+        from marketsim.gen._out.event._event import Event
+        self.on_order_created = Event()
 
 class Empty_Impl(Strategy, Empty_Base):
     pass

@@ -2,6 +2,6 @@ def adjust(ctx):
 
     ctx.useMinorTraders = True
     ctx.collectRSI = False
-    ctx.runTwoTimes = True
+    ctx.runTwoTimes = False
     ctx.veuszRunLength = 500
 
