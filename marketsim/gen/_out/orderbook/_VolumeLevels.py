@@ -93,6 +93,12 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        VolumeLevels_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        VolumeLevels_Impl.reset(self)
+    
 def VolumeLevels(queue = None,volumeDelta = None,volumeCount = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue
     from marketsim import rtti

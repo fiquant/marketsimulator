@@ -75,6 +75,12 @@ class LastTradePrice_IOrderQueue(Observablefloat,LastTradePrice_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        LastTradePrice_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        LastTradePrice_Impl.reset(self)
+    
 def LastTradePrice(queue = None): 
     from marketsim.gen._out._iorderqueue import IOrderQueue
     from marketsim import rtti

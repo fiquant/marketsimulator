@@ -44,6 +44,9 @@ package event
     @python.intrinsic("event.After_Impl")
     def After(/** when the event should be fired */ delay = .constant(10.0)) : .IEvent
     
+    @python.intrinsic("event.Event_Impl")
+    def Event() : .IEvent
+    
     /** Scheduler that manages the future event set.
      * Must be a singleton
      */

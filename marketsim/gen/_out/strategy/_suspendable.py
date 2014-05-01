@@ -82,6 +82,12 @@ class Suspendable_ISingleAssetStrategyBoolean(ISingleAssetStrategy,Suspendable_I
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Suspendable_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Suspendable_Impl.reset(self)
+    
 def Suspendable(inner = None,predicate = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool

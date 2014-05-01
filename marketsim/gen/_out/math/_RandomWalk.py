@@ -101,6 +101,12 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        RandomWalk_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        RandomWalk_Impl.reset(self)
+    
 def RandomWalk(initialValue = None,deltaDistr = None,intervalDistr = None,name = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

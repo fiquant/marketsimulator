@@ -75,6 +75,12 @@ class Link_IObservableFloat(ILink,Link_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Link_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Link_Impl.reset(self)
+    
 def Link(latency = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

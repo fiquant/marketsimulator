@@ -80,6 +80,12 @@ class Score_IAccount(IFunctionfloat,Score_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Score_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Score_Impl.reset(self)
+    
 def Score(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

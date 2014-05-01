@@ -72,6 +72,12 @@ class Every_Float(IEvent,Every_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Every_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Every_Impl.reset(self)
+    
 def Every(intervalFunc = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

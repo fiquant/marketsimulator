@@ -68,6 +68,12 @@ class Subscription_AnyAny(ISubscription,Subscription_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Subscription_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Subscription_Impl.reset(self)
+    
 def Subscription(event = None,listener = None): 
     from marketsim import rtti
     if event is None or rtti.can_be_casted(event, object):

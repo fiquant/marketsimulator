@@ -33,6 +33,11 @@ object intrinsic_function extends gen.PythonGenerator
 
         def implementationBase = TypesBound.ImplementationClass(implementation_class, implementation_module)
 
+        def bindImpl = Def("bind_impl", "ctx", implementation_class + ".bind_impl(self, ctx)")
+        def reset = Def("reset", "", implementation_class + ".reset(self)")
+
+        override def body = super.body | bindImpl | reset
+
         override def base_class_list = implementationBase :: super.base_class_list
     }
 

@@ -82,6 +82,12 @@ class And_IObservableBooleanIObservableBoolean(Observablebool,And_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        And_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        And_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
@@ -164,6 +170,12 @@ class And_BooleanIObservableBoolean(Observablebool,And_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        And_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        And_Impl.reset(self)
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -248,6 +260,12 @@ class And_IObservableBooleanBoolean(Observablebool,And_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        And_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        And_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -325,6 +343,12 @@ class And_BooleanBoolean(Observablebool,And_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        And_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        And_Impl.reset(self)
     
 def And(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablebool import IObservablebool

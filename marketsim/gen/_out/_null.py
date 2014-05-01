@@ -65,6 +65,12 @@ class null_(IFunctionfloat,Null_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Null_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Null_Impl.reset(self)
+    
 def null(): 
     from marketsim import rtti
     return null_()

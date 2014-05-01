@@ -65,6 +65,12 @@ class Scheduler_(IScheduler,currentScheduler_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        currentScheduler_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        currentScheduler_Impl.reset(self)
+    
 def Scheduler(): 
     from marketsim import rtti
     return Scheduler_()

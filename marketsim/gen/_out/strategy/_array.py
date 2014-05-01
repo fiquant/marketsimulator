@@ -72,6 +72,12 @@ class Array_ListISingleAssetStrategy(ISingleAssetStrategy,Array_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Array_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Array_Impl.reset(self)
+    
 def Array(strategies = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim import listOf

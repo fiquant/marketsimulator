@@ -71,6 +71,12 @@ class Bids_IOrderBook(IOrderQueue,Bids_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Bids_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Bids_Impl.reset(self)
+    
 def Bids(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti

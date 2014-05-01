@@ -98,6 +98,12 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        ChooseTheBest_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        ChooseTheBest_Impl.reset(self)
+    
 def ChooseTheBest(strategies = None,account = None,performance = None): 
     from marketsim import rtti
     from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy

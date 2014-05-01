@@ -124,6 +124,12 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        MultiarmedBandit2_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        MultiarmedBandit2_Impl.reset(self)
+    
 def MultiArmedBandit(strategies = None,account = None,weight = None,normalizer = None,corrector = None): 
     from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
     from marketsim import rtti

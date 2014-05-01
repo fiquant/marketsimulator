@@ -75,6 +75,12 @@ class VirtualMarket_ISingleAssetStrategy(IAccount,VirtualMarket_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        VirtualMarket_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        VirtualMarket_Impl.reset(self)
+    
 def VirtualMarket(inner = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim import rtti

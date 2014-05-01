@@ -87,6 +87,12 @@ class MaxEpsilon_mathCumulativeFloat(Observablefloat,MaxEpsilon_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        MaxEpsilon_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        MaxEpsilon_Impl.reset(self)
+    
 def MaxEpsilon(x = None,epsilon = None): 
     from marketsim.gen._out.math._cumulative import Cumulative
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat

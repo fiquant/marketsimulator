@@ -94,6 +94,12 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        ToRecord_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        ToRecord_Impl.reset(self)
+    
 def TimeSerie(source = None,graph = None,_digitsToShow = None,_smooth = None): 
     from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
     from marketsim.gen._out._igraph import IGraph

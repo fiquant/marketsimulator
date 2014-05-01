@@ -73,6 +73,12 @@ class Suspend_ISuspendableStrategyBoolean(ISuspendableStrategy,Suspend_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Suspend_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Suspend_Impl.reset(self)
+    
 def Suspend(inner = None,predicate = None): 
     from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
     from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool

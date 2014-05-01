@@ -71,6 +71,12 @@ class TickSize_IOrderBook(IFunctionfloat,TickSize_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        TickSize_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        TickSize_Impl.reset(self)
+    
 def TickSize(book = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim import rtti

@@ -1,21 +1,16 @@
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
-from marketsim.gen._out._iorderbook import IOrderBook
-from marketsim.gen._intrinsic.orderbook.of_trader import Proxy_Impl
-@registry.expose(["Asset", "Proxy"])
-class Proxy_(IOrderBook,Proxy_Impl):
-    """ **Phantom orderbook that is used to refer to the current order book**
-    
-    
-      May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
-    
-    Parameters are:
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._intrinsic.event import Event_Impl
+@registry.expose(["Event", "Event"])
+class Event_(IEvent,Event_Impl):
+    """ 
     """ 
     def __init__(self):
         from marketsim import rtti
         
         rtti.check_fields(self)
-        Proxy_Impl.__init__(self)
+        Event_Impl.__init__(self)
     
     @property
     def label(self):
@@ -25,6 +20,8 @@ class Proxy_(IOrderBook,Proxy_Impl):
         
     }
     
+    def __repr__(self):
+        return "Event" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
         if self.__dict__.get('_bound_ex', False): return
@@ -66,12 +63,12 @@ class Proxy_(IOrderBook,Proxy_Impl):
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
-        Proxy_Impl.bind_impl(self, ctx)
+        Event_Impl.bind_impl(self, ctx)
     
     def reset(self):
-        Proxy_Impl.reset(self)
+        Event_Impl.reset(self)
     
-def Proxy(): 
+def Event(): 
     from marketsim import rtti
-    return Proxy_()
-    raise Exception('Cannot find suitable overload for Proxy('++')')
+    return Event_()
+    raise Exception('Cannot find suitable overload for Event('++')')

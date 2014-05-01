@@ -1,3 +1,11 @@
+class Event_Base(object):
+    pass
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
 class After_Base(object):
     def get_delay(self):
         return self._back_delay

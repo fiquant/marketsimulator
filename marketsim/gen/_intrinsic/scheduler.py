@@ -145,6 +145,9 @@ class Scheduler_Impl(Scheduler_Base):
         self.scheduleAfter(intervalFunc(), 
                            _(self, intervalFunc, handler)._process_impl)
         
+def create():
+    return Scheduler_Impl()
+
 from marketsim.gen._out._intrinsic_base.scheduler import Scheduler_Base
 
 class currentScheduler_Impl(Scheduler_Base):

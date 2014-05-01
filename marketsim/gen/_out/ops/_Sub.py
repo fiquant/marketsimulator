@@ -82,6 +82,12 @@ class Sub_IObservableFloatIObservableFloat(Observablefloat,Sub_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Sub_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Sub_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -164,6 +170,12 @@ class Sub_FloatIObservableFloat(Observablefloat,Sub_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Sub_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Sub_Impl.reset(self)
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -248,6 +260,12 @@ class Sub_IObservableFloatFloat(Observablefloat,Sub_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Sub_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Sub_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -325,6 +343,12 @@ class Sub_FloatFloat(Observablefloat,Sub_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Sub_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Sub_Impl.reset(self)
     
 def Sub(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

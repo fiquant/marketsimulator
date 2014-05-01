@@ -4,7 +4,7 @@ import fold
 
 from marketsim.gen._out._intrinsic_base.observable.lagged import Lagged_Base
 
-class Lagged_Impl(fold.Last, Lagged_Base):
+class Lagged_Impl(Lagged_Base, fold.Last):
 
     def __init__(self):
         self.reset()
@@ -13,6 +13,9 @@ class Lagged_Impl(fold.Last, Lagged_Base):
 
     def reset(self):
         self._backX = 0
+
+    def bind_impl(self, ctx):
+        fold.Last.bind_impl(self, ctx)
 
     def at(self, t):
         return self._backX

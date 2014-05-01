@@ -74,6 +74,12 @@ class IdentityL_ListFloat(IFunctionlistOffloat,Identity_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Identity_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Identity_Impl.reset(self)
+    
 def IdentityL(array = None): 
     from marketsim import listOf
     from marketsim import rtti

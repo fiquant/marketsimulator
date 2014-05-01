@@ -108,6 +108,12 @@ class MultiAsset_ListISingleAssetTraderIMultiAssetStrategyStringFloatListITimeSe
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        MultiAsset_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        MultiAsset_Impl.reset(self)
+    
 def MultiAsset(traders = None,strategy = None,name = None,PnL = None,timeseries = None): 
     from marketsim import rtti
     from marketsim.gen._out._itimeserie import ITimeSerie

@@ -73,6 +73,12 @@ class Derivative_IDifferentiable(IFunctionfloat,Derivative_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Derivative_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Derivative_Impl.reset(self)
+    
 def Derivative(x = None): 
     from marketsim.gen._out._idifferentiable import IDifferentiable
     from marketsim import rtti

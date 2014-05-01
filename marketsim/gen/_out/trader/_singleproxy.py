@@ -64,6 +64,12 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Single_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Single_Impl.reset(self)
+    
 def SingleProxy(): 
     from marketsim import rtti
     return SingleProxy_()

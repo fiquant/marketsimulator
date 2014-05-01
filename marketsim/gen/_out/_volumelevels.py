@@ -107,6 +107,12 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        VolumeLevels_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        VolumeLevels_Impl.reset(self)
+    
 def volumeLevels(source = None,graph = None,_digitsToShow = None,_smooth = None,_volumes = None,_isBuy = None): 
     from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
     from marketsim.gen._out._igraph import IGraph

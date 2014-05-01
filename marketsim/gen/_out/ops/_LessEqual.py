@@ -82,6 +82,12 @@ class LessEqual_IObservableFloatIObservableFloat(Observablebool,LessEqual_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        LessEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        LessEqual_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -164,6 +170,12 @@ class LessEqual_FloatIObservableFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        LessEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        LessEqual_Impl.reset(self)
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -248,6 +260,12 @@ class LessEqual_IObservableFloatFloat(Observablebool,LessEqual_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        LessEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        LessEqual_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -325,6 +343,12 @@ class LessEqual_FloatFloat(Observablebool,LessEqual_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        LessEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        LessEqual_Impl.reset(self)
     
 def LessEqual(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

@@ -74,6 +74,12 @@ class Minimum_mathMoving(Observablefloat,Min_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Min_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Min_Impl.reset(self)
+    
 def Minimum(x = None): 
     from marketsim.gen._out.math._moving import Moving
     from marketsim import rtti

@@ -91,6 +91,12 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Remote_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Remote_Impl.reset(self)
+    
 def Remote(orderbook = None,link = None,timeseries = None): 
     from marketsim import rtti
     from marketsim.gen._out._itimeserie import ITimeSerie

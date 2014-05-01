@@ -89,6 +89,12 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Quote_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Quote_Impl.reset(self)
+    
 def Quote(ticker = None,start = None,end = None): 
     from marketsim import rtti
     if ticker is None or rtti.can_be_casted(ticker, str):

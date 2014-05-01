@@ -74,6 +74,12 @@ class Balance_IAccount(Observablefloat,Balance_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Balance_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Balance_Impl.reset(self)
+    
 def Balance(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

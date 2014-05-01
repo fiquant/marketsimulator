@@ -85,6 +85,12 @@ class Generic_IObservableIOrderIEvent(ISingleAssetStrategy,Generic_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Generic_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Generic_Impl.reset(self)
+    
 def Generic(orderFactory = None,eventGen = None): 
     from marketsim.gen._out._iorder import IOrder
     from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder

@@ -71,6 +71,12 @@ class const_Int(IObservableint,Constant_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Constant_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Constant_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
@@ -143,6 +149,12 @@ class const_Float(IObservablefloat,Constant_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Constant_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Constant_Impl.reset(self)
     
 def const(x = None): 
     from marketsim import rtti

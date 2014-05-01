@@ -84,6 +84,12 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        TwoWayLink_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        TwoWayLink_Impl.reset(self)
+    
 def TwoWayLink(up = None,down = None): 
     from marketsim.gen._out._ilink import ILink
     from marketsim import rtti

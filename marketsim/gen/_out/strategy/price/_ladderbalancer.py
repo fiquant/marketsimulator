@@ -69,6 +69,12 @@ class LadderBalancer_ILadderStrategyInt(ILadderStrategy,Balancer_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Balancer_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Balancer_Impl.reset(self)
+    
 def LadderBalancer(inner = None,maximalSize = None): 
     from marketsim.gen._out._iladderstrategy import ILadderStrategy
     from marketsim import rtti

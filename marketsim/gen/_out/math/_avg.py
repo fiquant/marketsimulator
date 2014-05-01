@@ -71,6 +71,12 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        CMA_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        CMA_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
@@ -144,6 +150,12 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        EWMA_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        EWMA_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._idifferentiable import IDifferentiable
@@ -216,6 +228,12 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        MA_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        MA_Impl.reset(self)
     
 def Avg(x = None): 
     from marketsim.gen._out.math._cumulative import Cumulative

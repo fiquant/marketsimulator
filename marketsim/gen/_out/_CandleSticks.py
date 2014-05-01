@@ -89,6 +89,12 @@ class CandleSticks_IObservableFloatFloat(ObservableICandleStick,CandleSticks_Imp
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        CandleSticks_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        CandleSticks_Impl.reset(self)
+    
 def CandleSticks(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

@@ -68,6 +68,12 @@ class Arbitrage_(IMultiAssetStrategy,Arbitrage_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Arbitrage_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Arbitrage_Impl.reset(self)
+    
 def Arbitrage(): 
     from marketsim import rtti
     return Arbitrage_()

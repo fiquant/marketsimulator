@@ -69,6 +69,12 @@ class observableSell_(ObservableSide,Sell_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Sell_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Sell_Impl.reset(self)
+    
 def observableSell(): 
     from marketsim import rtti
     return observableSell_()

@@ -89,6 +89,12 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Local_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Local_Impl.reset(self)
+    
 def Local(name = None,tickSize = None,_digitsToShow = None,timeseries = None): 
     from marketsim.gen._out._itimeserie import ITimeSerie
     from marketsim import listOf

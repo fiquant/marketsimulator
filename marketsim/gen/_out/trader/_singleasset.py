@@ -112,6 +112,12 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        SingleAsset_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        SingleAsset_Impl.reset(self)
+    
 def SingleAsset(orderBook = None,strategy = None,name = None,amount = None,PnL = None,timeseries = None): 
     from marketsim import rtti
     from marketsim.gen._out._itimeserie import ITimeSerie

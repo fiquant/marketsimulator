@@ -83,6 +83,12 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        OnEveryDt_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        OnEveryDt_Impl.reset(self)
+    
 def OnEveryDt(x = None,dt = None): 
     from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
     from marketsim import rtti

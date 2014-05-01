@@ -72,6 +72,12 @@ class Negate_IObservableFloat(Observablefloat,Negate_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Negate_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Negate_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -142,6 +148,12 @@ class Negate_Float(Observablefloat,Negate_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Negate_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Negate_Impl.reset(self)
     
 def Negate(x = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

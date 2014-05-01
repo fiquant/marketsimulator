@@ -81,6 +81,12 @@ class Queue_IOrderBookSide(IOrderQueue,Queue_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Queue_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Queue_Impl.reset(self)
+    
 def Queue(book = None,side = None): 
     from marketsim.gen._out._iorderbook import IOrderBook
     from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide

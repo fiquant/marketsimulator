@@ -87,6 +87,12 @@ class Lagged_IObservableFloatFloat(Observablefloat,Lagged_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Lagged_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Lagged_Impl.reset(self)
+    
 def Lagged(source = None,timeframe = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

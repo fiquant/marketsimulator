@@ -82,6 +82,12 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,GreaterEqual_
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        GreaterEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        GreaterEqual_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -164,6 +170,12 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,GreaterEqual_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        GreaterEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        GreaterEqual_Impl.reset(self)
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -248,6 +260,12 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,GreaterEqual_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        GreaterEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        GreaterEqual_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -325,6 +343,12 @@ class GreaterEqual_FloatFloat(Observablebool,GreaterEqual_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        GreaterEqual_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        GreaterEqual_Impl.reset(self)
     
 def GreaterEqual(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

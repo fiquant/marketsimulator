@@ -78,6 +78,12 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        BreaksAtChanges_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        BreaksAtChanges_Impl.reset(self)
+    
 def BreaksAtChanges(source = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
     from marketsim import rtti

@@ -64,6 +64,12 @@ class CurrentTime_(Observablefloat,CurrentTime_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        CurrentTime_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        CurrentTime_Impl.reset(self)
+    
 def CurrentTime(): 
     from marketsim import rtti
     return CurrentTime_()

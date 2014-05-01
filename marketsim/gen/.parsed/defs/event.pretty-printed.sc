@@ -35,4 +35,8 @@ package event() {
     @python.intrinsic("event.Subscription_Impl")
     def Subscription(event : Any,
                      listener : Any) : ISubscription
+    
+    // defined at defs\event.sc: 40.5
+    @python.intrinsic("event.Event_Impl")
+    def Event() : IEvent
 }

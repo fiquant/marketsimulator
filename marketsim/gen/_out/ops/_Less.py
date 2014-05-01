@@ -82,6 +82,12 @@ class Less_IObservableFloatIObservableFloat(Observablebool,Less_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Less_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Less_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -164,6 +170,12 @@ class Less_FloatIObservableFloat(Observablebool,Less_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Less_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Less_Impl.reset(self)
     
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
@@ -248,6 +260,12 @@ class Less_IObservableFloatFloat(Observablebool,Less_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Less_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Less_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_observable$Import
 from marketsim import registry
 from marketsim.gen._out._observable._observablebool import Observablebool
@@ -325,6 +343,12 @@ class Less_FloatFloat(Observablebool,Less_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        Less_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Less_Impl.reset(self)
     
 def Less(x = None,y = None): 
     from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat

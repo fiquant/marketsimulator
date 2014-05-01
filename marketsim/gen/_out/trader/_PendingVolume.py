@@ -74,6 +74,12 @@ class PendingVolume_IAccount(Observableint,PendingVolume_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        PendingVolume_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        PendingVolume_Impl.reset(self)
+    
 def PendingVolume(trader = None): 
     from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti

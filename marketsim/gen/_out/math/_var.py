@@ -71,6 +71,12 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Variance_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Variance_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -144,6 +150,12 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        EWMV_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        EWMV_Impl.reset(self)
+    
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
@@ -216,6 +228,12 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
+    
+    def bind_impl(self, ctx):
+        MV_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        MV_Impl.reset(self)
     
 def Var(x = None): 
     from marketsim.gen._out.math._cumulative import Cumulative

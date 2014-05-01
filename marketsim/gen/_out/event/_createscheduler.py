@@ -69,6 +69,12 @@ class createScheduler_Float(IScheduler,Scheduler_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Scheduler_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Scheduler_Impl.reset(self)
+    
 def createScheduler(currentTime = None): 
     from marketsim import rtti
     if currentTime is None or rtti.can_be_casted(currentTime, float):

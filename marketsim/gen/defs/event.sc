@@ -37,4 +37,7 @@ package event
     @python.intrinsic("event.Subscription_Impl")
     def Subscription(event : Any, listener : Any) : ISubscription
 
+    @python.intrinsic("event.Event_Impl")
+    def Event() : IEvent
+
 }

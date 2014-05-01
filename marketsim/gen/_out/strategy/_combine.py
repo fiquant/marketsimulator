@@ -79,6 +79,12 @@ class Combine_ISingleAssetStrategyISingleAssetStrategy(ISingleAssetStrategy,Comb
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Combine_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Combine_Impl.reset(self)
+    
 def Combine(A = None,B = None): 
     from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
     from marketsim import rtti

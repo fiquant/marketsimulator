@@ -15,6 +15,9 @@ class BestPrice(Observablefloat):
     def digits(self):
         return self.queue.book._digitsToShow
 
+    def bind_ex(self, ctx):
+        self._bound_ex = True
+
     def reset_ex(self, generation):
         self._reset_generation_ex = generation
 

@@ -68,6 +68,12 @@ class Graph_String(IGraph,Graph_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def bind_impl(self, ctx):
+        Graph_Impl.bind_impl(self, ctx)
+    
+    def reset(self):
+        Graph_Impl.reset(self)
+    
 def Graph(name = None): 
     from marketsim import rtti
     if name is None or rtti.can_be_casted(name, str):
