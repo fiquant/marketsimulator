@@ -1,7 +1,5 @@
 from marketsim.gen._out._intrinsic_base.orderbook.link import Link_Base, TwoWayLink_Base
 
-from marketsim.gen._intrinsic.scheduler import current as Scheduler
-
 class Link_Impl(Link_Base):
     """ Represents latency in information propagation from one agent to another one
         (normally between a trader and a market).
@@ -18,7 +16,9 @@ class Link_Impl(Link_Base):
         """ Initializes the link with a latency function
         """
         self.reset()
-        self._scheduler = Scheduler()
+
+    def bind_impl(self, ctx):
+        self._scheduler = ctx.world
 
     def reset(self):
         self._lastT = 0

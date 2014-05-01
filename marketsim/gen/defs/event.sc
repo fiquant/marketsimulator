@@ -26,6 +26,13 @@ package event
     @python.intrinsic("scheduler.Scheduler_Impl")
     def createScheduler(currentTime = 0.) : IScheduler
 
+    /**
+     * Returns reference to the instance of the scheduler
+     */
+    @python.intrinsic("scheduler.currentScheduler_Impl")
+    def Scheduler() : IScheduler
+
+
     // we should have also defined Suscription
     // but currently type system doesn't allow generic functions
 }

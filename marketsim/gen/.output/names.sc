@@ -53,6 +53,11 @@ package event
     @python.intrinsic("scheduler.Scheduler_Impl")
     def createScheduler(currentTime = 0.0) : .event.IScheduler
     
+    /** Returns reference to the instance of the scheduler
+     */
+    @python.intrinsic("scheduler.currentScheduler_Impl")
+    def Scheduler() : .event.IScheduler
+    
 }
 
 @category = "internal tests"

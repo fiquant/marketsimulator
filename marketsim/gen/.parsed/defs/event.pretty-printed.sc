@@ -22,4 +22,10 @@ package event() {
      */
     @python.intrinsic("scheduler.Scheduler_Impl")
     def createScheduler(currentTime = 0.0) : IScheduler
+    
+    // defined at defs\event.sc: 29.5
+    /** Returns reference to the instance of the scheduler
+     */
+    @python.intrinsic("scheduler.currentScheduler_Impl")
+    def Scheduler() : IScheduler
 }

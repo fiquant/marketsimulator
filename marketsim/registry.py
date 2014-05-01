@@ -3,8 +3,6 @@ import weakref, inspect, sys
 from marketsim import (constraints, exception, rtti,
                        meta, utils, context)
 
-from marketsim.gen._intrinsic.scheduler import current as Scheduler
-
 from marketsim.gen._out._side import Side
 
 startup = []
@@ -122,14 +120,6 @@ class Registry(object):
         self._id2obj[Id] = obj
         return obj._id
     
-    def reset(self):
-        # it is a dirty hack and later we'll have to 
-        # store complete object graph in the registry (not only properties)
-        Scheduler()._reset()
-        for x in self._id2obj.itervalues():
-            if 'reset' in dir(x):
-                x.reset()
-                
     def save_state_before_changes(self):
         self._id2savedfields = {}
         for k,v in self._id2obj.iteritems():
@@ -619,7 +609,8 @@ def createSimulation(instance):
     traders = instance.valuesOfType(SingleAsset)
 
     from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as Local
-    orderbooks = instance.valuesOfType(Local)
+    from marketsim.gen._out.orderbook._remote import Remote_IOrderBookITwoWayLinkListITimeSerie as Remote
+    orderbooks = instance.valuesOfType(Local) + instance.valuesOfType(Remote)
 
     from marketsim.js import Graph
     graphs = instance.valuesOfType(Graph)

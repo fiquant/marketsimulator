@@ -145,8 +145,15 @@ class Scheduler_Impl(Scheduler_Base):
         self.scheduleAfter(intervalFunc(), 
                            _(self, intervalFunc, handler)._process_impl)
         
-def create():
-    return Scheduler_Impl()
+from marketsim.gen._out._intrinsic_base.scheduler import Scheduler_Base
 
-def current():
-    return _instance
+class currentScheduler_Impl(Scheduler_Base):
+
+    def bind_impl(self, ctx):
+        self._scheduler = ctx.world
+
+    def __getattr__(self, item):
+        if item[0:2] != '__':
+            return getattr(self._scheduler, item)
+        else:
+            raise AttributeError
