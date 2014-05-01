@@ -21,5 +21,5 @@ package event() {
      * Must be a singleton
      */
     @python.intrinsic("scheduler.Scheduler_Impl")
-    def Scheduler(currentTime = 0.0) : IScheduler
+    def createScheduler(currentTime = 0.0) : IScheduler
 }

@@ -25,7 +25,7 @@ class LastTradePrice_Impl(LastTrade, LastTradePrice_Base):
 class LastTradeVolume_Impl(LastTrade, LastTradeVolume_Base):
 
     def __call__(self):
-        return self._impl()[1]
+        return self._impl()[1] if self._impl() is not None else None
 
     @property
     def label(self):

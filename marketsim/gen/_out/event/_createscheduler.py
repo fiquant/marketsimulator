@@ -2,8 +2,8 @@
 from marketsim import registry
 from marketsim.gen._out.event._ischeduler import IScheduler
 from marketsim.gen._intrinsic.scheduler import Scheduler_Impl
-@registry.expose(["Event", "Scheduler"])
-class Scheduler_Float(IScheduler,Scheduler_Impl):
+@registry.expose(["Event", "createScheduler"])
+class createScheduler_Float(IScheduler,Scheduler_Impl):
     """ **Scheduler that manages the future event set.**
     
      Must be a singleton
@@ -28,7 +28,7 @@ class Scheduler_Float(IScheduler,Scheduler_Impl):
     
     
     def __repr__(self):
-        return "Scheduler(%(currentTime)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+        return "createScheduler(%(currentTime)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
         if self.__dict__.get('_bound_ex', False): return
@@ -69,8 +69,8 @@ class Scheduler_Float(IScheduler,Scheduler_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
-def Scheduler(currentTime = None): 
+def createScheduler(currentTime = None): 
     from marketsim import rtti
     if currentTime is None or rtti.can_be_casted(currentTime, float):
-        return Scheduler_Float(currentTime)
-    raise Exception('Cannot find suitable overload for Scheduler('+str(currentTime) +':'+ str(type(currentTime))+')')
+        return createScheduler_Float(currentTime)
+    raise Exception('Cannot find suitable overload for createScheduler('+str(currentTime) +':'+ str(type(currentTime))+')')

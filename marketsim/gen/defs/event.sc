@@ -24,7 +24,7 @@ package event
      * Must be a singleton
      */
     @python.intrinsic("scheduler.Scheduler_Impl")
-    def Scheduler(currentTime = 0.) : IScheduler
+    def createScheduler(currentTime = 0.) : IScheduler
 
     // we should have also defined Suscription
     // but currently type system doesn't allow generic functions

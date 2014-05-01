@@ -90,7 +90,7 @@ Definitions:
 | | | | | - List:
 | | | | | - false
 | | | | - FunDef:
-| | | | | - Scheduler
+| | | | | - createScheduler
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - currentTime

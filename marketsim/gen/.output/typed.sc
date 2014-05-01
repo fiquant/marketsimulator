@@ -60,7 +60,7 @@ package event {
      */
     
     @python.intrinsic("scheduler.Scheduler_Impl")
-    def Scheduler(currentTime : Optional[.Float] = 0.0) : .event.IScheduler
+    def createScheduler(currentTime : Optional[.Float] = 0.0) : .event.IScheduler
 }
 
 @category = "internal tests"

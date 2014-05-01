@@ -40,6 +40,7 @@ class LastTrade(Observablefloat):
         self._bound_ex = True
 
     def reset_ex(self, generation):
+        self.set(None)
         self._reset_generation_ex = generation
 
     def _retranslate(self, source):

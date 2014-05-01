@@ -8,7 +8,7 @@ from marketsim import (_, veusz, registry, config,
 from marketsim.gen._out._ievent import IEvent
 from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
 
-from marketsim.gen._out.event._scheduler import Scheduler
+from marketsim.gen._out.event._createscheduler import createScheduler
 
 from marketsim._pub import orderbook, TimeSerie, volumeLevels, trader, math, observable, const, strategy, side
 
@@ -267,7 +267,7 @@ def orderBooksToRender(ctx, traders):
 runTwoTimes = True
 
 def run(name, constructor, only_veusz):
-    with Scheduler() as world:
+    with createScheduler() as world:
         
         ctx = Context(world, veusz.Graph)
         traders = constructor(ctx)
