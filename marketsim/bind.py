@@ -28,6 +28,12 @@ class Method(object):
             if self.args[i] != other.args[i]:
                 return False
         return True
+
+    def bind_ex(self, ctx):
+        pass
+
+    def reset_ex(self, generation):
+        pass
         
         
     _internals = ['methodname', 'args']

@@ -152,50 +152,33 @@ class Array(Event):
     def dispose(self):
         for ev in self._events:
             ev -= self.fire
-        
-        
-        
-    
-            
-class Subscription(object):
-    
-    def __init__(self, event, listener):
-        self._event = event 
-        self._listener = listener
+
+from marketsim.gen._out._intrinsic_base.event import Subscription_Base
+                
+class Subscription_Impl(Subscription_Base):
+
+    def __init__(self):
         self._subscribed = False # in fact it is _bound but its cleaning is not yet supported at dispose
-        
-    _internals = ['_event']
-    
-    @property
-    def event(self):
-        return self._event
-    
-    @event.setter
-    def event(self, value):
+
+    def set_event(self, value):
         self.switchTo(value)
 
     def switchTo(self, newEvent):
-        if newEvent is not self._event:
-            if self._event is not None:
-                self._event -= self._listener
-            self._event = newEvent
-            self._event += self._listener
+        if newEvent is not self.event:
+            if self._back_event is not None:
+                self._back_event -= self.listener
+            self._back_event = newEvent
+            self._back_event += self.listener
 
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-        self._event += self._listener
+    def bind_impl(self, ctx):
+        self.event += self.listener
         self._subscribed = True
-        self._event.bind_ex(ctx)
-
-    def reset_ex(self, generation):
-        self._event.reset_ex(generation)
-        self._reset_generation_ex = generation
 
     def dispose(self):
         if self._subscribed:
-            self._event -= self._listener
+            self._back_event -= self.listener
             self._subscribed = False
-                
+
 def dispose(obj):
     if '_subscriptions' in dir(obj):
         for x in obj._subscriptions:
@@ -207,6 +190,8 @@ def dispose(obj):
             
                 
 def subscribe(event, listener, target = None, ctx = None):
+
+    from marketsim.gen._out.event._subscription import Subscription
     
     subscription = Subscription(event, listener)
     

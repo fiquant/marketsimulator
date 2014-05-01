@@ -28,4 +28,11 @@ package event() {
      */
     @python.intrinsic("scheduler.currentScheduler_Impl")
     def Scheduler() : IScheduler
+    
+    type ISubscription
+    
+    // defined at defs\event.sc: 37.5
+    @python.intrinsic("event.Subscription_Impl")
+    def Subscription(event : Any,
+                     listener : Any) : ISubscription
 }

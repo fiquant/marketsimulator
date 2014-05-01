@@ -37,10 +37,7 @@ package event
 {
     type IScheduler
     
-    /** Event that fires every *intervalFunc* moments of time
-     */
-    @python.intrinsic("event.Every_Impl")
-    def Every(/** interval of time between two events */ intervalFunc = .math.random.expovariate(1.0)) : .IEvent
+    type ISubscription
     
     /** Event that once at *delay*
      */
@@ -57,6 +54,15 @@ package event
      */
     @python.intrinsic("scheduler.currentScheduler_Impl")
     def Scheduler() : .event.IScheduler
+    
+    @python.intrinsic("event.Subscription_Impl")
+    def Subscription(event : .Any,
+                     listener : .Any) : .event.ISubscription
+    
+    /** Event that fires every *intervalFunc* moments of time
+     */
+    @python.intrinsic("event.Every_Impl")
+    def Every(/** interval of time between two events */ intervalFunc = .math.random.expovariate(1.0)) : .IEvent
     
 }
 

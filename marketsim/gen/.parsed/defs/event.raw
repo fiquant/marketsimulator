@@ -141,6 +141,54 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - scheduler.currentScheduler_Impl
+| | | | - Interface:
+| | | | | - ISubscription
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
+| | | | - FunDef:
+| | | | | - Subscription
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - event
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - listener
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - ISubscription
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - event.Subscription_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

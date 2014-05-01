@@ -32,7 +32,9 @@ package event
     @python.intrinsic("scheduler.currentScheduler_Impl")
     def Scheduler() : IScheduler
 
+    type ISubscription
 
-    // we should have also defined Suscription
-    // but currently type system doesn't allow generic functions
+    @python.intrinsic("event.Subscription_Impl")
+    def Subscription(event : Any, listener : Any) : ISubscription
+
 }

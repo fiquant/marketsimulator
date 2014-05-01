@@ -139,7 +139,9 @@ def typecheck(constraint, obj):
     def throw():
         from marketsim import exception
         raise exception.Constraint(constraint, obj)
-    
+    if constraint == object:
+        return
+
     if type(obj) is marketsim.Reference:
         if obj.pointee:
             typecheck(constraint, obj.pointee)
