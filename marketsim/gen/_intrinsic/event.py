@@ -86,38 +86,18 @@ class Conditional_Impl(Event_Impl):
                             handler(*args)
         Event_Impl._fire_impl(self, *args)
 
-class Conditional(Conditional_Impl, IEvent):
+from marketsim.gen._out._intrinsic_base.event import LessThan_Base, GreaterThan_Base
 
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-
-    def reset_ex(self, generation):
-        self._reset_generation_ex = generation
-
-
-        
-class GreaterThan(object):
+class GreaterThan_Impl(GreaterThan_Base):
     
-    def __init__(self, bound, target):
-        self.bound = bound
-        self.target = target
-        
-    _internals = ['target']
-        
     def _greaterThan(self):
         return self.bound
     
     def __call__(self, *args):
         self.target(*args)
                 
-class LessThan(object):
+class LessThan_Impl(LessThan_Base):
     
-    def __init__(self, bound, target):
-        self.bound = bound
-        self.target = target
-        
-    _internals = ['target']
-        
     def _lessThan(self):
         return self.bound
     
