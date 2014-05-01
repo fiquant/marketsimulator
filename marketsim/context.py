@@ -176,6 +176,8 @@ class Resetter(Base):
         Base.__init__(self, indent)
         
     def mark_visited(self, obj):
+        if getattr(obj, '_reset_generation_ex', -1) != 0:
+            print obj
         if '_reset_generation' in dir(obj) and obj._reset_generation == self._generation:
             return False
         else:

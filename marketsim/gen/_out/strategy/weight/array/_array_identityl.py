@@ -45,7 +45,7 @@ class array_IdentityL_(IFunctionIFunctionlistOffloat_from_listOffloat):
         
         
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, array = None):

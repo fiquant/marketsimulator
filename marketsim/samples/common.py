@@ -302,7 +302,7 @@ def run(name, constructor, only_veusz):
                     print err
 
         checks()        
-        stat = world.workTill(500)
+        stat = world.workTill(config.veuszRunLength)
         checks()        
 
         if config.showTiming:
@@ -313,10 +313,12 @@ def run(name, constructor, only_veusz):
         veusz.render(name, non_empty_graphs)
         
         world._reset()
+        root.reset_ex(0)
         context.reset(root)
 
+
         if config.runTwoTimes:
-            world.workTill(500)
+            world.workTill(config.veuszRunLength)
             veusz.render(name, non_empty_graphs)
 
 def Constant(c, demo):

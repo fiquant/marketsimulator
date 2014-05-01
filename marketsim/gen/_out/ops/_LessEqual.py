@@ -79,7 +79,7 @@ class LessEqual_IObservableFloatIObservableFloat(Observablebool,LessEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -162,7 +162,7 @@ class LessEqual_FloatIObservableFloat(Observablebool,LessEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -245,7 +245,7 @@ class LessEqual_IObservableFloatFloat(Observablebool,LessEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -323,7 +323,7 @@ class LessEqual_FloatFloat(Observablebool,LessEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 def LessEqual(x = None,y = None): 

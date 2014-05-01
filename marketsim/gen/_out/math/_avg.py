@@ -68,7 +68,7 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_function$Import
@@ -141,7 +141,7 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_function$Import
@@ -214,7 +214,7 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 def Avg(x = None): 

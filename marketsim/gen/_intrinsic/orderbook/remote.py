@@ -25,6 +25,12 @@ class Queue(object):
         self.book.bind_ex(ctx)
         self._link.bind_ex(ctx)
 
+    def reset_ex(self, generation):
+        self.book.reset_ex(generation)
+        self._link.reset_ex(generation)
+        self.reset()
+        self._reset_generation_ex = generation
+
         
     @property
     def side(self):

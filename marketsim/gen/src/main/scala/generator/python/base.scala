@@ -200,7 +200,7 @@ package object base {
 
         def resetEx_subscriptions : Code =
             s"if hasattr(self, '$subscriptions'):" |>
-                s"for s in self.$subscriptions: s.$bind(self.__dict__['$ctx'])"
+                s"for s in self.$subscriptions: s.reset_ex(generation)"
 
         def resetEx = Def("reset_ex", "generation", resetEx_prologue  | resetEx_body | resetEx_properties | resetEx_subscriptions | resetEx_epilogue)
 

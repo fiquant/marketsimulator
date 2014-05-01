@@ -20,6 +20,10 @@ class Order_Impl(_meta.OwnsSingleOrder):
         for x in self._subscriptions:
             x.bind_ex(ctx)
         self._bound_ex = True
+
+    def reset_ex(self, generation):
+        self.proto.reset_ex(generation)
+        self._priceFunc.reset_ex(generation)
         
     def With(self, **kwargs):
         return Order_Impl(self.proto.With(**kwargs), self._priceFunc)

@@ -15,6 +15,9 @@ class BestPrice(Observablefloat):
     def digits(self):
         return self.queue.book._digitsToShow
 
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
+
     @property
     def label(self):
         return self.queue.label
@@ -35,6 +38,9 @@ class LastTrade(Observablefloat):
 
     def bind_ex(self, ctx):
         self._bound_ex = True
+
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
 
     def _retranslate(self, source):
         self.set(source())
@@ -65,6 +71,10 @@ class Queue(object):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
+
+    def reset_ex(self, generation):
+        self.reset()
+        self._reset_generation_ex = generation
 
     def bind_ex(self, ctx):
         if not hasattr(self, '_scheduler'):

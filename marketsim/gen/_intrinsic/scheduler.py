@@ -47,6 +47,9 @@ class Scheduler_Impl(Scheduler_Base):
         self.currentId = None
         self._working = False
 
+    def reset_ex(self, generation):
+        self._reset()
+
     def __repr__(self):
         return "(t=" + str(self.currentTime) + ": " + repr(self._elements) + ")"
 

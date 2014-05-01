@@ -1,4 +1,6 @@
-class MV_Impl(object):
+from marketsim.gen._out._intrinsic_base.moments.mv import MV_Base
+
+class MV_Impl(MV_Base):
     
     def __init__(self):
         from marketsim.gen._out.math._sqr import Sqr_IObservableFloat

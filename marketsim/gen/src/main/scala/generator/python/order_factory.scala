@@ -48,8 +48,9 @@ object order_factory
         }
 
         def bindImpl = base.Def("bind_impl", "ctx", "pass")
+        def reset = base.Def("reset", "", "pass")
 
-        override def body = super.body | bindImpl
+        override def body = super.body | bindImpl | reset
 
         if (is_factory_intrinsic)
             Typed.topLevel.addIntrinsic(args(0), parameters map { _.p })

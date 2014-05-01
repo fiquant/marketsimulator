@@ -20,6 +20,10 @@ class Order_Impl(Default, HasSide, HasPrice, HasVolume, Cancellable):
     def bind_ex(self, ctx):
         self._bound_ex = True
 
+    def reset_ex(self, ctx):
+        pass
+
+
     @property
     def ticks(self):
         return self._ticks

@@ -68,7 +68,7 @@ class Var_mathCumulative(IFunctionfloat,Variance_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_function$Import
@@ -141,7 +141,7 @@ class Var_mathEW(IFunctionfloat,EWMV_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_function$Import
@@ -214,7 +214,7 @@ class Var_mathMoving(IFunctionfloat,MV_Impl):
         self.x.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 def Var(x = None): 

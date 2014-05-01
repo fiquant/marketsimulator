@@ -8,6 +8,7 @@ showTiming = True
 checkConsistency = False
 usePandas = True
 useMinorTraders = True
+veuszRunLength = 500
 
 collectRSI = False
 collectMoving = True

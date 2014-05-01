@@ -16,6 +16,9 @@ class Order_Impl(Default, HasSide, HasVolume, Cancellable):
     def bind_ex(self, ctx):
         self._bound_ex = True
 
+    def reset_ex(self, generation):
+        pass
+
     def With(self, side = None, volume = None):
         def opt(a,b):
             return a if b is None else b

@@ -20,7 +20,9 @@ class Order_Impl(_meta.OwnsSingleOrder):
         self.proto.bind_ex(ctx)
         self._bound_ex = True
 
-        
+    def reset_ex(self, generation):
+        self.proto.reset_ex(generation)
+
     def With(self, **kwargs):
         return Order_Impl(self.proto.With(**kwargs), self._lotSize)
                 

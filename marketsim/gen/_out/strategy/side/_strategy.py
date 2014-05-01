@@ -69,7 +69,7 @@ class Strategy_strategysideNoiseIEventSideIObservableIOrder(ISingleAssetStrategy
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -180,7 +180,7 @@ class Strategy_strategysideMeanReversionIEventSideIObservableIOrder(ISingleAsset
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -291,7 +291,7 @@ class Strategy_strategysideRSIbisIEventSideIObservableIOrder(ISingleAssetStrateg
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -402,7 +402,7 @@ class Strategy_strategysideFundamentalValueIEventSideIObservableIOrder(ISingleAs
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -513,7 +513,7 @@ class Strategy_strategysideTrendFollowerIEventSideIObservableIOrder(ISingleAsset
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -624,7 +624,7 @@ class Strategy_strategysideCrossingAveragesIEventSideIObservableIOrder(ISingleAs
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -735,7 +735,7 @@ class Strategy_strategysideSignalIEventSideIObservableIOrder(ISingleAssetStrateg
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -846,7 +846,7 @@ class Strategy_strategysidePairTradingIEventSideIObservableIOrder(ISingleAssetSt
         self.eventGen.reset_ex(generation)
         self.orderFactory.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     

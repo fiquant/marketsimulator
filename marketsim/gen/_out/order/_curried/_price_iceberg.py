@@ -66,7 +66,7 @@ class price_Iceberg_FloatIObservableIOrderFloat(IFunctionIObservableIOrder_from_
         self.proto.reset_ex(generation)
         self.lotSize.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, price = None):

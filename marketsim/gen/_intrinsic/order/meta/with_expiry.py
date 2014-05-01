@@ -17,6 +17,9 @@ class Order_Impl(_meta.OwnsSingleOrder):
         self.proto.bind_ex(ctx)
         self._ctx_ex = ctx
         self._bound_ex = True
+
+    def reset_ex(self, generation):
+        self.proto.reset_ex(generation)
         
     def onOrderDisposed(self, order):
         self.owner.onOrderDisposed(self)

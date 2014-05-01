@@ -18,6 +18,9 @@ class Order_Impl(_meta.Base):
         self._proto.bind_ex(ctx)
         self._bound_ex = True
 
+    def reset_ex(self, generation):
+        self._proto.reset_ex(generation)
+
     def startProcessing(self):
         from marketsim.gen._out._side import Side
         self._obsPrice = self.orderBook.Asks.BestPrice \

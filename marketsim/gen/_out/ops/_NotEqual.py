@@ -79,7 +79,7 @@ class NotEqual_IObservableFloatIObservableFloat(Observablebool,NotEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -162,7 +162,7 @@ class NotEqual_FloatIObservableFloat(Observablebool,NotEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -245,7 +245,7 @@ class NotEqual_IObservableFloatFloat(Observablebool,NotEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 # generated with class generator.python.intrinsic_observable$Import
@@ -323,7 +323,7 @@ class NotEqual_FloatFloat(Observablebool,NotEqual_Impl):
         self.y.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
 def NotEqual(x = None,y = None): 

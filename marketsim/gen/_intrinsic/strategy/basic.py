@@ -11,6 +11,9 @@ class Base(object):
         if not hasattr(self, '_scheduler'):
             self._scheduler = context.world
 
+    def reset(self):
+        pass
+
     @property
     def trader(self):
         return self._trader

@@ -53,7 +53,7 @@ class Raw_mathRSI(IFunctionfloat):
         
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     

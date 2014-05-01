@@ -45,7 +45,7 @@ class Alpha_strategysideMeanReversion(object):
         
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     @property
@@ -99,7 +99,7 @@ class Alpha_strategysideRSIbis(object):
         
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     @property
@@ -153,7 +153,7 @@ class Alpha_strategysideTrendFollower(object):
         
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     @property

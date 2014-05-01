@@ -18,6 +18,9 @@ class Event_Impl(object):
     def bind_ex(self, ctx):
         self._bound_ex = True
 
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
+
     def __iadd__(self, listener):
         """ Adds 'listener' to the listeners set
         """
@@ -184,6 +187,10 @@ class Subscription(object):
         self._subscribed = True
         self._event.bind_ex(ctx)
 
+    def reset_ex(self, generation):
+        self._event.reset_ex(generation)
+        self._reset_generation_ex = generation
+
     def dispose(self):
         if self._subscribed:
             self._event -= self._listener
@@ -255,7 +262,11 @@ class Every_Impl(Event_Impl, Every_Base):
         
     def reset(self):
         self.schedule()
-        
+
+    def reset_ex(self, generation):
+        self.reset()
+        self._reset_generation_ex = generation
+
     def _wakeUp(self):
         if not self._cancelled:
             self.fire(self)
@@ -280,6 +291,10 @@ class After_Impl(Event_Impl, After_Base):
         
     def reset(self):
         self.schedule()
+
+    def reset_ex(self, generation):
+        self.reset()
+        self._reset_generation_ex = generation
         
     def _wakeUp(self):
         if not self._cancelled:

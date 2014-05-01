@@ -14,6 +14,11 @@ class OnTraded(event.Event):
         event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
 
+    def reset_ex(self, generation):
+        self.trader.reset_ex(generation)
+        self._subscriptions[0].reset_ex(generation)
+        self._reset_generation_ex = generation
+
     def bind_ex(self, ctx):
         if not hasattr(self, '_subscriptions'):
             self.trader.bind_ex(ctx)
@@ -28,6 +33,11 @@ class OnOrderMatched(event.Event):
     def __init__(self, trader = None):
         event.Event.__init__(self)
         self.trader = trader if trader else SingleProxy()
+
+    def reset_ex(self, generation):
+        self.trader.reset_ex(generation)
+        self._subscriptions[0].reset_ex(generation)
+        self._reset_generation_ex = generation
 
     def bind_ex(self, ctx):
         if not hasattr(self, '_subscriptions'):
@@ -72,6 +82,12 @@ class _PendingVolume_Impl(object): # should be int
     def __init__(self, trader):
         self.trader = trader
         self._pendingVolume = 0
+
+    def reset_ex(self, generation):
+        self.trader.reset_ex(generation)
+        for x in self._subscriptions:
+            x.reset_ex(generation)
+        self._reset_generation_ex = generation
 
     def bind_impl(self, ctx):
         if not hasattr(self, '_subscriptions'):

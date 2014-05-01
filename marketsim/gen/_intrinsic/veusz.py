@@ -106,6 +106,9 @@ class CSV(object):
     def bind_ex(self, ctx):
         self._bound_ex = True
 
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
+
     @property
     def source(self):
         return self._source
@@ -192,6 +195,9 @@ class VolumeLevelProxy(object):
     def bind_ex(self, ctx):
         self._bound_ex = True
         self._source.bind_ex(ctx)
+
+    def reset(self, generation):
+        self._source.reset_ex(generation)
         
     @property
     def data(self):

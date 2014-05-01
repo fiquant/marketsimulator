@@ -595,6 +595,11 @@ class Simulation(object):
         for t in self.graphs: t.bind_ex(ctx)
         self._bound_ex = True
 
+    def reset_ex(self, generation):
+        for t in self.traders: t.reset_ex(generation)
+        for t in self.orderbooks: t.reset_ex(generation)
+        for t in self.graphs: t.reset_ex(generation)
+        self._reset_generation_ex = generation
 
     @property
     def traders(self):

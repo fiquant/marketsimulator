@@ -67,7 +67,7 @@ class IfDefined_IObservableFloatIObservableFloat(Observablefloat):
         self.x.reset_ex(generation)
         self.elsePart.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -169,7 +169,7 @@ class IfDefined_FloatIObservableFloat(Observablefloat):
         self.x.reset_ex(generation)
         self.elsePart.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -271,7 +271,7 @@ class IfDefined_IObservableFloatFloat(Observablefloat):
         self.x.reset_ex(generation)
         self.elsePart.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
@@ -371,7 +371,7 @@ class IfDefined_FloatFloat(Observablefloat):
         self.x.reset_ex(generation)
         self.elsePart.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
-            for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
+            for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
