@@ -258,9 +258,11 @@ def changes(w):
 def reset():
     w = current_user_workspace()
     save_state_before_changes(w.registry)
-    with w.world: 
-        w.world._reset()
-        context.reset(w.registry.get(w.root))
+    with w.world:
+        reset_generation = getattr(w, 'reset_generation', 0)
+        w.world.reset_ex(reset_generation)
+        w.registry.get(w.root).reset_ex(reset_generation)
+        w.reset_generation = reset_generation + 1
     save_current_workspace()
     return changes(w)
 

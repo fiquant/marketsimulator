@@ -312,10 +312,8 @@ def run(name, constructor, only_veusz):
         
         veusz.render(name, non_empty_graphs)
         
-        world._reset()
+        world.reset_ex(0)
         root.reset_ex(0)
-        context.reset(root)
-
 
         if config.runTwoTimes:
             world.workTill(config.veuszRunLength)

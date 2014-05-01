@@ -9,6 +9,9 @@ class Graph(IGraph):
 
     def bind_ex(self, ctx):
         self._bound_ex = True
+
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
         
     @property
     def _alias(self):

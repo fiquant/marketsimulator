@@ -47,7 +47,7 @@ class Scheduler_Impl(Scheduler_Base):
         self.currentId = None
         self._working = False
 
-    def reset_ex(self, generation):
+    def reset(self):
         self._reset()
 
     def __repr__(self):
