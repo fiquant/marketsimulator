@@ -102,6 +102,12 @@ class TimeserieAttributes(collections.Mapping):
         self._d = d.copy()
         self._hash = None
 
+    def bind_ex(self, ctx):
+        pass
+
+    def reset_ex(self, generation):
+        pass
+
     def __getattr__(self, item):
         if item[0:2] != '__':
             return self.__getitem__(item)
@@ -126,37 +132,16 @@ class TimeserieAttributes(collections.Mapping):
 
 from marketsim.gen._out._intrinsic_base.veusz import CSV_Base
 
-
-class CSV(object):
+class CSV_Impl(CSV_Base):
     """ Represents a time serie to be written into a file 
     """
-    
-    def __init__(self, directory, source, attributes):
-        """ Initializes time serie writer
-        filename - name of a file to write to 
-        source - indicator with values to be saved
-        label - time serie label
-        """
-        self._source = source
-        self._directory = directory
-        self._custom_attr = attributes
-
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-
-    def reset_ex(self, generation):
-        self._reset_generation_ex = generation
-
-    @property
-    def source(self):
-        return self._source
     
     def exportToVsz(self, f, colors):
         """ Exports time serie to Vsz file
         """
-        label = self._source.label
+        label = self.source.label
         filename = (label+'.csv').replace('\\','_').replace('*', '_').replace("/",'_').replace(">",'_').replace("<",'_')
-        fullname = self._directory + filename
+        fullname = self.directory + filename
 
         attributes = {
             'xData' : "Time"+label,
@@ -166,14 +151,14 @@ class CSV(object):
             r'PlotLine/color': colors.next(),
             'key' : label,
             }
-        for k,v in self._custom_attr.iteritems():
+        for k,v in self.attributes.iteritems():
             attributes[k] = v                
 
         with OutputStream(fullname) as csv:
     
             csv.write('Time'+label+','+label+',\n')
     
-            for (t,x) in self._source.data:
+            for (t,x) in self.source.data:
                 if type(x) is CandleStick:
                     csv.write(str(t) + ',' + str(x.mean) + ',\n')  
                 elif x is not None: 
@@ -186,8 +171,6 @@ class CSV(object):
         for k,v in attributes.iteritems():
             f.write("Set('{0}', {1})\n".format(k,repr(v)))
         f.write("To('..')\n")
-  
-CSV_Impl = CSV
 
 graphHeader = """
 To(Add('page', name='page_{0}', autoadd=False))
@@ -235,7 +218,7 @@ class VolumeLevelProxy(object):
         self._bound_ex = True
         self._source.bind_ex(ctx)
 
-    def reset(self, generation):
+    def reset_ex(self, generation):
         self._source.reset_ex(generation)
         
     @property
@@ -268,6 +251,8 @@ class Graph_Impl(Graph_Base):
         and have a value property 
         attributes -- veusz specific attributes that will be applied for this time serie  
         """
+        from marketsim.gen._out.veusz._csv import CSV
+
         attr = translateAttributes(source.attributes)
         for k,v in attributes.iteritems():
             attr[k] = v
@@ -277,6 +262,7 @@ class Graph_Impl(Graph_Base):
             self._datas.append(CSV(myDir(), source, TimeserieAttributes(attr)))
             
     def processVolumeLevels(self, source, attr):
+        from marketsim.gen._out.veusz._csv import CSV
         volumes = source.source.dataSource.volumes
         for i in range(len(volumes)):
             proxy = VolumeLevelProxy(source, len(volumes) - i - 1)
