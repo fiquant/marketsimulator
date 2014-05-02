@@ -305,6 +305,45 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - veusz.CSV_Impl
+| | | | - FunDef:
+| | | | | - VolumeLevelProxy
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - idx
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Int
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Any
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - veusz.VolumeLevelProxy_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

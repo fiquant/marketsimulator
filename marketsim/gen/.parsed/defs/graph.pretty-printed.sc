@@ -48,4 +48,9 @@ package veusz() {
     def CSV(directory : String,
             source : Any,
             attributes : Any) : Any
+    
+    // defined at defs\graph.sc: 54.5
+    @python.intrinsic("veusz.VolumeLevelProxy_Impl")
+    def VolumeLevelProxy(source : Any,
+                         idx : Int) : Any
 }

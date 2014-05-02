@@ -175,6 +175,10 @@ package veusz
             source : .Any,
             attributes : .Any) : .Any
     
+    @python.intrinsic("veusz.VolumeLevelProxy_Impl")
+    def VolumeLevelProxy(source : .Any,
+                         idx : .Int) : .Any
+    
 }
 
 @category = "Ops"

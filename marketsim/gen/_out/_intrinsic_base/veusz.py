@@ -1,3 +1,32 @@
+class VolumeLevelProxy_Base(object):
+    def get_source(self):
+        return self._back_source
+    
+    def set_source(self, value):
+        self._back_source = value
+        self.on_source_set(value)
+    
+    source = property(get_source, set_source)
+    def on_source_set(self, value):
+        pass
+    
+    def get_idx(self):
+        return self._back_idx
+    
+    def set_idx(self, value):
+        self._back_idx = value
+        self.on_idx_set(value)
+    
+    idx = property(get_idx, set_idx)
+    def on_idx_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
 class CSV_Base(object):
     def get_directory(self):
         return self._back_directory

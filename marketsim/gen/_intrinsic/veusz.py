@@ -208,26 +208,17 @@ def translateAttributes(src):
         
     return res
 
-class VolumeLevelProxy(object):
+from marketsim.gen._out._intrinsic_base.veusz import VolumeLevelProxy_Base
+
+class VolumeLevelProxy_Impl(VolumeLevelProxy_Base):
     
-    def __init__(self, source, idx):
-        self._source = source
-        self._idx = idx
-
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-        self._source.bind_ex(ctx)
-
-    def reset_ex(self, generation):
-        self._source.reset_ex(generation)
-        
     @property
     def data(self):
-        return [(t, x[self._idx]) for (t,x) in self._source.data]
+        return [(t, x[self.idx]) for (t,x) in self.source.data]
         
     @property
     def label(self):
-        return self._source.label + '{' + str(self._source.source.dataSource.volumes[self._idx]) + '}' 
+        return self.source.label + '{' + str(self.source.source.dataSource.volumes[self.idx]) + '}'
         
     
 class Graph_Impl(Graph_Base):
@@ -263,6 +254,7 @@ class Graph_Impl(Graph_Base):
             
     def processVolumeLevels(self, source, attr):
         from marketsim.gen._out.veusz._csv import CSV
+        from marketsim.gen._out.veusz._volumelevelproxy import VolumeLevelProxy
         volumes = source.source.dataSource.volumes
         for i in range(len(volumes)):
             proxy = VolumeLevelProxy(source, len(volumes) - i - 1)
