@@ -1,3 +1,11 @@
+class LastTrade_Base(object):
+    pass
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
 class BestPrice_Base(object):
     def get_queue(self):
         return self._back_queue

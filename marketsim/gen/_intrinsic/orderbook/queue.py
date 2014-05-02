@@ -20,8 +20,9 @@ class BestPrice_Impl(BestPrice_Base):
     def __call__(self):
         return None if self.queue.empty else self.queue.best.price
 
+from marketsim.gen._out._intrinsic_base.orderbook.queue import LastTrade_Base
 
-class LastTrade(Observablefloat):
+class LastTrade_Impl(Observablefloat, LastTrade_Base):
 
     def __init__(self):
         Observablefloat.__init__(self)
@@ -31,16 +32,11 @@ class LastTrade(Observablefloat):
         self._lastTrade = value
         self.fire(self)
 
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-
-    def reset_ex(self, generation):
+    def reset(self):
         self.set(None)
-        self._reset_generation_ex = generation
 
     def _retranslate(self, source):
         self.set(source())
-
 
     # return (price, volume) of the last trade or None
     def __call__(self):
@@ -61,7 +57,8 @@ class Queue(IOrderQueue):
         """
         self._tickSize = tickSize   # tick size
         self._book = book           # book the queue belongs to if any
-        self.lastTrade = LastTrade()
+        from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
+        self.lastTrade = LastTradeImpl()
         self.reset()
         from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
         self.bestPrice = BestPriceImpl(self)

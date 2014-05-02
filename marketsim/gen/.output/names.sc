@@ -1708,6 +1708,9 @@ package orderbook
     @label = "N/A"
     def Proxy() : .IOrderBook
     
+    @python.intrinsic("orderbook.queue.LastTrade_Impl")
+    def LastTradeImpl() : .Any
+    
     /** Returns best price if defined, otherwise last price
      *  and *defaultValue* if there haven't been any trades
      */

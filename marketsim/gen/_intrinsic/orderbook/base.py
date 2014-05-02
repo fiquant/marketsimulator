@@ -2,7 +2,7 @@ from marketsim import types, event, _
 
 ORDER_PROCESSING_TIME = 1e-8
 
-from queue import LastTrade
+from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
 
 from ..trader.classes import Holder_Impl
 
@@ -21,7 +21,7 @@ class BookBase(Holder_Impl):
         if self.name != "":
             self._alias = [self.name]
 
-        self.lastTrade = LastTrade()
+        self.lastTrade = LastTradeImpl()
         event.subscribe(self._asks.lastTrade, _(self.lastTrade)._retranslate, self)
         event.subscribe(self._bids.lastTrade, _(self.lastTrade)._retranslate, self)
         

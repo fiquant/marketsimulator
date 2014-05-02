@@ -204,6 +204,25 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue.BestPrice_Impl
 | | | | - FunDef:
+| | | | | - LastTradeImpl
+| | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Any
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.queue.LastTrade_Impl
+| | | | - FunDef:
 | | | | | - LastPrice
 | | | | | - List:
 | | | | | | - Parameter:

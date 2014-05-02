@@ -1,5 +1,7 @@
 from marketsim.gen._out.orderbook._proxy import Proxy
 
+from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
+
 from marketsim.gen._out.orderbook._safesideprice import SafeSidePrice
 
 from marketsim.gen._out.orderbook._weightedprice import WeightedPrice
