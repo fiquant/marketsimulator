@@ -1,17 +1,20 @@
 from marketsim import types, bind, _
 from base import BookBase
-from queue import BestPrice, LastTrade
+from queue import LastTrade
+
+from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
 
 from marketsim.gen._out._intrinsic_base.orderbook.remote import Remote_Base
+from marketsim.gen._out._iorderqueue import IOrderQueue
 
-class Queue(object):
+class Queue(IOrderQueue):
     
     def __init__(self, queue, book, link):
         self._queue = queue
         self.book = book
         self._link = link
         queue.bestPrice += _(self)._onBestChanged
-        self.bestPrice = BestPrice(self)
+        self.bestPrice = BestPriceImpl(self)
         self.lastTrade = LastTrade()
         queue.lastTrade += _(self)._onTraded
         self.reset()

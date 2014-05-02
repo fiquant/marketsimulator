@@ -8,6 +8,11 @@ class IOrderQueue(object):
         return WeightedPrice(self,alpha)
     
     @property
+    def BestPriceImpl(self):
+        from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
+        return BestPriceImpl(self)
+    
+    @property
     def LastTradeVolume(self):
         from marketsim.gen._out.orderbook._lasttradevolume import LastTradeVolume
         return LastTradeVolume(self)

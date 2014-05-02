@@ -6,6 +6,8 @@ from marketsim.gen._out.orderbook._weightedprice import WeightedPrice
 
 from marketsim.gen._out.orderbook._ticksize import TickSize
 
+from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
+
 from marketsim.gen._out.orderbook._midprice import MidPrice
 
 from marketsim.gen._out.orderbook._asks import Asks

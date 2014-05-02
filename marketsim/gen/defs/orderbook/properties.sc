@@ -26,6 +26,9 @@ package orderbook
     @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
 
+    @python.intrinsic("orderbook.queue.BestPrice_Impl")
+    def BestPriceImpl(queue = Asks()) : IObservable[Price]
+
     /**
      *  Returns last defined price at *queue*
      *  Returns None is *queue* has been always empty

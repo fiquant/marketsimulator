@@ -1726,6 +1726,9 @@ package orderbook
     @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book = .orderbook.OfTrader()) : () => .Price
     
+    @python.intrinsic("orderbook.queue.BestPrice_Impl")
+    def BestPriceImpl(queue = .orderbook.Asks()) : .IObservable[.Price]
+    
     /** MidPrice of order *book*
      */
     def MidPrice(book = .orderbook.OfTrader()) = (book~>Asks~>BestPrice+book~>Bids~>BestPrice)/2.0

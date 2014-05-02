@@ -5,21 +5,13 @@ from marketsim import  _, types, ops
 
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 
-class BestPrice(Observablefloat):
+from marketsim.gen._out._intrinsic_base.orderbook.queue import BestPrice_Base
 
-    def __init__(self, queue):
-        Observablefloat.__init__(self)
-        self.queue = queue
+class BestPrice_Impl(BestPrice_Base):
 
     @property
     def digits(self):
         return self.queue.book._digitsToShow
-
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-
-    def reset_ex(self, generation):
-        self._reset_generation_ex = generation
 
     @property
     def label(self):
@@ -54,7 +46,9 @@ class LastTrade(Observablefloat):
     def __call__(self):
         return self._lastTrade
 
-class Queue(object):
+from marketsim.gen._out._iorderqueue import IOrderQueue
+
+class Queue(IOrderQueue):
     """ Queue of limit orders at one side (Sell or Buy).
     It is implemented over a heap so has following comlexity for operations:
     - pushing order: O(logN)
@@ -69,7 +63,8 @@ class Queue(object):
         self._book = book           # book the queue belongs to if any
         self.lastTrade = LastTrade()
         self.reset()
-        self.bestPrice = BestPrice(self)
+        from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
+        self.bestPrice = BestPriceImpl(self)
 
     def reset(self):
         self._elements = []         # pairs ((signedTicks, arrivalSeqNo), order) kept in a heap

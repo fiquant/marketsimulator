@@ -170,6 +170,40 @@ Definitions:
 | | | | | | | - List:
 | | | | | | | | - orderbook.props.BestPrice_Impl
 | | | | - FunDef:
+| | | | | - BestPriceImpl
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - queue
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - FunCall:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Asks
+| | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IObservable
+| | | | | | | - List:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Price
+| | | | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.queue.BestPrice_Impl
+| | | | - FunDef:
 | | | | | - LastPrice
 | | | | | - List:
 | | | | | | - Parameter:

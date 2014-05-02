@@ -2862,6 +2862,10 @@ package orderbook {
     @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book : Optional[.IOrderBook] = .orderbook.OfTrader()) : () => .Float
     
+    
+    @python.intrinsic("orderbook.queue.BestPrice_Impl")
+    def BestPriceImpl(queue : Optional[.IOrderQueue] = .orderbook.Asks()) : .IObservable[.Float]
+    
     /** MidPrice of order *book*
      */
     
