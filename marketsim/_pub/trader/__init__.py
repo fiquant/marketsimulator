@@ -16,5 +16,7 @@ from marketsim.gen._out.trader._pendingvolume import PendingVolume
 
 from marketsim.gen._out.trader._pershareprice import PerSharePrice
 
+from marketsim.gen._out.trader._ontraded import OnTraded
+
 from marketsim.gen._out.trader._singleasset import SingleAsset
 

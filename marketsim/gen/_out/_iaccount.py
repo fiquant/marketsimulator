@@ -38,4 +38,9 @@ class IAccount(object):
         from marketsim.gen._out.trader._pershareprice import PerSharePrice
         return PerSharePrice(self)
     
+    @property
+    def OnTraded(self):
+        from marketsim.gen._out.trader._ontraded import OnTraded
+        return OnTraded(self)
+    
     pass

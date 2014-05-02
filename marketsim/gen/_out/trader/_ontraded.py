@@ -1,36 +1,31 @@
 # generated with class generator.python.intrinsic_function$Import
 from marketsim import registry
-from marketsim.gen._out._iorderqueue import IOrderQueue
-from marketsim.gen._intrinsic.orderbook.proxy import Asks_Impl
-from marketsim.gen._out._iorderbook import IOrderBook
-@registry.expose(["Asset", "Asks"])
-class Asks_IOrderBook(IOrderQueue,Asks_Impl):
-    """ **Returns sell side order queue for *book***
-    
-    
-    Parameters are:
-    
-    **book**
+from marketsim.gen._out._ievent import IEvent
+from marketsim.gen._intrinsic.trader.props import OnTraded_Impl
+from marketsim.gen._out._iaccount import IAccount
+@registry.expose(["Trader", "OnTraded"])
+class OnTraded_IAccount(IEvent,OnTraded_Impl):
     """ 
-    def __init__(self, book = None):
-        from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+    """ 
+    def __init__(self, trader = None):
+        from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
         from marketsim import deref_opt
         from marketsim import rtti
-        self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
+        self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
         rtti.check_fields(self)
-        Asks_Impl.__init__(self)
+        OnTraded_Impl.__init__(self)
     
     @property
     def label(self):
         return repr(self)
     
     _properties = {
-        'book' : IOrderBook
+        'trader' : IAccount
     }
     
     
     def __repr__(self):
-        return "Asks(%(book)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
+        return "OnTraded(%(trader)s)" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])
     
     def bind_ex(self, ctx):
         if self.__dict__.get('_bound_ex', False): return
@@ -46,7 +41,7 @@ class Asks_IOrderBook(IOrderQueue,Asks_Impl):
                     for w in v: w.bind_ex(self.__dict__['_ctx_ex'])
                 else:
                     v.bind_ex(self.__dict__['_ctx_ex'])
-        self.book.bind_ex(self._ctx_ex)
+        self.trader.bind_ex(self._ctx_ex)
         self.bind_impl(self.__dict__['_ctx_ex'])
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.bind_ex(self.__dict__['_ctx_ex'])
@@ -65,21 +60,21 @@ class Asks_IOrderBook(IOrderQueue,Asks_Impl):
                     for w in v: w.reset_ex(generation)
                 else:
                     v.reset_ex(generation)
-        self.book.reset_ex(generation)
+        self.trader.reset_ex(generation)
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
-        Asks_Impl.bind_impl(self, ctx)
+        OnTraded_Impl.bind_impl(self, ctx)
     
     def reset(self):
-        Asks_Impl.reset(self)
+        OnTraded_Impl.reset(self)
     
-def Asks(book = None): 
-    from marketsim.gen._out._iorderbook import IOrderBook
+def OnTraded(trader = None): 
+    from marketsim.gen._out._iaccount import IAccount
     from marketsim import rtti
-    if book is None or rtti.can_be_casted(book, IOrderBook):
-        return Asks_IOrderBook(book)
-    raise Exception('Cannot find suitable overload for Asks('+str(book) +':'+ str(type(book))+')')
+    if trader is None or rtti.can_be_casted(trader, IAccount):
+        return OnTraded_IAccount(trader)
+    raise Exception('Cannot find suitable overload for OnTraded('+str(trader) +':'+ str(type(trader))+')')

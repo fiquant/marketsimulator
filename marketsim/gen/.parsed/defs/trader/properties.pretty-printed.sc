@@ -40,4 +40,8 @@ package trader() {
      */
     def EfficiencyTrend(trader = SingleProxy() : IAccount,
                         alpha = 0.15) = trader~>Efficiency~>EW(alpha)~>Avg~>Derivative
+    
+    // defined at defs\trader\properties.sc: 46.5
+    @python.intrinsic("trader.props.OnTraded_Impl")
+    def OnTraded(trader = SingleProxy() : IAccount) : IEvent
 }

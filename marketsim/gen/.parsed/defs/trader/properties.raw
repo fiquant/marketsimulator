@@ -320,6 +320,41 @@ Definitions:
 | | | | | | | - Returns first derivative of a moving average of the trader efficiency
 | | | | | | | - List:
 | | | | | - List:
+| | | | - FunDef:
+| | | | | - OnTraded
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - trader
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - Cast:
+| | | | | | | | | - FunCall:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - SingleProxy
+| | | | | | | | | | - List:
+| | | | | | | | | - SimpleType:
+| | | | | | | | | | - QualifiedName:
+| | | | | | | | | | | - List:
+| | | | | | | | | | | | - IAccount
+| | | | | | | | | | - List:
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IEvent
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - trader.props.OnTraded_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category

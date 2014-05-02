@@ -1685,6 +1685,9 @@ package trader
     
     def PerSharePrice(trader = .trader.SingleProxy() : .IAccount) = 0-trader~>Balance/trader~>Position
     
+    @python.intrinsic("trader.props.OnTraded_Impl")
+    def OnTraded(trader = .trader.SingleProxy() : .IAccount) : .IEvent
+    
     /** A trader that trades a single asset on a single market
      */
     @python.intrinsic("trader.classes.SingleAsset_Impl")

@@ -75,8 +75,6 @@ class Base_Impl(Holder_Impl):
         """
         from marketsim.gen._out._iorder import IOrder
         order.bind_ex(self._ctx_ex)
-        if hasattr(self, '_ctx'):
-            context.bind(order, self._ctx)
         if isinstance(order, IOrder):
             order = self._makeSubscribedTo(order)
         book.process(order)

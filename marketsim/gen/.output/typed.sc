@@ -2806,6 +2806,10 @@ package trader {
     def PerSharePrice(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IObservable[.Float]
         	 = .ops.Sub(.constant(0),.ops.Div(.trader.Balance(trader),.trader.Position(trader)))
     
+    
+    @python.intrinsic("trader.props.OnTraded_Impl")
+    def OnTraded(trader : Optional[.IAccount] = .trader.SingleProxy() : .IAccount) : .IEvent
+    
     /** A trader that trades a single asset on a single market
      */
     @label = "%(name)s"
