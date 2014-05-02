@@ -18,9 +18,7 @@ class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
     def __init__(self, cancellationIntervalDistr = None):
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.cancellationIntervalDistr = cancellationIntervalDistr if cancellationIntervalDistr is not None else deref_opt(_math_random_expovariate_Float(1.0))
-        rtti.check_fields(self)
         Canceller_Impl.__init__(self)
     
     @property
@@ -72,6 +70,30 @@ class Canceller_Float(ISingleAssetStrategy,Canceller_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.cancellationIntervalDistr)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cancellationIntervalDistr.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

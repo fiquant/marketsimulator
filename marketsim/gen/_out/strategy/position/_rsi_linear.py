@@ -11,12 +11,10 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(DesiredPositionStr
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
         from marketsim.gen._out.trader._singleproxy import SingleProxy_ as _trader_SingleProxy_
-        from marketsim import rtti
         self.alpha = alpha if alpha is not None else (1.0/14.0)
         self.k = k if k is not None else deref_opt(_const_Float(-0.04))
         self.timeframe = timeframe if timeframe is not None else 1.0
         self.trader = trader if trader is not None else deref_opt(_trader_SingleProxy_())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -63,6 +61,28 @@ class RSI_linear_FloatIObservableFloatFloatISingleAssetTrader(DesiredPositionStr
         self.trader.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        from marketsim.gen._out._isingleassettrader import ISingleAssetTrader
+        rtti.typecheck(float, self.alpha)
+        rtti.typecheck(IObservablefloat, self.k)
+        rtti.typecheck(float, self.timeframe)
+        rtti.typecheck(ISingleAssetTrader, self.trader)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.k.registerIn(registry)
+        self.trader.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

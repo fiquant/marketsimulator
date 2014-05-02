@@ -20,7 +20,6 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
     """ 
     def __init__(self, book = None, depth = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -29,7 +28,6 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.depth = depth if depth is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -74,6 +72,27 @@ class NaiveCumulativePrice_IOrderBookIObservableFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IOrderBook, self.book)
+        rtti.typecheck(IObservablefloat, self.depth)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.book.registerIn(registry)
+        self.depth.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -130,7 +149,6 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
     **depth**
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -140,7 +158,6 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.depth = depth if depth is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -185,6 +202,27 @@ class NaiveCumulativePrice_IOrderBookFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IOrderBook, self.book)
+        rtti.typecheck(IFunctionfloat, self.depth)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.book.registerIn(registry)
+        self.depth.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

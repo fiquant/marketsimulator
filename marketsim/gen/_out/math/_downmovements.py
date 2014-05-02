@@ -17,7 +17,6 @@ class DownMovements_IObservableFloatFloat(Observablefloat):
     """ 
     def __init__(self, source = None, timeframe = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -25,7 +24,6 @@ class DownMovements_IObservableFloatFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
         self.timeframe = timeframe if timeframe is not None else 10.0
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -68,6 +66,25 @@ class DownMovements_IObservableFloatFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablefloat, self.source)
+        rtti.typecheck(float, self.timeframe)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

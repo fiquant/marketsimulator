@@ -16,7 +16,6 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -24,7 +23,6 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -69,6 +67,26 @@ class Min_IObservableFloatIObservableFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablefloat, self.x)
+        rtti.typecheck(IObservablefloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -116,7 +134,6 @@ class Min_FloatIObservableFloat(Observablefloat):
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -125,7 +142,6 @@ class Min_FloatIObservableFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -170,6 +186,27 @@ class Min_FloatIObservableFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IFunctionfloat, self.x)
+        rtti.typecheck(IObservablefloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -217,7 +254,6 @@ class Min_IObservableFloatFloat(Observablefloat):
     """ 
     def __init__(self, x = None, y = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -226,7 +262,6 @@ class Min_IObservableFloatFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -273,6 +308,27 @@ class Min_IObservableFloatFloat(Observablefloat):
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IObservablefloat, self.x)
+        rtti.typecheck(IFunctionfloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -316,7 +372,6 @@ class Min_FloatFloat(Observablefloat):
     **y**
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -325,7 +380,6 @@ class Min_FloatFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -370,6 +424,26 @@ class Min_FloatFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.x)
+        rtti.typecheck(IFunctionfloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

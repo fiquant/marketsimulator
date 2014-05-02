@@ -5,11 +5,9 @@ class CSV_StringAnyAny(CSV_Impl):
     """ 
     """ 
     def __init__(self, directory , source , attributes ):
-        from marketsim import rtti
         self.directory = directory
         self.source = source
         self.attributes = attributes
-        rtti.check_fields(self)
         CSV_Impl.__init__(self)
     
     @property
@@ -69,6 +67,32 @@ class CSV_StringAnyAny(CSV_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        rtti.typecheck(str, self.directory)
+        rtti.typecheck(object, self.source)
+        rtti.typecheck(object, self.attributes)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        self.attributes.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

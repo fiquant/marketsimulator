@@ -12,9 +12,7 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
     Parameters are:
     """ 
     def __init__(self):
-        from marketsim import rtti
-        
-        rtti.check_fields(self)
+        pass
     
     @property
     def label(self):
@@ -49,6 +47,22 @@ class inner_VirtualMarket_(IFunctionIAccount_from_ISingleAssetStrategy):
         
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, inner = None):

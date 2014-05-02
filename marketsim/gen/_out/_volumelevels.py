@@ -27,14 +27,12 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
     def __init__(self, source , graph = None, _digitsToShow = None, _smooth = None, _volumes = None, _isBuy = None):
         from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph_String
         from marketsim import deref_opt
-        from marketsim import rtti
         self.source = source
         self.graph = graph if graph is not None else deref_opt(_veusz_Graph_String())
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 4
         self._smooth = _smooth if _smooth is not None else 1
         self._volumes = _volumes if _volumes is not None else [30.0]
         self._isBuy = _isBuy if _isBuy is not None else 1
-        rtti.check_fields(self)
         VolumeLevels_Impl.__init__(self)
     
     @property
@@ -105,6 +103,39 @@ class volumeLevels_IVolumeLevelsIGraphIntIntListFloatInt(ITimeSerie,VolumeLevels
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionivolumelevels import IFunctionIVolumeLevels
+        from marketsim.gen._out._igraph import IGraph
+        from marketsim import listOf
+        rtti.typecheck(IFunctionIVolumeLevels, self.source)
+        rtti.typecheck(IGraph, self.graph)
+        rtti.typecheck(int, self._digitsToShow)
+        rtti.typecheck(int, self._smooth)
+        rtti.typecheck(listOf(float), self._volumes)
+        rtti.typecheck(int, self._isBuy)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        self.graph.registerIn(registry)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

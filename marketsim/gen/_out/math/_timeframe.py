@@ -8,9 +8,7 @@ class Timeframe_mathMoving(object):
     def __init__(self, x = None):
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_Moving_IObservableFloatFloat())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -48,6 +46,23 @@ class Timeframe_mathMoving(object):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.math._moving import Moving
+        rtti.typecheck(Moving, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     @property
     def dereference(self):
         return self.x.timeframe
@@ -62,9 +77,7 @@ class Timeframe_mathRSI(object):
     def __init__(self, x = None):
         from marketsim.gen._out.math._rsi import RSI_IObservableFloatFloatFloat as _math_RSI_IObservableFloatFloatFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_RSI_IObservableFloatFloatFloat())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -100,6 +113,23 @@ class Timeframe_mathRSI(object):
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.math._rsi import RSI
+        rtti.typecheck(RSI, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     @property

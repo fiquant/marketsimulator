@@ -21,12 +21,10 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
     **timeseries**
     """ 
     def __init__(self, name = None, tickSize = None, _digitsToShow = None, timeseries = None):
-        from marketsim import rtti
         self.name = name if name is not None else "-orderbook-"
         self.tickSize = tickSize if tickSize is not None else 0.01
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 2
         self.timeseries = timeseries if timeseries is not None else []
-        rtti.check_fields(self)
         Local_Impl.__init__(self)
     
     @property
@@ -87,6 +85,34 @@ class Local_StringFloatIntListITimeSerie(IOrderBook,Local_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._itimeserie import ITimeSerie
+        from marketsim import listOf
+        rtti.typecheck(str, self.name)
+        rtti.typecheck(float, self.tickSize)
+        rtti.typecheck(int, self._digitsToShow)
+        rtti.typecheck(listOf(ITimeSerie), self.timeseries)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        for x in self.timeseries: x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

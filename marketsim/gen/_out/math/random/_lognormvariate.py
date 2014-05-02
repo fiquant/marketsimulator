@@ -17,10 +17,8 @@ class lognormvariate_FloatFloat(IFunctionfloat):
     **Sigma**
     """ 
     def __init__(self, Mu = None, Sigma = None):
-        from marketsim import rtti
         self.Mu = Mu if Mu is not None else 0.0
         self.Sigma = Sigma if Sigma is not None else 1.0
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -59,6 +57,23 @@ class lognormvariate_FloatFloat(IFunctionfloat):
         
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        rtti.typecheck(float, self.Mu)
+        rtti.typecheck(float, self.Sigma)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, *args, **kwargs):

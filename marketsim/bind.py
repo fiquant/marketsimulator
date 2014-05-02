@@ -35,7 +35,9 @@ class Method(object):
     def reset_ex(self, generation):
         pass
         
-        
+    def registerIn(self, registry):
+        registry.insert(self)
+
     _internals = ['methodname', 'args']
         
     def __call__(self, *args):

@@ -11,11 +11,9 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,GreaterEqual_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         GreaterEqual_Impl.__init__(self)
     
     @property
@@ -82,6 +80,32 @@ class GreaterEqual_IObservableFloatIObservableFloat(Observablebool,GreaterEqual_
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablefloat, self.x)
+        rtti.typecheck(IObservablefloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         GreaterEqual_Impl.bind_impl(self, ctx)
     
@@ -99,15 +123,13 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt
+        from marketsim.gen._out._const import const_Float as _const_Float
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.y = y if y is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         GreaterEqual_Impl.__init__(self)
     
     @property
@@ -171,6 +193,33 @@ class GreaterEqual_FloatIObservableFloat(Observablebool,GreaterEqual_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IFunctionfloat, self.x)
+        rtti.typecheck(IObservablefloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         GreaterEqual_Impl.bind_impl(self, ctx)
     
@@ -188,15 +237,13 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,GreaterEqual_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_const_Float(1.0))
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         GreaterEqual_Impl.__init__(self)
     
     @property
@@ -258,6 +305,33 @@ class GreaterEqual_IObservableFloatFloat(Observablebool,GreaterEqual_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IObservablefloat, self.x)
+        rtti.typecheck(IFunctionfloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
@@ -279,11 +353,9 @@ class GreaterEqual_FloatFloat(Observablebool,GreaterEqual_Impl):
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.y = y if y is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         GreaterEqual_Impl.__init__(self)
     
     @property
@@ -342,6 +414,32 @@ class GreaterEqual_FloatFloat(Observablebool,GreaterEqual_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.x)
+        rtti.typecheck(IFunctionfloat, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

@@ -15,9 +15,7 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
     def __init__(self, x = None):
         from marketsim.gen._out.math._cumulative import Cumulative_IObservableFloat as _math_Cumulative_IObservableFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_Cumulative_IObservableFloat())
-        rtti.check_fields(self)
         CMA_Impl.__init__(self)
     
     @property
@@ -71,6 +69,30 @@ class Avg_mathCumulative(IDifferentiable,CMA_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.math._cumulative import Cumulative
+        rtti.typecheck(Cumulative, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         CMA_Impl.bind_impl(self, ctx)
     
@@ -94,9 +116,7 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
     def __init__(self, x = None):
         from marketsim.gen._out.math._ew import EW_IObservableFloatFloat as _math_EW_IObservableFloatFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_EW_IObservableFloatFloat())
-        rtti.check_fields(self)
         EWMA_Impl.__init__(self)
     
     @property
@@ -150,6 +170,30 @@ class Avg_mathEW(IDifferentiable,EWMA_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.math._ew import EW
+        rtti.typecheck(EW, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         EWMA_Impl.bind_impl(self, ctx)
     
@@ -173,9 +217,7 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
     def __init__(self, x = None):
         from marketsim.gen._out.math._moving import Moving_IObservableFloatFloat as _math_Moving_IObservableFloatFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_math_Moving_IObservableFloatFloat())
-        rtti.check_fields(self)
         MA_Impl.__init__(self)
     
     @property
@@ -227,6 +269,30 @@ class Avg_mathMoving(IDifferentiable,MA_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.math._moving import Moving
+        rtti.typecheck(Moving, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

@@ -17,10 +17,8 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
     def __init__(self, queue = None, alpha = None):
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import deref_opt
-        from marketsim import rtti
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
         self.alpha = alpha if alpha is not None else 0.15
-        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
@@ -62,6 +60,25 @@ class WeightedPrice_IOrderQueueFloat(IFunctionfloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderqueue import IOrderQueue
+        rtti.typecheck(IOrderQueue, self.queue)
+        rtti.typecheck(float, self.alpha)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.queue.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

@@ -22,7 +22,6 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
     	 maximal size of order to send 
     """ 
     def __init__(self, proto = None, lotSize = None):
-        from marketsim import rtti
         from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out.order._limit import Limit_SideFloatFloat as _order_Limit_SideFloatFloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -31,7 +30,6 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         ObservableIOrder.__init__(self)
         self.proto = proto if proto is not None else deref_opt(_order_Limit_SideFloatFloat())
         self.lotSize = lotSize if lotSize is not None else deref_opt(_constant_Float(10.0))
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -92,6 +90,34 @@ class Iceberg_IObservableIOrderFloat(ObservableIOrder,IObservableIOrder):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorder import IOrder
+        from marketsim.gen._out._iobservable._iobservableiorder import IObservableIOrder
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IObservableIOrder, self.proto)
+        rtti.typecheck(IFunctionfloat, self.lotSize)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.proto.registerIn(registry)
+        self.lotSize.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, *args, **kwargs):

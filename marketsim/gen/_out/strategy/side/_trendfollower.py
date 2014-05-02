@@ -9,11 +9,9 @@ class TrendFollower_FloatFloatIOrderBook(SignalStrategy):
     def __init__(self, alpha = None, threshold = None, book = None):
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
         from marketsim import deref_opt
-        from marketsim import rtti
         self.alpha = alpha if alpha is not None else 0.15
         self.threshold = threshold if threshold is not None else 0.0
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -55,6 +53,25 @@ class TrendFollower_FloatFloatIOrderBook(SignalStrategy):
         self.book.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        rtti.typecheck(float, self.alpha)
+        rtti.typecheck(float, self.threshold)
+        rtti.typecheck(IOrderBook, self.book)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.book.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

@@ -10,10 +10,8 @@ class LadderMM_SideFloatIObservableIOrderInt(ILadderStrategy,MarketMaker_Impl):
     def __init__(self, orderFactory = None, initialSize = None):
         from marketsim.gen._out.order._curried._sideprice_limit import sideprice_Limit_Float as _order__curried_sideprice_Limit_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_sideprice_Limit_Float())
         self.initialSize = initialSize if initialSize is not None else 10
-        rtti.check_fields(self)
         MarketMaker_Impl.__init__(self)
     
     @property
@@ -68,6 +66,31 @@ class LadderMM_SideFloatIObservableIOrderInt(ILadderStrategy,MarketMaker_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat, self.orderFactory)
+        rtti.typecheck(int, self.initialSize)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.orderFactory.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

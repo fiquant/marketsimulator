@@ -32,14 +32,12 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
     def __init__(self, orderBook , strategy = None, name = None, amount = None, PnL = None, timeseries = None):
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
         from marketsim import deref_opt
-        from marketsim import rtti
         self.orderBook = orderBook
         self.strategy = strategy if strategy is not None else deref_opt(_strategy_Empty_())
         self.name = name if name is not None else "-trader-"
         self.amount = amount if amount is not None else 0.0
         self.PnL = PnL if PnL is not None else 0.0
         self.timeseries = timeseries if timeseries is not None else []
-        rtti.check_fields(self)
         SingleAsset_Impl.__init__(self)
     
     @property
@@ -110,6 +108,40 @@ class SingleAsset_IOrderBookISingleAssetStrategyStringFloatFloatListITimeSerie(I
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+        from marketsim import listOf
+        from marketsim.gen._out._itimeserie import ITimeSerie
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        rtti.typecheck(IOrderBook, self.orderBook)
+        rtti.typecheck(ISingleAssetStrategy, self.strategy)
+        rtti.typecheck(str, self.name)
+        rtti.typecheck(float, self.amount)
+        rtti.typecheck(float, self.PnL)
+        rtti.typecheck(listOf(ITimeSerie), self.timeseries)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.orderBook.registerIn(registry)
+        self.strategy.registerIn(registry)
+        for x in self.timeseries: x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

@@ -18,7 +18,6 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
     """ 
     def __init__(self, queue = None, defaultValue = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -27,7 +26,6 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
         self.defaultValue = defaultValue if defaultValue is not None else deref_opt(_const_Float(100.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -72,6 +70,27 @@ class SafeSidePrice_IOrderQueueIObservableFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderqueue import IOrderQueue
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IOrderQueue, self.queue)
+        rtti.typecheck(IObservablefloat, self.defaultValue)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.queue.registerIn(registry)
+        self.defaultValue.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -120,7 +139,6 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
     	 price to be used if there haven't been any trades 
     """ 
     def __init__(self, queue = None, defaultValue = None):
-        from marketsim import rtti
         from marketsim import _
         from marketsim import event
         from marketsim.gen._out._observable._observablefloat import Observablefloat
@@ -130,7 +148,6 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         Observablefloat.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
         self.defaultValue = defaultValue if defaultValue is not None else deref_opt(_constant_Float(100.0))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -175,6 +192,27 @@ class SafeSidePrice_IOrderQueueFloat(Observablefloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderqueue import IOrderQueue
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IOrderQueue, self.queue)
+        rtti.typecheck(IFunctionfloat, self.defaultValue)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.queue.registerIn(registry)
+        self.defaultValue.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

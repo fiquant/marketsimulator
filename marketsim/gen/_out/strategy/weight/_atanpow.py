@@ -23,10 +23,8 @@ class AtanPow_FloatFloat(IFunctionfloat):
     def __init__(self, f = None, base = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.f = f if f is not None else deref_opt(_constant_Float(1.0))
         self.base = base if base is not None else 1.002
-        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
@@ -68,6 +66,25 @@ class AtanPow_FloatFloat(IFunctionfloat):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.f)
+        rtti.typecheck(float, self.base)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.f.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

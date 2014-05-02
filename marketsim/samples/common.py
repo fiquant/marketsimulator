@@ -268,9 +268,14 @@ runTwoTimes = True
 
 def run(name, constructor, only_veusz):
     with createScheduler() as world:
+
+        import time
+        t0 = time.clock()
         
         ctx = Context(world, veusz.Graph)
+        print time.clock() - t0
         traders = constructor(ctx)
+        print time.clock() - t0
 
         if config.useMinorTraders:
             traders.extend([
@@ -284,8 +289,11 @@ def run(name, constructor, only_veusz):
         
         r = registry.create()
         root = registry.Simulation(traders, list(ctx.books.itervalues()), ctx.graphs)
-        r.insert(root)
-        r.pushAllReferences()
+#        r.insert(root)
+        print time.clock() - t0
+        root.registerIn(r)
+#        r.pushAllReferences()
+        print time.clock() - t0
         root.bind_ex(context.BindingContextEx({'world' : world }))
 
         def checks():
@@ -296,6 +304,8 @@ def run(name, constructor, only_veusz):
                     pickle.loads(dumped)
                 except Exception, err:
                     print err
+
+        print time.clock() - t0
 
         checks()        
         stat = world.workTill(config.veuszRunLength)
@@ -331,7 +341,10 @@ class Interlacing(IFunctionfloat):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world
             self._bound_ex = True
-        
+
+    def registerIn(self, registry):
+        registry.insert(self)
+
     def __call__(self):
         return int(self._scheduler.currentTime / self.timeframe) % 2 * 2 - 1
 

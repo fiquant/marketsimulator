@@ -22,17 +22,15 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
     **name**
     """ 
     def __init__(self, initialValue = None, deltaDistr = None, intervalDistr = None, name = None):
-        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim import rtti
-        from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
         from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim.gen._out.math.random._normalvariate import normalvariate_FloatFloat as _math_random_normalvariate_FloatFloat
         from marketsim import deref_opt
+        from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
         Observablefloat.__init__(self)
         self.initialValue = initialValue if initialValue is not None else 0.0
         self.deltaDistr = deltaDistr if deltaDistr is not None else deref_opt(_math_random_normalvariate_FloatFloat(0.0,1.0))
         self.intervalDistr = intervalDistr if intervalDistr is not None else deref_opt(_math_random_expovariate_Float(1.0))
         self.name = name if name is not None else "-random-"
-        rtti.check_fields(self)
         RandomWalk_Impl.__init__(self)
     
     @property
@@ -99,6 +97,34 @@ class RandomWalk_FloatFloatFloatString(Observablefloat,RandomWalk_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(float, self.initialValue)
+        rtti.typecheck(IFunctionfloat, self.deltaDistr)
+        rtti.typecheck(IFunctionfloat, self.intervalDistr)
+        rtti.typecheck(str, self.name)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.deltaDistr.registerIn(registry)
+        self.intervalDistr.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

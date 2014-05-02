@@ -26,15 +26,13 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     	 function estimating is the strategy efficient or not 
     """ 
     def __init__(self, strategies = None, account = None, performance = None):
-        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
-        from marketsim import rtti
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
-        from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend_Float as _strategy_weight_trader_trader_TraderEfficiencyTrend_Float
         from marketsim import deref_opt
+        from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
+        from marketsim.gen._out.strategy.weight.trader._trader_traderefficiencytrend import trader_TraderEfficiencyTrend_Float as _strategy_weight_trader_trader_TraderEfficiencyTrend_Float
         self.strategies = strategies if strategies is not None else [deref_opt(_strategy_Empty_())]
         self.account = account if account is not None else deref_opt(_strategy_account_inner_inner_VirtualMarket_())
         self.performance = performance if performance is not None else deref_opt(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float())
-        rtti.check_fields(self)
         ChooseTheBest_Impl.__init__(self)
     
     @property
@@ -96,6 +94,37 @@ class ChooseTheBest_ListISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+        from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
+        from marketsim import listOf
+        from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+        from marketsim import rtti
+        rtti.typecheck(listOf(ISingleAssetStrategy), self.strategies)
+        rtti.typecheck(IFunctionIAccount_from_ISingleAssetStrategy, self.account)
+        rtti.typecheck(IFunctionIFunctionfloat_from_IAccount, self.performance)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        for x in self.strategies: x.registerIn(registry)
+        self.account.registerIn(registry)
+        self.performance.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

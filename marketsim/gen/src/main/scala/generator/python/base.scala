@@ -86,6 +86,19 @@ package object base {
                 s"self.$name.reset_ex(generation)"
             case _ => stop
         }
+
+        def register : Code = p.ty.unOptionalize match {
+            case TypesBound.List_(x) =>
+                if (!isPrimitive(x))
+                    s"for x in self.$name: x.registerIn(registry)"
+                else
+                    stop
+            case x if !isPrimitive(x) =>
+                s"self.$name.registerIn(registry)"
+            case _ => stop
+        }
+
+        def typecheck : Code = "rtti.typecheck("||| ty |||s", self.$name)"
     }
 
     def Def(name : String, args : Code, body : Code) = {
@@ -153,7 +166,7 @@ package object base {
 
         def doc = s"""\"\"\" ${docstring.mkString(crlf)}$crlf\"\"\" """
 
-        def init_body = assign_fields | "rtti.check_fields(self)" ||| ImportFrom("rtti", "marketsim")
+        def init_body = assign_fields //| "rtti.check_fields(self)" ||| ImportFrom("rtti", "marketsim") | "self.typecheck()"
 
         def init = Def("__init__", init_fields, init_body)
 
@@ -204,6 +217,25 @@ package object base {
 
         def resetEx = Def("reset_ex", "generation", resetEx_prologue  | resetEx_body | resetEx_properties | resetEx_subscriptions | resetEx_epilogue)
 
+        def register_prologue =
+            s"if self.__dict__.get('_id', False): return" |
+            s"self.__dict__['_id'] = True" |
+            s"if self.__dict__.get('$processing', False):" |>
+                "raise Exception('cycle detected')" |
+            s"self.__dict__['$processing'] = True"
+
+        def register_epilogue : Code = s"self.__dict__['$processing'] = False"
+
+        def register_body : Code = "registry.insert(self)"
+
+        def register_properties = join_fields({ _.register }, nl, parameters_non_primitive)
+
+        def register_subscriptions : Code =
+            s"if hasattr(self, '$subscriptions'):" |>
+                s"for s in self.$subscriptions: s.registerIn(registry)"
+
+        def register = Def("registerIn", "registry", register_prologue  | register_body | register_properties | register_subscriptions | register_epilogue)
+
         def properties = "_properties = {" |> property_fields | "}"
 
         def repr_body : Code = s"""return "$label_tmpl" % dict([ (name, getattr(self, name)) for name in self._properties.iterkeys() ])"""
@@ -214,7 +246,13 @@ package object base {
         def call_args : Code = "*args, **kwargs"
         def call = Def("__call__", call_args, call_body)
 
-        def body = doc | init | label | properties | accessors | repr | bindEx | resetEx
+        def typecheck_body =
+            ImportFrom("rtti", "marketsim") |||
+            join_fields( { _.typecheck }, nl)
+
+        def typecheck = Def("typecheck", "", typecheck_body)
+
+        def body = doc | init | label | properties | accessors | repr | bindEx | resetEx | typecheck | register
     }
 
     trait DocString extends Printer {
@@ -309,6 +347,18 @@ package object base {
 
         override def resetEx_body = resetEx_internals
         override def resetEx_properties = super.resetEx_properties | s"self.reset()"
+
+        def register_internals : Code =
+            s"if hasattr(self, '_internals'):" |>
+                    (s"for t in self._internals:" |>
+                            (s"v = getattr(self, t)" |
+                            (s"if type(v) in [list, set]:" |>
+                                    s"for w in v: w.registerIn(registry)") |
+                            ("else:" |>
+                                    s"v.registerIn(registry)")))
+
+
+        override def register_epilogue = register_internals | super.register_epilogue
     }
 
     trait Bind extends Printer
@@ -333,6 +383,8 @@ package object base {
         override def bindEx_epilogue = s"self.impl.$bind(self.__dict__['$ctx'])" | super.bindEx_epilogue
 
         override def resetEx_epilogue = s"self.impl.reset_ex(generation)" | super.resetEx_epilogue
+
+        override def register_epilogue = s"self.impl.registerIn(registry)" | super.register_epilogue
 
         override def init_body =
             super.init_body |

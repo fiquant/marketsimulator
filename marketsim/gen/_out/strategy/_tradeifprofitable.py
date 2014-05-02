@@ -26,7 +26,6 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
     """ 
     def __init__(self, inner = None, account = None, performance = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -36,7 +35,6 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         self.inner = inner if inner is not None else deref_opt(_strategy_Empty_())
         self.account = account if account is not None else deref_opt(_strategy_account_inner_inner_VirtualMarket_())
         self.performance = performance if performance is not None else deref_opt(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -88,6 +86,30 @@ class TradeIfProfitable_ISingleAssetStrategyISingleAssetStrategyIAccountIAccount
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+        from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
+        from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+        rtti.typecheck(ISingleAssetStrategy, self.inner)
+        rtti.typecheck(IFunctionIAccount_from_ISingleAssetStrategy, self.account)
+        rtti.typecheck(IFunctionIFunctionfloat_from_IAccount, self.performance)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.inner.registerIn(registry)
+        self.account.registerIn(registry)
+        self.performance.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

@@ -7,10 +7,8 @@ class BidsImpl_FloatIOrderBook(IOrderQueueImpl,Bids_Impl):
     """ 
     """ 
     def __init__(self, tickSize , book ):
-        from marketsim import rtti
         self.tickSize = tickSize
         self.book = book
-        rtti.check_fields(self)
         Bids_Impl.__init__(self)
     
     
@@ -60,6 +58,31 @@ class BidsImpl_FloatIOrderBook(IOrderQueueImpl,Bids_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        rtti.typecheck(float, self.tickSize)
+        rtti.typecheck(IOrderBook, self.book)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.book.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

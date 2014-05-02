@@ -24,12 +24,10 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
         from marketsim.gen._out.veusz._graph import Graph_String as _veusz_Graph_String
-        from marketsim import rtti
         self.source = source if source is not None else deref_opt(_const_Float(0.0))
         self.graph = graph if graph is not None else deref_opt(_veusz_Graph_String())
         self._digitsToShow = _digitsToShow if _digitsToShow is not None else 4
         self._smooth = _smooth if _smooth is not None else 1
-        rtti.check_fields(self)
         ToRecord_Impl.__init__(self)
     
     @property
@@ -92,6 +90,35 @@ class TimeSerie_IObservableAnyIGraphIntInt(ITimeSerie,ToRecord_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservableobject import IObservableobject
+        from marketsim.gen._out._igraph import IGraph
+        rtti.typecheck(IObservableobject, self.source)
+        rtti.typecheck(IGraph, self.graph)
+        rtti.typecheck(int, self._digitsToShow)
+        rtti.typecheck(int, self._smooth)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        self.graph.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

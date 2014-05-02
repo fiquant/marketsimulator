@@ -17,10 +17,8 @@ class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
         from marketsim.gen._out._observable._observableint import Observableint
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import deref_opt
-        from marketsim import rtti
         Observableint.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
-        rtti.check_fields(self)
         LastTradeVolume_Impl.__init__(self)
     
     @property
@@ -73,6 +71,30 @@ class LastTradeVolume_IOrderQueue(Observableint,LastTradeVolume_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderqueue import IOrderQueue
+        rtti.typecheck(IOrderQueue, self.queue)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.queue.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

@@ -9,9 +9,7 @@ class book_strategysideMeanReversion(IOrderBook):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.side._meanreversion import MeanReversion_Float as _strategy_side_MeanReversion_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_side_MeanReversion_Float())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
@@ -52,6 +50,24 @@ class book_strategysideMeanReversion(IOrderBook):
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.side._meanreversion import MeanReversion
+        rtti.typecheck(MeanReversion, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -88,9 +104,7 @@ class book_strategysideFundamentalValue(IOrderBook):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue_Float as _strategy_side_FundamentalValue_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_side_FundamentalValue_Float())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
@@ -131,6 +145,24 @@ class book_strategysideFundamentalValue(IOrderBook):
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.side._fundamentalvalue import FundamentalValue
+        rtti.typecheck(FundamentalValue, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -167,9 +199,7 @@ class book_strategysidePairTrading(IOrderBook):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.side._pairtrading import PairTrading_IOrderBookFloat as _strategy_side_PairTrading_IOrderBookFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_side_PairTrading_IOrderBookFloat())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
     
     @property
@@ -208,6 +238,24 @@ class book_strategysidePairTrading(IOrderBook):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.side._pairtrading import PairTrading
+        rtti.typecheck(PairTrading, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -257,9 +305,7 @@ class Book_strategysideTrendFollower(object):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.side._trendfollower import TrendFollower_FloatFloatIOrderBook as _strategy_side_TrendFollower_FloatFloatIOrderBook
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_side_TrendFollower_FloatFloatIOrderBook())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -297,6 +343,23 @@ class Book_strategysideTrendFollower(object):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.side._trendfollower import TrendFollower
+        rtti.typecheck(TrendFollower, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     @property
     def dereference(self):
         return self.x.book
@@ -311,9 +374,7 @@ class Book_strategysideCrossingAverages(object):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages_FloatFloatFloatIOrderBook as _strategy_side_CrossingAverages_FloatFloatFloatIOrderBook
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_side_CrossingAverages_FloatFloatFloatIOrderBook())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -349,6 +410,23 @@ class Book_strategysideCrossingAverages(object):
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.side._crossingaverages import CrossingAverages
+        rtti.typecheck(CrossingAverages, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     @property

@@ -17,10 +17,8 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablefloat.__init__(self)
         self.source = source if source is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         BreaksAtChanges_Impl.__init__(self)
     
     @property
@@ -76,6 +74,30 @@ class BreaksAtChanges_IObservableFloat(Observablefloat,BreaksAtChanges_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablefloat, self.source)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

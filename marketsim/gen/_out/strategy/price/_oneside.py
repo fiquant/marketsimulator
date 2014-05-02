@@ -10,7 +10,6 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
     """ 
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -19,7 +18,6 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         self.x = x if x is not None else deref_opt(_strategy_price_MarketMaker_FloatFloat())
         self.side = side if side is not None else deref_opt(_side_observableSell_())
         self.sign = sign if sign is not None else 1.0
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -69,6 +67,29 @@ class OneSide_strategypriceMarketMakerIObservableSideFloat(ISingleAssetStrategy)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(MarketMaker, self.x)
+        rtti.typecheck(IObservableSide, self.side)
+        rtti.typecheck(float, self.sign)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -137,7 +158,6 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -145,7 +165,6 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         self.x = x if x is not None else deref_opt(_strategy_price_MarketData_StringStringStringFloatFloat())
         self.side = side if side is not None else deref_opt(_side_observableSell_())
         self.sign = sign if sign is not None else 1.0
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -195,6 +214,29 @@ class OneSide_strategypriceMarketDataIObservableSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.price._marketdata import MarketData
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(MarketData, self.x)
+        rtti.typecheck(IObservableSide, self.side)
+        rtti.typecheck(float, self.sign)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -256,7 +298,6 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
     """ 
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -265,7 +306,6 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         self.x = x if x is not None else deref_opt(_strategy_price_MarketMaker_FloatFloat())
         self.side = side if side is not None else deref_opt(_side_Sell_())
         self.sign = sign if sign is not None else 1.0
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -315,6 +355,28 @@ class OneSide_strategypriceMarketMakerSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.price._marketmaker import MarketMaker
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        rtti.typecheck(MarketMaker, self.x)
+        rtti.typecheck(IFunctionSide, self.side)
+        rtti.typecheck(float, self.sign)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -382,7 +444,6 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
     def __init__(self, x = None, side = None, sign = None):
         from marketsim.gen._out.strategy.price._marketdata import MarketData_StringStringStringFloatFloat as _strategy_price_MarketData_StringStringStringFloatFloat
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -390,7 +451,6 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         self.x = x if x is not None else deref_opt(_strategy_price_MarketData_StringStringStringFloatFloat())
         self.side = side if side is not None else deref_opt(_side_Sell_())
         self.sign = sign if sign is not None else 1.0
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -440,6 +500,28 @@ class OneSide_strategypriceMarketDataSideFloat(ISingleAssetStrategy):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.price._marketdata import MarketData
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        rtti.typecheck(MarketData, self.x)
+        rtti.typecheck(IFunctionSide, self.side)
+        rtti.typecheck(float, self.sign)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

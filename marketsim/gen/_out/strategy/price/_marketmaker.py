@@ -5,10 +5,8 @@ class MarketMaker_FloatFloat(object):
     """ 
     """ 
     def __init__(self, delta = None, volume = None):
-        from marketsim import rtti
         self.delta = delta if delta is not None else 1.0
         self.volume = volume if volume is not None else 20.0
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -47,6 +45,23 @@ class MarketMaker_FloatFloat(object):
         
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        rtti.typecheck(float, self.delta)
+        rtti.typecheck(float, self.volume)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

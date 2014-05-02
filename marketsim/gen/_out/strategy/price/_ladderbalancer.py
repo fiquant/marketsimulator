@@ -9,10 +9,8 @@ class LadderBalancer_ILadderStrategyInt(ILadderStrategy,Balancer_Impl):
     def __init__(self, inner = None, maximalSize = None):
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
         from marketsim import deref_opt
-        from marketsim import rtti
         self.inner = inner if inner is not None else deref_opt(_strategy_price_LadderMM_SideFloatIObservableIOrderInt())
         self.maximalSize = maximalSize if maximalSize is not None else 20
-        rtti.check_fields(self)
         Balancer_Impl.__init__(self)
     
     @property
@@ -67,6 +65,31 @@ class LadderBalancer_ILadderStrategyInt(ILadderStrategy,Balancer_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iladderstrategy import ILadderStrategy
+        rtti.typecheck(ILadderStrategy, self.inner)
+        rtti.typecheck(int, self.maximalSize)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.inner.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

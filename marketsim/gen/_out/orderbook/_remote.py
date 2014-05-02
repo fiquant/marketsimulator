@@ -23,11 +23,9 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         from marketsim.gen._out.orderbook._local import Local_StringFloatIntListITimeSerie as _orderbook_Local_StringFloatIntListITimeSerie
         from marketsim import deref_opt
         from marketsim.gen._out.orderbook._twowaylink import TwoWayLink_ILinkILink as _orderbook_TwoWayLink_ILinkILink
-        from marketsim import rtti
         self.orderbook = orderbook if orderbook is not None else deref_opt(_orderbook_Local_StringFloatIntListITimeSerie())
         self.link = link if link is not None else deref_opt(_orderbook_TwoWayLink_ILinkILink())
         self.timeseries = timeseries if timeseries is not None else []
-        rtti.check_fields(self)
         Remote_Impl.__init__(self)
     
     @property
@@ -89,6 +87,37 @@ class Remote_IOrderBookITwoWayLinkListITimeSerie(IOrderBook,Remote_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim.gen._out._itwowaylink import ITwoWayLink
+        from marketsim import listOf
+        from marketsim.gen._out._itimeserie import ITimeSerie
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        rtti.typecheck(IOrderBook, self.orderbook)
+        rtti.typecheck(ITwoWayLink, self.link)
+        rtti.typecheck(listOf(ITimeSerie), self.timeseries)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.orderbook.registerIn(registry)
+        self.link.registerIn(registry)
+        for x in self.timeseries: x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

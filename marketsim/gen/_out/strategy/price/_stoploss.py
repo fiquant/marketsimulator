@@ -10,14 +10,12 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
     def __init__(self, inner = None, lossFactor = None):
         from marketsim.gen._out._const import const_Float as _const_Float
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
         from marketsim import deref_opt
         self.inner = inner if inner is not None else deref_opt(_strategy_price_LadderMM_SideFloatIObservableIOrderInt())
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_const_Float(0.2))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -64,6 +62,27 @@ class StopLoss_ISuspendableStrategyIObservableFloat(ISingleAssetStrategy):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(ISuspendableStrategy, self.inner)
+        rtti.typecheck(IObservablefloat, self.lossFactor)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.inner.registerIn(registry)
+        self.lossFactor.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -113,7 +132,6 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
     """ 
     def __init__(self, inner = None, lossFactor = None):
         from marketsim.gen._out.strategy.price._laddermm import LadderMM_SideFloatIObservableIOrderInt as _strategy_price_LadderMM_SideFloatIObservableIOrderInt
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -121,7 +139,6 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
         from marketsim import deref_opt
         self.inner = inner if inner is not None else deref_opt(_strategy_price_LadderMM_SideFloatIObservableIOrderInt())
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_constant_Float(0.2))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -168,6 +185,27 @@ class StopLoss_ISuspendableStrategyFloat(ISingleAssetStrategy):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._isuspendablestrategy import ISuspendableStrategy
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(ISuspendableStrategy, self.inner)
+        rtti.typecheck(IFunctionfloat, self.lossFactor)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.inner.registerIn(registry)
+        self.lossFactor.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

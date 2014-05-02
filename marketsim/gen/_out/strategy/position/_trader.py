@@ -8,9 +8,7 @@ class Trader_strategypositionRSI_linear(object):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -48,6 +46,23 @@ class Trader_strategypositionRSI_linear(object):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
+        rtti.typecheck(RSI_linear, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     @property
     def dereference(self):
         return self.x.trader
@@ -62,9 +77,7 @@ class Trader_strategypositionBollinger_linear(object):
     def __init__(self, x = None):
         from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
         from marketsim import deref_opt
-        from marketsim import rtti
         self.x = x if x is not None else deref_opt(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -100,6 +113,23 @@ class Trader_strategypositionBollinger_linear(object):
         self.x.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
+        rtti.typecheck(Bollinger_linear, self.x)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     @property

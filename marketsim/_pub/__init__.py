@@ -24,7 +24,6 @@ from marketsim.gen._out._volumelevels import volumeLevels
 
 import side
 import event
-import _test
 import veusz
 import ops
 import math

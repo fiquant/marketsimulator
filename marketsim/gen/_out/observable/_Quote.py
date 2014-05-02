@@ -21,12 +21,10 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
     """ 
     def __init__(self, ticker = None, start = None, end = None):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim import rtti
         Observablefloat.__init__(self)
         self.ticker = ticker if ticker is not None else "^GSPC"
         self.start = start if start is not None else "2001-1-1"
         self.end = end if end is not None else "2010-1-1"
-        rtti.check_fields(self)
         Quote_Impl.__init__(self)
     
     @property
@@ -87,6 +85,31 @@ class Quote_StringStringString(Observablefloat,Quote_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        rtti.typecheck(str, self.ticker)
+        rtti.typecheck(str, self.start)
+        rtti.typecheck(str, self.end)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

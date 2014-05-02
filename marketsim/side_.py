@@ -30,6 +30,9 @@ class _SellSide(Tag):
 
     def reset_ex(self, generation):
         self._reset_generation_ex = generation
+
+    def registerIn(self, registry):
+        registry.insert(self)
     
     @property
     def opposite(self):
@@ -64,6 +67,9 @@ class _BuySide(Tag):
 
     def reset_ex(self, generation):
         self._reset_generation_ex = generation
+
+    def registerIn(self, registry):
+        registry.insert(self)
 
     @property
     def opposite(self):

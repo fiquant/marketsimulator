@@ -9,7 +9,6 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
     """ 
     def __init__(self, x = None, orderFactory = None):
         from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear_FloatIObservableFloatFloatISingleAssetTrader as _strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -17,7 +16,6 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_position_RSI_linear_FloatIObservableFloatFloatISingleAssetTrader())
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -66,6 +64,27 @@ class Strategy_strategypositionRSI_linearFloatIObservableIOrder(ISingleAssetStra
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.position._rsi_linear import RSI_linear
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
+        rtti.typecheck(RSI_linear, self.x)
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionfloat, self.orderFactory)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.orderFactory.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -112,7 +131,6 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
     """ 
     """ 
     def __init__(self, x = None, orderFactory = None):
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear_FloatIObservableFloatISingleAssetTrader as _strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader
@@ -121,7 +139,6 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         from marketsim import deref_opt
         self.x = x if x is not None else deref_opt(_strategy_position_Bollinger_linear_FloatIObservableFloatISingleAssetTrader())
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_signedVolume_MarketSigned_())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -168,6 +185,27 @@ class Strategy_strategypositionBollinger_linearFloatIObservableIOrder(ISingleAss
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out.strategy.position._bollinger_linear import Bollinger_linear
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
+        rtti.typecheck(Bollinger_linear, self.x)
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionfloat, self.orderFactory)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.orderFactory.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

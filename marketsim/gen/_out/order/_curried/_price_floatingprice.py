@@ -23,10 +23,8 @@ class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObser
         from marketsim.gen._out.order._curried._price_limit import price_Limit_SideFloat as _order__curried_price_Limit_SideFloat
         from marketsim import deref_opt
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         self.proto = proto if proto is not None else deref_opt(_order__curried_price_Limit_SideFloat())
         self.floatingPrice = floatingPrice if floatingPrice is not None else deref_opt(_const_Float(10.0))
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -67,6 +65,26 @@ class price_FloatingPrice_FloatIObservableIOrderIObservableFloat(IFunctionIObser
         self.floatingPrice.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionfloat import IFunctionIObservableIOrder_from_IFunctionfloat
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionfloat, self.proto)
+        rtti.typecheck(IObservablefloat, self.floatingPrice)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.proto.registerIn(registry)
+        self.floatingPrice.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, price = None):

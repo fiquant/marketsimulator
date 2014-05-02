@@ -39,7 +39,6 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
     """ 
     def __init__(self, strategies = None, account = None, weight = None, normalizer = None, corrector = None):
         from marketsim.gen._out.strategy.account.inner._inner_virtualmarket import inner_VirtualMarket_ as _strategy_account_inner_inner_VirtualMarket_
-        from marketsim import rtti
         from marketsim.gen._out.strategy.weight.array._array_identityl import array_IdentityL_ as _strategy_weight_array_array_IdentityL_
         from marketsim.gen._out.strategy.weight.f._f_atanpow import f_AtanPow_Float as _strategy_weight_f_f_AtanPow_Float
         from marketsim.gen._out.strategy._empty import Empty_ as _strategy_Empty_
@@ -50,7 +49,6 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         self.weight = weight if weight is not None else deref_opt(_strategy_weight_trader_trader_TraderEfficiencyTrend_Float())
         self.normalizer = normalizer if normalizer is not None else deref_opt(_strategy_weight_f_f_AtanPow_Float())
         self.corrector = corrector if corrector is not None else deref_opt(_strategy_weight_array_array_IdentityL_())
-        rtti.check_fields(self)
         MultiarmedBandit2_Impl.__init__(self)
     
     @property
@@ -122,6 +120,43 @@ class MultiArmedBandit_ListISingleAssetStrategyISingleAssetStrategyIAccountIAcco
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim.gen._out._isingleassetstrategy import ISingleAssetStrategy
+        from marketsim.gen._out._ifunction._ifunctioniaccount_from_isingleassetstrategy import IFunctionIAccount_from_ISingleAssetStrategy
+        from marketsim import listOf
+        from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_iaccount import IFunctionIFunctionfloat_from_IAccount
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionifunctionlistoffloat_from_listoffloat import IFunctionIFunctionlistOffloat_from_listOffloat
+        from marketsim.gen._out._ifunction._ifunctionifunctionfloat_from_ifunctionfloat import IFunctionIFunctionfloat_from_IFunctionfloat
+        rtti.typecheck(listOf(ISingleAssetStrategy), self.strategies)
+        rtti.typecheck(IFunctionIAccount_from_ISingleAssetStrategy, self.account)
+        rtti.typecheck(IFunctionIFunctionfloat_from_IAccount, self.weight)
+        rtti.typecheck(IFunctionIFunctionfloat_from_IFunctionfloat, self.normalizer)
+        rtti.typecheck(IFunctionIFunctionlistOffloat_from_listOffloat, self.corrector)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        for x in self.strategies: x.registerIn(registry)
+        self.account.registerIn(registry)
+        self.weight.registerIn(registry)
+        self.normalizer.registerIn(registry)
+        self.corrector.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

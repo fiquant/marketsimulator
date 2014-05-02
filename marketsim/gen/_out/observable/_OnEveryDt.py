@@ -20,11 +20,9 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablefloat.__init__(self)
         self.x = x if x is not None else deref_opt(_constant_Float(1.0))
         self.dt = dt if dt is not None else 1.0
-        rtti.check_fields(self)
         OnEveryDt_Impl.__init__(self)
     
     @property
@@ -81,6 +79,31 @@ class OnEveryDt_FloatFloat(Observablefloat,OnEveryDt_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.x)
+        rtti.typecheck(float, self.dt)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

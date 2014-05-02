@@ -21,16 +21,14 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
     	 number of volume levels to track 
     """ 
     def __init__(self, queue = None, volumeDelta = None, volumeCount = None):
-        from marketsim import rtti
-        from marketsim.gen._out._observable._observableivolumelevels import ObservableIVolumeLevels
         from marketsim.gen._out._ivolumelevels import IVolumeLevels
+        from marketsim.gen._out._observable._observableivolumelevels import ObservableIVolumeLevels
         from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
         from marketsim import deref_opt
         ObservableIVolumeLevels.__init__(self)
         self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
         self.volumeDelta = volumeDelta if volumeDelta is not None else 30.0
         self.volumeCount = volumeCount if volumeCount is not None else 10
-        rtti.check_fields(self)
         VolumeLevels_Impl.__init__(self)
     
     @property
@@ -91,6 +89,32 @@ class VolumeLevels_IOrderQueueFloatInt(ObservableIVolumeLevels,VolumeLevels_Impl
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderqueue import IOrderQueue
+        rtti.typecheck(IOrderQueue, self.queue)
+        rtti.typecheck(float, self.volumeDelta)
+        rtti.typecheck(int, self.volumeCount)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.queue.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

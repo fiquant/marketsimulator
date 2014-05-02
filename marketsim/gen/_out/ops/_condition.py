@@ -9,16 +9,14 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim import deref_opt
+        from marketsim.gen._out._const import const_Float as _const_Float
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -94,6 +92,35 @@ class Condition_IObservableBooleanIObservableFloatIObservableFloat(Observableflo
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservablefloat, self.ifpart)
+        rtti.typecheck(IObservablefloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -113,7 +140,6 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -123,7 +149,6 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -199,6 +224,36 @@ class Condition_IObservableBooleanIObservableSideIObservableSide(ObservableSide,
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservableSide, self.ifpart)
+        rtti.typecheck(IObservableSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -215,16 +270,14 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
-        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
         from marketsim import deref_opt
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
         Observablebool.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -300,6 +353,34 @@ class Condition_IObservableBooleanIObservableBooleanIObservableBoolean(Observabl
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservablebool, self.ifpart)
+        rtti.typecheck(IObservablebool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -317,16 +398,14 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablefloat import Observablefloat
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
+        from marketsim.gen._out._const import const_Float as _const_Float
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -399,6 +478,35 @@ class Condition_BooleanIObservableFloatIObservableFloat(Observablefloat,Conditio
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservablefloat, self.ifpart)
+        rtti.typecheck(IObservablefloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -418,7 +526,6 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -427,7 +534,6 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -500,6 +606,36 @@ class Condition_IObservableBooleanFloatIObservableFloat(Observablefloat,Conditio
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionfloat, self.ifpart)
+        rtti.typecheck(IObservablefloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -519,7 +655,6 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -528,7 +663,6 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -601,6 +735,36 @@ class Condition_IObservableBooleanIObservableFloatFloat(Observablefloat,Conditio
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservablefloat, self.ifpart)
+        rtti.typecheck(IFunctionfloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -620,7 +784,6 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
@@ -630,7 +793,6 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -701,6 +863,36 @@ class Condition_BooleanIObservableSideIObservableSide(ObservableSide,Condition_I
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservableSide, self.ifpart)
+        rtti.typecheck(IObservableSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
@@ -723,7 +915,6 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -733,7 +924,6 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -806,6 +996,37 @@ class Condition_IObservableBooleanSideIObservableSide(ObservableSide,Condition_I
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionSide, self.ifpart)
+        rtti.typecheck(IObservableSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -826,7 +1047,6 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -836,7 +1056,6 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -909,6 +1128,37 @@ class Condition_IObservableBooleanIObservableSideSide(ObservableSide,Condition_I
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservableSide, self.ifpart)
+        rtti.typecheck(IFunctionSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -926,7 +1176,6 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -936,7 +1185,6 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1009,6 +1257,35 @@ class Condition_BooleanIObservableBooleanIObservableBoolean(Observablebool,Condi
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservablebool, self.ifpart)
+        rtti.typecheck(IObservablebool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1026,7 +1303,6 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -1036,7 +1312,6 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1109,6 +1384,35 @@ class Condition_IObservableBooleanBooleanIObservableBoolean(Observablebool,Condi
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionbool, self.ifpart)
+        rtti.typecheck(IObservablebool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1126,16 +1430,14 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out._false import false_ as _false_
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim import deref_opt
+        from marketsim.gen._out._false import false_ as _false_
         Observablebool.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1208,6 +1510,35 @@ class Condition_IObservableBooleanIObservableBooleanBoolean(Observablebool,Condi
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IObservablebool, self.ifpart)
+        rtti.typecheck(IFunctionbool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1227,7 +1558,6 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -1236,7 +1566,6 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_const_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1306,6 +1635,36 @@ class Condition_BooleanFloatIObservableFloat(Observablefloat,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionfloat, self.ifpart)
+        rtti.typecheck(IObservablefloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1325,7 +1684,6 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablefloat import Observablefloat
         from marketsim.gen._out._constant import constant_Float as _constant_Float
@@ -1334,7 +1692,6 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_const_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1404,6 +1761,36 @@ class Condition_BooleanIObservableFloatFloat(Observablefloat,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservablefloat, self.ifpart)
+        rtti.typecheck(IFunctionfloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1421,16 +1808,14 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim import deref_opt
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1500,6 +1885,35 @@ class Condition_IObservableBooleanFloatFloat(Observablefloat,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionfloat, self.ifpart)
+        rtti.typecheck(IFunctionfloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1520,7 +1934,6 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._observablebuy import observableBuy_ as _side_observableBuy_
@@ -1530,7 +1943,6 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_observableBuy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1600,6 +2012,37 @@ class Condition_BooleanSideIObservableSide(ObservableSide,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionSide, self.ifpart)
+        rtti.typecheck(IObservableSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1620,7 +2063,6 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
@@ -1630,7 +2072,6 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_observableSell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1700,6 +2141,37 @@ class Condition_BooleanIObservableSideSide(ObservableSide,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservableSide, self.ifpart)
+        rtti.typecheck(IFunctionSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1719,7 +2191,6 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -1729,7 +2200,6 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1799,6 +2269,35 @@ class Condition_IObservableBooleanSideSide(ObservableSide,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionSide, self.ifpart)
+        rtti.typecheck(IFunctionSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1816,16 +2315,14 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
-        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
+        from marketsim.gen._out._observablefalse import observableFalse_ as _observableFalse_
         Observablebool.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_observableFalse_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1895,6 +2392,35 @@ class Condition_BooleanBooleanIObservableBoolean(Observablebool,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionbool, self.ifpart)
+        rtti.typecheck(IObservablebool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -1913,7 +2439,6 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._false import false_ as _false_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -1922,7 +2447,6 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_observableTrue_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -1992,6 +2516,35 @@ class Condition_BooleanIObservableBooleanBoolean(Observablebool,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IObservablebool, self.ifpart)
+        rtti.typecheck(IFunctionbool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -2010,7 +2563,6 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out._false import false_ as _false_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
@@ -2019,7 +2571,6 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_observableTrue_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -2089,6 +2640,35 @@ class Condition_IObservableBooleanBooleanBoolean(Observablebool,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IObservablebool, self.cond)
+        rtti.typecheck(IFunctionbool, self.ifpart)
+        rtti.typecheck(IFunctionbool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -2106,16 +2686,14 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         Observablefloat.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_constant_Float(1.0))
         self.elsepart = elsepart if elsepart is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -2182,6 +2760,35 @@ class Condition_BooleanFloatFloat(Observablefloat,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionfloat, self.ifpart)
+        rtti.typecheck(IFunctionfloat, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -2201,7 +2808,6 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observableside import ObservableSide
         from marketsim.gen._out.side._buy import Buy_ as _side_Buy_
@@ -2211,7 +2817,6 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_side_Sell_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_side_Buy_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -2278,6 +2883,35 @@ class Condition_BooleanSideSide(ObservableSide,Condition_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionSide, self.ifpart)
+        rtti.typecheck(IFunctionSide, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Condition_Impl.bind_impl(self, ctx)
     
@@ -2294,16 +2928,14 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
     """ 
     """ 
     def __init__(self, cond = None, ifpart = None, elsepart = None):
-        from marketsim.gen._out._false import false_ as _false_
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
+        from marketsim.gen._out._false import false_ as _false_
         Observablebool.__init__(self)
         self.cond = cond if cond is not None else deref_opt(_true_())
         self.ifpart = ifpart if ifpart is not None else deref_opt(_true_())
         self.elsepart = elsepart if elsepart is not None else deref_opt(_false_())
-        rtti.check_fields(self)
         Condition_Impl.__init__(self)
     
     @property
@@ -2368,6 +3000,34 @@ class Condition_BooleanBooleanBoolean(Observablebool,Condition_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IFunctionbool, self.cond)
+        rtti.typecheck(IFunctionbool, self.ifpart)
+        rtti.typecheck(IFunctionbool, self.elsepart)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.cond.registerIn(registry)
+        self.ifpart.registerIn(registry)
+        self.elsepart.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

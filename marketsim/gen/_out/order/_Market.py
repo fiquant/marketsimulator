@@ -22,7 +22,6 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
     """ 
     def __init__(self, side = None, volume = None):
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
-        from marketsim import rtti
         from marketsim.gen._out._iorder import IOrder
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim.gen._out._observable._observableiorder import ObservableIOrder
@@ -30,7 +29,6 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
         ObservableIOrder.__init__(self)
         self.side = side if side is not None else deref_opt(_side_Sell_())
         self.volume = volume if volume is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -88,6 +86,33 @@ class Market_SideFloat(ObservableIOrder,IObservableIOrder):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionSide, self.side)
+        rtti.typecheck(IFunctionfloat, self.volume)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.side.registerIn(registry)
+        self.volume.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, *args, **kwargs):

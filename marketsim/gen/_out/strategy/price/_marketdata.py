@@ -5,13 +5,11 @@ class MarketData_StringStringStringFloatFloat(object):
     """ 
     """ 
     def __init__(self, ticker = None, start = None, end = None, delta = None, volume = None):
-        from marketsim import rtti
         self.ticker = ticker if ticker is not None else "^GSPC"
         self.start = start if start is not None else "2001-1-1"
         self.end = end if end is not None else "2010-1-1"
         self.delta = delta if delta is not None else 1.0
         self.volume = volume if volume is not None else 1000.0
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -59,6 +57,26 @@ class MarketData_StringStringStringFloatFloat(object):
         
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        rtti.typecheck(str, self.ticker)
+        rtti.typecheck(str, self.start)
+        rtti.typecheck(str, self.end)
+        rtti.typecheck(float, self.delta)
+        rtti.typecheck(float, self.volume)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

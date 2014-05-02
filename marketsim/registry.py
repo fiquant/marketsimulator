@@ -469,7 +469,7 @@ class Registry(object):
         root = list(self._id2obj.itervalues())                        
         for obj in root: # getting initial set of the dictionary keys
             context.assureAllReferencedAreRegistred(self, obj, visited)
-            
+
     def tojsonall(self):
 
         self.pushAllReferences()
@@ -590,6 +590,12 @@ class Simulation(object):
         for t in self.orderbooks: t.reset_ex(generation)
         for t in self.graphs: t.reset_ex(generation)
         self._reset_generation_ex = generation
+
+    def registerIn(self, registry):
+        for t in self.traders: t.registerIn(registry)
+        for t in self.orderbooks: t.registerIn(registry)
+        for t in self.graphs: t.registerIn(registry)
+        registry.insert(self)
 
     @property
     def traders(self):

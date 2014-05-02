@@ -8,14 +8,12 @@ class isLossTooHigh_IObservableFloat(Observablebool):
     """ 
     def __init__(self, lossFactor = None):
         from marketsim.gen._out._const import const_Float as _const_Float
-        from marketsim import rtti
         from marketsim import _
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim import event
         from marketsim import deref_opt
         Observablebool.__init__(self)
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_const_Float(0.2))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -55,6 +53,24 @@ class isLossTooHigh_IObservableFloat(Observablebool):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablefloat import IObservablefloat
+        rtti.typecheck(IObservablefloat, self.lossFactor)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.lossFactor.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):
@@ -106,7 +122,6 @@ class isLossTooHigh_Float(Observablebool):
     """ 
     """ 
     def __init__(self, lossFactor = None):
-        from marketsim import rtti
         from marketsim import _
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim import event
@@ -114,7 +129,6 @@ class isLossTooHigh_Float(Observablebool):
         from marketsim import deref_opt
         Observablebool.__init__(self)
         self.lossFactor = lossFactor if lossFactor is not None else deref_opt(_constant_Float(0.2))
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         event.subscribe(self.impl, _(self).fire, self)
     
@@ -154,6 +168,24 @@ class isLossTooHigh_Float(Observablebool):
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.lossFactor)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.lossFactor.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

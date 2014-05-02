@@ -21,9 +21,7 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrder_fr
     def __init__(self, proto = None):
         from marketsim.gen._out.order._curried._side_limit import side_Limit_FloatFloat as _order__curried_side_Limit_FloatFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.proto = proto if proto is not None else deref_opt(_order__curried_side_Limit_FloatFloat())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -59,6 +57,23 @@ class side_ImmediateOrCancel_SideIObservableIOrder(IFunctionIObservableIOrder_fr
         self.proto.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionside import IFunctionIObservableIOrder_from_IFunctionSide
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionSide, self.proto)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.proto.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def __call__(self, side = None):

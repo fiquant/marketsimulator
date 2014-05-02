@@ -14,7 +14,6 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.side._observablesell import observableSell_ as _side_observableSell_
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -25,7 +24,6 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_sideprice_Limit_Float())
         self.side = side if side is not None else deref_opt(_side_observableSell_())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -84,6 +82,34 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.impl.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ievent import IEvent
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
+        from marketsim.gen._out._side import Side
+        from marketsim.gen._out._iobservable._iobservableside import IObservableSide
+        rtti.typecheck(LiquidityProvider, self.x)
+        rtti.typecheck(IEvent, self.eventGen)
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat, self.orderFactory)
+        rtti.typecheck(IObservableSide, self.side)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.eventGen.registerIn(registry)
+        self.orderFactory.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind(self, ctx):
         self._ctx = ctx.clone()
     
@@ -135,7 +161,6 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         from marketsim.gen._out.event._every import Every_Float as _event_Every_Float
         from marketsim.gen._out.side._sell import Sell_ as _side_Sell_
         from marketsim.gen._out.math.random._expovariate import expovariate_Float as _math_random_expovariate_Float
-        from marketsim import rtti
         from marketsim.gen._out.event._event import Event
         from marketsim import _
         from marketsim import event
@@ -146,7 +171,6 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         self.eventGen = eventGen if eventGen is not None else deref_opt(_event_Every_Float(deref_opt(_math_random_expovariate_Float(1.0))))
         self.orderFactory = orderFactory if orderFactory is not None else deref_opt(_order__curried_sideprice_Limit_Float())
         self.side = side if side is not None else deref_opt(_side_Sell_())
-        rtti.check_fields(self)
         self.impl = self.getImpl()
         
         self.on_order_created = Event()
@@ -203,6 +227,33 @@ class OneSideStrategy_strategypriceLiquidityProviderIEventSideFloatIObservableIO
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
         self.impl.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ievent import IEvent
+        from marketsim.gen._out._ifunction._ifunctioniobservableiorder_from_ifunctionsideifunctionfloat import IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat
+        from marketsim.gen._out.strategy.price._liquidityprovider import LiquidityProvider
+        from marketsim.gen._out._ifunction._ifunctionside import IFunctionSide
+        rtti.typecheck(LiquidityProvider, self.x)
+        rtti.typecheck(IEvent, self.eventGen)
+        rtti.typecheck(IFunctionIObservableIOrder_from_IFunctionSideIFunctionfloat, self.orderFactory)
+        rtti.typecheck(IFunctionSide, self.side)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.eventGen.registerIn(registry)
+        self.orderFactory.registerIn(registry)
+        self.side.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        self.impl.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind(self, ctx):

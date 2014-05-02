@@ -10,11 +10,9 @@ class LiquidityProvider_FloatFloatIOrderBook(object):
         from marketsim.gen._out.math.random._lognormvariate import lognormvariate_FloatFloat as _math_random_lognormvariate_FloatFloat
         from marketsim import deref_opt
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
-        from marketsim import rtti
         self.initialValue = initialValue if initialValue is not None else 100.0
         self.priceDistr = priceDistr if priceDistr is not None else deref_opt(_math_random_lognormvariate_FloatFloat(0.0,0.1))
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -58,6 +56,27 @@ class LiquidityProvider_FloatFloatIOrderBook(object):
         self.book.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        from marketsim.gen._out._iorderbook import IOrderBook
+        rtti.typecheck(float, self.initialValue)
+        rtti.typecheck(IFunctionfloat, self.priceDistr)
+        rtti.typecheck(IOrderBook, self.book)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.priceDistr.registerIn(registry)
+        self.book.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

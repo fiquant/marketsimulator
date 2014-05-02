@@ -22,10 +22,8 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
     def __init__(self, up = None, down = None):
         from marketsim.gen._out.orderbook._link import Link_IObservableFloat as _orderbook_Link_IObservableFloat
         from marketsim import deref_opt
-        from marketsim import rtti
         self.up = up if up is not None else deref_opt(_orderbook_Link_IObservableFloat())
         self.down = down if down is not None else deref_opt(_orderbook_Link_IObservableFloat())
-        rtti.check_fields(self)
         TwoWayLink_Impl.__init__(self)
     
     @property
@@ -82,6 +80,32 @@ class TwoWayLink_ILinkILink(ITwoWayLink,TwoWayLink_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ilink import ILink
+        rtti.typecheck(ILink, self.up)
+        rtti.typecheck(ILink, self.down)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.up.registerIn(registry)
+        self.down.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

@@ -9,10 +9,8 @@ class Signal_FloatFloat(SignalStrategy):
     def __init__(self, source = None, threshold = None):
         from marketsim.gen._out._constant import constant_Float as _constant_Float
         from marketsim import deref_opt
-        from marketsim import rtti
         self.source = source if source is not None else deref_opt(_constant_Float(0.0))
         self.threshold = threshold if threshold is not None else 0.7
-        rtti.check_fields(self)
     
     @property
     def label(self):
@@ -51,6 +49,24 @@ class Signal_FloatFloat(SignalStrategy):
         self.source.reset_ex(generation)
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IFunctionfloat, self.source)
+        rtti.typecheck(float, self.threshold)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.source.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
 

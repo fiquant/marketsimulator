@@ -22,15 +22,13 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
     **depth**
     """ 
     def __init__(self, book = None, depth = None):
-        from marketsim import rtti
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out._constant import constant_Float as _constant_Float
-        from marketsim import deref_opt
         from marketsim.gen._out.orderbook._oftrader import OfTrader_IAccount as _orderbook_OfTrader_IAccount
+        from marketsim import deref_opt
+        from marketsim.gen._out._constant import constant_Float as _constant_Float
         Observablefloat.__init__(self)
         self.book = book if book is not None else deref_opt(_orderbook_OfTrader_IAccount())
         self.depth = depth if depth is not None else deref_opt(_constant_Float(1.0))
-        rtti.check_fields(self)
         CumulativePrice_Impl.__init__(self)
     
     @property
@@ -89,6 +87,33 @@ class CumulativePrice_IOrderBookFloat(Observablefloat,CumulativePrice_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iorderbook import IOrderBook
+        from marketsim.gen._out._ifunction._ifunctionfloat import IFunctionfloat
+        rtti.typecheck(IOrderBook, self.book)
+        rtti.typecheck(IFunctionfloat, self.depth)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.book.registerIn(registry)
+        self.depth.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):

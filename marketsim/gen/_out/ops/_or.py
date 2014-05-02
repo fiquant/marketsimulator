@@ -11,11 +11,9 @@ class Or_IObservableBooleanIObservableBoolean(Observablebool,Or_Impl):
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_observableTrue_())
         self.y = y if y is not None else deref_opt(_observableTrue_())
-        rtti.check_fields(self)
         Or_Impl.__init__(self)
     
     @property
@@ -82,6 +80,32 @@ class Or_IObservableBooleanIObservableBoolean(Observablebool,Or_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IObservablebool, self.x)
+        rtti.typecheck(IObservablebool, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Or_Impl.bind_impl(self, ctx)
     
@@ -99,15 +123,13 @@ class Or_BooleanIObservableBoolean(Observablebool,Or_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
-        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
+        from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
+        from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_true_())
         self.y = y if y is not None else deref_opt(_observableTrue_())
-        rtti.check_fields(self)
         Or_Impl.__init__(self)
     
     @property
@@ -171,6 +193,33 @@ class Or_BooleanIObservableBoolean(Observablebool,Or_Impl):
             for s in self._subscriptions: s.reset_ex(generation)
         self.__dict__['_processing_ex'] = False
     
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        rtti.typecheck(IFunctionbool, self.x)
+        rtti.typecheck(IObservablebool, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
+        self.__dict__['_processing_ex'] = False
+    
     def bind_impl(self, ctx):
         Or_Impl.bind_impl(self, ctx)
     
@@ -188,15 +237,13 @@ class Or_IObservableBooleanBoolean(Observablebool,Or_Impl):
     """ 
     """ 
     def __init__(self, x = None, y = None):
-        from marketsim import rtti
-        from marketsim.gen._out._true import true_ as _true_
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._observabletrue import observableTrue_ as _observableTrue_
         from marketsim import deref_opt
+        from marketsim.gen._out._true import true_ as _true_
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_observableTrue_())
         self.y = y if y is not None else deref_opt(_true_())
-        rtti.check_fields(self)
         Or_Impl.__init__(self)
     
     @property
@@ -258,6 +305,33 @@ class Or_IObservableBooleanBoolean(Observablebool,Or_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._iobservable._iobservablebool import IObservablebool
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IObservablebool, self.x)
+        rtti.typecheck(IFunctionbool, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
@@ -279,11 +353,9 @@ class Or_BooleanBoolean(Observablebool,Or_Impl):
         from marketsim.gen._out._observable._observablebool import Observablebool
         from marketsim.gen._out._true import true_ as _true_
         from marketsim import deref_opt
-        from marketsim import rtti
         Observablebool.__init__(self)
         self.x = x if x is not None else deref_opt(_true_())
         self.y = y if y is not None else deref_opt(_true_())
-        rtti.check_fields(self)
         Or_Impl.__init__(self)
     
     @property
@@ -342,6 +414,32 @@ class Or_BooleanBoolean(Observablebool,Or_Impl):
         self.reset()
         if hasattr(self, '_subscriptions'):
             for s in self._subscriptions: s.reset_ex(generation)
+        self.__dict__['_processing_ex'] = False
+    
+    def typecheck(self):
+        from marketsim import rtti
+        from marketsim.gen._out._ifunction._ifunctionbool import IFunctionbool
+        rtti.typecheck(IFunctionbool, self.x)
+        rtti.typecheck(IFunctionbool, self.y)
+    
+    def registerIn(self, registry):
+        if self.__dict__.get('_id', False): return
+        self.__dict__['_id'] = True
+        if self.__dict__.get('_processing_ex', False):
+            raise Exception('cycle detected')
+        self.__dict__['_processing_ex'] = True
+        registry.insert(self)
+        self.x.registerIn(registry)
+        self.y.registerIn(registry)
+        if hasattr(self, '_subscriptions'):
+            for s in self._subscriptions: s.registerIn(registry)
+        if hasattr(self, '_internals'):
+            for t in self._internals:
+                v = getattr(self, t)
+                if type(v) in [list, set]:
+                    for w in v: w.registerIn(registry)
+                else:
+                    v.registerIn(registry)
         self.__dict__['_processing_ex'] = False
     
     def bind_impl(self, ctx):
