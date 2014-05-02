@@ -22,6 +22,8 @@ from marketsim.gen._out.orderbook._bestprice import BestPrice
 
 from marketsim.gen._out.orderbook._twowaylink import TwoWayLink
 
+from marketsim.gen._out.orderbook._bidsimpl import BidsImpl
+
 from marketsim.gen._out.orderbook._queue import Queue
 
 from marketsim.gen._out.orderbook._oftrader import OfTrader
@@ -31,6 +33,8 @@ from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice
 from marketsim.gen._out.orderbook._volumelevels import VolumeLevels
 
 from marketsim.gen._out.orderbook._lastprice import LastPrice
+
+from marketsim.gen._out.orderbook._asksimpl import AsksImpl
 
 from marketsim.gen._out.orderbook._local import Local
 

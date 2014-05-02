@@ -49,3 +49,61 @@ class Local_Base(object):
     def reset(self):
         pass
     
+class Asks_Base(object):
+    def get_tickSize(self):
+        return self._back_tickSize
+    
+    def set_tickSize(self, value):
+        self._back_tickSize = value
+        self.on_tickSize_set(value)
+    
+    tickSize = property(get_tickSize, set_tickSize)
+    def on_tickSize_set(self, value):
+        pass
+    
+    def get_book(self):
+        return self._back_book
+    
+    def set_book(self, value):
+        self._back_book = value
+        self.on_book_set(value)
+    
+    book = property(get_book, set_book)
+    def on_book_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    
+class Bids_Base(object):
+    def get_tickSize(self):
+        return self._back_tickSize
+    
+    def set_tickSize(self, value):
+        self._back_tickSize = value
+        self.on_tickSize_set(value)
+    
+    tickSize = property(get_tickSize, set_tickSize)
+    def on_tickSize_set(self, value):
+        pass
+    
+    def get_book(self):
+        return self._back_book
+    
+    def set_book(self, value):
+        self._back_book = value
+        self.on_book_set(value)
+    
+    book = property(get_book, set_book)
+    def on_book_set(self, value):
+        pass
+    
+    def bind_impl(self, ctx):
+        pass
+    
+    def reset(self):
+        pass
+    

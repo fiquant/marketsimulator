@@ -27,36 +27,50 @@ package orderbook() {
     @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
     
-    // defined at defs\orderbook\properties.sc: 29.5
-    @python.intrinsic("orderbook.queue.BestPrice_Impl")
-    def BestPriceImpl(queue = Asks()) : IObservable[Price]
+    type IOrderQueueImpl
     
-    // defined at defs\orderbook\properties.sc: 32.5
+    // defined at defs\orderbook\properties.sc: 31.5
+    @python.intrinsic("orderbook.queue.BestPrice_Impl")
+    def BestPriceImpl(queue : IOrderQueueImpl) : IObservable[Price]
+    
+    // defined at defs\orderbook\properties.sc: 34.5
     @python.intrinsic("orderbook.queue.LastTrade_Impl")
     def LastTradeImpl() : Any
     
-    // defined at defs\orderbook\properties.sc: 35.5
+    // defined at defs\orderbook\properties.sc: 37.5
+    @python.intrinsic("orderbook.local.Asks_Impl")
+    @label = "N/A"
+    def AsksImpl(tickSize : Float,
+                 book : IOrderBook) : IOrderQueueImpl
+    
+    // defined at defs\orderbook\properties.sc: 41.5
+    @python.intrinsic("orderbook.local.Bids_Impl")
+    @label = "N/A"
+    def BidsImpl(tickSize : Float,
+                 book : IOrderBook) : IOrderQueueImpl
+    
+    // defined at defs\orderbook\properties.sc: 45.5
     /** Returns last defined price at *queue*
      *  Returns None is *queue* has been always empty
      */
     @python.intrinsic("orderbook.last_price.LastPrice_Impl")
     def LastPrice(queue = Asks()) : IObservable[Price]
     
-    // defined at defs\orderbook\properties.sc: 42.5
+    // defined at defs\orderbook\properties.sc: 52.5
     /** Returns price of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
     @python.intrinsic("orderbook.last_trade.LastTradePrice_Impl")
     def LastTradePrice(queue = Asks()) : IObservable[Price]
     
-    // defined at defs\orderbook\properties.sc: 49.5
+    // defined at defs\orderbook\properties.sc: 59.5
     /** Returns volume of the last trade at *queue*
      *  Returns None if there haven't been any trades
      */
     @python.intrinsic("orderbook.last_trade.LastTradeVolume_Impl")
     def LastTradeVolume(queue = Asks()) : IObservable[Volume]
     
-    // defined at defs\orderbook\properties.sc: 56.5
+    // defined at defs\orderbook\properties.sc: 66.5
     /** Returns best price if defined, otherwise last price
      *  and *defaultValue* if there haven't been any trades
      */
@@ -64,30 +78,30 @@ package orderbook() {
     def SafeSidePrice(queue = Asks(),
                       /** price to be used if there haven't been any trades */ defaultValue = constant(100.0)) = queue~>BestPrice~>getOrElse(queue~>LastPrice~>getOrElse(defaultValue))
     
-    // defined at defs\orderbook\properties.sc: 69.5
+    // defined at defs\orderbook\properties.sc: 79.5
     /** Returns moving average of trade prices weighted by their volumes
      */
     @label = "Price_{%(alpha)s}^{%(queue)s}"
     def WeightedPrice(queue = Asks(),
                       /** parameter alpha for the moving average  */ alpha = 0.15) = queue~>LastTradePrice*queue~>LastTradeVolume~>EW(alpha)~>Avg/queue~>LastTradeVolume~>EW(alpha)~>Avg
     
-    // defined at defs\orderbook\properties.sc: 80.5
+    // defined at defs\orderbook\properties.sc: 90.5
     /** Returns tick size for the order *book*
      */
     @python.intrinsic("orderbook.props.TickSize_Impl")
     def TickSize(book = OfTrader()) : () => Price
     
-    // defined at defs\orderbook\properties.sc: 86.5
+    // defined at defs\orderbook\properties.sc: 96.5
     /** Spread of order *book*
      */
     def Spread(book = OfTrader()) = book~>Asks~>BestPrice-book~>Bids~>BestPrice
     
-    // defined at defs\orderbook\properties.sc: 92.5
+    // defined at defs\orderbook\properties.sc: 102.5
     /** MidPrice of order *book*
      */
     def MidPrice(book = OfTrader()) = (book~>Asks~>BestPrice+book~>Bids~>BestPrice)/2.0
     
-    // defined at defs\orderbook\properties.sc: 98.5
+    // defined at defs\orderbook\properties.sc: 108.5
     /** Returns price for best orders of total volume *depth*
      *
      *  In other words cumulative price corresponds to trader balance change
@@ -100,7 +114,7 @@ package orderbook() {
     def CumulativePrice(book = OfTrader(),
                         depth = constant(1.0)) : IObservable[Price]
     
-    // defined at defs\orderbook\properties.sc: 111.5
+    // defined at defs\orderbook\properties.sc: 121.5
     /** Returns naive approximation of price for best orders of total volume *depth*
      *  by taking into account prices only for the best order
      *
@@ -110,7 +124,7 @@ package orderbook() {
     def NaiveCumulativePrice(book = OfTrader(),
                              depth = constant(1.0)) = if depth<0.0 then depth*book~>Asks~>BestPrice else if depth>0.0 then depth*book~>Bids~>BestPrice else 0.0
     
-    // defined at defs\orderbook\properties.sc: 125.5
+    // defined at defs\orderbook\properties.sc: 135.5
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
      *  Level of volume V is a price at which cumulative volume of better orders is V
      */

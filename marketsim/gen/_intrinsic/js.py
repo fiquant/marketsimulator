@@ -9,6 +9,9 @@ class Graph_Impl(Graph_Base):
     @property
     def _alias(self):
         return [self.label]
+
+    def addTimeSerie(self, ts):
+        pass
     
     @_alias.setter
     def _alias(self, value):

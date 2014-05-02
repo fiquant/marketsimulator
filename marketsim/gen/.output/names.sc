@@ -177,6 +177,7 @@ package veusz
             attributes : .Any) : .Any
     
     @python.intrinsic("veusz.VolumeLevelProxy_Impl")
+    @label = "N/A"
     def VolumeLevelProxy(source : .Any,
                          idx : .Int) : .Any
     
@@ -1700,6 +1701,8 @@ package trader
 @category = "Asset"
 package orderbook
 {
+    type IOrderQueueImpl
+    
     /** Phantom orderbook that is used to refer to the current order book
      *
      *  May be used only in objects held by orderbooks (so it is normally used in orderbook properties)
@@ -1730,7 +1733,7 @@ package orderbook
     def TickSize(book = .orderbook.OfTrader()) : () => .Price
     
     @python.intrinsic("orderbook.queue.BestPrice_Impl")
-    def BestPriceImpl(queue = .orderbook.Asks()) : .IObservable[.Price]
+    def BestPriceImpl(queue : .orderbook.IOrderQueueImpl) : .IObservable[.Price]
     
     /** MidPrice of order *book*
      */
@@ -1766,6 +1769,11 @@ package orderbook
     @python.intrinsic("orderbook.link.TwoWayLink_Impl")
     def TwoWayLink(/** Forward link (normally from a trader to a market)*/ up = .orderbook.Link(),
                    /** Backward link (normally from a market to a trader)*/ down = .orderbook.Link()) : .ITwoWayLink
+    
+    @python.intrinsic("orderbook.local.Bids_Impl")
+    @label = "N/A"
+    def BidsImpl(tickSize : .Float,
+                 book : .IOrderBook) : .orderbook.IOrderQueueImpl
     
     /** Returns order queue of order *book* for trade *side*
      */
@@ -1808,6 +1816,11 @@ package orderbook
      */
     @python.intrinsic("orderbook.last_price.LastPrice_Impl")
     def LastPrice(queue = .orderbook.Asks()) : .IObservable[.Price]
+    
+    @python.intrinsic("orderbook.local.Asks_Impl")
+    @label = "N/A"
+    def AsksImpl(tickSize : .Float,
+                 book : .IOrderBook) : .orderbook.IOrderQueueImpl
     
     /** Order book for a single asset in a market.
      * Maintains two order queues for orders of different sides

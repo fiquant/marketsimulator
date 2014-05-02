@@ -1,19 +1,16 @@
 # generated with class generator.python.intrinsic_observable$Import
-from marketsim import registry
 from marketsim.gen._out._observable._observablefloat import Observablefloat
 from marketsim.gen._intrinsic.orderbook.queue import BestPrice_Impl
-from marketsim.gen._out._iorderqueue import IOrderQueue
-@registry.expose(["Asset", "BestPriceImpl"])
-class BestPriceImpl_IOrderQueue(Observablefloat,BestPrice_Impl):
+from marketsim.gen._out.orderbook._iorderqueueimpl import IOrderQueueImpl
+
+class BestPriceImpl_orderbookIOrderQueueImpl(Observablefloat,BestPrice_Impl):
     """ 
     """ 
-    def __init__(self, queue = None):
+    def __init__(self, queue ):
         from marketsim.gen._out._observable._observablefloat import Observablefloat
-        from marketsim.gen._out.orderbook._asks import Asks_IOrderBook as _orderbook_Asks_IOrderBook
-        from marketsim import deref_opt
         from marketsim import rtti
         Observablefloat.__init__(self)
-        self.queue = queue if queue is not None else deref_opt(_orderbook_Asks_IOrderBook())
+        self.queue = queue
         rtti.check_fields(self)
         BestPrice_Impl.__init__(self)
     
@@ -22,7 +19,7 @@ class BestPriceImpl_IOrderQueue(Observablefloat,BestPrice_Impl):
         return repr(self)
     
     _properties = {
-        'queue' : IOrderQueue
+        'queue' : IOrderQueueImpl
     }
     
     
@@ -76,8 +73,8 @@ class BestPriceImpl_IOrderQueue(Observablefloat,BestPrice_Impl):
         BestPrice_Impl.reset(self)
     
 def BestPriceImpl(queue = None): 
-    from marketsim.gen._out._iorderqueue import IOrderQueue
+    from marketsim.gen._out.orderbook._iorderqueueimpl import IOrderQueueImpl
     from marketsim import rtti
-    if queue is None or rtti.can_be_casted(queue, IOrderQueue):
-        return BestPriceImpl_IOrderQueue(queue)
+    if queue is None or rtti.can_be_casted(queue, IOrderQueueImpl):
+        return BestPriceImpl_orderbookIOrderQueueImpl(queue)
     raise Exception('Cannot find suitable overload for BestPriceImpl('+str(queue) +':'+ str(type(queue))+')')

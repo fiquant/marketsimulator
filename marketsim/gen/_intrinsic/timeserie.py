@@ -14,6 +14,7 @@ class ToRecord_Impl(ToRecord_Base):  # TODO: should the source be split into dat
     def bind_impl(self, context):
         if not hasattr(self, '_sched'):
             self._sched = context.world
+            self.graph.addTimeSerie(self)
 
     @property
     def _digits(self):

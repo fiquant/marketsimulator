@@ -17,9 +17,6 @@ class Proxy_(IOrderBook,Proxy_Impl):
         rtti.check_fields(self)
         Proxy_Impl.__init__(self)
     
-    @property
-    def label(self):
-        return repr(self)
     
     _properties = {
         

@@ -4,7 +4,10 @@ from marketsim.gen._out._side import Side
 
 from marketsim.gen._out._intrinsic_base.orderbook.local import Local_Base
 
-class Bids(Queue):
+
+from marketsim.gen._out._intrinsic_base.orderbook.local import Bids_Base, Asks_Base
+
+class Bids_Impl(Queue):
     """ Queue of limit orders buy
     """
 
@@ -18,7 +21,7 @@ class Bids(Queue):
     side = Side.Buy
 
 
-class Asks(Queue):
+class Asks_Impl(Queue):
     """ Queue of limit orders buy
     """
 
@@ -38,9 +41,12 @@ class Local_Impl(BookBase, Local_Base):
     def __init__(self):
         """ Initializes empty order book with given tick size
         """
+        from marketsim.gen._out.orderbook._asksimpl import AsksImpl
+        from marketsim.gen._out.orderbook._bidsimpl import BidsImpl
+
         BookBase.__init__(self,
-                          Bids(self.tickSize, self),
-                          Asks(self.tickSize, self))
+                          BidsImpl(self.tickSize, self),
+                          AsksImpl(self.tickSize, self))
 
         self._asks._digitsToShow = self._digitsToShow
         self._bids._digitsToShow = self._digitsToShow

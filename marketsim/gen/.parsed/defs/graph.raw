@@ -347,6 +347,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - veusz.VolumeLevelProxy_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
 | | - List:
 | | | - Attribute:
 | | | | - category

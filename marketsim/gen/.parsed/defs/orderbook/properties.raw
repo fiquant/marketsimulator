@@ -169,18 +169,27 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.props.BestPrice_Impl
+| | | | - Interface:
+| | | | | - IOrderQueueImpl
+| | | | | - Generics:
+| | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | - List:
+| | | | | - List:
+| | | | | - false
 | | | | - FunDef:
 | | | | | - BestPriceImpl
 | | | | | - List:
 | | | | | | - Parameter:
 | | | | | | | - queue
-| | | | | | | - None
 | | | | | | | - Some:
-| | | | | | | | - FunCall:
+| | | | | | | | - SimpleType:
 | | | | | | | | | - QualifiedName:
 | | | | | | | | | | - List:
-| | | | | | | | | | | - Asks
+| | | | | | | | | | | - IOrderQueueImpl
 | | | | | | | | | - List:
+| | | | | | | - None
 | | | | | | | - List:
 | | | | | - None
 | | | | | - Some:
@@ -222,6 +231,90 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - orderbook.queue.LastTrade_Impl
+| | | | - FunDef:
+| | | | | - AsksImpl
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - tickSize
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IOrderBook
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderQueueImpl
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.local.Asks_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
+| | | | - FunDef:
+| | | | | - BidsImpl
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - tickSize
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Float
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - book
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - IOrderBook
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IOrderQueueImpl
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - orderbook.local.Bids_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - N/A
 | | | | - FunDef:
 | | | | | - LastPrice
 | | | | | - List:

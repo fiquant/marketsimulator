@@ -52,13 +52,14 @@ package veusz() {
     
     // defined at defs\graph.sc: 55.5
     @python.intrinsic("veusz.VolumeLevelProxy_Impl")
+    @label = "N/A"
     def VolumeLevelProxy(source : Any,
                          idx : Int) : Any
 }
 @category = "N/A"
 
 package js() {
-    // defined at defs\graph.sc: 62.5
+    // defined at defs\graph.sc: 63.5
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     @python.intrinsic("js.Graph_Impl")

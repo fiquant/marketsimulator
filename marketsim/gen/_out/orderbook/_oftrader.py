@@ -22,9 +22,6 @@ class OfTrader_IAccount(IOrderBook,OfTrader_Impl):
         rtti.check_fields(self)
         OfTrader_Impl.__init__(self)
     
-    @property
-    def label(self):
-        return repr(self)
     
     _properties = {
         'Trader' : IAccount

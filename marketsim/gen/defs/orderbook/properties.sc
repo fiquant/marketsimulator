@@ -26,11 +26,21 @@ package orderbook
     @python.intrinsic("orderbook.props.BestPrice_Impl")
     def BestPrice(queue = Asks()) : IObservable[Price]
 
+    type IOrderQueueImpl
+
     @python.intrinsic("orderbook.queue.BestPrice_Impl")
-    def BestPriceImpl(queue = Asks()) : IObservable[Price]
+    def BestPriceImpl(queue : IOrderQueueImpl) : IObservable[Price]
 
     @python.intrinsic("orderbook.queue.LastTrade_Impl")
     def LastTradeImpl() : Any
+
+    @python.intrinsic("orderbook.local.Asks_Impl")
+    @label = "N/A"
+    def AsksImpl(tickSize : Float, book : IOrderBook) : IOrderQueueImpl
+
+    @python.intrinsic("orderbook.local.Bids_Impl")
+    @label = "N/A"
+    def BidsImpl(tickSize : Float, book : IOrderBook) : IOrderQueueImpl
 
     /**
      *  Returns last defined price at *queue*

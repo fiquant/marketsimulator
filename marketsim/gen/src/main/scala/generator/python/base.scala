@@ -157,7 +157,7 @@ package object base {
 
         def init = Def("__init__", init_fields, init_body)
 
-        def label = Prop("label", "return repr(self)")
+        def label = if (f.tryGetAttribute("label") == Some("N/A")) stop else Prop("label", "return repr(self)")
 
         def label_tmpl : Code = f.tryGetAttribute("label") match {
             case Some(x) => x

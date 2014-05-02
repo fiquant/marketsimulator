@@ -42,21 +42,17 @@ class LastTrade_Impl(Observablefloat, LastTrade_Base):
     def __call__(self):
         return self._lastTrade
 
-from marketsim.gen._out._iorderqueue import IOrderQueue
-
-class Queue(IOrderQueue):
+class Queue(object):
     """ Queue of limit orders at one side (Sell or Buy).
     It is implemented over a heap so has following comlexity for operations:
     - pushing order: O(logN)
     - accessing to the best order: O(1)
     - popping the best order: O(logN)
     """
-    def __init__(self, tickSize=1, book=None):
+    def __init__(self):
         """ Initializes an empty queue with given tickSize
         and remembers order book the queue belong to if any
         """
-        self._tickSize = tickSize   # tick size
-        self._book = book           # book the queue belongs to if any
         from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
         self.lastTrade = LastTradeImpl()
         self.reset()
@@ -68,20 +64,9 @@ class Queue(IOrderQueue):
         self._counter = 0           # arrival order counter
         self._lastBest = None       # pair (bestPrice, bestVolume)
 
-    def reset_ex(self, generation):
-        self.reset()
-        self._reset_generation_ex = generation
-
-    def bind_ex(self, ctx):
+    def bind_impl(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world
-        self._bound_ex = True
-
-    @property
-    def book(self):
-        """ Book the queue belongs to if any
-        """
-        return self._book
 
     def notifyIfBestChanged(self):
         """Notifies order queue listeners if the best order has changed
@@ -100,14 +85,14 @@ class Queue(IOrderQueue):
         return self.__str__()
 
     def ticksToPrice(self, ticks):
-        return self.side.makePriceSigned(ticks * self._tickSize)
+        return self.side.makePriceSigned(ticks * self.tickSize)
 
     def ticks(self, price):
         """ Corrects 'price' with respect to the tick size
         Returns signed integer number of ticks for the price
         and corrected unsigned order price
         """
-        ticks = int(math.floor(self.side.makePriceSigned(price) / self._tickSize + 0.5))
+        ticks = int(math.floor(self.side.makePriceSigned(price) / self.tickSize + 0.5))
         return +ticks, self.ticksToPrice(ticks)
 
     def push(self, order):
@@ -290,3 +275,5 @@ class Queue(IOrderQueue):
             else:
                 yield p, int(math.floor(budget / p))
                 return
+
+Queue_Impl = Queue

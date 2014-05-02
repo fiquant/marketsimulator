@@ -53,6 +53,7 @@ package veusz
     def CSV(directory : String, source : Any, attributes : Any) : Any
 
     @python.intrinsic("veusz.VolumeLevelProxy_Impl")
+    @label = "N/A"
     def VolumeLevelProxy(source : Any, idx : Int) : Any
 }
 

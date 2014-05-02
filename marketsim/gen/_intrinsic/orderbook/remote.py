@@ -5,9 +5,9 @@ from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
 from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
 
 from marketsim.gen._out._intrinsic_base.orderbook.remote import Remote_Base
-from marketsim.gen._out._iorderqueue import IOrderQueue
+from marketsim.gen._out.orderbook._iorderqueueimpl import IOrderQueueImpl
 
-class Queue(IOrderQueue):
+class Queue(IOrderQueueImpl):
     
     def __init__(self, queue, book, link):
         self._queue = queue

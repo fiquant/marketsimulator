@@ -282,10 +282,6 @@ def run(name, constructor, only_veusz):
         
         books = orderBooksToRender(ctx, traders)
         
-        for t in traders + books:
-            for ts in t.timeseries:
-                ts.graph.addTimeSerie(ts)
-        
         r = registry.create()
         root = registry.Simulation(traders, list(ctx.books.itervalues()), ctx.graphs)
         r.insert(root)

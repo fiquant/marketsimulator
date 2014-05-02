@@ -16,9 +16,6 @@ class SingleProxy_(ISingleAssetTrader,Single_Impl):
         rtti.check_fields(self)
         Single_Impl.__init__(self)
     
-    @property
-    def label(self):
-        return repr(self)
     
     _properties = {
         
