@@ -2952,6 +2952,13 @@ package orderbook {
     def CumulativePrice(book : Optional[.IOrderBook] = .orderbook.OfTrader(),
                         depth : Optional[() => .Float] = .constant(1.0)) : .IObservable[.Float]
     
+    @label = "N/A"
+    
+    @python.intrinsic("orderbook.remote.Queue_Impl")
+    def RemoteQueueImpl(queue : .orderbook.IOrderQueueImpl,
+                        book : .IOrderBook,
+                        link : .ILink) : .orderbook.IOrderQueueImpl
+    
     /** Returns arrays of levels for given volumes [i*volumeDelta for i in range(0, volumeCount)]
      *  Level of volume V is a price at which cumulative volume of better orders is V
      */

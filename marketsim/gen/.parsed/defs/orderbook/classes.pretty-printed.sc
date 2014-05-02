@@ -59,4 +59,33 @@ package orderbook() {
     @python.intrinsic("orderbook.of_trader.Proxy_Impl")
     @label = "N/A"
     def Proxy() : IOrderBook
+    
+    type IOrderQueueImpl
+    
+    // defined at defs\orderbook\classes.sc: 68.5
+    @python.intrinsic("orderbook.queue.BestPrice_Impl")
+    def BestPriceImpl(queue : IOrderQueueImpl) : IObservable[Price]
+    
+    // defined at defs\orderbook\classes.sc: 71.5
+    @python.intrinsic("orderbook.queue.LastTrade_Impl")
+    def LastTradeImpl() : Any
+    
+    // defined at defs\orderbook\classes.sc: 74.5
+    @python.intrinsic("orderbook.local.Asks_Impl")
+    @label = "N/A"
+    def AsksImpl(tickSize : Float,
+                 book : IOrderBook) : IOrderQueueImpl
+    
+    // defined at defs\orderbook\classes.sc: 78.5
+    @python.intrinsic("orderbook.local.Bids_Impl")
+    @label = "N/A"
+    def BidsImpl(tickSize : Float,
+                 book : IOrderBook) : IOrderQueueImpl
+    
+    // defined at defs\orderbook\classes.sc: 82.5
+    @python.intrinsic("orderbook.remote.Queue_Impl")
+    @label = "N/A"
+    def RemoteQueueImpl(queue : IOrderQueueImpl,
+                        book : IOrderBook,
+                        link : ILink) : IOrderQueueImpl
 }

@@ -5,39 +5,25 @@ from marketsim.gen._out.orderbook._lasttradeimpl import LastTradeImpl
 from marketsim.gen._out.orderbook._bestpriceimpl import BestPriceImpl
 
 from marketsim.gen._out._intrinsic_base.orderbook.remote import Remote_Base
-from marketsim.gen._out.orderbook._iorderqueueimpl import IOrderQueueImpl
 
-class Queue(IOrderQueueImpl):
+from marketsim.gen._out._intrinsic_base.orderbook.remote import Queue_Base
+
+class Queue_Impl(Queue_Base):
     
-    def __init__(self, queue, book, link):
-        self._queue = queue
-        self.book = book
-        self._link = link
-        queue.bestPrice += _(self)._onBestChanged
+    def __init__(self):
+        self.queue.bestPrice += _(self)._onBestChanged
         self.bestPrice = BestPriceImpl(self)
         self.lastTrade = LastTradeImpl()
-        queue.lastTrade += _(self)._onTraded
+        self.queue.lastTrade += _(self)._onTraded
         self.reset()
         
     def reset(self):
-        self._best = self._queue.best
+        self._best = self.queue.best
         self._lastT = 0
 
-    def bind_ex(self, ctx):
-        self._bound_ex = True
-        self.book.bind_ex(ctx)
-        self._link.bind_ex(ctx)
-
-    def reset_ex(self, generation):
-        self.book.reset_ex(generation)
-        self._link.reset_ex(generation)
-        self.reset()
-        self._reset_generation_ex = generation
-
-        
     @property
     def side(self):
-        return self._queue.side
+        return self.queue.side
     
     @property
     def lastPrice(self):
@@ -48,11 +34,11 @@ class Queue(IOrderQueueImpl):
         self.bestPrice.fire(self)
         
     def _onTraded(self, value):
-        self._link.send(_(self.lastTrade, value).set)
+        self.link.send(_(self.lastTrade, value).set)
 
     def _onBestChanged(self, queue):
         best = queue.best
-        self._link.send(_(self, best)._update)
+        self.link.send(_(self, best)._update)
         
     @property 
     def best(self):
@@ -68,12 +54,12 @@ class Remote_Impl(BookBase, Remote_Base):
     """
     
     def __init__(self):
-        
+        from marketsim.gen._out.orderbook._remotequeueimpl import RemoteQueueImpl
         self.name = self.orderbook.label
         self._digitsToShow = self.orderbook._digitsToShow
         BookBase.__init__(self, # TODO: dependency tracking
-                          Queue(self.orderbook.bids, self, self.link.down),
-                          Queue(self.orderbook.asks, self, self.link.down))
+                          RemoteQueueImpl(self.orderbook.bids, self, self.link.down),
+                          RemoteQueueImpl(self.orderbook.asks, self, self.link.down))
 
 
     @property

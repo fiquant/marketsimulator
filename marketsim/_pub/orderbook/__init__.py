@@ -30,6 +30,8 @@ from marketsim.gen._out.orderbook._oftrader import OfTrader
 
 from marketsim.gen._out.orderbook._cumulativeprice import CumulativePrice
 
+from marketsim.gen._out.orderbook._remotequeueimpl import RemoteQueueImpl
+
 from marketsim.gen._out.orderbook._volumelevels import VolumeLevels
 
 from marketsim.gen._out.orderbook._lastprice import LastPrice
