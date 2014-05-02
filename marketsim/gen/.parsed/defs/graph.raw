@@ -256,6 +256,9 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - veusz.Graph_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
 | | | | - FunDef:
 | | | | | - CSV
 | | | | | - List:
@@ -344,6 +347,52 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - veusz.VolumeLevelProxy_Impl
+| | - List:
+| | | - Attribute:
+| | | | - category
+| | | | - N/A
+| | - List:
+| | - false
+| - PackageDef:
+| | - Some:
+| | | - QualifiedName:
+| | | | - List:
+| | | | | - js
+| | - List:
+| | - Definitions:
+| | | - List:
+| | | | - FunDef:
+| | | | | - Graph
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - name
+| | | | | | | - None
+| | | | | | | - Some:
+| | | | | | | | - StringLit:
+| | | | | | | | | - graph
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - IGraph
+| | | | | | | - List:
+| | | | | - Some:
+| | | | | | - DocString:
+| | | | | | | - Graph to render at Veusz. Time series are added to it automatically in their constructor
+| | | | | | | - List:
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - js.Graph_Impl
+| | | | | | - Attribute:
+| | | | | | | - label
+| | | | | | | - %(name)s
 | | - List:
 | | | - Attribute:
 | | | | - category

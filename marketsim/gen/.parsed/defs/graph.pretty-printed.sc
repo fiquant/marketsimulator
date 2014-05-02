@@ -41,16 +41,27 @@ package veusz() {
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     @python.intrinsic("veusz.Graph_Impl")
+    @label = "%(name)s"
     def Graph(name = "graph") : IGraph
     
-    // defined at defs\graph.sc: 51.5
+    // defined at defs\graph.sc: 52.5
     @python.intrinsic("veusz.CSV_Impl")
     def CSV(directory : String,
             source : Any,
             attributes : Any) : Any
     
-    // defined at defs\graph.sc: 54.5
+    // defined at defs\graph.sc: 55.5
     @python.intrinsic("veusz.VolumeLevelProxy_Impl")
     def VolumeLevelProxy(source : Any,
                          idx : Int) : Any
+}
+@category = "N/A"
+
+package js() {
+    // defined at defs\graph.sc: 62.5
+    /** Graph to render at Veusz. Time series are added to it automatically in their constructor
+     */
+    @python.intrinsic("js.Graph_Impl")
+    @label = "%(name)s"
+    def Graph(name = "graph") : IGraph
 }

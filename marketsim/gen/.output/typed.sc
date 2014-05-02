@@ -203,6 +203,7 @@ package _test {
 package veusz {
     /** Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
+    @label = "%(name)s"
     
     @python.intrinsic("veusz.Graph_Impl")
     def Graph(name : Optional[.String] = "graph") : .IGraph
@@ -2723,6 +2724,17 @@ package strategy {@category = "Side function"
     @python.intrinsic("strategy.generic.Generic_Impl")
     def Generic(/** order factory function*/ orderFactory : Optional[.IObservable[.IOrder]] = .order.Limit(),
                 /** Event source making the strategy to wake up*/ eventGen : Optional[.IEvent] = .event.Every()) : .ISingleAssetStrategy
+}
+
+@category = "N/A"
+
+package js {
+    /** Graph to render at Veusz. Time series are added to it automatically in their constructor
+     */
+    @label = "%(name)s"
+    
+    @python.intrinsic("js.Graph_Impl")
+    def Graph(name : Optional[.String] = "graph") : .IGraph
 }
 
 @category = "Trader"

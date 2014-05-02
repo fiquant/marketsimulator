@@ -3,7 +3,7 @@ import sys, os, json, time, cPickle as pickle, weakref, itertools
 sys.path.append(r'..')
 sys.setrecursionlimit(10000)
 
-from marketsim import (event, js, context,
+from marketsim import (event,
                        registry, translations, config)
 
 from marketsim.gen._out.event._createscheduler import createScheduler
@@ -23,13 +23,15 @@ inmemory = {}
 
 predefined = simulations
 
+from marketsim.gen._out.js._graph import Graph
+
 def createSimulation(name='All'):
     
     with createScheduler() as world:
         
         myRegistry = registry.create()
     
-        ctx = Context(world, js.Graph)
+        ctx = Context(world, Graph)
         dependency_ex = strategy.side.PairTrading(ctx.book_B)\
                                      .Strategy(event.Every(math.random.expovariate(1.)),
                                                order.side.Market())

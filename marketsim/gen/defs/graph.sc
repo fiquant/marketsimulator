@@ -46,6 +46,7 @@ package veusz
      *  Graph to render at Veusz. Time series are added to it automatically in their constructor
      */
     @python.intrinsic("veusz.Graph_Impl")
+    @label = "%(name)s"
     def Graph(name = "graph") : IGraph
 
     @python.intrinsic("veusz.CSV_Impl")
@@ -53,4 +54,15 @@ package veusz
 
     @python.intrinsic("veusz.VolumeLevelProxy_Impl")
     def VolumeLevelProxy(source : Any, idx : Int) : Any
+}
+
+@category = "N/A"
+package js
+{
+    /**
+     *  Graph to render at Veusz. Time series are added to it automatically in their constructor
+     */
+    @python.intrinsic("js.Graph_Impl")
+    @label = "%(name)s"
+    def Graph(name = "graph") : IGraph
 }

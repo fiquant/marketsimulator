@@ -1,7 +1,7 @@
 class String(object):
     @property
     def Graph(self):
-        from marketsim.gen._out.veusz._graph import Graph
+        from marketsim.gen._out.js._graph import Graph
         return Graph(self)
     
     def Quote(self, start = None,end = None):

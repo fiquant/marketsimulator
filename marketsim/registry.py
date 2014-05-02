@@ -612,8 +612,8 @@ def createSimulation(instance):
     from marketsim.gen._out.orderbook._remote import Remote_IOrderBookITwoWayLinkListITimeSerie as Remote
     orderbooks = instance.valuesOfType(Local) + instance.valuesOfType(Remote)
 
-    from marketsim.js import Graph
-    graphs = instance.valuesOfType(Graph)
+    from marketsim.gen._out.js._graph import Graph_String
+    graphs = instance.valuesOfType(Graph_String)
     return Simulation(traders, orderbooks, graphs)
 
 def create():

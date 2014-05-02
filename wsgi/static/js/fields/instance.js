@@ -271,7 +271,7 @@ function createInstance(id, src, root) {
 		created = makeTimeSerie(created, root.response().ts_changes);
 	} else if (ctor.indexOf("marketsim.gen._out._volumelevels.volumeLevels") != -1) {
 		created = makeVolumeLevels(created, root.response().ts_changes);
-	} else if (ctor.indexOf("marketsim.js.Graph") != -1) {
+	} else if (ctor.indexOf("marketsim.gen._out.js._graph.Graph_String") != -1) {
 		created = makeGraph(created, root);
 	}
 	return created;

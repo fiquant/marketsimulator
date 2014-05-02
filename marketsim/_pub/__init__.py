@@ -30,6 +30,7 @@ import ops
 import math
 import order
 import strategy
+import js
 import trader
 import orderbook
 import observable
