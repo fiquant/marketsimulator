@@ -1,9 +1,5 @@
 from marketsim import ops, event, _
 
-from marketsim.gen._out._iaccount import IAccount
-
-from marketsim.gen._out.trader._singleproxy import SingleProxy
-
 from marketsim.gen._out._intrinsic_base.trader.props import Position_Base, Balance_Base, PendingVolume_Base
 
 from marketsim.gen._out.event._event import Event_Impl
@@ -14,36 +10,20 @@ class OnTraded_Impl(Event_Impl, OnTraded_Base):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
-    def __init__(self):
-        Event_Impl.__init__(self)
-
-    def bind_ex(self, ctx):
+    def bind_impl(self, ctx):
         if not hasattr(self, '_subscriptions'):
             event.subscribe(self.trader.on_traded, self.fire, self)
 
-from marketsim.gen._out.event._event import Event_Impl
+from marketsim.gen._out._intrinsic_base.trader.props import OnOrderMatched_Base
 
-class OnOrderMatched(Event_Impl):
+class OnOrderMatched_Impl(Event_Impl, OnOrderMatched_Base):
     """ Multicast event that is fired once a trade is done by *trader*
     """
 
-    def __init__(self, trader = None):
-        Event_Impl.__init__(self)
-        self.trader = trader if trader else SingleProxy()
-
-    def reset_ex(self, generation):
-        self.trader.reset_ex(generation)
-        self._subscriptions[0].reset_ex(generation)
-        self._reset_generation_ex = generation
-
-    def bind_ex(self, ctx):
+    def bind_impl(self, ctx):
         if not hasattr(self, '_subscriptions'):
-            self.trader.bind_ex(ctx)
             event.subscribe(self.trader.on_order_matched, self.fire, self)
-            self._subscriptions[0].bind_ex(ctx)
-            self._bound_ex = True
 
-    _properties = { 'trader' : IAccount }
 
 
 class Position_Impl(Position_Base):

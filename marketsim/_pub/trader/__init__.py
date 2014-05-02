@@ -1,5 +1,7 @@
 from marketsim.gen._out.trader._balance import Balance
 
+from marketsim.gen._out.trader._onordermatched import OnOrderMatched
+
 from marketsim.gen._out.trader._roughpnl import RoughPnL
 
 from marketsim.gen._out.trader._position import Position

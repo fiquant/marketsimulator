@@ -1638,6 +1638,9 @@ package trader
     @python.intrinsic("trader.props.Balance_Impl")
     def Balance(trader = .trader.SingleProxy() : .IAccount) : .IObservable[.Price]
     
+    @python.intrinsic("trader.props.OnOrderMatched_Impl")
+    def OnOrderMatched(trader = .trader.SingleProxy() : .IAccount) : .IEvent
+    
     /** Returns traders naive approximation of trader eficiency.
      *  It takes into account only the best price of the order queue
      */

@@ -45,6 +45,9 @@ package trader
 
     @python.intrinsic("trader.props.OnTraded_Impl")
     def OnTraded(trader = SingleProxy() : IAccount) : IEvent
+
+    @python.intrinsic("trader.props.OnOrderMatched_Impl")
+    def OnOrderMatched(trader = SingleProxy() : IAccount) : IEvent
 }
 
 

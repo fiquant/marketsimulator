@@ -5,6 +5,11 @@ class IAccount(object):
         return Balance(self)
     
     @property
+    def OnOrderMatched(self):
+        from marketsim.gen._out.trader._onordermatched import OnOrderMatched
+        return OnOrderMatched(self)
+    
+    @property
     def Orderbook(self):
         from marketsim.gen._out.orderbook._oftrader import OfTrader
         return OfTrader(self)

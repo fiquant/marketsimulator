@@ -1,7 +1,7 @@
 from marketsim import (event, request, types, _)
 from marketsim.gen._out._side import Side
 
-from marketsim.gen._intrinsic.trader.props import OnOrderMatched
+from marketsim.gen._out.trader._onordermatched import OnOrderMatched
 from marketsim.gen._out.orderbook._oftrader import OfTrader
 
 from marketsim.gen._out._intrinsic_base.strategy.account import Account_Base, VirtualMarket_Base
