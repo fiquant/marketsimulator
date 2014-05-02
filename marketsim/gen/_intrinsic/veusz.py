@@ -87,13 +87,51 @@ class OutputStream(object):
         os.fsync(self._file)     
         
     def __exit__(self, type, value, traceback):
-        self.flush()  
-   
+        self.flush()
+
+import collections
+
+class TimeserieAttributes(collections.Mapping):
+    """ Represents environment for model objects
+
+    Holds references to some outer objects (scheduler, trader in hand, orderbook in hand etc.)
+    This class is immutable so its instances can be easily shared.
+
+    """
+    def __init__(self, d):
+        self._d = d.copy()
+        self._hash = None
+
+    def __getattr__(self, item):
+        if item[0:2] != '__':
+            return self.__getitem__(item)
+        else:
+            raise AttributeError
+
+    def __iter__(self):
+        return iter(self._d)
+
+    def __len__(self):
+        return len(self._d)
+
+    def __getitem__(self, key):
+        return self._d[key]
+
+    def __hash__(self):
+        if self._hash is None:
+            self._hash = 0
+            for pair in self.iteritems():
+                self._hash ^= hash(pair)
+        return self._hash
+
+from marketsim.gen._out._intrinsic_base.veusz import CSV_Base
+
+
 class CSV(object):
     """ Represents a time serie to be written into a file 
     """
     
-    def __init__(self, directory, source, attributes={}):
+    def __init__(self, directory, source, attributes):
         """ Initializes time serie writer
         filename - name of a file to write to 
         source - indicator with values to be saved
@@ -149,6 +187,7 @@ class CSV(object):
             f.write("Set('{0}', {1})\n".format(k,repr(v)))
         f.write("To('..')\n")
   
+CSV_Impl = CSV
 
 graphHeader = """
 To(Add('page', name='page_{0}', autoadd=False))
@@ -235,13 +274,13 @@ class Graph_Impl(Graph_Base):
         if 'volumeLevels' in source.attributes:
             self.processVolumeLevels(source, attr)    
         else:    
-            self._datas.append(CSV(myDir(), source, attr))
+            self._datas.append(CSV(myDir(), source, TimeserieAttributes(attr)))
             
     def processVolumeLevels(self, source, attr):
         volumes = source.source.dataSource.volumes
         for i in range(len(volumes)):
             proxy = VolumeLevelProxy(source, len(volumes) - i - 1)
-            self._datas.append(CSV(myDir(), proxy, attr))
+            self._datas.append(CSV(myDir(), proxy, TimeserieAttributes(attr)))
         
     def removeTimeSerie(self, source):
         self._datas = [x for x in self._datas if x._source is not source]

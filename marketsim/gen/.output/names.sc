@@ -170,6 +170,11 @@ package veusz
     @python.intrinsic("veusz.Graph_Impl")
     def Graph(name = "graph") : .IGraph
     
+    @python.intrinsic("veusz.CSV_Impl")
+    def CSV(directory : .String,
+            source : .Any,
+            attributes : .Any) : .Any
+    
 }
 
 @category = "Ops"

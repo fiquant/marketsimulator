@@ -328,6 +328,9 @@ class Interlacing(IFunctionfloat):
         self.timeframe = timeframe
         self.phase = phase
 
+    def reset_ex(self, generation):
+        self._reset_generation_ex = generation
+
     def bind_ex(self, ctx):
         if not hasattr(self, '_scheduler'):
             self._scheduler = ctx.world

@@ -256,6 +256,55 @@ Definitions:
 | | | | | | | | | - intrinsic
 | | | | | | | - List:
 | | | | | | | | - veusz.Graph_Impl
+| | | | - FunDef:
+| | | | | - CSV
+| | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - directory
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - String
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - source
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | | - Parameter:
+| | | | | | | - attributes
+| | | | | | | - Some:
+| | | | | | | | - SimpleType:
+| | | | | | | | | - QualifiedName:
+| | | | | | | | | | - List:
+| | | | | | | | | | | - Any
+| | | | | | | | | - List:
+| | | | | | | - None
+| | | | | | | - List:
+| | | | | - None
+| | | | | - Some:
+| | | | | | - SimpleType:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - Any
+| | | | | | | - List:
+| | | | | - None
+| | | | | - List:
+| | | | | | - Annotation:
+| | | | | | | - QualifiedName:
+| | | | | | | | - List:
+| | | | | | | | | - python
+| | | | | | | | | - intrinsic
+| | | | | | | - List:
+| | | | | | | | - veusz.CSV_Impl
 | | - List:
 | | | - Attribute:
 | | | | - category
