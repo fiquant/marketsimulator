@@ -25,7 +25,7 @@ class Scheduler {
     def schedule(actionTime : Time, handler : Callback)
     {
         assert(actionTime >= t)
-        future enqueue ((actionTime, next_id, handler))
+        future += ((actionTime, next_id, handler))
         next_id += 1
     }
 
