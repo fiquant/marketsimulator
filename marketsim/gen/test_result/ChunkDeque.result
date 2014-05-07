@@ -1,1 +1,4 @@
-LimitOrder(12,1,Limit_Sell)
+LimitOrder(32,1,Limit_Sell_32)
+LimitOrder(31,1,Limit_Sell_31)
+LimitOrder(31,1,Limit_Sell_31)
+LimitOrder(12,1,Limit_Sell_12)

@@ -30,8 +30,16 @@ case object ChunkDeque extends Test {
 
         val deque = new marketsim.orderbook.ChunkDeque[SellEntry]()
 
-        deque insert SellEntry(LimitOrder(12, 1, LimitOrderEvents("Limit_Sell")))
+        deque insert SellEntry(LimitOrder(32, 1, LimitOrderEvents("Limit_Sell_32")))
+        trace(deque.top.order.toString)
 
+        deque insert SellEntry(LimitOrder(31, 1, LimitOrderEvents("Limit_Sell_31")))
+        trace(deque.top.order.toString)
+
+        deque insert SellEntry(LimitOrder(52, 1, LimitOrderEvents("Limit_Sell_52")))
+        trace(deque.top.order.toString)
+
+        deque insert SellEntry(LimitOrder(12, 1, LimitOrderEvents("Limit_Sell_12")))
         trace(deque.top.order.toString)
     }
 
