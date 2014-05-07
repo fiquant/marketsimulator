@@ -1,17 +1,16 @@
 package test
 
-object Scheduler {
+case object Scheduler extends Test {
 
-    def main(args : Array[String]) {
+    def apply(trace : String => Unit) {
 
         import marketsim.Scheduler
 
         val scheduler = new Scheduler()
-        var result = List.empty[(Double, Int)]
 
         def callback()
         {
-            result = (scheduler.currentTime, scheduler.eventId) :: result
+            trace((scheduler.currentTime, scheduler.eventId).toString())
         }
 
         0 to 10 foreach { i => scheduler.schedule(i, callback) }
@@ -21,8 +20,6 @@ object Scheduler {
         scheduler.process(() => 6.0, callback)
 
         scheduler.workTill(60.0)
-
-        scala.tools.nsc.io.File("test_result/scheduler.result").writeAll(result.reverse mkString "\n")
     }
 
 }

@@ -5,51 +5,44 @@ import marketsim._
 import marketsim.orderbook.Entry
 import marketsim.LimitOrder
 
-object OrderMatching {
+case object OrderMatching extends Test {
 
-    var result = List.empty[String]
-
-    def trace(p : Any)
+    def apply(trace : String => Unit)
     {
-        result = p.toString :: result
-    }
-
-    case class LimitOrderEvents(name : String) extends LimitOrderListener
-    {
-        def OnTraded(order : LimitOrder, price : Ticks, volume : Volume)
+        case class LimitOrderEvents(name : String) extends LimitOrderListener
         {
-            trace(s"$order traded at $price with $volume")
+            def OnTraded(order : LimitOrder, price : Ticks, volume : Volume)
+            {
+                trace(s"$order traded at $price with $volume")
+            }
+
+            def OnMatched(order : LimitOrder)
+            {
+                trace(s"$order matched completely")
+            }
+
+            def OnCancelled(order : LimitOrder)
+            {
+                trace(s"$order cancelled")
+            }
+
+            override def toString = name
         }
 
-        def OnMatched(order : LimitOrder)
+        case class MarketOrderEvents(name : String) extends MarketOrderListener
         {
-            trace(s"$order matched completely")
+            def OnTraded(order : MarketOrder, price : Ticks, volume : Volume)
+            {
+                trace(s"$order traded at $price with $volume")
+            }
+
+            def OnMatched(order : MarketOrder)
+            {
+                trace(s"$order matched completely")
+            }
+
+            override def toString = "X"
         }
-
-        def OnCancelled(order : LimitOrder)
-        {
-            trace(s"$order cancelled")
-        }
-
-        override def toString = name
-    }
-
-    case class MarketOrderEvents(name : String) extends MarketOrderListener
-    {
-        def OnTraded(order : MarketOrder, price : Ticks, volume : Volume)
-        {
-            trace(s"$order traded at $price with $volume")
-        }
-
-        def OnMatched(order : MarketOrder)
-        {
-            trace(s"$order matched completely")
-        }
-
-        override def toString = "X"
-    }
-
-    def main(args : Array[String]) {
 
         val sellOrder = Entry(LimitOrder(100, 10, LimitOrderEvents("Sell")))
         val buyOrder = Entry(LimitOrder(100, -10, LimitOrderEvents("Buy")))
@@ -74,8 +67,5 @@ object OrderMatching {
         matchOrder(buyOrder, LimitOrder(120, 1, LimitOrderEvents("120_Sell")))
         matchOrder(buyOrder, LimitOrder(80, 1, LimitOrderEvents("80_Sell")))
         matchOrder(buyOrder, LimitOrder(100, 10, LimitOrderEvents("100_Sell")))
-
-        scala.tools.nsc.io.File("test_result/order_matching.result").writeAll(result.reverse mkString "\n")
     }
-
 }
