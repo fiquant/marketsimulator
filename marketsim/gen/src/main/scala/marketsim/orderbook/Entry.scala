@@ -2,18 +2,15 @@ package marketsim.orderbook
 
 import marketsim._
 
-case class Entry (order : LimitOrder)
+abstract class Entry (order : LimitOrder)
 {
     private var volumeUnmatched = order.volumeAbsolute
 
     def isEmpty = volumeUnmatched == 0
     def getVolumeUnmatched = volumeUnmatched
 
-    def canMatchWith(other : LimitOrder) =
-        order.side match {
-            case Sell => other.price >= order.price
-            case Buy  => other.price <= order.price
-        }
+    def side : Side
+    def canMatchWith(other : LimitOrder) : Boolean
 
     // returns unmatched volume of the other order
     def matchWith[T](other : Order[T], otherVolumeUnmatched : Volume) =
@@ -30,4 +27,33 @@ case class Entry (order : LimitOrder)
         volumeUnmatched -= volume
         otherVolumeUnmatched - volume
     }
+}
+
+final class SellEntry(order : LimitOrder) extends Entry(order)
+{
+    def side = Sell
+
+    def canMatchWith(other : LimitOrder) = {
+        assert(other.side == Buy)
+        other.price >= order.price
+    }
+}
+
+final class BuyEntry(order : LimitOrder) extends Entry(order)
+{
+    def side = Buy
+
+    def canMatchWith(other : LimitOrder) = {
+        assert(other.side == Sell)
+        other.price <= order.price
+    }
+}
+
+object Entry
+{
+    def apply(order : LimitOrder) =
+        order.side match {
+            case Sell => new SellEntry(order)
+            case Buy => new BuyEntry(order)
+        }
 }

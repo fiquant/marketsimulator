@@ -1,6 +1,6 @@
 package marketsim.orderbook
 
-class Chunk {
+class ChunkDeque {
 
     var array = Option.empty[Array[Entry]]
 
