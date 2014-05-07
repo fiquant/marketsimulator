@@ -34,10 +34,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         if (chunks(chunkIdx - base) == null)
             chunks(chunkIdx - base) = new Chunk(chunkSize)
 
-        val relIdx =   key - chunkIdx * chunkSize
-
         val myChunk = chunks(chunkIdx - base)
 
+        val relIdx =   key - chunkIdx * chunkSize
 
         myChunk(relIdx) = if (myChunk(relIdx) == null) Queue[T](x) else myChunk(relIdx) enqueue x
 
@@ -48,6 +47,36 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     def top = {
         assert(chunks.nonEmpty)
         chunks(0)(topIdx - base*chunkSize).front
+    }
+
+    def isEmpty = chunks.isEmpty
+
+    def pop() {
+        assert(!isEmpty)
+        val relIdx = topIdx - base*chunkSize
+        val myChunk = chunks(0)
+        myChunk(relIdx) = myChunk(relIdx).dequeue._2
+
+        if (myChunk(relIdx).isEmpty)
+        {
+            myChunk(relIdx) = null
+
+            val newTop = myChunk.indexWhere({ _ != null}, relIdx)
+
+            if (newTop != -1) {
+                topIdx += newTop - relIdx
+            } else {
+                chunks(0) = null
+                val firstNonNull = chunks.indexWhere({ _ != null })
+                if (firstNonNull == -1) {
+                    chunks = Array.empty[Chunk]
+                } else {
+                    chunks = chunks.slice(firstNonNull, chunks.length )
+                    base += firstNonNull
+                    topIdx = (chunks(0) indexWhere { _ != null }) + base*chunkSize
+                }
+            }
+        }
     }
 
 }

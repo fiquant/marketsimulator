@@ -1,4 +1,20 @@
-LimitOrder(32,1,Limit_Sell_32)
-LimitOrder(31,1,Limit_Sell_31)
-LimitOrder(31,1,Limit_Sell_31)
-LimitOrder(12,1,Limit_Sell_12)
+Inserting 32
+Best = LimitOrder(32,1,Limit_Sell_32)
+Inserting 31
+Best = LimitOrder(31,1,Limit_Sell_31)
+Inserting 52
+Best = LimitOrder(31,1,Limit_Sell_31)
+Inserting 12
+Best = LimitOrder(12,1,Limit_Sell_12)
+Inserting 52
+Best = LimitOrder(12,1,Limit_Sell_12)
+popping
+Best = LimitOrder(31,1,Limit_Sell_31)
+popping
+Best = LimitOrder(32,1,Limit_Sell_32)
+popping
+Best = LimitOrder(52,1,Limit_Sell_52)
+popping
+Best = LimitOrder(52,1,Limit_Sell_52)
+popping
+Empty = true
