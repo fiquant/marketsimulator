@@ -52,22 +52,28 @@ object OrderMatching {
     def main(args : Array[String]) {
 
         val sellOrder = Entry(LimitOrder(100, 10, LimitOrderEvents("Sell")))
+        val buyOrder = Entry(LimitOrder(100, -10, LimitOrderEvents("Buy")))
 
-        def sellOrderMatch[T](other : Order[T], volume : Volume)
+        def matchOrder[T](order : Entry, other : Order[T])
         {
             other match {
-                case x : LimitOrder if !(sellOrder canMatchWith x) =>
+                case x : LimitOrder if !(order canMatchWith x) =>
                 case _ =>
-                    val unmatchedOther = sellOrder matchWith (other, volume)
+                    val unmatchedOther = order matchWith (other, other.volumeAbsolute)
                     trace("Unmatched other = " + unmatchedOther)
-                    trace("Unmatched sell = " + sellOrder.getVolumeUnmatched)
+                    trace("Unmatched sell = " + order.getVolumeUnmatched)
             }
         }
 
-        sellOrderMatch(MarketOrder(1, MarketOrderEvents("Market_Buy")), 1)
-        sellOrderMatch(LimitOrder(120, -1, LimitOrderEvents("120_Buy")), 1)
-        sellOrderMatch(LimitOrder(80, -1, LimitOrderEvents("80_Buy")), 1)
-        sellOrderMatch(LimitOrder(100, -10, LimitOrderEvents("100_Buy")), 10)
+        matchOrder(sellOrder, MarketOrder(1, MarketOrderEvents("Market_Buy")))
+        matchOrder(sellOrder, LimitOrder(120, -1, LimitOrderEvents("120_Buy")))
+        matchOrder(sellOrder, LimitOrder(80, -1, LimitOrderEvents("80_Buy")))
+        matchOrder(sellOrder, LimitOrder(100, -10, LimitOrderEvents("100_Buy")))
+
+        matchOrder(buyOrder, MarketOrder(-1, MarketOrderEvents("Market_Sell")))
+        matchOrder(buyOrder, LimitOrder(120, 1, LimitOrderEvents("120_Sell")))
+        matchOrder(buyOrder, LimitOrder(80, 1, LimitOrderEvents("80_Sell")))
+        matchOrder(buyOrder, LimitOrder(100, 10, LimitOrderEvents("100_Sell")))
 
         scala.tools.nsc.io.File("test_result/order_matching.result").writeAll(result.reverse mkString "\n")
     }
