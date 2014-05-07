@@ -7,8 +7,8 @@ object Tester {
         val tests =
             Scheduler ::
             OrderMatching ::
+            ChunkDeque ::
                     Nil
-
 
         tests foreach { t =>
             var result = List.empty[String]

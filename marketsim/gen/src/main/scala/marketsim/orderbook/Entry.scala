@@ -11,6 +11,7 @@ abstract class Entry (order : LimitOrder)
 
     def side : Side
     def canMatchWith(other : LimitOrder) : Boolean
+    def signedTicks : Ticks
 
     // returns unmatched volume of the other order
     def matchWith[T](other : Order[T], otherVolumeUnmatched : Volume) =
@@ -29,7 +30,7 @@ abstract class Entry (order : LimitOrder)
     }
 }
 
-final class SellEntry(order : LimitOrder) extends Entry(order)
+final case class SellEntry(order : LimitOrder) extends Entry(order)
 {
     def side = Sell
 
@@ -37,9 +38,11 @@ final class SellEntry(order : LimitOrder) extends Entry(order)
         assert(other.side == Buy)
         other.price >= order.price
     }
+
+    def signedTicks = order.price
 }
 
-final class BuyEntry(order : LimitOrder) extends Entry(order)
+final case class BuyEntry(order : LimitOrder) extends Entry(order)
 {
     def side = Buy
 
@@ -47,6 +50,8 @@ final class BuyEntry(order : LimitOrder) extends Entry(order)
         assert(other.side == Sell)
         other.price <= order.price
     }
+
+    def signedTicks = -order.price
 }
 
 object Entry
