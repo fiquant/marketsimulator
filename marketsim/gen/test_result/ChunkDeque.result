@@ -8,6 +8,18 @@ Inserting 12
 Best = LimitOrder(12,1,Limit_Sell_12)
 Inserting 52
 Best = LimitOrder(12,1,Limit_Sell_12)
+Inserting 9
+Best = LimitOrder(9,1,Limit_Sell_9)
+Cancel LimitOrder(9,1,Limit_Sell_9) -> true
+Inserting 32
+Best = LimitOrder(12,1,Limit_Sell_12)
+Cancel LimitOrder(32,1,Limit_Sell_32) -> true
+Inserting 40
+Best = LimitOrder(12,1,Limit_Sell_12)
+Cancel LimitOrder(40,1,Limit_Sell_40) -> true
+Inserting 77
+Best = LimitOrder(12,1,Limit_Sell_12)
+Cancel LimitOrder(77,1,Limit_Sell_77) -> true
 popping
 Best = LimitOrder(31,1,Limit_Sell_31)
 popping
