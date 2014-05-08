@@ -163,26 +163,26 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 val chunkIdx = if (key > 0) key / chunkSize else key / chunkSize - 1
                 if (base <= chunkIdx && chunkIdx < base + chunks.length)
                 {
-                    val myChunk = chunks(chunkIdx - base)
-                    if (myChunk != null) {
-                        val relIdx =   key - chunkIdx * chunkSize
-                        if (myChunk remove (relIdx, order))
-                        {
-                            if (myChunk.isEmpty) {
-                                chunks(chunkIdx - base) = null
-                                if (chunkIdx == base + chunks.length - 1) {
-                                    val lastIdx = chunks lastIndexWhere { _ != null }
-                                    if (lastIdx == -1)
-                                        chunks = Array.empty[Chunk]
-                                    else
-                                        chunks = chunks slice (0, lastIdx + 1)
+                    chunks(chunkIdx - base) match {
+                        case null => false
+                        case myChunk =>
+                            val relIdx = key - chunkIdx * chunkSize
+                            if (myChunk remove (relIdx, order))
+                            {
+                                if (myChunk.isEmpty) {
+                                    chunks(chunkIdx - base) = null
+                                    if (chunkIdx == base + chunks.length - 1) {
+                                        val lastIdx = chunks lastIndexWhere { _ != null }
+                                        if (lastIdx == -1)
+                                            chunks = Array.empty[Chunk]
+                                        else
+                                            chunks = chunks slice (0, lastIdx + 1)
+                                    }
                                 }
-                            }
-                            true
-                        } else
-                            false
-                    } else
-                        false
+                                true
+                            } else
+                                false
+                    }
                 }
                 else
                     false
