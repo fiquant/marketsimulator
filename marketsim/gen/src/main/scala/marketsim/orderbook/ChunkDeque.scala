@@ -5,8 +5,6 @@ import marketsim.{Sell, LimitOrder}
 
 class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
-    type Chunk = Array[Queue]
-
     class Queue(initial : Entry)
     {
         private var impl = scala.collection.immutable.Queue[Entry](initial)
@@ -16,9 +14,10 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
             impl = impl enqueue x
         }
 
-        def pop()
+        def pop() =
         {
             impl = impl.dequeue._2
+            isEmpty
         }
 
         def isEmpty = impl.isEmpty
@@ -32,6 +31,56 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
             impl = rest
             found.nonEmpty
         }
+    }
+
+    class Chunk
+    {
+        private val impl = new Array[Queue](chunkSize)
+
+        def get(idx : Int) = impl(idx)
+
+        def push(idx : Int, x : Entry) =
+            impl(idx) match {
+                case null => impl(idx) = new Queue(x)
+                case queue => queue push x
+            }
+
+        /**
+         *  Believes that the best element is in 'idx' position and pops it away
+         * @param idx index of element to pop away
+         * @return delta between indices of the new best element and the old.
+         *         this delta is negative if current chunk becomes empty
+         */
+        def pop(idx : Int) = {
+            if (impl(idx).pop()) {
+                impl(idx) = null
+                (impl indexWhere ({ _ != null}, idx)) - idx
+            } else
+                0
+        }
+
+        def isEmpty = impl forall { _ == null }
+
+        /**
+         * Removes entry with 'order' that should reside at position 'idx'
+         * @return true iff the element is actually removed
+         */
+        def remove(idx : Int, order : LimitOrder) =
+        {
+            impl(idx) match {
+                case null => false
+                case queue =>
+                    if (queue remove order)
+                    {
+                        if (queue.isEmpty)
+                            impl(idx) = null
+                        true
+                    } else
+                        false
+            }
+        }
+
+        def idxOfBest = impl indexWhere { _ != null }
     }
 
     private var chunks = Array.empty[Chunk]
@@ -60,16 +109,13 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         }
 
         if (chunks(chunkIdx - base) == null)
-            chunks(chunkIdx - base) = new Chunk(chunkSize)
+            chunks(chunkIdx - base) = new Chunk
 
         val myChunk = chunks(chunkIdx - base)
 
         val relIdx =   key - chunkIdx * chunkSize
 
-        if (myChunk(relIdx) == null)
-            myChunk(relIdx) = new Queue(x)
-        else
-            myChunk(relIdx) push x
+        myChunk push (relIdx, x)
 
         if (key < topIdx)
             topIdx = key
@@ -77,7 +123,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def top = {
         assert(chunks.nonEmpty)
-        chunks(0)(topIdx - base*chunkSize).top
+        chunks(0).get(topIdx - base*chunkSize).top
     }
 
     def isEmpty = chunks.isEmpty
@@ -86,17 +132,11 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         assert(!isEmpty)
         val relIdx = topIdx - base*chunkSize
         val myChunk = chunks(0)
-        myChunk(relIdx).pop()
 
-        if (myChunk(relIdx).isEmpty)
+        myChunk pop relIdx match
         {
-            myChunk(relIdx) = null
-
-            val newTop = myChunk.indexWhere({ _ != null}, relIdx)
-
-            if (newTop != -1) {
-                topIdx += newTop - relIdx
-            } else {
+            case delta if delta >= 0 => topIdx += delta
+            case _ =>
                 chunks(0) = null
                 val firstNonNull = chunks.indexWhere({ _ != null })
                 if (firstNonNull == -1) {
@@ -104,9 +144,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 } else {
                     chunks = chunks.slice(firstNonNull, chunks.length )
                     base += firstNonNull
-                    topIdx = (chunks(0) indexWhere { _ != null }) + base*chunkSize
+                    topIdx = chunks(0).idxOfBest + base*chunkSize
                 }
-            }
+
         }
     }
 
@@ -126,28 +166,19 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                     val myChunk = chunks(chunkIdx - base)
                     if (myChunk != null) {
                         val relIdx =   key - chunkIdx * chunkSize
-                        val queue = myChunk(relIdx)
-                        if (queue != null) {
-                            if (queue remove order)
-                            {
-                                if (queue.isEmpty)
-                                {
-                                    myChunk(relIdx) = null
-                                    if (myChunk forall { _ == null }) {
-                                        chunks(chunkIdx - base) = null
-                                        if (chunkIdx == base + chunks.length - 1) {
-                                            val lastIdx = chunks lastIndexWhere { _ != null }
-                                            if (lastIdx == -1)
-                                                chunks = Array.empty[Chunk]
-                                            else
-                                                chunks = chunks slice (0, lastIdx + 1)
-                                        }
-                                    }
+                        if (myChunk remove (relIdx, order))
+                        {
+                            if (myChunk.isEmpty) {
+                                chunks(chunkIdx - base) = null
+                                if (chunkIdx == base + chunks.length - 1) {
+                                    val lastIdx = chunks lastIndexWhere { _ != null }
+                                    if (lastIdx == -1)
+                                        chunks = Array.empty[Chunk]
+                                    else
+                                        chunks = chunks slice (0, lastIdx + 1)
                                 }
-                                true
                             }
-                            else
-                                false
+                            true
                         } else
                             false
                     } else
