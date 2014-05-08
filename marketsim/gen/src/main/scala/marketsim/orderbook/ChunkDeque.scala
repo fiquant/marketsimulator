@@ -1,12 +1,12 @@
 package marketsim.orderbook
 
-import marketsim.{Sell, LimitOrder}
+import marketsim.{Ticks, Sell, LimitOrder}
 
 class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     deque =>
 
-    class Chunk
+    private class Chunk
     {
         chunk =>
 
@@ -16,11 +16,16 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
             private var volume = 0
             changeVolume(initial.getVolumeUnmatched)
 
-            private def changeVolume(delta : Int)
+            private def changeVolume(delta : Int, price : Ticks)
             {
                 volume += delta
                 chunk.volume += delta
+                chunk.price += delta * price
             }
+
+            private def changeVolume(delta : Int) { changeVolume(delta, price) }
+
+            def price = impl.front.order.price
 
             def getVolume = volume
 
@@ -47,7 +52,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 assert(found.length < 2)
                 impl = rest
                 if (found.length == 1)
-                    changeVolume(-found.front.getVolumeUnmatched)
+                    changeVolume(-found.front.getVolumeUnmatched, x.price)
                 found.nonEmpty
             }
 
@@ -56,8 +61,29 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         private val impl = new Array[Queue](chunkSize)
         private var volume = 0
+        private var price = 0
+
+        def getVolume = volume
+        def getPrice = price
 
         override def toString = impl filter { _ != null } mkString " "
+
+        def cumulativePrice(volume : Int) =
+        {
+            var v = 0
+            var p = 0
+
+            (impl.toStream
+                    filter    { _ != null }
+                    takeWhile { _ => v < volume }
+                    foreach   { queue =>
+                                    val d = queue.getVolume min (volume - v)
+                                    v += d
+                                    p += d * queue.price
+                              })
+
+            p
+        }
 
         def get(idx : Int) = impl(idx)
 
@@ -151,6 +177,28 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     }
 
     def isEmpty = chunks.isEmpty
+
+    def cumulativePrice(volume : Int) =
+    {
+        var v = 0
+        var p = 0
+
+        (chunks.toStream
+                filter      { _ != null }
+                takeWhile   { _ => v < volume }
+                foreach     { chunk =>
+                                if (volume - v < chunk.getVolume)
+                                {
+                                    v  = volume
+                                    p += chunk.cumulativePrice(volume - v)
+                                } else {
+                                    v += chunk.getVolume
+                                    p += chunk.getPrice
+                                }
+        })
+
+        p
+    }
 
     def pop() {
         assert(!isEmpty)
