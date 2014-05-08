@@ -30,20 +30,26 @@ case object ChunkDeque extends Test {
 
         val deque = new marketsim.orderbook.ChunkDeque[SellEntry]()
 
+        def epilogue()
+        {
+            trace("cumPrice(3) = " + deque.cumulativePrice(3))
+            trace(deque + "\n")
+        }
+
         def insert(p : Int) =
         {
             trace("Inserting " + p)
             val order = LimitOrder(p, 1, LimitOrderEvents("Limit_Sell_" + p))
             deque insert SellEntry(order)
             trace("Best = " + deque.top.order.toString)
-            trace(deque + "\n")
+            epilogue()
             order
         }
 
         def cancel(order : LimitOrder)
         {
             trace(s"Cancel $order -> " + (deque cancel order))
-            trace(deque + "\n")
+            epilogue()
         }
 
         def pop()
@@ -54,7 +60,7 @@ case object ChunkDeque extends Test {
                 trace("Empty = true")
             else
                 trace("Best = " + deque.top.order.toString)
-            trace(deque + "\n")
+            epilogue()
         }
 
         insert(32)

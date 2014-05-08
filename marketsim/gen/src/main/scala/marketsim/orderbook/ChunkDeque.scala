@@ -189,15 +189,15 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 foreach     { chunk =>
                                 if (volume - v < chunk.getVolume)
                                 {
-                                    v  = volume
                                     p += chunk.cumulativePrice(volume - v)
+                                    v  = volume
                                 } else {
                                     v += chunk.getVolume
                                     p += chunk.getPrice
                                 }
         })
 
-        p
+        if (v < volume) -1 else p
     }
 
     def pop() {
