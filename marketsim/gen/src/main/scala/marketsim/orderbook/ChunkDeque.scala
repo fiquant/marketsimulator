@@ -5,7 +5,34 @@ import marketsim.{Sell, LimitOrder}
 
 class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
-    type Chunk = Array[Queue[T]]
+    type Chunk = Array[Queue]
+
+    class Queue(initial : Entry)
+    {
+        private var impl = scala.collection.immutable.Queue[Entry](initial)
+
+        def push(x : Entry)
+        {
+            impl = impl enqueue x
+        }
+
+        def pop()
+        {
+            impl = impl.dequeue._2
+        }
+
+        def isEmpty = impl.isEmpty
+
+        def top = impl.front
+
+        def remove(x : LimitOrder)  =
+        {
+            val (found, rest) = impl partition { _.order eq x }
+            assert(found.length < 2)
+            impl = rest
+            found.nonEmpty
+        }
+    }
 
     private var chunks = Array.empty[Chunk]
 
@@ -39,7 +66,10 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         val relIdx =   key - chunkIdx * chunkSize
 
-        myChunk(relIdx) = if (myChunk(relIdx) == null) Queue[T](x) else myChunk(relIdx) enqueue x
+        if (myChunk(relIdx) == null)
+            myChunk(relIdx) = new Queue(x)
+        else
+            myChunk(relIdx) push x
 
         if (key < topIdx)
             topIdx = key
@@ -47,7 +77,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def top = {
         assert(chunks.nonEmpty)
-        chunks(0)(topIdx - base*chunkSize).front
+        chunks(0)(topIdx - base*chunkSize).top
     }
 
     def isEmpty = chunks.isEmpty
@@ -56,7 +86,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         assert(!isEmpty)
         val relIdx = topIdx - base*chunkSize
         val myChunk = chunks(0)
-        myChunk(relIdx) = myChunk(relIdx).dequeue._2
+        myChunk(relIdx).pop()
 
         if (myChunk(relIdx).isEmpty)
         {
@@ -98,11 +128,10 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                         val relIdx =   key - chunkIdx * chunkSize
                         val queue = myChunk(relIdx)
                         if (queue != null) {
-                            val (found, rest) = queue partition { _.order eq order }
-                            if (found.length == 1) {
-                                if (rest.nonEmpty) {
-                                    myChunk(relIdx) = rest
-                                } else {
+                            if (queue remove order)
+                            {
+                                if (queue.isEmpty)
+                                {
                                     myChunk(relIdx) = null
                                     if (myChunk forall { _ == null }) {
                                         chunks(chunkIdx - base) = null
@@ -116,10 +145,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                                     }
                                 }
                                 true
-                            } else {
-                                assert(found.length == 0)
-                                false
                             }
+                            else
+                                false
                         } else
                             false
                     } else
