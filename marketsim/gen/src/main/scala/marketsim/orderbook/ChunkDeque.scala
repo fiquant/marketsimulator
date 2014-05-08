@@ -4,24 +4,35 @@ import marketsim.{Sell, LimitOrder}
 
 class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
+    deque =>
+
     class Chunk
     {
+        chunk =>
+
         class Queue(initial : Entry)
         {
             private var impl = scala.collection.immutable.Queue[Entry](initial)
-            private var volume = initial.getVolumeUnmatched
+            private var volume = 0
+            changeVolume(initial.getVolumeUnmatched)
+
+            private def changeVolume(delta : Int)
+            {
+                volume += delta
+                chunk.volume += delta
+            }
 
             def getVolume = volume
 
             def push(x : Entry)
             {
                 impl = impl enqueue x
-                volume += x.getVolumeUnmatched
+                changeVolume(x.getVolumeUnmatched)
             }
 
             def pop() =
             {
-                volume -= impl.front.getVolumeUnmatched
+                changeVolume(-impl.front.getVolumeUnmatched)
                 impl = impl.dequeue._2
                 isEmpty
             }
@@ -36,7 +47,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 assert(found.length < 2)
                 impl = rest
                 if (found.length == 1)
-                    volume -= found.front.getVolumeUnmatched
+                    changeVolume(-found.front.getVolumeUnmatched)
                 found.nonEmpty
             }
 
@@ -44,6 +55,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         }
 
         private val impl = new Array[Queue](chunkSize)
+        private var volume = 0
 
         override def toString = impl filter { _ != null } mkString " "
 
@@ -69,7 +81,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 0
         }
 
-        def isEmpty = impl forall { _ == null }
+        def isEmpty = volume == 0
 
         /**
          * Removes entry with 'order' that should reside at position 'idx'
