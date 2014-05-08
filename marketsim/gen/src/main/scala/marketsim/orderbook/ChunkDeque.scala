@@ -1,41 +1,51 @@
 package marketsim.orderbook
 
-import scala.collection.immutable.Queue
 import marketsim.{Sell, LimitOrder}
 
 class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
-    class Queue(initial : Entry)
-    {
-        private var impl = scala.collection.immutable.Queue[Entry](initial)
-
-        def push(x : Entry)
-        {
-            impl = impl enqueue x
-        }
-
-        def pop() =
-        {
-            impl = impl.dequeue._2
-            isEmpty
-        }
-
-        def isEmpty = impl.isEmpty
-
-        def top = impl.front
-
-        def remove(x : LimitOrder)  =
-        {
-            val (found, rest) = impl partition { _.order eq x }
-            assert(found.length < 2)
-            impl = rest
-            found.nonEmpty
-        }
-    }
-
     class Chunk
     {
+        class Queue(initial : Entry)
+        {
+            private var impl = scala.collection.immutable.Queue[Entry](initial)
+            private var volume = initial.getVolumeUnmatched
+
+            def getVolume = volume
+
+            def push(x : Entry)
+            {
+                impl = impl enqueue x
+                volume += x.getVolumeUnmatched
+            }
+
+            def pop() =
+            {
+                volume -= impl.front.getVolumeUnmatched
+                impl = impl.dequeue._2
+                isEmpty
+            }
+
+            def isEmpty = impl.isEmpty
+
+            def top = impl.front
+
+            def remove(x : LimitOrder)  =
+            {
+                val (found, rest) = impl partition { _.order eq x }
+                assert(found.length < 2)
+                impl = rest
+                if (found.length == 1)
+                    volume -= found.front.getVolumeUnmatched
+                found.nonEmpty
+            }
+
+            override def toString =  volume + "/" + impl.front.order.price
+        }
+
         private val impl = new Array[Queue](chunkSize)
+
+        override def toString = impl filter { _ != null } mkString " "
 
         def get(idx : Int) = impl(idx)
 
@@ -90,6 +100,8 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     // index in chunk of the best order queue
     private var topIdx = Int.MaxValue
+
+    override def toString = chunks filter { _ != null } mkString " "
 
     def insert(x : T)
     {

@@ -36,12 +36,14 @@ case object ChunkDeque extends Test {
             val order = LimitOrder(p, 1, LimitOrderEvents("Limit_Sell_" + p))
             deque insert SellEntry(order)
             trace("Best = " + deque.top.order.toString)
+            trace(deque + "\n")
             order
         }
 
         def cancel(order : LimitOrder)
         {
             trace(s"Cancel $order -> " + (deque cancel order))
+            trace(deque + "\n")
         }
 
         def pop()
@@ -52,6 +54,7 @@ case object ChunkDeque extends Test {
                 trace("Empty = true")
             else
                 trace("Best = " + deque.top.order.toString)
+            trace(deque + "\n")
         }
 
         insert(32)
