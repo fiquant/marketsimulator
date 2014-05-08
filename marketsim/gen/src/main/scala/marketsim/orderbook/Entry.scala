@@ -2,8 +2,10 @@ package marketsim.orderbook
 
 import marketsim._
 
-abstract class Entry (order : LimitOrder)
+abstract class Entry
 {
+    val order : LimitOrder
+
     private var volumeUnmatched = order.volumeAbsolute
 
     def isEmpty = volumeUnmatched == 0
@@ -11,7 +13,8 @@ abstract class Entry (order : LimitOrder)
 
     def side : Side
     def canMatchWith(other : LimitOrder) : Boolean
-    def signedTicks : Ticks
+    def signedTicks = makeSignedTicks(order.price)
+    def makeSignedTicks(ticks : Int) : Ticks
 
     // returns unmatched volume of the other order
     def matchWith[T](other : Order[T], otherVolumeUnmatched : Volume) =
@@ -30,7 +33,7 @@ abstract class Entry (order : LimitOrder)
     }
 }
 
-final case class SellEntry(order : LimitOrder) extends Entry(order)
+final case class SellEntry(order : LimitOrder) extends Entry
 {
     def side = Sell
 
@@ -39,10 +42,10 @@ final case class SellEntry(order : LimitOrder) extends Entry(order)
         other.price >= order.price
     }
 
-    def signedTicks = order.price
+    def makeSignedTicks(price : Ticks) = price
 }
 
-final case class BuyEntry(order : LimitOrder) extends Entry(order)
+final case class BuyEntry(order : LimitOrder) extends Entry
 {
     def side = Buy
 
@@ -51,7 +54,7 @@ final case class BuyEntry(order : LimitOrder) extends Entry(order)
         other.price <= order.price
     }
 
-    def signedTicks = -order.price
+    def makeSignedTicks(price : Ticks) = -price
 }
 
 object Entry
