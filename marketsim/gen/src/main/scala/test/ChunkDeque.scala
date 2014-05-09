@@ -33,6 +33,7 @@ case object ChunkDeque extends Test {
         def epilogue()
         {
             trace("cumPrice(3) = " + deque.cumulativePrice(3))
+            trace(s"priceForVolumes([1,3,5]) = " + deque.getPricesForVolumes(1 :: 3 :: 5 :: Nil).mkString("[",",","]"))
             trace(deque + "\n")
         }
 

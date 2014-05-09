@@ -1,85 +1,103 @@
 Inserting 32
 Best = LimitOrder(32,1,Limit_Sell_32)
 cumPrice(3) = -1
+priceForVolumes([1,3,5]) = [32,-1,-1]
 1/32
 
 Inserting 31
 Best = LimitOrder(31,1,Limit_Sell_31)
 cumPrice(3) = -1
+priceForVolumes([1,3,5]) = [31,-1,-1]
 1/31 1/32
 
 Inserting 52
 Best = LimitOrder(31,1,Limit_Sell_31)
 cumPrice(3) = 115
+priceForVolumes([1,3,5]) = [31,52,-1]
 1/31 1/32 1/52
 
 Inserting 12
 Best = LimitOrder(12,1,Limit_Sell_12)
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,-1]
 1/12 1/31 1/32 1/52
 
 Inserting 52
 Best = LimitOrder(12,1,Limit_Sell_12)
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52
 
 Inserting 9
 Best = LimitOrder(9,1,Limit_Sell_9)
 cumPrice(3) = 52
+priceForVolumes([1,3,5]) = [9,31,52]
 1/9 1/12 1/31 1/32 2/52
 
 Cancel LimitOrder(9,1,Limit_Sell_9) -> true
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52
 
 Inserting 32
 Best = LimitOrder(12,1,Limit_Sell_12)
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 2/32 2/52
 
 Cancel LimitOrder(32,1,Limit_Sell_32) -> true
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52
 
 Inserting 40
 Best = LimitOrder(12,1,Limit_Sell_12)
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 1/40 2/52
 
 Cancel LimitOrder(40,1,Limit_Sell_40) -> true
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52
 
 Inserting 77
 Best = LimitOrder(12,1,Limit_Sell_12)
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52 1/77
 
 Cancel LimitOrder(77,1,Limit_Sell_77) -> true
 cumPrice(3) = 75
+priceForVolumes([1,3,5]) = [12,32,52]
 1/12 1/31 1/32 2/52
 
 popping
 Best = LimitOrder(31,1,Limit_Sell_31)
 cumPrice(3) = 115
+priceForVolumes([1,3,5]) = [31,52,-1]
 1/31 1/32 2/52
 
 popping
 Best = LimitOrder(32,1,Limit_Sell_32)
 cumPrice(3) = 136
+priceForVolumes([1,3,5]) = [32,52,-1]
 1/32 2/52
 
 popping
 Best = LimitOrder(52,1,Limit_Sell_52)
 cumPrice(3) = -1
+priceForVolumes([1,3,5]) = [52,-1,-1]
 2/52
 
 popping
 Best = LimitOrder(52,1,Limit_Sell_52)
 cumPrice(3) = -1
+priceForVolumes([1,3,5]) = [52,-1,-1]
 1/52
 
 popping
 Empty = true
 cumPrice(3) = -1
+priceForVolumes([1,3,5]) = [-1,-1,-1]
 

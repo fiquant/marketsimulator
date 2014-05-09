@@ -56,17 +56,21 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 found.nonEmpty
             }
 
-            def getPricesForVolumes(volumeFilled : Int, volumes : List[Int],
-                                    cont : (Int, List[Int]) => List[Ticks]) : List[Ticks] =
+            def getPricesForVolumes(volumes : List[Int],
+                                    cont : List[Int] => List[Ticks]) =
             {
-                if (volumes.isEmpty) Nil
-                else {
-                    if (volumes.head <= volumeFilled + volume) {
-                        price :: getPricesForVolumes(volumes.head, volumes.tail, cont)
-                    } else {
-                        cont(volumeFilled + volume, volumes)
+                def inner(volumeUsed : Int, volumes : List[Int]) : List[Ticks] =
+                {
+                    if (volumes.isEmpty) Nil
+                    else {
+                        if (volumes.head <= volume - volumeUsed) {
+                            price :: inner(volumes.head + volumeUsed, volumes.tail)
+                        } else {
+                            cont((volumes.head - volume + volumeUsed) :: volumes.tail)
+                        }
                     }
                 }
+                inner(0, volumes)
             }
 
             override def toString =  volume + "/" + impl.front.order.price
@@ -103,26 +107,26 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
          * If there is no corresponding volume level returns -1
          * @param volumes - volumes requested. should be in range [baseVolume, baseVolume + volume)
          */
-        def getPricesForVolumes(volumeFilled : Int, volumes : List[Int],
-                                cont : (Int, List[Int]) => List[Ticks]) : List[Ticks] =
+        def getPricesForVolumes(volumes : List[Int],
+                                cont : List[Int] => List[Ticks])  =
         {
-            def inner(rest : List[Queue], volumeFilled : Int, volumes : List[Int]) : List[Ticks] =
+            def inner(rest : List[Queue], volumes : List[Int]) : List[Ticks] =
             {
                 rest match {
-                    case Nil => cont(volumeFilled, volumes)
+                    case Nil => cont(volumes)
                     case q :: qs =>
                         if (volumes.isEmpty) Nil
                         else {
-                            if (volumes.head <= volumeFilled + q.getVolume) {
-                                q.getPricesForVolumes(volumeFilled, volumes, { (filled, unfilled) => inner(qs, filled, unfilled) })
+                            if (volumes.head <= q.getVolume) {
+                                q.getPricesForVolumes(volumes, { unfilled => inner(qs, unfilled) })
                             } else {
-                                inner(rest, volumeFilled + q.getVolume, volumes.tail)
+                                inner(qs, (volumes.head - q.getVolume) :: volumes.tail)
                             }
                         }
                 }
             }
 
-            inner((impl.toStream filter { _ != null}).toList, volumeFilled, volumes)
+            inner((impl.toStream filter { _ != null}).toList, volumes)
         }
 
         def get(idx : Int) = impl(idx)
@@ -242,22 +246,27 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def getPricesForVolumes(volumes : List[Int]) : List[Ticks] =
     {
-        def inner(rest : List[Chunk], volumeFilled : Int, volumes : List[Int]) : List[Ticks] =
+        def inner(rest : List[Chunk], volumes : List[Int]) : List[Ticks] =
         {
             rest match {
                 case Nil => List.fill(volumes.length){ -1 }
                 case ch :: chs =>
                     if (volumes.isEmpty) Nil
                     else {
-                        if (volumes.head <= volumeFilled + ch.getVolume) {
-                            ch.getPricesForVolumes(volumeFilled, volumes, { (filled, unfilled) => inner(chs, filled, unfilled) })
+                        if (volumes.head <= ch.getVolume) {
+                            ch.getPricesForVolumes(volumes, { unfilled => inner(chs, unfilled) })
                         } else {
-                            inner(chs, volumeFilled + ch.getVolume, volumes)
+                            inner(chs, (volumes.head - ch.getVolume) :: volumes.tail)
                         }
                     }
             }
         }
-        inner((chunks.toStream filter { _ != null }).toList, 0, volumes)
+        def differences(l:List[Int]) : List[Int] = l match {
+          case a :: (rest @ b :: _) => (b - a) :: differences(rest)
+          case _ => Nil
+        }
+
+        inner((chunks.toStream filter { _ != null }).toList, volumes.head :: differences(volumes))
     }
 
     def pop() {
