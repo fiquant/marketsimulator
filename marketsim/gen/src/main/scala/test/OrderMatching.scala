@@ -15,14 +15,18 @@ case object OrderMatching extends Test {
 
             val asks = new marketsim.orderbook.Queue[SellEntry]
 
+            import marketsim.Scheduler.{async, schedule}
+
             def sendLimit(price : Ticks, volume : Int) {
                 val order = LimitOrder(price, -volume, limitEvents(price + "_Buy"))
                 trace("Sending" + order)
                 trace("before = " + asks)
                 val res = asks matchWith order
-                trace("Unfilled = " + res)
-                trace("after = " + asks)
-                trace("")
+                async(() => {
+                    trace("Unfilled = " + res)
+                    trace("after = " + asks)
+                    trace("")
+                })
             }
 
             def sendMarket(volume : Int) {
@@ -30,24 +34,26 @@ case object OrderMatching extends Test {
                 trace("Sending" + order)
                 trace("before = " + asks)
                 val res = asks matchWith order
-                trace("Unfilled = " + res)
-                trace("after = " + asks)
-                trace("")
+                async(() => {
+                    trace("Unfilled = " + res)
+                    trace("after = " + asks)
+                    trace("")
+                })
             }
 
-            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_1_100")))
+            schedule(0, () => asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_1_100"))))
 
-            sendMarket(1)
-            sendLimit(120, 1)
-            sendLimit(80, 1)
-            sendLimit(100, 10)
+            schedule(1, () => sendMarket(1))
+            schedule(2, () => sendLimit(120, 1))
+            schedule(3, () => sendLimit(80, 1))
+            schedule(4, () => sendLimit(100, 10))
 
-            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_2_100")))
-            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_3_100")))
-            asks insert new SellEntry(LimitOrder(103, 10, limitEvents("Sell_1_103")))
+            schedule(5, () => asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_2_100"))))
+            schedule(6, () => asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_3_100"))))
+            schedule(7, () => asks insert new SellEntry(LimitOrder(103, 10, limitEvents("Sell_1_103"))))
 
-            sendLimit(100, 15)
-            sendLimit(105, 20)
+            schedule(8, () => sendLimit(100, 15))
+            schedule(9, () => sendLimit(105, 20))
 
             scheduler workTill 10
         })

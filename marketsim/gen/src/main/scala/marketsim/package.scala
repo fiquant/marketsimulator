@@ -52,9 +52,11 @@ package object marketsim {
 
         val owner : OrderListener[T]
 
-        def OnTraded(price : Ticks, volume : Volume) = owner OnTraded (self, price, volume)
-        def OnMatched() = owner OnMatched self
-        def OnCancelled() = owner OnCancelled self
+        import marketsim.Scheduler.async
+
+        def OnTraded(price : Ticks, volume : Volume) = async(() => owner OnTraded (self, price, volume))
+        def OnMatched() = async(() => owner OnMatched self)
+        def OnCancelled() = async(() => owner OnCancelled self)
     }
 
     case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]
