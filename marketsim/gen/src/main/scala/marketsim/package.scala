@@ -18,10 +18,15 @@ package object marketsim {
     {
         def process(order : MarketOrder)
         def process(order : LimitOrder)
+
+        def handle(request : Request)
     }
 
     // abstract class for all requests that can be handled by order books
     trait Request
+    {
+        def processIn(orderbook : Orderbook)
+    }
 
     trait OrderListener[Order]
     {
@@ -60,9 +65,11 @@ package object marketsim {
 
     case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]
     {
+        def processIn(orderbook : Orderbook) = orderbook process this
     }
     
     case class LimitOrder(price : Ticks, volume : Volume, owner : LimitOrderListener) extends Order[LimitOrder]
     {
+        def processIn(orderbook : Orderbook) = orderbook process this
     }
 }

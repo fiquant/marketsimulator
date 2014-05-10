@@ -4,10 +4,26 @@ import marketsim._
 import marketsim.MarketOrder
 import marketsim.LimitOrder
 
-class Local extends Orderbook {
+class Local(processingTime : Time = 0.0) extends Orderbook {
 
     private val asks = new Queue[SellEntry]
     private val bids = new Queue[BuyEntry]
+
+    private val requests = collection.mutable.Queue[Request]()
+
+    import marketsim.Scheduler.schedule
+
+    private def wakeUp() {
+        requests.dequeue() processIn this
+        if (requests.nonEmpty)
+            schedule(processingTime, { wakeUp() })
+    }
+
+    def handle(request : Request) = {
+        requests enqueue request
+        if (requests.length == 1)
+            schedule(processingTime, { wakeUp() })
+    }
 
     def process(order : MarketOrder) =
 
@@ -22,8 +38,8 @@ class Local extends Orderbook {
 
         order.side match {
             case Sell =>
-                //asks insert new SellEntry(order, bids matchWith order)
+                asks insert SellEntry(order, bids matchWith order)
             case Buy =>
-                //order OnStopped (asks matchWith order)
+                bids insert BuyEntry(order, asks matchWith order)
         }
 }
