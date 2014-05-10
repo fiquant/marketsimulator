@@ -23,7 +23,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 chunk.price += delta * price
             }
 
-            private def changeVolume(delta : Int) { changeVolume(delta, price) }
+            private[ChunkDeque] def changeVolume(delta : Int) { changeVolume(delta, price) }
 
             def price = impl.front.order.price
 
@@ -219,6 +219,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         assert(chunks.nonEmpty)
         chunks(0).get(topIdx - base*chunkSize).top
     }
+
+    def takeVolumeFromTop(deltaVolume : Int) =
+        chunks(0) get (topIdx - base*chunkSize) changeVolume deltaVolume
 
     def isEmpty = chunks.isEmpty
 

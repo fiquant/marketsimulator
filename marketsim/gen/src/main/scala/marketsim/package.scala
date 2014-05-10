@@ -42,7 +42,7 @@ package object marketsim {
 
         def OnTraded(price : Ticks, volume : Volume)
         {
-            owner.OnTraded(self, price, volume)
+            owner OnTraded (self, price, volume)
         }
     }
     

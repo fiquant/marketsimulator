@@ -16,7 +16,12 @@ abstract class Entry
     def signedTicks = makeSignedTicks(order.price)
     def makeSignedTicks(ticks : Int) : Ticks
 
-    // returns unmatched volume of the other order
+    /**
+     * Matches a limit order with a suitable market or limit order
+     * @param other - order to match with
+     * @param otherVolumeUnmatched - unmatched volume of the other order
+     * @return new unmatched volume of the other order
+     */
     def matchWith[T](other : Order[T], otherVolumeUnmatched : Volume) =
     {
         assert(otherVolumeUnmatched > 0)
