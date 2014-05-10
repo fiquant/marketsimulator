@@ -67,17 +67,17 @@ object Scheduler
     def currentTime = instance.get.currentTime
     def eventId     = instance.get.eventId
 
-    def schedule(actionTime : Time, handler : Callback) = instance.get.schedule(actionTime, handler)
+    def schedule(actionTime : Time, handler : => Unit) = instance.get.schedule(actionTime, () => handler)
 
-    def scheduleAfter(dt : Time, handler : Callback) = schedule(currentTime + dt, handler)
+    def scheduleAfter(dt : Time, handler : => Unit) = schedule(currentTime + dt, handler)
 
-    def async(handler : Callback) = schedule(currentTime, handler)
+    def async(handler : => Unit) = schedule(currentTime, handler)
 
     def process(intervals : () => Time, handler : Callback)
     {
-        async(() => {
+        async {
             handler()
-            scheduleAfter(intervals(), () => process(intervals, handler))
-        })
+            scheduleAfter(intervals(), process(intervals, handler))
+        }
     }
 }

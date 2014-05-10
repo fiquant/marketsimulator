@@ -4,7 +4,7 @@ case object Scheduler extends Test {
 
     def apply(trace : String => Unit) {
 
-        import marketsim.Scheduler.process
+        import marketsim.Scheduler.{process, schedule}
 
         marketsim.Scheduler.create({ scheduler =>
             def callback()
@@ -12,7 +12,7 @@ case object Scheduler extends Test {
                 trace((scheduler.currentTime, scheduler.eventId).toString())
             }
 
-            0 to 10 foreach { i => scheduler.schedule(i, callback) }
+            0 to 10 foreach { i => schedule(i, callback) }
 
             process(() => 2.0, callback)
             process(() => 3.0, callback)
