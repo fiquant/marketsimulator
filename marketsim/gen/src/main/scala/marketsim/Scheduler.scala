@@ -29,10 +29,6 @@ class Scheduler {
         next_id += 1
     }
 
-    def scheduleAfter(dt : Time, handler : Callback) = schedule(t + dt, handler)
-
-    def async(handler : Callback) = schedule(t, handler)
-
     def step() =
         if (future.isEmpty)
             false
@@ -52,8 +48,34 @@ class Scheduler {
         t = limit
         steps
     }
+}
 
-    def advance(dt : Time) = workTill(t + dt)
+object Scheduler
+{
+    private var instance = Option.empty[Scheduler]
+
+    def create(f : Scheduler => Unit)
+    {
+        assert(instance.isEmpty)
+        instance = Some(new Scheduler)
+        f(instance.get)
+        instance = None
+    }
+
+    def currentTime = instance.get.currentTime
+    def eventId     = instance.get.eventId
+
+    def schedule(actionTime : Time, handler : Callback) = instance.get.schedule(actionTime, handler)
+
+    def scheduleAfter(dt : Time, handler : Callback) = schedule(currentTime + dt, handler)
+
+    def async(handler : Callback) = schedule(currentTime, handler)
+
+    def step() = instance.get.step()
+
+    def workTill(limit : Time) = instance.get.workTill(limit)
+
+    def advance(dt : Time) = workTill(currentTime + dt)
 
     def process(intervals : () => Time, handler : Callback)
     {
@@ -64,4 +86,3 @@ class Scheduler {
     }
 
 }
-
