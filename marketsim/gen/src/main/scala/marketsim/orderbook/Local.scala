@@ -9,20 +9,22 @@ class Local(processingTime : Time = 0.0) extends Orderbook {
     private val asks = new Queue[SellEntry]
     private val bids = new Queue[BuyEntry]
 
+    override def toString = "{asks = " + asks + "; " + "bids = " + bids + "}"
+
     private val requests = collection.mutable.Queue[Request]()
 
-    import marketsim.Scheduler.schedule
+    import marketsim.Scheduler.scheduleAfter
 
     private def wakeUp() {
         requests.dequeue() processIn this
         if (requests.nonEmpty)
-            schedule(processingTime, { wakeUp() })
+            scheduleAfter(processingTime, { wakeUp() })
     }
 
     def handle(request : Request) = {
         requests enqueue request
         if (requests.length == 1)
-            schedule(processingTime, { wakeUp() })
+            scheduleAfter(processingTime, { wakeUp() })
     }
 
     def process(order : MarketOrder) =

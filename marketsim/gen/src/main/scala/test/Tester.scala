@@ -8,6 +8,7 @@ object Tester {
             Scheduler ::
             OrderMatching ::
             ChunkDeque ::
+            LocalOrderBook ::
                     Nil
 
         tests foreach { t =>

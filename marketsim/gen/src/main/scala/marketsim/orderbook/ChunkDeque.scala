@@ -185,10 +185,18 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     override def toString = chunks filter { _ != null } mkString ("[", " ", "]")
 
+    private def toPosition(x : Int) =
+        if (x < 0) (x / chunkSize, x % chunkSize + chunkSize - 1)
+        else       (x / chunkSize, x % chunkSize)
+
+    private def fromPosition(chunkIdx : Int, relIdx : Int) =
+        if (chunkIdx < 0) chunkIdx * chunkSize + relIdx - chunkSize + 1
+        else              chunkIdx * chunkSize + relIdx
+
     def insert(x : T)
     {
         val key = x.signedTicks
-        val chunkIdx = if (key > 0) key / chunkSize else key / chunkSize - 1
+        val (chunkIdx, relIdx) = toPosition(key)
 
         if (chunks.isEmpty) {
             chunks = new Array[Chunk](1)
@@ -207,8 +215,6 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         val myChunk = chunks(chunkIdx - base)
 
-        val relIdx =   key - chunkIdx * chunkSize
-
         myChunk push (relIdx, x)
 
         if (key < topIdx)
@@ -217,11 +223,11 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def top = {
         assert(chunks.nonEmpty)
-        chunks(0).get(topIdx - base*chunkSize).top
+        chunks(0).get(toPosition(topIdx)._2).top
     }
 
     def takeVolumeFromTop(deltaVolume : Int) =
-        chunks(0) get (topIdx - base*chunkSize) changeVolume -deltaVolume
+        chunks(0) get toPosition(topIdx)._2 changeVolume -deltaVolume
 
     def isEmpty = chunks.isEmpty
 
@@ -274,7 +280,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def pop() {
         assert(!isEmpty)
-        val relIdx = topIdx - base*chunkSize
+        val relIdx = toPosition(topIdx)._2
         val myChunk = chunks(0)
 
         myChunk pop relIdx match
@@ -304,13 +310,12 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
             } else {
                 // unfortunately we cannot access static members of T
                 val key = if (order.side == Sell) order.price else -order.price
-                val chunkIdx = if (key > 0) key / chunkSize else key / chunkSize - 1
+                val (chunkIdx, relIdx) = toPosition(key)
                 if (base <= chunkIdx && chunkIdx < base + chunks.length)
                 {
                     chunks(chunkIdx - base) match {
                         case null => false
                         case myChunk =>
-                            val relIdx = key - chunkIdx * chunkSize
                             if (myChunk remove (relIdx, order))
                             {
                                 if (myChunk.isEmpty) {
