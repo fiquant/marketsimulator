@@ -19,16 +19,28 @@ package object marketsim {
 
     trait OrderListener[Order]
     {
+        /**
+         * Called when a trade is done with order
+         * @param order  - order in trade
+         * @param price  - price of the trade
+         * @param volume - volume of the trade
+         */
         def OnTraded(order : Order, price : Ticks, volume : Volume)
+
+        /**
+         * Called when order is completely matched
+         */
         def OnMatched(order : Order)
+
+        /**
+         * Called when order is cancelled (for limit orders) or cannot be matched (for market orders)
+         * Implies that order book stops this order processing
+         */
+        def OnCancelled(order : Order)
     }
     
     type MarketOrderListener = OrderListener[MarketOrder]
-
-    trait LimitOrderListener extends OrderListener[LimitOrder]
-    {
-        def OnCancelled(order : LimitOrder)
-    }
+    type LimitOrderListener = OrderListener[LimitOrder]
 
     trait Order[T] extends Request
     {

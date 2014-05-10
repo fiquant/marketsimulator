@@ -41,6 +41,11 @@ case object OrderMatching extends Test {
                 trace(s"$order matched completely")
             }
 
+            def OnCancelled(order : MarketOrder)
+            {
+                trace(s"$order cancelled")
+            }
+
             override def toString = "X"
         }
 
