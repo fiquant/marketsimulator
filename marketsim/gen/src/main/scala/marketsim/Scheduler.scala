@@ -48,6 +48,8 @@ class Scheduler {
         t = limit
         steps
     }
+
+    def advance(dt : Time) = workTill(currentTime + dt)
 }
 
 object Scheduler
@@ -71,12 +73,6 @@ object Scheduler
 
     def async(handler : Callback) = schedule(currentTime, handler)
 
-    def step() = instance.get.step()
-
-    def workTill(limit : Time) = instance.get.workTill(limit)
-
-    def advance(dt : Time) = workTill(currentTime + dt)
-
     def process(intervals : () => Time, handler : Callback)
     {
         async(() => {
@@ -84,5 +80,4 @@ object Scheduler
             scheduleAfter(intervals(), () => process(intervals, handler))
         })
     }
-
 }
