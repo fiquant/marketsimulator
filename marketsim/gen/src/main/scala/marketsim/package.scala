@@ -52,12 +52,11 @@ package object marketsim {
 
         val owner : OrderListener[T]
 
-        def OnTraded(price : Ticks, volume : Volume)
-        {
-            owner OnTraded (self, price, volume)
-        }
+        def OnTraded(price : Ticks, volume : Volume) = owner OnTraded (self, price, volume)
+        def OnMatched() = owner OnMatched self
+        def OnCancelled() = owner OnCancelled self
     }
-    
+
     case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]
     {
     }
