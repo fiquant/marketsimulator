@@ -1,8 +1,7 @@
 package test
 
-import marketsim.orderbook.Entry
+import marketsim.orderbook.{SellEntry, Entry}
 import marketsim._
-import marketsim.orderbook.Entry
 import marketsim.LimitOrder
 
 case object OrderMatching extends Test {
@@ -12,28 +11,45 @@ case object OrderMatching extends Test {
         def marketEvents(name : String) = OrderEvents[MarketOrder](trace, name)
         def limitEvents(name : String) = OrderEvents[LimitOrder](trace, name)
 
-        val sellOrder = Entry(LimitOrder(100, 10, limitEvents("Sell")))
-        val buyOrder = Entry(LimitOrder(100, -10, limitEvents("Buy")))
+        marketsim.Scheduler.create({ scheduler =>
 
-        def matchOrder[T](order : Entry, other : Order[T])
-        {
-            other match {
-                case x : LimitOrder if !(order canMatchWith x) =>
-                case _ =>
-                    val volumeTraded = order matchWith (other, other.volumeAbsolute)
-                    trace("Unmatched other = " + (other.volumeAbsolute - volumeTraded))
-                    trace("Unmatched sell = " + order.getVolumeUnmatched)
+            val asks = new marketsim.orderbook.Queue[SellEntry]
+
+            def sendLimit(price : Ticks, volume : Int) {
+                val order = LimitOrder(price, -volume, limitEvents(price + "_Buy"))
+                trace("Sending" + order)
+                trace("before = " + asks)
+                val res = asks matchWith order
+                trace("Unfilled = " + res)
+                trace("after = " + asks)
+                trace("")
             }
-        }
 
-        matchOrder(sellOrder, MarketOrder(1, marketEvents("Market_Buy")))
-        matchOrder(sellOrder, LimitOrder(120, -1, limitEvents("120_Buy")))
-        matchOrder(sellOrder, LimitOrder(80, -1, limitEvents("80_Buy")))
-        matchOrder(sellOrder, LimitOrder(100, -10, limitEvents("100_Buy")))
+            def sendMarket(volume : Int) {
+                val order = MarketOrder(-volume, marketEvents("Market_Buy"))
+                trace("Sending" + order)
+                trace("before = " + asks)
+                val res = asks matchWith order
+                trace("Unfilled = " + res)
+                trace("after = " + asks)
+                trace("")
+            }
 
-        matchOrder(buyOrder, MarketOrder(-1, marketEvents("Market_Sell")))
-        matchOrder(buyOrder, LimitOrder(120, 1, limitEvents("120_Sell")))
-        matchOrder(buyOrder, LimitOrder(80, 1, limitEvents("80_Sell")))
-        matchOrder(buyOrder, LimitOrder(100, 10, limitEvents("100_Sell")))
+            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_1_100")))
+
+            sendMarket(1)
+            sendLimit(120, 1)
+            sendLimit(80, 1)
+            sendLimit(100, 10)
+
+            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_2_100")))
+            asks insert new SellEntry(LimitOrder(100, 10, limitEvents("Sell_3_100")))
+            asks insert new SellEntry(LimitOrder(103, 10, limitEvents("Sell_1_103")))
+
+            sendLimit(100, 15)
+            sendLimit(105, 20)
+
+            scheduler workTill 10
+        })
     }
 }

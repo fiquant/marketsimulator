@@ -1,24 +1,47 @@
-LimitOrder(100,10,Sell) traded at 100 with 1
-MarketOrder(1,Market_Buy) traded at 100 with 1
-Unmatched other = 0
-Unmatched sell = 9
-LimitOrder(100,10,Sell) traded at 100 with 1
+SendingMarketOrder(-1,Market_Buy)
+before = [10/100]
+LimitOrder(100,10,Sell_1_100) traded at 100 with 1
+MarketOrder(-1,Market_Buy) traded at 100 with 1
+Unfilled = 0
+after = [9/100]
+
+SendingLimitOrder(120,-1,120_Buy)
+before = [9/100]
+LimitOrder(100,10,Sell_1_100) traded at 100 with 1
 LimitOrder(120,-1,120_Buy) traded at 100 with 1
-Unmatched other = 0
-Unmatched sell = 8
-LimitOrder(100,10,Sell) traded at 100 with 8
+Unfilled = 0
+after = [8/100]
+
+SendingLimitOrder(80,-1,80_Buy)
+before = [8/100]
+Unfilled = 1
+after = [8/100]
+
+SendingLimitOrder(100,-10,100_Buy)
+before = [8/100]
+LimitOrder(100,10,Sell_1_100) traded at 100 with 8
 LimitOrder(100,-10,100_Buy) traded at 100 with 8
-Unmatched other = 2
-Unmatched sell = 0
-LimitOrder(100,-10,Buy) traded at 100 with 1
-MarketOrder(-1,Market_Sell) traded at 100 with 1
-Unmatched other = 0
-Unmatched sell = 9
-LimitOrder(100,-10,Buy) traded at 100 with 1
-LimitOrder(80,1,80_Sell) traded at 100 with 1
-Unmatched other = 0
-Unmatched sell = 8
-LimitOrder(100,-10,Buy) traded at 100 with 8
-LimitOrder(100,10,100_Sell) traded at 100 with 8
-Unmatched other = 2
-Unmatched sell = 0
+LimitOrder(100,10,Sell_1_100) matched completely
+Unfilled = 2
+after = []
+
+SendingLimitOrder(100,-15,100_Buy)
+before = [20/100 10/103]
+LimitOrder(100,10,Sell_2_100) traded at 100 with 10
+LimitOrder(100,-15,100_Buy) traded at 100 with 10
+LimitOrder(100,10,Sell_2_100) matched completely
+LimitOrder(100,10,Sell_3_100) traded at 100 with 5
+LimitOrder(100,-15,100_Buy) traded at 100 with 5
+Unfilled = 0
+after = [5/100 10/103]
+
+SendingLimitOrder(105,-20,105_Buy)
+before = [5/100 10/103]
+LimitOrder(100,10,Sell_3_100) traded at 100 with 5
+LimitOrder(105,-20,105_Buy) traded at 100 with 5
+LimitOrder(100,10,Sell_3_100) matched completely
+LimitOrder(103,10,Sell_1_103) traded at 103 with 10
+LimitOrder(105,-20,105_Buy) traded at 103 with 10
+LimitOrder(103,10,Sell_1_103) matched completely
+Unfilled = 5
+after = []

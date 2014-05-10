@@ -4,9 +4,11 @@ import marketsim.{LimitOrder, MarketOrder}
 
 class Queue[T <: Entry] {
 
-    private val heap = new ChunkDeque[T]()
+    private val orders = new ChunkDeque[T]()
 
-    def insert(order : T) = heap insert order
+    def insert(order : T) = orders insert order
+
+    override def toString = orders.toString
 
     /**
      * Matches other market order against order queue
@@ -16,19 +18,19 @@ class Queue[T <: Entry] {
     {
         def inner(unmatched : Int) : Int =
         {
-            if (heap.isEmpty || unmatched == 0)
+            if (orders.isEmpty || unmatched == 0)
                 unmatched
             else {
-                val mine = heap.top
+                val mine = orders.top
                 assert(other.side != mine.side)
 
                 val trade_volume = mine matchWith (other, unmatched)
 
-                heap takeVolumeFromTop trade_volume
+                orders takeVolumeFromTop trade_volume
 
                 if (mine.isEmpty) {
                     mine.order.OnMatched()
-                    heap.pop()
+                    orders.pop()
                     inner(unmatched - trade_volume)
                 }
                 else
@@ -46,20 +48,20 @@ class Queue[T <: Entry] {
     {
         def inner(unmatched : Int) : Int =
         {
-            if (heap.isEmpty || unmatched == 0)
+            if (orders.isEmpty || unmatched == 0)
                 unmatched
             else {
-                val mine = heap.top
+                val mine = orders.top
                 assert(other.side != mine.side)
                 if (mine canMatchWith other)
                 {
                     val trade_volume = mine matchWith (other, unmatched)
 
-                    heap takeVolumeFromTop trade_volume
+                    orders takeVolumeFromTop trade_volume
 
                     if (mine.isEmpty) {
                         mine.order.OnMatched()
-                        heap.pop()
+                        orders.pop()
                         inner(unmatched - trade_volume)
                     }
                     else

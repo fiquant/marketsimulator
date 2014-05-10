@@ -183,7 +183,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     // index in chunk of the best order queue
     private var topIdx = Int.MaxValue
 
-    override def toString = chunks filter { _ != null } mkString " "
+    override def toString = chunks filter { _ != null } mkString ("[", " ", "]")
 
     def insert(x : T)
     {
@@ -221,7 +221,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     }
 
     def takeVolumeFromTop(deltaVolume : Int) =
-        chunks(0) get (topIdx - base*chunkSize) changeVolume deltaVolume
+        chunks(0) get (topIdx - base*chunkSize) changeVolume -deltaVolume
 
     def isEmpty = chunks.isEmpty
 
