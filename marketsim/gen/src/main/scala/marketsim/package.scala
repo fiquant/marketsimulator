@@ -14,6 +14,12 @@ package object marketsim {
     // converting floating price to ticks should be done by order factories
     type Ticks = Int
 
+    trait Orderbook
+    {
+        def process(order : MarketOrder)
+        def process(order : LimitOrder)
+    }
+
     // abstract class for all requests that can be handled by order books
     trait Request
 
@@ -28,15 +34,9 @@ package object marketsim {
         def OnTraded(order : Order, price : Ticks, volume : Volume)
 
         /**
-         * Called when order is completely matched
+         * Called when order is completely matched or cancelled
          */
-        def OnMatched(order : Order)
-
-        /**
-         * Called when order is cancelled (for limit orders) or cannot be matched (for market orders)
-         * Implies that order book stops this order processing
-         */
-        def OnCancelled(order : Order)
+        def OnStopped(order : Order, unmatchedVolume : Volume)
     }
     
     type MarketOrderListener = OrderListener[MarketOrder]
@@ -55,8 +55,7 @@ package object marketsim {
         import marketsim.Scheduler.async
 
         def OnTraded(price : Ticks, volume : Volume) = async { owner OnTraded (self, price, volume) }
-        def OnMatched() = async { owner OnMatched self }
-        def OnCancelled() = async { owner OnCancelled self }
+        def OnStopped(unmatchedVolume : Volume)      = async { owner OnStopped (self, unmatchedVolume) }
     }
 
     case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]

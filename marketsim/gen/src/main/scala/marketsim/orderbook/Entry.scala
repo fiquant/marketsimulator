@@ -2,11 +2,11 @@ package marketsim.orderbook
 
 import marketsim._
 
-abstract class Entry
+abstract class Entry(initialVolume : Volume)
 {
     val order : LimitOrder
 
-    private var volumeUnmatched = order.volumeAbsolute
+    private var volumeUnmatched = initialVolume
 
     def isEmpty = volumeUnmatched == 0
     def getVolumeUnmatched = volumeUnmatched
@@ -38,7 +38,7 @@ abstract class Entry
     }
 }
 
-final case class SellEntry(order : LimitOrder) extends Entry
+final class SellEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume)
 {
     def side = Sell
 
@@ -50,7 +50,13 @@ final case class SellEntry(order : LimitOrder) extends Entry
     def makeSignedTicks(price : Ticks) = price
 }
 
-final case class BuyEntry(order : LimitOrder) extends Entry
+object SellEntry
+{
+    def apply(order : LimitOrder, initialVolume : Volume) = new SellEntry(order, initialVolume)
+    def apply(order : LimitOrder) = new SellEntry(order, order.volumeAbsolute)
+}
+
+final class BuyEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume)
 {
     def side = Buy
 
@@ -62,11 +68,18 @@ final case class BuyEntry(order : LimitOrder) extends Entry
     def makeSignedTicks(price : Ticks) = -price
 }
 
+object BuyEntry
+{
+    def apply(order : LimitOrder, initialVolume : Volume) = new BuyEntry(order, initialVolume)
+    def apply(order : LimitOrder) = new BuyEntry(order, order.volumeAbsolute)
+}
+
+
 object Entry
 {
     def apply(order : LimitOrder) =
         order.side match {
-            case Sell => new SellEntry(order)
-            case Buy => new BuyEntry(order)
+            case Sell => SellEntry(order)
+            case Buy => BuyEntry(order)
         }
 }

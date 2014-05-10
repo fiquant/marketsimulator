@@ -9,14 +9,9 @@ package object test
             trace(s"$order traded at $price with $volume")
         }
 
-        def OnMatched(order : T)
+        def OnStopped(order : T, unmatchedVolume : Volume)
         {
-            trace(s"$order matched completely")
-        }
-
-        def OnCancelled(order : T)
-        {
-            trace(s"$order cancelled")
+            trace(order + (if (unmatchedVolume != 0) " canceled" else " matched completely"))
         }
 
         override def toString = name

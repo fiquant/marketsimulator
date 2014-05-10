@@ -29,7 +29,7 @@ class Queue[T <: Entry] {
                 orders takeVolumeFromTop trade_volume
 
                 if (mine.isEmpty) {
-                    mine.order.OnMatched()
+                    mine.order OnStopped 0
                     orders.pop()
                     inner(unmatched - trade_volume)
                 }
@@ -60,7 +60,7 @@ class Queue[T <: Entry] {
                     orders takeVolumeFromTop trade_volume
 
                     if (mine.isEmpty) {
-                        mine.order.OnMatched()
+                        mine.order OnStopped 0
                         orders.pop()
                         inner(unmatched - trade_volume)
                     }
