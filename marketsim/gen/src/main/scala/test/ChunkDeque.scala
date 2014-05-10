@@ -8,25 +8,7 @@ case object ChunkDeque extends Test {
 
     def apply(trace : String => Unit)
     {
-        case class LimitOrderEvents(name : String) extends LimitOrderListener
-        {
-            def OnTraded(order : LimitOrder, price : Ticks, volume : Volume)
-            {
-                trace(s"$order traded at $price with $volume")
-            }
-
-            def OnMatched(order : LimitOrder)
-            {
-                trace(s"$order matched completely")
-            }
-
-            def OnCancelled(order : LimitOrder)
-            {
-                trace(s"$order cancelled")
-            }
-
-            override def toString = name
-        }
+        def limitEvents(name : String) = OrderEvents[LimitOrder](trace, name)
 
         val deque = new marketsim.orderbook.ChunkDeque[SellEntry]()
 
@@ -40,7 +22,7 @@ case object ChunkDeque extends Test {
         def insert(p : Int) =
         {
             trace("Inserting " + p)
-            val order = LimitOrder(p, 1, LimitOrderEvents("Limit_Sell_" + p))
+            val order = LimitOrder(p, 1, limitEvents("Limit_Sell_" + p))
             deque insert SellEntry(order)
             trace("Best = " + deque.top.order.toString)
             epilogue()

@@ -9,48 +9,11 @@ case object OrderMatching extends Test {
 
     def apply(trace : String => Unit)
     {
-        case class LimitOrderEvents(name : String) extends LimitOrderListener
-        {
-            def OnTraded(order : LimitOrder, price : Ticks, volume : Volume)
-            {
-                trace(s"$order traded at $price with $volume")
-            }
+        def marketEvents(name : String) = OrderEvents[MarketOrder](trace, name)
+        def limitEvents(name : String) = OrderEvents[LimitOrder](trace, name)
 
-            def OnMatched(order : LimitOrder)
-            {
-                trace(s"$order matched completely")
-            }
-
-            def OnCancelled(order : LimitOrder)
-            {
-                trace(s"$order cancelled")
-            }
-
-            override def toString = name
-        }
-
-        case class MarketOrderEvents(name : String) extends MarketOrderListener
-        {
-            def OnTraded(order : MarketOrder, price : Ticks, volume : Volume)
-            {
-                trace(s"$order traded at $price with $volume")
-            }
-
-            def OnMatched(order : MarketOrder)
-            {
-                trace(s"$order matched completely")
-            }
-
-            def OnCancelled(order : MarketOrder)
-            {
-                trace(s"$order cancelled")
-            }
-
-            override def toString = "X"
-        }
-
-        val sellOrder = Entry(LimitOrder(100, 10, LimitOrderEvents("Sell")))
-        val buyOrder = Entry(LimitOrder(100, -10, LimitOrderEvents("Buy")))
+        val sellOrder = Entry(LimitOrder(100, 10, limitEvents("Sell")))
+        val buyOrder = Entry(LimitOrder(100, -10, limitEvents("Buy")))
 
         def matchOrder[T](order : Entry, other : Order[T])
         {
@@ -63,14 +26,14 @@ case object OrderMatching extends Test {
             }
         }
 
-        matchOrder(sellOrder, MarketOrder(1, MarketOrderEvents("Market_Buy")))
-        matchOrder(sellOrder, LimitOrder(120, -1, LimitOrderEvents("120_Buy")))
-        matchOrder(sellOrder, LimitOrder(80, -1, LimitOrderEvents("80_Buy")))
-        matchOrder(sellOrder, LimitOrder(100, -10, LimitOrderEvents("100_Buy")))
+        matchOrder(sellOrder, MarketOrder(1, marketEvents("Market_Buy")))
+        matchOrder(sellOrder, LimitOrder(120, -1, limitEvents("120_Buy")))
+        matchOrder(sellOrder, LimitOrder(80, -1, limitEvents("80_Buy")))
+        matchOrder(sellOrder, LimitOrder(100, -10, limitEvents("100_Buy")))
 
-        matchOrder(buyOrder, MarketOrder(-1, MarketOrderEvents("Market_Sell")))
-        matchOrder(buyOrder, LimitOrder(120, 1, LimitOrderEvents("120_Sell")))
-        matchOrder(buyOrder, LimitOrder(80, 1, LimitOrderEvents("80_Sell")))
-        matchOrder(buyOrder, LimitOrder(100, 10, LimitOrderEvents("100_Sell")))
+        matchOrder(buyOrder, MarketOrder(-1, marketEvents("Market_Sell")))
+        matchOrder(buyOrder, LimitOrder(120, 1, limitEvents("120_Sell")))
+        matchOrder(buyOrder, LimitOrder(80, 1, limitEvents("80_Sell")))
+        matchOrder(buyOrder, LimitOrder(100, 10, limitEvents("100_Sell")))
     }
 }

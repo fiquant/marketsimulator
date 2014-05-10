@@ -1,5 +1,5 @@
 LimitOrder(100,10,Sell) traded at 100 with 1
-MarketOrder(1,X) traded at 100 with 1
+MarketOrder(1,Market_Buy) traded at 100 with 1
 Unmatched other = 0
 Unmatched sell = 9
 LimitOrder(100,10,Sell) traded at 100 with 1
@@ -11,7 +11,7 @@ LimitOrder(100,-10,100_Buy) traded at 100 with 8
 Unmatched other = 2
 Unmatched sell = 0
 LimitOrder(100,-10,Buy) traded at 100 with 1
-MarketOrder(-1,X) traded at 100 with 1
+MarketOrder(-1,Market_Sell) traded at 100 with 1
 Unmatched other = 0
 Unmatched sell = 9
 LimitOrder(100,-10,Buy) traded at 100 with 1
