@@ -27,14 +27,14 @@ abstract class Entry
         assert(otherVolumeUnmatched > 0)
         assert(volumeUnmatched > 0)
 
-        val volume = otherVolumeUnmatched min volumeUnmatched
-        val price = order.price
+        val trade_volume = otherVolumeUnmatched min volumeUnmatched
+        val trade_price = order.price
 
-        order.OnTraded(price, volume)
-        other.OnTraded(price, volume)
+        order.OnTraded(trade_price, trade_volume)
+        other.OnTraded(trade_price, trade_volume)
 
-        volumeUnmatched -= volume
-        otherVolumeUnmatched - volume
+        volumeUnmatched -= trade_volume
+        trade_volume
     }
 }
 

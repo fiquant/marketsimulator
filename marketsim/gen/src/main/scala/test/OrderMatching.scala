@@ -20,8 +20,8 @@ case object OrderMatching extends Test {
             other match {
                 case x : LimitOrder if !(order canMatchWith x) =>
                 case _ =>
-                    val unmatchedOther = order matchWith (other, other.volumeAbsolute)
-                    trace("Unmatched other = " + unmatchedOther)
+                    val volumeTraded = order matchWith (other, other.volumeAbsolute)
+                    trace("Unmatched other = " + (other.volumeAbsolute - volumeTraded))
                     trace("Unmatched sell = " + order.getVolumeUnmatched)
             }
         }

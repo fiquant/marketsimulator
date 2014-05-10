@@ -21,12 +21,10 @@ class Queue[T <: Entry] {
             else {
                 val mine = heap.top
                 assert(other.side != mine.side)
-                val trade_volume = mine.getVolumeUnmatched min unmatched
-                val trade_price = mine.order.price
-                heap takeVolumeFromTop trade_volume
 
-                mine.order OnTraded (trade_price, trade_volume)
-                other      OnTraded (trade_price, trade_volume)
+                val trade_volume = mine matchWith (other, unmatched)
+
+                heap takeVolumeFromTop trade_volume
 
                 if (mine.isEmpty) {
                     mine.order.OnMatched()
@@ -55,12 +53,9 @@ class Queue[T <: Entry] {
                 assert(other.side != mine.side)
                 if (mine canMatchWith other)
                 {
-                    val trade_volume = mine.getVolumeUnmatched min unmatched
-                    val trade_price = mine.order.price
-                    heap takeVolumeFromTop trade_volume
+                    val trade_volume = mine matchWith (other, unmatched)
 
-                    mine.order OnTraded (trade_price, trade_volume)
-                    other      OnTraded (trade_price, trade_volume)
+                    heap takeVolumeFromTop trade_volume
 
                     if (mine.isEmpty) {
                         mine.order.OnMatched()
