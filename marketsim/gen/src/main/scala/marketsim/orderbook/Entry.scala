@@ -22,7 +22,7 @@ abstract class Entry(initialVolume : Volume)
      * @param otherVolumeUnmatched - unmatched volume of the other order
      * @return new unmatched volume of the other order
      */
-    def matchWith[T](other : Order[T], otherVolumeUnmatched : Volume) =
+    def matchWith[T <: Order[T]](other : Order[T], otherVolumeUnmatched : Volume) =
     {
         assert(otherVolumeUnmatched > 0)
         assert(volumeUnmatched > 0)

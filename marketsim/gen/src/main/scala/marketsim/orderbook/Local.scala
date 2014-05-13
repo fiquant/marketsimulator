@@ -4,15 +4,12 @@ import marketsim._
 import marketsim.MarketOrder
 import marketsim.LimitOrder
 
-class Local(processingTime : Time = 0.0) extends Orderbook {
+class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
 
-    private val asks = new Queue[SellEntry]
-    private val bids = new Queue[BuyEntry]
+    val Asks = new Queue[SellEntry]
+    val Bids = new Queue[BuyEntry]
 
-    def Asks : IOrderQueue = asks
-    def Bids : IOrderQueue = bids
-
-    override def toString = "{asks = " + asks + "; " + "bids = " + bids + "}"
+    override def toString = "{asks = " + Asks + "; " + "bids = " + Bids + "}"
 
     private val requests = collection.mutable.Queue[Request]()
 
@@ -34,17 +31,17 @@ class Local(processingTime : Time = 0.0) extends Orderbook {
 
         order.side match {
             case Sell =>
-                order OnStopped (bids matchWith order)
+                order OnStopped (Bids matchWith order)
             case Buy =>
-                order OnStopped (asks matchWith order)
+                order OnStopped (Asks matchWith order)
         }
 
     def process(order : LimitOrder) =
 
         order.side match {
             case Sell =>
-                asks insert SellEntry(order, bids matchWith order)
+                Asks insert SellEntry(order, Bids matchWith order)
             case Buy =>
-                bids insert BuyEntry(order, asks matchWith order)
+                Bids insert BuyEntry(order, Asks matchWith order)
         }
 }

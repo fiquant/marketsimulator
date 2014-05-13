@@ -18,16 +18,24 @@ package object marketsim {
 
     trait Orderbook
     {
+        def handle(request : Request)
+
+        val Asks : OrderQueue
+        val Bids : OrderQueue
+    }
+
+    trait OrderbookDispatch extends Orderbook
+    {
         def process(order : MarketOrder)
         def process(order : LimitOrder)
-
-        def handle(request : Request)
     }
 
     // abstract class for all requests that can be handled by order books
     trait Request
     {
-        def processIn(orderbook : Orderbook)
+        def processIn(orderbook : OrderbookDispatch)
+
+        def remote(link : orderbook.remote.Link) : Request
     }
 
     trait OrderListener[Order]
@@ -49,7 +57,7 @@ package object marketsim {
     type MarketOrderListener = OrderListener[MarketOrder]
     type LimitOrderListener = OrderListener[LimitOrder]
 
-    trait Order[T] extends Request
+    trait Order[T <: Order[T]] extends Request
     {
         self : T =>
 
@@ -63,19 +71,28 @@ package object marketsim {
 
         def OnTraded(price : Ticks, volume : Volume) = async { owner OnTraded (self, price, volume) }
         def OnStopped(unmatchedVolume : Volume)      = async { owner OnStopped (self, unmatchedVolume) }
+
+        protected def withOwner(owner : OrderListener[T]) : Order[T]
+
+        def remote(link : orderbook.remote.Link) = withOwner(new OrderListener[T] {
+            def OnTraded(order : T, price : Ticks, volume : Volume) = owner OnTraded (order, price, volume)
+            def OnStopped(order : T, unmatchedVolume : Volume)      = owner OnStopped (order, unmatchedVolume)
+        })
     }
 
     case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]
     {
-        def processIn(orderbook : Orderbook) = orderbook process this
+        def processIn(orderbook : OrderbookDispatch) = orderbook process this
+        protected def withOwner(owner : OrderListener[MarketOrder]) = copy(owner = owner)
     }
     
     case class LimitOrder(price : Ticks, volume : Volume, owner : LimitOrderListener) extends Order[LimitOrder]
     {
-        def processIn(orderbook : Orderbook) = orderbook process this
+        def processIn(orderbook : OrderbookDispatch) = orderbook process this
+        protected def withOwner(owner : OrderListener[LimitOrder]) = copy(owner = owner)
     }
 
-    trait IOrderQueue
+    trait OrderQueue
     {
         import marketsim.Event
 
