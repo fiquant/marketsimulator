@@ -30,8 +30,8 @@ abstract class Entry(initialVolume : Volume)
         val trade_volume = otherVolumeUnmatched min volumeUnmatched
         val trade_price = order.price
 
-        order.OnTraded(trade_price, trade_volume)
-        other.OnTraded(trade_price, trade_volume)
+        order OnTraded (trade_price, trade_volume)
+        other OnTraded (trade_price, trade_volume)
 
         volumeUnmatched -= trade_volume
         trade_volume

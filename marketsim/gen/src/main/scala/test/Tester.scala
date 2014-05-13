@@ -9,6 +9,7 @@ object Tester {
             OrderMatching ::
             ChunkDeque ::
             LocalOrderBook ::
+            Link ::
                     Nil
 
         tests foreach { t =>
