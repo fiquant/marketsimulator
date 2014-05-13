@@ -1,12 +1,26 @@
 package marketsim.orderbook
 
-import marketsim.{LimitOrder, MarketOrder}
+import marketsim.{Ticks, Event, LimitOrder, MarketOrder}
 
 class Queue[T <: Entry] {
 
     private val orders = new ChunkDeque[T]()
 
-    def insert(order : T) = orders insert order
+    val BestPossiblyChanged = new Event[Option[Ticks]]
+
+    private def notifyBestChanged()
+    {
+        import marketsim.Scheduler._
+        async {
+            BestPossiblyChanged(if (orders.isEmpty) None else Some(orders.top.order.price))
+        }
+    }
+
+    def insert(order : T) {
+        orders insert order
+        if (order eq orders.top)
+            notifyBestChanged()
+    }
 
     override def toString = orders.toString
 
@@ -37,7 +51,9 @@ class Queue[T <: Entry] {
                     0
             }
         }
-        inner(other.volumeAbsolute)
+        val ret = inner(other.volumeAbsolute)
+        notifyBestChanged()
+        ret
     }
 
     /**
@@ -71,6 +87,8 @@ class Queue[T <: Entry] {
                     unmatched
             }
         }
-        inner(other.volumeAbsolute)
+        val ret = inner(other.volumeAbsolute)
+        notifyBestChanged()
+        ret
     }
 }
