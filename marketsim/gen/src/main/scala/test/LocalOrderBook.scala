@@ -19,8 +19,16 @@ case object LocalOrderBook extends Test {
                 trace(s"best of $sender changed = " + pv)
             }
 
+            def OnTraded(sender : String, pv : (Ticks, Int))
+            {
+                trace(sender + " on_traded: " + pv)
+            }
+
             book.Asks.BestPossiblyChanged += { OnBestChanged("asks", _) }
             book.Bids.BestPossiblyChanged += { OnBestChanged("bids", _) }
+
+            book.Asks.TradeDone += { OnTraded("asks", _) }
+            book.Bids.TradeDone += { OnTraded("bids", _) }
 
             def sendLimit(price : Ticks, volume : Int) {
                 val order = LimitOrder(price, volume, limitEvents("Limit[" + volume + "/" + price + "]"))

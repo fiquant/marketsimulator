@@ -80,5 +80,6 @@ package object marketsim {
         import marketsim.Event
 
         val BestPossiblyChanged : Event[Option[Ticks]]
+        val TradeDone : Event[(Ticks, Int)]
     }
 }

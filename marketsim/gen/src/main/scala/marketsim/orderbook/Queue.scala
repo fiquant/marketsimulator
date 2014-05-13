@@ -10,10 +10,12 @@ class Queue[T <: Entry] extends IOrderQueue {
     private val orders = new ChunkDeque[T]()
 
     val BestPossiblyChanged = new Event[Option[Ticks]]
+    val TradeDone = new Event[(Ticks, Int)]
+
+    import marketsim.Scheduler.async
 
     private def notifyBestChanged()
     {
-        import marketsim.Scheduler._
         async {
             BestPossiblyChanged(if (orders.isEmpty) None else Some(orders.top.order.price))
         }
@@ -42,6 +44,10 @@ class Queue[T <: Entry] extends IOrderQueue {
                 assert(other.side != mine.side)
 
                 val trade_volume = mine matchWith (other, unmatched)
+
+                async {
+                    TradeDone((mine.order.price, trade_volume))
+                }
 
                 orders takeVolumeFromTop trade_volume
 
@@ -75,6 +81,10 @@ class Queue[T <: Entry] extends IOrderQueue {
                 if (mine canMatchWith other)
                 {
                     val trade_volume = mine matchWith (other, unmatched)
+
+                    async {
+                        TradeDone((mine.order.price, trade_volume))
+                    }
 
                     orders takeVolumeFromTop trade_volume
 

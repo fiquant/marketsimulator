@@ -30,6 +30,7 @@ after = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 
 LimitOrder(100,1,Limit[1/100]) traded at 100 with 1
 LimitOrder(100,-2,Limit[-2/100]) traded at 100 with 1
+asks on_traded: (100,1)
 LimitOrder(100,1,Limit[1/100]) matched completely
 best of asks changed = Some(101)
 best of bids changed = Some(100)
@@ -39,6 +40,7 @@ after = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 
 LimitOrder(101,1,Limit[1/101]) traded at 101 with 1
 LimitOrder(101,-2,Limit[-2/101]) traded at 101 with 1
+asks on_traded: (101,1)
 LimitOrder(101,1,Limit[1/101]) matched completely
 best of asks changed = Some(102)
 best of bids changed = Some(101)
@@ -48,6 +50,7 @@ after = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 
 LimitOrder(102,1,Limit[1/102]) traded at 102 with 1
 LimitOrder(102,-2,Limit[-2/102]) traded at 102 with 1
+asks on_traded: (102,1)
 LimitOrder(102,1,Limit[1/102]) matched completely
 best of asks changed = Some(103)
 best of bids changed = Some(102)
@@ -57,6 +60,7 @@ after = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 
 LimitOrder(103,1,Limit[1/103]) traded at 103 with 1
 LimitOrder(103,-2,Limit[-2/103]) traded at 103 with 1
+asks on_traded: (103,1)
 LimitOrder(103,1,Limit[1/103]) matched completely
 best of asks changed = Some(104)
 best of bids changed = Some(103)
@@ -66,6 +70,7 @@ after = {asks = []; bids = [1/104 1/103 1/102 1/101 1/100]}
 
 LimitOrder(104,1,Limit[1/104]) traded at 104 with 1
 LimitOrder(104,-2,Limit[-2/104]) traded at 104 with 1
+asks on_traded: (104,1)
 LimitOrder(104,1,Limit[1/104]) matched completely
 best of asks changed = None
 best of bids changed = Some(104)

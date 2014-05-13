@@ -13,14 +13,20 @@ case object OrderMatching extends Test {
 
         marketsim.Scheduler.create({ scheduler =>
 
-            def OnBestChanged(pv : Option[Ticks])
+            def OnBestChanged(price : Option[Ticks])
             {
-                trace("best changed = " + pv)
+                trace("best changed = " + price)
+            }
+
+            def OnTraded(pv : (Ticks, Int))
+            {
+                trace("on_traded: " + pv)
             }
 
             val asks = new marketsim.orderbook.Queue[SellEntry]
 
             asks.BestPossiblyChanged += OnBestChanged
+            asks.TradeDone += OnTraded
 
             import marketsim.Scheduler.{async, schedule}
 
