@@ -75,8 +75,9 @@ package object marketsim {
         protected def withOwner(owner : OrderListener[T]) : Order[T]
 
         def remote(link : orderbook.remote.Link) = withOwner(new OrderListener[T] {
-            def OnTraded(order : T, price : Ticks, volume : Volume) = owner OnTraded (order, price, volume)
-            def OnStopped(order : T, unmatchedVolume : Volume)      = owner OnStopped (order, unmatchedVolume)
+            def OnTraded(order : T, price : Ticks, volume : Volume) = link send { owner OnTraded (order, price, volume) }
+            def OnStopped(order : T, unmatchedVolume : Volume)      = link send { owner OnStopped (order, unmatchedVolume) }
+            override def toString = self.toString
         })
     }
 

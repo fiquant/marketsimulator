@@ -9,8 +9,8 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
         val BestPossiblyChanged = new Event[Option[Ticks]]
         val TradeDone = new Event[(Ticks, Int)]
 
-        target.BestPossiblyChanged += (price => link.up send BestPossiblyChanged(price))
-        target.TradeDone           += (trade => link.up send TradeDone(trade))
+        target.BestPossiblyChanged += (price => link.down send BestPossiblyChanged(price))
+        target.TradeDone           += (trade => link.down send TradeDone(trade))
     }
 
     val Asks = new Queue(target.Asks)
@@ -18,5 +18,7 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
     
     def handle(request : Request) =
         link.up send (target handle (request remote link.down))
+
+    override def toString = s"Remote($target)"
 
 }

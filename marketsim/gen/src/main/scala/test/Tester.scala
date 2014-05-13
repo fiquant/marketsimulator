@@ -10,6 +10,7 @@ object Tester {
             ChunkDeque ::
             LocalOrderBook ::
             Link ::
+            RemoteOrderBook ::
                     Nil
 
         tests foreach { t =>
