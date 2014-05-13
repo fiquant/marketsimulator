@@ -14,6 +14,14 @@ case object LocalOrderBook extends Test {
 
             val book = new marketsim.orderbook.Local
 
+            def OnBestChanged(sender : String, pv : Option[Ticks])
+            {
+                trace(s"best of $sender changed = " + pv)
+            }
+
+            book.Asks.BestPossiblyChanged += { OnBestChanged("asks", _) }
+            book.Bids.BestPossiblyChanged += { OnBestChanged("bids", _) }
+
             def sendLimit(price : Ticks, volume : Int) {
                 val order = LimitOrder(price, volume, limitEvents("Limit[" + volume + "/" + price + "]"))
                 trace("Sending" + order)

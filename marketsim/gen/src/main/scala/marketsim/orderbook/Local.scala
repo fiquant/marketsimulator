@@ -9,6 +9,9 @@ class Local(processingTime : Time = 0.0) extends Orderbook {
     private val asks = new Queue[SellEntry]
     private val bids = new Queue[BuyEntry]
 
+    def Asks : IOrderQueue = asks
+    def Bids : IOrderQueue = bids
+
     override def toString = "{asks = " + asks + "; " + "bids = " + bids + "}"
 
     private val requests = collection.mutable.Queue[Request]()

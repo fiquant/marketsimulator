@@ -1,8 +1,11 @@
 package marketsim.orderbook
 
-import marketsim.{Ticks, Event, LimitOrder, MarketOrder}
+import marketsim._
+import marketsim.MarketOrder
+import marketsim.LimitOrder
+import scala.Some
 
-class Queue[T <: Entry] {
+class Queue[T <: Entry] extends IOrderQueue {
 
     private val orders = new ChunkDeque[T]()
 

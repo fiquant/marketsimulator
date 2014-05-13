@@ -1,3 +1,5 @@
+import marketsim.Event
+
 package object marketsim {
 
     type Time     = Double
@@ -71,5 +73,12 @@ package object marketsim {
     case class LimitOrder(price : Ticks, volume : Volume, owner : LimitOrderListener) extends Order[LimitOrder]
     {
         def processIn(orderbook : Orderbook) = orderbook process this
+    }
+
+    trait IOrderQueue
+    {
+        import marketsim.Event
+
+        val BestPossiblyChanged : Event[Option[Ticks]]
     }
 }
