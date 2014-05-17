@@ -13,6 +13,7 @@ case object LocalOrderBook extends Test {
         marketsim.Scheduler.create { scheduler =>
 
             val book = new marketsim.orderbook.Local
+            val account = new marketsim.Account(book)
 
             def OnBestChanged(sender : String, pv : Option[Ticks])
             {
@@ -30,11 +31,12 @@ case object LocalOrderBook extends Test {
             book.Asks.TradeDone += { OnTraded("asks", _) }
             book.Bids.TradeDone += { OnTraded("bids", _) }
 
+            account.OrderSent += { order => trace("Sending" + order) }
+
             def sendLimit(price : Ticks, volume : Int) {
                 val order = LimitOrder(price, volume, limitEvents("Limit[" + volume + "/" + price + "]"))
-                trace("Sending" + order)
                 trace("before = " + book)
-                book handle order
+                account send order
                 async {
                     trace("after = " + book)
                     trace("")
