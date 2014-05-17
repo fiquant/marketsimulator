@@ -38,18 +38,20 @@ case object RemoteOrderBook extends Test {
             account.OrderStopped += { case (order, unmatched) =>
                 trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
 
-            def sendLimit(price : Ticks, volume : Int) {
-                val order = LimitOrder(price, volume, account)
+            def sendLimit(factory : OrderFactory) {
                 trace("before = " + book)
-                account send order
+                account send factory.create
                 async {
                     trace("after = " + book)
                     trace("")
                 }
             }
 
-            0 to 4 foreach { i => schedule(i, sendLimit(100 + i, 1)) }
-            0 to 4 foreach { i => schedule(i + 5, sendLimit(100 + i, -2)) }
+            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, () => 1, account)
+            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, () => -2, account)
+
+            0 to 4 foreach { i => schedule(i, sendLimit(sellOrders)) }
+            0 to 4 foreach { i => schedule(i + 5, sendLimit(buyOrders)) }
 
             scheduler workTill 50
         }

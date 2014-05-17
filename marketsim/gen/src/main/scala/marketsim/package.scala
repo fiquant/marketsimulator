@@ -16,6 +16,13 @@ package object marketsim {
     // converting floating price to ticks should be done by order factories
     type Ticks = Int
 
+    trait OrderQueue
+    {
+        import marketsim.Event
+
+        val BestPossiblyChanged : Event[Option[Ticks]]
+        val TradeDone : Event[(Ticks, Int)]
+    }
     trait Orderbook
     {
         def handle(request : Request)
@@ -85,6 +92,17 @@ package object marketsim {
 
         override def toString = s"Market[$volume]"
     }
+
+    trait OrderFactory
+    {
+        def create : Order
+    }
+
+    case class MarketOrderFactory(volume : () => Volume,
+                                  owner  : OrderListener) extends OrderFactory
+    {
+        def create = MarketOrder(volume(), owner)
+    }
     
     case class LimitOrder(price : Ticks, volume : Volume, owner : OrderListener) extends Order
     {
@@ -94,11 +112,10 @@ package object marketsim {
         override def toString = s"Limit[$volume@$price]"
     }
 
-    trait OrderQueue
+    case class LimitOrderFactory(price  : () => Ticks,
+                                 volume : () => Volume,
+                                 owner  : OrderListener) extends OrderFactory
     {
-        import marketsim.Event
-
-        val BestPossiblyChanged : Event[Option[Ticks]]
-        val TradeDone : Event[(Ticks, Int)]
+        def create = LimitOrder(price(), volume(), owner)
     }
 }
