@@ -7,9 +7,6 @@ case object RemoteOrderBook extends Test {
 
     def apply(trace_ : String => Unit)
     {
-        def marketEvents(name : String) = OrderEvents(trace, name)
-        def limitEvents(name : String) = OrderEvents(trace, name)
-
         def trace(s : String) = trace_(f"[$eventId% 4d]  $currentTime%2.1f\t$s%s")
 
         marketsim.Scheduler.create { scheduler =>
