@@ -31,7 +31,7 @@ case object ChunkDeque extends Test {
 
         def cancel(order : LimitOrder)
         {
-            trace(s"Cancel $order -> " + (deque cancel order))
+            trace(s"Cancel $order -> " + (deque cancel order).get.getVolumeUnmatched)
             epilogue()
         }
 

@@ -84,3 +84,9 @@
 [  10]  10,0	cancelling Limit[-2@102]
 [  10]  10,0	cancelling Limit[-2@103]
 [  10]  10,0	cancelling Limit[-2@104]
+[ 131]  10,5	Limit[-2@100] unmatched volume: 1
+[ 134]  10,5	Limit[-2@101] unmatched volume: 1
+[ 137]  10,5	Limit[-2@102] unmatched volume: 1
+[ 140]  10,5	Limit[-2@103] unmatched volume: 1
+[ 143]  10,5	Limit[-2@104] unmatched volume: 1
+[ 144]  10,5	best of bids changed = None

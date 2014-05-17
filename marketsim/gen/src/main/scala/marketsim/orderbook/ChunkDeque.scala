@@ -10,9 +10,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     {
         chunk =>
 
-        class Queue(initial : Entry)
+        class Queue(initial : T)
         {
-            private var impl = scala.collection.immutable.Queue[Entry](initial)
+            private var impl = scala.collection.immutable.Queue[T](initial)
             private var volume = 0
             changeVolume(initial.getVolumeUnmatched)
 
@@ -29,7 +29,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
             def getVolume = volume
 
-            def push(x : Entry)
+            def push(x : T)
             {
                 impl = impl enqueue x
                 changeVolume(x.getVolumeUnmatched)
@@ -53,9 +53,9 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 impl = rest
                 if (found.length == 1) {
                     changeVolume(-found.front.getVolumeUnmatched, x.price)
-                    found.front.getVolumeUnmatched
+                    Some(found.front)
                 }
-                else 0
+                else None
             }
 
             def getPricesForVolumes(volumes : List[Int],
@@ -133,7 +133,7 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         def get(idx : Int) = impl(idx)
 
-        def push(idx : Int, x : Entry) =
+        def push(idx : Int, x : T) =
             impl(idx) match {
                 case null => impl(idx) = new Queue(x)
                 case queue => queue push x
@@ -162,17 +162,17 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
         def remove(idx : Int, order : LimitOrder) =
         {
             impl(idx) match {
-                case null => 0
+                case null => None
                 case queue =>
-                    val unmatched = queue remove order
+                    val ret = queue remove order
 
-                    if (unmatched > 0)
+                    if (!ret.isEmpty)
                     {
                         if (queue.isEmpty)
                             impl(idx) = null
                     }
 
-                    unmatched
+                    ret
             }
         }
 
@@ -306,12 +306,12 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def cancel(order : LimitOrder) = {
         if (isEmpty)
-            0
+            None
         else {
             if (order eq top.order) {
-                val unmatched = top.getVolumeUnmatched
+                val ret = top
                 pop()
-                unmatched
+                Some(ret)
             } else {
                 // unfortunately we cannot access static members of T
                 val key = if (order.side == Sell) order.price else -order.price
@@ -319,10 +319,10 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 if (base <= chunkIdx && chunkIdx < base + chunks.length)
                 {
                     chunks(chunkIdx - base) match {
-                        case null => 0
+                        case null => None
                         case myChunk =>
-                            val unmatched = myChunk remove (relIdx, order)
-                            if (unmatched > 0)
+                            val ret = myChunk remove (relIdx, order)
+                            if (!ret.isEmpty)
                             {
                                 if (myChunk.isEmpty) {
                                     chunks(chunkIdx - base) = null
@@ -332,11 +332,11 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                                     }
                                 }
                             }
-                            unmatched
+                            ret
                     }
                 }
                 else
-                    0
+                    None
             }
         }
     }

@@ -27,12 +27,12 @@ class Queue[T <: Entry] extends OrderQueue {
             notifyBestChanged()
     }
 
-    def cancel(order : LimitOrder, events : OrderListener) =
+    def cancel(order : LimitOrder) =
         if (!orders.isEmpty) {
             val isTop = orders.top.order eq order
-            val unmatched = orders cancel order
-            if (unmatched > 0)
-                async { events OnStopped (order, unmatched) }
+            val e = orders cancel order
+            if (e.nonEmpty)
+                async { e.get.owner OnStopped (order, e.get.getVolumeUnmatched) }
             if (isTop)
                 notifyBestChanged()
         }
