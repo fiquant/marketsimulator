@@ -4,6 +4,7 @@ before = [10/100]
 Limit[10@100] traded at 100 with 1
 Market[-1] traded at 100 with 1
 on_traded: (100,1)
+Market[-1] matched completely
 best changed = Some(100)
 Unfilled = 0
 after = [9/100]
@@ -14,6 +15,7 @@ Limit[10@100] traded at 100 with 1
 Limit[-1@120] traded at 100 with 1
 on_traded: (100,1)
 best changed = Some(100)
+Limit[-1@120] matched completely
 Unfilled = 0
 after = [8/100]
 
@@ -44,6 +46,7 @@ Limit[10@100] traded at 100 with 5
 Limit[-15@100] traded at 100 with 5
 on_traded: (100,5)
 best changed = Some(100)
+Limit[-15@100] matched completely
 Unfilled = 0
 after = [5/100 10/103]
 

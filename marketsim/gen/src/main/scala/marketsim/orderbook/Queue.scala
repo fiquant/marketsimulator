@@ -71,6 +71,7 @@ class Queue[T <: Entry] extends OrderQueue {
             }
         }
         val ret = inner(other.volumeAbsolute)
+        if (ret == 0) async { otherEvents OnStopped (other, 0) }
         notifyBestChanged()
         ret
     }
@@ -112,6 +113,7 @@ class Queue[T <: Entry] extends OrderQueue {
         }
         val ret = inner(other.volumeAbsolute)
         notifyBestChanged()
+        if (ret == 0) async { otherEvents OnStopped (other, 0) }
         ret
     }
 }
