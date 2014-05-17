@@ -29,11 +29,11 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
 
     import marketsim.Scheduler.async
 
-    def process(order : MarketOrder) =
+    def process(order : MarketOrder, events : OrderListener) =
     {
         def inner[T <: Entry](opposite : Queue[T]) = {
-            val unmatched = opposite matchWith (order, order.owner)
-            async { order.owner OnStopped (order, unmatched) }
+            val unmatched = opposite matchWith (order, events)
+            async { events OnStopped (order, unmatched) }
         }
 
         order.side match {
@@ -42,30 +42,28 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
         }
     }
 
-
-    def process(order : LimitOrder) =
+    def process(order : LimitOrder, events : OrderListener) =
     {
         val unmatched = order.side match {
             case Sell =>
-                val unmatched = Bids matchWith (order, order.owner)
+                val unmatched = Bids matchWith (order, events)
                 if (unmatched > 0)
-                    Asks insert SellEntry(order, unmatched)
+                    Asks insert SellEntry(order, unmatched, events)
                 unmatched
             case Buy =>
-                val unmatched = Asks matchWith (order, order.owner)
+                val unmatched = Asks matchWith (order, events)
                 if (unmatched > 0)
-                    Bids insert BuyEntry(order, unmatched)
+                    Bids insert BuyEntry(order, unmatched, events)
                 unmatched
         }
         if (unmatched == 0)
-            async { order.owner OnStopped (order, unmatched)}
+            async { events OnStopped (order, unmatched)}
     }
-
 
     def process(cancel : CancelOrder) =
 
         cancel.order.side match {
-            case Sell => Asks cancel (cancel.order, cancel.order.owner)
-            case Buy  => Bids cancel (cancel.order, cancel.order.owner)
+            case Sell => //Asks cancel (cancel.order, cancel.order.owner)
+            case Buy  => //Bids cancel (cancel.order, cancel.order.owner)
         }
 }

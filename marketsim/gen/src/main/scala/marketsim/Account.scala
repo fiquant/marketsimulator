@@ -16,7 +16,7 @@ class Account(orderbook         : Orderbook,
 
     def send(order : Order)
     {
-        orderbook handle order
+        orderbook handle OrderRequest(order, this)
         OrderSent(order)
     }
 

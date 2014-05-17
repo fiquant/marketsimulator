@@ -33,8 +33,8 @@ package object marketsim {
 
     trait OrderbookDispatch extends Orderbook
     {
-        def process(order : MarketOrder)
-        def process(order : LimitOrder)
+        def process(order : MarketOrder, events : OrderListener)
+        def process(order : LimitOrder, events : OrderListener)
 
         def process(cancel : CancelOrder)
     }
@@ -63,7 +63,7 @@ package object marketsim {
         def OnStopped(order : Order, unmatchedVolume : Volume)
     }
     
-    trait Order extends Request
+    trait Order
     {
         self =>
 
@@ -71,21 +71,26 @@ package object marketsim {
         def side = if (volume > 0) Sell else Buy
         def volumeAbsolute = volume.abs
 
-        val owner : OrderListener
+        def processIn(target : OrderbookDispatch, events : OrderListener)
+    }
 
-        protected def withOwner(owner : OrderListener) : Order
+    case class OrderRequest(order : Order, events : OrderListener) extends Request
+    {
+        self =>
 
-        def remote(link : orderbook.remote.Link) = withOwner(new OrderListener {
-            def OnTraded(order : Order, price : Ticks, volume : Volume) = link send { owner OnTraded (order, price, volume) }
-            def OnStopped(order : Order, unmatchedVolume : Volume)      = link send { owner OnStopped (order, unmatchedVolume) }
+        def processIn(target : OrderbookDispatch) = order processIn (target, events)
+
+        def remote(link : orderbook.remote.Link) = copy(events = new OrderListener {
+            def OnTraded(order : Order, price : Ticks, volume : Volume) = link send { events OnTraded (order, price, volume) }
+            def OnStopped(order : Order, unmatchedVolume : Volume)      = link send { events OnStopped (order, unmatchedVolume) }
             override def toString = self.toString
         })
     }
 
-    case class MarketOrder(volume : Volume, owner : OrderListener) extends Order
+
+    case class MarketOrder(volume : Volume) extends Order
     {
-        def processIn(orderbook : OrderbookDispatch) = orderbook process this
-        protected def withOwner(owner : OrderListener) = copy(owner = owner)
+        def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 
         override def toString = s"Market[$volume]"
     }
@@ -95,25 +100,22 @@ package object marketsim {
         def create : Order
     }
 
-    case class MarketOrderFactory(volume : () => Volume,
-                                  owner  : OrderListener) extends OrderFactory
+    case class MarketOrderFactory(volume : () => Volume) extends OrderFactory
     {
-        def create = MarketOrder(volume(), owner)
+        def create = MarketOrder(volume())
     }
     
-    case class LimitOrder(price : Ticks, volume : Volume, owner : OrderListener) extends Order
+    case class LimitOrder(price : Ticks, volume : Volume) extends Order
     {
-        def processIn(orderbook : OrderbookDispatch) = orderbook process this
-        protected def withOwner(owner : OrderListener) = copy(owner = owner)
+        def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 
         override def toString = s"Limit[$volume@$price]"
     }
 
     case class LimitOrderFactory(price  : () => Ticks,
-                                 volume : () => Volume,
-                                 owner  : OrderListener) extends OrderFactory
+                                 volume : () => Volume) extends OrderFactory
     {
-        def create = LimitOrder(price(), volume(), owner)
+        def create = LimitOrder(price(), volume())
     }
 
     case class CancelOrder(order : LimitOrder) extends Request

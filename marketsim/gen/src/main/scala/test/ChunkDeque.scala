@@ -22,8 +22,8 @@ case object ChunkDeque extends Test {
         def insert(p : Int) =
         {
             trace("Inserting " + p)
-            val order = LimitOrder(p, 1, limitEvents("Limit_Sell_" + p))
-            deque insert SellEntry(order)
+            val order = LimitOrder(p, 1)
+            deque insert SellEntry(order, limitEvents("Limit_Sell_" + p))
             trace("Best = " + deque.top.order.toString)
             epilogue()
             order

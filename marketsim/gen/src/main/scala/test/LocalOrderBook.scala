@@ -47,8 +47,8 @@ case object LocalOrderBook extends Test {
                 }
             }
 
-            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, () => 1, account)
-            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, () => -2, account)
+            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, () => 1)
+            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, () => -2)
 
             0 to 4 foreach { i => schedule(i, sendLimit(sellOrders)) }
             0 to 4 foreach { i => schedule(i + 5, sendLimit(buyOrders)) }

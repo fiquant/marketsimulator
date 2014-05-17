@@ -2,9 +2,10 @@ package marketsim.orderbook
 
 import marketsim._
 
-abstract class Entry(initialVolume : Volume, val owner : OrderListener)
+abstract class Entry(initialVolume : Volume)
 {
     val order : LimitOrder
+    val owner : OrderListener
 
     private var volumeUnmatched = initialVolume
 
@@ -40,7 +41,7 @@ abstract class Entry(initialVolume : Volume, val owner : OrderListener)
     }
 }
 
-final class SellEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume, order.owner)
+final class SellEntry(val order : LimitOrder, initialVolume : Volume, val owner : OrderListener) extends Entry(initialVolume)
 {
     def side = Sell
 
@@ -54,11 +55,11 @@ final class SellEntry(val order : LimitOrder, initialVolume : Volume) extends En
 
 object SellEntry
 {
-    def apply(order : LimitOrder, initialVolume : Volume) = new SellEntry(order, initialVolume)
-    def apply(order : LimitOrder) = new SellEntry(order, order.volumeAbsolute)
+    def apply(order : LimitOrder, initialVolume : Volume, owner : OrderListener) = new SellEntry(order, initialVolume, owner)
+    def apply(order : LimitOrder, owner : OrderListener) = new SellEntry(order, order.volumeAbsolute, owner)
 }
 
-final class BuyEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume, order.owner)
+final class BuyEntry(val order : LimitOrder, initialVolume : Volume, val owner : OrderListener) extends Entry(initialVolume)
 {
     def side = Buy
 
@@ -72,16 +73,16 @@ final class BuyEntry(val order : LimitOrder, initialVolume : Volume) extends Ent
 
 object BuyEntry
 {
-    def apply(order : LimitOrder, initialVolume : Volume) = new BuyEntry(order, initialVolume)
-    def apply(order : LimitOrder) = new BuyEntry(order, order.volumeAbsolute)
+    def apply(order : LimitOrder, initialVolume : Volume, owner : OrderListener) = new BuyEntry(order, initialVolume, owner)
+    def apply(order : LimitOrder, owner : OrderListener) = new BuyEntry(order, order.volumeAbsolute, owner)
 }
 
 
 object Entry
 {
-    def apply(order : LimitOrder) =
+    def apply(order : LimitOrder, owner : OrderListener) =
         order.side match {
-            case Sell => SellEntry(order)
-            case Buy => BuyEntry(order)
+            case Sell => SellEntry(order, owner)
+            case Buy => BuyEntry(order, owner)
         }
 }
