@@ -34,7 +34,7 @@ case object OrderMatching extends Test {
                 val order = LimitOrder(price, -volume, limitEvents(price + "_Buy"))
                 trace("Sending" + order)
                 trace("before = " + asks)
-                val res = asks matchWith order
+                val res = asks matchWith (order, order.owner)
                 async {
                     trace("Unfilled = " + res)
                     trace("after = " + asks)
@@ -46,7 +46,7 @@ case object OrderMatching extends Test {
                 val order = MarketOrder(-volume, marketEvents("Market_Buy"))
                 trace("Sending" + order)
                 trace("before = " + asks)
-                val res = asks matchWith order
+                val res = asks matchWith (order, order.owner)
                 async {
                     trace("Unfilled = " + res)
                     trace("after = " + asks)

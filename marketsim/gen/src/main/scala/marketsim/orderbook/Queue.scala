@@ -43,7 +43,7 @@ class Queue[T <: Entry] extends OrderQueue {
      * Matches other market order against order queue
      * @return unmatched volume of the other order
      */
-    def matchWith(other : MarketOrder) =
+    def matchWith(other : MarketOrder, otherEvents : OrderListener) =
     {
         def inner(unmatched : Int) : Int =
         {
@@ -53,7 +53,7 @@ class Queue[T <: Entry] extends OrderQueue {
                 val mine = orders.top
                 assert(other.side != mine.side)
 
-                val trade_volume = mine matchWith (other, unmatched)
+                val trade_volume = mine matchWith (other, unmatched, otherEvents)
 
                 async {
                     TradeDone((mine.order.price, trade_volume))
@@ -62,7 +62,7 @@ class Queue[T <: Entry] extends OrderQueue {
                 orders takeVolumeFromTop trade_volume
 
                 if (mine.isEmpty) {
-                    mine.order OnStopped 0
+                    async { mine.owner OnStopped (mine.order, 0) }
                     orders.pop()
                     inner(unmatched - trade_volume)
                 }
@@ -79,7 +79,7 @@ class Queue[T <: Entry] extends OrderQueue {
      * Matches other market order against order queue
      * @return unmatched volume of the other order
      */
-    def matchWith(other : LimitOrder) =
+    def matchWith(other : LimitOrder, otherEvents : OrderListener) =
     {
         def inner(unmatched : Int) : Int =
         {
@@ -90,7 +90,7 @@ class Queue[T <: Entry] extends OrderQueue {
                 assert(other.side != mine.side)
                 if (mine canMatchWith other)
                 {
-                    val trade_volume = mine matchWith (other, unmatched)
+                    val trade_volume = mine matchWith (other, unmatched, otherEvents)
 
                     async {
                         TradeDone((mine.order.price, trade_volume))
@@ -99,7 +99,7 @@ class Queue[T <: Entry] extends OrderQueue {
                     orders takeVolumeFromTop trade_volume
 
                     if (mine.isEmpty) {
-                        mine.order OnStopped 0
+                        async { mine.owner OnStopped (mine.order, 0) }
                         orders.pop()
                         inner(unmatched - trade_volume)
                     }

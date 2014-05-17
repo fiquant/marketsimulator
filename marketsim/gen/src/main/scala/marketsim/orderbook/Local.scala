@@ -31,18 +31,18 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
 
         order.side match {
             case Sell =>
-                order OnStopped (Bids matchWith order)
+                order OnStopped (Bids matchWith (order, order.owner))
             case Buy =>
-                order OnStopped (Asks matchWith order)
+                order OnStopped (Asks matchWith (order, order.owner))
         }
 
     def process(order : LimitOrder) =
 
         order.side match {
             case Sell =>
-                Asks insert SellEntry(order, Bids matchWith order)
+                Asks insert SellEntry(order, Bids matchWith (order, order.owner))
             case Buy =>
-                Bids insert BuyEntry(order, Asks matchWith order)
+                Bids insert BuyEntry(order, Asks matchWith (order, order.owner))
         }
 
     def process(cancel : CancelOrder) =

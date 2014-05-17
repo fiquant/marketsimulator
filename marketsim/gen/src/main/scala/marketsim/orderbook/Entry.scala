@@ -2,7 +2,7 @@ package marketsim.orderbook
 
 import marketsim._
 
-abstract class Entry(initialVolume : Volume)
+abstract class Entry(initialVolume : Volume, val owner : OrderListener)
 {
     val order : LimitOrder
 
@@ -22,7 +22,7 @@ abstract class Entry(initialVolume : Volume)
      * @param otherVolumeUnmatched - unmatched volume of the other order
      * @return new unmatched volume of the other order
      */
-    def matchWith[T <: Order](other : T, otherVolumeUnmatched : Volume) =
+    def matchWith[T <: Order](other : T, otherVolumeUnmatched : Volume, otherEvents : OrderListener) =
     {
         assert(otherVolumeUnmatched > 0)
         assert(volumeUnmatched > 0)
@@ -30,15 +30,17 @@ abstract class Entry(initialVolume : Volume)
         val trade_volume = otherVolumeUnmatched min volumeUnmatched
         val trade_price = order.price
 
-        order OnTraded (trade_price, trade_volume)
-        other OnTraded (trade_price, trade_volume)
+        import marketsim.Scheduler.async
+
+        async { owner       OnTraded (order, trade_price, trade_volume) }
+        async { otherEvents OnTraded (other, trade_price, trade_volume) }
 
         volumeUnmatched -= trade_volume
         trade_volume
     }
 }
 
-final class SellEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume)
+final class SellEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume, order.owner)
 {
     def side = Sell
 
@@ -56,7 +58,7 @@ object SellEntry
     def apply(order : LimitOrder) = new SellEntry(order, order.volumeAbsolute)
 }
 
-final class BuyEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume)
+final class BuyEntry(val order : LimitOrder, initialVolume : Volume) extends Entry(initialVolume, order.owner)
 {
     def side = Buy
 
