@@ -27,6 +27,13 @@ class Queue[T <: Entry] extends OrderQueue {
             notifyBestChanged()
     }
 
+    def cancel(order : T) {
+        if (!orders.isEmpty) {
+            val isTop = orders.top eq order
+
+        }
+    }
+
     override def toString = orders.toString
 
     /**

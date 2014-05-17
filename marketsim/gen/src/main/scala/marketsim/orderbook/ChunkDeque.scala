@@ -51,9 +51,11 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 val (found, rest) = impl partition { _.order eq x }
                 assert(found.length < 2)
                 impl = rest
-                if (found.length == 1)
+                if (found.length == 1) {
                     changeVolume(-found.front.getVolumeUnmatched, x.price)
-                found.nonEmpty
+                    found.front.getVolumeUnmatched
+                }
+                else 0
             }
 
             def getPricesForVolumes(volumes : List[Int],
@@ -155,20 +157,22 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         /**
          * Removes entry with 'order' that should reside at position 'idx'
-         * @return true iff the element is actually removed
+         * @return unmatched volume of the removed order
          */
         def remove(idx : Int, order : LimitOrder) =
         {
             impl(idx) match {
-                case null => false
+                case null => 0
                 case queue =>
-                    if (queue remove order)
+                    val unmatched = queue remove order
+
+                    if (unmatched > 0)
                     {
                         if (queue.isEmpty)
                             impl(idx) = null
-                        true
-                    } else
-                        false
+                    }
+
+                    unmatched
             }
         }
 
@@ -302,11 +306,12 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
     def cancel(order : LimitOrder) = {
         if (isEmpty)
-            false
+            0
         else {
             if (order eq top.order) {
+                val unmatched = top.getVolumeUnmatched
                 pop()
-                true
+                unmatched
             } else {
                 // unfortunately we cannot access static members of T
                 val key = if (order.side == Sell) order.price else -order.price
@@ -314,27 +319,24 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                 if (base <= chunkIdx && chunkIdx < base + chunks.length)
                 {
                     chunks(chunkIdx - base) match {
-                        case null => false
+                        case null => 0
                         case myChunk =>
-                            if (myChunk remove (relIdx, order))
+                            val unmatched = myChunk remove (relIdx, order)
+                            if (unmatched > 0)
                             {
                                 if (myChunk.isEmpty) {
                                     chunks(chunkIdx - base) = null
                                     if (chunkIdx == base + chunks.length - 1) {
                                         val lastIdx = chunks lastIndexWhere { _ != null }
-                                        if (lastIdx == -1)
-                                            chunks = Array.empty[Chunk]
-                                        else
-                                            chunks = chunks slice (0, lastIdx + 1)
+                                        chunks = if (lastIdx == -1) Array.empty[Chunk] else chunks slice (0, lastIdx + 1)
                                     }
                                 }
-                                true
-                            } else
-                                false
+                            }
+                            unmatched
                     }
                 }
                 else
-                    false
+                    0
             }
         }
     }
