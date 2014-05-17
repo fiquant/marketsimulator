@@ -28,6 +28,8 @@ before = {asks = [1/100 1/101 1/102 1/103 1/104]; bids = []}
 Sending Limit[-2@100]
 after = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 
+Limit[1@100] traded 1 at 100
+Limit[-2@100] traded 1 at 100
 asks on_traded: (100,1)
 Limit[1@100] matched completely
 best of asks changed = Some(101)
@@ -36,6 +38,8 @@ before = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 Sending Limit[-2@101]
 after = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 
+Limit[1@101] traded 1 at 101
+Limit[-2@101] traded 1 at 101
 asks on_traded: (101,1)
 Limit[1@101] matched completely
 best of asks changed = Some(102)
@@ -44,6 +48,8 @@ before = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 Sending Limit[-2@102]
 after = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 
+Limit[1@102] traded 1 at 102
+Limit[-2@102] traded 1 at 102
 asks on_traded: (102,1)
 Limit[1@102] matched completely
 best of asks changed = Some(103)
@@ -52,6 +58,8 @@ before = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 Sending Limit[-2@103]
 after = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 
+Limit[1@103] traded 1 at 103
+Limit[-2@103] traded 1 at 103
 asks on_traded: (103,1)
 Limit[1@103] matched completely
 best of asks changed = Some(104)
@@ -60,6 +68,8 @@ before = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 Sending Limit[-2@104]
 after = {asks = []; bids = [1/104 1/103 1/102 1/101 1/100]}
 
+Limit[1@104] traded 1 at 104
+Limit[-2@104] traded 1 at 104
 asks on_traded: (104,1)
 Limit[1@104] matched completely
 best of asks changed = None

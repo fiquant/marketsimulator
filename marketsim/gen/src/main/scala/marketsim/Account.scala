@@ -36,6 +36,7 @@ class Account(orderbook         : Orderbook,
                 position += volume
                 balance -= price
         }
+        OrderTraded((order, price, volume))
     }
 
     /**

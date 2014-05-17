@@ -18,6 +18,8 @@ case object RemoteOrderBook extends Test {
             val link = new marketsim.orderbook.remote.TwoWayLink(() => 0.2, () => 0.3)
             val book = new marketsim.orderbook.remote.Book(local, link)
 
+            val account = new marketsim.Account(book)
+
             def OnBestChanged(sender : String, pv : Option[Ticks])
             {
                 trace(s"best of $sender changed = " + pv)
@@ -34,11 +36,15 @@ case object RemoteOrderBook extends Test {
             book.Asks.TradeDone += { OnTraded("asks", _) }
             book.Bids.TradeDone += { OnTraded("bids", _) }
 
+            account.OrderSent += { order => trace("Sending " + order) }
+            account.OrderTraded += { case (order, price, volume)  => trace(s"$order traded $volume at $price") }
+            account.OrderStopped += { case (order, unmatched) =>
+                trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
+
             def sendLimit(price : Ticks, volume : Int) {
-                val order = LimitOrder(price, volume, limitEvents("Limit[" + volume + "/" + price + "]"))
-                trace("Sending" + order)
+                val order = LimitOrder(price, volume, account)
                 trace("before = " + book)
-                book handle order
+                account send order
                 async {
                     trace("after = " + book)
                     trace("")
