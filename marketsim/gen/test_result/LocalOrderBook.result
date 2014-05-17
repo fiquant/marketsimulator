@@ -74,3 +74,19 @@ asks on_traded: (104,1)
 Limit[1@104] matched completely
 best of asks changed = None
 best of bids changed = Some(104)
+cancelling Limit[1@100]
+cancelling Limit[1@101]
+cancelling Limit[1@102]
+cancelling Limit[1@103]
+cancelling Limit[1@104]
+cancelling Limit[-2@100]
+cancelling Limit[-2@101]
+cancelling Limit[-2@102]
+cancelling Limit[-2@103]
+cancelling Limit[-2@104]
+Limit[-2@100] unmatched volume: 1
+Limit[-2@101] unmatched volume: 1
+Limit[-2@102] unmatched volume: 1
+Limit[-2@103] unmatched volume: 1
+Limit[-2@104] unmatched volume: 1
+best of bids changed = None

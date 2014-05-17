@@ -20,6 +20,11 @@ class Account(orderbook         : Orderbook,
         OrderSent(order)
     }
 
+    def send(request : Request)
+    {
+        orderbook handle request
+    }
+
     /**
      * Called when a trade is done with order
      * @param order  - order in trade

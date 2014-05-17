@@ -48,6 +48,7 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
     def process(cancel : CancelOrder) =
 
         cancel.order.side match {
-            case Sell =>
+            case Sell => Asks cancel cancel.order
+            case Buy  => Bids cancel cancel.order
         }
 }

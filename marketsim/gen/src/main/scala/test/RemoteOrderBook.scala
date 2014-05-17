@@ -2,6 +2,7 @@ package test
 
 import marketsim._
 import marketsim.Scheduler._
+import scala.collection.immutable.Queue
 
 case object RemoteOrderBook extends Test {
 
@@ -38,9 +39,13 @@ case object RemoteOrderBook extends Test {
             account.OrderStopped += { case (order, unmatched) =>
                 trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
 
-            def sendLimit(factory : OrderFactory) {
+            var ordersSent = Queue.empty[LimitOrder]
+
+            def sendLimit(factory : LimitOrderFactory) {
                 trace("before = " + book)
-                account send factory.create
+                val order = factory.create
+                account send order
+                ordersSent = ordersSent enqueue order
                 async {
                     trace("after = " + book)
                     trace("")
@@ -52,6 +57,15 @@ case object RemoteOrderBook extends Test {
 
             0 to 4 foreach { i => schedule(i, sendLimit(sellOrders)) }
             0 to 4 foreach { i => schedule(i + 5, sendLimit(buyOrders)) }
+
+            def cancel(order : LimitOrder) {
+                trace("cancelling " + order)
+                account send CancelOrder(order)
+            }
+
+            schedule(10, {
+                ordersSent foreach cancel
+            })
 
             scheduler workTill 50
         }
