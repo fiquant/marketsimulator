@@ -8,7 +8,7 @@ case object ChunkDeque extends Test {
 
     def apply(trace : String => Unit)
     {
-        def limitEvents(name : String) = OrderEvents[LimitOrder](trace, name)
+        def limitEvents(name : String) = OrderEvents(trace, name)
 
         val deque = new marketsim.orderbook.ChunkDeque[SellEntry]()
 

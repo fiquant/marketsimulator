@@ -7,8 +7,8 @@ case object LocalOrderBook extends Test {
 
     def apply(trace : String => Unit)
     {
-        def marketEvents(name : String) = OrderEvents[MarketOrder](trace, name)
-        def limitEvents(name : String) = OrderEvents[LimitOrder](trace, name)
+        def marketEvents(name : String) = OrderEvents(trace, name)
+        def limitEvents(name : String) = OrderEvents(trace, name)
 
         marketsim.Scheduler.create { scheduler =>
 

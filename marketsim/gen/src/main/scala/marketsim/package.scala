@@ -38,7 +38,7 @@ package object marketsim {
         def remote(link : orderbook.remote.Link) : Request
     }
 
-    trait OrderListener[Order]
+    trait OrderListener
     {
         /**
          * Called when a trade is done with order
@@ -54,43 +54,40 @@ package object marketsim {
         def OnStopped(order : Order, unmatchedVolume : Volume)
     }
     
-    type MarketOrderListener = OrderListener[MarketOrder]
-    type LimitOrderListener = OrderListener[LimitOrder]
-
-    trait Order[T <: Order[T]] extends Request
+    trait Order extends Request
     {
-        self : T =>
+        self =>
 
         val volume : Volume
         def side = if (volume > 0) Sell else Buy
         def volumeAbsolute = volume.abs
 
-        val owner : OrderListener[T]
+        val owner : OrderListener
 
         import marketsim.Scheduler.async
 
-        def OnTraded(price : Ticks, volume : Volume) = async { owner OnTraded (self, price, volume) }
-        def OnStopped(unmatchedVolume : Volume)      = async { owner OnStopped (self, unmatchedVolume) }
+        def OnTraded(price : Ticks, volume : Volume) = async { owner OnTraded (this, price, volume) }
+        def OnStopped(unmatchedVolume : Volume)      = async { owner OnStopped (this, unmatchedVolume) }
 
-        protected def withOwner(owner : OrderListener[T]) : Order[T]
+        protected def withOwner(owner : OrderListener) : Order
 
-        def remote(link : orderbook.remote.Link) = withOwner(new OrderListener[T] {
-            def OnTraded(order : T, price : Ticks, volume : Volume) = link send { owner OnTraded (order, price, volume) }
-            def OnStopped(order : T, unmatchedVolume : Volume)      = link send { owner OnStopped (order, unmatchedVolume) }
+        def remote(link : orderbook.remote.Link) = withOwner(new OrderListener {
+            def OnTraded(order : Order, price : Ticks, volume : Volume) = link send { owner OnTraded (order, price, volume) }
+            def OnStopped(order : Order, unmatchedVolume : Volume)      = link send { owner OnStopped (order, unmatchedVolume) }
             override def toString = self.toString
         })
     }
 
-    case class MarketOrder(volume : Volume, owner : MarketOrderListener) extends Order[MarketOrder]
+    case class MarketOrder(volume : Volume, owner : OrderListener) extends Order
     {
         def processIn(orderbook : OrderbookDispatch) = orderbook process this
-        protected def withOwner(owner : OrderListener[MarketOrder]) = copy(owner = owner)
+        protected def withOwner(owner : OrderListener) = copy(owner = owner)
     }
     
-    case class LimitOrder(price : Ticks, volume : Volume, owner : LimitOrderListener) extends Order[LimitOrder]
+    case class LimitOrder(price : Ticks, volume : Volume, owner : OrderListener) extends Order
     {
         def processIn(orderbook : OrderbookDispatch) = orderbook process this
-        protected def withOwner(owner : OrderListener[LimitOrder]) = copy(owner = owner)
+        protected def withOwner(owner : OrderListener) = copy(owner = owner)
     }
 
     trait OrderQueue
