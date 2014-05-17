@@ -32,7 +32,7 @@ case object OrderMatching extends Test {
 
             def sendLimit(price : Ticks, volume : Int) {
                 val order = LimitOrder(price, -volume, limitEvents(price + "_Buy"))
-                trace("Sending" + order)
+                trace("Sending " + order)
                 trace("before = " + asks)
                 val res = asks matchWith (order, order.owner)
                 async {
@@ -44,7 +44,7 @@ case object OrderMatching extends Test {
 
             def sendMarket(volume : Int) {
                 val order = MarketOrder(-volume, marketEvents("Market_Buy"))
-                trace("Sending" + order)
+                trace("Sending " + order)
                 trace("before = " + asks)
                 val res = asks matchWith (order, order.owner)
                 async {

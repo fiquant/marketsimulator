@@ -1,31 +1,29 @@
 best changed = Some(100)
-SendingMarket[-1]
+Sending Market[-1]
 before = [10/100]
 Limit[10@100] traded at 100 with 1
 Market[-1] traded at 100 with 1
 on_traded: (100,1)
-Market[-1] matched completely
 best changed = Some(100)
 Unfilled = 0
 after = [9/100]
 
-SendingLimit[-1@120]
+Sending Limit[-1@120]
 before = [9/100]
 Limit[10@100] traded at 100 with 1
 Limit[-1@120] traded at 100 with 1
 on_traded: (100,1)
 best changed = Some(100)
-Limit[-1@120] matched completely
 Unfilled = 0
 after = [8/100]
 
-SendingLimit[-1@80]
+Sending Limit[-1@80]
 before = [8/100]
 best changed = Some(100)
 Unfilled = 1
 after = [8/100]
 
-SendingLimit[-10@100]
+Sending Limit[-10@100]
 before = [8/100]
 Limit[10@100] traded at 100 with 8
 Limit[-10@100] traded at 100 with 8
@@ -36,7 +34,7 @@ Unfilled = 2
 after = []
 
 best changed = Some(100)
-SendingLimit[-15@100]
+Sending Limit[-15@100]
 before = [20/100 10/103]
 Limit[10@100] traded at 100 with 10
 Limit[-15@100] traded at 100 with 10
@@ -46,11 +44,10 @@ Limit[10@100] traded at 100 with 5
 Limit[-15@100] traded at 100 with 5
 on_traded: (100,5)
 best changed = Some(100)
-Limit[-15@100] matched completely
 Unfilled = 0
 after = [5/100 10/103]
 
-SendingLimit[-20@105]
+Sending Limit[-20@105]
 before = [5/100 10/103]
 Limit[10@100] traded at 100 with 5
 Limit[-20@105] traded at 100 with 5

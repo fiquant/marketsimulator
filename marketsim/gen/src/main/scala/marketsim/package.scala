@@ -73,11 +73,6 @@ package object marketsim {
 
         val owner : OrderListener
 
-        import marketsim.Scheduler.async
-
-        def OnTraded(price : Ticks, volume : Volume) = async { owner OnTraded (this, price, volume) }
-        def OnStopped(unmatchedVolume : Volume)      = async { owner OnStopped (this, unmatchedVolume) }
-
         protected def withOwner(owner : OrderListener) : Order
 
         def remote(link : orderbook.remote.Link) = withOwner(new OrderListener {

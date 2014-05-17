@@ -27,28 +27,45 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
             scheduleAfter(processingTime, { wakeUp() })
     }
 
+    import marketsim.Scheduler.async
+
     def process(order : MarketOrder) =
+    {
+        def inner[T <: Entry](opposite : Queue[T]) = {
+            val unmatched = opposite matchWith (order, order.owner)
+            async { order.owner OnStopped (order, unmatched) }
+        }
 
         order.side match {
-            case Sell =>
-                order OnStopped (Bids matchWith (order, order.owner))
-            case Buy =>
-                order OnStopped (Asks matchWith (order, order.owner))
+            case Sell => inner(Bids)
+            case Buy =>  inner(Asks)
         }
+    }
+
 
     def process(order : LimitOrder) =
-
-        order.side match {
+    {
+        val unmatched = order.side match {
             case Sell =>
-                Asks insert SellEntry(order, Bids matchWith (order, order.owner))
+                val unmatched = Bids matchWith (order, order.owner)
+                if (unmatched > 0)
+                    Asks insert SellEntry(order, unmatched)
+                unmatched
             case Buy =>
-                Bids insert BuyEntry(order, Asks matchWith (order, order.owner))
+                val unmatched = Asks matchWith (order, order.owner)
+                if (unmatched > 0)
+                    Bids insert BuyEntry(order, unmatched)
+                unmatched
         }
+        if (unmatched == 0)
+            async { order.owner OnStopped (order, unmatched)}
+    }
+
 
     def process(cancel : CancelOrder) =
 
         cancel.order.side match {
-            case Sell => Asks cancel cancel.order
-            case Buy  => Bids cancel cancel.order
+            case Sell => Asks cancel (cancel.order, cancel.order.owner)
+            case Buy  => Bids cancel (cancel.order, cancel.order.owner)
         }
 }

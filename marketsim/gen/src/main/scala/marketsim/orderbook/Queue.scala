@@ -27,12 +27,12 @@ class Queue[T <: Entry] extends OrderQueue {
             notifyBestChanged()
     }
 
-    def cancel(order : LimitOrder) =
+    def cancel(order : LimitOrder, events : OrderListener) =
         if (!orders.isEmpty) {
             val isTop = orders.top.order eq order
             val unmatched = orders cancel order
             if (unmatched > 0)
-                order OnStopped unmatched
+                async { events OnStopped (order, unmatched) }
             if (isTop)
                 notifyBestChanged()
         }
@@ -71,7 +71,6 @@ class Queue[T <: Entry] extends OrderQueue {
             }
         }
         val ret = inner(other.volumeAbsolute)
-        if (ret == 0) async { otherEvents OnStopped (other, 0) }
         notifyBestChanged()
         ret
     }
@@ -113,7 +112,6 @@ class Queue[T <: Entry] extends OrderQueue {
         }
         val ret = inner(other.volumeAbsolute)
         notifyBestChanged()
-        if (ret == 0) async { otherEvents OnStopped (other, 0) }
         ret
     }
 }
