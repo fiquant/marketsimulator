@@ -82,12 +82,16 @@ package object marketsim {
     {
         def processIn(orderbook : OrderbookDispatch) = orderbook process this
         protected def withOwner(owner : OrderListener) = copy(owner = owner)
+
+        override def toString = s"Market[$volume]"
     }
     
     case class LimitOrder(price : Ticks, volume : Volume, owner : OrderListener) extends Order
     {
         def processIn(orderbook : OrderbookDispatch) = orderbook process this
         protected def withOwner(owner : OrderListener) = copy(owner = owner)
+
+        override def toString = s"Limit[$volume@$price]"
     }
 
     trait OrderQueue

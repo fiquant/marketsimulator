@@ -1,62 +1,62 @@
 best changed = Some(100)
-SendingMarketOrder(-1,Market_Buy)
+SendingMarket[-1]
 before = [10/100]
-LimitOrder(100,10,Sell_1_100) traded at 100 with 1
-MarketOrder(-1,Market_Buy) traded at 100 with 1
+Limit[10@100] traded at 100 with 1
+Market[-1] traded at 100 with 1
 on_traded: (100,1)
 best changed = Some(100)
 Unfilled = 0
 after = [9/100]
 
-SendingLimitOrder(120,-1,120_Buy)
+SendingLimit[-1@120]
 before = [9/100]
-LimitOrder(100,10,Sell_1_100) traded at 100 with 1
-LimitOrder(120,-1,120_Buy) traded at 100 with 1
+Limit[10@100] traded at 100 with 1
+Limit[-1@120] traded at 100 with 1
 on_traded: (100,1)
 best changed = Some(100)
 Unfilled = 0
 after = [8/100]
 
-SendingLimitOrder(80,-1,80_Buy)
+SendingLimit[-1@80]
 before = [8/100]
 best changed = Some(100)
 Unfilled = 1
 after = [8/100]
 
-SendingLimitOrder(100,-10,100_Buy)
+SendingLimit[-10@100]
 before = [8/100]
-LimitOrder(100,10,Sell_1_100) traded at 100 with 8
-LimitOrder(100,-10,100_Buy) traded at 100 with 8
+Limit[10@100] traded at 100 with 8
+Limit[-10@100] traded at 100 with 8
 on_traded: (100,8)
-LimitOrder(100,10,Sell_1_100) matched completely
+Limit[10@100] matched completely
 best changed = None
 Unfilled = 2
 after = []
 
 best changed = Some(100)
-SendingLimitOrder(100,-15,100_Buy)
+SendingLimit[-15@100]
 before = [20/100 10/103]
-LimitOrder(100,10,Sell_2_100) traded at 100 with 10
-LimitOrder(100,-15,100_Buy) traded at 100 with 10
+Limit[10@100] traded at 100 with 10
+Limit[-15@100] traded at 100 with 10
 on_traded: (100,10)
-LimitOrder(100,10,Sell_2_100) matched completely
-LimitOrder(100,10,Sell_3_100) traded at 100 with 5
-LimitOrder(100,-15,100_Buy) traded at 100 with 5
+Limit[10@100] matched completely
+Limit[10@100] traded at 100 with 5
+Limit[-15@100] traded at 100 with 5
 on_traded: (100,5)
 best changed = Some(100)
 Unfilled = 0
 after = [5/100 10/103]
 
-SendingLimitOrder(105,-20,105_Buy)
+SendingLimit[-20@105]
 before = [5/100 10/103]
-LimitOrder(100,10,Sell_3_100) traded at 100 with 5
-LimitOrder(105,-20,105_Buy) traded at 100 with 5
+Limit[10@100] traded at 100 with 5
+Limit[-20@105] traded at 100 with 5
 on_traded: (100,5)
-LimitOrder(100,10,Sell_3_100) matched completely
-LimitOrder(103,10,Sell_1_103) traded at 103 with 10
-LimitOrder(105,-20,105_Buy) traded at 103 with 10
+Limit[10@100] matched completely
+Limit[10@103] traded at 103 with 10
+Limit[-20@105] traded at 103 with 10
 on_traded: (103,10)
-LimitOrder(103,10,Sell_1_103) matched completely
+Limit[10@103] matched completely
 best changed = None
 Unfilled = 5
 after = []

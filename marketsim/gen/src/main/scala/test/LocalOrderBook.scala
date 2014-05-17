@@ -31,10 +31,13 @@ case object LocalOrderBook extends Test {
             book.Asks.TradeDone += { OnTraded("asks", _) }
             book.Bids.TradeDone += { OnTraded("bids", _) }
 
-            account.OrderSent += { order => trace("Sending" + order) }
+            account.OrderSent += { order => trace("Sending " + order) }
+            account.OrderTraded += { case (order, price, volume)  => trace(s"$order traded $volume at $price") }
+            account.OrderStopped += { case (order, unmatched) =>
+                trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
 
             def sendLimit(price : Ticks, volume : Int) {
-                val order = LimitOrder(price, volume, limitEvents("Limit[" + volume + "/" + price + "]"))
+                val order = LimitOrder(price, volume, account)
                 trace("before = " + book)
                 account send order
                 async {
