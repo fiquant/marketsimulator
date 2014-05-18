@@ -7,7 +7,6 @@ object ImmediateOrCancel
 {
     class Order(proto : OrderFactory) extends marketsim.Order
     {
-        self =>
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             val order = proto.create
