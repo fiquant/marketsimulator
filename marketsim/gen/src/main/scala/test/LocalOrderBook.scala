@@ -30,7 +30,10 @@ case object LocalOrderBook extends Test {
             book.Bids.TradeDone += { OnTraded("bids", _) }
 
             account.OrderSent += { order => trace("Sending " + order) }
-            account.OrderTraded += { case (order, price, volume)  => trace(s"$order traded $volume at $price") }
+            account.OrderTraded += { case (order, price, volume)  =>
+                trace(s"$order traded $volume at $price")
+                trace(s"position = ${account.getPosition}; balance = ${account.getBalance}")
+            }
             account.OrderStopped += { case (order, unmatched) =>
                 trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
 
