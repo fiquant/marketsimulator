@@ -10,24 +10,8 @@ case object LocalOrderBook extends Test {
     {
         marketsim.Scheduler.create { scheduler =>
 
-            val book = new marketsim.orderbook.Local
+            val book = withLogging(trace)(new marketsim.orderbook.Local)
             val account = new marketsim.Account(book)
-
-            def OnBestChanged(sender : String, pv : Option[Ticks])
-            {
-                trace(s"best of $sender changed = " + pv)
-            }
-
-            def OnTraded(sender : String, pv : (Ticks, Int))
-            {
-                trace(sender + " on_traded: " + pv)
-            }
-
-            book.Asks.BestPossiblyChanged += { OnBestChanged("asks", _) }
-            book.Bids.BestPossiblyChanged += { OnBestChanged("bids", _) }
-
-            book.Asks.TradeDone += { OnTraded("asks", _) }
-            book.Bids.TradeDone += { OnTraded("bids", _) }
 
             account.OrderSent += { order => trace("Sending " + order) }
             account.OrderTraded += { case (order, price, volume)  =>

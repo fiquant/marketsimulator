@@ -60,10 +60,10 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
             async { events OnStopped (order, unmatched)}
     }
 
-    def process(cancel : CancelOrder) =
+    def cancel(order : LimitOrder) =
 
-        cancel.order.side match {
-            case Sell => Asks cancel cancel.order
-            case Buy  => Bids cancel cancel.order
+        order.side match {
+            case Sell => Asks cancel order
+            case Buy  => Bids cancel order
         }
 }

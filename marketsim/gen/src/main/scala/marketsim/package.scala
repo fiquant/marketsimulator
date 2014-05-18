@@ -36,7 +36,7 @@ package object marketsim {
         def process(order : MarketOrder, events : OrderListener)
         def process(order : LimitOrder, events : OrderListener)
 
-        def process(cancel : CancelOrder)
+        def cancel(order : LimitOrder)
     }
 
     // abstract class for all requests that can be handled by order books
@@ -118,10 +118,18 @@ package object marketsim {
         def create = LimitOrder(price(), volume())
     }
 
-    case class CancelOrder(order : LimitOrder) extends Request
+    trait CancellableOrder
+    {
+        def cancel()
+    }
+
+    case class CancelOrder(order : Order) extends Request
     {
         def remote(link : orderbook.remote.Link) = this
 
-        def processIn(book : OrderbookDispatch) = book process this
+        def processIn(book : OrderbookDispatch) = order match {
+            case x : LimitOrder       => book cancel x
+            case x : CancellableOrder => x.cancel()
+        }
     }
 }
