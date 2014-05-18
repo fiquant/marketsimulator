@@ -22,6 +22,7 @@ object Iceberg
             private def newOrder() =
             {
                 val lot = lotSize()
+                assert(lot > 0)
                 if (volumeUnnmatched > 0)
                     proto withVolume ( lot min volumeUnnmatched)
                 else
@@ -40,7 +41,7 @@ object Iceberg
                 if (unmatched == 0 && volumeUnnmatched != 0) {
                     order = newOrderSent()
                 } else
-                    events OnStopped (self, unmatched)
+                    events OnStopped (self, volumeUnnmatched)
             }
 
             def cancel()

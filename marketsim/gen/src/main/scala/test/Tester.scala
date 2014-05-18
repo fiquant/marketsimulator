@@ -13,6 +13,7 @@ object Tester {
             RemoteOrderBook ::
             order.ImmediateOrCancel ::
             order.WithExpiry ::
+            order.Iceberg ::
                     Nil
 
         tests foreach { t =>
