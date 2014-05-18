@@ -65,13 +65,14 @@ package object marketsim {
     
     trait Order
     {
-        self =>
+        def processIn(target : OrderbookDispatch, events : OrderListener)
+    }
 
+    trait OrderBase extends Order
+    {
         val volume : Volume
         def side = if (volume > 0) Sell else Buy
         def volumeAbsolute = volume.abs
-
-        def processIn(target : OrderbookDispatch, events : OrderListener)
     }
 
     case class OrderRequest(order : Order, events : OrderListener) extends Request
@@ -88,7 +89,7 @@ package object marketsim {
     }
 
 
-    case class MarketOrder(volume : Volume) extends Order
+    case class MarketOrder(volume : Volume) extends OrderBase
     {
         def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 
@@ -105,7 +106,7 @@ package object marketsim {
         def create = MarketOrder(volume())
     }
     
-    case class LimitOrder(price : Ticks, volume : Volume) extends Order
+    case class LimitOrder(price : Ticks, volume : Volume) extends OrderBase
     {
         def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 

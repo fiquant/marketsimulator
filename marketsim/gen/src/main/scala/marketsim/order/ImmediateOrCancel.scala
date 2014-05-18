@@ -7,8 +7,6 @@ object ImmediateOrCancel
 {
     class Order(proto : marketsim.Order) extends marketsim.Order
     {
-        val volume = proto.volume
-
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             target handle OrderRequest(proto, events)
