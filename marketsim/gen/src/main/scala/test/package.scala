@@ -39,11 +39,13 @@ package object test
         book
     }
 
-    class LoggedAccount(trace : String => Unit, book : Orderbook)
+    class LoggedAccount(trace_ : String => Unit, book : Orderbook, name : String)
     {
         val account = new marketsim.Account(book)
 
-        account.OrderSent += { order => trace("Sending " + order) }
+        def trace(s : String) = trace_(s"$name : $s")
+
+        account.OrderSent += { order => trace(s"sending $order") }
         account.OrderTraded += { case (order, price, volume)  =>
             trace(s"$order traded $volume at $price")
             trace(s"position = ${account.getPosition}; balance = ${account.getBalance}")

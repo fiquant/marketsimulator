@@ -10,16 +10,18 @@ case object LocalOrderBook extends Test {
         marketsim.Scheduler.create { scheduler =>
 
             val book = withLogging(trace)(new marketsim.orderbook.Local)
-            val account = new LoggedAccount(trace, book)
+            val A = new LoggedAccount(trace, book, "A")
+            val B = new LoggedAccount(trace, book, "B")
 
             val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, () => 1)
             val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, () => -2)
 
-            0 to 4 foreach { i => schedule(i, account sendOrder sellOrders) }
-            0 to 4 foreach { i => schedule(i + 5, account sendOrder buyOrders) }
+            0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
+            0 to 4 foreach { i => schedule(i + 5, B sendOrder buyOrders) }
 
             schedule(10, {
-                account.ordersSent.getOrders foreach account.cancel
+                A.ordersSent.getOrders foreach A.cancel
+                B.ordersSent.getOrders foreach B.cancel
             })
 
             scheduler workTill 50

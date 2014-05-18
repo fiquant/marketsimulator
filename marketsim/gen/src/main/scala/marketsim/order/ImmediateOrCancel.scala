@@ -3,13 +3,23 @@ package marketsim.order
 import marketsim._
 import marketsim.OrderRequest
 
-class ImmediateOrCancel(proto : LimitOrder) extends Order
+object ImmediateOrCancel
 {
-    val volume = proto.volume
-
-    def processIn(target : OrderbookDispatch, events : OrderListener)
+    class Order(proto : marketsim.Order) extends marketsim.Order
     {
-        target handle OrderRequest(proto, events)
-        target handle CancelOrder(proto)
+        val volume = proto.volume
+
+        def processIn(target : OrderbookDispatch, events : OrderListener)
+        {
+            target handle OrderRequest(proto, events)
+            target handle CancelOrder(proto)
+        }
     }
+
+    class Factory(proto : OrderFactory) extends OrderFactory
+    {
+        def create = new Order(proto.create)
+    }
+
 }
+
