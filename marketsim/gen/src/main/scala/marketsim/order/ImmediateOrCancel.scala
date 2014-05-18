@@ -5,21 +5,22 @@ import marketsim.OrderRequest
 
 object ImmediateOrCancel
 {
-    class Order(proto : OrderFactory) extends marketsim.Order
+    class Order(proto : marketsim.Order) extends marketsim.Order
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            val order = proto.create
-            target handle OrderRequest(order, events proxy this)
-            target handle CancelOrder(order)
+            target handle OrderRequest(proto, events proxy this)
+            target handle CancelOrder(proto)
         }
+
+        def withVolume(v : Int) = new Order(proto withVolume v)
 
         override def toString = s"IoC($proto)"
     }
 
     case class Factory(proto : OrderFactory) extends OrderFactory
     {
-        def create = new Order(proto)
+        def create = new Order(proto.create)
     }
 
 }

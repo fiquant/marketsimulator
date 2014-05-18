@@ -5,22 +5,22 @@ import marketsim.OrderRequest
 
 object WithExpiry
 {
-    class Order(proto : OrderFactory, expiration : () => Time) extends marketsim.Order
+    class Order(proto : marketsim.Order, expiration : () => Time) extends marketsim.Order
     {
         private var cancelOrder = Option.empty[() => Unit]
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            val order = proto.create
-
-            target handle OrderRequest(order, events proxy this)
+            target handle OrderRequest(proto, events proxy this)
 
             import marketsim.Scheduler.scheduleAfter
 
-            cancelOrder = Some { () => target handle CancelOrder(order) }
+            cancelOrder = Some { () => target handle CancelOrder(proto) }
 
             scheduleAfter(expiration(), cancel())
         }
+
+        def withVolume(v : Int) = new Order(proto withVolume v, expiration)
 
         override def cancel() =
             if (cancelOrder.nonEmpty)
@@ -31,7 +31,7 @@ object WithExpiry
 
     case class Factory(proto : OrderFactory, expiration : () => Time) extends OrderFactory
     {
-        def create = new Order(proto, expiration)
+        def create = new Order(proto.create, expiration)
     }
 
 }

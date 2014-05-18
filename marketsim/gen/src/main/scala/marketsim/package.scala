@@ -77,6 +77,7 @@ package object marketsim {
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
         def cancel() {}
+        def withVolume(volume : Int) : Order
     }
 
     trait OrderBase extends Order
@@ -106,12 +107,19 @@ package object marketsim {
     {
         def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 
+        def withVolume(v : Int) = copy(volume = v)
+
         override def toString = s"Market[$volume]"
     }
 
     trait OrderFactory
     {
         def create : Order
+    }
+
+    trait OrderFactoryByVolume
+    {
+        def create(volume : Int) : Order
     }
 
     case class MarketOrderFactory(volume : () => Volume) extends OrderFactory
@@ -122,6 +130,8 @@ package object marketsim {
     case class LimitOrder(price : Ticks, volume : Volume) extends OrderBase
     {
         def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
+
+        def withVolume(v : Int) = copy(volume = v)
 
         override def toString = s"Limit[$volume@$price]"
     }
