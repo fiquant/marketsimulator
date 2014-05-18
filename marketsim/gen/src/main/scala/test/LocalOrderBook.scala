@@ -21,13 +21,12 @@ case object LocalOrderBook extends Test {
             account.OrderStopped += { case (order, unmatched) =>
                 trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
 
-            var ordersSent = Queue.empty[LimitOrder]
+            var ordersSent = new PendingOrders(account)
 
             def sendLimit(factory : LimitOrderFactory) {
                 trace("before = " + book)
                 val order = factory.create
                 account send order
-                ordersSent = ordersSent enqueue order
                 async {
                     trace("after = " + book)
                     trace("")
@@ -40,13 +39,13 @@ case object LocalOrderBook extends Test {
             0 to 4 foreach { i => schedule(i, sendLimit(sellOrders)) }
             0 to 4 foreach { i => schedule(i + 5, sendLimit(buyOrders)) }
 
-            def cancel(order : LimitOrder) {
+            def cancel(order : Order) {
                 trace("cancelling " + order)
                 account send CancelOrder(order)
             }
 
             schedule(10, {
-                ordersSent foreach cancel
+                ordersSent.getOrders foreach cancel
             })
 
 
