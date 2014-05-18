@@ -1,4 +1,5 @@
 import marketsim._
+import marketsim.Scheduler._
 
 package object test
 {
@@ -36,5 +37,37 @@ package object test
         book.Bids.TradeDone += { OnTraded("bids", _) }
 
         book
+    }
+
+    class LoggedAccount(trace : String => Unit, book : Orderbook)
+    {
+        val account = new marketsim.Account(book)
+
+        account.OrderSent += { order => trace("Sending " + order) }
+        account.OrderTraded += { case (order, price, volume)  =>
+            trace(s"$order traded $volume at $price")
+            trace(s"position = ${account.getPosition}; balance = ${account.getBalance}")
+        }
+        account.OrderStopped += { case (order, unmatched) =>
+            trace(order + (if (unmatched == 0) " matched completely" else " unmatched volume: " + unmatched )) }
+
+        val ordersSent = new PendingOrders(account)
+
+        def sendOrder(factory : OrderFactory) {
+            trace("before = " + book)
+            val order = factory.create
+            account send order
+            async {
+                trace("after = " + book)
+                trace("")
+            }
+        }
+
+        def cancel(order : Order) {
+            trace("cancelling " + order)
+            account send CancelOrder(order)
+        }
+
+
     }
 }
