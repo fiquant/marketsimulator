@@ -31,33 +31,34 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
 
     def process(order : MarketOrder, events : OrderListener) =
     {
-        def inner[T <: Entry](opposite : Queue[T]) = {
-            val unmatched = opposite matchWith (order, events)
-            async { events OnStopped (order, unmatched) }
-        }
-
         order.side match {
-            case Sell => inner(Bids)
-            case Buy =>  inner(Asks)
+            case Sell =>
+                val unmatched = Bids matchWith (order, events)
+                async { events OnStopped (order, -unmatched) }
+
+            case Buy =>
+                val unmatched = Asks matchWith (order, events)
+                async { events OnStopped (order, unmatched) }
+
         }
     }
 
     def process(order : LimitOrder, events : OrderListener) =
     {
-        val unmatched = order.side match {
+        order.side match {
             case Sell =>
                 val unmatched = Bids matchWith (order, events)
-                if (unmatched > 0)
+                if (unmatched != 0)
                     Asks insert SellEntry(order, unmatched, events)
-                unmatched
+                else
+                    async { events OnStopped (order, 0) }
             case Buy =>
                 val unmatched = Asks matchWith (order, events)
-                if (unmatched > 0)
+                if (unmatched != 0)
                     Bids insert BuyEntry(order, unmatched, events)
-                unmatched
+                else
+                    async { events OnStopped (order, 0)}
         }
-        if (unmatched == 0)
-            async { events OnStopped (order, unmatched)}
     }
 
     def cancel(order : LimitOrder) =

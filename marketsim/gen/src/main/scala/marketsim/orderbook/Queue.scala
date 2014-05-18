@@ -32,7 +32,7 @@ class Queue[T <: Entry] extends OrderQueue {
             val isTop = orders.top.order eq order
             val e = orders cancel order
             if (e.nonEmpty)
-                async { e.get.owner OnStopped (order, e.get.getVolumeUnmatched) }
+                async { e.get.owner OnStopped (order, e.get.getVolumeUnmatchedSigned) }
             if (isTop)
                 notifyBestChanged()
         }

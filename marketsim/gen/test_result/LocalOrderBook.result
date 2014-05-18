@@ -28,9 +28,9 @@ B : before = {asks = [1/100 1/101 1/102 1/103 1/104]; bids = []}
 B : sending Limit[-2@100]
 B : after = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 B : 
-A : Limit[1@100] traded 1 at 100
+A : Limit[1@100] traded -1 at 100
 A : position = -1; balance = 100
-B : Limit[-2@100] traded 1 at 100
+B : Limit[-2@100] traded 1 at -100
 B : position = 1; balance = -100
 asks on_traded: (100,1)
 A : Limit[1@100] matched completely
@@ -40,9 +40,9 @@ B : before = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 B : sending Limit[-2@101]
 B : after = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 B : 
-A : Limit[1@101] traded 1 at 101
+A : Limit[1@101] traded -1 at 101
 A : position = -2; balance = 201
-B : Limit[-2@101] traded 1 at 101
+B : Limit[-2@101] traded 1 at -101
 B : position = 2; balance = -201
 asks on_traded: (101,1)
 A : Limit[1@101] matched completely
@@ -52,9 +52,9 @@ B : before = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 B : sending Limit[-2@102]
 B : after = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 B : 
-A : Limit[1@102] traded 1 at 102
+A : Limit[1@102] traded -1 at 102
 A : position = -3; balance = 303
-B : Limit[-2@102] traded 1 at 102
+B : Limit[-2@102] traded 1 at -102
 B : position = 3; balance = -303
 asks on_traded: (102,1)
 A : Limit[1@102] matched completely
@@ -64,9 +64,9 @@ B : before = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 B : sending Limit[-2@103]
 B : after = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 B : 
-A : Limit[1@103] traded 1 at 103
+A : Limit[1@103] traded -1 at 103
 A : position = -4; balance = 406
-B : Limit[-2@103] traded 1 at 103
+B : Limit[-2@103] traded 1 at -103
 B : position = 4; balance = -406
 asks on_traded: (103,1)
 A : Limit[1@103] matched completely
@@ -76,9 +76,9 @@ B : before = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 B : sending Limit[-2@104]
 B : after = {asks = []; bids = [1/104 1/103 1/102 1/101 1/100]}
 B : 
-A : Limit[1@104] traded 1 at 104
+A : Limit[1@104] traded -1 at 104
 A : position = -5; balance = 510
-B : Limit[-2@104] traded 1 at 104
+B : Limit[-2@104] traded 1 at -104
 B : position = 5; balance = -510
 asks on_traded: (104,1)
 A : Limit[1@104] matched completely
@@ -89,9 +89,9 @@ B : cancelling Limit[-2@101]
 B : cancelling Limit[-2@102]
 B : cancelling Limit[-2@103]
 B : cancelling Limit[-2@104]
-B : Limit[-2@100] unmatched volume: 1
-B : Limit[-2@101] unmatched volume: 1
-B : Limit[-2@102] unmatched volume: 1
-B : Limit[-2@103] unmatched volume: 1
-B : Limit[-2@104] unmatched volume: 1
+B : Limit[-2@100] unmatched volume: -1
+B : Limit[-2@101] unmatched volume: -1
+B : Limit[-2@102] unmatched volume: -1
+B : Limit[-2@103] unmatched volume: -1
+B : Limit[-2@104] unmatched volume: -1
 best of bids changed = None

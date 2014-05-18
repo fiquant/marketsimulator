@@ -33,14 +33,8 @@ class Account(orderbook         : Orderbook,
      */
     def OnTraded(order : Order, price : Ticks, volume : Int)
     {
-        order.side match {
-            case Sell =>
-                position -= volume
-                balance += price
-            case Buy =>
-                position += volume
-                balance -= price
-        }
+        position += volume
+        balance += price
         OrderTraded((order, price, volume))
     }
 

@@ -12,6 +12,11 @@ abstract class Entry(initialVolume : Volume)
     def isEmpty = volumeUnmatched == 0
     def getVolumeUnmatched = volumeUnmatched
 
+    def getVolumeUnmatchedSigned = side match {
+        case Sell => volumeUnmatched
+        case Buy  => -volumeUnmatched
+    }
+
     def side : Side
     def canMatchWith(other : LimitOrder) : Boolean
     def signedTicks = makeSignedTicks(order.price)
@@ -31,10 +36,15 @@ abstract class Entry(initialVolume : Volume)
         val trade_volume = otherVolumeUnmatched min volumeUnmatched
         val trade_price = order.price
 
+        val (v, p) = side match {
+            case Sell => (-trade_volume,  trade_price)
+            case Buy  => ( trade_volume, -trade_price)
+        }
+
         import marketsim.Scheduler.async
 
-        async { owner       OnTraded (order, trade_price, trade_volume) }
-        async { otherEvents OnTraded (other, trade_price, trade_volume) }
+        async { owner       OnTraded (order,  p,  v) }
+        async { otherEvents OnTraded (other, -p, -v) }
 
         volumeUnmatched -= trade_volume
         trade_volume
