@@ -66,6 +66,7 @@ package object marketsim {
     trait Order
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
+        def cancel() {}
     }
 
     trait OrderBase extends Order
@@ -86,6 +87,8 @@ package object marketsim {
             def OnStopped(order : Order, unmatchedVolume : Volume)      = link send { events OnStopped (order, unmatchedVolume) }
             override def toString = self.toString
         })
+
+        override def toString = s"{$order}"
     }
 
 
@@ -117,20 +120,18 @@ package object marketsim {
                                  volume : () => Volume) extends OrderFactory
     {
         def create = LimitOrder(price(), volume())
+
+        override def toString = s"Limit{$price, $volume}"
     }
 
-    trait CancellableOrder
-    {
-        def cancel()
-    }
 
     case class CancelOrder(order : Order) extends Request
     {
         def remote(link : orderbook.remote.Link) = this
 
         def processIn(book : OrderbookDispatch) = order match {
-            case x : LimitOrder       => book cancel x
-            case x : CancellableOrder => x.cancel()
+            case x : LimitOrder => book cancel x
+            case x : Order      => x.cancel()
         }
     }
 }

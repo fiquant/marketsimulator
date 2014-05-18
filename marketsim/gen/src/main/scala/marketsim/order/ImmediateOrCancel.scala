@@ -5,18 +5,25 @@ import marketsim.OrderRequest
 
 object ImmediateOrCancel
 {
-    class Order(proto : marketsim.Order) extends marketsim.Order
+    class Order(proto : OrderFactory) extends marketsim.Order
     {
+        self =>
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            target handle OrderRequest(proto, events)
-            target handle CancelOrder(proto)
+            val order = proto.create
+            target handle OrderRequest(order, new OrderListener {
+                def OnTraded(order : marketsim.Order, price: Ticks, volume : Volume) = events OnTraded (self, price, volume)
+                def OnStopped(order : marketsim.Order, unmatchedVolume : Volume) = events OnStopped (self, unmatchedVolume)
+            })
+            target handle CancelOrder(order)
         }
+
+        override def toString = s"IoC($proto)"
     }
 
-    class Factory(proto : OrderFactory) extends OrderFactory
+    case class Factory(proto : OrderFactory) extends OrderFactory
     {
-        def create = new Order(proto.create)
+        def create = new Order(proto)
     }
 
 }

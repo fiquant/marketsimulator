@@ -11,6 +11,7 @@ object Tester {
             LocalOrderBook ::
             Link ::
             RemoteOrderBook ::
+            order.ImmediateOrCancel ::
                     Nil
 
         tests foreach { t =>

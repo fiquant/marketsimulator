@@ -16,9 +16,11 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
     import marketsim.Scheduler.scheduleAfter
 
     private def wakeUp() {
-        requests.dequeue() processIn this
-        if (requests.nonEmpty)
-            scheduleAfter(processingTime, { wakeUp() })
+        if (requests.nonEmpty) {
+            requests.dequeue() processIn this
+            if (requests.nonEmpty)
+                scheduleAfter(processingTime, { wakeUp() })
+        }
     }
 
     def handle(request : Request) = {
