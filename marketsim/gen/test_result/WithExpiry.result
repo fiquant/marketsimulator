@@ -1,0 +1,92 @@
+[   0]  0,0	A : before = Remote({asks = []; bids = []})
+[   0]  0,0	A : sending Limit[1@100]
+[  12]  0,0	A : after = Remote({asks = []; bids = []})
+[  12]  0,0	A : 
+[  16]  0,5	best of bids changed = None
+[  17]  0,5	best of asks changed = Some(100)
+[   1]  1,0	A : before = Remote({asks = [1/100]; bids = []})
+[   1]  1,0	A : sending Limit[1@101]
+[  19]  1,0	A : after = Remote({asks = [1/100]; bids = []})
+[  19]  1,0	A : 
+[  22]  1,5	best of bids changed = None
+[   2]  2,0	A : before = Remote({asks = [1/100 1/101]; bids = []})
+[   2]  2,0	A : sending Limit[1@102]
+[  24]  2,0	A : after = Remote({asks = [1/100 1/101]; bids = []})
+[  24]  2,0	A : 
+[  27]  2,5	best of bids changed = None
+[   3]  3,0	A : before = Remote({asks = [1/100 1/101 1/102]; bids = []})
+[   3]  3,0	A : sending Limit[1@103]
+[  29]  3,0	A : after = Remote({asks = [1/100 1/101 1/102]; bids = []})
+[  29]  3,0	A : 
+[  32]  3,5	best of bids changed = None
+[   4]  4,0	A : before = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
+[   4]  4,0	A : sending Limit[1@104]
+[  34]  4,0	A : after = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
+[  34]  4,0	A : 
+[  37]  4,5	best of bids changed = None
+[   5]  5,0	B : before = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
+[   5]  5,0	B : sending WithExpiry(Limit{100, -2}, 5.0)
+[  39]  5,0	B : after = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
+[  39]  5,0	B : 
+[  50]  5,5	A : Limit[1@100] traded -1 at 100
+[  50]  5,5	A : position = -1; balance = 100
+[  51]  5,5	B : WithExpiry(Limit{100, -2}, 5.0) traded 1 at -100
+[  51]  5,5	B : position = 1; balance = -100
+[  52]  5,5	asks on_traded: (100,1)
+[  53]  5,5	A : Limit[1@100] matched completely
+[  54]  5,5	best of asks changed = Some(101)
+[  55]  5,5	best of bids changed = Some(100)
+[   6]  6,0	B : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = [1/100]})
+[   6]  6,0	B : sending WithExpiry(Limit{101, -2}, 5.0)
+[  57]  6,0	B : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = [1/100]})
+[  57]  6,0	B : 
+[  68]  6,5	A : Limit[1@101] traded -1 at 101
+[  68]  6,5	A : position = -2; balance = 201
+[  69]  6,5	B : WithExpiry(Limit{101, -2}, 5.0) traded 1 at -101
+[  69]  6,5	B : position = 2; balance = -201
+[  70]  6,5	asks on_traded: (101,1)
+[  71]  6,5	A : Limit[1@101] matched completely
+[  72]  6,5	best of asks changed = Some(102)
+[  73]  6,5	best of bids changed = Some(101)
+[   7]  7,0	B : before = Remote({asks = [1/102 1/103 1/104]; bids = [1/101 1/100]})
+[   7]  7,0	B : sending WithExpiry(Limit{102, -2}, 5.0)
+[  75]  7,0	B : after = Remote({asks = [1/102 1/103 1/104]; bids = [1/101 1/100]})
+[  75]  7,0	B : 
+[  86]  7,5	A : Limit[1@102] traded -1 at 102
+[  86]  7,5	A : position = -3; balance = 303
+[  87]  7,5	B : WithExpiry(Limit{102, -2}, 5.0) traded 1 at -102
+[  87]  7,5	B : position = 3; balance = -303
+[  88]  7,5	asks on_traded: (102,1)
+[  89]  7,5	A : Limit[1@102] matched completely
+[  90]  7,5	best of asks changed = Some(103)
+[  91]  7,5	best of bids changed = Some(102)
+[   8]  8,0	B : before = Remote({asks = [1/103 1/104]; bids = [1/102 1/101 1/100]})
+[   8]  8,0	B : sending WithExpiry(Limit{103, -2}, 5.0)
+[  93]  8,0	B : after = Remote({asks = [1/103 1/104]; bids = [1/102 1/101 1/100]})
+[  93]  8,0	B : 
+[ 104]  8,5	A : Limit[1@103] traded -1 at 103
+[ 104]  8,5	A : position = -4; balance = 406
+[ 105]  8,5	B : WithExpiry(Limit{103, -2}, 5.0) traded 1 at -103
+[ 105]  8,5	B : position = 4; balance = -406
+[ 106]  8,5	asks on_traded: (103,1)
+[ 107]  8,5	A : Limit[1@103] matched completely
+[ 108]  8,5	best of asks changed = Some(104)
+[ 109]  8,5	best of bids changed = Some(103)
+[   9]  9,0	B : before = Remote({asks = [1/104]; bids = [1/103 1/102 1/101 1/100]})
+[   9]  9,0	B : sending WithExpiry(Limit{104, -2}, 5.0)
+[ 111]  9,0	B : after = Remote({asks = [1/104]; bids = [1/103 1/102 1/101 1/100]})
+[ 111]  9,0	B : 
+[ 122]  9,5	A : Limit[1@104] traded -1 at 104
+[ 122]  9,5	A : position = -5; balance = 510
+[ 123]  9,5	B : WithExpiry(Limit{104, -2}, 5.0) traded 1 at -104
+[ 123]  9,5	B : position = 5; balance = -510
+[ 124]  9,5	asks on_traded: (104,1)
+[ 125]  9,5	A : Limit[1@104] matched completely
+[ 126]  9,5	best of asks changed = None
+[ 127]  9,5	best of bids changed = Some(104)
+[ 130]  10,5	B : WithExpiry(Limit{105, -2}, 5.0) unmatched volume: -1
+[ 133]  11,5	B : WithExpiry(Limit{106, -2}, 5.0) unmatched volume: -1
+[ 136]  12,5	B : WithExpiry(Limit{107, -2}, 5.0) unmatched volume: -1
+[ 139]  13,5	B : WithExpiry(Limit{108, -2}, 5.0) unmatched volume: -1
+[ 143]  14,5	B : WithExpiry(Limit{109, -2}, 5.0) unmatched volume: -1
+[ 144]  14,5	best of bids changed = None

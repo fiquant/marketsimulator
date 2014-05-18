@@ -11,10 +11,7 @@ object ImmediateOrCancel
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             val order = proto.create
-            target handle OrderRequest(order, new OrderListener {
-                def OnTraded(order : marketsim.Order, price: Ticks, volume : Volume) = events OnTraded (self, price, volume)
-                def OnStopped(order : marketsim.Order, unmatchedVolume : Volume) = events OnStopped (self, unmatchedVolume)
-            })
+            target handle OrderRequest(order, events proxy this)
             target handle CancelOrder(order)
         }
 

@@ -12,6 +12,7 @@ object Tester {
             Link ::
             RemoteOrderBook ::
             order.ImmediateOrCancel ::
+            order.WithExpiry ::
                     Nil
 
         tests foreach { t =>

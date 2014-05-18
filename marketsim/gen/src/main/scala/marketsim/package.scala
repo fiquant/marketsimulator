@@ -49,6 +49,8 @@ package object marketsim {
 
     trait OrderListener
     {
+        target =>
+
         /**
          * Called when a trade is done with order
          * @param order  - order in trade
@@ -61,8 +63,16 @@ package object marketsim {
          * Called when order is completely matched or cancelled
          */
         def OnStopped(order : Order, unmatchedVolume : Volume)
+
+        def proxy(source : Order) =
+
+            new OrderListener {
+                def OnTraded(order : Order, price: Ticks, volume : Volume) = target OnTraded (source, price, volume)
+                def OnStopped(order : Order, unmatchedVolume : Volume) = target OnStopped (source, unmatchedVolume)
+            }
     }
-    
+
+
     trait Order
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
