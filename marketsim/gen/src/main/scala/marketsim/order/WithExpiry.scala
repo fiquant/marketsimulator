@@ -5,7 +5,7 @@ import marketsim.OrderRequest
 
 object WithExpiry
 {
-    class Order(proto : marketsim.Order, expiration : () => Time) extends marketsim.Order
+    case class Order(proto : marketsim.Order, expiration : () => Time) extends marketsim.Order
     {
         private var cancelOrder = Option.empty[() => Unit]
 
@@ -20,7 +20,9 @@ object WithExpiry
             scheduleAfter(expiration(), cancel())
         }
 
-        def withVolume(v : Int) = new Order(proto withVolume v, expiration)
+        val volume = proto.volume
+
+        def withVolume(v : Int) = copy(proto = proto withVolume v)
 
         override def cancel() =
             if (cancelOrder.nonEmpty)
