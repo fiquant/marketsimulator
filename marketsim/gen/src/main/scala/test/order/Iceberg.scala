@@ -27,10 +27,13 @@ case object Iceberg extends Test {
                 override def toString() = apply().toString
             }
 
-            val buyOrders = marketsim.order.Iceberg.Factory(
-                LimitOrderFactory(BuyPrices() , const(-20)),
-                const(3)
-            )
+            val buyOrders =
+                marketsim.order.WithExpiry.Factory(
+                    marketsim.order.Iceberg.Factory(
+                        LimitOrderFactory(BuyPrices() , const(-20)),
+                        const(3)
+                    ),
+                const(5))
 
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
             0 to 4 foreach { i => schedule(i + 5, B sendOrder buyOrders) }
