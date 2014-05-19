@@ -2,6 +2,7 @@
 [   0]  0,0	A : sending Limit[1@100]
 [  12]  0,0	A : after = Remote({asks = []; bids = []})
 [  12]  0,0	A : 
+[  17]  0,5	best of min ask changed = Some(100)
 [  17]  0,5	best of asks changed = Some(100)
 [   1]  1,0	A : before = Remote({asks = [1/100]; bids = []})
 [   1]  1,0	A : sending Limit[1@101]

@@ -16,7 +16,7 @@ class Event[T] {
 
 abstract class Observable[T] extends Event[Option[T]]
 {
-    private var _value = Option.empty[T]
+    protected var _value = Option.empty[T]
 
     def value = _value
 

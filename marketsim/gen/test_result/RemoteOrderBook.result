@@ -2,6 +2,7 @@
 [   0]  0,0	A : sending Limit[1@100]
 [  12]  0,0	A : after = Remote({asks = []; bids = []})
 [  12]  0,0	A : 
+[  17]  0,5	best of min ask changed = Some(100)
 [  17]  0,5	best of asks changed = Some(100)
 [   1]  1,0	A : before = Remote({asks = [1/100]; bids = []})
 [   1]  1,0	A : sending Limit[1@101]
@@ -30,6 +31,7 @@
 [  49]  5,5	asks on_traded: (100,1)
 [  50]  5,5	A : Limit[1@100] matched completely
 [  51]  5,5	best of asks changed = Some(101)
+[  52]  5,5	best of max bid changed = Some(100)
 [  52]  5,5	best of bids changed = Some(100)
 [   6]  6,0	B : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = [1/100]})
 [   6]  6,0	B : sending Limit[-2@101]
@@ -42,6 +44,7 @@
 [  64]  6,5	asks on_traded: (101,1)
 [  65]  6,5	A : Limit[1@101] matched completely
 [  66]  6,5	best of asks changed = Some(102)
+[  67]  6,5	best of max bid changed = Some(101)
 [  67]  6,5	best of bids changed = Some(101)
 [   7]  7,0	B : before = Remote({asks = [1/102 1/103 1/104]; bids = [1/101 1/100]})
 [   7]  7,0	B : sending Limit[-2@102]
@@ -54,6 +57,7 @@
 [  79]  7,5	asks on_traded: (102,1)
 [  80]  7,5	A : Limit[1@102] matched completely
 [  81]  7,5	best of asks changed = Some(103)
+[  82]  7,5	best of max bid changed = Some(102)
 [  82]  7,5	best of bids changed = Some(102)
 [   8]  8,0	B : before = Remote({asks = [1/103 1/104]; bids = [1/102 1/101 1/100]})
 [   8]  8,0	B : sending Limit[-2@103]
@@ -66,6 +70,7 @@
 [  94]  8,5	asks on_traded: (103,1)
 [  95]  8,5	A : Limit[1@103] matched completely
 [  96]  8,5	best of asks changed = Some(104)
+[  97]  8,5	best of max bid changed = Some(103)
 [  97]  8,5	best of bids changed = Some(103)
 [   9]  9,0	B : before = Remote({asks = [1/104]; bids = [1/103 1/102 1/101 1/100]})
 [   9]  9,0	B : sending Limit[-2@104]
@@ -78,6 +83,7 @@
 [ 109]  9,5	asks on_traded: (104,1)
 [ 110]  9,5	A : Limit[1@104] matched completely
 [ 111]  9,5	best of asks changed = None
+[ 112]  9,5	best of max bid changed = Some(104)
 [ 112]  9,5	best of bids changed = Some(104)
 [  10]  10,0	B : cancelling Limit[-2@100]
 [  10]  10,0	B : cancelling Limit[-2@101]

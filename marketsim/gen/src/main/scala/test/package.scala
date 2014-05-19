@@ -31,8 +31,16 @@ package object test
             trace(sender + " on_traded: " + pv)
         }
 
-        new BestPrice(book.Asks) += { OnBestChanged("asks", _) }
-        new BestPrice(book.Bids) += { OnBestChanged("bids", _) }
+        val bestAsk = BestPrice(book.Asks)
+        val bestBid = BestPrice(book.Bids)
+
+        bestAsk += { OnBestChanged("asks", _) }
+        bestBid += { OnBestChanged("bids", _) }
+
+        import marketsim.math.Cumulative
+
+        Cumulative.Min(bestAsk) += { OnBestChanged("min ask", _) }
+        Cumulative.Max(bestBid) += { OnBestChanged("max bid", _) }
 
         book.Asks.TradeDone += { OnTraded("asks", _) }
         book.Bids.TradeDone += { OnTraded("bids", _) }

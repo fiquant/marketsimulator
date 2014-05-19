@@ -2,6 +2,7 @@ A : before = {asks = []; bids = []}
 A : sending Limit[1@100]
 A : after = {asks = [1/100]; bids = []}
 A : 
+best of min ask changed = Some(100)
 best of asks changed = Some(100)
 A : before = {asks = [1/100]; bids = []}
 A : sending Limit[1@101]
@@ -30,6 +31,7 @@ B : position = 1; balance = -100
 asks on_traded: (100,1)
 A : Limit[1@100] matched completely
 best of asks changed = Some(101)
+best of max bid changed = Some(100)
 best of bids changed = Some(100)
 B : before = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
 B : sending Limit[-2@101]
@@ -42,6 +44,7 @@ B : position = 2; balance = -201
 asks on_traded: (101,1)
 A : Limit[1@101] matched completely
 best of asks changed = Some(102)
+best of max bid changed = Some(101)
 best of bids changed = Some(101)
 B : before = {asks = [1/102 1/103 1/104]; bids = [1/101 1/100]}
 B : sending Limit[-2@102]
@@ -54,6 +57,7 @@ B : position = 3; balance = -303
 asks on_traded: (102,1)
 A : Limit[1@102] matched completely
 best of asks changed = Some(103)
+best of max bid changed = Some(102)
 best of bids changed = Some(102)
 B : before = {asks = [1/103 1/104]; bids = [1/102 1/101 1/100]}
 B : sending Limit[-2@103]
@@ -66,6 +70,7 @@ B : position = 4; balance = -406
 asks on_traded: (103,1)
 A : Limit[1@103] matched completely
 best of asks changed = Some(104)
+best of max bid changed = Some(103)
 best of bids changed = Some(103)
 B : before = {asks = [1/104]; bids = [1/103 1/102 1/101 1/100]}
 B : sending Limit[-2@104]
@@ -78,6 +83,7 @@ B : position = 5; balance = -510
 asks on_traded: (104,1)
 A : Limit[1@104] matched completely
 best of asks changed = None
+best of max bid changed = Some(104)
 best of bids changed = Some(104)
 B : cancelling Limit[-2@100]
 B : cancelling Limit[-2@101]
