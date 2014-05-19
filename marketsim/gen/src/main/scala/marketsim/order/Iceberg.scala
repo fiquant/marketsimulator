@@ -5,7 +5,7 @@ import marketsim.OrderRequest
 
 object Iceberg
 {
-    class Order(proto : marketsim.Order, lotSize : () => Int) extends marketsim.Order
+    case class Order(proto : PriceOrder, lotSize : () => Int) extends PriceOrder
     {
         self =>
 
@@ -54,8 +54,10 @@ object Iceberg
 
         var state = Option.empty[State]
 
-        def withVolume(v : Int) = this
-        val volume = proto.volume
+        def volume = proto.volume
+        def price = proto.price
+        def withVolume(v : Int) = copy(proto = proto withVolume v)
+        def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
@@ -73,7 +75,7 @@ object Iceberg
         override def toString = s"Iceberg($proto, $lotSize)"
     }
 
-    case class Factory(proto : OrderFactory, lotSize : () => Int) extends OrderFactory
+    case class Factory(proto : PriceOrderFactory, lotSize : () => Int) extends PriceOrderFactory
     {
         def create = new Order(proto.create, lotSize)
     }

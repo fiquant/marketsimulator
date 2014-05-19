@@ -79,9 +79,17 @@ package object marketsim {
         def cancel() {}
         def withVolume(volume : Int) : Order
 
-        val volume : Volume
+        def volume : Volume
         def side = if (volume > 0) Sell else Buy
         def volumeAbsolute = volume.abs
+    }
+
+    trait PriceOrder extends Order
+    {
+        def price : Ticks
+        def withPrice(p : Ticks) : PriceOrder
+
+        def withVolume(volume : Int) : PriceOrder
     }
 
     case class OrderRequest(order : Order, events : OrderListener) extends Request
@@ -114,6 +122,12 @@ package object marketsim {
         def create : Order
     }
 
+    trait PriceOrderFactory extends OrderFactory
+    {
+        def create : PriceOrder
+    }
+
+
     trait OrderFactoryByVolume
     {
         def create(volume : Int) : Order
@@ -124,17 +138,18 @@ package object marketsim {
         def create = MarketOrder(volume())
     }
     
-    case class LimitOrder(price : Ticks, volume : Volume) extends Order
+    case class LimitOrder(price : Ticks, volume : Volume) extends PriceOrder
     {
         def processIn(target : OrderbookDispatch, events : OrderListener) = target process (this, events)
 
         def withVolume(v : Int) = copy(volume = v)
+        def withPrice(p : Ticks) = copy(price = p)
 
         override def toString = s"Limit[$volume@$price]"
     }
 
     case class LimitOrderFactory(price  : () => Ticks,
-                                 volume : () => Volume) extends OrderFactory
+                                 volume : () => Volume) extends PriceOrderFactory
     {
         def create = LimitOrder(price(), volume())
 
