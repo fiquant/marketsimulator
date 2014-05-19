@@ -1,4 +1,5 @@
 import marketsim._
+import marketsim.orderbook.BestPrice
 import marketsim.Scheduler._
 
 package object test
@@ -30,8 +31,8 @@ package object test
             trace(sender + " on_traded: " + pv)
         }
 
-        book.Asks.BestPossiblyChanged += { OnBestChanged("asks", _) }
-        book.Bids.BestPossiblyChanged += { OnBestChanged("bids", _) }
+        new BestPrice(book.Asks) += { OnBestChanged("asks", _) }
+        new BestPrice(book.Bids) += { OnBestChanged("bids", _) }
 
         book.Asks.TradeDone += { OnTraded("asks", _) }
         book.Bids.TradeDone += { OnTraded("bids", _) }

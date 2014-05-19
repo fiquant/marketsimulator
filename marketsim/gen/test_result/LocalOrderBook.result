@@ -2,28 +2,23 @@ A : before = {asks = []; bids = []}
 A : sending Limit[1@100]
 A : after = {asks = [1/100]; bids = []}
 A : 
-best of bids changed = None
 best of asks changed = Some(100)
 A : before = {asks = [1/100]; bids = []}
 A : sending Limit[1@101]
 A : after = {asks = [1/100 1/101]; bids = []}
 A : 
-best of bids changed = None
 A : before = {asks = [1/100 1/101]; bids = []}
 A : sending Limit[1@102]
 A : after = {asks = [1/100 1/101 1/102]; bids = []}
 A : 
-best of bids changed = None
 A : before = {asks = [1/100 1/101 1/102]; bids = []}
 A : sending Limit[1@103]
 A : after = {asks = [1/100 1/101 1/102 1/103]; bids = []}
 A : 
-best of bids changed = None
 A : before = {asks = [1/100 1/101 1/102 1/103]; bids = []}
 A : sending Limit[1@104]
 A : after = {asks = [1/100 1/101 1/102 1/103 1/104]; bids = []}
 A : 
-best of bids changed = None
 B : before = {asks = [1/100 1/101 1/102 1/103 1/104]; bids = []}
 B : sending Limit[-2@100]
 B : after = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}

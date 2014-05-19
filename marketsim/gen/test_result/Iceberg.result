@@ -2,28 +2,23 @@
 [   0]  0,0	A : sending Limit[10@100]
 [  12]  0,0	A : after = Remote({asks = []; bids = []})
 [  12]  0,0	A : 
-[  16]  0,5	best of bids changed = None
 [  17]  0,5	best of asks changed = Some(100)
 [   1]  1,0	A : before = Remote({asks = [10/100]; bids = []})
 [   1]  1,0	A : sending Limit[10@101]
 [  19]  1,0	A : after = Remote({asks = [10/100]; bids = []})
 [  19]  1,0	A : 
-[  22]  1,5	best of bids changed = None
 [   2]  2,0	A : before = Remote({asks = [10/100 10/101]; bids = []})
 [   2]  2,0	A : sending Limit[10@102]
 [  24]  2,0	A : after = Remote({asks = [10/100 10/101]; bids = []})
 [  24]  2,0	A : 
-[  27]  2,5	best of bids changed = None
 [   3]  3,0	A : before = Remote({asks = [10/100 10/101 10/102]; bids = []})
 [   3]  3,0	A : sending Limit[10@103]
 [  29]  3,0	A : after = Remote({asks = [10/100 10/101 10/102]; bids = []})
 [  29]  3,0	A : 
-[  32]  3,5	best of bids changed = None
 [   4]  4,0	A : before = Remote({asks = [10/100 10/101 10/102 10/103]; bids = []})
 [   4]  4,0	A : sending Limit[10@104]
 [  34]  4,0	A : after = Remote({asks = [10/100 10/101 10/102 10/103]; bids = []})
 [  34]  4,0	A : 
-[  37]  4,5	best of bids changed = None
 [   5]  5,0	B : before = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
 [   5]  5,0	B : sending WithExpiry(Iceberg(Limit[-20@100], 3), 5.0)
 [  39]  5,0	B : after = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
@@ -33,19 +28,16 @@
 [  52]  5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
 [  52]  5,5	B : position = 3; balance = -100
 [  53]  5,5	asks on_traded: (100,3)
-[  54]  5,5	best of asks changed = Some(100)
 [  61]  5,5	A : Limit[10@100] traded -3 at 100
 [  61]  5,5	A : position = -6; balance = 200
 [  62]  5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
 [  62]  5,5	B : position = 6; balance = -200
 [  63]  5,5	asks on_traded: (100,3)
-[  64]  5,5	best of asks changed = Some(100)
 [  71]  5,5	A : Limit[10@100] traded -3 at 100
 [  71]  5,5	A : position = -9; balance = 300
 [  72]  5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
 [  72]  5,5	B : position = 9; balance = -300
 [  73]  5,5	asks on_traded: (100,3)
-[  74]  5,5	best of asks changed = Some(100)
 [  82]  5,5	A : Limit[10@100] traded -1 at 100
 [  82]  5,5	A : position = -10; balance = 400
 [  83]  5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 1 at -100
@@ -63,19 +55,16 @@
 [ 102]  6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
 [ 102]  6,5	B : position = 13; balance = -501
 [ 103]  6,5	asks on_traded: (101,3)
-[ 104]  6,5	best of asks changed = Some(101)
 [ 111]  6,5	A : Limit[10@101] traded -3 at 101
 [ 111]  6,5	A : position = -16; balance = 602
 [ 112]  6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
 [ 112]  6,5	B : position = 16; balance = -602
 [ 113]  6,5	asks on_traded: (101,3)
-[ 114]  6,5	best of asks changed = Some(101)
 [ 121]  6,5	A : Limit[10@101] traded -3 at 101
 [ 121]  6,5	A : position = -19; balance = 703
 [ 122]  6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
 [ 122]  6,5	B : position = 19; balance = -703
 [ 123]  6,5	asks on_traded: (101,3)
-[ 124]  6,5	best of asks changed = Some(101)
 [ 132]  6,5	A : Limit[10@101] traded -1 at 101
 [ 132]  6,5	A : position = -20; balance = 804
 [ 133]  6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 1 at -101
@@ -93,19 +82,16 @@
 [ 152]  7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
 [ 152]  7,5	B : position = 23; balance = -906
 [ 153]  7,5	asks on_traded: (102,3)
-[ 154]  7,5	best of asks changed = Some(102)
 [ 161]  7,5	A : Limit[10@102] traded -3 at 102
 [ 161]  7,5	A : position = -26; balance = 1008
 [ 162]  7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
 [ 162]  7,5	B : position = 26; balance = -1008
 [ 163]  7,5	asks on_traded: (102,3)
-[ 164]  7,5	best of asks changed = Some(102)
 [ 171]  7,5	A : Limit[10@102] traded -3 at 102
 [ 171]  7,5	A : position = -29; balance = 1110
 [ 172]  7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
 [ 172]  7,5	B : position = 29; balance = -1110
 [ 173]  7,5	asks on_traded: (102,3)
-[ 174]  7,5	best of asks changed = Some(102)
 [ 182]  7,5	A : Limit[10@102] traded -1 at 102
 [ 182]  7,5	A : position = -30; balance = 1212
 [ 183]  7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 1 at -102
@@ -123,19 +109,16 @@
 [ 202]  8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
 [ 202]  8,5	B : position = 33; balance = -1315
 [ 203]  8,5	asks on_traded: (103,3)
-[ 204]  8,5	best of asks changed = Some(103)
 [ 211]  8,5	A : Limit[10@103] traded -3 at 103
 [ 211]  8,5	A : position = -36; balance = 1418
 [ 212]  8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
 [ 212]  8,5	B : position = 36; balance = -1418
 [ 213]  8,5	asks on_traded: (103,3)
-[ 214]  8,5	best of asks changed = Some(103)
 [ 221]  8,5	A : Limit[10@103] traded -3 at 103
 [ 221]  8,5	A : position = -39; balance = 1521
 [ 222]  8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
 [ 222]  8,5	B : position = 39; balance = -1521
 [ 223]  8,5	asks on_traded: (103,3)
-[ 224]  8,5	best of asks changed = Some(103)
 [ 232]  8,5	A : Limit[10@103] traded -1 at 103
 [ 232]  8,5	A : position = -40; balance = 1624
 [ 233]  8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 1 at -103
@@ -153,19 +136,16 @@
 [ 252]  9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
 [ 252]  9,5	B : position = 43; balance = -1728
 [ 253]  9,5	asks on_traded: (104,3)
-[ 254]  9,5	best of asks changed = Some(104)
 [ 261]  9,5	A : Limit[10@104] traded -3 at 104
 [ 261]  9,5	A : position = -46; balance = 1832
 [ 262]  9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
 [ 262]  9,5	B : position = 46; balance = -1832
 [ 263]  9,5	asks on_traded: (104,3)
-[ 264]  9,5	best of asks changed = Some(104)
 [ 271]  9,5	A : Limit[10@104] traded -3 at 104
 [ 271]  9,5	A : position = -49; balance = 1936
 [ 272]  9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
 [ 272]  9,5	B : position = 49; balance = -1936
 [ 273]  9,5	asks on_traded: (104,3)
-[ 274]  9,5	best of asks changed = Some(104)
 [ 282]  9,5	A : Limit[10@104] traded -1 at 104
 [ 282]  9,5	A : position = -50; balance = 2040
 [ 283]  9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 1 at -104

@@ -13,3 +13,17 @@ class Event[T] {
         listeners foreach { _(x) }
     }
 }
+
+abstract class Observable[T] extends Event[Option[T]]
+{
+    private var _value = Option.empty[T]
+
+    def value = _value
+
+    protected def update(x : Option[T]) {
+        if (x != _value) {
+            _value = x
+            apply(_value)
+        }
+    }
+}

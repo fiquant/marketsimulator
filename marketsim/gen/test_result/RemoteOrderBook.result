@@ -2,28 +2,23 @@
 [   0]  0,0	A : sending Limit[1@100]
 [  12]  0,0	A : after = Remote({asks = []; bids = []})
 [  12]  0,0	A : 
-[  16]  0,5	best of bids changed = None
 [  17]  0,5	best of asks changed = Some(100)
 [   1]  1,0	A : before = Remote({asks = [1/100]; bids = []})
 [   1]  1,0	A : sending Limit[1@101]
 [  19]  1,0	A : after = Remote({asks = [1/100]; bids = []})
 [  19]  1,0	A : 
-[  22]  1,5	best of bids changed = None
 [   2]  2,0	A : before = Remote({asks = [1/100 1/101]; bids = []})
 [   2]  2,0	A : sending Limit[1@102]
 [  24]  2,0	A : after = Remote({asks = [1/100 1/101]; bids = []})
 [  24]  2,0	A : 
-[  27]  2,5	best of bids changed = None
 [   3]  3,0	A : before = Remote({asks = [1/100 1/101 1/102]; bids = []})
 [   3]  3,0	A : sending Limit[1@103]
 [  29]  3,0	A : after = Remote({asks = [1/100 1/101 1/102]; bids = []})
 [  29]  3,0	A : 
-[  32]  3,5	best of bids changed = None
 [   4]  4,0	A : before = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
 [   4]  4,0	A : sending Limit[1@104]
 [  34]  4,0	A : after = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
 [  34]  4,0	A : 
-[  37]  4,5	best of bids changed = None
 [   5]  5,0	B : before = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
 [   5]  5,0	B : sending Limit[-2@100]
 [  39]  5,0	B : after = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
