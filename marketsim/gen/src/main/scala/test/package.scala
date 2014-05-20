@@ -80,12 +80,5 @@ package object test
         }
     }
 
-    case class Constant[T](x : T) extends (() => T)
-    {
-        def apply() = x
 
-        override def toString() = x.toString
-    }
-
-    def const[T](x : T) = Constant[T](x)
 }

@@ -8,15 +8,22 @@ object FloatingPrice
     {
         self =>
 
-        def volume = proto.volume
-        def price  = proto.price
+        private def getOrder : PriceOrder =
+            if (state.nonEmpty && state.get.order.nonEmpty)
+                state.get.order.get withVolume state.get.unmatched
+            else
+                proto
 
-        def withVolume(v : Int) = copy(proto = proto withVolume v)
-        def withPrice(p : Ticks) = copy(proto = proto withPrice p)
+        def volume = getOrder.volume
+        def price  = getOrder.price
+
+        def withVolume(v : Int) = copy(proto = getOrder withVolume v)
+        def withPrice(p : Ticks) = copy(proto = getOrder withPrice p)
 
         class State(target : OrderbookDispatch, events : OrderListener) extends OrderListener
         {
             var order = Option.empty[PriceOrder]
+            var unmatched = volume
 
             def resend()
             {
@@ -28,28 +35,38 @@ object FloatingPrice
                 import marketsim.Scheduler.async
 
                 async {
-                    floatingPrice.value match {
-                        case Some(newPrice) =>
-                            order = Some(order.get withPrice newPrice)
-                            target handle OrderRequest(order.get, this)
-                        case None =>
+                    if (unmatched != 0) {
+                        floatingPrice.value match {
+                            case Some(newPrice) =>
+                                order = Some(proto withPrice newPrice withVolume unmatched)
+                                target handle OrderRequest(order.get, this)
+                            case None =>
+                        }
                     }
                 }
             }
 
             resend()
 
-            def OnTraded(o : marketsim.Order, price : Ticks, volume : Volume) = events OnTraded (self, price, volume)
+            floatingPrice += { _ => resend() }
+
+            def OnTraded(o : marketsim.Order, price : Ticks, volume : Volume) = {
+                unmatched += volume
+                events OnTraded (self, price, volume)
+            }
 
             def OnStopped(o : marketsim.Order, unmatchedVolume : Volume) = {
-                order = None
-                events OnStopped (self, unmatchedVolume)
+                if (unmatched == 0) {
+                    order = None
+                    events OnStopped (self, unmatchedVolume)
+                }
             }
 
         }
 
-        private var state = Option.empty[State]
+        override def toString = s"FloatingPrice($proto, $floatingPrice)"
 
+        private var state = Option.empty[State]
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {

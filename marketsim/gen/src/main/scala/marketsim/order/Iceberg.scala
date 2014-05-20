@@ -54,10 +54,12 @@ object Iceberg
 
         var state = Option.empty[State]
 
-        def volume = proto.volume
-        def price = proto.price
-        def withVolume(v : Int) = copy(proto = proto withVolume v)
-        def withPrice(p : Ticks) = copy(proto = proto withPrice p)
+        private def getOrder = if (state.isEmpty) proto else state.get.order withVolume state.get.volumeUnnmatched
+
+        def volume = getOrder.volume
+        def price = getOrder.price
+        def withVolume(v : Int) = copy(proto = getOrder withVolume v)
+        def withPrice(p : Ticks) = copy(proto = getOrder withPrice p)
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {

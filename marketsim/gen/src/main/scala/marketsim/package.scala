@@ -166,4 +166,13 @@ package object marketsim {
             case x : Order      => x.cancel()
         }
     }
+
+    def const[T](x : T) = Constant[T](x)
+
+    case class Constant[T](x : T) extends (() => T)
+    {
+        def apply() = x
+
+        override def toString() = x.toString
+    }
 }
