@@ -9,15 +9,15 @@ class Queue[T <: Entry] extends OrderQueue {
 
     private val orders = new ChunkDeque[T]()
 
-    val BestPossiblyChanged = new Event[Option[Ticks]]
-    val TradeDone = new Event[(Ticks, Int)]
+    val BestPossiblyChanged = new Event[Option[PriceVolume]]
+    val TradeDone = new Event[PriceVolume]
 
     import marketsim.Scheduler.async
 
     private def notifyBestChanged()
     {
         async {
-            BestPossiblyChanged(if (orders.isEmpty) None else Some(orders.top.order.price))
+            BestPossiblyChanged(if (orders.isEmpty) None else Some(orders.getTopPriceVolume))
         }
     }
 

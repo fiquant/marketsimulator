@@ -16,12 +16,14 @@ package object marketsim {
     // converting floating price to ticks should be done by order factories
     type Ticks = Int
 
+    type PriceVolume = (Ticks, Int)
+
     trait OrderQueue
     {
         import marketsim.Event
 
-        val BestPossiblyChanged : Event[Option[Ticks]]
-        val TradeDone : Event[(Ticks, Int)]
+        val BestPossiblyChanged : Event[Option[PriceVolume]]
+        val TradeDone : Event[PriceVolume]
     }
     trait Orderbook
     {

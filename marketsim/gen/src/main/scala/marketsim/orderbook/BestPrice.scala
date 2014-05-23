@@ -4,5 +4,5 @@ import marketsim.{Observable, Ticks, OrderQueue}
 
 case class BestPrice(queue : OrderQueue) extends Observable[Ticks]
 {
-    queue.BestPossiblyChanged += update
+    queue.BestPossiblyChanged += { pv => update(pv map { _._1 }) }
 }

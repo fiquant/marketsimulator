@@ -233,6 +233,11 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
     def takeVolumeFromTop(deltaVolume : Int) =
         chunks(0) get toPosition(topIdx)._2 changeVolume -deltaVolume
 
+    def getTopPriceVolume = {
+        val queue = chunks(0) get toPosition(topIdx)._2
+        (queue.price, queue.getVolume)
+    }
+
     def isEmpty = chunks.isEmpty
 
     def cumulativePrice(volume : Int) =
