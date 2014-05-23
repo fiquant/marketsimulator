@@ -1,6 +1,7 @@
 package test.order
 
 import marketsim._
+import marketsim.order
 import marketsim.Scheduler._
 import test._
 
@@ -19,7 +20,7 @@ case object FloatingPrice extends Test {
             val A = new LoggedAccount(trace, book, "A")
             val B = new LoggedAccount(trace, book, "B")
 
-            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, const(10))
+            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, const(11))
 
             case class BuyPrices() extends (() => Option[Ticks])
             {
@@ -28,19 +29,21 @@ case object FloatingPrice extends Test {
             }
 
             val buyOrders_1 =
-                    marketsim.order.Iceberg.Factory(
-                        marketsim.order.FloatingPrice.Factory(
+                    order.Iceberg.Factory(
+                        order.FloatingPrice.Factory(
                             LimitOrderFactory(price = const(10) , volume = const(-25)),
                             OnEveryDt(1, BuyPrices())),
                         const(3)
                     )
 
             val buyOrders_2 =
-                    marketsim.order.FloatingPrice.Factory(
-                        marketsim.order.Iceberg.Factory(
+                    order.FloatingPrice.Factory(
+                        order.Iceberg.Factory(
                             LimitOrderFactory(price = const(10) , volume = const(-25)),
                             const(3)),
                         OnEveryDt(1, BuyPrices()))
+
+            100 to 105 foreach { i => A.account send order.StopLoss.Order(MarketOrder(-1), i) }
 
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
             schedule(5, B sendOrder buyOrders_1)
