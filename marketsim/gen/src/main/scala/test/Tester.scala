@@ -15,6 +15,7 @@ object Tester {
             order.WithExpiry ::
             order.Iceberg ::
             order.FloatingPrice ::
+            order.Peg ::
                     Nil
 
         tests foreach { t =>
