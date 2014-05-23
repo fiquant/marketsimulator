@@ -8,17 +8,11 @@ object FloatingPrice
     {
         self =>
 
-        private def getOrder : PriceOrder =
-            if (state.nonEmpty && state.get.order.nonEmpty)
-                state.get.order.get withVolume state.get.unmatched
-            else
-                proto
+        def volume = proto.volume
+        def price  = proto.price
 
-        def volume = getOrder.volume
-        def price  = getOrder.price
-
-        def withVolume(v : Int) = copy(proto = getOrder withVolume v)
-        def withPrice(p : Ticks) = copy(proto = getOrder withPrice p)
+        def withVolume(v : Int) = copy(proto = proto withVolume v)
+        def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 
         class State(target : OrderbookDispatch, events : OrderListener) extends OrderListener
         {

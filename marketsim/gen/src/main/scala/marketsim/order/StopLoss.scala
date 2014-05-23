@@ -19,7 +19,7 @@ object StopLoss
             }
         }
 
-        def volume = proto.volume // in fact it is not correct. should we keep track of unmatched volume?
+        def volume = proto.volume
         def withVolume(v : Int) = proto withVolume v
     }
 
