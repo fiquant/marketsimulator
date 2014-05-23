@@ -30,10 +30,18 @@ abstract class Observable[T] extends Event[Option[T]] with (() => Option[T])
     }
 }
 
-case class OnEveryDt[T](dt : Time, f : () => Option[T]) extends Observable[T]
+case class OnEveryDt_[T](dt : Time, f : () => Option[T]) extends Observable[T]
 {
     import Scheduler.process
     process(const(dt), { () => update(f()) })
 
     override def toString = s"OnEveryDt($dt, $f)"
+}
+
+object OnEveryDt
+{
+    private val cache = collection.mutable.HashMap.empty[Any, Any]
+
+    def apply[T](dt : Time, f : () => Option[T]) =
+        (cache getOrElseUpdate ((dt, f), new OnEveryDt_[T](dt, f))).asInstanceOf[OnEveryDt_[T]]
 }
