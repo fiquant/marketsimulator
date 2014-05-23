@@ -45,6 +45,14 @@ package object test
         book.Asks.TradeDone += { OnTraded("asks", _) }
         book.Bids.TradeDone += { OnTraded("bids", _) }
 
+        98 to 105 foreach { i =>
+            OnceLessThan(orderbook.BestPrice(book.Asks)) += (i, trace("ask is less than " + i.toString))
+        }
+
+        98 to 105 foreach { i =>
+            OnceGreaterThan(orderbook.BestPrice(book.Bids)) += (i, trace("bid is greater than " + i.toString))
+        }
+
         book
     }
 

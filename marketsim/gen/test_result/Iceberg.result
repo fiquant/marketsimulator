@@ -2,6 +2,11 @@
 [   0]  0,0	A : sending Limit[10@100]
 [  12]  0,0	A : after = Remote({asks = []; bids = []})
 [  12]  0,0	A : 
+[  17]  0,5	ask is less than 105
+[  17]  0,5	ask is less than 104
+[  17]  0,5	ask is less than 103
+[  17]  0,5	ask is less than 102
+[  17]  0,5	ask is less than 101
 [  17]  0,5	best of min ask changed = Some(100)
 [  17]  0,5	best of asks changed = Some(100)
 [   1]  1,0	A : before = Remote({asks = [10/100]; bids = []})
@@ -46,6 +51,8 @@
 [  84]  5,5	asks on_traded: (100,1)
 [  85]  5,5	A : Limit[10@100] matched completely
 [  86]  5,5	best of asks changed = Some(101)
+[  87]  5,5	bid is greater than 98
+[  87]  5,5	bid is greater than 99
 [  87]  5,5	best of max bid changed = Some(100)
 [  87]  5,5	best of bids changed = Some(100)
 [   6]  6,0	B : before = Remote({asks = [10/101 10/102 10/103 10/104]; bids = [2/100]})
@@ -74,6 +81,7 @@
 [ 134]  6,5	asks on_traded: (101,1)
 [ 135]  6,5	A : Limit[10@101] matched completely
 [ 136]  6,5	best of asks changed = Some(102)
+[ 137]  6,5	bid is greater than 100
 [ 137]  6,5	best of max bid changed = Some(101)
 [ 137]  6,5	best of bids changed = Some(101)
 [   7]  7,0	B : before = Remote({asks = [10/102 10/103 10/104]; bids = [2/101 2/100]})
@@ -102,6 +110,7 @@
 [ 184]  7,5	asks on_traded: (102,1)
 [ 185]  7,5	A : Limit[10@102] matched completely
 [ 186]  7,5	best of asks changed = Some(103)
+[ 187]  7,5	bid is greater than 101
 [ 187]  7,5	best of max bid changed = Some(102)
 [ 187]  7,5	best of bids changed = Some(102)
 [   8]  8,0	B : before = Remote({asks = [10/103 10/104]; bids = [2/102 2/101 2/100]})
@@ -130,6 +139,7 @@
 [ 234]  8,5	asks on_traded: (103,1)
 [ 235]  8,5	A : Limit[10@103] matched completely
 [ 236]  8,5	best of asks changed = Some(104)
+[ 237]  8,5	bid is greater than 102
 [ 237]  8,5	best of max bid changed = Some(103)
 [ 237]  8,5	best of bids changed = Some(103)
 [   9]  9,0	B : before = Remote({asks = [10/104]; bids = [2/103 2/102 2/101 2/100]})
@@ -158,6 +168,7 @@
 [ 284]  9,5	asks on_traded: (104,1)
 [ 285]  9,5	A : Limit[10@104] matched completely
 [ 286]  9,5	best of asks changed = None
+[ 287]  9,5	bid is greater than 103
 [ 287]  9,5	best of max bid changed = Some(104)
 [ 287]  9,5	best of bids changed = Some(104)
 [ 292]  10,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) unmatched volume: -10

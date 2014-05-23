@@ -6,32 +6,38 @@
 [  12]  0,0	A : 
 [  14]  0,0	A : after = Remote({asks = []; bids = []})
 [  14]  0,0	A : 
+[  21]  0,5	ask is less than 105
 [  21]  0,5	best of min ask changed = Some(104)
 [  21]  0,5	best of asks changed = Some(104)
+[  26]  0,5	ask is less than 104
 [  26]  0,5	best of min ask changed = Some(103)
 [  26]  0,5	best of asks changed = Some(103)
 [   3]  1,0	A : before = Remote({asks = [10/103 10/104]; bids = []})
 [   3]  1,0	A : sending Limit[10@103]
 [  28]  1,0	A : after = Remote({asks = [10/103 10/104]; bids = []})
 [  28]  1,0	A : 
+[  45]  1,5	ask is less than 103
 [  45]  1,5	best of min ask changed = Some(102)
 [  45]  1,5	best of asks changed = Some(102)
 [   4]  2,0	A : before = Remote({asks = [10/102 10/103 10/104]; bids = []})
 [   4]  2,0	A : sending Limit[10@102]
 [  47]  2,0	A : after = Remote({asks = [10/102 10/103 10/104]; bids = []})
 [  47]  2,0	A : 
+[  64]  2,5	ask is less than 102
 [  64]  2,5	best of min ask changed = Some(101)
 [  64]  2,5	best of asks changed = Some(101)
 [   5]  3,0	A : before = Remote({asks = [10/101 10/102 10/103 10/104]; bids = []})
 [   5]  3,0	A : sending Limit[10@101]
 [  66]  3,0	A : after = Remote({asks = [10/101 10/102 10/103 10/104]; bids = []})
 [  66]  3,0	A : 
+[  83]  3,5	ask is less than 101
 [  83]  3,5	best of min ask changed = Some(100)
 [  83]  3,5	best of asks changed = Some(100)
 [   6]  4,0	A : before = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
 [   6]  4,0	A : sending Limit[10@100]
 [  85]  4,0	A : after = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
 [  85]  4,0	A : 
+[ 102]  4,5	ask is less than 100
 [ 102]  4,5	best of min ask changed = Some(99)
 [ 102]  4,5	best of asks changed = Some(99)
 [   7]  5,0	B : before = Remote({asks = [10/99 10/100 10/101 10/102 10/103 10/104]; bids = []})
@@ -86,6 +92,8 @@
 [ 200]  5,5	asks on_traded: (100,2)
 [ 201]  5,5	A : Limit[10@100] matched completely
 [ 203]  5,5	best of asks changed = Some(101)
+[ 204]  5,5	bid is greater than 98
+[ 204]  5,5	bid is greater than 99
 [ 204]  5,5	best of max bid changed = Some(100)
 [ 204]  5,5	best of bids changed = Some(100)
 [ 227]  6,3	A : Limit[10@101] traded -1 at 101
@@ -111,6 +119,7 @@
 [ 270]  6,3	asks on_traded: (101,3)
 [ 271]  6,3	A : Limit[10@101] matched completely
 [ 273]  6,3	best of asks changed = Some(102)
+[ 280]  6,3	bid is greater than 100
 [ 280]  6,3	best of max bid changed = Some(101)
 [ 280]  6,3	best of bids changed = Some(101)
 [ 305]  7,3	A : Limit[10@102] traded -3 at 102
@@ -136,6 +145,7 @@
 [ 348]  7,3	asks on_traded: (102,1)
 [ 349]  7,3	A : Limit[10@102] matched completely
 [ 351]  7,3	best of asks changed = Some(103)
+[ 352]  7,3	bid is greater than 101
 [ 352]  7,3	best of max bid changed = Some(102)
 [ 352]  7,3	best of bids changed = Some(102)
 [ 381]  8,3	A : Limit[10@103] traded -3 at 103
