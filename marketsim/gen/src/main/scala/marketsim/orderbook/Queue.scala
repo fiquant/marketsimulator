@@ -23,13 +23,13 @@ class Queue[T <: Entry] extends OrderQueue {
 
     def insert(order : T) {
         orders insert order
-        if (order eq orders.top)
+        if (order.price == orders.top.price)
             notifyBestChanged()
     }
 
     def cancel(order : LimitOrder) =
         if (!orders.isEmpty) {
-            val isTop = orders.top.order eq order
+            val isTop = orders.top.order.price == order.price
             val e = orders cancel order
             if (e.nonEmpty)
                 async { e.get.owner OnStopped (order, e.get.getVolumeUnmatchedSigned) }

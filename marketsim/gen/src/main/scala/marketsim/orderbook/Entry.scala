@@ -19,6 +19,7 @@ abstract class Entry(initialVolume : Volume)
 
     def side : Side
     def canMatchWith(other : LimitOrder) : Boolean
+    def price = order.price
     def signedTicks = makeSignedTicks(order.price)
     def makeSignedTicks(ticks : Int) : Ticks
 
