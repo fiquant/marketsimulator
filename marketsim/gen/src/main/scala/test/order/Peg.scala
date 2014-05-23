@@ -8,7 +8,7 @@ case object Peg extends Test {
 
     def apply(trace_ : String => Unit)
     {
-        def trace(s : String) = trace_(f"[$eventId% 4d]  $currentTime%2.1f\t$s%s")
+        def trace(s : String) = trace_(f"$currentTime%2.1f\t$s%s")
 
         marketsim.Scheduler.create { scheduler =>
 

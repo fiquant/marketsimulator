@@ -1,87 +1,87 @@
-[   0]  0,0	A : before = Remote({asks = []; bids = []})
-[   0]  0,0	A : sending Limit[1@100]
-[  12]  0,0	A : after = Remote({asks = []; bids = []})
-[  12]  0,0	A : 
-[  17]  0,5	ask is less than 105
-[  17]  0,5	ask is less than 104
-[  17]  0,5	ask is less than 103
-[  17]  0,5	ask is less than 102
-[  17]  0,5	ask is less than 101
-[  17]  0,5	best of min ask changed = Some(100)
-[  17]  0,5	best of asks changed = Some(100)
-[   1]  1,0	A : before = Remote({asks = [1/100]; bids = []})
-[   1]  1,0	A : sending Limit[1@101]
-[  19]  1,0	A : after = Remote({asks = [1/100]; bids = []})
-[  19]  1,0	A : 
-[   2]  2,0	A : before = Remote({asks = [1/100 1/101]; bids = []})
-[   2]  2,0	A : sending Limit[1@102]
-[  24]  2,0	A : after = Remote({asks = [1/100 1/101]; bids = []})
-[  24]  2,0	A : 
-[   3]  3,0	A : before = Remote({asks = [1/100 1/101 1/102]; bids = []})
-[   3]  3,0	A : sending Limit[1@103]
-[  29]  3,0	A : after = Remote({asks = [1/100 1/101 1/102]; bids = []})
-[  29]  3,0	A : 
-[   4]  4,0	A : before = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
-[   4]  4,0	A : sending Limit[1@104]
-[  34]  4,0	A : after = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
-[  34]  4,0	A : 
-[   5]  5,0	B : before = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
-[   5]  5,0	B : sending IoC(Limit[-2@100])
-[  39]  5,0	B : after = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
-[  39]  5,0	B : 
-[  52]  5,5	A : Limit[1@100] traded -1 at 100
-[  52]  5,5	A : position = -1; balance = 100
-[  53]  5,5	B : IoC(Limit[-2@100]) traded 1 at -100
-[  53]  5,5	B : position = 1; balance = -100
-[  54]  5,5	asks on_traded: (100,1)
-[  55]  5,5	A : Limit[1@100] matched completely
-[  56]  5,5	best of asks changed = Some(101)
-[  58]  5,5	B : IoC(Limit[-2@100]) unmatched volume: -1
-[   6]  6,0	B : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
-[   6]  6,0	B : sending IoC(Limit[-2@101])
-[  61]  6,0	B : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
-[  61]  6,0	B : 
-[  74]  6,5	A : Limit[1@101] traded -1 at 101
-[  74]  6,5	A : position = -2; balance = 201
-[  75]  6,5	B : IoC(Limit[-2@101]) traded 1 at -101
-[  75]  6,5	B : position = 2; balance = -201
-[  76]  6,5	asks on_traded: (101,1)
-[  77]  6,5	A : Limit[1@101] matched completely
-[  78]  6,5	best of asks changed = Some(102)
-[  80]  6,5	B : IoC(Limit[-2@101]) unmatched volume: -1
-[   7]  7,0	B : before = Remote({asks = [1/102 1/103 1/104]; bids = []})
-[   7]  7,0	B : sending IoC(Limit[-2@102])
-[  83]  7,0	B : after = Remote({asks = [1/102 1/103 1/104]; bids = []})
-[  83]  7,0	B : 
-[  96]  7,5	A : Limit[1@102] traded -1 at 102
-[  96]  7,5	A : position = -3; balance = 303
-[  97]  7,5	B : IoC(Limit[-2@102]) traded 1 at -102
-[  97]  7,5	B : position = 3; balance = -303
-[  98]  7,5	asks on_traded: (102,1)
-[  99]  7,5	A : Limit[1@102] matched completely
-[ 100]  7,5	best of asks changed = Some(103)
-[ 102]  7,5	B : IoC(Limit[-2@102]) unmatched volume: -1
-[   8]  8,0	B : before = Remote({asks = [1/103 1/104]; bids = []})
-[   8]  8,0	B : sending IoC(Limit[-2@103])
-[ 105]  8,0	B : after = Remote({asks = [1/103 1/104]; bids = []})
-[ 105]  8,0	B : 
-[ 118]  8,5	A : Limit[1@103] traded -1 at 103
-[ 118]  8,5	A : position = -4; balance = 406
-[ 119]  8,5	B : IoC(Limit[-2@103]) traded 1 at -103
-[ 119]  8,5	B : position = 4; balance = -406
-[ 120]  8,5	asks on_traded: (103,1)
-[ 121]  8,5	A : Limit[1@103] matched completely
-[ 122]  8,5	best of asks changed = Some(104)
-[ 124]  8,5	B : IoC(Limit[-2@103]) unmatched volume: -1
-[   9]  9,0	B : before = Remote({asks = [1/104]; bids = []})
-[   9]  9,0	B : sending IoC(Limit[-2@104])
-[ 127]  9,0	B : after = Remote({asks = [1/104]; bids = []})
-[ 127]  9,0	B : 
-[ 140]  9,5	A : Limit[1@104] traded -1 at 104
-[ 140]  9,5	A : position = -5; balance = 510
-[ 141]  9,5	B : IoC(Limit[-2@104]) traded 1 at -104
-[ 141]  9,5	B : position = 5; balance = -510
-[ 142]  9,5	asks on_traded: (104,1)
-[ 143]  9,5	A : Limit[1@104] matched completely
-[ 144]  9,5	best of asks changed = None
-[ 146]  9,5	B : IoC(Limit[-2@104]) unmatched volume: -1
+0,0	A : before = Remote({asks = []; bids = []})
+0,0	A : sending Limit[1@100]
+0,0	A : after = Remote({asks = []; bids = []})
+0,0	A : 
+0,5	ask is less than 105
+0,5	ask is less than 104
+0,5	ask is less than 103
+0,5	ask is less than 102
+0,5	ask is less than 101
+0,5	best of min ask changed = Some(100)
+0,5	best of asks changed = Some(100)
+1,0	A : before = Remote({asks = [1/100]; bids = []})
+1,0	A : sending Limit[1@101]
+1,0	A : after = Remote({asks = [1/100]; bids = []})
+1,0	A : 
+2,0	A : before = Remote({asks = [1/100 1/101]; bids = []})
+2,0	A : sending Limit[1@102]
+2,0	A : after = Remote({asks = [1/100 1/101]; bids = []})
+2,0	A : 
+3,0	A : before = Remote({asks = [1/100 1/101 1/102]; bids = []})
+3,0	A : sending Limit[1@103]
+3,0	A : after = Remote({asks = [1/100 1/101 1/102]; bids = []})
+3,0	A : 
+4,0	A : before = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
+4,0	A : sending Limit[1@104]
+4,0	A : after = Remote({asks = [1/100 1/101 1/102 1/103]; bids = []})
+4,0	A : 
+5,0	B : before = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
+5,0	B : sending IoC(Limit[-2@100])
+5,0	B : after = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
+5,0	B : 
+5,5	A : Limit[1@100] traded -1 at 100
+5,5	A : position = -1; balance = 100
+5,5	B : IoC(Limit[-2@100]) traded 1 at -100
+5,5	B : position = 1; balance = -100
+5,5	asks on_traded: (100,1)
+5,5	A : Limit[1@100] matched completely
+5,5	best of asks changed = Some(101)
+5,5	B : IoC(Limit[-2@100]) unmatched volume: -1
+6,0	B : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
+6,0	B : sending IoC(Limit[-2@101])
+6,0	B : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
+6,0	B : 
+6,5	A : Limit[1@101] traded -1 at 101
+6,5	A : position = -2; balance = 201
+6,5	B : IoC(Limit[-2@101]) traded 1 at -101
+6,5	B : position = 2; balance = -201
+6,5	asks on_traded: (101,1)
+6,5	A : Limit[1@101] matched completely
+6,5	best of asks changed = Some(102)
+6,5	B : IoC(Limit[-2@101]) unmatched volume: -1
+7,0	B : before = Remote({asks = [1/102 1/103 1/104]; bids = []})
+7,0	B : sending IoC(Limit[-2@102])
+7,0	B : after = Remote({asks = [1/102 1/103 1/104]; bids = []})
+7,0	B : 
+7,5	A : Limit[1@102] traded -1 at 102
+7,5	A : position = -3; balance = 303
+7,5	B : IoC(Limit[-2@102]) traded 1 at -102
+7,5	B : position = 3; balance = -303
+7,5	asks on_traded: (102,1)
+7,5	A : Limit[1@102] matched completely
+7,5	best of asks changed = Some(103)
+7,5	B : IoC(Limit[-2@102]) unmatched volume: -1
+8,0	B : before = Remote({asks = [1/103 1/104]; bids = []})
+8,0	B : sending IoC(Limit[-2@103])
+8,0	B : after = Remote({asks = [1/103 1/104]; bids = []})
+8,0	B : 
+8,5	A : Limit[1@103] traded -1 at 103
+8,5	A : position = -4; balance = 406
+8,5	B : IoC(Limit[-2@103]) traded 1 at -103
+8,5	B : position = 4; balance = -406
+8,5	asks on_traded: (103,1)
+8,5	A : Limit[1@103] matched completely
+8,5	best of asks changed = Some(104)
+8,5	B : IoC(Limit[-2@103]) unmatched volume: -1
+9,0	B : before = Remote({asks = [1/104]; bids = []})
+9,0	B : sending IoC(Limit[-2@104])
+9,0	B : after = Remote({asks = [1/104]; bids = []})
+9,0	B : 
+9,5	A : Limit[1@104] traded -1 at 104
+9,5	A : position = -5; balance = 510
+9,5	B : IoC(Limit[-2@104]) traded 1 at -104
+9,5	B : position = 5; balance = -510
+9,5	asks on_traded: (104,1)
+9,5	A : Limit[1@104] matched completely
+9,5	best of asks changed = None
+9,5	B : IoC(Limit[-2@104]) unmatched volume: -1
