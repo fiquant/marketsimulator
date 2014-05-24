@@ -13,8 +13,6 @@ object ImmediateOrCancel
             target handle CancelOrder(proto)
         }
 
-        val volume = proto.volume
-
         def withVolume(v : Int) = copy(proto = proto withVolume v)
 
         override def toString = s"IoC($proto)"

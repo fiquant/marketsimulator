@@ -162,9 +162,18 @@ package object marketsim {
         protected var cancel_ = () => ()
 
         def cancel() = cancel_()
+
+        def proto : Order
+
+        def volume = proto.volume
     }
 
     trait PriceMetaOrder extends PriceOrder with MetaOrder
+    {
+        def proto : PriceOrder
+
+        def price = proto.price
+    }
 
 
     case class CancelOrder(order : Order) extends Request

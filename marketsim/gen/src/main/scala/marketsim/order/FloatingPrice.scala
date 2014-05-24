@@ -8,9 +8,6 @@ object FloatingPrice
     {
         self =>
 
-        def volume = proto.volume
-        def price  = proto.price
-
         def withVolume(v : Int) = copy(proto = proto withVolume v)
         def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 

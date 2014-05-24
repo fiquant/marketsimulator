@@ -29,7 +29,6 @@ object StopLoss
         }
 
 
-        def volume = proto.volume
         def withVolume(v : Int) = proto withVolume v
 
         override def toString = s"StopLoss($proto, $trigger)"
