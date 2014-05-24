@@ -9,7 +9,7 @@ import marketsim.PriceOrderFactory
 
 object Peg
 {
-    case class Order(proto : PriceOrder) extends PriceOrder with MetaOrder
+    case class Order(proto : PriceOrder) extends PriceMetaOrder
     {
         self =>
 

@@ -164,6 +164,8 @@ package object marketsim {
         def cancel() = cancel_()
     }
 
+    trait PriceMetaOrder extends PriceOrder with MetaOrder
+
 
     case class CancelOrder(order : Order) extends Request
     {

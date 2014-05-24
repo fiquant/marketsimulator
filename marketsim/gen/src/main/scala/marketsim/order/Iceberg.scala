@@ -5,7 +5,7 @@ import marketsim.OrderRequest
 
 object Iceberg
 {
-    case class Order(proto : PriceOrder, lotSize : () => Int) extends PriceOrder with MetaOrder
+    case class Order(proto : PriceOrder, lotSize : () => Int) extends PriceMetaOrder
     {
         self =>
 

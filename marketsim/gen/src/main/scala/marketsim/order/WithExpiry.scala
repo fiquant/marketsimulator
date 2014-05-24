@@ -5,7 +5,7 @@ import marketsim.OrderRequest
 
 object WithExpiry
 {
-    case class Order(proto : PriceOrder, expiration : () => Time) extends PriceOrder with MetaOrder
+    case class Order(proto : PriceOrder, expiration : () => Time) extends PriceMetaOrder
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
