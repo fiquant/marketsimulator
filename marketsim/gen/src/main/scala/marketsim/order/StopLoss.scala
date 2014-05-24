@@ -10,7 +10,10 @@ object StopLoss
         {
             def flush()
             {
-                target handle OrderRequest(proto, events proxy this)
+                if (!cancelled) {
+                    target handle OrderRequest(proto, events proxy this)
+                    cancel_ = () => target handle CancelOrder(proto)
+                }
             }
 
             proto.side match {
@@ -18,6 +21,15 @@ object StopLoss
                 case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids)) += (trigger, flush())
             }
         }
+
+        private var cancel_ = () => ()
+        private var cancelled = false
+
+        override def cancel() {
+            cancelled = true
+            cancel_()
+        }
+
 
         def volume = proto.volume
         def withVolume(v : Int) = proto withVolume v

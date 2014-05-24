@@ -7,7 +7,7 @@ object WithExpiry
 {
     case class Order(proto : PriceOrder, expiration : () => Time) extends PriceOrder
     {
-        private var cancelOrder = Option.empty[() => Unit]
+        private var cancel_ = () => ()
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
@@ -15,7 +15,7 @@ object WithExpiry
 
             import marketsim.Scheduler.scheduleAfter
 
-            cancelOrder = Some { () => target handle CancelOrder(proto) }
+            cancel_ = () => target handle CancelOrder(proto)
 
             scheduleAfter(expiration(), cancel())
         }
@@ -26,9 +26,7 @@ object WithExpiry
         def withVolume(v : Int) = copy(proto = proto withVolume v)
         def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 
-        override def cancel() =
-            if (cancelOrder.nonEmpty)
-                cancelOrder.get()
+        override def cancel() = cancel_()
 
         override def toString = s"WithExpiry($proto, $expiration)"
     }

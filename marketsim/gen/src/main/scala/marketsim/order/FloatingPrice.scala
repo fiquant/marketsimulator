@@ -60,11 +60,9 @@ object FloatingPrice
 
         override def toString = s"FloatingPrice($proto, $floatingPrice)"
 
-        private var state = Option.empty[State]
-
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            state = Some(new State(target, events))
+            new State(target, events)
         }
     }
 

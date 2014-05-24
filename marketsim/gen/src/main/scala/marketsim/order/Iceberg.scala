@@ -44,6 +44,8 @@ object Iceberg
                     events OnStopped (self, volumeUnnmatched)
             }
 
+            self.cancel_ = () => cancel()
+
             def cancel()
             {
                 target handle CancelOrder(order)
@@ -52,7 +54,7 @@ object Iceberg
             var order = newOrderSent()
         }
 
-        var state = Option.empty[State]
+        private var cancel_ = () => ()
 
         def volume = proto.volume
         def price = proto.price
@@ -62,14 +64,13 @@ object Iceberg
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             if (proto.volume != 0) {
-                state = Some (new State(target, events))
+                new State(target, events)
             }
         }
 
         override def cancel()
         {
-            if (state.nonEmpty)
-                state.get.cancel()
+            cancel_()
         }
 
         override def toString = s"Iceberg($proto, $lotSize)"

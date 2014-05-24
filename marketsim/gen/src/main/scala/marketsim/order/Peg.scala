@@ -85,11 +85,9 @@ object Peg
 
         override def toString = s"Peg($proto)"
 
-        private var state = Option.empty[State]
-
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            state = Some(new State(target, events))
+            new State(target, events)
         }
     }
 
