@@ -14,10 +14,27 @@ object FloatingPrice
         def withVolume(v : Int) = copy(proto = proto withVolume v)
         def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 
-        class State(target : OrderbookDispatch, events : OrderListener) extends OrderListener
+        override def toString = s"FloatingPrice($proto, $floatingPrice)"
+
+        def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             var order = Option.empty[PriceOrder]
             var unmatched = volume
+
+            val listener = new OrderListener
+            {
+                def OnTraded(o : marketsim.Order, price : Ticks, volume : Volume) = {
+                    unmatched += volume
+                    events OnTraded (self, price, volume)
+                }
+
+                def OnStopped(o : marketsim.Order, unmatchedVolume : Volume) = {
+                    if (unmatched == 0) {
+                        order = None
+                        events OnStopped (self, unmatchedVolume)
+                    }
+                }
+            }
 
             def resend()
             {
@@ -33,7 +50,7 @@ object FloatingPrice
                         floatingPrice.value match {
                             case Some(newPrice) =>
                                 order = Some(proto withPrice newPrice withVolume unmatched)
-                                target handle OrderRequest(order.get, this)
+                                target handle OrderRequest(order.get, listener)
                             case None =>
                         }
                     }
@@ -43,26 +60,6 @@ object FloatingPrice
             resend()
 
             floatingPrice += { _ => resend() }
-
-            def OnTraded(o : marketsim.Order, price : Ticks, volume : Volume) = {
-                unmatched += volume
-                events OnTraded (self, price, volume)
-            }
-
-            def OnStopped(o : marketsim.Order, unmatchedVolume : Volume) = {
-                if (unmatched == 0) {
-                    order = None
-                    events OnStopped (self, unmatchedVolume)
-                }
-            }
-
-        }
-
-        override def toString = s"FloatingPrice($proto, $floatingPrice)"
-
-        def processIn(target : OrderbookDispatch, events : OrderListener)
-        {
-            new State(target, events)
         }
     }
 

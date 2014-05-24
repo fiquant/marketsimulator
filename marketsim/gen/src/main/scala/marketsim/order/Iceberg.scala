@@ -9,51 +9,6 @@ object Iceberg
     {
         self =>
 
-        class State(target : OrderbookDispatch, events : OrderListener) extends OrderListener
-        {
-            var volumeUnnmatched = proto.volume
-
-            def OnTraded(o : marketsim.Order, price : Ticks, volume : Int)
-            {
-                volumeUnnmatched += volume
-                events OnTraded (self, price, volume)
-            }
-
-            private def newOrder() =
-            {
-                val lot = lotSize()
-                assert(lot > 0)
-                if (volumeUnnmatched > 0)
-                    proto withVolume ( lot min volumeUnnmatched)
-                else
-                    proto withVolume (-lot max volumeUnnmatched)
-            }
-
-            private def newOrderSent() =
-            {
-                val o = newOrder()
-                target handle OrderRequest(o, this)
-                o
-            }
-
-            def OnStopped(o : marketsim.Order, unmatched : Int)
-            {
-                if (unmatched == 0 && volumeUnnmatched != 0) {
-                    order = newOrderSent()
-                } else
-                    events OnStopped (self, volumeUnnmatched)
-            }
-
-            self.cancel_ = () => cancel()
-
-            def cancel()
-            {
-                target handle CancelOrder(order)
-            }
-
-            var order = newOrderSent()
-        }
-
         private var cancel_ = () => ()
 
         def volume = proto.volume
@@ -64,14 +19,51 @@ object Iceberg
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             if (proto.volume != 0) {
-                new State(target, events)
+                class State extends OrderListener
+                {
+                    var volumeUnnmatched = proto.volume
+
+                    def OnTraded(o : marketsim.Order, price : Ticks, volume : Int)
+                    {
+                        volumeUnnmatched += volume
+                        events OnTraded (self, price, volume)
+                    }
+
+                    private def newOrder() =
+                    {
+                        val lot = lotSize()
+                        assert(lot > 0)
+                        if (volumeUnnmatched > 0)
+                            proto withVolume ( lot min volumeUnnmatched)
+                        else
+                            proto withVolume (-lot max volumeUnnmatched)
+                    }
+
+                    private def newOrderSent() =
+                    {
+                        val o = newOrder()
+                        target handle OrderRequest(o, this)
+                        o
+                    }
+
+                    def OnStopped(o : marketsim.Order, unmatched : Int)
+                    {
+                        if (unmatched == 0 && volumeUnnmatched != 0) {
+                            order = newOrderSent()
+                        } else
+                            events OnStopped (self, volumeUnnmatched)
+                    }
+
+                    self.cancel_ = () => target handle CancelOrder(order)
+
+                    var order = newOrderSent()
+                }
+
+                new State
             }
         }
 
-        override def cancel()
-        {
-            cancel_()
-        }
+        override def cancel() = cancel_()
 
         override def toString = s"Iceberg($proto, $lotSize)"
     }
