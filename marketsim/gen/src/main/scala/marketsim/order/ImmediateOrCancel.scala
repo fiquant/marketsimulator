@@ -5,7 +5,7 @@ import marketsim.OrderRequest
 
 object ImmediateOrCancel
 {
-    case class Order(proto : marketsim.Order) extends marketsim.Order
+    case class Order(proto : marketsim.Order) extends MetaOrder
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {

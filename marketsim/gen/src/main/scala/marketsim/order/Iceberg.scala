@@ -5,11 +5,9 @@ import marketsim.OrderRequest
 
 object Iceberg
 {
-    case class Order(proto : PriceOrder, lotSize : () => Int) extends PriceOrder
+    case class Order(proto : PriceOrder, lotSize : () => Int) extends PriceOrder with MetaOrder
     {
         self =>
-
-        private var cancel_ = () => ()
 
         def volume = proto.volume
         def price = proto.price
@@ -62,8 +60,6 @@ object Iceberg
                 new State
             }
         }
-
-        override def cancel() = cancel_()
 
         override def toString = s"Iceberg($proto, $lotSize)"
     }

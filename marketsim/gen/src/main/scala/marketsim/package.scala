@@ -78,7 +78,6 @@ package object marketsim {
     trait Order
     {
         def processIn(target : OrderbookDispatch, events : OrderListener)
-        def cancel() {}
         def withVolume(volume : Int) : Order
 
         def volume : Volume
@@ -158,6 +157,13 @@ package object marketsim {
         override def toString = s"Limit{$price, $volume}"
     }
 
+    trait MetaOrder extends Order
+    {
+        protected var cancel_ = () => ()
+
+        def cancel() = cancel_()
+    }
+
 
     case class CancelOrder(order : Order) extends Request
     {
@@ -165,7 +171,7 @@ package object marketsim {
 
         def processIn(book : OrderbookDispatch) = order match {
             case x : LimitOrder => book cancel x
-            case x : Order      => x.cancel()
+            case x : MetaOrder  => x.cancel()
         }
     }
 

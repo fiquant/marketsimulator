@@ -9,7 +9,7 @@ import marketsim.PriceOrderFactory
 
 object Peg
 {
-    case class Order(proto : PriceOrder) extends PriceOrder
+    case class Order(proto : PriceOrder) extends PriceOrder with MetaOrder
     {
         self =>
 
@@ -87,7 +87,68 @@ object Peg
 
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
-            new State(target, events)
+            var order = Option.empty[PriceOrder]
+
+            var unmatched = volume
+
+            val listener = new OrderListener {
+                def OnTraded(o : marketsim.Order, price : Ticks, volume : Volume) = {
+                    unmatched += volume
+                    events OnTraded (self, price, volume)
+                }
+
+                def OnStopped(o : marketsim.Order, unmatchedVolume : Volume) = {
+                    if (unmatched == 0) {
+                        order = None
+                        events OnStopped (self, unmatchedVolume)
+                    }
+                }
+            }
+
+            val floatingPriceVolume = proto.side match {
+                case Sell => orderbook.BestPriceVolume(target.Asks)
+                case Buy  => orderbook.BestPriceVolume(target.Bids)
+            }
+
+            def resend()
+            {
+                if (floatingPriceVolume.value match {
+                    case Some((newPrice, newVolume)) =>
+                        order match {
+                            case None => true
+                            case Some(o) if o.side == Sell =>
+                                o.price > newPrice || o.price == newPrice && unmatched < newVolume
+                            case Some(o) if o.side == Buy =>
+                                o.price < newPrice || o.price == newPrice && unmatched < newVolume
+                        }
+                    case None =>
+                        order.nonEmpty
+                }) {
+                    if (order.nonEmpty) {
+                        target handle CancelOrder(order.get)
+                        order = None
+                    }
+
+                    import marketsim.Scheduler.async
+
+                    async {
+                        if (unmatched != 0) {
+                            floatingPriceVolume.value match {
+                                case Some((newPrice, newVolume)) =>
+                                    val delta = unmatched.signum
+                                    order = Some(proto withPrice (newPrice - delta) withVolume unmatched)
+                                    target handle OrderRequest(order.get, listener)
+                                case None =>
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            resend()
+
+            floatingPriceVolume += { _ => resend() }
         }
     }
 

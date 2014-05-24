@@ -4,7 +4,7 @@ import marketsim._
 
 object FloatingPrice
 {
-    case class Order(proto : PriceOrder, floatingPrice : Observable[Ticks]) extends PriceOrder
+    case class Order(proto : PriceOrder, floatingPrice : Observable[Ticks]) extends PriceOrder with MetaOrder
     {
         self =>
 

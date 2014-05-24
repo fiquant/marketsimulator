@@ -5,10 +5,8 @@ import marketsim.OrderRequest
 
 object WithExpiry
 {
-    case class Order(proto : PriceOrder, expiration : () => Time) extends PriceOrder
+    case class Order(proto : PriceOrder, expiration : () => Time) extends PriceOrder with MetaOrder
     {
-        private var cancel_ = () => ()
-
         def processIn(target : OrderbookDispatch, events : OrderListener)
         {
             target handle OrderRequest(proto, events proxy this)
@@ -25,8 +23,6 @@ object WithExpiry
 
         def withVolume(v : Int) = copy(proto = proto withVolume v)
         def withPrice(p : Ticks) = copy(proto = proto withPrice p)
-
-        override def cancel() = cancel_()
 
         override def toString = s"WithExpiry($proto, $expiration)"
     }
