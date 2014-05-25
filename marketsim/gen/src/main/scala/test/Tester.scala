@@ -15,6 +15,8 @@ object Tester {
             order.WithExpiry ::
             order.Iceberg ::
             order.FloatingPrice ::
+            order.Iceberg_FloatingPrice ::
+            order.FloatingPrice_Iceberg ::
             order.Peg ::
                     Nil
 

@@ -223,6 +223,21 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
 
         if (key < topIdx)
             topIdx = key
+
+        checkTop()
+    }
+
+    private def checkTop()
+    {
+        if (true && false) {
+            if (chunks.nonEmpty) {
+                val (chIdx, relIdx) = toPosition(topIdx)
+                assert(chIdx == base)
+                val queue = chunks(0) get relIdx
+                assert(queue != null)
+            } else
+                assert(topIdx == Int.MaxValue)
+        }
     }
 
     def top = {
@@ -297,16 +312,18 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
             case delta if delta >= 0 => topIdx += delta
             case _ =>
                 chunks(0) = null
-                val firstNonNull = chunks.indexWhere({ _ != null })
+                val firstNonNull = chunks indexWhere { _ != null }
                 if (firstNonNull == -1) {
                     chunks = Array.empty[Chunk]
+                    topIdx = Int.MaxValue
                 } else {
                     chunks = chunks.slice(firstNonNull, chunks.length )
                     base += firstNonNull
-                    topIdx = chunks(0).idxOfBest + base*chunkSize
+                    topIdx = fromPosition(base, chunks(0).idxOfBest)
                 }
-
         }
+
+        checkTop()
     }
 
     def cancel(order : LimitOrder) = {
@@ -337,6 +354,8 @@ class ChunkDeque[T <: Entry](chunkSize : Int = 10) {
                                     }
                                 }
                             }
+                            checkTop()
+
                             ret
                     }
                 }

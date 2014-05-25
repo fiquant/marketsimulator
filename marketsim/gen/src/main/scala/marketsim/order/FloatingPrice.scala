@@ -17,6 +17,9 @@ object FloatingPrice
         {
             var order = Option.empty[PriceOrder]
             var unmatched = volume
+            var cancelled = false
+
+            def alive = unmatched != 0 && !cancelled
 
             val listener = new OrderListener
             {
@@ -26,7 +29,7 @@ object FloatingPrice
                 }
 
                 def OnStopped(o : marketsim.Order, unmatchedVolume : Volume) = {
-                    if (unmatched == 0) {
+                    if (!alive) {
                         order = None
                         events OnStopped (self, unmatchedVolume)
                     }
@@ -43,7 +46,7 @@ object FloatingPrice
                 import marketsim.Scheduler.async
 
                 async {
-                    if (unmatched != 0) {
+                    if (alive) {
                         floatingPrice.value match {
                             case Some(newPrice) =>
                                 order = Some(proto withPrice newPrice withVolume unmatched)
@@ -53,6 +56,10 @@ object FloatingPrice
                     }
                 }
             }
+
+            cancel_ = () =>
+                    cancelled = true
+                    resend()
 
             resend()
 

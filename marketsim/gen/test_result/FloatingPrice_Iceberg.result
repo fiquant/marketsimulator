@@ -1,0 +1,103 @@
+0,0	A : before = Remote({asks = []; bids = []})
+0,0	A : sending Limit[10@100]
+0,0	A : after = Remote({asks = []; bids = []})
+0,0	A : 
+0,5	ask is less than 105
+0,5	ask is less than 104
+0,5	ask is less than 103
+0,5	ask is less than 102
+0,5	ask is less than 101
+0,5	best of min ask changed = Some(100)
+0,5	best of asks changed = Some(100)
+1,0	A : before = Remote({asks = [10/100]; bids = []})
+1,0	A : sending Limit[10@101]
+1,0	A : after = Remote({asks = [10/100]; bids = []})
+1,0	A : 
+2,0	A : before = Remote({asks = [10/100 10/101]; bids = []})
+2,0	A : sending Limit[10@102]
+2,0	A : after = Remote({asks = [10/100 10/101]; bids = []})
+2,0	A : 
+3,0	A : before = Remote({asks = [10/100 10/101 10/102]; bids = []})
+3,0	A : sending Limit[10@103]
+3,0	A : after = Remote({asks = [10/100 10/101 10/102]; bids = []})
+3,0	A : 
+4,0	A : before = Remote({asks = [10/100 10/101 10/102 10/103]; bids = []})
+4,0	A : sending Limit[10@104]
+4,0	A : after = Remote({asks = [10/100 10/101 10/102 10/103]; bids = []})
+4,0	A : 
+5,0	B : before = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
+5,0	B : sending FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(100)))
+5,0	B : after = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
+5,0	B : 
+5,5	A : Limit[10@100] traded -3 at 100
+5,5	A : position = -3; balance = 100
+5,5	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(100))) traded 3 at -100
+5,5	B : position = 3; balance = -100
+5,5	asks on_traded: (100,3)
+5,5	A : Limit[10@100] traded -3 at 100
+5,5	A : position = -6; balance = 200
+5,5	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(100))) traded 3 at -100
+5,5	B : position = 6; balance = -200
+5,5	asks on_traded: (100,3)
+5,5	A : Limit[10@100] traded -3 at 100
+5,5	A : position = -9; balance = 300
+5,5	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(100))) traded 3 at -100
+5,5	B : position = 9; balance = -300
+5,5	asks on_traded: (100,3)
+5,5	A : Limit[10@100] traded -1 at 100
+5,5	A : position = -10; balance = 400
+5,5	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(100))) traded 1 at -100
+5,5	B : position = 10; balance = -400
+5,5	asks on_traded: (100,1)
+5,5	A : Limit[10@100] matched completely
+5,5	best of asks changed = Some(101)
+5,5	bid is greater than 98
+5,5	bid is greater than 99
+5,5	best of max bid changed = Some(100)
+5,5	best of bids changed = Some(100)
+6,3	A : Limit[10@101] traded -3 at 101
+6,3	A : position = -13; balance = 501
+6,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(101))) traded 3 at -101
+6,3	B : position = 13; balance = -501
+6,3	asks on_traded: (101,3)
+6,3	A : Limit[10@101] traded -3 at 101
+6,3	A : position = -16; balance = 602
+6,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(101))) traded 3 at -101
+6,3	B : position = 16; balance = -602
+6,3	asks on_traded: (101,3)
+6,3	A : Limit[10@101] traded -3 at 101
+6,3	A : position = -19; balance = 703
+6,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(101))) traded 3 at -101
+6,3	B : position = 19; balance = -703
+6,3	asks on_traded: (101,3)
+6,3	A : Limit[10@101] traded -1 at 101
+6,3	A : position = -20; balance = 804
+6,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(101))) traded 1 at -101
+6,3	B : position = 20; balance = -804
+6,3	asks on_traded: (101,1)
+6,3	A : Limit[10@101] matched completely
+6,3	best of asks changed = Some(102)
+6,3	bid is greater than 100
+6,3	best of max bid changed = Some(101)
+6,3	best of bids changed = Some(101)
+7,3	best of bids changed = Some(100)
+7,3	A : Limit[10@102] traded -3 at 102
+7,3	A : position = -23; balance = 906
+7,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(102))) traded 3 at -102
+7,3	B : position = 23; balance = -906
+7,3	asks on_traded: (102,3)
+7,3	A : Limit[10@102] traded -2 at 102
+7,3	A : position = -25; balance = 1008
+7,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(102))) traded 2 at -102
+7,3	B : position = 25; balance = -1008
+7,3	asks on_traded: (102,2)
+7,3	B : FloatingPrice(Iceberg(Limit[-25@10], 3), OnEveryDt(1.0, Some(102))) matched completely
+20,0	A : cancelling Limit[10@102]
+20,0	A : cancelling Limit[10@103]
+20,0	A : cancelling Limit[10@104]
+20,5	A : Limit[10@102] unmatched volume: 5
+20,5	best of asks changed = Some(103)
+20,5	A : Limit[10@103] unmatched volume: 10
+20,5	best of asks changed = Some(104)
+20,5	A : Limit[10@104] unmatched volume: 10
+20,5	best of asks changed = None

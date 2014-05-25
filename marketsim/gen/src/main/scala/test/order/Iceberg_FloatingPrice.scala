@@ -5,7 +5,7 @@ import marketsim.order
 import marketsim.Scheduler._
 import test._
 
-case object FloatingPrice extends Test {
+case object Iceberg_FloatingPrice extends Test {
 
     def apply(trace_ : String => Unit)
     {
@@ -29,10 +29,12 @@ case object FloatingPrice extends Test {
             }
 
             val buyOrders_1 =
+                    order.Iceberg.Factory(
                         order.FloatingPrice.Factory(
-                            LimitOrderFactory(price = const(10) , volume = const(-25)),
-                            OnEveryDt(1, BuyPrices()))
-
+                            LimitOrderFactory(price = const(10) , volume = const(-50)),
+                            OnEveryDt(1, BuyPrices())),
+                        const(3)
+                    )
 
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
             schedule(5, B sendOrder buyOrders_1)
