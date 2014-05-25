@@ -9,39 +9,39 @@
 0,5	ask is less than 105
 0,5	best of min ask changed = Some(104)
 0,5	best of asks changed = Some(104)
-0,5	ask is less than 104
-0,5	best of min ask changed = Some(103)
-0,5	best of asks changed = Some(103)
 1,0	A : before = Remote({asks = [55/103 10/104]; bids = []})
 1,0	A : sending Limit[10@103]
+1,0	ask is less than 104
+1,0	best of min ask changed = Some(103)
+1,0	best of asks changed = Some(103)
 1,0	A : after = Remote({asks = [55/103 10/104]; bids = []})
 1,0	A : 
-1,5	ask is less than 103
-1,5	best of min ask changed = Some(102)
-1,5	best of asks changed = Some(102)
 2,0	A : before = Remote({asks = [55/102 10/103 10/104]; bids = []})
 2,0	A : sending Limit[10@102]
+2,0	ask is less than 103
+2,0	best of min ask changed = Some(102)
+2,0	best of asks changed = Some(102)
 2,0	A : after = Remote({asks = [55/102 10/103 10/104]; bids = []})
 2,0	A : 
-2,5	ask is less than 102
-2,5	best of min ask changed = Some(101)
-2,5	best of asks changed = Some(101)
 3,0	A : before = Remote({asks = [55/101 10/102 10/103 10/104]; bids = []})
 3,0	A : sending Limit[10@101]
+3,0	ask is less than 102
+3,0	best of min ask changed = Some(101)
+3,0	best of asks changed = Some(101)
 3,0	A : after = Remote({asks = [55/101 10/102 10/103 10/104]; bids = []})
 3,0	A : 
-3,5	ask is less than 101
-3,5	best of min ask changed = Some(100)
-3,5	best of asks changed = Some(100)
 4,0	A : before = Remote({asks = [55/100 10/101 10/102 10/103 10/104]; bids = []})
 4,0	A : sending Limit[10@100]
+4,0	ask is less than 101
+4,0	best of min ask changed = Some(100)
+4,0	best of asks changed = Some(100)
 4,0	A : after = Remote({asks = [55/100 10/101 10/102 10/103 10/104]; bids = []})
 4,0	A : 
-4,5	ask is less than 100
-4,5	best of min ask changed = Some(99)
-4,5	best of asks changed = Some(99)
 5,0	B : before = Remote({asks = [55/99 10/100 10/101 10/102 10/103 10/104]; bids = []})
 5,0	B : sending Limit[-10@100]
+5,0	ask is less than 100
+5,0	best of min ask changed = Some(99)
+5,0	best of asks changed = Some(99)
 5,0	B : after = Remote({asks = [55/99 10/100 10/101 10/102 10/103 10/104]; bids = []})
 5,0	B : 
 5,5	C : Peg(Limit[55@33]) traded -10 at 99

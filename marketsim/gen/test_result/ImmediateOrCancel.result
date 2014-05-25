@@ -36,7 +36,12 @@
 5,5	asks on_traded: (100,1)
 5,5	A : Limit[1@100] matched completely
 5,5	best of asks changed = Some(101)
+5,5	bid is greater than 98
+5,5	bid is greater than 99
+5,5	best of max bid changed = Some(100)
+5,5	best of bids changed = Some(100)
 5,5	B : IoC(Limit[-2@100]) unmatched volume: -1
+5,5	best of bids changed = None
 6,0	B : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
 6,0	B : sending IoC(Limit[-2@101])
 6,0	B : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
@@ -48,7 +53,11 @@
 6,5	asks on_traded: (101,1)
 6,5	A : Limit[1@101] matched completely
 6,5	best of asks changed = Some(102)
+6,5	bid is greater than 100
+6,5	best of max bid changed = Some(101)
+6,5	best of bids changed = Some(101)
 6,5	B : IoC(Limit[-2@101]) unmatched volume: -1
+6,5	best of bids changed = None
 7,0	B : before = Remote({asks = [1/102 1/103 1/104]; bids = []})
 7,0	B : sending IoC(Limit[-2@102])
 7,0	B : after = Remote({asks = [1/102 1/103 1/104]; bids = []})
@@ -60,7 +69,11 @@
 7,5	asks on_traded: (102,1)
 7,5	A : Limit[1@102] matched completely
 7,5	best of asks changed = Some(103)
+7,5	bid is greater than 101
+7,5	best of max bid changed = Some(102)
+7,5	best of bids changed = Some(102)
 7,5	B : IoC(Limit[-2@102]) unmatched volume: -1
+7,5	best of bids changed = None
 8,0	B : before = Remote({asks = [1/103 1/104]; bids = []})
 8,0	B : sending IoC(Limit[-2@103])
 8,0	B : after = Remote({asks = [1/103 1/104]; bids = []})
@@ -72,7 +85,11 @@
 8,5	asks on_traded: (103,1)
 8,5	A : Limit[1@103] matched completely
 8,5	best of asks changed = Some(104)
+8,5	bid is greater than 102
+8,5	best of max bid changed = Some(103)
+8,5	best of bids changed = Some(103)
 8,5	B : IoC(Limit[-2@103]) unmatched volume: -1
+8,5	best of bids changed = None
 9,0	B : before = Remote({asks = [1/104]; bids = []})
 9,0	B : sending IoC(Limit[-2@104])
 9,0	B : after = Remote({asks = [1/104]; bids = []})
@@ -84,4 +101,8 @@
 9,5	asks on_traded: (104,1)
 9,5	A : Limit[1@104] matched completely
 9,5	best of asks changed = None
+9,5	bid is greater than 103
+9,5	best of max bid changed = Some(104)
+9,5	best of bids changed = Some(104)
 9,5	B : IoC(Limit[-2@104]) unmatched volume: -1
+9,5	best of bids changed = None

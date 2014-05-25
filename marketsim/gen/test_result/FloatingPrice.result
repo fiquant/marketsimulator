@@ -29,6 +29,10 @@
 5,0	B : sending FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(100)))
 5,0	B : after = Remote({asks = [10/100 10/101 10/102 10/103 10/104]; bids = []})
 5,0	B : 
+5,5	bid is greater than 98
+5,5	best of max bid changed = Some(99)
+5,5	best of bids changed = Some(99)
+5,5	best of bids changed = None
 5,5	A : Limit[10@100] traded -10 at 100
 5,5	A : position = -10; balance = 100
 5,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(100))) traded 10 at -100
@@ -36,89 +40,89 @@
 5,5	asks on_traded: (100,10)
 5,5	A : Limit[10@100] matched completely
 5,5	best of asks changed = Some(101)
-5,5	bid is greater than 98
 5,5	bid is greater than 99
 5,5	best of max bid changed = Some(100)
 5,5	best of bids changed = Some(100)
-6,3	best of bids changed = None
-6,3	A : Limit[10@101] traded -10 at 101
-6,3	A : position = -20; balance = 201
-6,3	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(101))) traded 10 at -101
-6,3	B : position = 20; balance = -201
-6,3	asks on_traded: (101,10)
-6,3	A : Limit[10@101] matched completely
-6,3	best of asks changed = Some(102)
-6,3	bid is greater than 100
-6,3	best of max bid changed = Some(101)
-6,3	best of bids changed = Some(101)
-7,3	best of bids changed = None
-7,3	A : Limit[10@102] traded -10 at 102
-7,3	A : position = -30; balance = 303
-7,3	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(102))) traded 10 at -102
-7,3	B : position = 30; balance = -303
-7,3	asks on_traded: (102,10)
-7,3	A : Limit[10@102] matched completely
-7,3	best of asks changed = Some(103)
-7,3	bid is greater than 101
-7,3	best of max bid changed = Some(102)
-7,3	best of bids changed = Some(102)
-8,3	best of bids changed = None
-8,3	A : Limit[10@103] traded -10 at 103
-8,3	A : position = -40; balance = 406
-8,3	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(103))) traded 10 at -103
-8,3	B : position = 40; balance = -406
-8,3	asks on_traded: (103,10)
-8,3	A : Limit[10@103] matched completely
-8,3	best of asks changed = Some(104)
-8,3	bid is greater than 102
-8,3	best of max bid changed = Some(103)
-8,3	best of bids changed = Some(103)
-9,3	best of bids changed = None
-9,3	A : Limit[10@104] traded -10 at 104
-9,3	A : position = -50; balance = 510
-9,3	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(104))) traded 10 at -104
-9,3	B : position = 50; balance = -510
-9,3	asks on_traded: (104,10)
-9,3	A : Limit[10@104] matched completely
-9,3	best of asks changed = None
-9,3	bid is greater than 103
-9,3	best of max bid changed = Some(104)
-9,3	best of bids changed = Some(104)
-10,3	best of bids changed = None
-10,3	bid is greater than 104
-10,3	best of max bid changed = Some(105)
-10,3	best of bids changed = Some(105)
-11,3	best of bids changed = None
-11,3	bid is greater than 105
-11,3	best of max bid changed = Some(106)
-11,3	best of bids changed = Some(106)
-12,3	best of bids changed = None
-12,3	best of max bid changed = Some(107)
-12,3	best of bids changed = Some(107)
-13,3	best of bids changed = None
-13,3	best of max bid changed = Some(108)
-13,3	best of bids changed = Some(108)
-14,3	best of bids changed = None
-14,3	best of max bid changed = Some(109)
-14,3	best of bids changed = Some(109)
-15,3	best of bids changed = None
-15,3	best of max bid changed = Some(110)
-15,3	best of bids changed = Some(110)
-16,3	best of bids changed = None
-16,3	best of max bid changed = Some(111)
-16,3	best of bids changed = Some(111)
-17,3	best of bids changed = None
-17,3	best of max bid changed = Some(112)
-17,3	best of bids changed = Some(112)
-18,3	best of bids changed = None
-18,3	best of max bid changed = Some(113)
-18,3	best of bids changed = Some(113)
-19,3	best of bids changed = None
-19,3	best of max bid changed = Some(114)
-19,3	best of bids changed = Some(114)
+6,5	best of bids changed = None
+6,5	A : Limit[10@101] traded -10 at 101
+6,5	A : position = -20; balance = 201
+6,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(101))) traded 10 at -101
+6,5	B : position = 20; balance = -201
+6,5	asks on_traded: (101,10)
+6,5	A : Limit[10@101] matched completely
+6,5	best of asks changed = Some(102)
+6,5	bid is greater than 100
+6,5	best of max bid changed = Some(101)
+6,5	best of bids changed = Some(101)
+7,5	best of bids changed = None
+7,5	A : Limit[10@102] traded -10 at 102
+7,5	A : position = -30; balance = 303
+7,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(102))) traded 10 at -102
+7,5	B : position = 30; balance = -303
+7,5	asks on_traded: (102,10)
+7,5	A : Limit[10@102] matched completely
+7,5	best of asks changed = Some(103)
+7,5	bid is greater than 101
+7,5	best of max bid changed = Some(102)
+7,5	best of bids changed = Some(102)
+8,5	best of bids changed = None
+8,5	A : Limit[10@103] traded -10 at 103
+8,5	A : position = -40; balance = 406
+8,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(103))) traded 10 at -103
+8,5	B : position = 40; balance = -406
+8,5	asks on_traded: (103,10)
+8,5	A : Limit[10@103] matched completely
+8,5	best of asks changed = Some(104)
+8,5	bid is greater than 102
+8,5	best of max bid changed = Some(103)
+8,5	best of bids changed = Some(103)
+9,5	best of bids changed = None
+9,5	A : Limit[10@104] traded -10 at 104
+9,5	A : position = -50; balance = 510
+9,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(104))) traded 10 at -104
+9,5	B : position = 50; balance = -510
+9,5	asks on_traded: (104,10)
+9,5	A : Limit[10@104] matched completely
+9,5	best of asks changed = None
+9,5	bid is greater than 103
+9,5	best of max bid changed = Some(104)
+9,5	best of bids changed = Some(104)
+10,5	best of bids changed = None
+10,5	bid is greater than 104
+10,5	best of max bid changed = Some(105)
+10,5	best of bids changed = Some(105)
+11,5	best of bids changed = None
+11,5	bid is greater than 105
+11,5	best of max bid changed = Some(106)
+11,5	best of bids changed = Some(106)
+12,5	best of bids changed = None
+12,5	best of max bid changed = Some(107)
+12,5	best of bids changed = Some(107)
+13,5	best of bids changed = None
+13,5	best of max bid changed = Some(108)
+13,5	best of bids changed = Some(108)
+14,5	best of bids changed = None
+14,5	best of max bid changed = Some(109)
+14,5	best of bids changed = Some(109)
+15,5	best of bids changed = None
+15,5	best of max bid changed = Some(110)
+15,5	best of bids changed = Some(110)
+16,5	best of bids changed = None
+16,5	best of max bid changed = Some(111)
+16,5	best of bids changed = Some(111)
+17,5	best of bids changed = None
+17,5	best of max bid changed = Some(112)
+17,5	best of bids changed = Some(112)
+18,5	best of bids changed = None
+18,5	best of max bid changed = Some(113)
+18,5	best of bids changed = Some(113)
+19,5	best of bids changed = None
+19,5	best of max bid changed = Some(114)
+19,5	best of bids changed = Some(114)
 20,0	B : cancelling FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(115)))
-20,3	best of bids changed = None
-20,3	best of max bid changed = Some(115)
-20,3	best of bids changed = Some(115)
 20,5	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(115))) unmatched volume: -5
 20,5	best of bids changed = None
+20,5	best of max bid changed = Some(115)
+20,5	best of bids changed = Some(115)
+20,7	B : FloatingPrice(Limit[-55@10], OnEveryDt(1.0, Some(115))) unmatched volume: -5
+20,7	best of bids changed = None

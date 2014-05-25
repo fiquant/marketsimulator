@@ -34,146 +34,146 @@
 5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
 5,5	B : position = 3; balance = -100
 5,5	asks on_traded: (100,3)
-5,5	A : Limit[10@100] traded -3 at 100
-5,5	A : position = -6; balance = 200
-5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
-5,5	B : position = 6; balance = -200
-5,5	asks on_traded: (100,3)
-5,5	A : Limit[10@100] traded -3 at 100
-5,5	A : position = -9; balance = 300
-5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
-5,5	B : position = 9; balance = -300
-5,5	asks on_traded: (100,3)
-5,5	A : Limit[10@100] traded -1 at 100
-5,5	A : position = -10; balance = 400
-5,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 1 at -100
-5,5	B : position = 10; balance = -400
-5,5	asks on_traded: (100,1)
-5,5	A : Limit[10@100] matched completely
-5,5	best of asks changed = Some(101)
-5,5	bid is greater than 98
-5,5	bid is greater than 99
-5,5	best of max bid changed = Some(100)
-5,5	best of bids changed = Some(100)
-6,0	B : before = Remote({asks = [10/101 10/102 10/103 10/104]; bids = [2/100]})
+6,0	B : before = Remote({asks = [4/100 10/101 10/102 10/103 10/104]; bids = []})
 6,0	B : sending WithExpiry(Iceberg(Limit[-20@101], 3), 5.0)
-6,0	B : after = Remote({asks = [10/101 10/102 10/103 10/104]; bids = [2/100]})
+6,0	A : Limit[10@100] traded -3 at 100
+6,0	A : position = -6; balance = 200
+6,0	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 3 at -100
+6,0	B : position = 6; balance = -200
+6,0	asks on_traded: (100,3)
+6,0	B : after = Remote({asks = [4/100 10/101 10/102 10/103 10/104]; bids = []})
 6,0	B : 
-6,5	A : Limit[10@101] traded -3 at 101
-6,5	A : position = -13; balance = 501
-6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
-6,5	B : position = 13; balance = -501
-6,5	asks on_traded: (101,3)
-6,5	A : Limit[10@101] traded -3 at 101
-6,5	A : position = -16; balance = 602
-6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
-6,5	B : position = 16; balance = -602
-6,5	asks on_traded: (101,3)
-6,5	A : Limit[10@101] traded -3 at 101
-6,5	A : position = -19; balance = 703
-6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
-6,5	B : position = 19; balance = -703
-6,5	asks on_traded: (101,3)
-6,5	A : Limit[10@101] traded -1 at 101
-6,5	A : position = -20; balance = 804
-6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 1 at -101
-6,5	B : position = 20; balance = -804
-6,5	asks on_traded: (101,1)
-6,5	A : Limit[10@101] matched completely
-6,5	best of asks changed = Some(102)
-6,5	bid is greater than 100
-6,5	best of max bid changed = Some(101)
-6,5	best of bids changed = Some(101)
-7,0	B : before = Remote({asks = [10/102 10/103 10/104]; bids = [2/101 2/100]})
+6,5	A : Limit[10@100] traded -3 at 100
+6,5	A : position = -9; balance = 300
+6,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -100
+6,5	B : position = 9; balance = -300
+6,5	asks on_traded: (100,3)
+6,5	A : Limit[10@100] traded -1 at 100
+6,5	A : position = -10; balance = 400
+6,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) traded 1 at -100
+6,5	B : position = 10; balance = -400
+6,5	asks on_traded: (100,1)
+6,5	A : Limit[10@100] matched completely
+6,5	best of asks changed = Some(101)
+6,5	bid is greater than 98
+6,5	bid is greater than 99
+6,5	best of max bid changed = Some(100)
+6,5	best of bids changed = Some(100)
+7,0	B : before = Remote({asks = [7/101 10/102 10/103 10/104]; bids = [2/100]})
 7,0	B : sending WithExpiry(Iceberg(Limit[-20@102], 3), 5.0)
-7,0	B : after = Remote({asks = [10/102 10/103 10/104]; bids = [2/101 2/100]})
+7,0	A : Limit[10@101] traded -3 at 101
+7,0	A : position = -13; balance = 501
+7,0	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
+7,0	B : position = 13; balance = -501
+7,0	asks on_traded: (101,3)
+7,0	B : after = Remote({asks = [7/101 10/102 10/103 10/104]; bids = [2/100]})
 7,0	B : 
-7,5	A : Limit[10@102] traded -3 at 102
-7,5	A : position = -23; balance = 906
-7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
-7,5	B : position = 23; balance = -906
-7,5	asks on_traded: (102,3)
-7,5	A : Limit[10@102] traded -3 at 102
-7,5	A : position = -26; balance = 1008
-7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
-7,5	B : position = 26; balance = -1008
-7,5	asks on_traded: (102,3)
-7,5	A : Limit[10@102] traded -3 at 102
-7,5	A : position = -29; balance = 1110
-7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
-7,5	B : position = 29; balance = -1110
-7,5	asks on_traded: (102,3)
-7,5	A : Limit[10@102] traded -1 at 102
-7,5	A : position = -30; balance = 1212
-7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 1 at -102
-7,5	B : position = 30; balance = -1212
-7,5	asks on_traded: (102,1)
-7,5	A : Limit[10@102] matched completely
-7,5	best of asks changed = Some(103)
-7,5	bid is greater than 101
-7,5	best of max bid changed = Some(102)
-7,5	best of bids changed = Some(102)
-8,0	B : before = Remote({asks = [10/103 10/104]; bids = [2/102 2/101 2/100]})
+7,5	A : Limit[10@101] traded -3 at 101
+7,5	A : position = -16; balance = 602
+7,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -101
+7,5	B : position = 16; balance = -602
+7,5	asks on_traded: (101,3)
+7,5	A : Limit[10@101] traded -3 at 101
+7,5	A : position = -19; balance = 703
+7,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) traded 3 at -101
+7,5	B : position = 19; balance = -703
+7,5	asks on_traded: (101,3)
+8,0	B : before = Remote({asks = [8/102 10/103 10/104]; bids = [3/101 2/100]})
 8,0	B : sending WithExpiry(Iceberg(Limit[-20@103], 3), 5.0)
-8,0	B : after = Remote({asks = [10/103 10/104]; bids = [2/102 2/101 2/100]})
+8,0	A : Limit[10@101] traded -1 at 101
+8,0	A : position = -20; balance = 804
+8,0	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 1 at -101
+8,0	B : position = 20; balance = -804
+8,0	asks on_traded: (101,1)
+8,0	A : Limit[10@101] matched completely
+8,0	A : Limit[10@102] traded -2 at 102
+8,0	A : position = -22; balance = 906
+8,0	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 2 at -102
+8,0	B : position = 22; balance = -906
+8,0	asks on_traded: (102,2)
+8,0	best of asks changed = Some(102)
+8,0	bid is greater than 100
+8,0	best of max bid changed = Some(101)
+8,0	best of bids changed = Some(101)
+8,0	B : after = Remote({asks = [8/102 10/103 10/104]; bids = [3/101 2/100]})
 8,0	B : 
-8,5	A : Limit[10@103] traded -3 at 103
-8,5	A : position = -33; balance = 1315
-8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
-8,5	B : position = 33; balance = -1315
-8,5	asks on_traded: (103,3)
-8,5	A : Limit[10@103] traded -3 at 103
-8,5	A : position = -36; balance = 1418
-8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
-8,5	B : position = 36; balance = -1418
-8,5	asks on_traded: (103,3)
-8,5	A : Limit[10@103] traded -3 at 103
-8,5	A : position = -39; balance = 1521
-8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
-8,5	B : position = 39; balance = -1521
-8,5	asks on_traded: (103,3)
-8,5	A : Limit[10@103] traded -1 at 103
-8,5	A : position = -40; balance = 1624
-8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 1 at -103
-8,5	B : position = 40; balance = -1624
-8,5	asks on_traded: (103,1)
-8,5	A : Limit[10@103] matched completely
-8,5	best of asks changed = Some(104)
-8,5	bid is greater than 102
-8,5	best of max bid changed = Some(103)
-8,5	best of bids changed = Some(103)
-9,0	B : before = Remote({asks = [10/104]; bids = [2/103 2/102 2/101 2/100]})
+8,5	A : Limit[10@102] traded -3 at 102
+8,5	A : position = -25; balance = 1008
+8,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -102
+8,5	B : position = 25; balance = -1008
+8,5	asks on_traded: (102,3)
+8,5	A : Limit[10@102] traded -3 at 102
+8,5	A : position = -28; balance = 1110
+8,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) traded 3 at -102
+8,5	B : position = 28; balance = -1110
+8,5	asks on_traded: (102,3)
+9,0	B : before = Remote({asks = [9/103 10/104]; bids = [3/102 3/101 2/100]})
 9,0	B : sending WithExpiry(Iceberg(Limit[-20@104], 3), 5.0)
-9,0	B : after = Remote({asks = [10/104]; bids = [2/103 2/102 2/101 2/100]})
+9,0	A : Limit[10@102] traded -2 at 102
+9,0	A : position = -30; balance = 1212
+9,0	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 2 at -102
+9,0	B : position = 30; balance = -1212
+9,0	asks on_traded: (102,2)
+9,0	A : Limit[10@102] matched completely
+9,0	A : Limit[10@103] traded -1 at 103
+9,0	A : position = -31; balance = 1315
+9,0	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 1 at -103
+9,0	B : position = 31; balance = -1315
+9,0	asks on_traded: (103,1)
+9,0	best of asks changed = Some(103)
+9,0	bid is greater than 101
+9,0	best of max bid changed = Some(102)
+9,0	best of bids changed = Some(102)
+9,0	B : after = Remote({asks = [9/103 10/104]; bids = [3/102 3/101 2/100]})
 9,0	B : 
-9,5	A : Limit[10@104] traded -3 at 104
-9,5	A : position = -43; balance = 1728
-9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
-9,5	B : position = 43; balance = -1728
-9,5	asks on_traded: (104,3)
-9,5	A : Limit[10@104] traded -3 at 104
-9,5	A : position = -46; balance = 1832
-9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
-9,5	B : position = 46; balance = -1832
-9,5	asks on_traded: (104,3)
-9,5	A : Limit[10@104] traded -3 at 104
-9,5	A : position = -49; balance = 1936
-9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
-9,5	B : position = 49; balance = -1936
-9,5	asks on_traded: (104,3)
-9,5	A : Limit[10@104] traded -1 at 104
-9,5	A : position = -50; balance = 2040
-9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 1 at -104
-9,5	B : position = 50; balance = -2040
-9,5	asks on_traded: (104,1)
-9,5	A : Limit[10@104] matched completely
-9,5	best of asks changed = None
-9,5	bid is greater than 103
-9,5	best of max bid changed = Some(104)
-9,5	best of bids changed = Some(104)
-10,5	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) unmatched volume: -10
-11,5	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) unmatched volume: -10
-12,5	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) unmatched volume: -10
-13,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) unmatched volume: -10
-14,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) unmatched volume: -10
-14,5	best of bids changed = None
+9,5	A : Limit[10@103] traded -3 at 103
+9,5	A : position = -34; balance = 1418
+9,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -103
+9,5	B : position = 34; balance = -1418
+9,5	asks on_traded: (103,3)
+9,5	A : Limit[10@103] traded -3 at 103
+9,5	A : position = -37; balance = 1521
+9,5	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) traded 3 at -103
+9,5	B : position = 37; balance = -1521
+9,5	asks on_traded: (103,3)
+10,0	A : Limit[10@103] traded -3 at 103
+10,0	A : position = -40; balance = 1624
+10,0	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -103
+10,0	B : position = 40; balance = -1624
+10,0	asks on_traded: (103,3)
+10,0	A : Limit[10@103] matched completely
+10,0	best of asks changed = Some(104)
+10,0	bid is greater than 102
+10,0	best of max bid changed = Some(103)
+10,0	best of bids changed = Some(103)
+10,5	A : Limit[10@104] traded -3 at 104
+10,5	A : position = -43; balance = 1728
+10,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
+10,5	B : position = 43; balance = -1728
+10,5	asks on_traded: (104,3)
+10,7	B : WithExpiry(Iceberg(Limit[-20@100], 3), 5.0) unmatched volume: -13
+11,0	A : Limit[10@104] traded -3 at 104
+11,0	A : position = -46; balance = 1832
+11,0	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
+11,0	B : position = 46; balance = -1832
+11,0	asks on_traded: (104,3)
+11,5	A : Limit[10@104] traded -3 at 104
+11,5	A : position = -49; balance = 1936
+11,5	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 3 at -104
+11,5	B : position = 49; balance = -1936
+11,5	asks on_traded: (104,3)
+11,7	B : WithExpiry(Iceberg(Limit[-20@101], 3), 5.0) unmatched volume: -11
+12,0	A : Limit[10@104] traded -1 at 104
+12,0	A : position = -50; balance = 2040
+12,0	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) traded 1 at -104
+12,0	B : position = 50; balance = -2040
+12,0	asks on_traded: (104,1)
+12,0	A : Limit[10@104] matched completely
+12,0	best of asks changed = None
+12,0	bid is greater than 103
+12,0	best of max bid changed = Some(104)
+12,0	best of bids changed = Some(104)
+12,7	B : WithExpiry(Iceberg(Limit[-20@102], 3), 5.0) unmatched volume: -11
+13,7	B : WithExpiry(Iceberg(Limit[-20@103], 3), 5.0) unmatched volume: -11
+14,7	B : WithExpiry(Iceberg(Limit[-20@104], 3), 5.0) unmatched volume: -4
+14,7	best of bids changed = None
