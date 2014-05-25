@@ -50,7 +50,8 @@ object Iceberg
                             events OnStopped (self, volumeUnnmatched)
                     }
 
-                    self.cancel_ = () => target handle CancelOrder(order)
+                    self.cancel_ = () =>
+                        target handle CancelOrder(order)
 
                     var order = newOrderSent()
                 }

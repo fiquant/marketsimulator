@@ -57,9 +57,10 @@ object FloatingPrice
                 }
             }
 
-            cancel_ = () =>
+            cancel_ = () => {
                     cancelled = true
                     resend()
+            }
 
             resend()
 

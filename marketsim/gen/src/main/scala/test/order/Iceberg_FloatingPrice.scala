@@ -28,16 +28,16 @@ case object Iceberg_FloatingPrice extends Test {
                 override def toString() = apply().toString
             }
 
-            val buyOrders_1 =
+            val buyOrders =
                     order.Iceberg.Factory(
                         order.FloatingPrice.Factory(
-                            LimitOrderFactory(price = const(10) , volume = const(-50)),
+                            LimitOrderFactory(price = const(10) , volume = const(-55)),
                             OnEveryDt(1, BuyPrices())),
                         const(3)
                     )
 
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
-            schedule(5, B sendOrder buyOrders_1)
+            schedule(5, B sendOrder buyOrders)
 
             schedule(20, {
                 A.ordersSent.getOrders foreach A.cancel
