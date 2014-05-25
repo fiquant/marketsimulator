@@ -7,7 +7,7 @@ object WithExpiry
 {
     case class Order(proto : PriceOrder, expiration : () => Time) extends PriceMetaOrder
     {
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             target handle OrderRequest(proto, events proxy this)
 

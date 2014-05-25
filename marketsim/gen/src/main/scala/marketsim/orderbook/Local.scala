@@ -4,7 +4,8 @@ import marketsim._
 import marketsim.MarketOrder
 import marketsim.LimitOrder
 
-class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
+class Local(acceptedOrders : MetaOrder => Boolean = _ => false,
+            processingTime : Time = 0.0) extends OrderbookDispatch {
 
     val Asks = new Queue[SellEntry]
     val Bids = new Queue[BuyEntry]
@@ -12,6 +13,8 @@ class Local(processingTime : Time = 0.0) extends OrderbookDispatch {
     override def toString = "{asks = " + Asks + "; " + "bids = " + Bids + "}"
 
     private val requests = collection.mutable.Queue[Request]()
+
+    def canHandle(order : MetaOrder) = acceptedOrders(order)
 
     import marketsim.Scheduler.scheduleAfter
 

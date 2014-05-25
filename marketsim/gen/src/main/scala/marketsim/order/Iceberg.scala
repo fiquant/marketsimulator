@@ -12,7 +12,7 @@ object Iceberg
         def withVolume(v : Int) = copy(proto = proto withVolume v)
         def withPrice(p : Ticks) = copy(proto = proto withPrice p)
 
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             if (proto.volume != 0) {
                 class State extends OrderListener

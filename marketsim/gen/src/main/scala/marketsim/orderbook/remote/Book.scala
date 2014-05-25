@@ -15,9 +15,11 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
 
     val Asks = new Queue(target.Asks)
     val Bids = new Queue(target.Bids)
+
+    def canHandle(order : MetaOrder) = target canHandle order
     
     def handle(request : Request) =
-        link.up send (target handle (request remote link.down))
+        link.up send {target handle (request remote link.down)}
 
     override def toString = s"Remote($target)"
 

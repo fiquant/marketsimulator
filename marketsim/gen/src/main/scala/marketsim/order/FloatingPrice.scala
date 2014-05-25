@@ -13,7 +13,7 @@ object FloatingPrice
 
         override def toString = s"FloatingPrice($proto, $floatingPrice)"
 
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             var order = Option.empty[PriceOrder]
             var unmatched = volume

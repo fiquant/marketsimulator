@@ -18,7 +18,7 @@ object Peg
 
         override def toString = s"Peg($proto)"
 
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             var order = Option.empty[PriceOrder]
 

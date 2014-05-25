@@ -28,6 +28,7 @@ package object marketsim {
     trait Orderbook
     {
         def handle(request : Request)
+        def canHandle(order : MetaOrder) : Boolean
 
         val Asks : OrderQueue
         val Bids : OrderQueue
@@ -160,12 +161,20 @@ package object marketsim {
     trait MetaOrder extends Order
     {
         protected var cancel_ = () => ()
+        protected def cancelImpl() {}
 
-        def cancel() = cancel_()
+        def cancel() {
+            cancel_()
+            cancelImpl()
+        }
 
         def proto : Order
 
         def volume = proto.volume
+
+        protected def process(target : Orderbook, events : OrderListener)
+
+        def processIn(target : OrderbookDispatch, events : OrderListener) = process(target, events)
     }
 
     trait PriceMetaOrder extends PriceOrder with MetaOrder

@@ -7,7 +7,7 @@ object ImmediateOrCancel
 {
     case class Order(proto : marketsim.Order) extends MetaOrder
     {
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             target handle OrderRequest(proto, events proxy this)
             target handle CancelOrder(proto)

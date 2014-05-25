@@ -6,7 +6,7 @@ object StopLoss
 {
     case class Order(proto : marketsim.Order, trigger : Ticks) extends MetaOrder
     {
-        def processIn(target : OrderbookDispatch, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
         {
             def flush()
             {
@@ -24,7 +24,7 @@ object StopLoss
 
         private var cancelled = false
 
-        override def cancel() {
+        override def cancelImpl() {
             cancelled = true
         }
 
