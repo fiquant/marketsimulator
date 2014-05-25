@@ -13,8 +13,8 @@ case object LocalOrderBook extends Test {
             val A = new LoggedAccount(trace, book, "A")
             val B = new LoggedAccount(trace, book, "B")
 
-            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, () => 1)
-            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, () => -2)
+            val sellOrders = LimitOrderFactory(() => 100 + currentTime.toInt, const(1))
+            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, const(-2))
 
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
             0 to 4 foreach { i => schedule(i + 5, B sendOrder buyOrders) }

@@ -18,39 +18,20 @@ case object Peg extends Test {
 
             val A = new LoggedAccount(trace, book, "A")
             val B = new LoggedAccount(trace, book, "B")
+            val C = new LoggedAccount(trace, book, "C")
 
             val sellOrders = LimitOrderFactory(() => 104 - currentTime.toInt, const(10))
-            val sellPeg = marketsim.order.Peg.Factory(LimitOrderFactory(const(33), const(10)))
+            val sellPeg = marketsim.order.Peg.Factory(LimitOrderFactory(const(33), const(55)))
+            val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, const(-10))
 
-            case class BuyPrices() extends (() => Option[Ticks])
-            {
-                def apply() = Some(95 + currentTime.toInt)
-                override def toString() = apply().toString
-            }
-
-            val buyOrders_1 =
-                    marketsim.order.Iceberg.Factory(
-                        marketsim.order.FloatingPrice.Factory(
-                            LimitOrderFactory(price = const(10) , volume = const(-25)),
-                            OnEveryDt(1, BuyPrices())),
-                        const(3)
-                    )
-
-            val buyOrders_2 =
-                    marketsim.order.FloatingPrice.Factory(
-                        marketsim.order.Iceberg.Factory(
-                            LimitOrderFactory(price = const(10) , volume = const(-25)),
-                            const(3)),
-                        OnEveryDt(1, BuyPrices()))
-
-            schedule(0, A sendOrder sellPeg)
+            schedule(0, C sendOrder sellPeg)
             0 to 4 foreach { i => schedule(i,     A sendOrder sellOrders) }
-            schedule(5, B sendOrder buyOrders_1)
-            schedule(5, B sendOrder buyOrders_2)
+            0 to 4 foreach { i => schedule(5 + i, B sendOrder buyOrders) }
 
             schedule(20, {
                 A.ordersSent.getOrders foreach A.cancel
                 B.ordersSent.getOrders foreach B.cancel
+                C.ordersSent.getOrders foreach C.cancel
             })
 
             scheduler workTill 50
