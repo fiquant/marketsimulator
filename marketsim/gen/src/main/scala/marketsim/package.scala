@@ -172,7 +172,7 @@ package object marketsim {
 
         def volume = proto.volume
 
-        protected def process(target : Orderbook, events : OrderListener)
+        def process(target : Orderbook, events : OrderListener)
 
         def processIn(target : OrderbookDispatch, events : OrderListener) = process(target, events)
     }

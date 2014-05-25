@@ -12,7 +12,7 @@ case object Iceberg extends Test {
 
         marketsim.Scheduler.create { scheduler =>
 
-            val local = new marketsim.orderbook.Local
+            val local = new marketsim.orderbook.Local(_ => true)
             val link = new marketsim.orderbook.remote.TwoWayLink(() => 0.2, () => 0.3)
             val book = withLogging(trace)(new marketsim.orderbook.remote.Book(local, link))
 

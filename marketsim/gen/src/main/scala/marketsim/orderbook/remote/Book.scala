@@ -18,8 +18,12 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
 
     def canHandle(order : MetaOrder) = target canHandle order
     
-    def handle(request : Request) =
-        link.up send {target handle (request remote link.down)}
+    def handle(request : Request) = request match {
+        case OrderRequest(o : MetaOrder, e) if !canHandle(o) =>
+            o process (this, e)
+        case _ =>
+            link.up send {target handle (request remote link.down)}
+    }
 
     override def toString = s"Remote($target)"
 
