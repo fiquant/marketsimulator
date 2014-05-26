@@ -25,7 +25,6 @@
 2,0	A : 
 3,0	A : before = Remote({asks = [55/101 10/102 10/103 10/104]; bids = []})
 3,0	A : sending Limit[10@101]
-3,0	ask is less than 102
 3,0	best of min ask changed = Some(101)
 3,0	best of asks changed = Some(101)
 3,0	A : after = Remote({asks = [55/101 10/102 10/103 10/104]; bids = []})

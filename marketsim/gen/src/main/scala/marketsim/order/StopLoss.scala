@@ -17,8 +17,8 @@ object StopLoss
             }
 
             proto.side match {
-                case Sell => OnceLessThan(orderbook.BestPrice(target.Asks)) += (trigger, flush())
-                case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids)) += (trigger, flush())
+                case Sell => OnceLessThan(orderbook.BestPrice(target.Asks)) += (trigger, () => flush())
+                case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids)) += (trigger, () => flush())
             }
         }
 

@@ -46,11 +46,20 @@ package object test
         book.Bids.TradeDone += { OnTraded("bids", _) }
 
         98 to 105 foreach { i =>
-            OnceLessThan(orderbook.BestPrice(book.Asks)) += (i, trace("ask is less than " + i.toString))
+            val handler = (i, () => trace("ask is less than " + i.toString))
+            val source = OnceLessThan(orderbook.BestPrice(book.Asks))
+            source += handler
+            if (i == 102)
+                source -= handler
+
         }
 
         98 to 105 foreach { i =>
-            OnceGreaterThan(orderbook.BestPrice(book.Bids)) += (i, trace("bid is greater than " + i.toString))
+            val handler = (i, () => trace("bid is greater than " + i.toString))
+            val source = OnceGreaterThan(orderbook.BestPrice(book.Bids))
+            source += handler
+            if (i == 99)
+                source -= handler
         }
 
         book

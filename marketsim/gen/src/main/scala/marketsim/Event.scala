@@ -48,31 +48,44 @@ object OnEveryDt
         (cache getOrElseUpdate ((dt, f), new OnEveryDt_[T](dt, f))).asInstanceOf[OnEveryDt_[T]]
 }
 
-case class OnceGreaterThan_[T <% Ordered[T]](source : Observable[T])
+abstract class OnceConditionBase[T <% Ordered[T]](source : Observable[T])
 {
     type Element = (T, () => Unit)
 
     implicit object Ord extends Ordering[Element] {
         def compare(x: Element, y: Element) =
-            -(x._1 compare y._1)
+            cmp(x._1, y._1)
     }
 
-    private val handlers = collection.mutable.PriorityQueue.empty[(T, () => Unit)]
+    def cmp(x : T, y : T) : Int
 
-    def += (trigger : T, handler : => Unit)
+    private var handlers = collection.mutable.PriorityQueue.empty[(T, () => Unit)]
+
+    def += (x : (T, () => Unit))
     {
-        if (source.value.nonEmpty && source.value.get > trigger)
-            handler
+        val (trigger, handler) = x
+        if (source.value.nonEmpty && cmp(source.value.get, trigger) < 0)
+            handler()
         else
-            handlers enqueue ((trigger, () => handler))
+            handlers enqueue x
+    }
+
+    def -= (x : (T, () => Unit))
+    {
+        handlers = (handlers partition { _ == x})._2
     }
 
     source += {
         case None =>
         case Some(x) =>
-            while (handlers.nonEmpty && handlers.head._1 < x)
+            while (handlers.nonEmpty && cmp(handlers.head._1, x) > 0)
                 handlers.dequeue()._2()
     }
+}
+
+case class OnceGreaterThan_[T <% Ordered[T]](source : Observable[T]) extends OnceConditionBase[T](source)
+{
+    def cmp(x : T, y : T) = -(x compare y)
 }
 
 object OnceGreaterThan
@@ -83,31 +96,9 @@ object OnceGreaterThan
         (cache getOrElseUpdate (source, new OnceGreaterThan_[T](source))).asInstanceOf[OnceGreaterThan_[T]]
 }
 
-case class OnceLessThan_[T <% Ordered[T]](source : Observable[T])
+case class OnceLessThan_[T <% Ordered[T]](source : Observable[T]) extends OnceConditionBase[T](source)
 {
-    type Element = (T, () => Unit)
-
-    implicit object Ord extends Ordering[Element] {
-        def compare(x: Element, y: Element) =
-            +(x._1 compare y._1)
-    }
-
-    private val handlers = collection.mutable.PriorityQueue.empty[(T, () => Unit)]
-
-    def += (trigger : T, handler : => Unit)
-    {
-        if (source.value.nonEmpty && source.value.get < trigger)
-            handler
-        else
-            handlers enqueue ((trigger, () => handler))
-    }
-
-    source += {
-        case None =>
-        case Some(x) =>
-            while (handlers.nonEmpty && handlers.head._1 > x)
-                handlers.dequeue()._2()
-    }
+    def cmp(x : T, y : T) = +(x compare y)
 }
 
 object OnceLessThan

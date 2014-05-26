@@ -5,7 +5,6 @@
 0,5	ask is less than 105
 0,5	ask is less than 104
 0,5	ask is less than 103
-0,5	ask is less than 102
 0,5	ask is less than 101
 0,5	best of min ask changed = Some(100)
 0,5	best of asks changed = Some(100)
@@ -60,7 +59,6 @@
 6,5	B : position = 12; balance = -501
 6,5	asks on_traded: (101,2)
 6,5	best of asks changed = Some(101)
-7,0	bid is greater than 99
 7,0	best of max bid changed = Some(100)
 7,0	best of bids changed = Some(100)
 7,0	A : Limit[10@101] traded -3 at 101

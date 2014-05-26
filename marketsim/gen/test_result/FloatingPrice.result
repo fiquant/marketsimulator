@@ -5,7 +5,6 @@
 0,5	ask is less than 105
 0,5	ask is less than 104
 0,5	ask is less than 103
-0,5	ask is less than 102
 0,5	ask is less than 101
 0,5	best of min ask changed = Some(100)
 0,5	best of asks changed = Some(100)
@@ -40,7 +39,6 @@
 5,5	asks on_traded: (100,10)
 5,5	A : Limit[10@100] matched completely
 5,5	best of asks changed = Some(101)
-5,5	bid is greater than 99
 5,5	best of max bid changed = Some(100)
 5,5	best of bids changed = Some(100)
 6,5	best of bids changed = None

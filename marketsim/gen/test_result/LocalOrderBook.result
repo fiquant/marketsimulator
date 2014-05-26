@@ -5,7 +5,6 @@ A :
 ask is less than 105
 ask is less than 104
 ask is less than 103
-ask is less than 102
 ask is less than 101
 best of min ask changed = Some(100)
 best of asks changed = Some(100)
@@ -37,7 +36,6 @@ asks on_traded: (100,1)
 A : Limit[1@100] matched completely
 best of asks changed = Some(101)
 bid is greater than 98
-bid is greater than 99
 best of max bid changed = Some(100)
 best of bids changed = Some(100)
 B : before = {asks = [1/101 1/102 1/103 1/104]; bids = [1/100]}
