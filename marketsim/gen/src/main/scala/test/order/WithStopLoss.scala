@@ -23,7 +23,7 @@ case object WithStopLoss extends Test {
             val sellOrders = LimitOrderFactory(() => 104 - currentTime.toInt, const(1))
 
             val stopOrders = marketsim.order.WithStopLoss.Factory(
-                                    sellOrders, const(0.1f))
+                                    sellOrders, const(0.01f))
 
             val buyOrders = LimitOrderFactory(() => 95 + currentTime.toInt, const(-2))
 

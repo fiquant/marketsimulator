@@ -1,7 +1,7 @@
 0,0	A : before = Remote({asks = []; bids = []})
 0,0	A : sending Limit[1@104]
 0,0	C : before = Remote({asks = []; bids = []})
-0,0	C : sending WithStopLoss(Limit[1@104], 0.1)
+0,0	C : sending WithStopLoss(Limit[1@104], 0.01)
 0,0	A : after = Remote({asks = []; bids = []})
 0,0	A : 
 0,0	C : after = Remote({asks = []; bids = []})
@@ -12,7 +12,7 @@
 1,0	A : before = Remote({asks = [2/104]; bids = []})
 1,0	A : sending Limit[1@103]
 1,0	C : before = Remote({asks = [2/104]; bids = []})
-1,0	C : sending WithStopLoss(Limit[1@103], 0.1)
+1,0	C : sending WithStopLoss(Limit[1@103], 0.01)
 1,0	A : after = Remote({asks = [2/104]; bids = []})
 1,0	A : 
 1,0	C : after = Remote({asks = [2/104]; bids = []})
@@ -23,7 +23,7 @@
 2,0	A : before = Remote({asks = [2/103 2/104]; bids = []})
 2,0	A : sending Limit[1@102]
 2,0	C : before = Remote({asks = [2/103 2/104]; bids = []})
-2,0	C : sending WithStopLoss(Limit[1@102], 0.1)
+2,0	C : sending WithStopLoss(Limit[1@102], 0.01)
 2,0	A : after = Remote({asks = [2/103 2/104]; bids = []})
 2,0	A : 
 2,0	C : after = Remote({asks = [2/103 2/104]; bids = []})
@@ -34,7 +34,7 @@
 3,0	A : before = Remote({asks = [2/102 2/103 2/104]; bids = []})
 3,0	A : sending Limit[1@101]
 3,0	C : before = Remote({asks = [2/102 2/103 2/104]; bids = []})
-3,0	C : sending WithStopLoss(Limit[1@101], 0.1)
+3,0	C : sending WithStopLoss(Limit[1@101], 0.01)
 3,0	A : after = Remote({asks = [2/102 2/103 2/104]; bids = []})
 3,0	A : 
 3,0	C : after = Remote({asks = [2/102 2/103 2/104]; bids = []})
@@ -44,7 +44,7 @@
 4,0	A : before = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
 4,0	A : sending Limit[1@100]
 4,0	C : before = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
-4,0	C : sending WithStopLoss(Limit[1@100], 0.1)
+4,0	C : sending WithStopLoss(Limit[1@100], 0.01)
 4,0	A : after = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
 4,0	A : 
 4,0	C : after = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
@@ -62,99 +62,95 @@
 5,5	B : position = 1; balance = -100
 5,5	asks on_traded: (100,1)
 5,5	A : Limit[1@100] matched completely
-5,5	C : WithStopLoss(Limit[1@100], 0.1) traded -1 at 100
+5,5	C : WithStopLoss(Limit[1@100], 0.01) traded -1 at 100
 5,5	C : position = -1; balance = 100
 5,5	B : Limit[-2@100] traded 1 at -100
 5,5	B : position = 2; balance = -200
 5,5	asks on_traded: (100,1)
 5,5	best of asks changed = Some(101)
 5,5	B : Limit[-2@100] matched completely
-6,0	B : before = Remote({asks = [1/101 2/102 2/103 2/104]; bids = []})
+6,0	B : before = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
 6,0	B : sending Limit[-2@101]
-6,0	A : Limit[1@101] traded -1 at 101
-6,0	A : position = -2; balance = 201
-6,0	C : WithStopLoss(Limit[1@100], 0.1) traded 1 at -101
-6,0	C : position = 0; balance = -1
-6,0	asks on_traded: (101,1)
-6,0	A : Limit[1@101] matched completely
-6,0	C : WithStopLoss(Limit[1@100], 0.1) matched completely
-6,0	B : after = Remote({asks = [1/101 2/102 2/103 2/104]; bids = []})
+6,0	B : after = Remote({asks = [2/101 2/102 2/103 2/104]; bids = []})
 6,0	B : 
-6,5	C : WithStopLoss(Limit[1@101], 0.1) traded -1 at 101
-6,5	C : position = -1; balance = 100
+6,5	A : Limit[1@101] traded -1 at 101
+6,5	A : position = -2; balance = 201
 6,5	B : Limit[-2@101] traded 1 at -101
 6,5	B : position = 3; balance = -301
 6,5	asks on_traded: (101,1)
+6,5	A : Limit[1@101] matched completely
+6,5	C : WithStopLoss(Limit[1@101], 0.01) traded -1 at 101
+6,5	C : position = -2; balance = 201
+6,5	B : Limit[-2@101] traded 1 at -101
+6,5	B : position = 4; balance = -402
+6,5	asks on_traded: (101,1)
 6,5	best of asks changed = Some(102)
-6,5	bid is greater than 98
-6,5	bid is greater than 100
-6,5	best of max bid changed = Some(101)
-6,5	best of bids changed = Some(101)
-7,0	B : before = Remote({asks = [1/102 2/103 2/104]; bids = [1/101]})
+6,5	B : Limit[-2@101] matched completely
+7,0	B : before = Remote({asks = [1/102 2/103 2/104]; bids = []})
 7,0	B : sending Limit[-2@102]
 7,0	A : Limit[1@102] traded -1 at 102
 7,0	A : position = -3; balance = 303
-7,0	C : WithStopLoss(Limit[1@101], 0.1) traded 1 at -102
-7,0	C : position = 0; balance = -2
+7,0	C : WithStopLoss(Limit[1@100], 0.01) traded 1 at -102
+7,0	C : position = -1; balance = 99
 7,0	asks on_traded: (102,1)
 7,0	A : Limit[1@102] matched completely
-7,0	C : WithStopLoss(Limit[1@101], 0.1) matched completely
-7,0	B : after = Remote({asks = [1/102 2/103 2/104]; bids = [1/101]})
+7,0	C : WithStopLoss(Limit[1@100], 0.01) matched completely
+7,0	B : after = Remote({asks = [1/102 2/103 2/104]; bids = []})
 7,0	B : 
-7,5	C : WithStopLoss(Limit[1@102], 0.1) traded -1 at 102
-7,5	C : position = -1; balance = 100
+7,5	C : WithStopLoss(Limit[1@102], 0.01) traded -1 at 102
+7,5	C : position = -2; balance = 201
 7,5	B : Limit[-2@102] traded 1 at -102
-7,5	B : position = 4; balance = -403
+7,5	B : position = 5; balance = -504
 7,5	asks on_traded: (102,1)
 7,5	best of asks changed = Some(103)
+7,5	bid is greater than 98
+7,5	bid is greater than 100
 7,5	bid is greater than 101
 7,5	best of max bid changed = Some(102)
 7,5	best of bids changed = Some(102)
-8,0	B : before = Remote({asks = [1/103 2/104]; bids = [1/102 1/101]})
+8,0	B : before = Remote({asks = [1/103 2/104]; bids = [1/102]})
 8,0	B : sending Limit[-2@103]
 8,0	A : Limit[1@103] traded -1 at 103
 8,0	A : position = -4; balance = 406
-8,0	C : WithStopLoss(Limit[1@102], 0.1) traded 1 at -103
-8,0	C : position = 0; balance = -3
+8,0	C : WithStopLoss(Limit[1@101], 0.01) traded 1 at -103
+8,0	C : position = -1; balance = 98
 8,0	asks on_traded: (103,1)
 8,0	A : Limit[1@103] matched completely
-8,0	C : WithStopLoss(Limit[1@102], 0.1) matched completely
-8,0	B : after = Remote({asks = [1/103 2/104]; bids = [1/102 1/101]})
+8,0	C : WithStopLoss(Limit[1@101], 0.01) matched completely
+8,0	B : after = Remote({asks = [1/103 2/104]; bids = [1/102]})
 8,0	B : 
-8,5	C : WithStopLoss(Limit[1@103], 0.1) traded -1 at 103
-8,5	C : position = -1; balance = 100
+8,5	C : WithStopLoss(Limit[1@103], 0.01) traded -1 at 103
+8,5	C : position = -2; balance = 201
 8,5	B : Limit[-2@103] traded 1 at -103
-8,5	B : position = 5; balance = -506
+8,5	B : position = 6; balance = -607
 8,5	asks on_traded: (103,1)
 8,5	best of asks changed = Some(104)
 8,5	bid is greater than 102
 8,5	best of max bid changed = Some(103)
 8,5	best of bids changed = Some(103)
-9,0	B : before = Remote({asks = [1/104]; bids = [1/103 1/102 1/101]})
+9,0	B : before = Remote({asks = [1/104]; bids = [1/103 1/102]})
 9,0	B : sending Limit[-2@104]
 9,0	A : Limit[1@104] traded -1 at 104
 9,0	A : position = -5; balance = 510
-9,0	C : WithStopLoss(Limit[1@103], 0.1) traded 1 at -104
-9,0	C : position = 0; balance = -4
+9,0	C : WithStopLoss(Limit[1@102], 0.01) traded 1 at -104
+9,0	C : position = -1; balance = 97
 9,0	asks on_traded: (104,1)
 9,0	A : Limit[1@104] matched completely
-9,0	C : WithStopLoss(Limit[1@103], 0.1) matched completely
-9,0	B : after = Remote({asks = [1/104]; bids = [1/103 1/102 1/101]})
+9,0	C : WithStopLoss(Limit[1@102], 0.01) matched completely
+9,0	B : after = Remote({asks = [1/104]; bids = [1/103 1/102]})
 9,0	B : 
-9,5	C : WithStopLoss(Limit[1@104], 0.1) traded -1 at 104
-9,5	C : position = -1; balance = 100
+9,5	C : WithStopLoss(Limit[1@104], 0.01) traded -1 at 104
+9,5	C : position = -2; balance = 201
 9,5	B : Limit[-2@104] traded 1 at -104
-9,5	B : position = 6; balance = -610
+9,5	B : position = 7; balance = -711
 9,5	asks on_traded: (104,1)
 9,5	best of asks changed = None
 9,5	bid is greater than 103
 9,5	best of max bid changed = Some(104)
 9,5	best of bids changed = Some(104)
-20,0	B : cancelling Limit[-2@101]
 20,0	B : cancelling Limit[-2@102]
 20,0	B : cancelling Limit[-2@103]
 20,0	B : cancelling Limit[-2@104]
-20,5	B : Limit[-2@101] unmatched volume: -1
 20,5	B : Limit[-2@102] unmatched volume: -1
 20,5	B : Limit[-2@103] unmatched volume: -1
 20,5	B : Limit[-2@104] unmatched volume: -1

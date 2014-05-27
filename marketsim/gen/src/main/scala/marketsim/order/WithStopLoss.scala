@@ -38,7 +38,12 @@ object WithStopLoss
                             if (stopOrder.nonEmpty)
                                 target handle CancelOrder(stopOrder.get)
 
-                            stopOrder = Some(StopLoss.Order(MarketOrder(-volumeMatched), perSharePrice))
+                            val trigger = o.side match {
+                                case Buy => perSharePrice * (1 - lossFactor)
+                                case Sell => perSharePrice / (1 - lossFactor)
+                            }
+
+                            stopOrder = Some(StopLoss.Order(MarketOrder(-volumeMatched), trigger.toInt))
 
                             target handle OrderRequest(stopOrder.get, events proxy self)
                         }
