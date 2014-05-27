@@ -24,7 +24,7 @@
 2,0	A : sending Limit[1@102]
 2,0	C : before = Remote({asks = [1/103 1/104]; bids = []})
 2,0	C : sending StopLoss(Market[1], 102)
-2,0	C : StopLoss(Market[1], 104) unmatched volume: -1
+2,0	C : StopLoss(Market[1], 104) unmatched volume: 1
 2,0	A : after = Remote({asks = [1/103 1/104]; bids = []})
 2,0	A : 
 2,0	C : after = Remote({asks = [1/103 1/104]; bids = []})
@@ -36,7 +36,7 @@
 3,0	A : sending Limit[1@101]
 3,0	C : before = Remote({asks = [1/102 1/103 1/104]; bids = []})
 3,0	C : sending StopLoss(Market[1], 101)
-3,0	C : StopLoss(Market[1], 103) unmatched volume: -1
+3,0	C : StopLoss(Market[1], 103) unmatched volume: 1
 3,0	A : after = Remote({asks = [1/102 1/103 1/104]; bids = []})
 3,0	A : 
 3,0	C : after = Remote({asks = [1/102 1/103 1/104]; bids = []})
@@ -47,7 +47,7 @@
 4,0	A : sending Limit[1@100]
 4,0	C : before = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
 4,0	C : sending StopLoss(Market[1], 100)
-4,0	C : StopLoss(Market[1], 102) unmatched volume: -1
+4,0	C : StopLoss(Market[1], 102) unmatched volume: 1
 4,0	A : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
 4,0	A : 
 4,0	C : after = Remote({asks = [1/101 1/102 1/103 1/104]; bids = []})
@@ -57,7 +57,7 @@
 4,5	best of asks changed = Some(100)
 5,0	B : before = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
 5,0	B : sending Limit[-2@100]
-5,0	C : StopLoss(Market[1], 101) unmatched volume: -1
+5,0	C : StopLoss(Market[1], 101) unmatched volume: 1
 5,0	B : after = Remote({asks = [1/100 1/101 1/102 1/103 1/104]; bids = []})
 5,0	B : 
 5,5	A : Limit[1@100] traded -1 at 100

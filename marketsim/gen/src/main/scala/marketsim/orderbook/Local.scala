@@ -39,11 +39,11 @@ class Local(acceptedOrders : MetaOrder => Boolean = _ => false,
         order.side match {
             case Sell =>
                 val unmatched = Bids matchWith (order, events)
-                async { events OnStopped (order, -unmatched) }
+                async { events OnStopped (order, unmatched) }
 
             case Buy =>
                 val unmatched = Asks matchWith (order, events)
-                async { events OnStopped (order, unmatched) }
+                async { events OnStopped (order, -unmatched) }
 
         }
     }
