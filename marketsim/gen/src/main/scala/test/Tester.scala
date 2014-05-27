@@ -18,6 +18,7 @@ object Tester {
             order.Iceberg_FloatingPrice ::
             order.FloatingPrice_Iceberg ::
             order.StopLoss ::
+            order.WithStopLoss ::
             order.Peg ::
                     Nil
 

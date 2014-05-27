@@ -17,11 +17,11 @@ object Iceberg
             if (proto.volume != 0) {
                 class State extends OrderListener
                 {
-                    var volumeUnnmatched = proto.volume
+                    var volumeUnmatched = proto.volume
 
                     def OnTraded(o : marketsim.Order, price : Ticks, volume : Int)
                     {
-                        volumeUnnmatched += volume
+                        volumeUnmatched += volume
                         events OnTraded (self, price, volume)
                     }
 
@@ -29,10 +29,10 @@ object Iceberg
                     {
                         val lot = lotSize()
                         assert(lot > 0)
-                        if (volumeUnnmatched > 0)
-                            proto withVolume ( lot min volumeUnnmatched)
+                        if (volumeUnmatched > 0)
+                            proto withVolume ( lot min volumeUnmatched)
                         else
-                            proto withVolume (-lot max volumeUnnmatched)
+                            proto withVolume (-lot max volumeUnmatched)
                     }
 
                     private def newOrderSent() =
@@ -44,10 +44,10 @@ object Iceberg
 
                     def OnStopped(o : marketsim.Order, unmatched : Int)
                     {
-                        if (unmatched == 0 && volumeUnnmatched != 0) {
+                        if (unmatched == 0 && volumeUnmatched != 0) {
                             order = newOrderSent()
                         } else
-                            events OnStopped (self, volumeUnnmatched)
+                            events OnStopped (self, volumeUnmatched)
                     }
 
                     self.cancel_ = () =>

@@ -197,7 +197,7 @@ package object marketsim {
 
     def const[T](x : T) = Constant[T](x)
 
-    case class Constant[T](x : T) extends (() => T)
+    case class Constant[+T](x : T) extends (() => T)
     {
         def apply() = x
 
