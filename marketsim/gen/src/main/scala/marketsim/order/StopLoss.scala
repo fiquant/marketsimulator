@@ -6,20 +6,38 @@ object StopLoss
 {
     case class Order(proto : marketsim.Order, trigger : Ticks) extends MetaOrder
     {
+        self =>
+
         def process(target : Orderbook, events : OrderListener)
         {
-            def flush()
+            class State extends OrderListener
             {
-                if (!cancelled) {
-                    target handle OrderRequest(proto, events proxy this)
-                    cancel_ = () => target handle CancelOrder(proto)
+                def OnTraded(order : marketsim.Order, price: Ticks, volume : Volume) = events OnTraded (self, price, volume)
+                def OnStopped(order : marketsim.Order, unmatchedVolume : Volume) =
+                    events OnStopped (self, unmatchedVolume)
+
+                def flush()
+                {
+                    if (!cancelled) {
+                        target handle OrderRequest(proto, this)
+                        cancel_ = () => {
+                            target handle CancelOrder(proto)
+                            bestPriceChanged -= handler
+                        }
+                    }
                 }
+
+                val handler = (trigger, () => flush())
+
+                val bestPriceChanged = proto.side match {
+                    case Sell => OnceLessThan(orderbook.BestPrice(target.Asks))
+                    case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids))
+                }
+
+                bestPriceChanged += handler
             }
 
-            proto.side match {
-                case Sell => OnceLessThan(orderbook.BestPrice(target.Asks)) += (trigger, () => flush())
-                case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids)) += (trigger, () => flush())
-            }
+            new State
         }
 
         private var cancelled = false
@@ -28,9 +46,13 @@ object StopLoss
             cancelled = true
         }
 
-
-        def withVolume(v : Int) = proto withVolume v
+        def withVolume(v : Int) = copy(proto = proto withVolume v)
 
         override def toString = s"StopLoss($proto, $trigger)"
+    }
+
+    case class Factory(proto : OrderFactory, trigger : () => Ticks) extends OrderFactory
+    {
+        def create = Order(proto.create, trigger())
     }
 }
