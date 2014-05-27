@@ -30,8 +30,8 @@ object StopLoss
                 val handler = (trigger, () => flush())
 
                 val bestPriceChanged = proto.side match {
-                    case Sell => OnceLessThan(orderbook.BestPrice(target.Asks))
-                    case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Bids))
+                    case Sell => OnceLessThan(orderbook.BestPrice(target.Bids))
+                    case Buy  => OnceGreaterThan(orderbook.BestPrice(target.Asks))
                 }
 
                 bestPriceChanged += handler

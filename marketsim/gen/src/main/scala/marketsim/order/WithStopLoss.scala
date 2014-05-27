@@ -18,6 +18,12 @@ object WithStopLoss
                 {
                     var volumeUnmatched = proto.volume
                     var priceTraded = 0
+                    var stopOrder = Option.empty[StopLoss.Order]
+
+                    val source = proto.side match {
+                        case Sell => OnceGreaterThan(orderbook.BestPrice(target.Bids))
+                        case Buy  => OnceLessThan(orderbook.BestPrice(target.Asks))
+                    }
                     
                     def volumeMatched = proto.volume - volumeUnmatched
                     def perSharePrice = (priceTraded / volumeMatched).abs
@@ -26,12 +32,22 @@ object WithStopLoss
                     {
                         volumeUnmatched += volume
                         priceTraded += price
+
+                        if (volumeMatched != 0)
+                        {
+                            if (stopOrder.nonEmpty)
+                                target handle CancelOrder(stopOrder.get)
+
+                            stopOrder = Some(StopLoss.Order(MarketOrder(-volumeMatched), perSharePrice))
+
+                            target handle OrderRequest(stopOrder.get, events proxy self)
+                        }
+
                         events OnTraded (self, price, volume)
                     }
 
                     def OnStopped(o : marketsim.Order, unmatched : Int)
                     {
-                        events OnStopped (self, volumeUnmatched)
                         self.cancel_ = () => ()
                     }
 

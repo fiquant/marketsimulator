@@ -5,21 +5,21 @@ object Tester {
     def main(args : Array[String])
     {
         val tests =
-            Scheduler ::
-            OrderMatching ::
-            ChunkDeque ::
-            LocalOrderBook ::
-            Link ::
-            RemoteOrderBook ::
-            order.ImmediateOrCancel ::
-            order.WithExpiry ::
-            order.Iceberg ::
-            order.FloatingPrice ::
-            order.Iceberg_FloatingPrice ::
-            order.FloatingPrice_Iceberg ::
-            order.StopLoss ::
+//            Scheduler ::
+//            OrderMatching ::
+//            ChunkDeque ::
+//            LocalOrderBook ::
+//            Link ::
+//            RemoteOrderBook ::
+//            order.ImmediateOrCancel ::
+//            order.WithExpiry ::
+//            order.Iceberg ::
+//            order.FloatingPrice ::
+//            order.Iceberg_FloatingPrice ::
+//            order.FloatingPrice_Iceberg ::
+//            order.Peg ::
+//            order.StopLoss ::
             order.WithStopLoss ::
-            order.Peg ::
                     Nil
 
         tests foreach { t =>
