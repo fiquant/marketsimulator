@@ -56,7 +56,7 @@ abstract class Observable[T](protected var _value : T) extends Event[T] with (()
     }
 }
 
-case class OnEveryDt_[T](dt : Time, f : () => Option[T]) extends OptObservable[T]
+case class OnEveryDt_[T](dt : Time, f : () => T) extends Observable[T](f())
 {
     import Scheduler.process
     process(const(dt), { () => update(f()) })
@@ -68,7 +68,7 @@ object OnEveryDt
 {
     private val cache = collection.mutable.HashMap.empty[Any, Any]
 
-    def apply[T](dt : Time, f : () => Option[T]) =
+    def apply[T](dt : Time, f : () => T) =
         (cache getOrElseUpdate ((dt, f), new OnEveryDt_[T](dt, f))).asInstanceOf[OnEveryDt_[T]]
 }
 
