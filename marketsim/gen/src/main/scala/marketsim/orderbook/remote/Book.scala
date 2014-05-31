@@ -9,8 +9,8 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
         val BestPossiblyChanged = new Event[Option[PriceVolume]]
         val TradeDone = new Event[PriceVolume]
 
-        target.BestPossiblyChanged += (price => link.down send BestPossiblyChanged(price))
-        target.TradeDone           += (trade => link.down send TradeDone(trade))
+        target.BestPossiblyChanged += (price => link.down send { BestPossiblyChanged fire price })
+        target.TradeDone           += (trade => link.down send { TradeDone fire trade })
     }
 
     val Asks = new Queue(target.Asks)

@@ -21,7 +21,7 @@ class Event[T] extends IEvent {
         this += inner
     }
 
-    def apply(x : T) {
+    def fire(x : T) {
         listeners foreach { _(x) }
     }
 }
@@ -37,7 +37,21 @@ abstract class OptObservable[T] extends Event[Option[T]] with (() => Option[T])
     protected def update(x : Option[T]) {
         if (x != _value) {
             _value = x
-            apply(_value)
+            fire(_value)
+        }
+    }
+}
+
+abstract class Observable[T](protected var _value : T) extends Event[T] with (() => T)
+{
+    def value = _value
+
+    def apply() = _value
+
+    protected def update(x : T) {
+        if (x != _value) {
+            _value = x
+            fire(_value)
         }
     }
 }

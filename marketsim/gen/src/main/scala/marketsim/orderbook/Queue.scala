@@ -17,7 +17,7 @@ class Queue[T <: Entry] extends OrderQueue {
     private def notifyBestChanged()
     {
         async {
-            BestPossiblyChanged(if (orders.isEmpty) None else Some(orders.getTopPriceVolume))
+            BestPossiblyChanged fire (if (orders.isEmpty) None else Some(orders.getTopPriceVolume))
         }
     }
 
@@ -56,7 +56,7 @@ class Queue[T <: Entry] extends OrderQueue {
                 val trade_volume = mine matchWith (other, unmatched, otherEvents)
 
                 async {
-                    TradeDone((mine.order.price, trade_volume))
+                    TradeDone fire (mine.order.price, trade_volume)
                 }
 
                 orders takeVolumeFromTop trade_volume
@@ -93,7 +93,7 @@ class Queue[T <: Entry] extends OrderQueue {
                     val trade_volume = mine matchWith (other, unmatched, otherEvents)
 
                     async {
-                        TradeDone((mine.order.price, trade_volume))
+                        TradeDone fire (mine.order.price, trade_volume)
                     }
 
                     orders takeVolumeFromTop trade_volume

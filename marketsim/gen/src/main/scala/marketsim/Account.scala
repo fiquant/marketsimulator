@@ -17,7 +17,7 @@ class Account(val orderbook         : Orderbook,
     def send(order : Order)
     {
         orderbook handle OrderRequest(order, this)
-        OrderSent(order)
+        OrderSent fire order
     }
 
     def send(request : Request)
@@ -35,7 +35,7 @@ class Account(val orderbook         : Orderbook,
     {
         position += volume
         balance += price
-        OrderTraded((order, price, volume))
+        OrderTraded fire (order, price, volume)
     }
 
     /**
@@ -43,7 +43,7 @@ class Account(val orderbook         : Orderbook,
      */
     def OnStopped(order : Order, unmatchedVolume : Volume)
     {
-        OrderStopped((order, unmatchedVolume))
+        OrderStopped fire (order, unmatchedVolume)
     }
 
 }
