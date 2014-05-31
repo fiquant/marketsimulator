@@ -2,13 +2,23 @@ package marketsim
 
 import scala.collection.mutable
 
-class Event[T] {
+trait IEvent
+{
+    def advise (listener : () => Unit)
+}
+
+class Event[T] extends IEvent {
 
     var listeners = List.empty[T => Unit]
 
     def += (listener : T => Unit) {
         if ((listeners indexOf listener) == -1)
             listeners = listener :: listeners
+    }
+
+    def advise (listener : () => Unit) = {
+        def inner(x : T) = listener()
+        this += inner
     }
 
     def apply(x : T) {
