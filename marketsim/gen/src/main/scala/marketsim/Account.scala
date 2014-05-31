@@ -1,8 +1,8 @@
 package marketsim
 
-class Account(orderbook         : Orderbook,
-              initialPosition   : Int = 0,
-              initialBalance    : Ticks = 0) extends OrderListener
+class Account(val orderbook         : Orderbook,
+              initialPosition       : Int = 0,
+              initialBalance        : Ticks = 0) extends OrderListener
 {
     private var position = initialPosition
     private var balance = initialBalance

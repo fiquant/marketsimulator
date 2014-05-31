@@ -16,6 +16,8 @@ class Book(target : Orderbook, link : TwoWayLink) extends Orderbook {
     val Asks = new Queue(target.Asks)
     val Bids = new Queue(target.Bids)
 
+    val tickSize = target.tickSize
+
     def canHandle(order : MetaOrder) = target canHandle order
     
     def handle(request : Request) = request match {

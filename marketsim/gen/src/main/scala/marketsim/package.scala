@@ -30,6 +30,8 @@ package object marketsim {
         def handle(request : Request)
         def canHandle(order : MetaOrder) : Boolean
 
+        val tickSize : Double
+
         val Asks : OrderQueue
         val Bids : OrderQueue
     }
@@ -128,7 +130,6 @@ package object marketsim {
     {
         def create : PriceOrder
     }
-
 
     trait OrderFactoryByVolume
     {

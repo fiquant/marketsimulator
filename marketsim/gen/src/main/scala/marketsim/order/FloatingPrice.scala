@@ -4,7 +4,7 @@ import marketsim._
 
 object FloatingPrice
 {
-    case class Order(proto : PriceOrder, floatingPrice : Observable[Ticks]) extends PriceMetaOrder
+    case class Order(proto : PriceOrder, floatingPrice : OptObservable[Ticks]) extends PriceMetaOrder
     {
         self =>
 
@@ -68,7 +68,7 @@ object FloatingPrice
         }
     }
 
-    case class Factory(proto : PriceOrderFactory, floatingPrice : Observable[Ticks]) extends PriceOrderFactory
+    case class Factory(proto : PriceOrderFactory, floatingPrice : OptObservable[Ticks]) extends PriceOrderFactory
     {
         def create = Order(proto.create, floatingPrice)
     }

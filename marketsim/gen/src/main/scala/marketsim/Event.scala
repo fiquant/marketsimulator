@@ -26,7 +26,7 @@ class Event[T] extends IEvent {
     }
 }
 
-abstract class Observable[T] extends Event[Option[T]] with (() => Option[T])
+abstract class OptObservable[T] extends Event[Option[T]] with (() => Option[T])
 {
     protected var _value = Option.empty[T]
 
@@ -42,7 +42,7 @@ abstract class Observable[T] extends Event[Option[T]] with (() => Option[T])
     }
 }
 
-case class OnEveryDt_[T](dt : Time, f : () => Option[T]) extends Observable[T]
+case class OnEveryDt_[T](dt : Time, f : () => Option[T]) extends OptObservable[T]
 {
     import Scheduler.process
     process(const(dt), { () => update(f()) })
@@ -58,7 +58,7 @@ object OnEveryDt
         (cache getOrElseUpdate ((dt, f), new OnEveryDt_[T](dt, f))).asInstanceOf[OnEveryDt_[T]]
 }
 
-abstract class OnceConditionBase[T <% Ordered[T]](source : Observable[T])
+abstract class OnceConditionBase[T <% Ordered[T]](source : OptObservable[T])
 {
     type Element = (T, () => Unit)
 
@@ -93,7 +93,7 @@ abstract class OnceConditionBase[T <% Ordered[T]](source : Observable[T])
     }
 }
 
-case class OnceGreaterThan_[T <% Ordered[T]](source : Observable[T]) extends OnceConditionBase[T](source)
+case class OnceGreaterThan_[T <% Ordered[T]](source : OptObservable[T]) extends OnceConditionBase[T](source)
 {
     def cmp(x : T, y : T) = -(x compare y)
 }
@@ -102,11 +102,11 @@ object OnceGreaterThan
 {
     private val cache = mutable.HashMap.empty[Any,Any]
 
-    def apply[T <% Ordered[T]](source : Observable[T]) =
+    def apply[T <% Ordered[T]](source : OptObservable[T]) =
         (cache getOrElseUpdate (source, new OnceGreaterThan_[T](source))).asInstanceOf[OnceGreaterThan_[T]]
 }
 
-case class OnceLessThan_[T <% Ordered[T]](source : Observable[T]) extends OnceConditionBase[T](source)
+case class OnceLessThan_[T <% Ordered[T]](source : OptObservable[T]) extends OnceConditionBase[T](source)
 {
     def cmp(x : T, y : T) = +(x compare y)
 }
@@ -115,6 +115,6 @@ object OnceLessThan
 {
     private val cache = mutable.HashMap.empty[Any,Any]
 
-    def apply[T <% Ordered[T]](source : Observable[T]) =
+    def apply[T <% Ordered[T]](source : OptObservable[T]) =
         (cache getOrElseUpdate (source, new OnceLessThan_[T](source))).asInstanceOf[OnceLessThan_[T]]
 }

@@ -1,11 +1,11 @@
 package marketsim.math
 
-import marketsim.Observable
+import marketsim.OptObservable
 import Ordering.Implicits._
 
 object Cumulative {
 
-    case class Min[T : Ordering](x : Observable[T]) extends Observable[T]
+    case class Min[T : Ordering](x : OptObservable[T]) extends OptObservable[T]
     {
         x += {
             case None =>
@@ -15,7 +15,7 @@ object Cumulative {
         }
     }
 
-    case class Max[T : Ordering](x : Observable[T]) extends Observable[T]
+    case class Max[T : Ordering](x : OptObservable[T]) extends OptObservable[T]
     {
         x += {
             case None =>

@@ -5,7 +5,8 @@ import marketsim.MarketOrder
 import marketsim.LimitOrder
 
 class Local(acceptedOrders : MetaOrder => Boolean = _ => false,
-            processingTime : Time = 0.0) extends OrderbookDispatch {
+            processingTime : Time = 0.0,
+            val tickSize   : Double = 0.01) extends OrderbookDispatch {
 
     val Asks = new Queue[SellEntry]
     val Bids = new Queue[BuyEntry]
