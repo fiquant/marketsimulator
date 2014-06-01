@@ -18,22 +18,30 @@ package object marketsim {
 
     type PriceVolume = (Ticks, Int)
 
-    trait OrderQueue
+    trait PriceInTicks
+    {
+        val tickSize : Double
+    }
+
+    trait OrderQueue extends PriceInTicks
     {
         import marketsim.Event
 
         val BestPossiblyChanged : Event[Option[PriceVolume]]
         val TradeDone : Event[PriceVolume]
     }
-    trait Orderbook
+    trait Orderbook extends PriceInTicks
     {
         def handle(request : Request)
         def canHandle(order : MetaOrder) : Boolean
 
-        val tickSize : Double
-
         val Asks : OrderQueue
         val Bids : OrderQueue
+
+        def Queue(side : Side) = side match {
+            case Sell => Asks
+            case Buy  => Bids
+        }
     }
 
     trait OrderbookDispatch extends Orderbook

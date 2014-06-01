@@ -26,6 +26,24 @@ class Event[T] extends IEvent {
     }
 }
 
+object Event
+{
+    def Every(interval : () => Time) =
+        new IEvent {
+            var listeners = List.empty[() => Unit]
+
+            def advise (listener : () => Unit) {
+                if ((listeners indexOf listener) == -1)
+                    listeners = listener :: listeners
+            }
+
+            def fire() = listeners foreach { _() }
+
+            import Scheduler.process
+            process(interval, fire)
+        }
+}
+
 abstract class OptObservable[T] extends Event[Option[T]] with (() => Option[T])
 {
     protected var _value = Option.empty[T]

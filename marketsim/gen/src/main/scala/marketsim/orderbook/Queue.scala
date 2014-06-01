@@ -5,7 +5,7 @@ import marketsim.MarketOrder
 import marketsim.LimitOrder
 import scala.Some
 
-class Queue[T <: Entry] extends OrderQueue {
+class Queue[T <: Entry](val tickSize : Double = 0.01) extends OrderQueue {
 
     private val orders = new ChunkDeque[T]()
 

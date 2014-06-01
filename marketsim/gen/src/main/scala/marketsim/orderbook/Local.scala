@@ -8,8 +8,8 @@ class Local(acceptedOrders : MetaOrder => Boolean = _ => false,
             processingTime : Time = 0.0,
             val tickSize   : Double = 0.01) extends OrderbookDispatch {
 
-    val Asks = new Queue[SellEntry]
-    val Bids = new Queue[BuyEntry]
+    val Asks = new Queue[SellEntry](tickSize)
+    val Bids = new Queue[BuyEntry](tickSize)
 
     override def toString = "{asks = " + Asks + "; " + "bids = " + Bids + "}"
 

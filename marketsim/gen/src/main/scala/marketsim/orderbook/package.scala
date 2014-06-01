@@ -64,11 +64,21 @@ package object orderbook {
         def apply(queue : OrderQueue) = cache getOrElseUpdate(queue, new LastTradePrice_(queue))
     }
 
-    //case class IfDefined[T](source : ) extends Observable[T]
-
-    case class SafeSidePrice(queue : OrderQueue) extends OptObservable[Ticks]
+    case class IfDefined[T](source : () => Option[T], default : () => T) extends (() => T)
     {
+        def apply() = source() match {
+            case None => default()
+            case Some(x) => x
+        }
+    }
 
+    case class SafeSidePrice(queue : OrderQueue, default : Ticks) extends (() => Ticks)
+    {
+        private val impl = IfDefined(BestPrice(queue),
+                           IfDefined(LastTradePrice(queue),
+                                     const(default)))
+
+        def apply() = impl()
     }
 }
 
