@@ -51,6 +51,205 @@
 
 \newpage
 
+\section{Introduction}
+Last years financial market microstructure attracts more and more
+attention due to its potential capability to explain some macroscopic
+phenomena like liquidity crisis, herd behaviour that were observed during
+recent crises. Researchers in this field need a simulation tool that would
+support them in their theoretical studies. This tool would take into
+account in exhaustive and precise manner market rules: how orders are sent to the market,
+how they are matched, how information is propagated.
+
+Simulator architecture should allow to model any behaviour of market
+agents, i.e. to be very flexible in trading strategies definition. It might be
+used to study impact on market caused by changing tick size, introducing
+a new order type, adding a new order matching rule.
+Used-friendliness is also very important quality expected from the the simulator. 
+Since a typical simulation model is composed of
+many hundreds and thousands blocks, it is very important to provide
+a simple way for user to tell how a behaviour wanted differs from the
+default one. Simulator API should be friendly to modern IDEs with
+intellisense support.
+As simulation models grow their simulation time become an important issue. A good simulator shall 
+have different levels of optimisation: for experiments with small models it is reasonable not to spend time for optimisations while simulations for long-running experiments should be well optimised.
+
+Representing a simulation model as a network of modules communicating
+by messages is a widely accepted practice for discrete-event systems (e.g.
+Omnet++ or ns-2 frameworks to simulate telecommunication networks).
+A module may have parameters that are used to adjust their behaviour.
+Modules are organized into hierarchy in order to facilitate construction of
+large-scale simulation.
+We will distinguish two sorts of modules:
+\begin{enumerate}
+\item \emph{Simple modules} provide functionality which is considered elementary
+(and there is no reason to reuse part of it to implement other
+modules).
+\item \emph{Compound modules} combine together other modules in some way
+and define their parameters based on its own parameters. Compound
+module behaviour is just a composition of its constituting modules
+behaviours.
+\end{enumerate}
+The following figure illustrates a modular design for a crossing averages trading strategy.
+
+\centerline{\includegraphics[width=1\linewidth]{talks/graph.png}}
+
+As modular design evolves modules become smaller but code composing them gets more complicated. 
+If this code were written in an object-oriented language it would consist completely from object constructor calls. Since only a small subset of a general purpose language is needed we may introduce a domain-specific language (DSL) obtaining the following profits:
+
+\begin{enumerate}
+\item \textbf{\textit{Syntax}}. We may design the DSL so its syntax describes very well domain specific abstractions.
+\item \textbf{\textit{Error checking}}. A DSL compiler can detect incorrect parameter values as soon as possible thus shortening simulation development cycle and facilitating refactorings.
+\item \textbf{\textit{Multiple target languages}}. A DSL can be compiled into different languages: e.g. into Python to provide fast start-up and into C++ to have highly optimized fast simulations. A new target language introduced, only simple modules need to be re-written into it; compound modules will be ported automatically.
+  \item \textbf{\textit{IDE support}}. Modern IDEs like Eclipse, Intellij IDEA allow writing plug-ins that would provide smart syntax highlighting, auto-completion and check errors on-the-fly for user-defined DSLs.
+  \item \textbf{\textit{High-level optimizations}} are easier to implement. 
+  \item \textbf{\textit{Safety}}. In case of a web interface a code written by a user in DSL can be safely run on server. If model code was written in a general-purpose language significant efforts would be required to run it safely on server without considerable performance overhead.
+\end{enumerate}
+
+\section{Strategy Definition Language}\label{SDL}
+
+\subsection{Functions}
+
+A program in Strategy Definition Language (SDL) consists of function declarations and other constructs that desugars into function declaration at compile time.
+
+Functions in Strategy Definition Language correspond to simple and compound modules in a simulation model. Functions have parameters which are used to generate module fields. Every parameter has an unique name, type and an optional default value. Parameter type tells what kind of values may be assigned to this field. Conceptually, a "function" declaration defines a term with a constructor provided (like case classes in Scala).
+
+Simple modules represent some functionality which is considered as elemental and they are implemented in target language (like Python). Functions for simple modules (intrinsic functions) don't have body but they must be decorated by an annotation (e.g. \texttt{\@python.intrinsic(\"\_Class\_Impl\")} telling where Python implementation should be taken from.
+
+\centerline{\includegraphics[width=1\linewidth]{talks/lagged.png}}
+
+Compound modules are compositions of other modules and can be completely generated from a high level description at Strategy Definition Language. Functions that describe them must have a body defining how they are composed.
+
+Functions are assigned types and these types allows modules to be used as parameters for other modules.
+
+\centerline{\includegraphics[width=1\linewidth]{talks/logreturns.png}}
+
+All methods can be considered as extension methods of their first argument. 
+
+\texttt{x$\sim$>Lagged(dt)} is equivalent to \texttt{.observable.Lagged(x, dt)}.
+
+Types for input arguments are inferred automatically from their initializers and for the "return" value - from the function body.
+
+\subsubsection{Types}
+
+The strategy definition language aims to introduce a strict static type system in order to prevent errors as soon as possible. Though this task isn't completely accomplished yet and sometimes the user has to do explicit downcasts, the type system is evolutioning in order to avoid them.
+
+
+\subparagraph{Predefined types}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textbf{Unit type}: \texttt{()}
+\item
+  \textbf{Simple type}: \texttt{Float}, \texttt{Int} etc.
+\item
+  \textbf{Tuple types}: \texttt{(t1, t2, ... tn)} where \texttt{ti} are
+  other types (n \textgreater{}= 2 is implied, for n = 0 a unit type
+  should be used, and for n = 1 a simple type should be used). In future
+  it might be useful to consider unit type as a particular case of a
+  tuple type.
+\item
+  \textbf{Function types}: \texttt{args\_type =\textgreater{} ret\_type}
+  where \texttt{arg\_type} may be a unit type, simple type, tuple type
+  or another function type
+\end{itemize}
+
+Some simple types must be declared by the user and the following code
+must appear in a model description (it is done for readability reasons
+in order to show what types are defined):
+
+\begin{verbatim}
+type Any
+
+type Float
+type Int : Float
+type Boolean
+type String
+
+type Optional[T]
+type List[T]
+\end{verbatim}
+
+\subparagraph{Generic types.}
+
+
+User defined types may have generic parameters that are used in their
+definition. Contravariance rules are applied for function type
+arguments: \texttt{T\,\textless{}:\,U} implies
+\texttt{U\,=\textgreater{}\,X\,\textless{}:\,T\,=\textgreater{}\,X}. For all
+other cases covariance is used: \texttt{T\,\textless{}:\,U} implies
+\texttt{List{[}T{]}\,\textless{}:\,List{[}U{]}} and
+\texttt{T\,\textless{}:\,U} implies
+\texttt{()\,=\textgreater{}\,T\,\textless{}:\,()\,=\textgreater{}\,U}. (We use
+notation \texttt{T\,\textless{}:\,U} to show that type \texttt{T} can be
+casted to type \texttt{U})
+
+\subparagraph{Type aliases} behave like \texttt{typedef} in C++ and introduce a handy
+shortcut for another type. For example,
+
+\begin{verbatim}
+type IFunction[T] = () => T
+\end{verbatim}
+
+Alias for a type equals to it. It implies that in the following code
+
+\begin{verbatim}
+def f() : () => Float
+def g() : IFunction[Float]
+\end{verbatim}
+
+functions \texttt{f} and \texttt{g} have the same type.
+
+\subparagraph{User-defined types.}
+
+
+A user may define own types. These types may inherit from other types:
+
+\begin{verbatim}
+type IObservable[T] : IFunction[T], IEvent
+\end{verbatim}
+
+In this sample type \texttt{IObservable{[}Float{]}} may be used in any
+place where \texttt{IFunction{[}Float{]}} or \texttt{IEvent} is expected
+(but not vice versa).
+
+\subparagraph{Special types.}
+
+
+Type \texttt{Any} is an implicit super type for any type, i.e. any type
+casts to \texttt{Any}. For example, \texttt{IObservable{[}Float{]}}
+casts to \texttt{IObservable{[}Any{]}}.
+
+Type \texttt{Optional{[}T{]}} appears at function declarations having
+default arguments. Any type \texttt{T} casts to
+\texttt{Optional{[}T{]}}.
+
+Lists can be constructed using following syntax:
+\texttt{{[}e1,e2,...,en{]}} where \texttt{ei} are some expressions and
+they have type \texttt{List{[}T{]}} where \texttt{T} is the bottommost
+type all \texttt{ei} can be casted to.
+
+Type \texttt{Nothing} is the bottommost type so it can be casted to any
+type. For the moment it appears only when an empty list is declared so
+literal \texttt{{[}{]}} has type \texttt{List{[}Nothing{]}} and can be
+casted to \texttt{List{[}T{]}} for any \texttt{T}.
+
+\subsection{Classes}
+
+Classes are syntax sugar for a type declaration, constructor function and member accessors
+
+\centerline{\includegraphics[width=1\linewidth]{talks/macd.png}}
+
+The previous definition is de-sugared at typing stage into
+
+\centerline{\includegraphics[width=1\linewidth]{talks/macd_desugared.png}}
+
+Classes derive fields and methods from base classes.
+
+Methods are treated as "virtual" to stimulate code re-use
+
+\centerline{\includegraphics[width=1\linewidth]{talks/moments.png}}
+
 \section{Installation}\label{installation}
 
 For the moment the simulator has two user interfaces:
@@ -149,11 +348,11 @@ installed: \url{http://flask.pocoo.org/}
 
 After that you may open \texttt{localhost} page in your Web browser:
 
-\centerline{\includegraphics[width=13cm]{Figures/web/traders.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/traders.png}}
 
 Press \textbf{Run} button to launch the simulation:
 
-\centerline{\includegraphics[width=13cm]{Figures/web/volume-levels.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/volume-levels.png}}
 
 \subsection{Offline usage with Veusz}\label{offline-usage-with-veusz}
 
@@ -162,7 +361,7 @@ needed: \url{http://home.gna.org/veusz/}. After having it installed
 \texttt{VEUSZ\_EXE} environment variable should be assigned to the path
 to the Veusz executable. Afterwards, sample simulations may be launched:
 
-\centerline{\includegraphics[width=13cm]{Figures/veusz/dependency.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/veusz/dependency.png}}
 
 \section{Evolution of the simulator}\label{evolution-of-the-simulator}
 
@@ -506,7 +705,7 @@ and thus works much faster.
   exponentially weighted: \texttt{EWMA(alpha)}
 \end{itemize}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/averages.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/averages.png}}
 
 \subsection{Moving average
 convergence/divergence}\label{moving-average-convergencedivergence}
@@ -525,7 +724,7 @@ MACD_histogram(x, slow, fast, timeframe) ::=
     MACD(x,slow,fast) - MACD_signal(x,slow, fast, timeframe)
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/macd.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/macd.png}}
 
 \subsection{Moving variance}\label{moving-variance}
 
@@ -563,7 +762,7 @@ Bollinger_Hi(x) ::= Mean(x) + 2*StdDev(x)
 Bollinger_Lo(x) ::= Mean(x) - 2*StdDev(x)
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/bollinger_bands.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/bollinger_bands.png}}
 
 \subsection{Relative strength index}\label{relative-strength-index}
 
@@ -584,10 +783,10 @@ Downs(x, dt, alpha) ::=
 RSI(x, dt, alpha) ::= 
     100 - 100 / (1 + Ups(x,dt,alpha)/Downs(x,dt,alpha))
 \end{verbatim}
-\centerline{\includegraphics[width=13cm]{Figures/web/rsi.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/rsi.png}}
 
 \subsection{Moving minimum and maximum}\label{moving-minimum-and-maximum}
-\centerline{\includegraphics[width=13cm]{Figures/web/minmax.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/minmax.png}}
 
 \section{Elementary orders, their factories and
 requests}\label{elementary-orders-their-factories-and-requests}
@@ -1050,7 +1249,7 @@ strategy.Signal(eventGen, orderFactory, signal, threshold) ::=
         side.Signal(signal, threshold)))
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/signal.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/signal.png}}
 
 \subsection{Trend follower}\label{trend-follower}
 
@@ -1071,7 +1270,7 @@ strategy.TrendFollower(eventGen, orderFactory, alpha) ::=
 \end{verbatim}
 
 
-\centerline{\includegraphics[width=13cm]{Figures/web/trendfollower.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/trendfollower.png}}
 
 \subsection{Crossing averages
 strategy}\label{crossing-averages-strategy}
@@ -1089,7 +1288,7 @@ side.TwoAverages(price, alpha1, alpha2) ::=
                     side.TwoAverages(observable.MidPrice(), alpha1, alpha2)))
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/twoaverages.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/twoaverages.png}}
 
 \subsection{Fundamental value
 strategy}\label{fundamental-value-strategy}
@@ -1111,7 +1310,7 @@ strategy.FundamentalValue(eventGen, orderFactory, fv) ::=
                     side.FundamentalValue(orderbook.OfTrader(), fv)))
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/fundamentalvalue.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/fundamentalvalue.png}}
 
 \subsection{Mean reverting strategy}\label{mean-reverting-strategy}
 
@@ -1128,7 +1327,7 @@ strategy.MeanReverting(eventGen, orderFactory, alpha) ::=
         side.MeanReverting(orderbook.OfTrader(), alpha))
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/meanreversion.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/meanreversion.png}}
 
 \subsection{Dependency trading
 strategy}\label{dependency-trading-strategy}
@@ -1148,7 +1347,7 @@ strategy.Dependency(eventGen, orderFactory, otherOrderBook, factor) ::=
             side.Dependency(orderbook.OfTrader(), otherOrderBook, factor)))
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/dependency.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/dependency.png}}
 
 \subsection{Desired position
 strategies}\label{desired-position-strategies}
@@ -1279,7 +1478,7 @@ TradeIfProfitable(strategy,
     Suspendable(strategy, efficiency >= 0)
 \end{verbatim}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/tradeifprofitable.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/tradeifprofitable.png}}
 
 \subsection{Choose-the-best strategy}\label{choose-the-best-strategy}
 
@@ -1287,7 +1486,7 @@ This strategy aggregates an array of strategies and estimates their
 efficiencies. At some moments of time it chooses a strategy with the
 best performance and suspends others.
 
-\centerline{\includegraphics[width=13cm]{Figures/web/choosethebest.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/choosethebest.png}}
 
 \subsection{Multiarmed bandit
 strategy}\label{multiarmed-bandit-strategy}
@@ -1323,9 +1522,9 @@ Multiarmed bandit has following parameters:
 In the following figures position and efficiency of multiarmed bandit
 strategies with different combination of these parameters are shown
 
-\centerline{\includegraphics[width=13cm]{Figures/web/multiarmed-amount.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/multiarmed-amount.png}}
 
-\centerline{\includegraphics[width=13cm]{Figures/web/multiarmed-efficiency.png}}
+\centerline{\includegraphics[width=1\linewidth]{Figures/web/multiarmed-efficiency.png}}
 
 \end{document}
 
